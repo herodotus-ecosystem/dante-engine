@@ -159,7 +159,8 @@ public abstract class AbstractCountStampManager extends AbstractStampManager<Str
             }
         }
 
-        int times = new Long(index + 1L).intValue();
+        long temp = index + 1L;
+        int times = (int) temp;
         log.debug("[Herodotus] |- {} has been recorded [{}] times.", function, times);
         return times;
     }
