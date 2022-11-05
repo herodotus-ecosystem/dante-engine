@@ -117,13 +117,16 @@ public class OAuth2Application extends BaseSysEntity {
     private TokenFormat accessTokenFormat = TokenFormat.REFERENCE;
 
     @Column(name = "access_token_validity")
-    private Duration accessTokenValidity = Duration.ofSeconds(5);
+    private Duration accessTokenValidity = Duration.ofMinutes(5);
 
     @Column(name = "reuse_refresh_tokens")
     private Boolean reuseRefreshTokens = Boolean.TRUE;
 
     @Column(name = "refresh_token_validity")
-    private Duration refreshTokenValidity = Duration.ofHours(1);
+    private Duration refreshTokenValidity = Duration.ofMinutes(60);
+
+    @Column(name = "authorization_code_ttl")
+    private Duration authorizationCodeTtl = Duration.ofMinutes(5);
 
     @Column(name = "signature_algorithm")
     @Enumerated(EnumType.ORDINAL)
@@ -315,6 +318,14 @@ public class OAuth2Application extends BaseSysEntity {
         this.accessTokenFormat = accessTokenFormat;
     }
 
+    public Duration getAuthorizationCodeTtl() {
+        return authorizationCodeTtl;
+    }
+
+    public void setAuthorizationCodeTtl(Duration authorizationCodeTtl) {
+        this.authorizationCodeTtl = authorizationCodeTtl;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -338,7 +349,9 @@ public class OAuth2Application extends BaseSysEntity {
                 .add("accessTokenValidity", accessTokenValidity)
                 .add("reuseRefreshTokens", reuseRefreshTokens)
                 .add("refreshTokenValidity", refreshTokenValidity)
+                .add("authorizationCodeTtl", authorizationCodeTtl)
                 .add("idTokenSignatureAlgorithm", idTokenSignatureAlgorithm)
+                .add("scopes", scopes)
                 .toString();
     }
 }

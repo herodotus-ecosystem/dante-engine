@@ -40,13 +40,13 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.core.OAuth2TokenFormat;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
-import org.springframework.security.oauth2.server.authorization.config.TokenSettings;
+import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -178,6 +178,7 @@ public class OAuth2ApplicationService extends BaseLayeredService<OAuth2Applicati
         tokenSettingsBuilder.refreshTokenTimeToLive(application.getRefreshTokenValidity());
         // 是否可重用刷新令牌
         tokenSettingsBuilder.reuseRefreshTokens(application.getReuseRefreshTokens());
+        tokenSettingsBuilder.authorizationCodeTimeToLive(application.getAuthorizationCodeTtl());
         tokenSettingsBuilder.accessTokenFormat(getTokenFormat());
         if (ObjectUtils.isNotEmpty(application.getIdTokenSignatureAlgorithm())) {
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.from(application.getIdTokenSignatureAlgorithm().name());

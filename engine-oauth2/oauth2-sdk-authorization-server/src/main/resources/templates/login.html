@@ -303,7 +303,7 @@
 
     function loadCaptcha() {
         let url = '[[${#request.getContextPath()}]]/open/captcha'
-        let sessionId = '[[${#session.id}]]';
+        let sessionId = '[[${#session?.id}]]';
         $.http.get(url, {identity:sessionId, category: verification_category}, 'json')
             .then(result => {
                 let src = result.data.graphicImageBase64;

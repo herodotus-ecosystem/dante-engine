@@ -36,6 +36,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientCredentialsAuthenticationToken;
@@ -105,8 +106,7 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
                 .principalName(clientPrincipal.getName())
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .attribute(OAuth2Authorization.AUTHORIZED_SCOPE_ATTRIBUTE_NAME, authorizedScopes)
-                .attribute(Principal.class.getName(), clientPrincipal);
+                .authorizedScopes(authorizedScopes);
 
         // @formatter:off
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
