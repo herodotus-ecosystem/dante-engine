@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.0-M1</version>
+    <version>3.0.0-M2</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -105,7 +105,7 @@
         <spring-boot-dependencies.version>2.7.5</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2021.0.4</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
-        <spring-security-oauth2-authorization-server.version>0.4.0-M1</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>0.4.0-M2</spring-security-oauth2-authorization-server.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>

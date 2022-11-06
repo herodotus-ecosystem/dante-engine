@@ -31,7 +31,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.ResolvableType;
-import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
@@ -40,7 +40,7 @@ import org.springframework.security.oauth2.server.authorization.InMemoryOAuth2Au
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.settings.ProviderSettings;
+import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.*;
 import org.springframework.util.StringUtils;
 
@@ -61,48 +61,48 @@ public final class OAuth2ConfigurerUtils {
     private OAuth2ConfigurerUtils() {
     }
 
-    public static <B extends HttpSecurityBuilder<B>> RegisteredClientRepository getRegisteredClientRepository(B builder) {
-        RegisteredClientRepository registeredClientRepository = builder.getSharedObject(RegisteredClientRepository.class);
+    public static RegisteredClientRepository getRegisteredClientRepository(HttpSecurity httpSecurity) {
+        RegisteredClientRepository registeredClientRepository = httpSecurity.getSharedObject(RegisteredClientRepository.class);
         if (registeredClientRepository == null) {
-            registeredClientRepository = getBean(builder, RegisteredClientRepository.class);
-            builder.setSharedObject(RegisteredClientRepository.class, registeredClientRepository);
+            registeredClientRepository = getBean(httpSecurity, RegisteredClientRepository.class);
+            httpSecurity.setSharedObject(RegisteredClientRepository.class, registeredClientRepository);
         }
         return registeredClientRepository;
     }
 
-    public static <B extends HttpSecurityBuilder<B>> OAuth2AuthorizationService getAuthorizationService(B builder) {
-        OAuth2AuthorizationService authorizationService = builder.getSharedObject(OAuth2AuthorizationService.class);
+    public static OAuth2AuthorizationService getAuthorizationService(HttpSecurity httpSecurity) {
+        OAuth2AuthorizationService authorizationService = httpSecurity.getSharedObject(OAuth2AuthorizationService.class);
         if (authorizationService == null) {
-            authorizationService = getOptionalBean(builder, OAuth2AuthorizationService.class);
+            authorizationService = getOptionalBean(httpSecurity, OAuth2AuthorizationService.class);
             if (authorizationService == null) {
                 authorizationService = new InMemoryOAuth2AuthorizationService();
             }
-            builder.setSharedObject(OAuth2AuthorizationService.class, authorizationService);
+            httpSecurity.setSharedObject(OAuth2AuthorizationService.class, authorizationService);
         }
         return authorizationService;
     }
 
-    public static <B extends HttpSecurityBuilder<B>> OAuth2AuthorizationConsentService getAuthorizationConsentService(B builder) {
-        OAuth2AuthorizationConsentService authorizationConsentService = builder.getSharedObject(OAuth2AuthorizationConsentService.class);
+    public static OAuth2AuthorizationConsentService getAuthorizationConsentService(HttpSecurity httpSecurity) {
+        OAuth2AuthorizationConsentService authorizationConsentService = httpSecurity.getSharedObject(OAuth2AuthorizationConsentService.class);
         if (authorizationConsentService == null) {
-            authorizationConsentService = getOptionalBean(builder, OAuth2AuthorizationConsentService.class);
+            authorizationConsentService = getOptionalBean(httpSecurity, OAuth2AuthorizationConsentService.class);
             if (authorizationConsentService == null) {
                 authorizationConsentService = new InMemoryOAuth2AuthorizationConsentService();
             }
-            builder.setSharedObject(OAuth2AuthorizationConsentService.class, authorizationConsentService);
+            httpSecurity.setSharedObject(OAuth2AuthorizationConsentService.class, authorizationConsentService);
         }
         return authorizationConsentService;
     }
 
     @SuppressWarnings("unchecked")
-    public static <B extends HttpSecurityBuilder<B>> OAuth2TokenGenerator<? extends OAuth2Token> getTokenGenerator(B builder) {
-        OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator = builder.getSharedObject(OAuth2TokenGenerator.class);
+    public static OAuth2TokenGenerator<? extends OAuth2Token> getTokenGenerator(HttpSecurity httpSecurity) {
+        OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator = httpSecurity.getSharedObject(OAuth2TokenGenerator.class);
         if (tokenGenerator == null) {
-            tokenGenerator = getOptionalBean(builder, OAuth2TokenGenerator.class);
+            tokenGenerator = getOptionalBean(httpSecurity, OAuth2TokenGenerator.class);
             if (tokenGenerator == null) {
-                JwtGenerator jwtGenerator = getJwtGenerator(builder);
+                JwtGenerator jwtGenerator = getJwtGenerator(httpSecurity);
                 OAuth2AccessTokenGenerator accessTokenGenerator = new OAuth2AccessTokenGenerator();
-                OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer = getAccessTokenCustomizer(builder);
+                OAuth2TokenCustomizer<OAuth2TokenClaimsContext> accessTokenCustomizer = getAccessTokenCustomizer(httpSecurity);
                 if (accessTokenCustomizer != null) {
                     accessTokenGenerator.setAccessTokenCustomizer(accessTokenCustomizer);
                 }
@@ -115,83 +115,83 @@ public final class OAuth2ConfigurerUtils {
                             accessTokenGenerator, refreshTokenGenerator);
                 }
             }
-            builder.setSharedObject(OAuth2TokenGenerator.class, tokenGenerator);
+            httpSecurity.setSharedObject(OAuth2TokenGenerator.class, tokenGenerator);
         }
         return tokenGenerator;
     }
 
-    private static <B extends HttpSecurityBuilder<B>> JwtGenerator getJwtGenerator(B builder) {
-        JwtGenerator jwtGenerator = builder.getSharedObject(JwtGenerator.class);
+    private static JwtGenerator getJwtGenerator(HttpSecurity httpSecurity) {
+        JwtGenerator jwtGenerator = httpSecurity.getSharedObject(JwtGenerator.class);
         if (jwtGenerator == null) {
-            JwtEncoder jwtEncoder = getJwtEncoder(builder);
+            JwtEncoder jwtEncoder = getJwtEncoder(httpSecurity);
             if (jwtEncoder != null) {
                 jwtGenerator = new JwtGenerator(jwtEncoder);
-                OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer = getJwtCustomizer(builder);
+                OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer = getJwtCustomizer(httpSecurity);
                 if (jwtCustomizer != null) {
                     jwtGenerator.setJwtCustomizer(jwtCustomizer);
                 }
-                builder.setSharedObject(JwtGenerator.class, jwtGenerator);
+                httpSecurity.setSharedObject(JwtGenerator.class, jwtGenerator);
             }
         }
         return jwtGenerator;
     }
 
-    private static <B extends HttpSecurityBuilder<B>> JwtEncoder getJwtEncoder(B builder) {
-        JwtEncoder jwtEncoder = builder.getSharedObject(JwtEncoder.class);
+    private static JwtEncoder getJwtEncoder(HttpSecurity httpSecurity) {
+        JwtEncoder jwtEncoder = httpSecurity.getSharedObject(JwtEncoder.class);
         if (jwtEncoder == null) {
-            jwtEncoder = getOptionalBean(builder, JwtEncoder.class);
+            jwtEncoder = getOptionalBean(httpSecurity, JwtEncoder.class);
             if (jwtEncoder == null) {
-                JWKSource<SecurityContext> jwkSource = getJwkSource(builder);
+                JWKSource<SecurityContext> jwkSource = getJwkSource(httpSecurity);
                 if (jwkSource != null) {
                     jwtEncoder = new NimbusJwtEncoder(jwkSource);
                 }
             }
             if (jwtEncoder != null) {
-                builder.setSharedObject(JwtEncoder.class, jwtEncoder);
+                httpSecurity.setSharedObject(JwtEncoder.class, jwtEncoder);
             }
         }
         return jwtEncoder;
     }
 
     @SuppressWarnings("unchecked")
-    static <B extends HttpSecurityBuilder<B>> JWKSource<SecurityContext> getJwkSource(B builder) {
-        JWKSource<SecurityContext> jwkSource = builder.getSharedObject(JWKSource.class);
+    public static JWKSource<SecurityContext> getJwkSource(HttpSecurity httpSecurity) {
+        JWKSource<SecurityContext> jwkSource = httpSecurity.getSharedObject(JWKSource.class);
         if (jwkSource == null) {
             ResolvableType type = ResolvableType.forClassWithGenerics(JWKSource.class, SecurityContext.class);
-            jwkSource = getOptionalBean(builder, type);
+            jwkSource = getOptionalBean(httpSecurity, type);
             if (jwkSource != null) {
-                builder.setSharedObject(JWKSource.class, jwkSource);
+                httpSecurity.setSharedObject(JWKSource.class, jwkSource);
             }
         }
         return jwkSource;
     }
 
-    private static <B extends HttpSecurityBuilder<B>> OAuth2TokenCustomizer<JwtEncodingContext> getJwtCustomizer(B builder) {
+    private static OAuth2TokenCustomizer<JwtEncodingContext> getJwtCustomizer(HttpSecurity httpSecurity) {
         ResolvableType type = ResolvableType.forClassWithGenerics(OAuth2TokenCustomizer.class, JwtEncodingContext.class);
-        return getOptionalBean(builder, type);
+        return getOptionalBean(httpSecurity, type);
     }
 
-    private static <B extends HttpSecurityBuilder<B>> OAuth2TokenCustomizer<OAuth2TokenClaimsContext> getAccessTokenCustomizer(B builder) {
+    private static OAuth2TokenCustomizer<OAuth2TokenClaimsContext> getAccessTokenCustomizer(HttpSecurity httpSecurity) {
         ResolvableType type = ResolvableType.forClassWithGenerics(OAuth2TokenCustomizer.class, OAuth2TokenClaimsContext.class);
-        return getOptionalBean(builder, type);
+        return getOptionalBean(httpSecurity, type);
     }
 
-    static <B extends HttpSecurityBuilder<B>> ProviderSettings getProviderSettings(B builder) {
-        ProviderSettings providerSettings = builder.getSharedObject(ProviderSettings.class);
-        if (providerSettings == null) {
-            providerSettings = getBean(builder, ProviderSettings.class);
-            builder.setSharedObject(ProviderSettings.class, providerSettings);
+    public static AuthorizationServerSettings getAuthorizationServerSettings(HttpSecurity httpSecurity) {
+        AuthorizationServerSettings authorizationServerSettings = httpSecurity.getSharedObject(AuthorizationServerSettings.class);
+        if (authorizationServerSettings == null) {
+            authorizationServerSettings = getBean(httpSecurity, AuthorizationServerSettings.class);
+            httpSecurity.setSharedObject(AuthorizationServerSettings.class, authorizationServerSettings);
         }
-        return providerSettings;
+        return authorizationServerSettings;
     }
 
-    static <B extends HttpSecurityBuilder<B>, T> T getBean(B builder, Class<T> type) {
-        return builder.getSharedObject(ApplicationContext.class).getBean(type);
+    public static <T> T getBean(HttpSecurity httpSecurity, Class<T> type) {
+        return httpSecurity.getSharedObject(ApplicationContext.class).getBean(type);
     }
 
     @SuppressWarnings("unchecked")
-    static <B extends HttpSecurityBuilder<B>, T> T getBean(B builder, ResolvableType type) {
-        ApplicationContext context = builder.getSharedObject(ApplicationContext.class);
+    public static <T> T getBean(HttpSecurity httpSecurity, ResolvableType type) {
+        ApplicationContext context = httpSecurity.getSharedObject(ApplicationContext.class);
         String[] names = context.getBeanNamesForType(type);
         if (names.length == 1) {
             return (T) context.getBean(names[0]);
@@ -202,9 +202,9 @@ public final class OAuth2ConfigurerUtils {
         throw new NoSuchBeanDefinitionException(type);
     }
 
-    static <B extends HttpSecurityBuilder<B>, T> T getOptionalBean(B builder, Class<T> type) {
+    public static <T> T getOptionalBean(HttpSecurity httpSecurity, Class<T> type) {
         Map<String, T> beansMap = BeanFactoryUtils.beansOfTypeIncludingAncestors(
-                builder.getSharedObject(ApplicationContext.class), type);
+                httpSecurity.getSharedObject(ApplicationContext.class), type);
         if (beansMap.size() > 1) {
             throw new NoUniqueBeanDefinitionException(type, beansMap.size(),
                     "Expected single matching bean of type '" + type.getName() + "' but found " +
@@ -214,14 +214,13 @@ public final class OAuth2ConfigurerUtils {
     }
 
     @SuppressWarnings("unchecked")
-    static <B extends HttpSecurityBuilder<B>, T> T getOptionalBean(B builder, ResolvableType type) {
-        ApplicationContext context = builder.getSharedObject(ApplicationContext.class);
+    public static <T> T getOptionalBean(HttpSecurity httpSecurity, ResolvableType type) {
+        ApplicationContext context = httpSecurity.getSharedObject(ApplicationContext.class);
         String[] names = context.getBeanNamesForType(type);
         if (names.length > 1) {
             throw new NoUniqueBeanDefinitionException(type, names);
         }
         return names.length == 1 ? (T) context.getBean(names[0]) : null;
     }
-
 
 }
