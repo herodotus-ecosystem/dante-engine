@@ -26,8 +26,7 @@
 package cn.herodotus.engine.oss.minio.definition.dto.logic;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * <p>Description: 扩展对象操作Dto </p>

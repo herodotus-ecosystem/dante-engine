@@ -25,11 +25,10 @@
 
 package cn.herodotus.engine.cache.autoconfigure;
 
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: Cache 配置 </p>

@@ -27,8 +27,7 @@ package cn.herodotus.engine.access.business.dto;
 
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>Description: 微信小程序登录请求实体 </p>

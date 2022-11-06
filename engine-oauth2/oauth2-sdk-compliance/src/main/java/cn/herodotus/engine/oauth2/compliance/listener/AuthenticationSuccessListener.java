@@ -29,6 +29,7 @@ import cn.herodotus.engine.oauth2.authorization.domain.UserAuthenticationDetails
 import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
 import cn.herodotus.engine.oauth2.compliance.stamp.SignInFailureLimitedStampManager;
 import cn.hutool.crypto.SecureUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -40,8 +41,6 @@ import org.springframework.security.oauth2.server.authorization.authentication.O
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>Description: 登录成功事件监听 </p>

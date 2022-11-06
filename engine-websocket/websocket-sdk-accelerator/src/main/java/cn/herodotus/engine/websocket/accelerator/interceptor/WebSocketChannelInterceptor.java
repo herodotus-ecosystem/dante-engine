@@ -27,6 +27,7 @@ package cn.herodotus.engine.websocket.accelerator.interceptor;
 
 import cn.herodotus.engine.websocket.accelerator.domain.WebSocketPrincipal;
 import cn.herodotus.engine.websocket.accelerator.properties.WebSocketProperties;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
@@ -35,8 +36,6 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * <p>Description: Websocket消息监听 </p>

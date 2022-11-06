@@ -32,12 +32,12 @@ import cn.herodotus.engine.oauth2.core.enums.Signature;
 import cn.herodotus.engine.oauth2.core.enums.TokenFormat;
 import cn.hutool.core.util.IdUtil;
 import com.google.common.base.MoreObjects;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashSet;

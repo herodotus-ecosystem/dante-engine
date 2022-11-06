@@ -33,6 +33,7 @@ import cn.herodotus.engine.facility.core.constants.FacilityConstants;
 import cn.herodotus.engine.facility.log.annotation.ConditionalOnLogEnabled;
 import cn.herodotus.engine.facility.log.properties.LogProperties;
 import com.google.common.base.MoreObjects;
+import jakarta.annotation.PostConstruct;
 import net.logstash.logback.appender.LogstashTcpSocketAppender;
 import net.logstash.logback.encoder.LogstashEncoder;
 import org.apache.skywalking.apm.toolkit.log.logback.v1.x.logstash.TraceIdJsonProvider;
@@ -43,7 +44,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**

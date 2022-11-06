@@ -28,13 +28,12 @@ package cn.herodotus.engine.protect.core.definition;
 import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
 import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
 import cn.hutool.crypto.SecureUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * <p>Description: 基础拦截器 </p>

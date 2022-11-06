@@ -30,9 +30,10 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.UUIDGenerator;
+import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
+import org.hibernate.id.uuid.UuidGenerator;
 
-import java.io.Serializable;
+import java.lang.reflect.Member;
 
 /**
  * <p>Description: 使得保存实体类时可以在保留主键生成策略的情况下自定义表的主键 </p>
@@ -40,10 +41,14 @@ import java.io.Serializable;
  * @author : gengwei.zheng
  * @date : 2022/3/31 21:11
  */
-public class OAuth2AuthorityUUIDGenerator extends UUIDGenerator {
+public class OAuth2AuthorityUUIDGenerator extends UuidGenerator {
+
+    public OAuth2AuthorityUUIDGenerator(org.hibernate.annotations.UuidGenerator config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
+        super(config, idMember, creationContext);
+    }
 
     @Override
-    public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+    public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         if (ObjectUtils.isEmpty(object)) {
             throw new HibernateException(new NullPointerException());
         }

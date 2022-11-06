@@ -30,6 +30,7 @@ import cn.herodotus.engine.pay.alipay.definition.AlipayPaymentTemplate;
 import cn.herodotus.engine.pay.alipay.definition.AlipayProfileStorage;
 import cn.herodotus.engine.pay.alipay.properties.AlipayProperties;
 import cn.herodotus.engine.pay.alipay.support.AlipayDefaultProfileStorage;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -37,8 +38,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 支付宝配置 </p>

@@ -31,6 +31,7 @@ import cn.herodotus.engine.access.wxapp.processor.WxappLogHandler;
 import cn.herodotus.engine.access.wxapp.processor.WxappProcessor;
 import cn.herodotus.engine.access.wxapp.properties.WxappProperties;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -38,8 +39,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 微信小程序后配置 </p>

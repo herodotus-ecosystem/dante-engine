@@ -26,9 +26,8 @@
 package cn.herodotus.engine.assistant.core.validation;
 
 import cn.herodotus.engine.assistant.core.annotation.EnumeratedValue;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * <p>Description: 枚举值校验逻辑 </p>

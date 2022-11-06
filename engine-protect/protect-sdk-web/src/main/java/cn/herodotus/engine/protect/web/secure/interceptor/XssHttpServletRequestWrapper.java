@@ -26,13 +26,13 @@
 package cn.herodotus.engine.protect.web.secure.interceptor;
 
 import cn.herodotus.engine.assistant.core.utils.XssUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;

@@ -30,6 +30,7 @@ import cn.herodotus.engine.oauth2.authorization.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
 import cn.herodotus.engine.protect.core.exception.SessionInvalidException;
 import cn.herodotus.engine.protect.web.crypto.processor.HttpCryptoProcessor;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
@@ -40,7 +41,6 @@ import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;

@@ -31,6 +31,7 @@ import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusRegisteredClientServ
 import cn.herodotus.engine.oauth2.data.jpa.storage.JpaOAuth2AuthorizationConsentService;
 import cn.herodotus.engine.oauth2.data.jpa.storage.JpaOAuth2AuthorizationService;
 import cn.herodotus.engine.oauth2.data.jpa.storage.JpaRegisteredClientRepository;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -43,8 +44,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: OAuth2 Manager 模块配置 </p>

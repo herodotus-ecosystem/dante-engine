@@ -39,6 +39,7 @@ import cn.herodotus.engine.sms.qiniu.configuration.QiniuSmsConfiguration;
 import cn.herodotus.engine.sms.tencent.configuration.TencentSmsConfiguration;
 import cn.herodotus.engine.sms.upyun.configuration.UpyunSmsConfiguration;
 import cn.herodotus.engine.sms.yunpian.configuration.YunpianSmsConfiguration;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -47,8 +48,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 发送短信统一配置 </p>

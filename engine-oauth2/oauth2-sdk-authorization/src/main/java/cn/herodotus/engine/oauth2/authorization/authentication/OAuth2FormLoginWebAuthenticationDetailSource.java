@@ -27,9 +27,8 @@ package cn.herodotus.engine.oauth2.authorization.authentication;
 
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2UiProperties;
 import cn.herodotus.engine.oauth2.core.definition.domain.FormLoginWebAuthenticationDetails;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>Description: 表单登录 Details 定义 </p>

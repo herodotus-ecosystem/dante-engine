@@ -28,13 +28,12 @@ import cn.herodotus.engine.sms.core.constants.SmsConstants;
 import cn.herodotus.engine.sms.yunpian.annotation.ConditionalOnYunpianSmsEnabled;
 import cn.herodotus.engine.sms.yunpian.processor.YunpianSmsSendHandler;
 import cn.herodotus.engine.sms.yunpian.properties.YunpianSmsProperties;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 云片网短信发送配置类 </p>

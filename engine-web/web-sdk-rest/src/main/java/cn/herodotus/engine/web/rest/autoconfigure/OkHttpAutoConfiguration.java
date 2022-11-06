@@ -27,6 +27,8 @@ package cn.herodotus.engine.web.rest.autoconfigure;
 
 import cn.herodotus.engine.web.rest.annotation.ConditionalOnFeignUseOkHttp;
 import cn.herodotus.engine.web.rest.enhance.OkHttpResponseInterceptor;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import okhttp3.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +44,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.concurrent.TimeUnit;
 
 /**

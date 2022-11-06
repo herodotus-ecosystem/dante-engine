@@ -27,6 +27,8 @@ package cn.herodotus.engine.oauth2.server.authorization.controller;
 
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2UiProperties;
 import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.HtmlUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Map;
 

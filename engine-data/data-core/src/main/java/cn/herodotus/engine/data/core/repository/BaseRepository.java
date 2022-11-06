@@ -26,6 +26,7 @@
 package cn.herodotus.engine.data.core.repository;
 
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -36,7 +37,6 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.QueryHint;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;

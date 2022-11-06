@@ -28,9 +28,9 @@ package cn.herodotus.engine.oauth2.data.jpa.repository;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
 import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusAuthorizationConsentId;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.jpa.repository.QueryHints;
 
-import javax.persistence.QueryHint;
 import java.util.Optional;
 
 /**

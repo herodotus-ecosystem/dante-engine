@@ -27,8 +27,7 @@ package cn.herodotus.engine.oss.minio.dto.logic;
 
 import cn.herodotus.engine.oss.minio.definition.dto.logic.BaseObjectDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.Min;
 
 /**
  * <p>Description: 创建分片上传Dto </p>

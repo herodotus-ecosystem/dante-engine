@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-sms</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M2</version>
+        <version>3.0.0-M3</version>
     </parent>
 
     <artifactId>sms-sdk-all</artifactId>
-    <version>3.0.0-M2</version>
+    <version>3.0.0-M3</version>
     <packaging>jar</packaging>
 
     <description>Dante Engine 短信整合组件模块</description>

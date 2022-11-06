@@ -31,6 +31,7 @@ import cn.herodotus.engine.access.justauth.processor.JustAuthProcessor;
 import cn.herodotus.engine.access.justauth.properties.JustAuthProperties;
 import cn.herodotus.engine.access.justauth.stamp.JustAuthStateStampManager;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -38,8 +39,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: JustAuth配置 </p>

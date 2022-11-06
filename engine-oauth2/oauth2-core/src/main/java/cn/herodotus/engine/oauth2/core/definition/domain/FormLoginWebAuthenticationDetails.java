@@ -26,11 +26,10 @@
 package cn.herodotus.engine.oauth2.core.definition.domain;
 
 import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * <p>Description: 表单登录 Details 定义 </p>

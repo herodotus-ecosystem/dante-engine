@@ -31,13 +31,13 @@ import cn.herodotus.engine.protect.core.definition.AbstractBaseHandlerIntercepto
 import cn.herodotus.engine.protect.core.exception.RepeatSubmissionException;
 import cn.herodotus.engine.protect.web.secure.stamp.IdempotentStampManager;
 import cn.hutool.crypto.SecureUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;

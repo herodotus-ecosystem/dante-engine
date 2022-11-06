@@ -33,6 +33,8 @@ import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import feign.Feign;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -46,9 +48,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>Description: 基础设施 Sentinel 配置 </p>
@@ -88,6 +87,7 @@ public class FacilitySentinelAutoConfiguration {
                 response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
                 Result<String> result = Result.failure("Too many request, please retry later.");
                 response.getWriter().print(JacksonUtils.toJson(result));
+                // TODO: Sentinel 不兼容 最新版 Spring Cloud
             };
         }
 

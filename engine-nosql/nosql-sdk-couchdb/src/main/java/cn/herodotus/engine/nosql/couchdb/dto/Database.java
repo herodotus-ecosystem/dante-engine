@@ -27,9 +27,8 @@ package cn.herodotus.engine.nosql.couchdb.dto;
 
 import cn.herodotus.engine.rest.core.definition.dto.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 /**
  * <p>Description: 数据库操作请求实体 </p>

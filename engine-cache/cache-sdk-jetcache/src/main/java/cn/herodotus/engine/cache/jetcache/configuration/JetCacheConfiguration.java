@@ -33,6 +33,7 @@ import cn.herodotus.engine.cache.jetcache.utils.JetCacheUtils;
 import cn.herodotus.engine.cache.redis.configuration.RedisConfiguration;
 import com.alicp.jetcache.CacheManager;
 import com.alicp.jetcache.autoconfigure.JetCacheAutoConfiguration;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -43,8 +44,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: JetCacheConfiguration </p>

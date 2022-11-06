@@ -27,6 +27,10 @@ package cn.herodotus.engine.websocket.accelerator.configuration;
 
 import cn.herodotus.engine.websocket.accelerator.interceptor.WebSocketChannelInterceptor;
 import cn.herodotus.engine.websocket.accelerator.interceptor.WebSocketHandshakeHandler;
+import cn.herodotus.engine.websocket.accelerator.processor.WebSocketClusterProcessor;
+import cn.herodotus.engine.websocket.accelerator.processor.WebSocketMessageSender;
+import cn.herodotus.engine.websocket.accelerator.properties.WebSocketProperties;
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RedissonClient;
@@ -47,11 +51,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
-import cn.herodotus.engine.websocket.accelerator.processor.WebSocketClusterProcessor;
-import cn.herodotus.engine.websocket.accelerator.processor.WebSocketMessageSender;
-import cn.herodotus.engine.websocket.accelerator.properties.WebSocketProperties;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**

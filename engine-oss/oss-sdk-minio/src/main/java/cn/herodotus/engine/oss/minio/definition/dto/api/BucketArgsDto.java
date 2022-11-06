@@ -27,9 +27,8 @@ package cn.herodotus.engine.oss.minio.definition.dto.api;
 
 import io.minio.BucketArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.StringUtils;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * <p>Description: Minio 基础 Bucket Dto </p>

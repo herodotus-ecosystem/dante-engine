@@ -26,27 +26,41 @@
 package cn.herodotus.engine.web.rest.autoconfigure;
 
 import cn.herodotus.engine.web.rest.annotation.ConditionalOnFeignUseHttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.HttpClientConnectionManager;
-import org.apache.http.impl.client.CloseableHttpClient;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.io.HttpClientConnectionManager;
+import org.apache.hc.client5.http.socket.LayeredConnectionSocketFactory;
+import org.apache.hc.client5.http.ssl.SSLConnectionSocketFactoryBuilder;
+import org.apache.hc.core5.http.io.SocketConfig;
+import org.apache.hc.core5.http.ssl.TLS;
+import org.apache.hc.core5.io.CloseMode;
+import org.apache.hc.core5.pool.PoolConcurrencyPolicy;
+import org.apache.hc.core5.pool.PoolReusePolicy;
+import org.apache.hc.core5.ssl.SSLContexts;
+import org.apache.hc.core5.util.TimeValue;
+import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.cloud.commons.httpclient.ApacheHttpClientConnectionManagerFactory;
-import org.springframework.cloud.commons.httpclient.ApacheHttpClientFactory;
 import org.springframework.cloud.openfeign.support.FeignHttpClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Description: HttpClient 自动配置 </p>
@@ -65,39 +79,27 @@ public class HttpClientAutoConfiguration {
         log.debug("[Herodotus] |- SDK [Engine Web HttpClient] Auto Configure.");
     }
 
-    private final Timer connectionManagerTimer = new Timer(
-            "FeignApacheHttpClientConfiguration.connectionManagerTimer", true);
-
-    @Autowired(required = false)
-    private RegistryBuilder registryBuilder;
-
-    private CloseableHttpClient httpClient;
+    private CloseableHttpClient httpClient5;
 
     @Bean
-    @ConditionalOnMissingBean(HttpClientConnectionManager.class)
-    public HttpClientConnectionManager connectionManager(ApacheHttpClientConnectionManagerFactory connectionManagerFactory, FeignHttpClientProperties feignHttpClientProperties) {
-
-        final HttpClientConnectionManager connectionManager = connectionManagerFactory.newConnectionManager(
-                feignHttpClientProperties.isDisableSslValidation(), feignHttpClientProperties.getMaxConnections(),
-                feignHttpClientProperties.getMaxConnectionsPerRoute(), feignHttpClientProperties.getTimeToLive(),
-                feignHttpClientProperties.getTimeToLiveUnit(), this.registryBuilder);
-        this.connectionManagerTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                connectionManager.closeExpiredConnections();
-            }
-        }, 30000, feignHttpClientProperties.getConnectionTimerRepeat());
-        return connectionManager;
+    @ConditionalOnMissingBean({HttpClientConnectionManager.class})
+    public HttpClientConnectionManager hc5ConnectionManager(FeignHttpClientProperties httpClientProperties) {
+        return PoolingHttpClientConnectionManagerBuilder.create().setSSLSocketFactory(this.httpsSSLConnectionSocketFactory(httpClientProperties.isDisableSslValidation())).setMaxConnTotal(httpClientProperties.getMaxConnections()).setMaxConnPerRoute(httpClientProperties.getMaxConnectionsPerRoute()).setConnPoolPolicy(PoolReusePolicy.valueOf(httpClientProperties.getHc5().getPoolReusePolicy().name())).setPoolConcurrencyPolicy(PoolConcurrencyPolicy.valueOf(httpClientProperties.getHc5().getPoolConcurrencyPolicy().name())).setConnectionTimeToLive(TimeValue.of(httpClientProperties.getTimeToLive(), httpClientProperties.getTimeToLiveUnit())).setDefaultSocketConfig(SocketConfig.custom().setSoTimeout(Timeout.of((long) httpClientProperties.getHc5().getSocketTimeout(), httpClientProperties.getHc5().getSocketTimeoutUnit())).build()).build();
     }
 
     @Bean
-    public CloseableHttpClient httpClient(ApacheHttpClientFactory httpClientFactory, HttpClientConnectionManager httpClientConnectionManager, FeignHttpClientProperties feignHttpClientProperties) {
-        RequestConfig defaultRequestConfig = RequestConfig.custom()
-                .setConnectTimeout(feignHttpClientProperties.getConnectionTimeout())
-                .setRedirectsEnabled(feignHttpClientProperties.isFollowRedirects()).build();
-        this.httpClient = httpClientFactory.createBuilder().setConnectionManager(httpClientConnectionManager)
-                .setDefaultRequestConfig(defaultRequestConfig).build();
-        return this.httpClient;
+    public CloseableHttpClient httpClient5(HttpClientConnectionManager connectionManager, FeignHttpClientProperties httpClientProperties) {
+        this.httpClient5 = HttpClients.custom()
+                .disableCookieManagement()
+                .useSystemProperties()
+                .setConnectionManager(connectionManager)
+                .evictExpiredConnections()
+                .setDefaultRequestConfig(RequestConfig.custom()
+                        .setConnectTimeout(Timeout.of(httpClientProperties.getConnectionTimeout(), TimeUnit.MILLISECONDS))
+                        .setRedirectsEnabled(httpClientProperties.isFollowRedirects())
+                        .build())
+                .build();
+        return this.httpClient5;
     }
 
     @Bean
@@ -109,13 +111,42 @@ public class HttpClientAutoConfiguration {
 
     @PreDestroy
     public void destroy() {
-        this.connectionManagerTimer.cancel();
-        if (this.httpClient != null) {
+        if (this.httpClient5 != null) {
+            this.httpClient5.close(CloseMode.GRACEFUL);
+        }
+    }
+
+    private LayeredConnectionSocketFactory httpsSSLConnectionSocketFactory(boolean isDisableSslValidation) {
+        SSLConnectionSocketFactoryBuilder sslConnectionSocketFactoryBuilder = SSLConnectionSocketFactoryBuilder.create().setTlsVersions(new TLS[]{TLS.V_1_3, TLS.V_1_2});
+        if (isDisableSslValidation) {
             try {
-                this.httpClient.close();
-            } catch (IOException e) {
-                log.trace("[Herodotus] |- Could not correctly close httpClient.");
+                SSLContext sslContext = SSLContext.getInstance("SSL");
+                sslContext.init(null, new TrustManager[]{new HttpClientAutoConfiguration.DisabledValidationTrustManager()}, new SecureRandom());
+                sslConnectionSocketFactoryBuilder.setSslContext(sslContext);
+            } catch (NoSuchAlgorithmException e) {
+                log.warn("[Herodotus] |- Error creating SSLContext for AlgorithmException", e);
+            } catch (KeyManagementException e) {
+                log.warn("[Herodotus] |- Error creating SSLContext for KeyManagementException", e);
             }
+        } else {
+            sslConnectionSocketFactoryBuilder.setSslContext(SSLContexts.createSystemDefault());
+        }
+
+        return sslConnectionSocketFactoryBuilder.build();
+    }
+
+    static class DisabledValidationTrustManager implements X509TrustManager {
+        DisabledValidationTrustManager() {
+        }
+
+        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        }
+
+        public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        }
+
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
         }
     }
 }

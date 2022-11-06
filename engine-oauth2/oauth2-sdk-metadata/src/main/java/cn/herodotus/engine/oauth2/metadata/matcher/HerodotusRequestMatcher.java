@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.metadata.matcher;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,7 +38,6 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.Assert;
 import org.springframework.web.util.UrlPathHelper;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**

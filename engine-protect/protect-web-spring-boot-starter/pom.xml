@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-protect</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M2</version>
+        <version>3.0.0-M3</version>
     </parent>
 
     <artifactId>protect-web-spring-boot-starter</artifactId>
-    <version>3.0.0-M2</version>
+    <version>3.0.0-M3</version>
     <packaging>jar</packaging>
 
     <dependencies>

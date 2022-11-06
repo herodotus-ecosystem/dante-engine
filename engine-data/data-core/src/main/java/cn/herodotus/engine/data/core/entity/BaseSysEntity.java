@@ -27,9 +27,8 @@ package cn.herodotus.engine.data.core.entity;
 
 import cn.herodotus.engine.data.core.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
 
 /**
  * <p>Description: 框架基础权限实体通用基础类</p>

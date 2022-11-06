@@ -26,9 +26,9 @@
 package cn.herodotus.engine.assistant.core.annotation;
 
 import cn.herodotus.engine.assistant.core.validation.EnumeratedValueValidator;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.*;
 
 

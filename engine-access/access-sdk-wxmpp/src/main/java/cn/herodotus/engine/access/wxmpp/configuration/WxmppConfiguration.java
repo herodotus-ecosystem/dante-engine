@@ -29,6 +29,7 @@ import cn.herodotus.engine.access.wxmpp.annotation.ConditionalOnWxmppEnabled;
 import cn.herodotus.engine.access.wxmpp.processor.WxmppLogHandler;
 import cn.herodotus.engine.access.wxmpp.processor.WxmppProcessor;
 import cn.herodotus.engine.access.wxmpp.properties.WxmppProperties;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -36,8 +37,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 微信公众号配置 </p>

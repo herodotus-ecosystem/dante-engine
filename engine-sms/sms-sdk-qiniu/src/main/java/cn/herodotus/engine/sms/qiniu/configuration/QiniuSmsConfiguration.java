@@ -28,13 +28,12 @@ import cn.herodotus.engine.sms.core.constants.SmsConstants;
 import cn.herodotus.engine.sms.qiniu.annotation.ConditionalOnQiniuSmsEnabled;
 import cn.herodotus.engine.sms.qiniu.processor.QiniuSmsSendHandler;
 import cn.herodotus.engine.sms.qiniu.properties.QiniuSmsProperties;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 七牛云短信发送配置类 </p>

@@ -30,9 +30,10 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.UUIDGenerator;
+import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
+import org.hibernate.id.uuid.UuidGenerator;
 
-import java.io.Serializable;
+import java.lang.reflect.Member;
 
 /**
  * <p>Description: OAuth2Authorization Id 生成器 </p>
@@ -42,10 +43,14 @@ import java.io.Serializable;
  * @author : gengwei.zheng
  * @date : 2022/1/22 18:10
  */
-public class HerodotusAuthorizationGenerator extends UUIDGenerator {
+public class HerodotusAuthorizationGenerator extends UuidGenerator {
+
+    public HerodotusAuthorizationGenerator(org.hibernate.annotations.UuidGenerator config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
+        super(config, idMember, creationContext);
+    }
 
     @Override
-    public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+    public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         if (ObjectUtils.isEmpty(object)) {
             throw new HibernateException(new NullPointerException());
         }

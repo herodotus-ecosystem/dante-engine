@@ -29,10 +29,9 @@ import cn.herodotus.engine.data.core.entity.BaseEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 
 /**
  * <p>Description: 用户操作审计 </p>

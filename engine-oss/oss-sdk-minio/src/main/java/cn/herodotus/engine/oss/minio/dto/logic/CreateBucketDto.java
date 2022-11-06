@@ -26,10 +26,8 @@
 package cn.herodotus.engine.oss.minio.dto.logic;
 
 import cn.herodotus.engine.oss.minio.definition.dto.logic.BaseBucketDto;
-import cn.herodotus.engine.rest.core.definition.dto.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>Description: 创建桶请求参数实体 </p>

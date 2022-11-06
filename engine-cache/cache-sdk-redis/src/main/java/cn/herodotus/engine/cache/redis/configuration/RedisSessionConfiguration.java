@@ -26,15 +26,14 @@
 package cn.herodotus.engine.cache.redis.configuration;
 
 import cn.herodotus.engine.cache.redis.annotation.ConditionalOnRedisSessionSharing;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.FlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>Description: 基于 Redis 的 Session 共享配置 </p>

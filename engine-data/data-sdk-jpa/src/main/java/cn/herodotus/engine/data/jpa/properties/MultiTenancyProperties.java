@@ -28,7 +28,6 @@ package cn.herodotus.engine.data.jpa.properties;
 import cn.herodotus.engine.assistant.core.enums.DataResource;
 import cn.herodotus.engine.data.core.constants.DataConstants;
 import org.apache.commons.lang3.ArrayUtils;
-import org.hibernate.MultiTenancyStrategy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Map;
@@ -55,7 +54,7 @@ public class MultiTenancyProperties {
     /**
      * 多租户数据隔离策略
      */
-    private MultiTenancyStrategy tenancyStrategy = MultiTenancyStrategy.DATABASE;
+//    private MultiTenancyStrategy tenancyStrategy = MultiTenancyStrategy.DATABASE;
 
     private String[] packageToScan;
 
@@ -88,13 +87,13 @@ public class MultiTenancyProperties {
         this.dataSources = dataSources;
     }
 
-    public MultiTenancyStrategy getTenancyStrategy() {
-        return tenancyStrategy;
-    }
-
-    public void setTenancyStrategy(MultiTenancyStrategy tenancyStrategy) {
-        this.tenancyStrategy = tenancyStrategy;
-    }
+//    public MultiTenancyStrategy getTenancyStrategy() {
+//        return tenancyStrategy;
+//    }
+//
+//    public void setTenancyStrategy(MultiTenancyStrategy tenancyStrategy) {
+//        this.tenancyStrategy = tenancyStrategy;
+//    }
 
     public String[] getPackageToScan() {
         String defaultPackage = "cn.herodotus";

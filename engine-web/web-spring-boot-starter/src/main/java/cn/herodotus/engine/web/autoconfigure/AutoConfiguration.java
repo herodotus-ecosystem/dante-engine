@@ -26,12 +26,11 @@
 package cn.herodotus.engine.web.autoconfigure;
 
 import cn.herodotus.engine.web.configuration.UndertowWebServerFactoryCustomizer;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: Web 自动配置 </p>

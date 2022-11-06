@@ -28,13 +28,12 @@ import cn.herodotus.engine.sms.core.constants.SmsConstants;
 import cn.herodotus.engine.sms.tencent.annotation.ConditionalOnTencentSmsEnabled;
 import cn.herodotus.engine.sms.tencent.processor.TencentSmsSendHandler;
 import cn.herodotus.engine.sms.tencent.properties.TencentSmsProperties;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 腾讯云短信发送配置类 </p>

@@ -30,9 +30,8 @@ import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusAuthorizationConsentId;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
 
 /**
  * <p>Description: OAuth2 认证确认信息实体 </p>

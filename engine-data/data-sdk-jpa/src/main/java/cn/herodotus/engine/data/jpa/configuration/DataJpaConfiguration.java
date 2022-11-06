@@ -25,12 +25,11 @@
 
 package cn.herodotus.engine.data.jpa.configuration;
 
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: Data JPA 模块可配置 </p>

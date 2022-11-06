@@ -26,12 +26,12 @@
 package cn.herodotus.engine.access.autoconfigure;
 
 import cn.herodotus.engine.access.business.configuration.AccessAllConfiguration;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: 外部程序接入模块自动配置 </p>

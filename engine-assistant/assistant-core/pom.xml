@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-assistant</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M2</version>
+        <version>3.0.0-M3</version>
     </parent>
 
     <artifactId>assistant-core</artifactId>
-    <version>3.0.0-M2</version>
+    <version>3.0.0-M3</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 核心通用代码组件</description>
@@ -104,6 +104,11 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <dependency>

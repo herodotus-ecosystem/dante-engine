@@ -25,9 +25,10 @@
 
 package cn.herodotus.engine.nosql.influxdb.configuration;
 
-import cn.herodotus.engine.nosql.influxdb.support.InfluxdbTemplate;
 import cn.herodotus.engine.nosql.influxdb.annotation.ConditionalOnInfluxdbEnabled;
 import cn.herodotus.engine.nosql.influxdb.properties.InfluxdbProperties;
+import cn.herodotus.engine.nosql.influxdb.support.InfluxdbTemplate;
+import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.StringUtils;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
@@ -38,7 +39,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
 /**

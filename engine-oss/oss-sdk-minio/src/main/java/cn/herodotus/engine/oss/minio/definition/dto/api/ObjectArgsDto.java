@@ -27,8 +27,7 @@ package cn.herodotus.engine.oss.minio.definition.dto.api;
 
 import io.minio.ObjectArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * <p>Description: Minio 基础 Object Dto </p>

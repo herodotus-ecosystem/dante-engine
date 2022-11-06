@@ -26,12 +26,11 @@
 package cn.herodotus.engine.data.autoconfigure;
 
 import cn.herodotus.engine.data.mybatis.plus.configuration.MybatisPlusConfiguration;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: Data组件自动注入 </p>

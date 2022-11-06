@@ -26,12 +26,11 @@
 package cn.herodotus.engine.websocket.autoconfigure;
 
 import cn.herodotus.engine.websocket.accelerator.configuration.WebSocketConfiguration;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import javax.annotation.PostConstruct;
 
 /**
  * <p>Description: Web Socket 自动配置 </p>

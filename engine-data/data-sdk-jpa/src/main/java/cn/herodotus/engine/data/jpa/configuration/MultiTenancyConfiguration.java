@@ -30,6 +30,7 @@ import cn.herodotus.engine.data.jpa.properties.MultiTenancyProperties;
 import cn.herodotus.engine.data.jpa.tenancy.MultiTenancyConnectionProvider;
 import cn.herodotus.engine.data.jpa.tenancy.MultiTenancyDataSourceLookup;
 import cn.herodotus.engine.data.jpa.tenancy.MultiTenancyIdentifierResolver;
+import jakarta.annotation.PostConstruct;
 import org.hibernate.cfg.Environment;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
@@ -46,7 +47,6 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -101,7 +101,8 @@ public class MultiTenancyConfiguration {
         Supplier<String> defaultDdlMode = hibernateProperties::getDdlAuto;
         Map<String, Object> properties = hibernateProperties.determineHibernateProperties(jpaProperties.getProperties(), new HibernateSettings().ddlAuto(defaultDdlMode));
 
-        properties.put(Environment.MULTI_TENANT, multiTenancyProperties.getTenancyStrategy());
+        // TODO: 多租户需要继续验证。目前发现参数错误
+//        properties.put(Environment.MULTI_TENANT, multiTenancyProperties.getTenancyStrategy());
         properties.put(Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider);
         properties.put(Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolver);
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
