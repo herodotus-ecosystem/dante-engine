@@ -27,8 +27,7 @@ package cn.herodotus.engine.oauth2.compliance.dto;
 
 import cn.herodotus.engine.rest.core.definition.dto.BaseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>Description: 登录提示信息 </p>

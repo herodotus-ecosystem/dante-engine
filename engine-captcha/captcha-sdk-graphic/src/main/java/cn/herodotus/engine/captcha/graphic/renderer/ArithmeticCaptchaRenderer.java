@@ -26,10 +26,10 @@
 package cn.herodotus.engine.captcha.graphic.renderer;
 
 import cn.herodotus.engine.assistant.core.utils.RegexPool;
-import cn.herodotus.engine.captcha.graphic.definition.AbstractBaseGraphicRenderer;
 import cn.herodotus.engine.captcha.core.definition.domain.Metadata;
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCategory;
 import cn.herodotus.engine.captcha.core.provider.RandomProvider;
+import cn.herodotus.engine.captcha.graphic.definition.AbstractBaseGraphicRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

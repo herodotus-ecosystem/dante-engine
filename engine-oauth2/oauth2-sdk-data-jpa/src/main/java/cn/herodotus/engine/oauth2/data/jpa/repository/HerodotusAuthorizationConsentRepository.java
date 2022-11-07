@@ -29,6 +29,7 @@ import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
 import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusAuthorizationConsentId;
 import jakarta.persistence.QueryHint;
+import org.hibernate.jpa.AvailableHints;
 import org.springframework.data.jpa.repository.QueryHints;
 
 import java.util.Optional;
@@ -48,7 +49,7 @@ public interface HerodotusAuthorizationConsentRepository extends BaseRepository<
      * @param principalName      用户名
      * @return OAuth2 认证确认信息 {@link HerodotusAuthorizationConsent}
      */
-    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
     Optional<HerodotusAuthorizationConsent> findByRegisteredClientIdAndPrincipalName(String registeredClientId, String principalName);
 
     /**

@@ -28,6 +28,7 @@ package cn.herodotus.engine.oauth2.data.jpa.repository;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
 import jakarta.persistence.QueryHint;
+import org.hibernate.jpa.AvailableHints;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +51,7 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
      * @param state OAuth2 Authorization Code 模式参数 State
      * @return OAuth2 认证信息 {@link HerodotusAuthorization}
      */
-    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
     Optional<HerodotusAuthorization> findByState(String state);
 
     /**
@@ -59,7 +60,7 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
      * @param authorizationCode OAuth2 Authorization Code 模式参数 code
      * @return OAuth2 认证信息 {@link HerodotusAuthorization}
      */
-    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
     Optional<HerodotusAuthorization> findByAuthorizationCode(String authorizationCode);
 
     /**
@@ -68,7 +69,7 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
      * @param accessToken OAuth2 accessToken
      * @return OAuth2 认证信息 {@link HerodotusAuthorization}
      */
-    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
     Optional<HerodotusAuthorization> findByAccessToken(String accessToken);
 
     /**
@@ -77,7 +78,7 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
      * @param refreshToken OAuth2 refreshToken
      * @return OAuth2 认证信息 {@link HerodotusAuthorization}
      */
-    @QueryHints(@QueryHint(name = org.hibernate.annotations.QueryHints.CACHEABLE, value = "true"))
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
     Optional<HerodotusAuthorization> findByRefreshToken(String refreshToken);
 
     /**

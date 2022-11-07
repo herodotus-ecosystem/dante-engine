@@ -28,8 +28,7 @@ package cn.herodotus.engine.oauth2.server.authorization.dto;
 import cn.herodotus.engine.rest.core.definition.dto.BaseDto;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * <p>Description: OAuth2 Authority Dto </p>

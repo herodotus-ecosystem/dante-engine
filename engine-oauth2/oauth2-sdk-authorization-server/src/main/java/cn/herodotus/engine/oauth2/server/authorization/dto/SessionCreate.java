@@ -28,8 +28,7 @@ package cn.herodotus.engine.oauth2.server.authorization.dto;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractDto;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
-
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>Description: 加密创建请求 </p>

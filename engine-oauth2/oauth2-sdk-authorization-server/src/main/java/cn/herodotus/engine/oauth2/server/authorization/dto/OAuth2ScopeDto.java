@@ -27,8 +27,8 @@ package cn.herodotus.engine.oauth2.server.authorization.dto;
 
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 

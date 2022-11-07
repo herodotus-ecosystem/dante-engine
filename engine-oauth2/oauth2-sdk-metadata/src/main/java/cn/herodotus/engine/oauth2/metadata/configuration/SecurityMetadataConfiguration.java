@@ -37,6 +37,7 @@ import org.springframework.cloud.bus.ServiceMatcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
 import jakarta.annotation.PostConstruct;
@@ -48,7 +49,7 @@ import jakarta.annotation.PostConstruct;
  * @date : 2022/1/23 15:42
  */
 @Configuration(proxyBeanMethods = false)
-@EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
+@EnableMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 public class SecurityMetadataConfiguration extends GlobalMethodSecurityConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(SecurityMetadataConfiguration.class);
