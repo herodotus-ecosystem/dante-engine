@@ -36,7 +36,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -60,8 +60,7 @@ import java.util.Set;
 public class OAuth2Application extends BaseSysEntity {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @UuidGenerator
     @Column(name = "application_id", length = 64)
     private String applicationId;
 

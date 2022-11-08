@@ -25,11 +25,11 @@
 
 package cn.herodotus.engine.oauth2.compliance.service;
 
-import cn.herodotus.engine.assistant.core.hutool.ServletUtil;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseLayeredService;
 import cn.herodotus.engine.oauth2.compliance.entity.OAuth2Compliance;
 import cn.herodotus.engine.oauth2.compliance.repository.OAuth2ComplianceRepository;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import com.google.common.net.HttpHeaders;
@@ -111,7 +111,7 @@ public class OAuth2ComplianceService extends BaseLayeredService<OAuth2Compliance
     }
 
     private String getIp(HttpServletRequest request) {
-        return ServletUtil.getClientIP(request, "");
+        return JakartaServletUtil.getClientIP(request, "");
     }
 
     public OAuth2Compliance toEntity(String principalName, String clientId, String operation, HttpServletRequest request) {

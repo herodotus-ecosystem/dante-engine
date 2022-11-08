@@ -23,28 +23,30 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.server.authorization.generator;
+package cn.herodotus.engine.oauth2.data.jpa.generator;
 
-import cn.herodotus.engine.oauth2.server.authorization.entity.OAuth2Authority;
+import cn.herodotus.engine.data.jpa.hibernate.identifier.AbstractUuidGenerator;
+import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
-import org.hibernate.id.uuid.UuidGenerator;
 
 import java.lang.reflect.Member;
 
 /**
- * <p>Description: 使得保存实体类时可以在保留主键生成策略的情况下自定义表的主键 </p>
+ * <p>Description: OAuth2RegisteredClient Id 生成器 </p>
+ * <p>
+ * 指定ID生成器，解决实体ID无法手动设置问题。
  *
  * @author : gengwei.zheng
- * @date : 2022/3/31 21:11
+ * @date : 2022/1/22 17:50
  */
-public class OAuth2AuthorityUUIDGenerator extends UuidGenerator {
+public class HerodotusRegisteredClientUuidGenerator extends AbstractUuidGenerator {
 
-    public OAuth2AuthorityUUIDGenerator(org.hibernate.annotations.UuidGenerator config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
-        super(config, idMember, creationContext);
+    public HerodotusRegisteredClientUuidGenerator(HerodotusRegisteredClientUuid config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
+        super(idMember);
     }
 
     @Override
@@ -53,13 +55,12 @@ public class OAuth2AuthorityUUIDGenerator extends UuidGenerator {
             throw new HibernateException(new NullPointerException());
         }
 
-        OAuth2Authority authority = (OAuth2Authority) object;
+        HerodotusRegisteredClient herodotusRegisteredClient = (HerodotusRegisteredClient) object;
 
-        if (StringUtils.isEmpty(authority.getAuthorityId())) {
+        if (StringUtils.isEmpty(herodotusRegisteredClient.getId())) {
             return super.generate(session, object);
         } else {
-            return authority.getAuthorityId();
+            return herodotusRegisteredClient.getId();
         }
     }
 }
-

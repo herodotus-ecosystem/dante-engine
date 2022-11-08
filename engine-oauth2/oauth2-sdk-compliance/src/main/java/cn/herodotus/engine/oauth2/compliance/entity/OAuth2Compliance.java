@@ -31,7 +31,7 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 /**
  * <p>Description: 用户操作审计 </p>
@@ -47,8 +47,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class OAuth2Compliance extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
+    @UuidGenerator
     @Column(name = "compliance_id", length = 64)
     private String complianceId;
 

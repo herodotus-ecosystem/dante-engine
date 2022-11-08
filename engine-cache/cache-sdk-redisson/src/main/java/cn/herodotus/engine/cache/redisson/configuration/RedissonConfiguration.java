@@ -43,9 +43,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +56,7 @@ import java.io.IOException;
  * @author : gengwei.zheng
  * @date : 2021/10/22 13:56
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnRedissonEnabled
 @EnableConfigurationProperties(RedissonProperties.class)
 public class RedissonConfiguration {

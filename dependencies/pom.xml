@@ -106,6 +106,7 @@
         <spring-cloud-dependencies.version>2022.0.0-M5</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.0.0-RC1</spring-security-oauth2-authorization-server.version>
+        <spring-security-cas.version>5.8.0-M2</spring-security-cas.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
@@ -199,13 +200,6 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-bom</artifactId>
-                <version>${spring-security.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -793,6 +787,21 @@
                 <artifactId>jetcache-starter-redis-lettuce</artifactId>
                 <version>${jetcache.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-autoconfigure</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-anno</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alicp.jetcache</groupId>
+                <artifactId>jetcache-redis-lettuce</artifactId>
+                <version>${jetcache.version}</version>
+            </dependency>
 
             <!-- 国内开源通用组件 -->
             <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
@@ -1053,6 +1062,13 @@
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-cas -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-cas</artifactId>
+                <version>${spring-security-cas.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

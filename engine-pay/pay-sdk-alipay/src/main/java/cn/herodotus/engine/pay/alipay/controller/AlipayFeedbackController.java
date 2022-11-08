@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.pay.alipay.controller;
 
-import cn.herodotus.engine.assistant.core.hutool.ServletUtil;
 import cn.herodotus.engine.pay.alipay.definition.AlipayPaymentTemplate;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -66,7 +66,7 @@ public class AlipayFeedbackController {
     @PostMapping("/notify")
     public void paymentNotify(HttpServletRequest httpServletRequest) {
         // 获取支付宝POST过来反馈信息
-        Map<String, String> params = ServletUtil.getParamMap(httpServletRequest);
+        Map<String, String> params = JakartaServletUtil.getParamMap(httpServletRequest);
         alipayPaymentTemplate.paymentNotify(params);
     }
 
@@ -78,7 +78,7 @@ public class AlipayFeedbackController {
     @GetMapping("/return")
     public void paymentReturn(HttpServletRequest request) {
         // 获取支付宝GET过来反馈信息
-        Map<String, String> params = ServletUtil.getParamMap(request);
+        Map<String, String> params = JakartaServletUtil.getParamMap(request);
         alipayPaymentTemplate.paymentReturn(params);
     }
 

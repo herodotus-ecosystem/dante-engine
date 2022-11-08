@@ -26,8 +26,8 @@
 package cn.herodotus.engine.web.rest.feign;
 
 import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.hutool.ServletUtil;
 import cn.herodotus.engine.assistant.core.thread.TenantContextHolder;
+import cn.hutool.extra.servlet.JakartaServletUtil;
 import com.google.common.net.HttpHeaders;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -56,7 +56,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
         HttpServletRequest httpServletRequest = getHttpServletRequest();
 
         if (httpServletRequest != null) {
-            Map<String, String> headers = ServletUtil.getHeaderMap(httpServletRequest);
+            Map<String, String> headers = JakartaServletUtil.getHeaderMap(httpServletRequest);
             // 传递所有请求头,防止部分丢失
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 String key = entry.getKey();

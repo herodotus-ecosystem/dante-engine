@@ -31,13 +31,12 @@ import cn.herodotus.engine.captcha.hutool.renderer.CircleCaptchaRenderer;
 import cn.herodotus.engine.captcha.hutool.renderer.GifCaptchaRenderer;
 import cn.herodotus.engine.captcha.hutool.renderer.LineCaptchaRenderer;
 import cn.herodotus.engine.captcha.hutool.renderer.ShearCaptchaRenderer;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import jakarta.annotation.PostConstruct;
 
 /**
  * <p>Description: Hutool 验证码配置 </p>
@@ -45,7 +44,7 @@ import jakarta.annotation.PostConstruct;
  * @author : gengwei.zheng
  * @date : 2022/1/18 20:57
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class HutoolCaptchaConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(HutoolCaptchaConfiguration.class);

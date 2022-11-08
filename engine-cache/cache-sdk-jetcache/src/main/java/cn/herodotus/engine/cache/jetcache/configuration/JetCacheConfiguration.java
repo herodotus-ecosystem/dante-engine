@@ -36,12 +36,12 @@ import com.alicp.jetcache.autoconfigure.JetCacheAutoConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 
@@ -49,14 +49,19 @@ import org.springframework.context.annotation.Primary;
  * <p>Description: JetCacheConfiguration </p>
  * <p>
  * 新增JetCache配置，解决JetCache依赖循环问题
+ * <p>
+ * 注解 @AutoConfiguration 它是 @Configuration、@AutoConfigureBefore、@AutoConfigureAfter三个注解结合体，以一顶三。
+ * 标注 @AutoConfiguration 注解的类也必须放进
+ * META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+ * 文件里才算自动配置类，否则也只是普通配置类而已
  *
  * @author : gengwei.zheng
  * @date : 2021/12/4 10:44
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration(after = JetCacheAutoConfiguration.class)
+@ConditionalOnClass({CacheManager.class})
 @EnableConfigurationProperties(CacheProperties.class)
 @Import({CaffeineConfiguration.class, RedisConfiguration.class})
-@AutoConfigureAfter(JetCacheAutoConfiguration.class)
 public class JetCacheConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(JetCacheConfiguration.class);
@@ -67,9 +72,8 @@ public class JetCacheConfiguration {
     }
 
     @Bean
-    @ConditionalOnClass(CacheManager.class)
-    public JetCacheCreateCacheFactory jetCacheCreateCacheFactory(CacheManager jcCacheManager) {
-        JetCacheCreateCacheFactory factory = new JetCacheCreateCacheFactory(jcCacheManager);
+    public JetCacheCreateCacheFactory jetCacheCreateCacheFactory(@Qualifier("jcCacheManager") CacheManager cacheManager) {
+        JetCacheCreateCacheFactory factory = new JetCacheCreateCacheFactory(cacheManager);
         JetCacheUtils.setJetCacheCreateCacheFactory(factory);
         log.trace("[Herodotus] |- Bean [Jet Cache Create Cache Factory] Auto Configure.");
         return factory;

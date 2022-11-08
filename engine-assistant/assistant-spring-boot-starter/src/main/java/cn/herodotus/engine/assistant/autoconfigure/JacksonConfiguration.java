@@ -38,7 +38,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -55,8 +55,7 @@ import java.util.TimeZone;
  * @author : gengwei.zheng
  * @date : 2022/6/1 0:09
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureBefore(JacksonAutoConfiguration.class)
+@AutoConfiguration(before = JacksonAutoConfiguration.class)
 public class JacksonConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(JacksonConfiguration.class);

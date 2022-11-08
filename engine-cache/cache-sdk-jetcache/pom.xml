@@ -68,6 +68,19 @@
         </dependency>
 
         <dependency>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-anno</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-redis-lettuce</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo</artifactId>
         </dependency>

@@ -1,5 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  cn.herodotus.engine.captcha.autoconfigure.AutoConfiguration,\
-  cn.herodotus.engine.captcha.behavior.configuration.BehaviorCaptchaConfiguration,\
-  cn.herodotus.engine.captcha.graphic.configuration.GraphicCaptchaConfiguration,\
-  cn.herodotus.engine.captcha.hutool.configuration.HutoolCaptchaConfiguration

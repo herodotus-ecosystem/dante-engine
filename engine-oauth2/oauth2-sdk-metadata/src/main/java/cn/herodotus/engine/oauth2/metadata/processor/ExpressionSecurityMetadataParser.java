@@ -83,11 +83,11 @@ public class ExpressionSecurityMetadataParser {
      */
     @SuppressWarnings("unchecked")
     private LinkedHashMap<HerodotusRequestMatcher, Collection<ConfigAttribute>> parse(LinkedHashMap<HerodotusRequestMatcher, Collection<ConfigAttribute>> resources) {
-        LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<>(resources);
-        Object object = ReflectUtil.invoke(filterInvocationSecurityMetadataSource, "processMap", requestMap, this.expressionParser);
-        if (ObjectUtils.isNotEmpty(object) && object instanceof LinkedHashMap) {
-            return (LinkedHashMap<HerodotusRequestMatcher, Collection<ConfigAttribute>>) object;
-        }
+//        LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<>(resources);
+//        Object object = ReflectUtil.invoke(filterInvocationSecurityMetadataSource, "processMap", requestMap, this.expressionParser);
+//        if (ObjectUtils.isNotEmpty(object) && object instanceof LinkedHashMap) {
+//            return (LinkedHashMap<HerodotusRequestMatcher, Collection<ConfigAttribute>>) object;
+//        }
         return new LinkedHashMap<>();
     }
 
@@ -99,19 +99,19 @@ public class ExpressionSecurityMetadataParser {
      */
     @SuppressWarnings("unchecked")
     public LinkedHashMap<HerodotusRequestMatcher, Collection<ConfigAttribute>> getConfiguredSecurityMetadata() {
-        Object object = ReflectUtil.getFieldValue(filterInvocationSecurityMetadataSource, "requestMap");
-
-        if (ObjectUtils.isNotEmpty(object) && object instanceof LinkedHashMap) {
-            LinkedHashMap<HerodotusRequestMatcher, Collection<ConfigAttribute>> result = new LinkedHashMap<>();
-            LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = (LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>) object;
-            requestMap.forEach((request, value) -> {
-                HerodotusRequestMatcher herodotusRequestMatcher = convert(request);
-                if (ObjectUtils.isNotEmpty(herodotusRequestMatcher)) {
-                    result.put(herodotusRequestMatcher, value);
-                }
-            });
-            return result;
-        }
+//        Object object = ReflectUtil.getFieldValue(filterInvocationSecurityMetadataSource, "requestMap");
+//
+//        if (ObjectUtils.isNotEmpty(object) && object instanceof LinkedHashMap) {
+//            LinkedHashMap<HerodotusRequestMatcher, Collection<ConfigAttribute>> result = new LinkedHashMap<>();
+//            LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = (LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>) object;
+//            requestMap.forEach((request, value) -> {
+//                HerodotusRequestMatcher herodotusRequestMatcher = convert(request);
+//                if (ObjectUtils.isNotEmpty(herodotusRequestMatcher)) {
+//                    result.put(herodotusRequestMatcher, value);
+//                }
+//            });
+//            return result;
+//        }
         return new LinkedHashMap<>();
     }
 

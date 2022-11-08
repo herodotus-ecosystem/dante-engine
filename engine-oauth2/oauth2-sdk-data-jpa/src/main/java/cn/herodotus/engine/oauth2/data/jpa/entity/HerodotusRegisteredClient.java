@@ -27,10 +27,10 @@ package cn.herodotus.engine.oauth2.data.jpa.entity;
 
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusRegisteredClientUuid;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 
@@ -49,8 +49,7 @@ import java.time.LocalDateTime;
 public class HerodotusRegisteredClient extends AbstractEntity {
 
     @Id
-    @GeneratedValue(generator = "oauth2_registered_client-uuid")
-    @GenericGenerator(name = "oauth2_registered_client-uuid", strategy = "cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusRegisteredClientGenerator")
+    @HerodotusRegisteredClientUuid
     @Column(name = "id", nullable = false, length = 100)
     private String id;
 

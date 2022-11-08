@@ -23,30 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.data.jpa.generator;
+package cn.herodotus.engine.oauth2.server.authorization.generator;
 
-import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
+import cn.herodotus.engine.data.jpa.hibernate.identifier.AbstractUuidGenerator;
+import cn.herodotus.engine.oauth2.server.authorization.entity.OAuth2Authority;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
-import org.hibernate.id.uuid.UuidGenerator;
 
 import java.lang.reflect.Member;
 
 /**
- * <p>Description: OAuth2RegisteredClient Id 生成器 </p>
- *
- * 指定ID生成器，解决实体ID无法手动设置问题。
+ * <p>Description: 使得保存实体类时可以在保留主键生成策略的情况下自定义表的主键 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/22 17:50
+ * @date : 2022/3/31 21:11
  */
-public class HerodotusRegisteredClientGenerator extends UuidGenerator {
+public class OAuth2AuthorityUuidGenerator extends AbstractUuidGenerator {
 
-    public HerodotusRegisteredClientGenerator(org.hibernate.annotations.UuidGenerator config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
-        super(config, idMember, creationContext);
+    public OAuth2AuthorityUuidGenerator(OAuth2AuthorityUuid config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
+        super(idMember);
     }
 
     @Override
@@ -55,12 +53,13 @@ public class HerodotusRegisteredClientGenerator extends UuidGenerator {
             throw new HibernateException(new NullPointerException());
         }
 
-        HerodotusRegisteredClient herodotusRegisteredClient = (HerodotusRegisteredClient) object;
+        OAuth2Authority authority = (OAuth2Authority) object;
 
-        if (StringUtils.isEmpty(herodotusRegisteredClient.getId())) {
+        if (StringUtils.isEmpty(authority.getAuthorityId())) {
             return super.generate(session, object);
         } else {
-            return herodotusRegisteredClient.getId();
+            return authority.getAuthorityId();
         }
     }
 }
+

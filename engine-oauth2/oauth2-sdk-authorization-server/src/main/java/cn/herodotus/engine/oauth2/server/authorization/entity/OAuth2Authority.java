@@ -27,10 +27,10 @@ package cn.herodotus.engine.oauth2.server.authorization.entity;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.engine.oauth2.server.authorization.generator.OAuth2AuthorityUuid;
 import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
 
 /**
  * <p>Description: 客户端权限 </p>
@@ -45,8 +45,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class OAuth2Authority extends BaseSysEntity {
 
     @Id
-    @GeneratedValue(generator = "oauth2-authority-uuid")
-    @GenericGenerator(name = "oauth2-authority-uuid", strategy = "cn.herodotus.engine.oauth2.server.authorization.generator.OAuth2AuthorityUUIDGenerator")
+    @OAuth2AuthorityUuid
     @Column(name = "authority_id", length = 64)
     private String authorityId;
 
