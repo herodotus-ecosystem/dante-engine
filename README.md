@@ -108,13 +108,12 @@ dante-engine
 ├    ├── nosql-sdk-couchdb -- Couchdb Nosql 数据库接入管理组件模块
 ├    └── nosql-sdk-influxdb -- Influxdb 时序数据库接入管理组件模块
 ├── engine-oauth2 -- OAuth2 认证模块
-├    ├── oauth2-core -- OAuth2 共性通用代码
-├    ├── oauth2-sdk-authorization -- Spring Authorization Server Granter 扩展组件模块
-├    ├── oauth2-sdk-authorization-server -- Spring Authorization Server 管理代码模块
+├    ├── oauth2-core -- OAuth2 共性通用代码模块
+├    ├── oauth2-sdk-authentication -- Spring Authorization Server 认证逻辑模块
+├    ├── oauth2-sdk-authentication-server -- Spring Authorization Server 认证服务器管理基础模块
+├    ├── oauth2-sdk-authorization -- Spring Authorization Server 授权逻辑处理模块
 ├    ├── oauth2-sdk-compliance -- Spring Authorization Server 应用安全合规支撑组件模块
-├    ├── oauth2-sdk-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块
-├    ├── oauth2-sdk-metadata -- 鉴权元数据处理代码模块
-├    └── oauth2-sdk-resource-server -- OAuth2 资源服务器通用代码模块
+├    └── oauth2-sdk-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块
 ├── engine-oss -- 对象存储模块
 ├    ├── oss-core -- 对象存储共性通用代码
 ├    ├── oss-sdk-minio -- Minio 组件模块

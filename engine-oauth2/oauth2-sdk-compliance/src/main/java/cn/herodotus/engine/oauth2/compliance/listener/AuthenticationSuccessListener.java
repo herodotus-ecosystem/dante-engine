@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.compliance.listener;
 
-import cn.herodotus.engine.oauth2.authorization.domain.UserAuthenticationDetails;
+import cn.herodotus.engine.oauth2.core.definition.details.UserAuthenticationDetails;
 import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
 import cn.herodotus.engine.oauth2.compliance.stamp.SignInFailureLimitedStampManager;
 import cn.hutool.crypto.SecureUtil;

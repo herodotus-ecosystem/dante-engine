@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>授权登录</title>
+    <link th:href="@{/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/plugins/node-waves/waves.min.css}" rel="stylesheet"/>
+    <link th:href="@{/plugins/animate-css/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/plugins/admin-bsb/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{/plugins/admin-bsb/css/themes/all-themes.css}" rel="stylesheet"/>
+
+    <script>
+        function cancelConsent() {
+            document.consent_form.reset();
+            document.consent_form.submit();
+        }
+    </script>
+</head>
+
+<body class="theme-blue">
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="preloader">
+            <div class="spinner-layer pl-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <p>Please wait...</p>
+    </div>
+</div>
+<!-- #END# Page Loader -->
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+<!-- #END# Overlay For Sidebars -->
+
+<!-- Top Bar -->
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="javascript:void(0);">开放平台第三方登录授权</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Call Search -->
+                <li><a href="javascript:void(0);" data-close="true">登录</a></li>
+                <li><a href="javascript:void(0);" data-close="true">申请授权</a></li>
+                <!-- #END# Call Search -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- #Top Bar -->
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row clearfix">
+            <div class="col-xs-12 col-sm-3"></div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="card profile-card">
+                    <div class="profile-header">&nbsp;</div>
+                    <div class="profile-body">
+                        <div class="image-area" th:with="condition=${logo ne null}">
+                            <img th:if="${condition}" th:src="@{${logo}}" width="128" height="128" alt="logo"/>
+                            <img th:unless="${condition}" th:src="@{/plugins/admin-bsb/images/5.png}" width="128"
+                                 height="128" alt="logo"/>
+                        </div>
+                        <div class="content-area">
+                            <h3>[[${applicationName}]]</h3>
+                            <p>想要获取您以下账户的权限</p>
+                            <p>[[${principalName}]]</p>
+                        </div>
+                    </div>
+                    <form name="consent_form" method="post" th:action="@{/oauth2/authorize}">
+                        <input type="hidden" name="client_id" th:value="${clientId}">
+                        <input type="hidden" name="state" th:value="${state}">
+                        <div class="header">
+                            <h5>授权后，该应用将获得以下权限</h5>
+                        </div>
+
+                        <div class="profile-footer">
+                            <ul>
+                                <li th:each="scope: ${scopes}">
+                                    <input type="checkbox" name="scope" th:id="${scope.scopeCode}"
+                                           th:value="${scope.scopeCode}" class="filled-in chk-col-blue"/>
+                                    <label th:for="${scope.scopeCode}">[[${scope.scopeName}]]</label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div th:if="${not #sets.isEmpty(previouslyApprovedScopes)}" class="header">
+                            <h5>您已向上述应用授予以下权限</h5>
+                        </div>
+
+                        <div class="profile-footer">
+                            <ul>
+                                <li th:each="scope: ${previouslyApprovedScopes}">
+                                    <input type="checkbox" th:id="${scope.scopeCode}" disabled checked
+                                           class="filled-in chk-col-blue"/>
+                                    <label th:for="${scope.scopeCode}">[[${scope.description}]</label>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="profile-footer">
+                            <button class="btn btn-primary btn-lg waves-effect btn-block" type="submit" id="submit-consent">
+                                确认授权
+                            </button>
+                            <button class="btn btn-danger btn-lg waves-effect btn-block" onclick="cancelConsent();">拒绝
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{/plugins/jquery/jquery-2.1.4.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/plugins/node-waves/waves.min.js}"></script>
+<script th:src="@{/plugins/admin-bsb/js/admin.js}"></script>
+</body>
+</html>

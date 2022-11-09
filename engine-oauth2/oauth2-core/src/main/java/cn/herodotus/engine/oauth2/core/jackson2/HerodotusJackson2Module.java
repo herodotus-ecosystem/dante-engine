@@ -16,7 +16,7 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
  * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.core.jackson2;
 
-import cn.herodotus.engine.oauth2.core.definition.domain.FormLoginWebAuthenticationDetails;
+import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import com.fasterxml.jackson.core.Version;

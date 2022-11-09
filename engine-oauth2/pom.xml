@@ -42,11 +42,10 @@
     <modules>
         <module>oauth2-core</module>
         <module>oauth2-sdk-data-jpa</module>
+        <module>oauth2-sdk-authentication</module>
+        <module>oauth2-sdk-authentication-server</module>
         <module>oauth2-sdk-authorization</module>
-        <module>oauth2-sdk-authorization-server</module>
-        <module>oauth2-sdk-resource-server</module>
         <module>oauth2-sdk-compliance</module>
-        <module>oauth2-sdk-metadata</module>
     </modules>
 
 </project>
