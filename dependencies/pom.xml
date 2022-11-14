@@ -32,13 +32,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0-RC1</version>
+        <version>3.0.0-RC2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.0-M3</version>
+    <version>3.0.0-M4</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -102,7 +102,7 @@
         <dante-engine.version>${project.version}</dante-engine.version>
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.0-M5</spring-boot-admin.version>
-        <spring-boot-dependencies.version>3.0.0-RC1</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.0.0-RC2</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.0-M5</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.0.0-RC1</spring-security-oauth2-authorization-server.version>
@@ -128,17 +128,17 @@
         <guava.version>31.1-jre</guava.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.17.7</redisson.version>
+        <redisson.version>3.18.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <springdoc.version>1.6.12</springdoc.version>
+        <springdoc.version>2.0.0-RC1</springdoc.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
-        <skywalking.version>8.12.0</skywalking.version>
+        <skywalking.version>8.13.0</skywalking.version>
         <minio.version>8.4.5</minio.version>
 
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.17</fastjson2.version>
+        <fastjson2.version>2.0.18</fastjson2.version>
         <jetcache.version>2.7.0</jetcache.version>
         <nacos.version>2.1.2</nacos.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
@@ -148,7 +148,6 @@
         <okhttps.version>4.0.0</okhttps.version>
         <weixin-java-sdk.version>4.4.4.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
-        <knife4j.version>3.0.3</knife4j.version>
 
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.4</jasypt-spring-boot-starter.version>
@@ -162,12 +161,12 @@
         <!--SMS SDK-->
         <aliyun-java-sdk-core.version>4.6.2</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.22</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.623</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.627</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.12.0</qiniu-java-sdk.version>
         <yunpian-java-sdk.version>1.2.7</yunpian-java-sdk.version>
         <!--支付 SDK-->
-        <alipay-sdk-java.version>4.34.43.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.34.47.ALL</alipay-sdk-java.version>
         <!--第三方应用集成SDK-->
         <com.baidu.aip.version>4.16.12</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.5</aliyun-java-sdk-green.version>
@@ -720,24 +719,25 @@
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-common -->
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-common -->
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-common</artifactId>
+                <artifactId>springdoc-openapi-starter-common</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webflux-ui -->
+            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webflux-ui -->
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-webflux-ui</artifactId>
+                <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
+
 
             <dependency>
                 <groupId>p6spy</groupId>
@@ -841,13 +841,6 @@
                 <artifactId>weixin-java-pay</artifactId>
                 <version>${weixin-java-sdk.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-springdoc-ui -->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-springdoc-ui</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
-
 
             <!-- 第三方Starter -->
             <dependency>

@@ -1,7 +1,7 @@
 cn.herodotus.engine.web.autoconfigure.AutoConfiguration
-cn.herodotus.engine.web.rest.autoconfigure.WebRestAutoConfiguration
-cn.herodotus.engine.web.rest.autoconfigure.FeignAutoConfiguration
-cn.herodotus.engine.web.rest.autoconfigure.OkHttpAutoConfiguration
-cn.herodotus.engine.web.rest.autoconfigure.HttpClientAutoConfiguration
-cn.herodotus.engine.web.rest.autoconfigure.RestTemplateAutoConfiguration
+cn.herodotus.engine.web.rest.configuration.WebRestConfiguration
+cn.herodotus.engine.web.rest.configuration.FeignConfiguration
+cn.herodotus.engine.web.rest.configuration.OkHttpConfiguration
+cn.herodotus.engine.web.rest.configuration.HttpClientConfiguration
+cn.herodotus.engine.web.rest.configuration.RestTemplateConfiguration
 cn.herodotus.engine.web.scan.configuration.ScanConfiguration

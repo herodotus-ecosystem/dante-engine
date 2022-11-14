@@ -1,3 +1,3 @@
 cn.herodotus.engine.facility.autoconfigure.AutoConfiguration
-cn.herodotus.engine.facility.sentinel.autoconfigure.FacilitySentinelAutoConfiguration
-cn.herodotus.engine.facility.log.autoconfigure.FacilityLogAutoConfiguration
+#cn.herodotus.engine.facility.sentinel.configuration.FacilitySentinelConfiguration
+cn.herodotus.engine.facility.log.configuration.FacilityLogConfiguration

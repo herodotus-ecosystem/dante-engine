@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.rest.annotation;
 
-import cn.herodotus.engine.web.rest.autoconfigure.WebRestAutoConfiguration;
+import cn.herodotus.engine.web.rest.configuration.WebRestConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -39,6 +39,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(WebRestAutoConfiguration.class)
+@Import(WebRestConfiguration.class)
 public @interface EnableHerodotusRest {
 }

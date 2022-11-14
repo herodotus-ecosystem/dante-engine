@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-web</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M3</version>
+        <version>3.0.0-M4</version>
     </parent>
 
     <artifactId>web-sdk-rest</artifactId>
-    <version>3.0.0-M3</version>
+    <version>3.0.0-M4</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
@@ -50,7 +50,7 @@
 
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <!-- Openfeign 中 包含loadbalancer，所以直接引用该包 -->

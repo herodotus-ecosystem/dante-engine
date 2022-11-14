@@ -32,11 +32,10 @@ import cn.herodotus.engine.web.scan.properties.ScanProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>Description: 接口扫描配置 </p>
@@ -44,10 +43,9 @@ import org.springframework.context.annotation.Configuration;
  * @author : gengwei.zheng
  * @date : 2022/1/16 18:40
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration(after = {RequestMappingScanManager.class})
 @ConditionalOnScanEnabled
 @EnableConfigurationProperties(ScanProperties.class)
-@AutoConfigureAfter(RequestMappingScanManager.class)
 public class ScanConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(ScanConfiguration.class);

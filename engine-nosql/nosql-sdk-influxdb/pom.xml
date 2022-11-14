@@ -32,12 +32,12 @@
     <parent>
         <artifactId>engine-nosql</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M3</version>
+        <version>3.0.0-M4</version>
     </parent>
 
     <artifactId>nosql-sdk-influxdb</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.0-M3</version>
+    <version>3.0.0-M4</version>
 
     <dependencies>
         <dependency>

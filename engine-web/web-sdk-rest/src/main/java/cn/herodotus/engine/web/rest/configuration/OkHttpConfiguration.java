@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君)<herodotus@aliyun.com>
  *
- * Dante Engine Licensed under the Apache License, Version 2.0 (the "License");
+ * Dante Engine licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -16,14 +16,14 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
  * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.web.rest.autoconfigure;
+package cn.herodotus.engine.web.rest.configuration;
 
 import cn.herodotus.engine.web.rest.annotation.ConditionalOnFeignUseOkHttp;
 import cn.herodotus.engine.web.rest.enhance.OkHttpResponseInterceptor;
@@ -32,7 +32,7 @@ import jakarta.annotation.PreDestroy;
 import okhttp3.ConnectionPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.commons.httpclient.OkHttpClientConnectionPoolFactory;
 import org.springframework.cloud.commons.httpclient.OkHttpClientFactory;
@@ -40,10 +40,10 @@ import org.springframework.cloud.openfeign.FeignClientProperties;
 import org.springframework.cloud.openfeign.loadbalancer.FeignLoadBalancerAutoConfiguration;
 import org.springframework.cloud.openfeign.support.FeignHttpClientProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -59,12 +59,11 @@ import java.util.concurrent.TimeUnit;
  * @date : 2022/5/29 17:54
  * @see <a href='http://leejoker.github.io/post/feign%E4%BD%BF%E7%94%A8okhttp3%E7%9A%84%E6%AD%A3%E7%A1%AE%E5%A7%BF%E5%8A%BF/'> 参考资料</a>
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration(before = {FeignLoadBalancerAutoConfiguration.class})
 @ConditionalOnFeignUseOkHttp
-@AutoConfigureBefore(FeignLoadBalancerAutoConfiguration.class)
-public class OkHttpAutoConfiguration {
+public class OkHttpConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(OkHttpAutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(OkHttpConfiguration.class);
 
     private okhttp3.OkHttpClient okHttpClient;
 
@@ -83,19 +82,13 @@ public class OkHttpAutoConfiguration {
     }
 
     @Bean
-    public okhttp3.OkHttpClient okHttpClient(OkHttpClientFactory okHttpClientFactory, ConnectionPool connectionPool, FeignClientProperties feignClientProperties, FeignHttpClientProperties feignHttpClientProperties) {
-        FeignClientProperties.FeignClientConfiguration defaultConfig = feignClientProperties.getConfig().get("default");
-        int connectTimeout = feignHttpClientProperties.getConnectionTimeout();
-        int readTimeout = defaultConfig.getReadTimeout();
-        boolean disableSslValidation = feignHttpClientProperties.isDisableSslValidation();
-        boolean followRedirects = feignHttpClientProperties.isFollowRedirects();
-        this.okHttpClient = okHttpClientFactory.createBuilder(disableSslValidation)
-                .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
-                .connectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
-                .followRedirects(followRedirects)
-                .connectionPool(connectionPool)
-                .addInterceptor(new OkHttpResponseInterceptor())
-                .build();
+    public okhttp3.OkHttpClient okHttpClient(OkHttpClientFactory httpClientFactory, ConnectionPool connectionPool, FeignHttpClientProperties httpClientProperties) {
+        boolean followRedirects = httpClientProperties.isFollowRedirects();
+        int connectTimeout = httpClientProperties.getConnectionTimeout();
+        Duration reaTimeout = httpClientProperties.getOkHttp().getReadTimeout();
+        this.okHttpClient = httpClientFactory.createBuilder(httpClientProperties.isDisableSslValidation())
+                .connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).followRedirects(followRedirects)
+                .readTimeout(reaTimeout).connectionPool(connectionPool).build();
         return this.okHttpClient;
     }
 

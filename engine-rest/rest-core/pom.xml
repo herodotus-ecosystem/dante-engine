@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-rest</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M3</version>
+        <version>3.0.0-M4</version>
     </parent>
 
     <artifactId>rest-core</artifactId>
-    <version>3.0.0-M3</version>
+    <version>3.0.0-M4</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>

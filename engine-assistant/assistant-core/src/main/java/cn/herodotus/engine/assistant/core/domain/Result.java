@@ -64,6 +64,9 @@ public class Result<T> implements Serializable {
     @Schema(title = "http状态码")
     private int status;
 
+    @Schema(title = "链路追踪TraceId")
+    private String traceId;
+
     @Schema(title = "响应时间戳", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date timestamp = new Date();
@@ -93,6 +96,10 @@ public class Result<T> implements Serializable {
 
     public int getStatus() {
         return status;
+    }
+
+    public String getTraceId() {
+        return traceId;
     }
 
     public Date getTimestamp() {
@@ -131,6 +138,11 @@ public class Result<T> implements Serializable {
 
     public Result<T> status(int httpStatus) {
         this.status = httpStatus;
+        return this;
+    }
+
+    public Result<T> traceId(String traceId) {
+        this.traceId = traceId;
         return this;
     }
 

@@ -62,11 +62,6 @@ public class OpenApiConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(OpenApiConfiguration.class);
 
-    /**
-     * Knife4j的一个问题，只能设置"oauth2"，否则token配置界面不会显示
-     */
-    private static final String SCHEMA_OAUTH_NAME = "oauth2";
-
     private final OpenApiServerResolver openApiServerResolver;
 
     @Autowired
