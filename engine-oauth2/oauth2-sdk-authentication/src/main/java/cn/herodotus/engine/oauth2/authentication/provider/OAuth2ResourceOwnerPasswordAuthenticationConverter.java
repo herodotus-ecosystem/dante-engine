@@ -28,6 +28,7 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
+import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.protect.core.exception.SessionInvalidException;
 import cn.herodotus.engine.protect.web.crypto.processor.HttpCryptoProcessor;
 import jakarta.servlet.http.HttpServletRequest;
@@ -69,7 +70,7 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter implements
     public Authentication convert(HttpServletRequest request) {
         // grant_type (REQUIRED)
         String grantType = request.getParameter(OAuth2ParameterNames.GRANT_TYPE);
-        if (!AuthorizationGrantType.PASSWORD.getValue().equals(grantType)) {
+        if (!HerodotusGrantType.PASSWORD.getValue().equals(grantType)) {
             return null;
         }
 

@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
+import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
@@ -48,7 +49,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationToken extends OAuth2Author
     private final Set<String> scopes;
 
     public OAuth2ResourceOwnerPasswordAuthenticationToken(Authentication clientPrincipal, @Nullable Set<String> scopes, @Nullable Map<String, Object> additionalParameters) {
-        super(AuthorizationGrantType.PASSWORD, clientPrincipal, additionalParameters);
+        super(HerodotusGrantType.PASSWORD, clientPrincipal, additionalParameters);
         Assert.notNull(clientPrincipal, "clientPrincipal cannot be null");
         this.scopes = Collections.unmodifiableSet(CollectionUtils.isNotEmpty(scopes) ? new HashSet<>(scopes) : Collections.emptySet());
     }

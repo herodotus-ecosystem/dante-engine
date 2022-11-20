@@ -23,22 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.annotation;
+package cn.herodotus.engine.data.jpa.condition;
 
-import cn.herodotus.engine.data.jpa.condition.MultiTenancyEnabledCondition;
-import org.springframework.context.annotation.Conditional;
-
-import java.lang.annotation.*;
+import cn.herodotus.engine.assistant.core.support.PropertyResolver;
+import cn.herodotus.engine.data.core.constants.DataConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * <p>Description: Influxdb条件注解 </p>
+ * <p>Description: Couchdb 注入开启条件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/11/18 10:12
+ * @date : 2021/11/17 18:06
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Conditional(MultiTenancyEnabledCondition.class)
-public @interface ConditionalOnMultiTenancyEnabled {
+public class MultiTenantEnabledCondition implements Condition {
+
+    private static final Logger log = LoggerFactory.getLogger(MultiTenantEnabledCondition.class);
+
+    @SuppressWarnings("NullableProblems")
+    @Override
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
+        boolean result = PropertyResolver.getBoolean(conditionContext, DataConstants.ITEM_MULTI_TENANT_ENABLED);
+        log.debug("[Herodotus] |- Condition [Multi Tenant Enabled] value is [{}]", result);
+        return result;
+    }
 }

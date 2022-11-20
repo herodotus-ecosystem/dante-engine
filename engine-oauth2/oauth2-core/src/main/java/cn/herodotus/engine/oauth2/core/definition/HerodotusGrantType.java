@@ -37,4 +37,6 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 public interface HerodotusGrantType {
 
     AuthorizationGrantType SOCIAL = new AuthorizationGrantType(BaseConstants.SOCIAL_CREDENTIALS);
+
+    AuthorizationGrantType PASSWORD = new AuthorizationGrantType(BaseConstants.PASSWORD);
 }

@@ -23,31 +23,50 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.condition;
-
-import cn.herodotus.engine.assistant.core.support.PropertyResolver;
-import cn.herodotus.engine.data.core.constants.DataConstants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Condition;
-import org.springframework.context.annotation.ConditionContext;
-import org.springframework.core.type.AnnotatedTypeMetadata;
+package cn.herodotus.engine.data.jpa.properties;
 
 /**
- * <p>Description: Couchdb 注入开启条件 </p>
+ * <p>Description: 租户数据源配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/11/17 18:06
+ * @date : 2022/9/8 18:24
  */
-public class MultiTenancyEnabledCondition implements Condition {
+public class MultiTenantDataSource {
 
-    private static final Logger log = LoggerFactory.getLogger(MultiTenancyEnabledCondition.class);
+    private String url;
+    private String username;
+    private String password;
+    private String driverClassName;
 
-    @SuppressWarnings("NullableProblems")
-    @Override
-    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
-        boolean result = PropertyResolver.getBoolean(conditionContext, DataConstants.ITEM_MULTI_TENANCY_ENABLED);
-        log.debug("[Herodotus] |- Condition [Multi Tenancy Enabled] value is [{}]", result);
-        return result;
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDriverClassName() {
+        return driverClassName;
+    }
+
+    public void setDriverClassName(String driverClassName) {
+        this.driverClassName = driverClassName;
     }
 }

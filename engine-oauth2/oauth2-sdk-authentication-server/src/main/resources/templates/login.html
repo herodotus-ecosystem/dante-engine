@@ -277,8 +277,8 @@
     }
 
     function loadCaptcha() {
-        let url = '[[${#request.getContextPath()}]]/open/captcha'
-        let sessionId = '[[${#session.id}]]';
+        let url = '[[${contextPath}]]/open/captcha'
+        let sessionId = '[[${sessionId}]]';
         $.http.get(url, {identity:sessionId, category: verification_category}, 'json')
             .then(result => {
                 let src = result.data.graphicImageBase64;
@@ -290,7 +290,7 @@
     }
 
     function refresh() {
-        // let src = '[[${#request.getContextPath()}]]/defaultKaptcha?d='+new Date()*1;
+        // let src = '[[${contextPath}]]/defaultKaptcha?d='+new Date()*1;
         // $('#vrifyCodeImg').attr('src', src);
         loadCaptcha();
     }
@@ -307,10 +307,10 @@
     jQuery(document).ready(function() {
 
         $.backstretch([
-            "[[${#request.getContextPath()}]]/plugins/cloud-admin/img/login/1.jpg"
-            , "[[${#request.getContextPath()}]]/plugins/cloud-admin/img/login/2.jpg"
-            , "[[${#request.getContextPath()}]]/plugins/cloud-admin/img/login/3.jpg"
-            , "[[${#request.getContextPath()}]]/plugins/cloud-admin/img/login/4.jpg"
+            "[[${contextPath}]]/plugins/cloud-admin/img/login/1.jpg"
+            , "[[${contextPath}]]/plugins/cloud-admin/img/login/2.jpg"
+            , "[[${contextPath}]]/plugins/cloud-admin/img/login/3.jpg"
+            , "[[${contextPath}]]/plugins/cloud-admin/img/login/4.jpg"
         ], {duration: 3000, fade: 750});
 
         App.setPage("login_bg");  //Set current page

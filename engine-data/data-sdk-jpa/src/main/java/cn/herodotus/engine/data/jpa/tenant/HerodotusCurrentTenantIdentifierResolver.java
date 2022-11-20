@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.tenancy;
+package cn.herodotus.engine.data.jpa.tenant;
 
 import cn.herodotus.engine.assistant.core.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.thread.TenantContextHolder;
@@ -40,9 +40,9 @@ import org.slf4j.LoggerFactory;
  * @author : gengwei.zheng
  * @date : 2022/9/8 18:14
  */
-public class MultiTenancyIdentifierResolver implements CurrentTenantIdentifierResolver {
+public class HerodotusCurrentTenantIdentifierResolver implements CurrentTenantIdentifierResolver {
 
-    private static final Logger log = LoggerFactory.getLogger(MultiTenancyIdentifierResolver.class);
+    private static final Logger log = LoggerFactory.getLogger(HerodotusCurrentTenantIdentifierResolver.class);
 
     @Override
     public String resolveCurrentTenantIdentifier() {
@@ -52,6 +52,13 @@ public class MultiTenancyIdentifierResolver implements CurrentTenantIdentifierRe
         return result;
     }
 
+    /**
+     * Additionally, if the CurrentTenantIdentifierResolver implementation returns true for its validateExistingCurrentSessions method,
+     * Hibernate will make sure any existing sessions that are found in scope have a matching tenant identifier.
+     * This capability is only pertinent when the CurrentTenantIdentifierResolver is used in current-session settings.
+     *
+     * @return 确保已经存在的 Session 都有一个对应的 Tenant ID
+     */
     @Override
     public boolean validateExistingCurrentSessions() {
         return true;

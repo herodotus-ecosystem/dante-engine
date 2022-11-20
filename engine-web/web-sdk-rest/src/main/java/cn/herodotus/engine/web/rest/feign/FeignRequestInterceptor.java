@@ -39,6 +39,7 @@ import org.slf4j.MDC;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -66,6 +67,15 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                 // @see https://blog.csdn.net/qq_39986681/article/details/107138740
                 if (StringUtils.equalsIgnoreCase(key, HttpHeaders.CONTENT_LENGTH)) {
                     continue;
+                }
+
+                // 如果 RequestTemplate 已经包含了 content_type, 那么就不传递 content_type
+                // 以防上游 content_type 与下游不同，传递后产生干扰。
+                if (StringUtils.equalsIgnoreCase(key, HttpHeaders.CONTENT_TYPE)) {
+                    Map<String, Collection<String>> requestHeaders = requestTemplate.headers();
+                    if (requestHeaders.containsKey(HttpHeaders.CONTENT_TYPE)) {
+                        continue;
+                    }
                 }
 
                 // 解决 UserAgent 信息被修改后，AppleWebKit/537.36 (KHTML,like Gecko)部分存在非法字符的问题

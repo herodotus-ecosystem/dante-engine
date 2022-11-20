@@ -26,7 +26,8 @@
 package cn.herodotus.engine.web.rest.configuration;
 
 import cn.herodotus.engine.web.rest.annotation.ConditionalOnFeignUseOkHttp;
-import cn.herodotus.engine.web.rest.enhance.OkHttpResponseInterceptor;
+import feign.Client;
+import feign.okhttp.OkHttpClient;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import okhttp3.ConnectionPool;
@@ -34,15 +35,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.cloud.commons.httpclient.OkHttpClientConnectionPoolFactory;
-import org.springframework.cloud.commons.httpclient.OkHttpClientFactory;
-import org.springframework.cloud.openfeign.FeignClientProperties;
 import org.springframework.cloud.openfeign.loadbalancer.FeignLoadBalancerAutoConfiguration;
 import org.springframework.cloud.openfeign.support.FeignHttpClientProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 
+import javax.net.ssl.*;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit;
  * 2. 如果存在 `feign.okhttp.enabled` 配置， 同时其值为 `true`，就会自动配置 OkHttp。
  * 3. 在此处配置 OkHttp，也是为了共用 OkHttp 的配置，让其可以同时支持 RestTemplate
  * <p>
- * {@code org.springframework.cloud.openfeign.loadbalancer.OkHttpFeignLoadBalancerConfiguration}
+ * {@link org.springframework.cloud.openfeign.FeignAutoConfiguration}
  *
  * @author : gengwei.zheng
  * @date : 2022/5/29 17:54
@@ -61,9 +61,9 @@ import java.util.concurrent.TimeUnit;
  */
 @AutoConfiguration(before = {FeignLoadBalancerAutoConfiguration.class})
 @ConditionalOnFeignUseOkHttp
-public class OkHttpConfiguration {
+public class OkHttpFeignConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(OkHttpConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(OkHttpFeignConfiguration.class);
 
     private okhttp3.OkHttpClient okHttpClient;
 
@@ -73,30 +73,47 @@ public class OkHttpConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(ConnectionPool.class)
-    public ConnectionPool ConnectionPool(FeignHttpClientProperties feignHttpClientProperties, OkHttpClientConnectionPoolFactory connectionPoolFactory) {
-        int maxTotalConnections = feignHttpClientProperties.getMaxConnections();
-        long timeToLive = feignHttpClientProperties.getTimeToLive();
-        TimeUnit ttlUnit = feignHttpClientProperties.getTimeToLiveUnit();
-        return connectionPoolFactory.create(maxTotalConnections, timeToLive, ttlUnit);
+    @ConditionalOnMissingBean
+    public okhttp3.OkHttpClient.Builder okHttpClientBuilder() {
+        return new okhttp3.OkHttpClient.Builder();
     }
 
     @Bean
-    public okhttp3.OkHttpClient okHttpClient(OkHttpClientFactory httpClientFactory, ConnectionPool connectionPool, FeignHttpClientProperties httpClientProperties) {
+    @ConditionalOnMissingBean(ConnectionPool.class)
+    public ConnectionPool httpClientConnectionPool(FeignHttpClientProperties httpClientProperties) {
+        int maxTotalConnections = httpClientProperties.getMaxConnections();
+        long timeToLive = httpClientProperties.getTimeToLive();
+        TimeUnit ttlUnit = httpClientProperties.getTimeToLiveUnit();
+        return new ConnectionPool(maxTotalConnections, timeToLive, ttlUnit);
+    }
+
+    @Bean
+    public okhttp3.OkHttpClient okHttpClient(okhttp3.OkHttpClient.Builder builder, ConnectionPool connectionPool, FeignHttpClientProperties httpClientProperties) {
         boolean followRedirects = httpClientProperties.isFollowRedirects();
         int connectTimeout = httpClientProperties.getConnectionTimeout();
-        Duration reaTimeout = httpClientProperties.getOkHttp().getReadTimeout();
-        this.okHttpClient = httpClientFactory.createBuilder(httpClientProperties.isDisableSslValidation())
-                .connectTimeout(connectTimeout, TimeUnit.MILLISECONDS).followRedirects(followRedirects)
-                .readTimeout(reaTimeout).connectionPool(connectionPool).build();
+        boolean disableSslValidation = httpClientProperties.isDisableSslValidation();
+        Duration readTimeout = httpClientProperties.getOkHttp().getReadTimeout();
+        if (disableSslValidation) {
+            disableSsl(builder);
+        }
+        this.okHttpClient = builder.connectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
+                .followRedirects(followRedirects).readTimeout(readTimeout).connectionPool(connectionPool).build();
         return this.okHttpClient;
     }
 
-    @Bean
-    public ClientHttpRequestFactory clientHttpRequestFactory(okhttp3.OkHttpClient okHttpClient) {
-        OkHttp3ClientHttpRequestFactory factory = new OkHttp3ClientHttpRequestFactory(okHttpClient);
-        log.trace("[Herodotus] |- Bean [Client Http Request Factory for OkHttp] Auto Configure.");
-        return factory;
+    private void disableSsl(okhttp3.OkHttpClient.Builder builder) {
+        try {
+            X509TrustManager disabledTrustManager = new OkHttpFeignConfiguration.DisableValidationTrustManager();
+            TrustManager[] trustManagers = new TrustManager[1];
+            trustManagers[0] = disabledTrustManager;
+            SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustManagers, new java.security.SecureRandom());
+            SSLSocketFactory disabledSSLSocketFactory = sslContext.getSocketFactory();
+            builder.sslSocketFactory(disabledSSLSocketFactory, disabledTrustManager);
+            builder.hostnameVerifier(new OkHttpFeignConfiguration.TrustAllHostnames());
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            log.warn("Error setting SSLSocketFactory in OKHttpClient", e);
+        }
     }
 
     @PreDestroy
@@ -105,5 +122,40 @@ public class OkHttpConfiguration {
             this.okHttpClient.dispatcher().executorService().shutdown();
             this.okHttpClient.connectionPool().evictAll();
         }
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(Client.class)
+    public Client feignClient(okhttp3.OkHttpClient client) {
+        return new OkHttpClient(client);
+    }
+
+    /**
+     * A {@link X509TrustManager} that does not validate SSL certificates.
+     */
+    class DisableValidationTrustManager implements X509TrustManager {
+
+        @Override
+        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) {
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] x509Certificates, String s) {
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[0];
+        }
+
+    }
+
+    class TrustAllHostnames implements HostnameVerifier {
+
+        @Override
+        public boolean verify(String s, SSLSession sslSession) {
+            return true;
+        }
+
     }
 }

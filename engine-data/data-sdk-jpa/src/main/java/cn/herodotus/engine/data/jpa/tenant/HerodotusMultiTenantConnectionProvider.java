@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.tenancy;
+package cn.herodotus.engine.data.jpa.tenant;
 
 import org.hibernate.engine.jdbc.connections.spi.AbstractDataSourceBasedMultiTenantConnectionProviderImpl;
 import org.slf4j.Logger;
@@ -40,14 +40,14 @@ import javax.sql.DataSource;
  * @author : gengwei.zheng
  * @date : 2022/9/8 18:14
  */
-public class MultiTenancyConnectionProvider extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl {
+public class HerodotusMultiTenantConnectionProvider extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl {
 
-    private static final Logger log = LoggerFactory.getLogger(MultiTenancyConnectionProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(HerodotusMultiTenantConnectionProvider.class);
 
     private final DataSource defaultDataSource;
     private final DataSourceLookup dataSourceLookup;
 
-    public MultiTenancyConnectionProvider(DataSource dataSource, DataSourceLookup dataSourceLookup) {
+    public HerodotusMultiTenantConnectionProvider(DataSource dataSource, DataSourceLookup dataSourceLookup) {
         this.defaultDataSource = dataSource;
         this.dataSourceLookup = dataSourceLookup;
     }

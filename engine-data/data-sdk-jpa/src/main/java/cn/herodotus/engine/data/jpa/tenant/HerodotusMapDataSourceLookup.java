@@ -23,11 +23,11 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.tenancy;
+package cn.herodotus.engine.data.jpa.tenant;
 
 import cn.herodotus.engine.assistant.core.constants.BaseConstants;
-import cn.herodotus.engine.data.jpa.properties.MultiTenancyDataSource;
-import cn.herodotus.engine.data.jpa.properties.MultiTenancyProperties;
+import cn.herodotus.engine.data.jpa.properties.MultiTenantDataSource;
+import cn.herodotus.engine.data.jpa.properties.MultiTenantProperties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.apache.commons.collections4.MapUtils;
@@ -45,12 +45,12 @@ import java.util.Properties;
  * @author : gengwei.zheng
  * @date : 2022/9/8 18:55
  */
-public class MultiTenancyDataSourceLookup extends MapDataSourceLookup {
+public class HerodotusMapDataSourceLookup extends MapDataSourceLookup {
 
-    private final MultiTenancyProperties multiTenancyProperties;
+    private final MultiTenantProperties multiTenantProperties;
 
-    public MultiTenancyDataSourceLookup(DataSource defaultDataSource, MultiTenancyProperties multiTenancyProperties) {
-        this.multiTenancyProperties = multiTenancyProperties;
+    public HerodotusMapDataSourceLookup(DataSource defaultDataSource, MultiTenantProperties multiTenantProperties) {
+        this.multiTenantProperties = multiTenantProperties;
         initDefaultDataSource(defaultDataSource);
         initDataSource(defaultDataSource);
     }
@@ -60,23 +60,22 @@ public class MultiTenancyDataSourceLookup extends MapDataSourceLookup {
     }
 
     private void initDataSource(DataSource defaultDataSource) {
-        Map<String, MultiTenancyDataSource> dataSources = multiTenancyProperties.getDataSources();
+        Map<String, MultiTenantDataSource> dataSources = multiTenantProperties.getDataSources();
         if (MapUtils.isNotEmpty(dataSources)) {
-            dataSources.forEach((tenantIdentifier, multiTenancyDataSource)-> {
-                addDataSource(tenantIdentifier, createDataSource(defaultDataSource, multiTenancyDataSource));
+            dataSources.forEach((tenantIdentifier, multiTenantDataSource)-> {
+                addDataSource(tenantIdentifier, createDataSource(defaultDataSource, multiTenantDataSource));
             });
         }
     }
 
-    private DataSource createDataSource(DataSource defaultDataSource, MultiTenancyDataSource multiTenancyDataSource) {
-        if (defaultDataSource instanceof HikariDataSource) {
-            HikariDataSource defaultHikariDataSource = (HikariDataSource) defaultDataSource;
+    private DataSource createDataSource(DataSource defaultDataSource, MultiTenantDataSource multiTenantDataSource) {
+        if (defaultDataSource instanceof HikariDataSource defaultHikariDataSource) {
             Properties defaultDataSourceProperties = defaultHikariDataSource.getDataSourceProperties();
             HikariConfig hikariConfig = new HikariConfig();
-            hikariConfig.setDriverClassName(multiTenancyDataSource.getDriverClassName());
-            hikariConfig.setJdbcUrl(multiTenancyDataSource.getUrl());
-            hikariConfig.setUsername(multiTenancyDataSource.getUsername());
-            hikariConfig.setPassword(multiTenancyDataSource.getPassword());
+            hikariConfig.setDriverClassName(multiTenantDataSource.getDriverClassName());
+            hikariConfig.setJdbcUrl(multiTenantDataSource.getUrl());
+            hikariConfig.setUsername(multiTenantDataSource.getUsername());
+            hikariConfig.setPassword(multiTenantDataSource.getPassword());
 
             if (ObjectUtils.isNotEmpty(defaultDataSource)) {
                 defaultDataSourceProperties.forEach((key, value) -> hikariConfig.addDataSourceProperty(String.valueOf(key), value));
@@ -86,10 +85,10 @@ public class MultiTenancyDataSourceLookup extends MapDataSourceLookup {
         } else {
             return DataSourceBuilder.create()
                     .type(HikariDataSource.class)
-                    .url(multiTenancyDataSource.getUrl())
-                    .driverClassName(multiTenancyDataSource.getDriverClassName())
-                    .username(multiTenancyDataSource.getUsername())
-                    .password(multiTenancyDataSource.getPassword())
+                    .url(multiTenantDataSource.getUrl())
+                    .driverClassName(multiTenantDataSource.getDriverClassName())
+                    .username(multiTenantDataSource.getUsername())
+                    .password(multiTenantDataSource.getPassword())
                     .build();
         }
     }

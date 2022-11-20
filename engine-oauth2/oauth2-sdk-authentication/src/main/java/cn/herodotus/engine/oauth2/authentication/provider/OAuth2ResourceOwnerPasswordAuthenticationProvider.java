@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
+import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
 import cn.herodotus.engine.oauth2.core.properties.OAuth2ComplianceProperties;
 import org.slf4j.Logger;
@@ -124,7 +125,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
                 OAuth2AuthenticationProviderUtils.getAuthenticatedClientElseThrowInvalidClient(resourceOwnerPasswordAuthentication);
         RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 
-        if (!registeredClient.getAuthorizationGrantTypes().contains(AuthorizationGrantType.PASSWORD)) {
+        if (!registeredClient.getAuthorizationGrantTypes().contains(HerodotusGrantType.PASSWORD)) {
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
         }
 
@@ -135,7 +136,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
 
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
                 .principalName(usernamePasswordAuthentication.getName())
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .authorizationGrantType(HerodotusGrantType.PASSWORD)
                 .authorizedScopes(authorizedScopes);
 
         // @formatter:off
@@ -145,7 +146,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
                 .authorizationServerContext(AuthorizationServerContextHolder.getContext())
                 .authorizedScopes(authorizedScopes)
                 .tokenType(OAuth2TokenType.ACCESS_TOKEN)
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
+                .authorizationGrantType(HerodotusGrantType.PASSWORD)
                 .authorizationGrant(resourceOwnerPasswordAuthentication);
         // @formatter:on
 

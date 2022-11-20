@@ -38,8 +38,8 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2022/9/8 18:22
  */
-@ConfigurationProperties(prefix = DataConstants.PROPERTY_PREFIX_MULTI_TENANCY)
-public class MultiTenancyProperties {
+@ConfigurationProperties(prefix = DataConstants.PROPERTY_PREFIX_MULTI_TENANT)
+public class MultiTenantProperties {
 
     /**
      * 是否开始多租户
@@ -51,17 +51,12 @@ public class MultiTenancyProperties {
      */
     private DataResource resource = DataResource.DATABASE;
 
-    /**
-     * 多租户数据隔离策略
-     */
-//    private MultiTenancyStrategy tenancyStrategy = MultiTenancyStrategy.DATABASE;
-
     private String[] packageToScan;
 
     /**
      * 多租户数据源配置
      */
-    private Map<String, MultiTenancyDataSource> dataSources;
+    private Map<String, MultiTenantDataSource> dataSources;
 
     public Boolean getEnabled() {
         return enabled;
@@ -79,21 +74,13 @@ public class MultiTenancyProperties {
         this.resource = resource;
     }
 
-    public Map<String, MultiTenancyDataSource> getDataSources() {
+    public Map<String, MultiTenantDataSource> getDataSources() {
         return dataSources;
     }
 
-    public void setDataSources(Map<String, MultiTenancyDataSource> dataSources) {
+    public void setDataSources(Map<String, MultiTenantDataSource> dataSources) {
         this.dataSources = dataSources;
     }
-
-//    public MultiTenancyStrategy getTenancyStrategy() {
-//        return tenancyStrategy;
-//    }
-//
-//    public void setTenancyStrategy(MultiTenancyStrategy tenancyStrategy) {
-//        this.tenancyStrategy = tenancyStrategy;
-//    }
 
     public String[] getPackageToScan() {
         String defaultPackage = "cn.herodotus";

@@ -25,11 +25,11 @@
 
 package cn.herodotus.engine.data.jpa.configuration;
 
-import cn.herodotus.engine.data.jpa.annotation.ConditionalOnMultiTenancyEnabled;
-import cn.herodotus.engine.data.jpa.properties.MultiTenancyProperties;
-import cn.herodotus.engine.data.jpa.tenancy.MultiTenancyConnectionProvider;
-import cn.herodotus.engine.data.jpa.tenancy.MultiTenancyDataSourceLookup;
-import cn.herodotus.engine.data.jpa.tenancy.MultiTenancyIdentifierResolver;
+import cn.herodotus.engine.data.jpa.annotation.ConditionalOnMultiTenantEnabled;
+import cn.herodotus.engine.data.jpa.properties.MultiTenantProperties;
+import cn.herodotus.engine.data.jpa.tenant.HerodotusMultiTenantConnectionProvider;
+import cn.herodotus.engine.data.jpa.tenant.HerodotusMapDataSourceLookup;
+import cn.herodotus.engine.data.jpa.tenant.HerodotusCurrentTenantIdentifierResolver;
 import jakarta.annotation.PostConstruct;
 import org.hibernate.cfg.Environment;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
@@ -58,15 +58,15 @@ import java.util.function.Supplier;
  * @date : 2022/9/8 22:15
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnMultiTenancyEnabled
-@EnableConfigurationProperties(MultiTenancyProperties.class)
-public class MultiTenancyConfiguration {
+@ConditionalOnMultiTenantEnabled
+@EnableConfigurationProperties(MultiTenantProperties.class)
+public class MultiTenantConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(DataJpaConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Data Multi Tenancy] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Engine Data Multi Tenant] Auto Configure.");
     }
 
     @Bean
@@ -75,28 +75,28 @@ public class MultiTenancyConfiguration {
     }
 
     @Bean
-    public DataSourceLookup dataSourceLookup(DataSource dataSource, MultiTenancyProperties multiTenancyProperties) {
-        MultiTenancyDataSourceLookup multiTenancyDataSourceLookup = new MultiTenancyDataSourceLookup(dataSource, multiTenancyProperties);
-        log.debug("[Herodotus] |- Bean [Multi Tenancy DataSource Lookup] Auto Configure.");
-        return multiTenancyDataSourceLookup;
+    public DataSourceLookup dataSourceLookup(DataSource dataSource, MultiTenantProperties multiTenantProperties) {
+        HerodotusMapDataSourceLookup herodotusMapDataSourceLookup = new HerodotusMapDataSourceLookup(dataSource, multiTenantProperties);
+        log.debug("[Herodotus] |- Bean [Multi Tenant DataSource Lookup] Auto Configure.");
+        return herodotusMapDataSourceLookup;
     }
 
     @Bean
     public MultiTenantConnectionProvider multiTenantConnectionProvider(DataSource dataSource, DataSourceLookup dataSourceLookup) {
-        MultiTenancyConnectionProvider multiTenancyConnectionProvider = new MultiTenancyConnectionProvider(dataSource, dataSourceLookup);
-        log.debug("[Herodotus] |- Bean [Multi Tenancy Connection Provider] Auto Configure.");
-        return multiTenancyConnectionProvider;
+        HerodotusMultiTenantConnectionProvider herodotusMultiTenantConnectionProvider = new HerodotusMultiTenantConnectionProvider(dataSource, dataSourceLookup);
+        log.debug("[Herodotus] |- Bean [Multi Tenant Connection Provider] Auto Configure.");
+        return herodotusMultiTenantConnectionProvider;
     }
 
     @Bean
     public CurrentTenantIdentifierResolver currentTenantIdentifierResolver() {
-        MultiTenancyIdentifierResolver multiTenancyIdentifierResolver = new MultiTenancyIdentifierResolver();
-        log.debug("[Herodotus] |- Bean [Multi Tenancy Connection Provider] Auto Configure.");
-        return multiTenancyIdentifierResolver;
+        HerodotusCurrentTenantIdentifierResolver herodotusCurrentTenantIdentifierResolver = new HerodotusCurrentTenantIdentifierResolver();
+        log.debug("[Herodotus] |- Bean [Multi Tenant Connection Provider] Auto Configure.");
+        return herodotusCurrentTenantIdentifierResolver;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, HibernateProperties hibernateProperties, JpaVendorAdapter jpaVendorAdapter, JpaProperties jpaProperties, MultiTenancyProperties multiTenancyProperties, MultiTenantConnectionProvider multiTenantConnectionProvider, CurrentTenantIdentifierResolver currentTenantIdentifierResolver) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, HibernateProperties hibernateProperties, JpaVendorAdapter jpaVendorAdapter, JpaProperties jpaProperties, MultiTenantProperties multiTenantProperties, MultiTenantConnectionProvider multiTenantConnectionProvider, CurrentTenantIdentifierResolver currentTenantIdentifierResolver) {
 
         Supplier<String> defaultDdlMode = hibernateProperties::getDdlAuto;
         Map<String, Object> properties = hibernateProperties.determineHibernateProperties(jpaProperties.getProperties(), new HibernateSettings().ddlAuto(defaultDdlMode));
@@ -108,7 +108,7 @@ public class MultiTenancyConfiguration {
         LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
         //此处不能省略，哪怕你使用了 @EntityScan，实际上 @EntityScan 会失效
-        emf.setPackagesToScan(multiTenancyProperties.getPackageToScan());
+        emf.setPackagesToScan(multiTenantProperties.getPackageToScan());
         emf.setJpaVendorAdapter(jpaVendorAdapter);
         emf.setJpaPropertyMap(properties);
         return emf;

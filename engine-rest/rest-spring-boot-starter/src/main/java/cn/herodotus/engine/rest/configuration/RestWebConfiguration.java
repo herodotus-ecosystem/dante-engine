@@ -27,7 +27,7 @@ package cn.herodotus.engine.rest.configuration;
 
 import cn.herodotus.engine.protect.web.secure.interceptor.AccessLimitedInterceptor;
 import cn.herodotus.engine.protect.web.secure.interceptor.IdempotentInterceptor;
-import cn.herodotus.engine.protect.web.tenant.interceptor.MultiTenancyInterceptor;
+import cn.herodotus.engine.protect.web.tenant.MultiTenantInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,13 @@ public class RestWebConfiguration implements WebMvcConfigurer {
 
     private final IdempotentInterceptor idempotentInterceptor;
     private final AccessLimitedInterceptor accessLimitedInterceptor;
-    private final MultiTenancyInterceptor multiTenancyInterceptor;
+    private final MultiTenantInterceptor multiTenantInterceptor;
 
     @Autowired
-    public RestWebConfiguration(IdempotentInterceptor idempotentInterceptor, AccessLimitedInterceptor accessLimitedInterceptor, MultiTenancyInterceptor multiTenancyInterceptor) {
+    public RestWebConfiguration(IdempotentInterceptor idempotentInterceptor, AccessLimitedInterceptor accessLimitedInterceptor, MultiTenantInterceptor multiTenantInterceptor) {
         this.idempotentInterceptor = idempotentInterceptor;
         this.accessLimitedInterceptor = accessLimitedInterceptor;
-        this.multiTenancyInterceptor = multiTenancyInterceptor;
+        this.multiTenantInterceptor = multiTenantInterceptor;
     }
 
     @PostConstruct
@@ -69,7 +69,7 @@ public class RestWebConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(accessLimitedInterceptor);
         registry.addInterceptor(idempotentInterceptor);
-        registry.addInterceptor(multiTenancyInterceptor);
+        registry.addInterceptor(multiTenantInterceptor);
     }
 
     @Override

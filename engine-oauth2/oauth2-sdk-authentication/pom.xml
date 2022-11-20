@@ -33,11 +33,11 @@
     <parent>
         <artifactId>engine-oauth2</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M4</version>
+        <version>3.0.0-M5</version>
     </parent>
 
     <artifactId>oauth2-sdk-authentication</artifactId>
-    <version>3.0.0-M4</version>
+    <version>3.0.0-M5</version>
     <packaging>jar</packaging>
 
     <description>Dante Cloud 基于 Spring Authorization Server 的认证核心SDK模块</description>

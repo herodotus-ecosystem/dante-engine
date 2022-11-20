@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration(proxyBeanMethods = false)
 @Import({
-        MultiTenancyConfiguration.class
+        MultiTenantConfiguration.class
 })
 public class DataJpaConfiguration {
 

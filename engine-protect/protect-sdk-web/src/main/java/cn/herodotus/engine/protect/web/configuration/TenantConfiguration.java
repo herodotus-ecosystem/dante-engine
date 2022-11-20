@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.protect.web.configuration;
 
-import cn.herodotus.engine.protect.web.tenant.interceptor.MultiTenancyInterceptor;
+import cn.herodotus.engine.protect.web.tenant.MultiTenantInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -52,9 +52,9 @@ public class TenantConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public MultiTenancyInterceptor tenantInterceptor() {
-        MultiTenancyInterceptor multiTenancyInterceptor = new MultiTenancyInterceptor();
+    public MultiTenantInterceptor tenantInterceptor() {
+        MultiTenantInterceptor multiTenantInterceptor = new MultiTenantInterceptor();
         log.trace("[Herodotus] |- Bean [Idempotent Interceptor] Auto Configure.");
-        return multiTenancyInterceptor;
+        return multiTenantInterceptor;
     }
 }

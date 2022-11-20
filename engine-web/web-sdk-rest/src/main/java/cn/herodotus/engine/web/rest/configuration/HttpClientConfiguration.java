@@ -49,8 +49,6 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.openfeign.support.FeignHttpClientProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -58,12 +56,13 @@ import javax.net.ssl.X509TrustManager;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Description: HttpClient 自动配置 </p>
+ *
+ * {@link org.springframework.cloud.openfeign.clientconfig.HttpClient5FeignConfiguration}
  *
  * @author : gengwei.zheng
  * @date : 2022/5/29 18:46
@@ -72,7 +71,7 @@ import java.util.concurrent.TimeUnit;
 @ConditionalOnFeignUseHttpClient
 public class HttpClientConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(OkHttpConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(HttpClientConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
@@ -82,53 +81,58 @@ public class HttpClientConfiguration {
     private CloseableHttpClient httpClient5;
 
     @Bean
-    @ConditionalOnMissingBean({HttpClientConnectionManager.class})
+    @ConditionalOnMissingBean(HttpClientConnectionManager.class)
     public HttpClientConnectionManager hc5ConnectionManager(FeignHttpClientProperties httpClientProperties) {
-        return PoolingHttpClientConnectionManagerBuilder.create().setSSLSocketFactory(this.httpsSSLConnectionSocketFactory(httpClientProperties.isDisableSslValidation())).setMaxConnTotal(httpClientProperties.getMaxConnections()).setMaxConnPerRoute(httpClientProperties.getMaxConnectionsPerRoute()).setConnPoolPolicy(PoolReusePolicy.valueOf(httpClientProperties.getHc5().getPoolReusePolicy().name())).setPoolConcurrencyPolicy(PoolConcurrencyPolicy.valueOf(httpClientProperties.getHc5().getPoolConcurrencyPolicy().name())).setConnectionTimeToLive(TimeValue.of(httpClientProperties.getTimeToLive(), httpClientProperties.getTimeToLiveUnit())).setDefaultSocketConfig(SocketConfig.custom().setSoTimeout(Timeout.of((long) httpClientProperties.getHc5().getSocketTimeout(), httpClientProperties.getHc5().getSocketTimeoutUnit())).build()).build();
-    }
-
-    @Bean
-    public CloseableHttpClient httpClient5(HttpClientConnectionManager connectionManager, FeignHttpClientProperties httpClientProperties) {
-        this.httpClient5 = HttpClients.custom()
-                .disableCookieManagement()
-                .useSystemProperties()
-                .setConnectionManager(connectionManager)
-                .evictExpiredConnections()
-                .setDefaultRequestConfig(RequestConfig.custom()
-                        .setConnectTimeout(Timeout.of(httpClientProperties.getConnectionTimeout(), TimeUnit.MILLISECONDS))
-                        .setRedirectsEnabled(httpClientProperties.isFollowRedirects())
-                        .build())
+        return PoolingHttpClientConnectionManagerBuilder.create()
+                .setSSLSocketFactory(httpsSSLConnectionSocketFactory(httpClientProperties.isDisableSslValidation()))
+                .setMaxConnTotal(httpClientProperties.getMaxConnections())
+                .setMaxConnPerRoute(httpClientProperties.getMaxConnectionsPerRoute())
+                .setConnPoolPolicy(PoolReusePolicy.valueOf(httpClientProperties.getHc5().getPoolReusePolicy().name()))
+                .setPoolConcurrencyPolicy(
+                        PoolConcurrencyPolicy.valueOf(httpClientProperties.getHc5().getPoolConcurrencyPolicy().name()))
+                .setConnectionTimeToLive(
+                        TimeValue.of(httpClientProperties.getTimeToLive(), httpClientProperties.getTimeToLiveUnit()))
+                .setDefaultSocketConfig(
+                        SocketConfig.custom().setSoTimeout(Timeout.of(httpClientProperties.getHc5().getSocketTimeout(),
+                                httpClientProperties.getHc5().getSocketTimeoutUnit())).build())
                 .build();
-        return this.httpClient5;
     }
 
     @Bean
-    public ClientHttpRequestFactory clientHttpRequestFactory(CloseableHttpClient httpClient) {
-        HttpComponentsClientHttpRequestFactory httpComponentsClientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-        log.trace("[Herodotus] |- Bean [Client Http Request Factory for HttpClient] Auto Configure.");
-        return httpComponentsClientHttpRequestFactory;
+    public CloseableHttpClient httpClient5(HttpClientConnectionManager connectionManager,
+                                           FeignHttpClientProperties httpClientProperties) {
+        httpClient5 = HttpClients.custom().disableCookieManagement().useSystemProperties()
+                .setConnectionManager(connectionManager).evictExpiredConnections()
+                .setDefaultRequestConfig(RequestConfig.custom()
+                        .setConnectTimeout(
+                                Timeout.of(httpClientProperties.getConnectionTimeout(), TimeUnit.MILLISECONDS))
+                        .setRedirectsEnabled(httpClientProperties.isFollowRedirects()).build())
+                .build();
+        return httpClient5;
     }
 
     @PreDestroy
     public void destroy() {
-        if (this.httpClient5 != null) {
-            this.httpClient5.close(CloseMode.GRACEFUL);
+        if (httpClient5 != null) {
+            httpClient5.close(CloseMode.GRACEFUL);
         }
     }
 
     private LayeredConnectionSocketFactory httpsSSLConnectionSocketFactory(boolean isDisableSslValidation) {
-        SSLConnectionSocketFactoryBuilder sslConnectionSocketFactoryBuilder = SSLConnectionSocketFactoryBuilder.create().setTlsVersions(new TLS[]{TLS.V_1_3, TLS.V_1_2});
+        final SSLConnectionSocketFactoryBuilder sslConnectionSocketFactoryBuilder = SSLConnectionSocketFactoryBuilder
+                .create().setTlsVersions(TLS.V_1_3, TLS.V_1_2);
+
         if (isDisableSslValidation) {
             try {
-                SSLContext sslContext = SSLContext.getInstance("SSL");
-                sslContext.init(null, new TrustManager[]{new HttpClientConfiguration.DisabledValidationTrustManager()}, new SecureRandom());
+                final SSLContext sslContext = SSLContext.getInstance("SSL");
+                sslContext.init(null, new TrustManager[] { new HttpClientConfiguration.DisabledValidationTrustManager() }, new SecureRandom());
                 sslConnectionSocketFactoryBuilder.setSslContext(sslContext);
-            } catch (NoSuchAlgorithmException e) {
-                log.warn("[Herodotus] |- Error creating SSLContext for AlgorithmException", e);
-            } catch (KeyManagementException e) {
-                log.warn("[Herodotus] |- Error creating SSLContext for KeyManagementException", e);
             }
-        } else {
+            catch (NoSuchAlgorithmException | KeyManagementException e) {
+                log.warn("Error creating SSLContext", e);
+            }
+        }
+        else {
             sslConnectionSocketFactoryBuilder.setSslContext(SSLContexts.createSystemDefault());
         }
 
@@ -136,17 +140,19 @@ public class HttpClientConfiguration {
     }
 
     static class DisabledValidationTrustManager implements X509TrustManager {
+
         DisabledValidationTrustManager() {
         }
 
-        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) {
         }
 
-        public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
+        public void checkServerTrusted(X509Certificate[] x509Certificates, String s) {
         }
 
         public X509Certificate[] getAcceptedIssuers() {
             return null;
         }
+
     }
 }

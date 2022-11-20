@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.0-M4</version>
+    <version>3.0.0-M5</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -103,7 +103,7 @@
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.0-M5</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.0.0-RC2</spring-boot-dependencies.version>
-        <spring-cloud-dependencies.version>2022.0.0-M5</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>2022.0.0-RC2</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.0.0-RC1</spring-security-oauth2-authorization-server.version>
         <spring-security-cas.version>5.8.0-M2</spring-security-cas.version>
@@ -119,7 +119,7 @@
         <maven-invoker.verison>3.2.0</maven-invoker.verison>
 
         <!--开源通用工具包-->
-        <antisamy.version>1.7.1</antisamy.version>
+        <antisamy.version>1.7.2</antisamy.version>
         <bcprov-jdk15to18.version>1.72</bcprov-jdk15to18.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-text.version>1.10.0</commons-text.version>
@@ -138,15 +138,15 @@
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.18</fastjson2.version>
-        <jetcache.version>2.7.0</jetcache.version>
+        <fastjson2.version>2.0.19</fastjson2.version>
+        <jetcache.version>2.7.1</jetcache.version>
         <nacos.version>2.1.2</nacos.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <!-- 国内开源通用组件 -->
-        <hutool.version>5.8.9</hutool.version>
+        <hutool.version>5.8.10</hutool.version>
         <okhttps.version>4.0.0</okhttps.version>
-        <weixin-java-sdk.version>4.4.4.B</weixin-java-sdk.version>
+        <weixin-java-sdk.version>4.4.5.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
 
         <!--第三方starter-->
@@ -161,12 +161,12 @@
         <!--SMS SDK-->
         <aliyun-java-sdk-core.version>4.6.2</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.22</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.627</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.633</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.12.0</qiniu-java-sdk.version>
         <yunpian-java-sdk.version>1.2.7</yunpian-java-sdk.version>
         <!--支付 SDK-->
-        <alipay-sdk-java.version>4.34.47.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.34.52.ALL</alipay-sdk-java.version>
         <!--第三方应用集成SDK-->
         <com.baidu.aip.version>4.16.12</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.5</aliyun-java-sdk-green.version>
