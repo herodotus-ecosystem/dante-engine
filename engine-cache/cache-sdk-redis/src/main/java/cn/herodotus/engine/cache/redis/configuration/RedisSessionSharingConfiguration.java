@@ -26,18 +26,19 @@
 package cn.herodotus.engine.cache.redis.configuration;
 
 import cn.herodotus.engine.cache.redis.annotation.ConditionalOnRedisSessionSharing;
-import cn.herodotus.engine.cache.redis.session.HerodotusHttpSessionListener;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.FlushMode;
-import org.springframework.session.SaveMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import org.springframework.session.data.redis.config.annotation.web.server.EnableRedisWebSession;
 
 /**
  * <p>Description: 基于 Redis 的 Session 共享配置 </p>
@@ -46,43 +47,36 @@ import org.springframework.session.data.redis.config.annotation.web.server.Enabl
  * @date : 2022/5/23 22:21
  */
 @Configuration(proxyBeanMethods = false)
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnRedisSessionSharing
-public class RedisSessionConfiguration {
+@EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE)
+public class RedisSessionSharingConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RedisConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Cache Redis Session] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Engine Cache Redis Session Sharing] Auto Configure.");
     }
 
-    /**
-     * 指定 flushMode 为 IMMEDIATE 表示立即将 session 写入 redis
-     */
-    @Configuration(proxyBeanMethods = false)
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    @EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE)
-    public static class HttpSessionConfiguration {
-        @PostConstruct
-        public void postConstruct() {
-            log.debug("[Herodotus] |- SDK [Engine Cache Redis Http Session] Auto Configure.");
-        }
+    @Bean
+    @ConditionalOnMissingBean
+    public HttpSessionListener httpSessionListener() {
+        HttpSessionListener httpSessionListener = new HttpSessionListener() {
+            @Override
+            public void sessionCreated(HttpSessionEvent httpSessionEvent) {
+                HttpSession httpSession = httpSessionEvent.getSession();
+                log.info("[Herodotus] |- Session is CREATED, is [{}].", ObjectUtils.isNotEmpty(httpSession) ? httpSession.getId(): "");
+            }
 
-        @Bean
-        public HttpSessionListener herodotusHttpSessionListener() {
-            HerodotusHttpSessionListener herodotusHttpSessionListener = new HerodotusHttpSessionListener();
-            log.trace("[Herodotus] |- Bean [Http Session Listener] Auto Configure.");
-            return herodotusHttpSessionListener;
-        }
-    }
-
-    @Configuration(proxyBeanMethods = false)
-    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
-    @EnableRedisWebSession(saveMode = SaveMode.ALWAYS)
-    public static class WebSessionConfiguration {
-        @PostConstruct
-        public void postConstruct() {
-            log.debug("[Herodotus] |- SDK [Engine Cache Redis Web Session] Auto Configure.");
-        }
+            @Override
+            public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
+                HttpSession httpSession = httpSessionEvent.getSession();
+                log.info("[Herodotus] |- Session is DESTROYED, is [{}].", httpSession.getId());
+            }
+        };
+        log.trace("[Herodotus] |- Bean [Http Session Listener] Auto Configure.");
+        return httpSessionListener;
     }
 }
+

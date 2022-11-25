@@ -1,2 +1,2 @@
 cn.herodotus.engine.assistant.autoconfigure.AutoConfiguration
-cn.herodotus.engine.assistant.autoconfigure.JacksonConfiguration
+cn.herodotus.engine.assistant.configuration.JacksonConfiguration

@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-sms</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-M5</version>
+        <version>3.0.0-RC1</version>
     </parent>
 
     <artifactId>sms-sdk-yunpian</artifactId>
-    <version>3.0.0-M5</version>
+    <version>3.0.0-RC1</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Yunpian 短信组件模块</description>

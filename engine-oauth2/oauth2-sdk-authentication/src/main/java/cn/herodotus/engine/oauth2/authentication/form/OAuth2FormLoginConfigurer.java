@@ -36,6 +36,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.NullSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 /**
  * <p>Description: OAuth2 Form Login Configurer </p>
@@ -64,12 +67,14 @@ public class OAuth2FormLoginConfigurer extends SecurityConfigurerAdapter<Default
     public void configure(HttpSecurity httpSecurity) throws Exception {
 
         AuthenticationManager authenticationManager = httpSecurity.getSharedObject(AuthenticationManager.class);
+        SecurityContextRepository securityContextRepository = httpSecurity.getSharedObject(SecurityContextRepository.class);
 
         OAuth2FormLoginAuthenticationFilter filter = new OAuth2FormLoginAuthenticationFilter(authenticationManager);
         filter.setUsernameParameter(uiProperties.getUsernameParameter());
         filter.setPasswordParameter(uiProperties.getPasswordParameter());
         filter.setAuthenticationDetailsSource(new OAuth2FormLoginWebAuthenticationDetailSource(uiProperties));
         filter.setAuthenticationFailureHandler(new OAuth2FormLoginAuthenticationFailureHandler(uiProperties.getFailureForwardUrl()));
+        filter.setSecurityContextRepository(securityContextRepository);
 
         OAuth2FormLoginAuthenticationProvider provider = new OAuth2FormLoginAuthenticationProvider(captchaRendererFactory);
         provider.setUserDetailsService(userDetailsService);

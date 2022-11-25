@@ -68,4 +68,5 @@ public class OAuth2AuthenticationServerConfiguration {
     public void postConstruct() {
         log.debug("[Herodotus] |- SDK [Engine OAuth2 Authorization Server] Auto Configure.");
     }
+
 }

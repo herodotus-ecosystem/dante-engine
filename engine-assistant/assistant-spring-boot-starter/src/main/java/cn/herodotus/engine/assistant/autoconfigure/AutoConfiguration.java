@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.assistant.autoconfigure;
 
+import cn.herodotus.engine.assistant.configuration.JacksonConfiguration;
 import cn.hutool.extra.spring.SpringUtil;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
