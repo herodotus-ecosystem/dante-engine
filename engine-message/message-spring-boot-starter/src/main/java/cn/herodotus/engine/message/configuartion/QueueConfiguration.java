@@ -49,7 +49,7 @@ public class QueueConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Message Queue] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Message Queue] Auto Configure.");
     }
 
 }

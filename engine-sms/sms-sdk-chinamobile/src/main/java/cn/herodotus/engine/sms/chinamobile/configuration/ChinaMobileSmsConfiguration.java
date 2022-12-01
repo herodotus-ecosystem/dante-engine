@@ -50,7 +50,7 @@ public class ChinaMobileSmsConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Sms China Mobile] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Sms China Mobile] Auto Configure.");
     }
 
     /**

@@ -50,7 +50,7 @@ public class AliyunSmsConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Sms Aliyun] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Sms Aliyun] Auto Configure.");
     }
 
     /**

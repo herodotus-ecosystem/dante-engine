@@ -58,7 +58,7 @@ public class OAuth2AuthorizationConfiguration{
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- SDK [Engine OAuth2 Authorization] Auto Configure.");
+        log.info("[Herodotus] |- SDK [OAuth2 Authorization] Auto Configure.");
     }
 
     @Bean

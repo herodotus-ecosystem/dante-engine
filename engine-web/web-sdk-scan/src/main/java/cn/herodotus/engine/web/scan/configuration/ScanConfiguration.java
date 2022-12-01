@@ -52,7 +52,7 @@ public class ScanConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Web Scan] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Web Scan] Auto Configure.");
     }
 
     @Bean

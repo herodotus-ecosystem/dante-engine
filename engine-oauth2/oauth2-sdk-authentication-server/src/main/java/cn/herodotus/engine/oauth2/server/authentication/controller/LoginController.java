@@ -94,7 +94,15 @@ public class LoginController {
         modelAndView.addObject("logout_success", logoutSuccess);
         modelAndView.addObject("message", StringUtils.isNotBlank(errorMessage) ? HtmlUtils.htmlEscape(errorMessage) : null);
         modelAndView.addObject("contentPath", request.getContextPath());
-        modelAndView.addObject("sessionId", request.getSession(false).getId());
+
+        String sessionId;
+        HttpSession httpSession = request.getSession(false);
+        if (ObjectUtils.isNotEmpty(httpSession)) {
+            sessionId = httpSession.getId();
+        } else {
+            sessionId = request.getSession().getId();
+        }
+        modelAndView.addObject("sessionId", sessionId);
 
         return modelAndView;
     }

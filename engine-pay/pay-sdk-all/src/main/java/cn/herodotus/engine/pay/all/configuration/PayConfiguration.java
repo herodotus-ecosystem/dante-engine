@@ -48,6 +48,6 @@ public class PayConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Pay All] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Pay All] Auto Configure.");
     }
 }

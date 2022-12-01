@@ -47,6 +47,6 @@ public class DataJpaConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Module [Engine Data JPA] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Data JPA] Auto Configure.");
     }
 }

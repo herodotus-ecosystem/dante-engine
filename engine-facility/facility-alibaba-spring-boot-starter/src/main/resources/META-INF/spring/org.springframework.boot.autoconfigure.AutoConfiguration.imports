@@ -1,0 +1,3 @@
+cn.herodotus.engine.facility.alibaba.autoconfigure.AutoConfiguration
+#cn.herodotus.engine.facility.alibaba.sentinel.configuration.FacilityAlibabaSentinelConfiguration
+cn.herodotus.engine.facility.core.configuration.FacilityLogConfiguration

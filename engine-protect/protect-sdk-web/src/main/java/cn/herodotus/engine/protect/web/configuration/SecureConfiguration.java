@@ -55,7 +55,7 @@ public class SecureConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Protect Secure] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Protect Secure] Auto Configure.");
     }
 
     @Bean

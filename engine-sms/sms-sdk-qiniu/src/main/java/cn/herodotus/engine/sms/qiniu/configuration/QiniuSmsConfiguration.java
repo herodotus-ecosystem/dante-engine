@@ -50,7 +50,7 @@ public class QiniuSmsConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Sms Qiniu] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Sms Qiniu] Auto Configure.");
     }
 
     /**

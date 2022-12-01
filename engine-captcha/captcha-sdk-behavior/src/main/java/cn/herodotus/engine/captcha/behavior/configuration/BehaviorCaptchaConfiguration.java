@@ -51,7 +51,7 @@ public class BehaviorCaptchaConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Captcha Behavior] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Captcha Behavior] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.JIGSAW_CAPTCHA)

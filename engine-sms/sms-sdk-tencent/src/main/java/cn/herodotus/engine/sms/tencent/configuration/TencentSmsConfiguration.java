@@ -50,7 +50,7 @@ public class TencentSmsConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Sms Tencent] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Sms Tencent] Auto Configure.");
     }
 
     /**

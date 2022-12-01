@@ -48,7 +48,7 @@ public class GraphicCaptchaConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Captcha Graphic] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Captcha Graphic] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.ARITHMETIC_CAPTCHA)

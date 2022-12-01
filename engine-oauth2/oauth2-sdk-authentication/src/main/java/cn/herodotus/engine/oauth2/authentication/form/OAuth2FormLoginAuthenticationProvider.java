@@ -69,8 +69,7 @@ public class OAuth2FormLoginAuthenticationProvider extends DaoAuthenticationProv
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         Object details = authentication.getDetails();
 
-        if (ObjectUtils.isNotEmpty(details) && details instanceof FormLoginWebAuthenticationDetails) {
-            FormLoginWebAuthenticationDetails formLoginWebAuthenticationDetails = (FormLoginWebAuthenticationDetails) details;
+        if (ObjectUtils.isNotEmpty(details) && details instanceof FormLoginWebAuthenticationDetails formLoginWebAuthenticationDetails) {
 
             if (!formLoginWebAuthenticationDetails.getClosed()) {
 

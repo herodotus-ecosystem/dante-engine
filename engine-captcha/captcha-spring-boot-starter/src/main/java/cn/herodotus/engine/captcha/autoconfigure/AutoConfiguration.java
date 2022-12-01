@@ -51,7 +51,7 @@ public class AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Engine Captcha Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Captcha Starter] Auto Configure.");
     }
 
     @Bean

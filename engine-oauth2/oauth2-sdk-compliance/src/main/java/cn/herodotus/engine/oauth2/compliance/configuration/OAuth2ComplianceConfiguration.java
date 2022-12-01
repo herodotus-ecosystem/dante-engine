@@ -71,7 +71,7 @@ public class OAuth2ComplianceConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine OAuth2 Compliance] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [OAuth2 Compliance] Auto Configure.");
     }
 
     @Bean

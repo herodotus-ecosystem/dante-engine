@@ -57,7 +57,7 @@ public class KafkaConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Message Kafka] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Message Kafka] Auto Configure.");
     }
 
     @Bean

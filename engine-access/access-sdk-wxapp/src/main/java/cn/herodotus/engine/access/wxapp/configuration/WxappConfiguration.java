@@ -55,7 +55,7 @@ public class WxappConfiguration {
 
     @PostConstruct
     public void init() {
-        log.debug("[Herodotus] |- SDK [Engine Access Wxapp] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Access Wxapp] Auto Configure.");
     }
 
     @Bean

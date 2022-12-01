@@ -32,18 +32,18 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-RC1</version>
+        <version>3.0.0-RC2</version>
     </parent>
 
     <artifactId>engine-facility</artifactId>
-    <version>3.0.0-RC1</version>
+    <version>3.0.0-RC2</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>facility-core</module>
-        <module>facility-sdk-sentinel</module>
-        <module>facility-sdk-log</module>
-        <module>facility-spring-boot-starter</module>
+        <module>facility-alibaba-spring-boot-starter</module>
+        <module>facility-tencent-spring-boot-starter</module>
+        <module>facility-original-spring-boot-starter</module>
     </modules>
 
 </project>

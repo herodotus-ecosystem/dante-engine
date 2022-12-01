@@ -238,7 +238,7 @@ public class SecurityMetadataSourceStorage {
             for (HerodotusRequestMatcher item : securityMetadata.keySet()) {
                 if (matcher.matches(item)) {
                     result.remove(item);
-                    log.debug("[Herodotus] |- Pattern [{}] is conflict with [{}], so remove it.", item.getPattern(), matcher.getPattern());
+                    log.trace("[Herodotus] |- Pattern [{}] is conflict with [{}], so remove it.", item.getPattern(), matcher.getPattern());
                 }
             }
         }

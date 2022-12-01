@@ -57,7 +57,7 @@ public class MybatisPlusConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Data Mybatis Plus] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Data Mybatis Plus] Auto Configure.");
     }
 
     private DbType parseDbType() {

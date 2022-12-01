@@ -68,7 +68,7 @@ public class JetCacheConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Cache JetCache] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Cache JetCache] Auto Configure.");
     }
 
     @Bean

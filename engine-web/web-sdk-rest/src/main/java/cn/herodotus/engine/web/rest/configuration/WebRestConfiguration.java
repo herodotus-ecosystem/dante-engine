@@ -57,7 +57,7 @@ public class WebRestConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Web Rest] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Web Rest] Auto Configure.");
     }
 
     @Bean

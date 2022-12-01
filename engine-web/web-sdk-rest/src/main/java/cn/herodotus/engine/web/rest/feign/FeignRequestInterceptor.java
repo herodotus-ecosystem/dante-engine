@@ -84,6 +84,12 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                     entry.setValue(value);
                 }
 
+                // 解决使用edge浏览器并使用feign，报错Unexpected char 0x0a at 25 in sec-ch-ua value: "Microsoft Edge";v="107...
+                if (StringUtils.equalsIgnoreCase(key, HttpHeaders.SEC_CH_UA)) {
+                    value = StringUtils.replace(value, SymbolConstants.NEW_LINE, SymbolConstants.BLANK);
+                    entry.setValue(value);
+                }
+
                 requestTemplate.header(key, value);
             }
 

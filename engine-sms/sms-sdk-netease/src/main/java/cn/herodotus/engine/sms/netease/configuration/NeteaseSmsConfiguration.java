@@ -50,7 +50,7 @@ public class NeteaseSmsConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Sms Netease] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Sms Netease] Auto Configure.");
     }
 
     /**

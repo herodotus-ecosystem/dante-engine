@@ -57,7 +57,7 @@ public class JustAuthConfiguration {
 
     @PostConstruct
     public void init() {
-        log.debug("[Herodotus] |- SDK [Engine Access Just Auth] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Access Just Auth] Auto Configure.");
     }
 
     @Bean

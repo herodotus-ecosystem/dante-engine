@@ -48,6 +48,6 @@ public class AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Engine WebSocket Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [WebSocket Starter] Auto Configure.");
     }
 }

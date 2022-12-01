@@ -34,8 +34,6 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
@@ -48,19 +46,12 @@ import java.io.IOException;
  */
 public class MultiTenantFilter extends GenericFilterBean {
 
-    private static final Logger log = LoggerFactory.getLogger(MultiTenantFilter.class);
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
         String tenantId = request.getHeader(HttpHeaders.X_HERODOTUS_TENANT_ID);
-        String path = request.getRequestURI();
-        if (StringUtils.isBlank(tenantId)) {
-            TenantContextHolder.setTenantId(BaseConstants.DEFAULT_TENANT_ID);
-        } else {
-            log.debug("[Herodotus] |- Fetch the tenant id [{}] from request [{}].", tenantId, path);
-            TenantContextHolder.setTenantId(tenantId);
-        }
+        TenantContextHolder.setTenantId(StringUtils.isBlank(tenantId) ? BaseConstants.DEFAULT_TENANT_ID : tenantId);
 
         filterChain.doFilter(servletRequest, servletResponse);
         TenantContextHolder.clear();

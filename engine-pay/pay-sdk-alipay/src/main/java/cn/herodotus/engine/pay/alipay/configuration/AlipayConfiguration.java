@@ -58,7 +58,7 @@ public class AlipayConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Pay Alipay] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Pay Alipay] Auto Configure.");
     }
 
     @Bean

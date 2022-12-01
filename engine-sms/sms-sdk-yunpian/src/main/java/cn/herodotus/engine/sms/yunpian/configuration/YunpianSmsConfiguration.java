@@ -50,7 +50,7 @@ public class YunpianSmsConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Sms Yunpian] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Sms Yunpian] Auto Configure.");
     }
 
     /**

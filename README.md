@@ -12,7 +12,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.1.2-brightgreen" alt="Nacos 2.1.2"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.0-RC1-red" alt="Version 3.0.0-RC1"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.0-RC2-red" alt="Version 3.0.0-RC2"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue" alt="License Apache 2.0"></a>
     <a href="https://blog.csdn.net/Pointer_v" target="_blank"><img src="https://shields.io/badge/Author-%E7%A0%81%E5%8C%A0%E5%90%9B-orange" alt="码匠君"></a>
@@ -96,10 +96,10 @@ dante-engine
 ├    ├── event-pay-spring-boot-starter -- 支付事件统一 Starter
 ├    └── event-security-spring-boot-starter --安全事件统一 Starter
 ├── engine-facility -- 微服务基础设施模块
+├    ├── facility-alibaba-spring-boot-starter -- 面向 Spring Cloud Alibaba 的微服务基础设施适配模块
 ├    ├── facility-core -- 基础设施共性通用代码
-├    ├── facility-sdk-log -- 微服务日志中心组件模块
-├    ├── facility-sdk-sentinel -- Sentinel 组件模块
-├    └── facility-spring-boot-starter -- Facility 模块统一 Starter
+├    ├── facility-original-spring-boot-starter -- 面向 Spring Cloud 原生全家桶的微服务基础设施适配模块
+├    └── facility-tencent-spring-boot-starter -- 面向 Spring Cloud Tencent 的微服务基础设施适配模块
 ├── engine-message -- 消息模块
 ├    ├── message-core -- 消息共性通用代码
 ├    └── message-spring-boot-starter -- Message  模块统一 Starter

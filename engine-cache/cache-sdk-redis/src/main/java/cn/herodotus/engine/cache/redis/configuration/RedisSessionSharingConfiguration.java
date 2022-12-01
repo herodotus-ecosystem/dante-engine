@@ -27,15 +27,9 @@ package cn.herodotus.engine.cache.redis.configuration;
 
 import cn.herodotus.engine.cache.redis.annotation.ConditionalOnRedisSessionSharing;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpSessionEvent;
-import jakarta.servlet.http.HttpSessionListener;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.FlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
@@ -47,36 +41,21 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * @date : 2022/5/23 22:21
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnRedisSessionSharing
-@EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE)
 public class RedisSessionSharingConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RedisConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Cache Redis Session Sharing] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Cache Redis Session Sharing] Auto Configure.");
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public HttpSessionListener httpSessionListener() {
-        HttpSessionListener httpSessionListener = new HttpSessionListener() {
-            @Override
-            public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-                HttpSession httpSession = httpSessionEvent.getSession();
-                log.info("[Herodotus] |- Session is CREATED, is [{}].", ObjectUtils.isNotEmpty(httpSession) ? httpSession.getId(): "");
-            }
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+    @EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE)
+    static class HerodotusRedisHttpSessionConfiguration {
 
-            @Override
-            public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-                HttpSession httpSession = httpSessionEvent.getSession();
-                log.info("[Herodotus] |- Session is DESTROYED, is [{}].", httpSession.getId());
-            }
-        };
-        log.trace("[Herodotus] |- Bean [Http Session Listener] Auto Configure.");
-        return httpSessionListener;
     }
 }
 

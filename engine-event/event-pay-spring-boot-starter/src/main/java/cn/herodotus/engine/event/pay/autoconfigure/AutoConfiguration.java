@@ -47,6 +47,6 @@ public class AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Engine Event Pay Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Event Pay Starter] Auto Configure.");
     }
 }

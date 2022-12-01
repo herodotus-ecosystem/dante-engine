@@ -48,6 +48,6 @@ public class AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Engine Web Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Web Starter] Auto Configure.");
     }
 }

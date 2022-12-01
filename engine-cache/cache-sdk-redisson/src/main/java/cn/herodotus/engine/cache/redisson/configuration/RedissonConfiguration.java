@@ -68,7 +68,7 @@ public class RedissonConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Cache Redisson] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Cache Redisson] Auto Configure.");
     }
 
     private File readConfigFile() {

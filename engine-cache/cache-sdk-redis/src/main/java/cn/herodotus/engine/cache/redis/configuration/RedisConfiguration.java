@@ -30,7 +30,6 @@ import cn.herodotus.engine.cache.redis.enhance.HerodotusRedisCacheManager;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,20 +57,27 @@ public class RedisConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RedisConfiguration.class);
 
-    @Autowired
-    private CacheProperties cacheProperties;
-
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Cache Redis] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Cache Redis] Auto Configure.");
     }
 
-    private RedisSerializer<String> keySerializer() {
+    public RedisSerializer<String> keySerializer() {
         return new StringRedisSerializer();
     }
 
-    private RedisSerializer<Object> valueSerializer() {
-        return new Jackson2JsonRedisSerializer<>(Object.class);
+    /**
+     * 命名为 springSessionDefaultRedisSerializer 是因为 Spring Session 会用到。
+     * {@link org.springframework.session.data.redis.config.annotation.web.http.AbstractRedisHttpSessionConfiguration}
+     * {@link org.springframework.session.data.redis.config.annotation.web.server.RedisWebSessionConfiguration}
+     *
+     * @return {@link RedisSerializer}
+     */
+//    @Bean(name = "springSessionDefaultRedisSerializer")
+    public RedisSerializer<Object> valueSerializer() {
+        RedisSerializer<Object> redisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        log.trace("[Herodotus] |- Bean [Jackson2Json Redis Serializer] Auto Configure.");
+        return redisSerializer;
     }
 
     /**
@@ -115,7 +121,7 @@ public class RedisConfiguration {
     }
 
     @Bean
-    public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+    public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory, CacheProperties cacheProperties) {
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory);
 
         // 注意：这里 RedisCacheConfiguration 每一个方法调用之后，都会返回一个新的 RedisCacheConfiguration 对象，所以要注意对象的引用关系。

@@ -54,7 +54,7 @@ public class CryptoStrategyConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Engine Protect Crypto Strategy] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Protect Crypto Strategy] Auto Configure.");
     }
 
     @Configuration(proxyBeanMethods = false)

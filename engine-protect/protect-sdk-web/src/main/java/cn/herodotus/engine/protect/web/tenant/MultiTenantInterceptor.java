@@ -30,6 +30,8 @@ import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
 import cn.herodotus.engine.assistant.core.thread.TenantContextHolder;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,13 +51,23 @@ public class MultiTenantInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String path = request.getRequestURI();
+        log.debug("[Herodotus] |- Current REQUEST is : [{}].", path);
+
         String tenantId = request.getHeader(HttpHeaders.X_HERODOTUS_TENANT_ID);
         if (StringUtils.isBlank(tenantId)) {
             tenantId = BaseConstants.DEFAULT_TENANT_ID;
         }
 
-        log.debug("[Herodotus] |- Tenant Interceptor got tenant is [{}] for request [{}].", tenantId, path);
+        log.debug("[Herodotus] |- Current TENANT ID is : [{}].", tenantId);
         TenantContextHolder.setTenantId(tenantId);
+
+        HttpSession httpSession = request.getSession();
+        String sessionId = ObjectUtils.isNotEmpty(httpSession) ? httpSession.getId() : null;
+        String herodotusSessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
+
+        log.debug("[Herodotus] |- SESSION ID is : [{}].", sessionId);
+        log.debug("[Herodotus] |- SESSION ID of Herodotus custom is : [{}].", herodotusSessionId);
+
         return true;
     }
 
@@ -63,6 +75,6 @@ public class MultiTenantInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String path = request.getRequestURI();
         TenantContextHolder.clear();
-        log.debug("[Herodotus] |- Tenant Interceptor clear tenantId for request [{}].", path);
+        log.debug("[Herodotus] |- Tenant Interceptor CLEAR tenantId for request [{}].", path);
     }
 }
