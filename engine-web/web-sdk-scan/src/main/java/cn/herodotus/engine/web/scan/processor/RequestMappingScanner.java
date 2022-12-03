@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.web.scan.processor;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.web.core.definition.RequestMappingScanManager;
 import cn.herodotus.engine.web.core.support.WebPropertyFinder;
 import cn.herodotus.engine.web.core.domain.RequestMapping;

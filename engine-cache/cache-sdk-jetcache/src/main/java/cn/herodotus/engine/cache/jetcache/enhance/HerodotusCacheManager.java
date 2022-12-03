@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.cache.jetcache.enhance;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.cache.core.properties.CacheProperties;
 import cn.herodotus.engine.cache.core.properties.Expire;
 import org.apache.commons.collections4.MapUtils;

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: Web包属性常量 </p>

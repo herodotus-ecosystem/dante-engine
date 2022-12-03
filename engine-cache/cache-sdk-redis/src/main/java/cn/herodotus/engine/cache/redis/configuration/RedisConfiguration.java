@@ -62,7 +62,7 @@ public class RedisConfiguration {
         log.debug("[Herodotus] |- SDK [Cache Redis] Auto Configure.");
     }
 
-    public RedisSerializer<String> keySerializer() {
+    private RedisSerializer<String> keySerializer() {
         return new StringRedisSerializer();
     }
 
@@ -74,7 +74,7 @@ public class RedisConfiguration {
      * @return {@link RedisSerializer}
      */
 //    @Bean(name = "springSessionDefaultRedisSerializer")
-    public RedisSerializer<Object> valueSerializer() {
+    private RedisSerializer<Object> valueSerializer() {
         RedisSerializer<Object> redisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         log.trace("[Herodotus] |- Bean [Jackson2Json Redis Serializer] Auto Configure.");
         return redisSerializer;

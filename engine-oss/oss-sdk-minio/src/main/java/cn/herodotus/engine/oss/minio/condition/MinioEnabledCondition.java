@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oss.minio.condition;
 
-import cn.herodotus.engine.assistant.core.support.PropertyResolver;
+import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import cn.herodotus.engine.oss.core.constants.OssConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

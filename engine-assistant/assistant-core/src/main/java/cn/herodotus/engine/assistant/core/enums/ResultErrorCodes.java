@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.enums;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**

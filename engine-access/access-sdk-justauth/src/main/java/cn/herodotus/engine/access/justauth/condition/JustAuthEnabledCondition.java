@@ -26,7 +26,7 @@
 package cn.herodotus.engine.access.justauth.condition;
 
 import cn.herodotus.engine.access.core.constants.AccessConstants;
-import cn.herodotus.engine.assistant.core.support.PropertyResolver;
+import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Condition;

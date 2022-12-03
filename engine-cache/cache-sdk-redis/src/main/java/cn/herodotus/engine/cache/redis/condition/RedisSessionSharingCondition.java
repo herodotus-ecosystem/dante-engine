@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.cache.redis.condition;
 
-import cn.herodotus.engine.assistant.core.support.PropertyFinder;
+import cn.herodotus.engine.assistant.core.context.PropertyFinder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

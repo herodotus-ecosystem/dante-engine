@@ -24,7 +24,7 @@
  */
 package cn.herodotus.engine.sms.upyun.processor;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.sms.core.definition.AbstractSmsSendHandler;
 import cn.herodotus.engine.sms.core.domain.Template;
 import cn.herodotus.engine.sms.core.enums.SmsSupplier;

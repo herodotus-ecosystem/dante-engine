@@ -26,7 +26,7 @@
 package cn.herodotus.engine.cache.redisson.properties;
 
 import cn.herodotus.engine.cache.core.constants.CacheConstants;
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.config.ClusterServersConfig;

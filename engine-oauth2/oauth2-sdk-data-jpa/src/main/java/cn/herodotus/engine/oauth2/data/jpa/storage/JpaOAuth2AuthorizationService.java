@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.storage;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.core.jackson2.HerodotusJackson2Module;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2TokenJackson2Module;

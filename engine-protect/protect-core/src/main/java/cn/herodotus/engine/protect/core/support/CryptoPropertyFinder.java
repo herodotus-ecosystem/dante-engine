@@ -26,8 +26,8 @@
 package cn.herodotus.engine.protect.core.support;
 
 
-import cn.herodotus.engine.assistant.core.support.PropertyFinder;
-import cn.herodotus.engine.assistant.core.support.PropertyResolver;
+import cn.herodotus.engine.assistant.core.context.PropertyFinder;
+import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import cn.herodotus.engine.protect.core.constants.ProtectConstants;
 import org.springframework.core.env.Environment;
 

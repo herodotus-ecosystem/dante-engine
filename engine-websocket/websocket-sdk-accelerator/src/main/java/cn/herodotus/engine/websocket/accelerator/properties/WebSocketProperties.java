@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.websocket.accelerator.properties;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.websocket.core.constants.WebSocketConstants;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

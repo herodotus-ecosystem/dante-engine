@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.processor;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;

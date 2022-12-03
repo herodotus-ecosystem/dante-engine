@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.pay.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: 支付模块常量 </p>

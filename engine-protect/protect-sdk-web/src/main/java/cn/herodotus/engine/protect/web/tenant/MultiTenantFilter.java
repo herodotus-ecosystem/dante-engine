@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.protect.web.tenant;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
-import cn.herodotus.engine.assistant.core.thread.TenantContextHolder;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;

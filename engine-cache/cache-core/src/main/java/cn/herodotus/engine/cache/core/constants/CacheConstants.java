@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.cache.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: Cache Property值常量 </p>

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.websocket.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: Web Socket 常量 </p>

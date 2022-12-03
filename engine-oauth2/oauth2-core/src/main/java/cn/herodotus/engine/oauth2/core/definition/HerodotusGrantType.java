@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.core.definition;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 /**

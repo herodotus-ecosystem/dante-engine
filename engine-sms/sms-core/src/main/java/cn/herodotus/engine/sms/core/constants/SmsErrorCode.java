@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.sms.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
 
 /**
  * <p>Description: Recluse 错误代码 </p>

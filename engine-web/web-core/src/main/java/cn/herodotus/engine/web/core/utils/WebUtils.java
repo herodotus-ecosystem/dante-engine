@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.core.utils;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.net.HttpHeaders;
@@ -184,25 +184,25 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
     public String getIP(HttpServletRequest request) {
         Assert.notNull(request, "HttpServletRequest is null");
         String ip = request.getHeader(HttpHeaders.X_FORWARDED_FOR);
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader(HttpHeaders.X_FORWARDED_FOR);
         }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.constants.HttpHeaders.PROXY_CLIENT_IP);
+        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.PROXY_CLIENT_IP);
         }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.constants.HttpHeaders.WL_PROXY_CLIENT_IP);
+        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.WL_PROXY_CLIENT_IP);
         }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.constants.HttpHeaders.HTTP_CLIENT_IP);
+        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.HTTP_CLIENT_IP);
         }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.constants.HttpHeaders.HTTP_X_FORWARDED_FOR);
+        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.HTTP_X_FORWARDED_FOR);
         }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.constants.HttpHeaders.X_REAL_IP);
+        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
+            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.X_REAL_IP);
         }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
+        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
         return StringUtils.isBlank(ip) ? null : ip.split(SymbolConstants.COMMA)[0];

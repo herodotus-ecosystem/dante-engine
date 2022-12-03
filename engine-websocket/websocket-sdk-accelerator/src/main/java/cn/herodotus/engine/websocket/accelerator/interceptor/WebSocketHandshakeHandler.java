@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.websocket.accelerator.interceptor;
 
-import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.websocket.accelerator.domain.WebSocketPrincipal;
 import cn.herodotus.engine.websocket.accelerator.properties.WebSocketProperties;
 import jakarta.servlet.http.HttpServletRequest;

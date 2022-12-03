@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.server.authentication.controller;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.server.authentication.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.server.authentication.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.server.authentication.service.OAuth2ApplicationService;

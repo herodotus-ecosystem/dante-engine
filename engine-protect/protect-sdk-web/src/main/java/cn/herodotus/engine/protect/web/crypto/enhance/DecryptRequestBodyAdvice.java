@@ -83,7 +83,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
 
-        String sessionKey = httpInputMessage.getHeaders().get(cn.herodotus.engine.assistant.core.constants.HttpHeaders.X_HERODOTUS_SESSION).get(0);
+        String sessionKey = httpInputMessage.getHeaders().get(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.X_HERODOTUS_SESSION).get(0);
 
         if (StringUtils.isBlank(sessionKey)) {
             log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION to request header.");

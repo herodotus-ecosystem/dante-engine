@@ -1,6 +1,6 @@
 <p align="center"><img src="./documents/readme/images/logo2.png" height="150" width="200" alt="logo"/></p>
 <h2 align="center">简洁优雅 · 稳定高效 | 宁静致远 · 精益求精 </h2>
-<p align="center">Dante Engine 基于 Spring Boot 2.X， 是 Dante Cloud 微服务架构内核核心组件库，可用于任何 Spring Boot 工程</p>
+<p align="center">Dante Engine 基于 Spring Boot 3.X， 是 Dante Cloud 微服务架构内核核心组件库，可用于任何 Spring Boot 工程</p>
 
 ---
 
@@ -9,6 +9,7 @@
     <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.0.0-blue" alt="Spring Boot 3.0.0"></a>
     <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2022.0.0-RC2-blue" alt="Spring Cloud 2022.0.0-RC2"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.4.0-blue" alt="Spring Cloud Alibaba 2021.0.4.0"></a>
+    <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.8.1--2022.0.0--RC2-blue" alt="Spring Cloud Tencent 1.8.1-2022.0.0-RC2"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.1.2-brightgreen" alt="Nacos 2.1.2"></a>
 </p>
 <p align="center">

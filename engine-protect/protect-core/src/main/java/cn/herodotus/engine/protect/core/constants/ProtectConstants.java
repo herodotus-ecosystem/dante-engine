@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.protect.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: Protect 模块核心常量 </p>

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
 
 /**
  * <p>Description: Web 相关错误代码 </p>

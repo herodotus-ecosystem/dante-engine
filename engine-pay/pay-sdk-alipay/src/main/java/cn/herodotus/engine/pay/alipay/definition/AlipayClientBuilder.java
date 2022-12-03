@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.pay.alipay.definition;
 
-import cn.herodotus.engine.assistant.core.constants.Sandbox;
+import cn.herodotus.engine.assistant.core.definition.constants.Sandbox;
 import cn.herodotus.engine.pay.core.exception.PaymentClientUninitializedException;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;

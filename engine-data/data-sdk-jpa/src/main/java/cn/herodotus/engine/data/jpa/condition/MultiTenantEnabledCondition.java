@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.data.jpa.condition;
 
-import cn.herodotus.engine.assistant.core.support.PropertyResolver;
+import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import cn.herodotus.engine.data.core.constants.DataConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

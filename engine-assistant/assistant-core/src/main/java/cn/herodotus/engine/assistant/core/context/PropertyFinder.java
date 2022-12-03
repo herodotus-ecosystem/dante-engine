@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君)<herodotus@aliyun.com>
  *
- * Dante Engine Licensed under the Apache License, Version 2.0 (the "License");
+ * Dante Engine licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -16,30 +16,35 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
  * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.constants;
+package cn.herodotus.engine.assistant.core.context;
+
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import org.springframework.core.env.Environment;
 
 /**
- * <p>Description: 统一的 Sandbox 管理 </p>
+ * <p>Description: 通用属性读取器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/7 20:36
+ * @date : 2022/2/1 18:10
  */
-public class Sandbox {
+public class PropertyFinder {
 
-    /**
-     * 支付宝网关地址
-     */
-    private static final String ALIPAY_PRODUCTION_SERVER_URL = "https://openapi.alipay.com/gateway.do";
-    private static final String ALIPAY_SANDBOX_SERVER_URL = "https://openapi.alipaydev.com/gateway.do";
+    public static String getApplicationName(Environment environment) {
+        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_APPLICATION_NAME);
+    }
 
-    public static String getAliPayServerUrl(boolean sandbox) {
-        return sandbox ? ALIPAY_SANDBOX_SERVER_URL : ALIPAY_PRODUCTION_SERVER_URL;
+    public static String getServerPort(Environment environment) {
+        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SERVER_PORT);
+    }
+
+    public static String getSessionStoreType(Environment environment) {
+        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_SESSION_STORE_TYPE);
     }
 }

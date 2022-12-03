@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.data.jpa.hibernate.spi.cache;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.thread.TenantContextHolder;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import cn.hutool.crypto.SecureUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;

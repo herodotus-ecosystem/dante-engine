@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.protect.web.crypto.processor;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.domain.SecretKey;
 import cn.herodotus.engine.protect.core.definition.AsymmetricCryptoProcessor;
 import cn.hutool.core.codec.Base64;

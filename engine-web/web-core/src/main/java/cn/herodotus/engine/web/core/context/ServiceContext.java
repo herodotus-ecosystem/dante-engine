@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.core.context;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.assistant.core.utils.ConvertUtils;

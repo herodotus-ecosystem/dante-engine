@@ -10,24 +10,20 @@
 
 package cn.herodotus.engine.oauth2.authorization.customizer;
 
-import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.storage.SecurityMetadataSourceStorage;
 import cn.herodotus.engine.web.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.RequestAuthorizationContext;
 
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

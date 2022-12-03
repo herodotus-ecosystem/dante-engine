@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: OAuth2 模块通用常量 </p>

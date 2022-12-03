@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.oauth2.authentication.response;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
 import cn.herodotus.engine.oauth2.core.definition.details.UserAuthenticationDetails;
 import cn.herodotus.engine.protect.web.crypto.processor.HttpCryptoProcessor;

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.access.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
 
 /**
  * <p>Description: Access 模块错误代码 </p>

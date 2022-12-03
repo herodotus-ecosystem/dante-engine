@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.pay.alipay.definition;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
 import cn.herodotus.engine.event.core.local.LocalPaymentNotifyEvent;
 import cn.herodotus.engine.event.core.local.LocalPaymentReturnEvent;

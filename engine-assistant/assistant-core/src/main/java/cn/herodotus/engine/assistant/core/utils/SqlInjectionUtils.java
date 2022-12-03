@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.utils;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.json.gson.GsonUtils;
 import cn.hutool.core.net.URLDecoder;
 import com.google.gson.JsonArray;

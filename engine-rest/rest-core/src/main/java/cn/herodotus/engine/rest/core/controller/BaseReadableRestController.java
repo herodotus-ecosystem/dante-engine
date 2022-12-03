@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.rest.core.controller;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.protect.core.annotation.AccessLimited;

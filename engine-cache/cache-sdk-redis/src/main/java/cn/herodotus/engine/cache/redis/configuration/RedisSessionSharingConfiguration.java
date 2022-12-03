@@ -25,14 +25,20 @@
 
 package cn.herodotus.engine.cache.redis.configuration;
 
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.cache.redis.annotation.ConditionalOnRedisSessionSharing;
+import cn.herodotus.engine.cache.redis.session.HerodotusHttpSessionIdResolver;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.FlushMode;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisIndexedHttpSession;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
+import org.springframework.session.web.http.HttpSessionIdResolver;
 
 /**
  * <p>Description: 基于 Redis 的 Session 共享配置 </p>
@@ -53,9 +59,17 @@ public class RedisSessionSharingConfiguration {
 
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    @EnableRedisHttpSession(flushMode = FlushMode.IMMEDIATE)
+    @EnableRedisIndexedHttpSession(flushMode = FlushMode.IMMEDIATE)
     static class HerodotusRedisHttpSessionConfiguration {
 
+        @Bean
+        public CookieSerializer cookieSerializer() {
+            DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+            cookieSerializer.setUseHttpOnlyCookie(false);
+            cookieSerializer.setSameSite(null);
+            log.trace("[Herodotus] |- Bean [Cookie Serializer] Auto Configure.");
+            return cookieSerializer;
+        }
     }
 }
 

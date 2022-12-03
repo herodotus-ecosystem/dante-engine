@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oss.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
 
 /**
  * <p>Description: 对象存储错误代码 </p>

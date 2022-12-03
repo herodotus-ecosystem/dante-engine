@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.nosql.couchdb.condition;
 
-import cn.herodotus.engine.assistant.core.support.PropertyResolver;
+import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import cn.herodotus.engine.nosql.core.constants.NosqlConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

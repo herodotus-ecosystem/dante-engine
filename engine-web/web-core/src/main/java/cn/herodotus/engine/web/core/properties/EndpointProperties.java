@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.core.properties;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.exception.properties.PropertyValueIsNotSetException;
 import cn.herodotus.engine.assistant.core.utils.ConvertUtils;
 import cn.herodotus.engine.web.core.constants.WebConstants;

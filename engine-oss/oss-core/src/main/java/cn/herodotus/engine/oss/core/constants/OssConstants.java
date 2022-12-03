@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oss.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: 对象存储常量 </p>

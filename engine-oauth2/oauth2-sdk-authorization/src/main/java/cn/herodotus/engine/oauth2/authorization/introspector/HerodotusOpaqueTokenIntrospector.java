@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.introspector;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.web.core.properties.EndpointProperties;
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +52,6 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.time.Instant;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>Description: 自定义 OpaqueTokenIntrospector </p>

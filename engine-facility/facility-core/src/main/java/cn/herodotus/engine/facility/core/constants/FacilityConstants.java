@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.facility.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: 基础设施常量 </p>

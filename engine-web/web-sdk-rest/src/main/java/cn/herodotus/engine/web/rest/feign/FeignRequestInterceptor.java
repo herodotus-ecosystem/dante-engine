@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.web.rest.feign;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.thread.TenantContextHolder;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import cn.hutool.extra.servlet.JakartaServletUtil;
 import com.google.common.net.HttpHeaders;
 import feign.RequestInterceptor;
@@ -96,7 +96,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
             log.debug("[Herodotus] |- Feign Request Interceptor copy all need transfer header!");
 
             // 检查 Tenant Id 的可用性。
-            String tenantIdHeader = cn.herodotus.engine.assistant.core.constants.HttpHeaders.X_HERODOTUS_TENANT_ID;
+            String tenantIdHeader = cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.X_HERODOTUS_TENANT_ID;
             if (!headers.containsKey(tenantIdHeader)) {
                 String tenantId = TenantContextHolder.getTenantId();
                 if (StringUtils.isNotBlank(tenantId)) {

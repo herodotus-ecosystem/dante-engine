@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.data.jpa.tenant;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.thread.TenantContextHolder;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.slf4j.Logger;

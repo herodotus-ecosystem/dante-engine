@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
-import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
@@ -36,7 +36,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.util.MultiValueMap;

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.core.utils;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.core.exception.IllegalSymmetricKeyException;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;

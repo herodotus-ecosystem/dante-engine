@@ -26,7 +26,7 @@
 package cn.herodotus.engine.web.rest.feign;
 
 import cn.herodotus.engine.assistant.core.annotation.Inner;
-import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import feign.MethodMetadata;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.rest.configuration;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.web.core.definition.OpenApiServerResolver;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.*;

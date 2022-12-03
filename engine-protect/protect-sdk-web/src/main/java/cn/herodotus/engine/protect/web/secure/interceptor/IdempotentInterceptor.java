@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.protect.web.secure.interceptor;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.protect.core.annotation.Idempotent;
 import cn.herodotus.engine.protect.core.definition.AbstractBaseHandlerInterceptor;
 import cn.herodotus.engine.protect.core.exception.RepeatSubmissionException;

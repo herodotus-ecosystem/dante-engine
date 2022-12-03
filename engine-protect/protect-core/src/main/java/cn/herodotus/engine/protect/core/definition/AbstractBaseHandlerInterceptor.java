@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.protect.core.definition;
 
-import cn.herodotus.engine.assistant.core.constants.HttpHeaders;
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.hutool.crypto.SecureUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
