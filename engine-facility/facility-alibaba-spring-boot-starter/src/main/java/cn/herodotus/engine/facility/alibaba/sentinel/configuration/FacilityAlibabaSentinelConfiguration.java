@@ -56,7 +56,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  * @author : gengwei.zheng
  * @date : 2022/2/5 17:57
  */
-@AutoConfiguration(before = {SentinelFeignAutoConfiguration.class})
+//@AutoConfiguration(before = {SentinelFeignAutoConfiguration.class})
 @ConditionalOnClass({ SphU.class, Feign.class })
 public class FacilityAlibabaSentinelConfiguration {
 

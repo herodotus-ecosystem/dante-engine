@@ -27,7 +27,6 @@ package cn.herodotus.engine.message.websocket.interceptor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
-import cn.herodotus.engine.message.websocket.properties.WebSocketProperties;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.ObjectUtils;
@@ -47,15 +46,9 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2021/10/24 18:52
  */
-public class WebSocketHandshakeHandler extends DefaultHandshakeHandler {
+public class WebSocketPrincipalHandshakeHandler extends DefaultHandshakeHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketHandshakeHandler.class);
-
-    private WebSocketProperties webSocketProperties;
-
-    public void setWebSocketProperties(WebSocketProperties webSocketProperties) {
-        this.webSocketProperties = webSocketProperties;
-    }
+    private static final Logger log = LoggerFactory.getLogger(WebSocketPrincipalHandshakeHandler.class);
 
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
@@ -66,45 +59,26 @@ public class WebSocketHandshakeHandler extends DefaultHandshakeHandler {
             return principal;
         }
 
-        Object user = null;
         HttpServletRequest httpServletRequest = getHttpServletRequest(request);
         if (ObjectUtils.isNotEmpty(httpServletRequest)) {
-            user = httpServletRequest.getAttribute(webSocketProperties.getPrincipalAttribute());
-            if (ObjectUtils.isEmpty(user)) {
-                user = httpServletRequest.getParameter(webSocketProperties.getPrincipalAttribute());
-                if (ObjectUtils.isEmpty(user)) {
-                    user = httpServletRequest.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
-                } else {
-                    log.debug("[Herodotus] |- Get user principal [{}] from request parameter, use parameter  [{}]..", user, webSocketProperties.getPrincipalAttribute());
-                }
-            } else {
-                log.debug("[Herodotus] |- Get user principal [{}] from request attribute, use attribute  [{}]..", user, webSocketProperties.getPrincipalAttribute());
+            String herodotusOpenId = httpServletRequest.getHeader(HttpHeaders.X_HERODOTUS_OPEN_ID);
+            if (ObjectUtils.isNotEmpty(herodotusOpenId)) {
+                log.debug("[Herodotus] |- Get user principal [{}] from header X_HERODOTUS_OPEN_ID.", herodotusOpenId);
+                return new WebSocketPrincipal(herodotusOpenId);
+            }
+
+            String herodotusSessionId = httpServletRequest.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
+            if (ObjectUtils.isNotEmpty(herodotusSessionId)) {
+                log.debug("[Herodotus] |- Get user principal [{}] from header X_HERODOTUS_SESSION.", herodotusSessionId);
+                return new WebSocketPrincipal(herodotusSessionId);
             }
         }
 
-        if (ObjectUtils.isEmpty(user)) {
-            HttpSession httpSession = getSession(request);
-            if (ObjectUtils.isNotEmpty(httpSession)) {
-                user = httpSession.getAttribute(webSocketProperties.getPrincipalAttribute());
-                if (ObjectUtils.isEmpty(user)) {
-                    user = httpSession.getId();
-                } else {
-                    log.debug("[Herodotus] |- Get user principal [{}] from httpsession, use attribute  [{}].", user, webSocketProperties.getPrincipalAttribute());
-                }
-            } else {
-                log.error("[Herodotus] |- Cannot find session from websocket request.");
-                return null;
-            }
-        } else {
-            log.debug("[Herodotus] |- Get user principal [{}] from request header X_HERODOTUS_SESSION.", user);
-        }
-
-        return new WebSocketPrincipal((String) user);
+        return null;
     }
 
     private HttpServletRequest getHttpServletRequest(ServerHttpRequest request) {
-        if (request instanceof ServletServerHttpRequest) {
-            ServletServerHttpRequest serverRequest = (ServletServerHttpRequest) request;
+        if (request instanceof ServletServerHttpRequest serverRequest) {
             return serverRequest.getServletRequest();
         }
 

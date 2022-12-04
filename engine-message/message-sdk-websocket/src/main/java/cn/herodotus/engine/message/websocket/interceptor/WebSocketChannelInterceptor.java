@@ -28,6 +28,8 @@ package cn.herodotus.engine.message.websocket.interceptor;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.message.websocket.properties.WebSocketProperties;
 import jakarta.servlet.http.HttpSession;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.Message;
@@ -36,6 +38,9 @@ import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
+
+import java.security.Principal;
+import java.util.List;
 
 /**
  * <p>Description: Websocket消息监听 </p>
@@ -79,16 +84,28 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
              * 3. header参数的key可以一样，取出来就是list
              * 4. 样例代码header中只有一个token，所以直接取0位
              */
-            String token = accessor.getNativeHeader(webSocketProperties.getPrincipalAttribute()).get(0);
+
+            List<String> header = accessor.getNativeHeader(webSocketProperties.getPrincipalAttribute());
+            String token = null;
+            if (CollectionUtils.isNotEmpty(header)) {
+                token = header.get(0);
+            }
 
             /*
              * 1. 这里直接封装到StompHeaderAccessor 中，可以根据自身业务进行改变
-             * 2. 封装大搜StompHeaderAccessor中后，可以在@Controller / @MessageMapping注解的方法中直接带上StompHeaderAccessor
-             *    就可以通过方法提供的 getUser()方法获取到这里封装user对象
-             * 2. 例如可以在这里拿到前端的信息进行登录鉴权
+             * 2. 封装StompHeaderAccessor中后，可以在@Controller / @MessageMapping注解的方法中直接带上StompHeaderAccessor 就可以通过方法提供的 getUser()方法获取到这里封装user对象
+             * 3. 例如可以在这里拿到前端的信息进行登录鉴权
              */
-            WebSocketPrincipal principal = (WebSocketPrincipal) accessor.getUser();
-            log.debug("[Herodotus] |- Authentication user [{}], Token from frontend is [{}].", principal, token);
+
+            Principal principal = accessor.getUser();
+            if (ObjectUtils.isNotEmpty(principal) && principal instanceof WebSocketPrincipal) {
+                WebSocketPrincipal webSocketPrincipal = (WebSocketPrincipal) principal;
+                log.debug("[Herodotus] |- Authentication user [{}], Token from frontend is [{}].", webSocketPrincipal, token);
+            }
+
+            log.debug("[Herodotus] |- WebSocket of User has connected.");
+        } else if (StompCommand.DISCONNECT.equals(accessor.getCommand())) {
+            log.debug("[Herodotus] |- WebSocket of User is disconnected.");
         }
 
         return message;
@@ -107,12 +124,10 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
         /*
          * 拿到消息头对象后，我们可以做一系列业务操作
-         * 1. 通过getSessionAttributes()方法获取到websocketSession，
-         *    就可以取到我们在WebSocketHandshakeInterceptor拦截器中存在session中的信息
+         * 1. 通过getSessionAttributes()方法获取到websocketSession， 就可以取到我们在WebSocketHandshakeInterceptor拦截器中存在session中的信息
          * 2. 我们也可以获取到当前连接的状态，做一些统计，例如统计在线人数，或者缓存在线人数对应的令牌，方便后续业务调用
          */
         HttpSession httpSession = (HttpSession) accessor.getSessionAttributes().get("HTTP_SESSION");
-
     }
 
     /**
@@ -137,7 +152,7 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
      */
     @Override
     public boolean preReceive(MessageChannel channel) {
-        return false;
+        return true;
     }
 
     /**

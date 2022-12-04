@@ -31,6 +31,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,14 +44,16 @@ import java.util.stream.Collectors;
 @ConfigurationProperties(prefix = MessageConstants.PROPERTY_PREFIX_WEBSOCKET)
 public class WebSocketProperties {
 
+    private String sockJsEndpoint = "websocket/stomp-sockjs";
+
     /**
      * 客户端尝试连接端点
      */
-    private String endpoint = "stomp/websocketjs";
+    private String endpoint = "websocket/ws";
     /**
      * WebSocket 广播消息代理地址
      */
-    private String broadcast = "topic";
+    private String broadcast = "topic/notice";
 
     /**
      * WebSocket 点对点消息代理地址
@@ -60,12 +63,12 @@ public class WebSocketProperties {
     /**
      * 全局使用的消息前缀
      */
-    private List<String> applicationDestinationPrefixes;
+    private List<String> applicationDestinationPrefixes = Collections.singletonList("/app");
 
     /**
      * 点对点使用的订阅前缀（客户端订阅路径上会体现出来），不设置的话，默认也是/user/
      */
-    private String userDestinationPrefix;
+    private String userDestinationPrefix = "/user";
 
     /**
      * 集群模式下，信息同步消息队列Topic
@@ -91,6 +94,14 @@ public class WebSocketProperties {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    public String getSockJsEndpoint() {
+        return format(sockJsEndpoint);
+    }
+
+    public void setSockJsEndpoint(String sockJsEndpoint) {
+        this.sockJsEndpoint = sockJsEndpoint;
     }
 
     public String getBroadcast() {
@@ -120,7 +131,7 @@ public class WebSocketProperties {
     public String[] getApplicationPrefixes() {
         List<String> prefixes = this.getApplicationDestinationPrefixes();
         if (CollectionUtils.isNotEmpty(prefixes)) {
-            List<String> wellFormed = prefixes.stream().map(this::format).collect(Collectors.toList());
+            List<String> wellFormed = prefixes.stream().map(this::format).toList();
             String[] result = new String[wellFormed.size()];
             return wellFormed.toArray(result);
         } else {
