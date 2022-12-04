@@ -23,26 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.autoconfigure;
+package cn.herodotus.engine.event.message.autoconfigure;
 
+import cn.herodotus.engine.event.message.configuration.KafkaConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: Message 模块自动注入配置 </p>
+ * <p>Description: Pay Event 自动注入配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/2/4 17:08
+ * @date : 2022/1/20 19:07
  */
 @Configuration(proxyBeanMethods = false)
+@Import({KafkaConfiguration.class})
 public class AutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Message Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Event Message Starter] Auto Configure.");
     }
 }

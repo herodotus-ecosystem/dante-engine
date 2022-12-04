@@ -35,7 +35,9 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface MessageConstants extends BaseConstants {
 
-    String PROPERTY_PREFIX_QUEUE = PROPERTY_PREFIX_HERODOTUS + ".queue";
+    String PROPERTY_PREFIX_MESSAGE = PROPERTY_PREFIX_HERODOTUS + ".message";
 
-    String ITEM_KAFKA_ENABLED = PROPERTY_PREFIX_QUEUE + ".kafka" + PROPERTY_ENABLED;
+    String PROPERTY_PREFIX_SOCKET_IO = PROPERTY_PREFIX_MESSAGE + ".socketio";
+    String PROPERTY_PREFIX_WEBSOCKET = PROPERTY_PREFIX_MESSAGE + ".websocket";
+
 }

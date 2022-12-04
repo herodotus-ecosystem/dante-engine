@@ -136,6 +136,7 @@
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
         <skywalking.version>8.13.0</skywalking.version>
         <minio.version>8.4.6</minio.version>
+        <netty-socketio.version>1.7.22</netty-socketio.version>
 
 
         <!-- 阿里巴巴开源工具依赖 -->
@@ -369,6 +370,11 @@
                 <artifactId>event-security-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>event-message-spring-boot-starter</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
 
             <!-- facility -->
             <dependency>
@@ -396,6 +402,16 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>message-core</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-sdk-socketio</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-sdk-websocket</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>
@@ -615,23 +631,6 @@
                 <version>${dante-bom.version}</version>
             </dependency>
 
-            <!-- websocket -->
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>websocket-core</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>websocket-sdk-accelerator</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>websocket-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-
             <!-- Maven 相关依赖 -->
             <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-embedder -->
             <dependency>
@@ -776,6 +775,12 @@
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.corundumstudio.socketio/netty-socketio -->
+            <dependency>
+                <groupId>com.corundumstudio.socketio</groupId>
+                <artifactId>netty-socketio</artifactId>
+                <version>${netty-socketio.version}</version>
             </dependency>
 
 

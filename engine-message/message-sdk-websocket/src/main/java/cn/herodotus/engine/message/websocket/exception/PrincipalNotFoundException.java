@@ -23,26 +23,35 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.autoconfigure;
+package cn.herodotus.engine.message.websocket.exception;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
+import cn.herodotus.engine.message.core.exception.WebSocketException;
 
 /**
- * <p>Description: Message 模块自动注入配置 </p>
+ * <p>Description: 无法找到 Principal 错误 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/2/4 17:08
+ * @date : 2021/10/24 18:45
  */
-@Configuration(proxyBeanMethods = false)
-public class AutoConfiguration {
+public class PrincipalNotFoundException extends WebSocketException {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
+    public PrincipalNotFoundException() {
+        super();
+    }
 
-    @PostConstruct
-    public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Message Starter] Auto Configure.");
+    public PrincipalNotFoundException(String message) {
+        super(message);
+    }
+
+    public PrincipalNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public PrincipalNotFoundException(Throwable cause) {
+        super(cause);
+    }
+
+    public PrincipalNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

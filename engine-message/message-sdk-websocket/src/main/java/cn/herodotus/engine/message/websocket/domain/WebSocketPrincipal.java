@@ -23,26 +23,37 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.autoconfigure;
+package cn.herodotus.engine.message.websocket.domain;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
+import com.google.common.base.MoreObjects;
+
+import java.security.Principal;
 
 /**
- * <p>Description: Message 模块自动注入配置 </p>
+ * <p>Description: Websocket登录连接对象 </p>
+ * <p>
+ * 用于保存websocket连接过程中需要存储的业务参数
  *
  * @author : gengwei.zheng
- * @date : 2022/2/4 17:08
+ * @date : 2021/10/24 18:43
  */
-@Configuration(proxyBeanMethods = false)
-public class AutoConfiguration {
+public class WebSocketPrincipal implements Principal {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
+    private String token;
 
-    @PostConstruct
-    public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Message Starter] Auto Configure.");
+    public WebSocketPrincipal(String token) {
+        this.token = token;
+    }
+
+    @Override
+    public String getName() {
+        return this.token;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("token", token)
+                .toString();
     }
 }

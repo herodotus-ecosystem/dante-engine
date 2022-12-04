@@ -43,6 +43,7 @@
         <module>event-core</module>
         <module>event-security-spring-boot-starter</module>
         <module>event-pay-spring-boot-starter</module>
+        <module>event-message-spring-boot-starter</module>
     </modules>
 
 </project>

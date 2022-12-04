@@ -23,26 +23,24 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.autoconfigure;
+package cn.herodotus.engine.message.websocket.annotation;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
+import cn.herodotus.engine.cache.redisson.annotation.EnableHerodotusRedisson;
+import cn.herodotus.engine.message.websocket.configuration.WebSocketConfiguration;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: Message 模块自动注入配置 </p>
+ * <p>Description: 开启 WebSocket </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/2/4 17:08
+ * @date : 2021/10/24 18:56
  */
-@Configuration(proxyBeanMethods = false)
-public class AutoConfiguration {
-
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
-
-    @PostConstruct
-    public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Message Starter] Auto Configure.");
-    }
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@EnableHerodotusRedisson
+@Import(WebSocketConfiguration.class)
+public @interface EnableHerodotusWebSocket {
 }

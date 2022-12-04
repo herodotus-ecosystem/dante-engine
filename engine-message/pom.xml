@@ -42,6 +42,8 @@
     <modules>
         <module>message-core</module>
         <module>message-spring-boot-starter</module>
+        <module>message-sdk-socketio</module>
+        <module>message-sdk-websocket</module>
     </modules>
 
 </project>

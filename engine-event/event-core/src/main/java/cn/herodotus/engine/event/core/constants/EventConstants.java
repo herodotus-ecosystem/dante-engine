@@ -25,11 +25,17 @@
 
 package cn.herodotus.engine.event.core.constants;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+
 /**
  * <p>Description: Event 模块常量 </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/3/14 16:24
  */
-public interface EventConstants {
+public interface EventConstants extends BaseConstants {
+
+    String PROPERTY_PREFIX_KAFKA = PROPERTY_PREFIX_EVENT + ".kafka";
+
+    String ITEM_KAFKA_ENABLED = PROPERTY_PREFIX_KAFKA + PROPERTY_ENABLED;
 }

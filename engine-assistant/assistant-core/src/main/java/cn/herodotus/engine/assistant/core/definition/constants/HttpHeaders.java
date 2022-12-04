@@ -42,4 +42,5 @@ public interface HttpHeaders {
     String X_HERODOTUS_SESSION = "X-Herodotus-Session";
     String X_HERODOTUS_FROM_IN = "X-Herodotus-From-In";
     String X_HERODOTUS_TENANT_ID = "X-Herodotus-Tenant-Id";
+    String X_HERODOTUS_OPEN_ID = "X-Herodotus-Open-Id";
 }

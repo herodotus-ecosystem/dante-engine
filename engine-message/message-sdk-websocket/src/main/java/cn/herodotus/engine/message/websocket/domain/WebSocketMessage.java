@@ -23,26 +23,45 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.autoconfigure;
+package cn.herodotus.engine.message.websocket.domain;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
+import java.io.Serializable;
 
 /**
- * <p>Description: Message 模块自动注入配置 </p>
+ * <p>Description: WebSocket发送消息参数实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/2/4 17:08
+ * @date : 2021/10/24 18:42
  */
-@Configuration(proxyBeanMethods = false)
-public class AutoConfiguration {
+public class WebSocketMessage<T> implements Serializable {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
+    private String to;
 
-    @PostConstruct
-    public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Message Starter] Auto Configure.");
+    private String channel;
+
+    private T payload;
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getChannel() {
+        return channel;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+
+    public T getPayload() {
+        return payload;
+    }
+
+    public void setPayload(T payload) {
+        this.payload = payload;
     }
 }

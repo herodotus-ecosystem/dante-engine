@@ -25,9 +25,7 @@
 
 package cn.herodotus.engine.cache.redis.configuration;
 
-import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.cache.redis.annotation.ConditionalOnRedisSessionSharing;
-import cn.herodotus.engine.cache.redis.session.HerodotusHttpSessionIdResolver;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +36,6 @@ import org.springframework.session.FlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisIndexedHttpSession;
 import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
-import org.springframework.session.web.http.HttpSessionIdResolver;
 
 /**
  * <p>Description: 基于 Redis 的 Session 共享配置 </p>

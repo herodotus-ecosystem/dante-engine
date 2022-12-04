@@ -23,26 +23,30 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.autoconfigure;
+package cn.herodotus.engine.event.message.properties;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
+import cn.herodotus.engine.event.core.constants.EventConstants;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * <p>Description: Message 模块自动注入配置 </p>
+ * <p>Description: 消息队列配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/2/4 17:08
+ * @date : 2021/8/7 23:55
  */
-@Configuration(proxyBeanMethods = false)
-public class AutoConfiguration {
+@ConfigurationProperties(prefix = EventConstants.PROPERTY_PREFIX_KAFKA)
+public class KafkaProperties {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
+    /**
+     * Kakfa监听是否自动启动
+     */
+    private Boolean enabled = false;
 
-    @PostConstruct
-    public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Message Starter] Auto Configure.");
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }
