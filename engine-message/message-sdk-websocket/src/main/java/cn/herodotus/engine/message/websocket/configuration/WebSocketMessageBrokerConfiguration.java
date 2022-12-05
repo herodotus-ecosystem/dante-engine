@@ -36,27 +36,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.converter.MessageConverter;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.session.Session;
+import org.springframework.session.web.socket.config.annotation.AbstractSessionWebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
-import java.util.List;
-
 /**
- * <p>Description: TODO </p>
+ * <p>Description: WebSocketMessageBrokerConfigurer </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/12/4 19:19
  */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({WebSocketProperties.class})
+@EnableScheduling
 @EnableWebSocketMessageBroker
-public class WebSocketMessageBrokerConfiguration implements WebSocketMessageBrokerConfigurer {
+public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocketMessageBrokerConfigurer<Session> {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketConfiguration.class);
 
@@ -79,8 +79,7 @@ public class WebSocketMessageBrokerConfiguration implements WebSocketMessageBrok
      * @param registry {@link StompEndpointRegistry}
      */
     @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-
+    protected void configureStompEndpoints(StompEndpointRegistry registry) {
         WebSocketSessionHandshakeInterceptor sessionHandshakeInterceptor = new WebSocketSessionHandshakeInterceptor();
         WebSocketPrincipalHandshakeHandler principalHandshakeHandler = new WebSocketPrincipalHandshakeHandler();
 
@@ -191,6 +190,7 @@ public class WebSocketMessageBrokerConfiguration implements WebSocketMessageBrok
         registration.setMessageSizeLimit(10240)
                 .setSendBufferSizeLimit(10240)
                 .setSendTimeLimit(10000);
+        super.configureWebSocketTransport(registration);
     }
 
     /**
@@ -217,6 +217,7 @@ public class WebSocketMessageBrokerConfiguration implements WebSocketMessageBrok
          * 消息拦截器，实现ChannelInterceptor接口
          */
         registration.interceptors(webSocketChannelInterceptor);
+        super.configureClientInboundChannel(registration);
     }
 
     /**
@@ -229,16 +230,5 @@ public class WebSocketMessageBrokerConfiguration implements WebSocketMessageBrok
         registration.taskExecutor().corePoolSize(10)
                 .maxPoolSize(20)
                 .keepAliveSeconds(60);
-    }
-
-    /**
-     * 添加自定义的消息转换器，spring 提供多种默认的消息转换器
-     *
-     * @param messageConverters {@link MessageConverter}
-     * @return 返回false, 不会添加消息转换器，返回true，会添加默认的消息转换器，当然也可以把自己写的消息转换器添加到转换链中
-     */
-    @Override
-    public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
-        return WebSocketMessageBrokerConfigurer.super.configureMessageConverters(messageConverters);
     }
 }

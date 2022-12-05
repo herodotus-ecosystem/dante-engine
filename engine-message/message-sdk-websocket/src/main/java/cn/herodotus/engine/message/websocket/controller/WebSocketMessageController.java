@@ -27,6 +27,14 @@ package cn.herodotus.engine.message.websocket.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.message.websocket.processor.WebSocketMessageSender;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -36,15 +44,21 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: WebSocket 消息接口 </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/11/18 14:06
  */
 @RestController
+@RequestMapping("/message/websocket")
+@Tags({
+        @Tag(name = "消息接口"),
+        @Tag(name = "WebSocket消息接口")
+})
 public class WebSocketMessageController {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketMessageController.class);
@@ -67,6 +81,12 @@ public class WebSocketMessageController {
         return message;
     }
 
+    @Operation(summary = "后端发送通知", description = "创建Bucket接口，该接口仅是创建，不包含是否已存在检查",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
+            responses = {@ApiResponse(description = "是否成功", content = @Content(mediaType = "application/json"))})
+    @Parameters({
+            @Parameter(name = "message", required = true, description = "消息实体")
+    })
     @PostMapping("/backend/notice")
     public Result<String> backendNotice(@RequestBody String message) {
 

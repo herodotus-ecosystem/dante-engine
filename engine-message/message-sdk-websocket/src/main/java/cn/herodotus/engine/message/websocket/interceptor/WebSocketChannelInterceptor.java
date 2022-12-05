@@ -32,6 +32,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -85,10 +86,18 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
              * 4. 样例代码header中只有一个token，所以直接取0位
              */
 
-            List<String> header = accessor.getNativeHeader(webSocketProperties.getPrincipalAttribute());
+            List<String> tokenHeaders = accessor.getNativeHeader(HttpHeaders.AUTHORIZATION);
             String token = null;
-            if (CollectionUtils.isNotEmpty(header)) {
-                token = header.get(0);
+            if (CollectionUtils.isNotEmpty(tokenHeaders)) {
+                token = tokenHeaders.get(0);
+                log.debug("[Herodotus] |- WebSocket token is [{}].", token);
+            }
+
+            List<String> userIdHeaders = accessor.getNativeHeader(webSocketProperties.getPrincipalHeader());
+            String userId = null;
+            if (CollectionUtils.isNotEmpty(userIdHeaders)) {
+                userId = userIdHeaders.get(0);
+                log.debug("[Herodotus] |- WebSocket user is [{}].", userId);
             }
 
             /*

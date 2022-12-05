@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.message.websocket.properties;
 
+import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import org.apache.commons.collections4.CollectionUtils;
@@ -33,7 +34,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>Description: Web Socket 配置 </p>
@@ -78,7 +78,7 @@ public class WebSocketProperties {
     /**
      * 请求中传递的用户身份标识属性名
      */
-    private String principalAttribute = "openid";
+    private String principalHeader = HttpHeaders.X_HERODOTUS_OPEN_ID;
 
     private String format(String endpoint) {
         if (StringUtils.isNotBlank(endpoint) && !StringUtils.startsWith(endpoint, SymbolConstants.FORWARD_SLASH)) {
@@ -155,11 +155,11 @@ public class WebSocketProperties {
         this.topic = topic;
     }
 
-    public String getPrincipalAttribute() {
-        return principalAttribute;
+    public String getPrincipalHeader() {
+        return principalHeader;
     }
 
-    public void setPrincipalAttribute(String principalAttribute) {
-        this.principalAttribute = principalAttribute;
+    public void setPrincipalHeader(String principalHeader) {
+        this.principalHeader = principalHeader;
     }
 }
