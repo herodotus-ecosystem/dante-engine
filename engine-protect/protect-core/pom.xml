@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-protect</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-RC2</version>
+        <version>3.0.0-RC3</version>
     </parent>
 
     <artifactId>protect-core</artifactId>
-    <version>3.0.0-RC2</version>
+    <version>3.0.0-RC3</version>
     <packaging>jar</packaging>
 
     <dependencies>

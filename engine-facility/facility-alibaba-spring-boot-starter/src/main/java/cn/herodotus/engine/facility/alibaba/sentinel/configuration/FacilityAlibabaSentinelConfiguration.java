@@ -27,8 +27,6 @@ package cn.herodotus.engine.facility.alibaba.sentinel.configuration;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
-import cn.herodotus.engine.facility.alibaba.sentinel.enhance.HerodotusSentinelFeign;
-import com.alibaba.cloud.sentinel.feign.SentinelFeignAutoConfiguration;
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
@@ -37,14 +35,9 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -65,14 +58,6 @@ public class FacilityAlibabaSentinelConfiguration {
     @PostConstruct
     public void postConstruct() {
         log.debug("[Herodotus] |- SDK [Facility Alibaba Sentinel] Auto Configure.");
-    }
-
-    @Bean
-    @Scope("prototype")
-    @ConditionalOnMissingBean
-    @ConditionalOnProperty(name = "feign.sentinel.enabled")
-    public Feign.Builder feignSentinelBuilder() {
-        return HerodotusSentinelFeign.builder();
     }
 
     /**

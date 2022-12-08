@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-event</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-RC2</version>
+        <version>3.0.0-RC3</version>
     </parent>
 
     <artifactId>event-security-spring-boot-starter</artifactId>
-    <version>3.0.0-RC2</version>
+    <version>3.0.0-RC3</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
@@ -46,6 +46,7 @@
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>event-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-bus</artifactId>

@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.0-RC2</version>
+    <version>3.0.0-RC3</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -99,12 +99,12 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.0.0-RC2</dante-bom.version>
+        <dante-bom.version>3.0.0-RC3</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.0-M5</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.0.0</spring-boot-dependencies.version>
-        <spring-cloud-dependencies.version>2022.0.0-RC2</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>2022.0.0-RC3</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-tencent-dependencies.version>1.8.1-2022.0.0-RC2</spring-cloud-tencent-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.0.0</spring-security-oauth2-authorization-server.version>
@@ -130,7 +130,7 @@
         <guava.version>31.1-jre</guava.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.18.0</redisson.version>
+        <redisson.version>3.18.1</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.0.0</springdoc.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
@@ -169,7 +169,7 @@
         <qiniu-java-sdk.version>7.12.0</qiniu-java-sdk.version>
         <yunpian-java-sdk.version>1.2.7</yunpian-java-sdk.version>
         <!--支付 SDK-->
-        <alipay-sdk-java.version>4.34.71.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.34.86.ALL</alipay-sdk-java.version>
         <!--第三方应用集成SDK-->
         <com.baidu.aip.version>4.16.12</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
