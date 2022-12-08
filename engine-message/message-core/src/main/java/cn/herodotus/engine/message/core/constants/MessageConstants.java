@@ -35,9 +35,20 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface MessageConstants extends BaseConstants {
 
+    String REGION_INFORMATION_SYSTEM_ANNOUNCEMENT = AREA_PREFIX + "information:system_announcement";
+    String REGION_INFORMATION_PERSONAL_CONTACT = AREA_PREFIX + "information:personal_contact";
+    String REGION_INFORMATION_PERSONAL_DIALOGUE = AREA_PREFIX + "information:personal_dialogue";
+    String REGION_INFORMATION_PERSONAL_DIALOGUE_DETAIL = AREA_PREFIX + "information:personal_dialogue:detail";
+    String REGION_INFORMATION_NOTIFICATION_QUEUE = AREA_PREFIX + "information:notification_queue";
+    String REGION_INFORMATION_MESSAGE_PULL_STAMP = AREA_PREFIX + "information:pull_stamp";
+
     String PROPERTY_PREFIX_MESSAGE = PROPERTY_PREFIX_HERODOTUS + ".message";
 
     String PROPERTY_PREFIX_SOCKET_IO = PROPERTY_PREFIX_MESSAGE + ".socketio";
     String PROPERTY_PREFIX_WEBSOCKET = PROPERTY_PREFIX_MESSAGE + ".websocket";
 
+    String WEBSOCKET_CHANNEL_PROXY_BROADCAST = "/broadcast";
+    String WEBSOCKET_CHANNEL_PROXY_PEER_TO_PEER = "/personal";
+    String WEBSOCKET_DESTINATION_BROADCAST_NOTICE = WEBSOCKET_CHANNEL_PROXY_BROADCAST + "/notice";
+    String WEBSOCKET_DESTINATION_PERSONAL_MESSAGE = WEBSOCKET_CHANNEL_PROXY_PEER_TO_PEER + "/message";
 }

@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君)<herodotus@aliyun.com>
  *
- * Dante Engine Licensed under the Apache License, Version 2.0 (the "License");
+ * Dante Engine licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -16,44 +16,23 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
  * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.websocket.domain;
+package cn.herodotus.engine.message.information.repository;
 
-import com.google.common.base.MoreObjects;
-
-import java.security.Principal;
+import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.engine.message.information.entity.PersonalDialogueDetail;
 
 /**
- * <p>Description: Websocket登录连接对象 </p>
- * <p>
- * 用于保存websocket连接过程中需要存储的业务参数
+ * <p>Description: PersonalDialogueDetailRepository </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/10/24 18:43
+ * @date : 2022/12/7 22:06
  */
-public class WebSocketPrincipal implements Principal {
-
-    private String principal;
-
-    public WebSocketPrincipal(String token) {
-        this.principal = token;
-    }
-
-    @Override
-    public String getName() {
-        return this.principal;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("principal", principal)
-                .toString();
-    }
+public interface PersonalDialogueDetailRepository extends BaseRepository<PersonalDialogueDetail, String> {
 }

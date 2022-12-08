@@ -80,19 +80,6 @@ public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
         this.properties = properties;
     }
 
-
-    private CloseableHttpClient buildHttpclient() {
-        try {
-            TrustStrategy trustStrategy = (x509CertChain, authType) -> true;
-            SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(trustStrategy).build();
-
-            return HttpClients.custom().setSSLContext(sslContext).setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
-                    .build();
-        } catch (Exception e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
-        }
-    }
-
     /**
      * 构造X-WSSE参数值
      *
@@ -137,7 +124,7 @@ public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
 
 
         HttpResult result = this.http().sync(this.properties.getUri())
-                .bodyType(OkHttps.FORM)
+                .bodyType(OkHttps.JSON)
                 .addHeader(HttpHeaders.AUTHORIZATION, AUTH_HEADER_VALUE)
                 .addHeader("X-WSSE", wsseHeader)
                 .setBodyPara(request)

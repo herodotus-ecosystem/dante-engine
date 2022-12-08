@@ -50,15 +50,6 @@ public class WebSocketProperties {
      * 客户端尝试连接端点
      */
     private String endpoint = "websocket/ws";
-    /**
-     * WebSocket 广播消息代理地址
-     */
-    private String broadcast = "topic/notice";
-
-    /**
-     * WebSocket 点对点消息代理地址
-     */
-    private String peerToPeer = "private";
 
     /**
      * 全局使用的消息前缀
@@ -102,22 +93,6 @@ public class WebSocketProperties {
 
     public void setSockJsEndpoint(String sockJsEndpoint) {
         this.sockJsEndpoint = sockJsEndpoint;
-    }
-
-    public String getBroadcast() {
-        return format(broadcast);
-    }
-
-    public void setBroadcast(String broadcast) {
-        this.broadcast = broadcast;
-    }
-
-    public String getPeerToPeer() {
-        return format(peerToPeer);
-    }
-
-    public void setPeerToPeer(String peerToPeer) {
-        this.peerToPeer = peerToPeer;
     }
 
     public List<String> getApplicationDestinationPrefixes() {

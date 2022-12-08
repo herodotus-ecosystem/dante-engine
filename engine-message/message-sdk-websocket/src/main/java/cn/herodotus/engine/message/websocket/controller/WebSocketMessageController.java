@@ -31,17 +31,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,30 +63,17 @@ public class WebSocketMessageController {
     public WebSocketMessageController(WebSocketMessageSender webSocketMessageSender) {
         this.webSocketMessageSender = webSocketMessageSender;
     }
-
-
-    @MessageMapping("/frontend/notice")
-    @SendTo("/topic/notice")
-    public String frontendNotice(String message, StompHeaderAccessor headerAccessor) {
-        System.out.println("---message---" + message);
-        if (ObjectUtils.isNotEmpty(headerAccessor)) {
-            System.out.println("---id---" + headerAccessor);
-        }
-
-        return message;
-    }
-
-    @Operation(summary = "后端发送通知", description = "创建Bucket接口，该接口仅是创建，不包含是否已存在检查",
+    @Operation(summary = "后端发送通知", description = "后端发送 WebSocket 广播通知接口",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
             responses = {@ApiResponse(description = "是否成功", content = @Content(mediaType = "application/json"))})
     @Parameters({
             @Parameter(name = "message", required = true, description = "消息实体")
     })
-    @PostMapping("/backend/notice")
-    public Result<String> backendNotice(@RequestBody String message) {
+    @PostMapping("/send/notice")
+    public Result<String> sendNotice(@RequestBody String message) {
 
         if (StringUtils.isNotBlank(message)) {
-            webSocketMessageSender.toAll(message);
+            webSocketMessageSender.noticeToAll(message);
         }
 
         return Result.success(message);

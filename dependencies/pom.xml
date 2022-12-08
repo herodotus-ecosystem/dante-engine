@@ -406,6 +406,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-sdk-information</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>message-sdk-socketio</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>

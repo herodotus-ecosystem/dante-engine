@@ -140,7 +140,7 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
          * 3. 可以配置心跳线程调度器 setHeartbeatValue这个不能单独设置，不然不起作用，要配合setTaskScheduler才可以生效
          *    调度器我们可以自己写一个，也可以自己使用默认的调度器 new DefaultManagedTaskScheduler()
          */
-        registry.enableSimpleBroker(webSocketProperties.getBroadcast(), webSocketProperties.getPeerToPeer())
+        registry.enableSimpleBroker("/broadcast", "/personal")
                 .setHeartbeatValue(new long[]{10000, 10000})
                 .setTaskScheduler(taskScheduler);
 

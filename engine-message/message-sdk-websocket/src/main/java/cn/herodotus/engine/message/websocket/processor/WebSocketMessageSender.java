@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.message.websocket.processor;
 
+import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.websocket.domain.WebSocketChannel;
 import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.exception.IllegalChannelException;
@@ -72,18 +73,13 @@ public class WebSocketMessageSender {
      * @throws PrincipalNotFoundException 该服务中无法找到与 identity 对应的用户 Principal
      */
     public <T> void toUser(WebSocketMessage<T> webSocketMessage) throws IllegalChannelException, PrincipalNotFoundException {
-        WebSocketChannel webSocketChannel = WebSocketChannel.getWebSocketChannel(webSocketMessage.getChannel());
-        if (ObjectUtils.isEmpty(webSocketChannel)) {
-            throw new IllegalChannelException("Web socket channel is incorrect!");
-        }
-
         SimpUser simpUser = simpUserRegistry.getUser(webSocketMessage.getTo());
         if (ObjectUtils.isEmpty(simpUser)) {
             throw new PrincipalNotFoundException("Web socket user principal is not found!");
         }
 
         log.debug("[Herodotus] |- Web socket send message to user [{}].", webSocketMessage.getTo());
-        simpMessagingTemplate.convertAndSendToUser(webSocketMessage.getTo(), webSocketChannel.getDestination(), webSocketMessage.getPayload());
+        simpMessagingTemplate.convertAndSendToUser(webSocketMessage.getTo(), webSocketMessage.getChannel(), webSocketMessage.getPayload());
     }
 
     /**
@@ -92,7 +88,7 @@ public class WebSocketMessageSender {
      * @param payload 发送的内容
      * @param <T>     payload 类型
      */
-    public <T> void toAll(T payload) {
-        simpMessagingTemplate.convertAndSend(webSocketProperties.getBroadcast(), payload);
+    public <T> void noticeToAll(T payload) {
+        simpMessagingTemplate.convertAndSend(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_NOTICE, payload);
     }
 }

@@ -61,7 +61,7 @@ public class WebSocketConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Plugin [Herodotus WebSocket] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Message WebSocket] Auto Configure.");
     }
 
     @Bean

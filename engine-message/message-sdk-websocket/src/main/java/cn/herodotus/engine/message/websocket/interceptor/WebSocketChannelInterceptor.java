@@ -25,11 +25,13 @@
 
 package cn.herodotus.engine.message.websocket.interceptor;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.message.websocket.properties.WebSocketProperties;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -75,29 +77,27 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
 
         /*
          * 1. 判断是否为首次连接请求，如果已经连接过，直接返回message
-         * 2. 网上有种写法是在这里封装认证用户的信息，本文是在http阶段，websockt 之前就做了认证的封装，所以这里直接取的信息
+         * 2. 在http阶段
+         *    前端 Vue 工程使用 SockJS，始终出现 404 问题（会在Socket接口后面增加一个 /info导致）
+         *    前端 Vue 工程使用 @stomp/stompjs，目前还没有找到在调用 websockt 时传递 header 的方式
          */
-
         if (StompCommand.CONNECT.equals(accessor.getCommand())) {
             /*
              * 1. 这里获取就是JS stompClient.connect(headers, function (frame){.......}) 中header的信息
              * 2. JS中header可以封装多个参数，格式是{key1:value1,key2:value2}
              * 3. header参数的key可以一样，取出来就是list
-             * 4. 样例代码header中只有一个token，所以直接取0位
+             *
+             * 获取 Token，暂时没有用，先留一下以备后面需要。很多都是在这里验证 Token，以确保是登录状态。
              */
-
             List<String> tokenHeaders = accessor.getNativeHeader(HttpHeaders.AUTHORIZATION);
             String token = null;
             if (CollectionUtils.isNotEmpty(tokenHeaders)) {
-                token = tokenHeaders.get(0);
-                log.debug("[Herodotus] |- WebSocket token is [{}].", token);
-            }
+                String temp = tokenHeaders.get(0);
+                if (StringUtils.isNotBlank(temp) && StringUtils.startsWith(temp, BaseConstants.BEARER_TOKEN)) {
+                    token = StringUtils.removeStartIgnoreCase(temp, BaseConstants.BEARER_TOKEN);
+                }
 
-            List<String> userIdHeaders = accessor.getNativeHeader(webSocketProperties.getPrincipalHeader());
-            String userId = null;
-            if (CollectionUtils.isNotEmpty(userIdHeaders)) {
-                userId = userIdHeaders.get(0);
-                log.debug("[Herodotus] |- WebSocket user is [{}].", userId);
+                log.debug("[Herodotus] |- WebSocket fetch the token is [{}].", token);
             }
 
             /*
@@ -106,15 +106,24 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
              * 3. 例如可以在这里拿到前端的信息进行登录鉴权
              */
 
-            Principal principal = accessor.getUser();
-            if (ObjectUtils.isNotEmpty(principal) && principal instanceof WebSocketPrincipal) {
-                WebSocketPrincipal webSocketPrincipal = (WebSocketPrincipal) principal;
-                log.debug("[Herodotus] |- Authentication user [{}], Token from frontend is [{}].", webSocketPrincipal, token);
-            }
+            List<String> userIdHeaders = accessor.getNativeHeader(webSocketProperties.getPrincipalHeader());
+            if (CollectionUtils.isNotEmpty(userIdHeaders)) {
+                String userId = userIdHeaders.get(0);
+                log.debug("[Herodotus] |- WebSocket fetch the userid is [{}].", userId);
+                if (StringUtils.isNotBlank(userId)) {
+                    WebSocketPrincipal webSocketPrincipal = new WebSocketPrincipal(userId);
+                    accessor.setUser(webSocketPrincipal);
+                }
 
-            log.debug("[Herodotus] |- WebSocket of User has connected.");
+                log.debug("[Herodotus] |- WebSocket of user [{}] is connected.", userId);
+            }
         } else if (StompCommand.DISCONNECT.equals(accessor.getCommand())) {
-            log.debug("[Herodotus] |- WebSocket of User is disconnected.");
+            Principal principal = accessor.getUser();
+            String userId = null;
+            if (ObjectUtils.isNotEmpty(principal)) {
+                userId = principal.getName();
+            }
+            log.debug("[Herodotus] |- WebSocket of user [{}] is disconnected.", userId);
         }
 
         return message;
@@ -137,6 +146,15 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
          * 2. 我们也可以获取到当前连接的状态，做一些统计，例如统计在线人数，或者缓存在线人数对应的令牌，方便后续业务调用
          */
         HttpSession httpSession = (HttpSession) accessor.getSessionAttributes().get("HTTP_SESSION");
+
+//        log.debug("[Herodotus] WebSocket postSend httpSession id is [{}]", ObjectUtils.isNotEmpty(httpSession) ? httpSession.getId() : null);
+
+//        // 忽略心跳消息等非STOMP消息
+//        if (accessor.getCommand() == null) {
+//            return;
+//        }
+//
+//        log.debug("[Herodotus] WebSocket current status is [{}]", accessor.getCommand());
     }
 
     /**
