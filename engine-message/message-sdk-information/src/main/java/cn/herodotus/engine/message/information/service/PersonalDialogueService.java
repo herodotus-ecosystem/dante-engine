@@ -29,7 +29,6 @@ import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseLayeredService;
 import cn.herodotus.engine.message.information.entity.PersonalDialogue;
 import cn.herodotus.engine.message.information.repository.PersonalDialogueRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -50,5 +49,17 @@ public class PersonalDialogueService extends BaseLayeredService<PersonalDialogue
     @Override
     public BaseRepository<PersonalDialogue, String> getRepository() {
         return personalDialogueRepository;
+    }
+
+    public PersonalDialogue createDialog(String content) {
+        PersonalDialogue dialogue = new PersonalDialogue();
+        dialogue.setLatestNews(content);
+        return this.save(dialogue);
+    }
+
+    public PersonalDialogue updateDialogue(String dialogueId, String content) {
+        PersonalDialogue dialogue = this.findById(dialogueId);
+        dialogue.setLatestNews(content);
+        return this.save(dialogue);
     }
 }

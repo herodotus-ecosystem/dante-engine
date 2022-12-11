@@ -35,4 +35,5 @@ import cn.herodotus.engine.message.information.entity.PersonalContact;
  * @date : 2022/12/7 22:05
  */
 public interface PersonalContactRepository extends BaseRepository<PersonalContact, String> {
+
 }

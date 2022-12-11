@@ -28,8 +28,16 @@ package cn.herodotus.engine.message.information.service;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseLayeredService;
 import cn.herodotus.engine.message.information.entity.PersonalContact;
+import cn.herodotus.engine.message.information.entity.PersonalDialogue;
+import cn.herodotus.engine.message.information.entity.PersonalDialogueDetail;
 import cn.herodotus.engine.message.information.repository.PersonalContactRepository;
+import cn.herodotus.engine.message.information.repository.PersonalDialogueRepository;
+import com.google.common.collect.Collections2;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * <p>Description: PersonalContactService </p>
@@ -41,13 +49,36 @@ import org.springframework.stereotype.Service;
 public class PersonalContactService extends BaseLayeredService<PersonalContact, String> {
 
     private final PersonalContactRepository personalContactRepository;
+    private final PersonalDialogueRepository personalDialogueRepository;
 
-    public PersonalContactService(PersonalContactRepository personalContactRepository) {
+    public PersonalContactService(PersonalContactRepository personalContactRepository,
+                                  PersonalDialogueRepository personalDialogueRepository) {
         this.personalContactRepository = personalContactRepository;
+        this.personalDialogueRepository = personalDialogueRepository;
     }
 
     @Override
     public BaseRepository<PersonalContact, String> getRepository() {
         return personalContactRepository;
+    }
+
+    public List<PersonalContact> createContact(PersonalDialogue dialogue, PersonalDialogueDetail dialogueDetail) {
+        PersonalContact contact = new PersonalContact();
+        contact.setDialogue(dialogue);
+        contact.setSenderId(dialogueDetail.getSenderId());
+        contact.setReceiverId(dialogueDetail.getReceiverId());
+        contact.setReceiverName(dialogueDetail.getReceiverName());
+
+        PersonalContact reverseContext = new PersonalContact();
+        reverseContext.setDialogue(dialogue);
+        reverseContext.setSenderId(dialogueDetail.getReceiverId());
+        reverseContext.setReceiverId(dialogueDetail.getSenderId());
+        reverseContext.setReceiverName(dialogueDetail.getSenderName());
+
+        List<PersonalContact> personalContacts = new ArrayList<>();
+        personalContacts.add(contact);
+        personalContacts.add(reverseContext);
+
+        return this.saveAll(personalContacts);
     }
 }
