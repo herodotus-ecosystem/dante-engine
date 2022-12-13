@@ -106,13 +106,12 @@
         <spring-boot-dependencies.version>3.0.0</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.0-RC3</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
-        <spring-cloud-tencent-dependencies.version>1.8.1-2022.0.0-RC2</spring-cloud-tencent-dependencies.version>
+        <spring-cloud-tencent-dependencies.version>1.8.2-2022.0.0-RC2</spring-cloud-tencent-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.0.0</spring-security-oauth2-authorization-server.version>
         <spring-security-cas.version>5.8.0</spring-security-cas.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
-        <docker-maven-plugin.version>0.40.2</docker-maven-plugin.version>
         <mapstruct-processor.version>1.5.3.Final</mapstruct-processor.version>
         <maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
@@ -1075,7 +1074,6 @@
                 <artifactId>spring-security-cas</artifactId>
                 <version>${spring-security-cas.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -1119,7 +1117,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>${maven-resources-plugin.version}</version>
                     <configuration>
                         <encoding>UTF-8</encoding>
                         <propertiesEncoding>UTF-8</propertiesEncoding>
@@ -1129,7 +1126,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <skipTests>true</skipTests>
                     </configuration>
@@ -1137,7 +1133,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>${maven-source-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -1151,7 +1146,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven-javadoc-plugin.version}</version>
                     <configuration>
                         <show>package</show>
                         <tags>
@@ -1191,26 +1185,9 @@
                     <artifactId>maven-archetype-plugin</artifactId>
                     <version>${maven-archetype-plugin.version}</version>
                 </plugin>
-
                 <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>${spring-boot-dependencies.version}</version>
-                    <configuration>
-                        <layers>
-                            <enabled>true</enabled>
-                        </layers>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>${maven-install-plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>pl.project13.maven</groupId>
-                    <artifactId>git-commit-id-plugin</artifactId>
-                    <version>${git-commit-id-plugin.version}</version>
+                    <groupId>io.github.git-commit-id</groupId>
+                    <artifactId>git-commit-id-maven-plugin</artifactId>
                     <configuration>
                         <!-- 检查的仓库根目录，${project.basedir}：项目根目录，即包含pom.xml文件的目录 -->
                         <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
@@ -1238,6 +1215,7 @@
         </pluginManagement>
     </build>
 
+    <!--单独为Dependencies模块发布做处理-->
     <profiles>
         <profile>
             <id>release</id>
