@@ -83,7 +83,7 @@ public interface BaseConstants {
     String CACHE_SIMPLE_BASE_PREFIX = CACHE_PREFIX + "simple:";
     String CACHE_TOKEN_BASE_PREFIX = CACHE_PREFIX + "token:";
 
-    String AREA_PREFIX = "data:upms:";
+    String AREA_PREFIX = "data:";
 
 
     /* ---------- Oauth2 和 Security 通用缓存常量 ---------- */

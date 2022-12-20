@@ -32,19 +32,19 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0-RC3</version>
+        <version>3.0.0.0</version>
     </parent>
 
     <artifactId>engine-message</artifactId>
-    <version>3.0.0-RC3</version>
+    <version>3.0.0.0</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>message-core</module>
-        <module>message-spring-boot-starter</module>
         <module>message-sdk-socketio</module>
         <module>message-sdk-websocket</module>
-        <module>message-sdk-information</module>
+        <module>message-spring-boot-starter</module>
+        <module>message-sdk-mailing</module>
     </modules>
 
 </project>

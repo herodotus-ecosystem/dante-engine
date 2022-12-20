@@ -38,10 +38,12 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.0-RC3</version>
+    <version>3.0.0.0</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
+
+    <url>https://github.com/dromara/dante-cloud</url>
 
     <licenses>
         <license>
@@ -74,7 +76,6 @@
         <name>Dromara</name>
         <url>https://github.com/dromara</url>
     </organization>
-
     <developers>
         <developer>
             <id>herodotus-cloud</id>
@@ -91,7 +92,6 @@
     <!-- ${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${revision} -->
     <!-- ${project.packaging} 打包类型，缺省为jar -->
     <!-- ${project.xxx} 当前pom文件的任意节点的内容 如project.artifactId -->
-
     <properties>
         <java.version>17</java.version>
         <resource.delimiter>@</resource.delimiter>
@@ -99,12 +99,12 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.0.0-RC3</dante-bom.version>
+        <dante-bom.version>3.0.0.0</dante-bom.version>
 
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.0.0-M5</spring-boot-admin.version>
+        <spring-boot-admin.version>3.0.0-M6</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.0.0</spring-boot-dependencies.version>
-        <spring-cloud-dependencies.version>2022.0.0-RC3</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>2022.0.0</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2021.0.4.0</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-tencent-dependencies.version>1.8.2-2022.0.0-RC2</spring-cloud-tencent-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.0.0</spring-security-oauth2-authorization-server.version>
@@ -129,9 +129,9 @@
         <guava.version>31.1-jre</guava.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.18.1</redisson.version>
+        <redisson.version>3.19.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <springdoc.version>2.0.0</springdoc.version>
+        <springdoc.version>2.0.1</springdoc.version>
         <logstash-logback-encoder.version>7.2</logstash-logback-encoder.version>
         <skywalking.version>8.13.0</skywalking.version>
         <minio.version>8.4.6</minio.version>
@@ -140,19 +140,19 @@
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.20</fastjson2.version>
+        <fastjson2.version>2.0.21</fastjson2.version>
         <jetcache.version>2.7.1</jetcache.version>
-        <nacos.version>2.1.2</nacos.version>
+        <nacos.version>2.2.0</nacos.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <!-- 国内开源通用组件 -->
         <hutool.version>5.8.10</hutool.version>
         <okhttps.version>4.0.0</okhttps.version>
-        <weixin-java-sdk.version>4.4.5.B</weixin-java-sdk.version>
+        <weixin-java-sdk.version>4.4.6.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
 
         <!--第三方starter-->
-        <jasypt-spring-boot-starter.version>3.0.4</jasypt-spring-boot-starter.version>
+        <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <camunda-bpm-spring-boot-starter-rest.version>7.18.0</camunda-bpm-spring-boot-starter-rest.version>
         <mybatis-plus-boot-starter.version>3.5.2</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.3</mybatis-plus-generator.version>
@@ -163,16 +163,16 @@
         <!--SMS SDK-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.641</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.650</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
-        <qiniu-java-sdk.version>7.12.0</qiniu-java-sdk.version>
+        <qiniu-java-sdk.version>7.12.1</qiniu-java-sdk.version>
         <yunpian-java-sdk.version>1.2.7</yunpian-java-sdk.version>
         <!--支付 SDK-->
-        <alipay-sdk-java.version>4.34.86.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.35.7.ALL</alipay-sdk-java.version>
         <!--第三方应用集成SDK-->
         <com.baidu.aip.version>4.16.12</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
-        <aliyun-sdk-oss.version>3.15.2</aliyun-sdk-oss.version>
+        <aliyun-sdk-oss.version>3.16.0</aliyun-sdk-oss.version>
 
         <!--以下为 JDK 17 兼容性处理-->
         <kryo.version>5.3.0</kryo.version>
@@ -405,7 +405,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-sdk-information</artifactId>
+                <artifactId>message-sdk-mailing</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>
@@ -1078,6 +1078,16 @@
     </dependencyManagement>
 
     <build>
+        <resources>
+            <!-- 先指定 src/main/resources下所有文件及文件夹为资源文件 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.archetype</groupId>
@@ -1121,6 +1131,10 @@
                         <encoding>UTF-8</encoding>
                         <propertiesEncoding>UTF-8</propertiesEncoding>
                         <addDefaultExcludes>false</addDefaultExcludes>
+                        <delimiters>
+                            <delimiter>${resource.delimiter}</delimiter>
+                        </delimiters>
+                        <useDefaultDelimiters>false</useDefaultDelimiters>
                     </configuration>
                 </plugin>
                 <plugin>

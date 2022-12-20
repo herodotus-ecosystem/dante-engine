@@ -7,13 +7,13 @@
 <p align="center">
     <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-1.0.0-blue" alt="Spring Authorization Server 1.0.0"></a>
     <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.0.0-blue" alt="Spring Boot 3.0.0"></a>
-    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2022.0.0-RC3-blue" alt="Spring Cloud 2022.0.0-RC3"></a>
+    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2022.0.0-blue" alt="Spring Cloud 2022.0.0"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.4.0-blue" alt="Spring Cloud Alibaba 2021.0.4.0"></a>
-    <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.8.1--2022.0.0--RC2-blue" alt="Spring Cloud Tencent 1.8.2-2022.0.0-RC2"></a>
-    <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.1.2-brightgreen" alt="Nacos 2.1.2"></a>
+    <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.8.2--2022.0.0-blue" alt="Spring Cloud Tencent 1.8.2-2022.0.0"></a>
+    <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.0-brightgreen" alt="Nacos 2.2.0"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.0-RC3-red" alt="Version 3.0.0-RC3"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.0.0-red" alt="Version 3.0.0.0"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue" alt="License Apache 2.0"></a>
     <a href="https://blog.csdn.net/Pointer_v" target="_blank"><img src="https://shields.io/badge/Author-%E7%A0%81%E5%8C%A0%E5%90%9B-orange" alt="码匠君"></a>
@@ -30,11 +30,7 @@
 
 ## 背景
 
-> 2021年11月8日 Spring 官方已经强烈建议使用 `Spring Authorization Server` 替换已经过时的 `Spring Security OAuth2.0`。距离 `Spring Security OAuth2.0` 结束生命周期还有小半年的时间，所以准备用 `Spring HerodotusAuthorization Server` 对已有的 `Dante Cloud` 微服务架构进行升级。
-
-`Dante Cloud` 微服务架构，一直遵循“高内聚、低耦合”的原则，在开发和维护的过程中不断优化已有代码，尽一切可能降低代码的耦合性。但是，毕竟所有的代码都堆积在同一个工程中，代码间的过度依赖和互相耦合还是较为严重。这为 `Spring HerodotusAuthorization Server` 替换 `Spring Security OAuth2.0` 带来了较大的阻力和难度。如果完全推翻现有代码，基于 `Spring HerodotusAuthorization Server` 重新构建系统，投入成本太大而且是一种极大的浪费；在现有工程中直接改造，由于代码间的耦合，改造过程也是困难重重。
-
-最终，采取了一个折中的方案：对现有的 `Dante Cloud` 微服务架构，来一次深度的“庖丁解牛”，将一个完整的微服务架构，根据涉及组件的职责以及用途，拆解为多个细化的、各自独立组件模块，在最大程度上降低代码间的耦合。那么在使用 `Spring HerodotusAuthorization Server` 进行改造时影响和涉及的代码量将会极大地降低。因此，就有了本项目。
+自11月22日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17 和 Spring Boot 3 的新时代。紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的 3.0 版本。
 
 ## 特点
 

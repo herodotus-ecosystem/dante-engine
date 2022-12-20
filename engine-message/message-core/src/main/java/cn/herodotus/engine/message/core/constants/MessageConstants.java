@@ -35,12 +35,14 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface MessageConstants extends BaseConstants {
 
-    String REGION_INFORMATION_SYSTEM_ANNOUNCEMENT = AREA_PREFIX + "information:system_announcement";
-    String REGION_INFORMATION_PERSONAL_CONTACT = AREA_PREFIX + "information:personal_contact";
-    String REGION_INFORMATION_PERSONAL_DIALOGUE = AREA_PREFIX + "information:personal_dialogue";
-    String REGION_INFORMATION_PERSONAL_DIALOGUE_DETAIL = AREA_PREFIX + "information:personal_dialogue:detail";
-    String REGION_INFORMATION_NOTIFICATION_QUEUE = AREA_PREFIX + "information:notification_queue";
-    String REGION_INFORMATION_MESSAGE_PULL_STAMP = AREA_PREFIX + "information:pull_stamp";
+    String MSG_AREA_PREFIX = AREA_PREFIX + "msg:";
+
+    String REGION_MESSAGE_ANNOUNCEMENT = MSG_AREA_PREFIX + "system_announcement";
+    String REGION_MESSAGE_DIALOGUE_CONTACT = MSG_AREA_PREFIX + "personal:contact";
+    String REGION_MESSAGE_DIALOGUE = MSG_AREA_PREFIX + "personal:dialogue";
+    String REGION_MESSAGE_DIALOGUE_DETAIL = MSG_AREA_PREFIX + "personal:dialogue:detail";
+    String REGION_MESSAGE_NOTIFICATION = MSG_AREA_PREFIX + "notification_queue";
+    String REGION_MESSAGE_PULL_STAMP = MSG_AREA_PREFIX + "pull_stamp";
 
     String PROPERTY_PREFIX_MESSAGE = PROPERTY_PREFIX_HERODOTUS + ".message";
 
