@@ -27,8 +27,6 @@ package cn.herodotus.engine.message.websocket.interceptor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
-import cn.herodotus.engine.message.websocket.properties.WebSocketProperties;
-import jakarta.servlet.http.HttpSession;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -42,7 +40,6 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 
-import java.security.Principal;
 import java.util.List;
 
 /**
@@ -57,12 +54,6 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketChannelInterceptor.class);
 
-    private WebSocketProperties webSocketProperties;
-
-    public void setWebSocketProperties(WebSocketProperties webSocketProperties) {
-        this.webSocketProperties = webSocketProperties;
-    }
-
     /**
      * 在消息发送之前调用，方法中可以对消息进行修改，如果此方法返回值为空，则不会发生实际的消息发送调用
      *
@@ -75,55 +66,47 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
 
         StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
-        /*
-         * 1. 判断是否为首次连接请求，如果已经连接过，直接返回message
-         * 2. 在http阶段
-         *    前端 Vue 工程使用 SockJS，始终出现 404 问题（会在Socket接口后面增加一个 /info导致）
-         *    前端 Vue 工程使用 @stomp/stompjs，目前还没有找到在调用 websockt 时传递 header 的方式
-         */
-        if (StompCommand.CONNECT.equals(accessor.getCommand())) {
-            /*
-             * 1. 这里获取就是JS stompClient.connect(headers, function (frame){.......}) 中header的信息
-             * 2. JS中header可以封装多个参数，格式是{key1:value1,key2:value2}
-             * 3. header参数的key可以一样，取出来就是list
-             *
-             * 获取 Token，暂时没有用，先留一下以备后面需要。很多都是在这里验证 Token，以确保是登录状态。
-             */
-            List<String> tokenHeaders = accessor.getNativeHeader(HttpHeaders.AUTHORIZATION);
-            String token = null;
-            if (CollectionUtils.isNotEmpty(tokenHeaders)) {
-                String temp = tokenHeaders.get(0);
-                if (StringUtils.isNotBlank(temp) && StringUtils.startsWith(temp, BaseConstants.BEARER_TOKEN)) {
-                    token = StringUtils.removeStartIgnoreCase(temp, BaseConstants.BEARER_TOKEN);
+        WebSocketPrincipal principal = (WebSocketPrincipal) accessor.getUser();
+
+        if (ObjectUtils.isEmpty(principal)) {
+            log.warn("[Herodotus] |- WebSocket channel cannot fetch user principal.");
+            return null;
+        }
+
+        StompCommand command = accessor.getCommand();
+        if (ObjectUtils.isNotEmpty(command)) {
+            switch (command) {
+                /*
+                 * 判断是否为首次连接请求，如果已经连接过，直接返回message
+                 */
+                case CONNECT -> {
+                    /*
+                     * 1. 如果是老版本 stomp-client，这里可以获取到 stompClient.connect(headers, function (frame){.......}) 中header的信息
+                     * 2. 如果是新版本 @stomp/stompjs， 这里可以获取到 connectHeaders : {} 中的 header
+                     */
+                    List<String> tokenHeaders = accessor.getNativeHeader(HttpHeaders.AUTHORIZATION);
+                    String token = null;
+                    if (CollectionUtils.isNotEmpty(tokenHeaders)) {
+                        String temp = tokenHeaders.get(0);
+                        if (StringUtils.isNotBlank(temp) && StringUtils.startsWith(temp, BaseConstants.BEARER_TOKEN)) {
+                            token = StringUtils.removeStartIgnoreCase(temp, BaseConstants.BEARER_TOKEN);
+                        }
+                    }
+
+                    /*
+                     *1. 这里直接封装到StompHeaderAccessor 中，可以根据自身业务进行改变
+                     * 2. 封装StompHeaderAccessor中后，可以在@Controller / @MessageMapping注解的方法中直接带上StompHeaderAccessor 就可以通过方法提供的 getUser()方法获取到这里封装user对象
+                     * 3. 例如可以在这里拿到前端的信息进行登录鉴权
+                     */
+                    WebSocketPrincipal user = (WebSocketPrincipal) accessor.getUser();
+
+                    log.debug("[Herodotus] |- Authentication user [{}] transmit token [{}] from frontend.", user.getName(), token);
                 }
-
-                log.debug("[Herodotus] |- WebSocket fetch the token is [{}].", token);
-            }
-
-            /*
-             * 1. 这里直接封装到StompHeaderAccessor 中，可以根据自身业务进行改变
-             * 2. 封装StompHeaderAccessor中后，可以在@Controller / @MessageMapping注解的方法中直接带上StompHeaderAccessor 就可以通过方法提供的 getUser()方法获取到这里封装user对象
-             * 3. 例如可以在这里拿到前端的信息进行登录鉴权
-             */
-
-            List<String> userIdHeaders = accessor.getNativeHeader(webSocketProperties.getPrincipalHeader());
-            if (CollectionUtils.isNotEmpty(userIdHeaders)) {
-                String userId = userIdHeaders.get(0);
-                log.debug("[Herodotus] |- WebSocket fetch the userid is [{}].", userId);
-                if (StringUtils.isNotBlank(userId)) {
-                    WebSocketPrincipal webSocketPrincipal = new WebSocketPrincipal(userId);
-                    accessor.setUser(webSocketPrincipal);
+                case DISCONNECT -> {
                 }
-
-                log.debug("[Herodotus] |- WebSocket of user [{}] is connected.", userId);
+                default -> {
+                }
             }
-        } else if (StompCommand.DISCONNECT.equals(accessor.getCommand())) {
-            Principal principal = accessor.getUser();
-            String userId = null;
-            if (ObjectUtils.isNotEmpty(principal)) {
-                userId = principal.getName();
-            }
-            log.debug("[Herodotus] |- WebSocket of user [{}] is disconnected.", userId);
         }
 
         return message;
@@ -139,22 +122,11 @@ public class WebSocketChannelInterceptor implements ChannelInterceptor {
     @Override
     public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
 
-        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
         /*
          * 拿到消息头对象后，我们可以做一系列业务操作
          * 1. 通过getSessionAttributes()方法获取到websocketSession， 就可以取到我们在WebSocketHandshakeInterceptor拦截器中存在session中的信息
          * 2. 我们也可以获取到当前连接的状态，做一些统计，例如统计在线人数，或者缓存在线人数对应的令牌，方便后续业务调用
          */
-        HttpSession httpSession = (HttpSession) accessor.getSessionAttributes().get("HTTP_SESSION");
-
-//        log.debug("[Herodotus] WebSocket postSend httpSession id is [{}]", ObjectUtils.isNotEmpty(httpSession) ? httpSession.getId() : null);
-
-//        // 忽略心跳消息等非STOMP消息
-//        if (accessor.getCommand() == null) {
-//            return;
-//        }
-//
-//        log.debug("[Herodotus] WebSocket current status is [{}]", accessor.getCommand());
     }
 
     /**

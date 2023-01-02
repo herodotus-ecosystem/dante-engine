@@ -70,7 +70,7 @@ public class DialogueDetail extends BaseSenderEntity {
     private String receiverAvatar;
 
     @Schema(name = "公告内容")
-    @Column(name = "content", columnDefinition="TEXT")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
     @Schema(name = "对话ID")

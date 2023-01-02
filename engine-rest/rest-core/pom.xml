@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-rest</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0.0</version>
+        <version>3.0.1.0</version>
     </parent>
 
     <artifactId>rest-core</artifactId>
-    <version>3.0.0.0</version>
+    <version>3.0.1.0</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
@@ -49,7 +49,18 @@
 
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>protect-core</artifactId>
+            <artifactId>web-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.owasp.antisamy</groupId>
+            <artifactId>antisamy</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-simple</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

@@ -47,7 +47,7 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 @ConditionalOnRedisSessionSharing
 public class RedisSessionSharingConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(RedisConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheRedisConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {

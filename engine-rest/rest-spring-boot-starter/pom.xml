@@ -32,24 +32,30 @@
     <parent>
         <artifactId>engine-rest</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.0.0</version>
+        <version>3.0.1.0</version>
     </parent>
 
     <artifactId>rest-spring-boot-starter</artifactId>
-    <version>3.0.0.0</version>
+    <version>3.0.1.0</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
 
     <dependencies>
+
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>rest-core</artifactId>
+            <artifactId>rest-sdk-protect</artifactId>
         </dependency>
 
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>protect-web-spring-boot-starter</artifactId>
+            <artifactId>cache-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>data-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>

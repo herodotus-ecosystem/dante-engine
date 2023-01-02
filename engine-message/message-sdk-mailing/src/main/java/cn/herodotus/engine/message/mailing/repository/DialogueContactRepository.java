@@ -25,11 +25,18 @@
 
 package cn.herodotus.engine.message.mailing.repository;
 
+import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.message.mailing.entity.DialogueContact;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.QueryHint;
+import org.hibernate.jpa.AvailableHints;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 /**
  * <p>Description: PersonalContactRepository </p>
@@ -39,8 +46,11 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface DialogueContactRepository extends BaseRepository<DialogueContact, String> {
 
+    @Transactional(rollbackFor = TransactionalRollbackException.class)
     @Modifying
-    @Transactional
-    @Query("delete from DialogueContact c where c.dialogue.dialogueId = ?1")
-    void deleteAllByDialogueId(String dialogueId);
+    @Query("delete from DialogueContact c where c.dialogue.dialogueId = :id")
+    void deleteAllByDialogueId(@Param("id") String dialogueId);
+
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
+    Optional<DialogueContact> findBySenderIdAndReceiverId(String senderId, String receiverId);
 }

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.web.core.definition;
 
-import cn.herodotus.engine.assistant.core.definition.event.StrategyEvent;
+import cn.herodotus.engine.assistant.core.definition.StrategyEvent;
 import cn.herodotus.engine.web.core.context.ServiceContext;
 import org.apache.commons.lang3.StringUtils;
 

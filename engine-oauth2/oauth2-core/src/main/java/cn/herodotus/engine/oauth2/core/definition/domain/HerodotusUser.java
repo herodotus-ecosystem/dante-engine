@@ -65,6 +65,10 @@ public class HerodotusUser implements UserDetails, CredentialsContainer {
 
     private Set<String> roles;
 
+    private String employeeId;
+
+    private String avatar;
+
     public HerodotusUser() {
     }
 
@@ -79,7 +83,7 @@ public class HerodotusUser implements UserDetails, CredentialsContainer {
      * Calls the more complex constructor with all boolean arguments set to {@code true}.
      */
     public HerodotusUser(String userId, String username, String password, Collection<? extends GrantedAuthority> authorities, Set<String> roles) {
-        this(userId, username, password, true, true, true, true, authorities, roles);
+        this(userId, username, password, true, true, true, true, authorities, roles, null, null);
     }
 
     /**
@@ -102,7 +106,7 @@ public class HerodotusUser implements UserDetails, CredentialsContainer {
      */
     public HerodotusUser(String userId, String username, String password, boolean enabled, boolean accountNonExpired,
                          boolean credentialsNonExpired, boolean accountNonLocked,
-                         Collection<? extends GrantedAuthority> authorities, Set<String> roles) {
+                         Collection<? extends GrantedAuthority> authorities, Set<String> roles, String employeeId, String avatar) {
         Assert.isTrue(username != null && !"".equals(username) && password != null,
                 "Cannot pass null or empty values to constructor");
         this.userId = userId;
@@ -114,6 +118,8 @@ public class HerodotusUser implements UserDetails, CredentialsContainer {
         this.accountNonLocked = accountNonLocked;
         this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
         this.roles = CollectionUtils.isNotEmpty(roles) ? roles : new HashSet<>();
+        this.employeeId = employeeId;
+        this.avatar = avatar;
     }
 
     @Override
@@ -162,6 +168,14 @@ public class HerodotusUser implements UserDetails, CredentialsContainer {
 
     public Set<String> getRoles() {
         return roles;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 
     private static SortedSet<GrantedAuthority> sortAuthorities(Collection<? extends GrantedAuthority> authorities) {
@@ -234,6 +248,8 @@ public class HerodotusUser implements UserDetails, CredentialsContainer {
                 .add("accountNonLocked", accountNonLocked)
                 .add("credentialsNonExpired", credentialsNonExpired)
                 .add("enabled", enabled)
+                .add("employeeId", employeeId)
+                .add("avatar", avatar)
                 .toString();
     }
 }

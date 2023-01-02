@@ -115,10 +115,14 @@ public interface BaseConstants {
     String ROLE_PREFIX = "ROLE_";
     String AUTHORITY_PREFIX = "OP_";
 
-    String OPEN_ID = "openid";
-    String ROLES = "roles";
-    String LICENSE = "license";
-    String SOURCE = "source";
     String AUTHORITIES = "authorities";
+    String AVATAR = "avatar";
+    String EMPLOYEE_ID = "employeeId";
+    String LICENSE = "license";
+    String OPEN_ID = "openid";
+    String PRINCIPAL = "principal";
+    String ROLES = "roles";
+    String SOURCE = "source";
+    String USERNAME = "username";
 
 }

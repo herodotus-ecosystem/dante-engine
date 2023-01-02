@@ -26,7 +26,7 @@
 package cn.herodotus.engine.rest.autoconfigure;
 
 import cn.herodotus.engine.rest.configuration.RestCryptoConfiguration;
-import cn.herodotus.engine.rest.configuration.RestWebConfiguration;
+import cn.herodotus.engine.rest.configuration.RestWebMvcConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +42,7 @@ import jakarta.annotation.PostConstruct;
  */
 @Configuration(proxyBeanMethods = false)
 @Import({
-        RestWebConfiguration.class,
+        RestWebMvcConfiguration.class,
         RestCryptoConfiguration.class
 })
 public class AutoConfiguration {

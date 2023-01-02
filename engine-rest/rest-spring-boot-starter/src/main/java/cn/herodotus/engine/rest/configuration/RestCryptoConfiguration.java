@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.rest.configuration;
 
-import cn.herodotus.engine.protect.web.crypto.enhance.DecryptRequestParamMapResolver;
-import cn.herodotus.engine.protect.web.crypto.enhance.DecryptRequestParamResolver;
+import cn.herodotus.engine.rest.protect.crypto.enhance.DecryptRequestParamMapResolver;
+import cn.herodotus.engine.rest.protect.crypto.enhance.DecryptRequestParamResolver;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ import java.util.List;
 @Configuration(proxyBeanMethods = false)
 public class RestCryptoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(RestWebConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(RestWebMvcConfiguration.class);
     private final RequestMappingHandlerAdapter requestMappingHandlerAdapter;
     private final DecryptRequestParamResolver decryptRequestParamResolver;
     private final DecryptRequestParamMapResolver decryptRequestParamMapResolver;

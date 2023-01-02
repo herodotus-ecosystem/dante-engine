@@ -80,7 +80,9 @@ public class HerodotusUserDeserializer extends JsonDeserializer<HerodotusUser> {
         boolean accountNonExpired = readJsonNode(jsonNode, "accountNonExpired").asBoolean();
         boolean credentialsNonExpired = readJsonNode(jsonNode, "credentialsNonExpired").asBoolean();
         boolean accountNonLocked = readJsonNode(jsonNode, "accountNonLocked").asBoolean();
-        HerodotusUser result = new HerodotusUser(userId, username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, roles);
+        String employeeId = readJsonNode(jsonNode, "employeeId").asText();
+        String avatar = readJsonNode(jsonNode, "avatar").asText();
+        HerodotusUser result = new HerodotusUser(userId, username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, roles, employeeId, avatar);
         if (passwordNode.asText(null) == null) {
             result.eraseCredentials();
         }

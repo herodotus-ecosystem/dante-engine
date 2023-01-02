@@ -32,7 +32,7 @@ import cn.herodotus.engine.oauth2.server.authentication.dto.OAuth2ScopeDto;
 import cn.herodotus.engine.oauth2.server.authentication.entity.OAuth2Authority;
 import cn.herodotus.engine.oauth2.server.authentication.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.server.authentication.service.OAuth2ScopeService;
-import cn.herodotus.engine.protect.core.annotation.AccessLimited;
+import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

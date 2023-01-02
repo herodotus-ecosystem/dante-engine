@@ -30,7 +30,7 @@ import cn.herodotus.engine.oss.minio.domain.MultipartUploadCreate;
 import cn.herodotus.engine.oss.minio.dto.logic.CompleteMultipartUploadDto;
 import cn.herodotus.engine.oss.minio.dto.logic.CreateMultipartUpload;
 import cn.herodotus.engine.oss.minio.processor.MultipartUploadProcessor;
-import cn.herodotus.engine.protect.core.annotation.Idempotent;
+import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.Controller;
 import io.minio.ObjectWriteResponse;
 import io.swagger.v3.oas.annotations.Operation;

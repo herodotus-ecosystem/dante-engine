@@ -57,7 +57,7 @@ public class Announcement extends BaseSenderEntity {
     private String title;
 
     @Schema(name = "公告内容")
-    @Column(name = "content", columnDefinition="TEXT")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
     public String getAnnouncementId() {

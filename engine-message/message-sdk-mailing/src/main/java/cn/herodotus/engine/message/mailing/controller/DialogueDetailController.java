@@ -29,10 +29,12 @@ import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.message.mailing.entity.DialogueDetail;
 import cn.herodotus.engine.message.mailing.service.DialogueDetailService;
+import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -40,10 +42,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -54,7 +53,7 @@ import java.util.Map;
  * @date : 2022/12/17 12:49
  */
 @RestController
-@RequestMapping("/message/contact")
+@RequestMapping("/dialogue/detail")
 @Tags({
         @Tag(name = "消息管理接口"),
         @Tag(name = "私信管理接口"),
@@ -86,5 +85,18 @@ public class DialogueDetailController extends BaseWriteableRestController<Dialog
                                                        @NotNull @RequestParam("dialogueId") String dialogueId) {
         Page<DialogueDetail> pages = dialogueDetailService.findByCondition(pageNumber, pageSize, dialogueId);
         return result(pages);
+    }
+
+    @Idempotent
+    @Operation(summary = "根据dialogueId删除私信整个对话", description = "根据实体dialogueId删除私信整个对话，包括相关联的关联数据",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
+            responses = {@ApiResponse(description = "操作消息", content = @Content(mediaType = "application/json"))})
+    @Parameters({
+            @Parameter(name = "id", required = true, in = ParameterIn.PATH, description = "DialogueId 关联私信联系人和私信详情的ID")
+    })
+    @DeleteMapping("/dialogue/{id}")
+    public Result<String> deleteDialogueById(@PathVariable String id) {
+        dialogueDetailService.deleteDialogueById(id);
+        return Result.success("删除成功");
     }
 }

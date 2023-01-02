@@ -102,7 +102,8 @@ public class XssUtils {
         String cleanHtml = StringEscapeUtils.unescapeHtml4(getInstance().cleanHtml(taintedHTML));
         //AntiSamy会把“&nbsp;”转换成乱码，把双引号转换成"&quot;" 先将&nbsp;的乱码替换为空，双引号的乱码替换为双引号
         String temp = cleanHtml.replaceAll(getInstance().nbsp, "");
-        String result = temp.replaceAll(getInstance().quot, "\"");
+        temp = temp.replaceAll(getInstance().quot, "\"");
+        String result = temp.replaceAll("\n", "");
         log.trace("[Herodotus] |- After  Antisamy Well Formed, value is: [{}]", result);
         return result;
     }

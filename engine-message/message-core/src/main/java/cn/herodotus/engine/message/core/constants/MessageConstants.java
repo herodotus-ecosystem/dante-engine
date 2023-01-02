@@ -37,6 +37,7 @@ public interface MessageConstants extends BaseConstants {
 
     String MSG_AREA_PREFIX = AREA_PREFIX + "msg:";
 
+    String REDIS_CURRENT_ONLINE_USER = MSG_AREA_PREFIX + "online:user";
     String REGION_MESSAGE_ANNOUNCEMENT = MSG_AREA_PREFIX + "system_announcement";
     String REGION_MESSAGE_DIALOGUE_CONTACT = MSG_AREA_PREFIX + "personal:contact";
     String REGION_MESSAGE_DIALOGUE = MSG_AREA_PREFIX + "personal:dialogue";
@@ -50,7 +51,8 @@ public interface MessageConstants extends BaseConstants {
     String PROPERTY_PREFIX_WEBSOCKET = PROPERTY_PREFIX_MESSAGE + ".websocket";
 
     String WEBSOCKET_CHANNEL_PROXY_BROADCAST = "/broadcast";
-    String WEBSOCKET_CHANNEL_PROXY_PEER_TO_PEER = "/personal";
+    String WEBSOCKET_CHANNEL_PROXY_PERSONAL = "/personal";
     String WEBSOCKET_DESTINATION_BROADCAST_NOTICE = WEBSOCKET_CHANNEL_PROXY_BROADCAST + "/notice";
-    String WEBSOCKET_DESTINATION_PERSONAL_MESSAGE = WEBSOCKET_CHANNEL_PROXY_PEER_TO_PEER + "/message";
+    String WEBSOCKET_DESTINATION_BROADCAST_ONLINE = WEBSOCKET_CHANNEL_PROXY_BROADCAST + "/online";
+    String WEBSOCKET_DESTINATION_PERSONAL_MESSAGE = WEBSOCKET_CHANNEL_PROXY_PERSONAL + "/message";
 }

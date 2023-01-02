@@ -26,11 +26,9 @@
 package cn.herodotus.engine.message.websocket.processor;
 
 import cn.herodotus.engine.message.core.constants.MessageConstants;
-import cn.herodotus.engine.message.websocket.domain.WebSocketChannel;
+import cn.herodotus.engine.message.core.exception.IllegalChannelException;
+import cn.herodotus.engine.message.core.exception.PrincipalNotFoundException;
 import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
-import cn.herodotus.engine.message.websocket.exception.IllegalChannelException;
-import cn.herodotus.engine.message.websocket.exception.PrincipalNotFoundException;
-import cn.herodotus.engine.message.websocket.properties.WebSocketProperties;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +48,6 @@ public class WebSocketMessageSender {
 
     private SimpMessagingTemplate simpMessagingTemplate;
     private SimpUserRegistry simpUserRegistry;
-    private WebSocketProperties webSocketProperties;
 
     public void setSimpMessagingTemplate(SimpMessagingTemplate simpMessagingTemplate) {
         this.simpMessagingTemplate = simpMessagingTemplate;
@@ -58,10 +55,6 @@ public class WebSocketMessageSender {
 
     public void setSimpUserRegistry(SimpUserRegistry simpUserRegistry) {
         this.simpUserRegistry = simpUserRegistry;
-    }
-
-    public void setWebSocketProperties(WebSocketProperties webSocketProperties) {
-        this.webSocketProperties = webSocketProperties;
     }
 
     /**
@@ -82,13 +75,27 @@ public class WebSocketMessageSender {
         simpMessagingTemplate.convertAndSendToUser(webSocketMessage.getTo(), webSocketMessage.getChannel(), webSocketMessage.getPayload());
     }
 
+    public <T> void toAll(String channel, T payload) {
+        simpMessagingTemplate.convertAndSend(channel, payload);
+    }
+
     /**
      * 广播 WebSocket 信息
      *
      * @param payload 发送的内容
      * @param <T>     payload 类型
      */
-    public <T> void noticeToAll(T payload) {
-        simpMessagingTemplate.convertAndSend(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_NOTICE, payload);
+    public <T> void sendNoticeToAll(T payload) {
+        toAll(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_NOTICE, payload);
+    }
+
+    /**
+     * 广播 WebSocket 信息
+     *
+     * @param payload 发送的内容
+     * @param <T>     payload 类型
+     */
+    public <T> void sendOnlineToAll(T payload) {
+        toAll(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_ONLINE, payload);
     }
 }

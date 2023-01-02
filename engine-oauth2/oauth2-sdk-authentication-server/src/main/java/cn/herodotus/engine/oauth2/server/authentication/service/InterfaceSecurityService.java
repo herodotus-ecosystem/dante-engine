@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.server.authentication.service;
 
 import cn.herodotus.engine.assistant.core.domain.SecretKey;
 import cn.herodotus.engine.oauth2.core.utils.SecurityUtils;
-import cn.herodotus.engine.protect.web.crypto.processor.HttpCryptoProcessor;
+import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

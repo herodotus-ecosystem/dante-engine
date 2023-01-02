@@ -27,6 +27,7 @@ package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.message.core.enums.NotificationCategory;
 import cn.herodotus.engine.message.mailing.entity.Announcement;
 import cn.herodotus.engine.message.mailing.entity.Notification;
 import cn.herodotus.engine.message.mailing.entity.PullStamp;
@@ -39,6 +40,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -72,13 +74,7 @@ public class NotificationService extends BaseLayeredService<Notification, String
         return notificationRepository;
     }
 
-    public List<Notification> findAllUnReadNotifications(String userId) {
-        List<Notification> notificationQueues = notificationRepository.findAllByUserIdAndRead(userId, false);
-        log.debug("[Herodotus] |- NotificationQueue Service findAllUnReadNotifications.");
-        return notificationQueues;
-    }
-
-    private void pullAnnouncements(String userId) {
+    public void pullAnnouncements(String userId) {
         PullStamp pullStamp = pullStampService.getPullStamp(userId);
         List<Announcement> systemAnnouncements = announcementService.pullAnnouncements(pullStamp.getLatestPullTime());
         if (CollectionUtils.isNotEmpty(systemAnnouncements)) {
@@ -87,7 +83,8 @@ public class NotificationService extends BaseLayeredService<Notification, String
         }
     }
 
-    public Page<Notification> findByCondition(int pageNumber, int pageSize, String userId, Integer category, Boolean read) {
+    public Page<Notification> findByCondition(int pageNumber, int pageSize, String userId, NotificationCategory category, Boolean read) {
+
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
         Specification<Notification> specification = (root, criteriaQuery, criteriaBuilder) -> {
@@ -106,10 +103,11 @@ public class NotificationService extends BaseLayeredService<Notification, String
 
             Predicate[] predicateArray = new Predicate[predicates.size()];
             criteriaQuery.where(criteriaBuilder.and(predicates.toArray(predicateArray)));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createTime")));
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- DialogueDetail Service findByCondition.");
+        log.debug("[Herodotus] |- Notification Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 
@@ -124,7 +122,13 @@ public class NotificationService extends BaseLayeredService<Notification, String
         notification.setSenderId(announcement.getSenderId());
         notification.setSenderName(announcement.getSenderName());
         notification.setSenderAvatar(announcement.getSenderAvatar());
-        notification.setCategory(1);
+        notification.setCategory(NotificationCategory.ANNOUNCEMENT);
         return notification;
+    }
+
+    public int setAllRead(String userId) {
+        int result = notificationRepository.updateAllRead(userId);
+        log.debug("[Herodotus] |- Notification Service setAllRead.");
+        return result;
     }
 }

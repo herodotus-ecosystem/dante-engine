@@ -27,10 +27,14 @@ package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.message.core.enums.NotificationCategory;
 import cn.herodotus.engine.message.mailing.entity.Dialogue;
+import cn.herodotus.engine.message.mailing.entity.DialogueContact;
 import cn.herodotus.engine.message.mailing.entity.DialogueDetail;
+import cn.herodotus.engine.message.mailing.entity.Notification;
 import cn.herodotus.engine.message.mailing.repository.DialogueDetailRepository;
 import jakarta.persistence.criteria.Predicate;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,16 +62,29 @@ public class DialogueDetailService extends BaseLayeredService<DialogueDetail, St
     private final DialogueDetailRepository dialogueDetailRepository;
     private final DialogueContactService dialogueContactService;
     private final DialogueService dialogueService;
+    private final NotificationService notificationService;
 
-    public DialogueDetailService(DialogueDetailRepository dialogueDetailRepository, DialogueContactService dialogueContactService, DialogueService dialogueService) {
+    public DialogueDetailService(DialogueDetailRepository dialogueDetailRepository, DialogueContactService dialogueContactService, DialogueService dialogueService, NotificationService notificationService) {
         this.dialogueDetailRepository = dialogueDetailRepository;
         this.dialogueContactService = dialogueContactService;
         this.dialogueService = dialogueService;
+        this.notificationService = notificationService;
     }
 
     @Override
     public BaseRepository<DialogueDetail, String> getRepository() {
         return dialogueDetailRepository;
+    }
+
+    private Notification convertDialogueDetailToNotification(DialogueDetail dialogueDetail) {
+        Notification notification = new Notification();
+        notification.setUserId(dialogueDetail.getReceiverId());
+        notification.setContent(dialogueDetail.getContent());
+        notification.setSenderId(dialogueDetail.getSenderId());
+        notification.setSenderName(dialogueDetail.getSenderName());
+        notification.setSenderAvatar(dialogueDetail.getSenderAvatar());
+        notification.setCategory(NotificationCategory.DIALOGUE);
+        return notification;
     }
 
     /**
@@ -90,15 +107,33 @@ public class DialogueDetailService extends BaseLayeredService<DialogueDetail, St
     @Transactional
     @Override
     public DialogueDetail save(DialogueDetail domain) {
+
         if (StringUtils.isBlank(domain.getDialogueId())) {
-            Dialogue dialogue = dialogueService.createDialogue(domain.getContent());
-            domain.setDialogueId(dialogue.getDialogueId());
-            dialogueContactService.createContact(dialogue, domain);
+            DialogueContact dialogueContact = dialogueContactService.findBySenderIdAndReceiverId(domain.getSenderId(), domain.getReceiverId());
+            if (ObjectUtils.isNotEmpty(dialogueContact) && ObjectUtils.isNotEmpty(dialogueContact.getDialogue())) {
+                String dialogueId = dialogueContact.getDialogue().getDialogueId();
+                domain.setDialogueId(dialogueId);
+                dialogueService.updateDialogue(dialogueId, domain.getContent());
+            } else {
+                Dialogue dialogue = dialogueService.createDialogue(domain.getContent());
+                domain.setDialogueId(dialogue.getDialogueId());
+                dialogueContactService.createContact(dialogue, domain);
+            }
         } else {
             dialogueService.updateDialogue(domain.getDialogueId(), domain.getContent());
         }
 
+        notificationService.save(convertDialogueDetailToNotification(domain));
+
         return super.save(domain);
+    }
+
+    @Transactional
+    public void deleteDialogueById(String dialogueId) {
+        dialogueContactService.deleteByDialogueId(dialogueId);
+        dialogueService.deleteById(dialogueId);
+        dialogueDetailRepository.deleteAllByDialogueId(dialogueId);
+        log.debug("[Herodotus] |- DialogueDetail Service deleteAllByDialogueId.");
     }
 
     public Page<DialogueDetail> findByCondition(int pageNumber, int pageSize, String dialogueId) {
@@ -112,15 +147,11 @@ public class DialogueDetailService extends BaseLayeredService<DialogueDetail, St
 
             Predicate[] predicateArray = new Predicate[predicates.size()];
             criteriaQuery.where(criteriaBuilder.and(predicates.toArray(predicateArray)));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createTime")));
             return criteriaQuery.getRestriction();
         };
 
         log.debug("[Herodotus] |- DialogueDetail Service findByCondition.");
         return this.findByPage(specification, pageable);
-    }
-
-    public void deleteAllByDialogueId(String dialogueId) {
-        dialogueDetailRepository.deleteAllByDialogueId(dialogueId);
-        log.debug("[Herodotus] |- DialogueDetail Service deleteAllByDialogueId.");
     }
 }

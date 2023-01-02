@@ -35,4 +35,5 @@ import cn.herodotus.engine.message.mailing.entity.Dialogue;
  * @date : 2022/12/7 22:06
  */
 public interface DialogueRepository extends BaseRepository<Dialogue, String> {
+
 }

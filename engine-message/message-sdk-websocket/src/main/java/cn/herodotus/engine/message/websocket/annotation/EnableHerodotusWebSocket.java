@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.message.websocket.annotation;
 
-import cn.herodotus.engine.cache.redisson.annotation.EnableHerodotusRedisson;
-import cn.herodotus.engine.message.websocket.configuration.WebSocketConfiguration;
+import cn.herodotus.engine.cache.redis.annotation.EnableHerodotusRedis;
+import cn.herodotus.engine.message.websocket.configuration.MessageWebSocketConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -40,7 +40,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EnableHerodotusRedisson
-@Import(WebSocketConfiguration.class)
+@EnableHerodotusRedis
+@Import(MessageWebSocketConfiguration.class)
 public @interface EnableHerodotusWebSocket {
 }

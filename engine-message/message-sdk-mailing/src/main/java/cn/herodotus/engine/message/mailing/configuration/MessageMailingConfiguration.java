@@ -56,6 +56,6 @@ public class MessageMailingConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Service Message Logic] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Message Mailing] Auto Configure.");
     }
 }

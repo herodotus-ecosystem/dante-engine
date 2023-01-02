@@ -28,8 +28,8 @@ package cn.herodotus.engine.oauth2.authentication.response;
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
-import cn.herodotus.engine.oauth2.core.definition.details.UserAuthenticationDetails;
-import cn.herodotus.engine.protect.web.crypto.processor.HttpCryptoProcessor;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
+import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -103,7 +103,7 @@ public class HerodotusAuthenticationSuccessHandler implements AuthenticationSucc
             String sessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
             Object details = authentication.getDetails();
             if (isHerodotusUserInfoPattern(sessionId, details)) {
-                UserAuthenticationDetails authenticationDetails = (UserAuthenticationDetails) details;
+                PrincipalDetails authenticationDetails = (PrincipalDetails) details;
                 String data = JacksonUtils.toJson(authenticationDetails);
                 String encryptData = httpCryptoProcessor.encrypt(sessionId, data);
                 Map<String, Object> parameters = new HashMap<>(additionalParameters);
@@ -120,7 +120,7 @@ public class HerodotusAuthenticationSuccessHandler implements AuthenticationSucc
     }
 
     private boolean isHerodotusUserInfoPattern(String sessionId, Object details) {
-        return StringUtils.isNotBlank(sessionId) && ObjectUtils.isNotEmpty(details) && details instanceof UserAuthenticationDetails;
+        return StringUtils.isNotBlank(sessionId) && ObjectUtils.isNotEmpty(details) && details instanceof PrincipalDetails;
     }
 
     private boolean isOidcUserInfoPattern(Map<String, Object> additionalParameters) {

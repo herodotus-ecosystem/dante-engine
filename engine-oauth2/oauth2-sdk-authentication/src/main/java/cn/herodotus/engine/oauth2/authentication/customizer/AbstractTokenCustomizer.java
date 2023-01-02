@@ -83,11 +83,13 @@ public abstract class AbstractTokenCustomizer {
             }
         }
 
-        attributes.put("license", "Apache-2.0 Licensed | Copyright © 2020-2022 码匠君");
+        attributes.put("license", "Apache-2.0 Licensed | Copyright © 2020-2023 码 匠 君");
     }
 
     private void putUserInfo(Map<String, Object> attributes, HerodotusUser principal) {
         attributes.put(BaseConstants.OPEN_ID, principal.getUserId());
         attributes.put(BaseConstants.ROLES, principal.getRoles());
+        attributes.put(BaseConstants.AVATAR, principal.getAvatar());
+        attributes.put(BaseConstants.EMPLOYEE_ID, principal.getEmployeeId());
     }
 }

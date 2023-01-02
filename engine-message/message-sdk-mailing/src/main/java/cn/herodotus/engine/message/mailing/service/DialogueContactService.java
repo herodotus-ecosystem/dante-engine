@@ -43,6 +43,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>Description: PersonalContactService </p>
@@ -56,13 +57,9 @@ public class DialogueContactService extends BaseLayeredService<DialogueContact, 
     private static final Logger log = LoggerFactory.getLogger(DialogueContactService.class);
 
     private final DialogueContactRepository dialogueContactRepository;
-    private final DialogueService dialogueService;
-    private final DialogueDetailService dialogueDetailService;
 
-    public DialogueContactService(DialogueContactRepository dialogueContactRepository, DialogueService dialogueService, DialogueDetailService dialogueDetailService) {
+    public DialogueContactService(DialogueContactRepository dialogueContactRepository) {
         this.dialogueContactRepository = dialogueContactRepository;
-        this.dialogueService = dialogueService;
-        this.dialogueDetailService = dialogueDetailService;
     }
 
     @Override
@@ -104,6 +101,7 @@ public class DialogueContactService extends BaseLayeredService<DialogueContact, 
 
             Predicate[] predicateArray = new Predicate[predicates.size()];
             criteriaQuery.where(criteriaBuilder.and(predicates.toArray(predicateArray)));
+            criteriaQuery.orderBy(criteriaBuilder.desc(root.get("createTime")));
             return criteriaQuery.getRestriction();
         };
 
@@ -111,10 +109,11 @@ public class DialogueContactService extends BaseLayeredService<DialogueContact, 
         return this.findByPage(specification, pageable);
     }
 
-    @Transactional
     public void deleteByDialogueId(String dialogueId) {
-        dialogueDetailService.deleteAllByDialogueId(dialogueId);
         dialogueContactRepository.deleteAllByDialogueId(dialogueId);
-        dialogueService.deleteById(dialogueId);
+    }
+
+    public DialogueContact findBySenderIdAndReceiverId(String senderId, String receiverId){
+        return  dialogueContactRepository.findBySenderIdAndReceiverId(senderId, receiverId).orElse(null);
     }
 }

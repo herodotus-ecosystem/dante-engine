@@ -35,7 +35,7 @@ import org.hibernate.annotations.UuidGenerator;
 
 /**
  * <p>Description: 私信对话 </p>
- *
+ * <p>
  * 本质是一张冗余表，作为中间桥梁连接私信联系和私信对话详情。同时保存对话的最新一条信息，方便展示。
  *
  * @author : gengwei.zheng
@@ -55,7 +55,7 @@ public class Dialogue extends BaseEntity {
     private String dialogueId;
 
     @Schema(name = "最新内容")
-    @Column(name = "latest_news", columnDefinition="TEXT")
+    @Column(name = "latest_news", columnDefinition = "TEXT")
     private String latestNews;
 
     public String getDialogueId() {

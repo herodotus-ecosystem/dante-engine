@@ -27,6 +27,7 @@ package cn.herodotus.engine.message.mailing.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.engine.message.core.enums.NotificationCategory;
 import cn.herodotus.engine.message.mailing.entity.Notification;
 import cn.herodotus.engine.message.mailing.service.NotificationService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
@@ -39,22 +40,20 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.constraints.NotNull;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: 系统通知 </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/12/17 14:19
  */
 @RestController
-@RequestMapping("/message/notification")
+@RequestMapping("/notification")
 @Tags({
         @Tag(name = "消息管理接口"),
         @Tag(name = "通知管理接口")
@@ -87,7 +86,25 @@ public class NotificationController extends BaseWriteableRestController<Notifica
                                                        @NotNull @RequestParam(value = "userId") String userId,
                                                        @RequestParam(value = "category", required = false) Integer category,
                                                        @RequestParam(value = "read", required = false) Boolean read) {
-        Page<Notification> pages = notificationService.findByCondition(pageNumber, pageSize, userId, category, read);
+        NotificationCategory notificationCategory = NotificationCategory.get(category);
+        if (ObjectUtils.isNotEmpty(notificationCategory)) {
+            if (notificationCategory == NotificationCategory.ANNOUNCEMENT) {
+                notificationService.pullAnnouncements(userId);
+            }
+        }
+
+        Page<Notification> pages = notificationService.findByCondition(pageNumber, pageSize, userId, notificationCategory, read);
         return result(pages);
+    }
+
+    @Operation(summary = "全部通知已读", description = "根据用户ID设置该用户的全部通知为已读",
+            responses = {@ApiResponse(description = "影响数据条目数", content = @Content(mediaType = "application/json"))})
+    @Parameters({
+            @Parameter(name = "userId", description = "用户ID")
+    })
+    @PutMapping("/all-read")
+    public Result<Integer> setAllRead(@RequestParam("userId") String userId) {
+        Integer result = notificationService.setAllRead(userId);
+        return Result.success("操作成功", result);
     }
 }

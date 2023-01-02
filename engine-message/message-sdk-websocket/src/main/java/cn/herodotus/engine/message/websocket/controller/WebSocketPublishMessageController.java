@@ -25,22 +25,24 @@
 
 package cn.herodotus.engine.message.websocket.controller;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
+import cn.herodotus.engine.message.mailing.entity.DialogueDetail;
+import cn.herodotus.engine.message.mailing.service.DialogueDetailService;
 import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.message.websocket.processor.WebSocketMessageSender;
+import cn.herodotus.engine.web.core.constants.WebConstants;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * <p>Description: 前端使用的 publish 响应接口 </p>
@@ -55,8 +57,11 @@ public class WebSocketPublishMessageController {
 
     private final WebSocketMessageSender webSocketMessageSender;
 
-    public WebSocketPublishMessageController(WebSocketMessageSender webSocketMessageSender) {
+    private final DialogueDetailService dialogueDetailService;
+
+    public WebSocketPublishMessageController(WebSocketMessageSender webSocketMessageSender, DialogueDetailService dialogueDetailService) {
         this.webSocketMessageSender = webSocketMessageSender;
+        this.dialogueDetailService = dialogueDetailService;
     }
 
     @MessageMapping("/public/notice")
@@ -72,55 +77,38 @@ public class WebSocketPublishMessageController {
 
     /**
      * 发送私信消息。
-     * 然后服务器你就把资源给我就行了，别的用户就不用你广播推送了，简单点，就是我请求，你就推送给我
-     * 如果一个帐号打开了多个浏览器窗口，也就是打开了多个websocket session通道，
-     * 这时，spring webscoket默认会把消息推送到同一个帐号不同的session，
-     * 可以利用broadcast = false把避免推送到所有的session中
      *
-     * @param data           前端数据
+     * @param detail           前端数据 {@link DialogueDetail}
      * @param headerAccessor 在WebSocketChannelInterceptor拦截器中绑定上的对象
-     * @return
      */
     @MessageMapping("/private/message")
-    @SendToUser(value = MessageConstants.WEBSOCKET_DESTINATION_PERSONAL_MESSAGE)
-    public Map<String, Object> sendPrivateMessage(String data, StompHeaderAccessor headerAccessor) {
-        // 这里拿到的user对象是在WebSocketChannelInterceptor拦截器中绑定上的对象
-        WebSocketPrincipal user = (WebSocketPrincipal) headerAccessor.getUser();
+    public void sendPrivateMessage(@Payload DialogueDetail detail, StompHeaderAccessor headerAccessor) {
 
-        Map<String, Object> result = JacksonUtils.toMap(data, String.class, Object.class);
+        WebSocketMessage<String> response = new WebSocketMessage<>();
+        response.setTo(detail.getReceiverId());
+        response.setChannel(MessageConstants.WEBSOCKET_DESTINATION_PERSONAL_MESSAGE);
 
-        log.debug("[Herodotus] |- Send to personal [{}] at session [{}] with data [{}]", user.getName(), headerAccessor.getSessionId(), data);
+        if (StringUtils.isNotBlank(detail.getReceiverId()) && StringUtils.isNotBlank(detail.getReceiverName())) {
+            if (StringUtils.isBlank(detail.getSenderId()) && StringUtils.isBlank(detail.getSenderName())) {
+                WebSocketPrincipal sender = (WebSocketPrincipal) headerAccessor.getUser();
+                detail.setSenderId(sender.getUserId());
+                detail.setSenderName(sender.getUserName());
+                detail.setSenderAvatar(sender.getAvatar());
+            }
 
-        return result;
-    }
+            DialogueDetail result = dialogueDetailService.save(detail);
 
-    /**
-     * 根据ID 把消息推送给指定用户
-     * 1. 这里用了 @SendToUser 和 返回值 其意义是可以在发送成功后回执给发送放其信息发送成功
-     * 2. 非必须，如果实际业务不需要关心此，可以不用@SendToUser注解，方法返回值为void
-     * 3. 这里接收人的参数是用restful风格带过来了，websocket把参数带到后台的方式很多，除了url路径，
-     * 还可以在header中封装用@Header或者@Headers去取等多种方式
-     *
-     * @param accountId      消息接收人ID
-     * @param data           前端数据
-     * @param headerAccessor 在WebSocketChannelInterceptor拦截器中绑定上的对象
-     * @return
-     */
-    @MessageMapping("/private/message/{accountId}")
-    public Map<String, Object> sendMessageToUser(@DestinationVariable(value = "accountId") String accountId, String data, StompHeaderAccessor headerAccessor) {
-        WebSocketPrincipal user = (WebSocketPrincipal) headerAccessor.getUser();
 
-        Map<String, Object> result = JacksonUtils.toMap(data, String.class, Object.class);
+            if (ObjectUtils.isNotEmpty(result)) {
+                response.setPayload("私信发送成功");
 
-        log.debug("[Herodotus] |- Send to user [{}] at session [{}] with data [{}]", user.getName(), headerAccessor.getSessionId(), data);
+            } else {
+                response.setPayload("私信发送失败");
+            }
+        } else {
+            response.setPayload("私信发送失败，参数错误");
+        }
 
-        WebSocketMessage<String> message = new WebSocketMessage<>();
-        message.setChannel(MessageConstants.WEBSOCKET_DESTINATION_PERSONAL_MESSAGE);
-        message.setTo(accountId);
-        message.setPayload("hello world");
-
-        webSocketMessageSender.toUser(message);
-
-        return result;
+        webSocketMessageSender.toUser(response);
     }
 }

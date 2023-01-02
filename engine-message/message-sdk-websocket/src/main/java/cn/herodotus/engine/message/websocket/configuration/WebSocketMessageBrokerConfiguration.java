@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.message.websocket.configuration;
 
+import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketChannelInterceptor;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketPrincipalHandshakeHandler;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketSessionHandshakeInterceptor;
@@ -34,8 +35,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -52,25 +52,26 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
  * @author : gengwei.zheng
  * @date : 2022/12/4 19:19
  */
-@Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties({WebSocketProperties.class})
+@AutoConfiguration(after = {WebSocketSessionHandshakeInterceptor.class})
 @EnableScheduling
 @EnableWebSocketMessageBroker
 public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocketMessageBrokerConfigurer<Session> {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(WebSocketMessageBrokerConfiguration.class);
 
     private final WebSocketProperties webSocketProperties;
     private final WebSocketChannelInterceptor webSocketChannelInterceptor;
+    private final WebSocketSessionHandshakeInterceptor webSocketSessionHandshakeInterceptor;
 
-    public WebSocketMessageBrokerConfiguration(WebSocketProperties webSocketProperties, WebSocketChannelInterceptor webSocketChannelInterceptor) {
+    public WebSocketMessageBrokerConfiguration(WebSocketProperties webSocketProperties, WebSocketChannelInterceptor webSocketChannelInterceptor, WebSocketSessionHandshakeInterceptor webSocketSessionHandshakeInterceptor) {
         this.webSocketProperties = webSocketProperties;
         this.webSocketChannelInterceptor = webSocketChannelInterceptor;
+        this.webSocketSessionHandshakeInterceptor = webSocketSessionHandshakeInterceptor;
     }
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Stomp WebSocket] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [WebSocket Message Broker] Auto Configure.");
     }
 
     /**
@@ -80,7 +81,6 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
      */
     @Override
     protected void configureStompEndpoints(StompEndpointRegistry registry) {
-        WebSocketSessionHandshakeInterceptor sessionHandshakeInterceptor = new WebSocketSessionHandshakeInterceptor();
         WebSocketPrincipalHandshakeHandler principalHandshakeHandler = new WebSocketPrincipalHandshakeHandler();
 
         /*
@@ -90,15 +90,15 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
          * 3. withSockJS()表示支持socktJS访问
          * 4. 添加自定义拦截器，这个拦截器是上一个demo自己定义的获取httpsession的拦截器
          */
-        registry.addEndpoint(webSocketProperties.getSockJsEndpoint())
+        registry.addEndpoint(webSocketProperties.getEndpoint())
                 .setAllowedOrigins("*")
-                .addInterceptors(sessionHandshakeInterceptor)
+                .addInterceptors(webSocketSessionHandshakeInterceptor)
                 .setHandshakeHandler(principalHandshakeHandler)
                 .withSockJS();
 
         registry.addEndpoint(webSocketProperties.getEndpoint())
                 .setAllowedOrigins("*")
-                .addInterceptors(sessionHandshakeInterceptor)
+                .addInterceptors(webSocketSessionHandshakeInterceptor)
                 .setHandshakeHandler(principalHandshakeHandler);
     }
 
@@ -140,7 +140,7 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
          * 3. 可以配置心跳线程调度器 setHeartbeatValue这个不能单独设置，不然不起作用，要配合setTaskScheduler才可以生效
          *    调度器我们可以自己写一个，也可以自己使用默认的调度器 new DefaultManagedTaskScheduler()
          */
-        registry.enableSimpleBroker("/broadcast", "/personal")
+        registry.enableSimpleBroker(MessageConstants.WEBSOCKET_CHANNEL_PROXY_BROADCAST, MessageConstants.WEBSOCKET_CHANNEL_PROXY_PERSONAL)
                 .setHeartbeatValue(new long[]{10000, 10000})
                 .setTaskScheduler(taskScheduler);
 

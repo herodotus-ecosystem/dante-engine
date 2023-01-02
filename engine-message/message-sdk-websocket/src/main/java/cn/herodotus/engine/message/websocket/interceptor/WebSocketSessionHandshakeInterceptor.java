@@ -25,22 +25,31 @@
 
 package cn.herodotus.engine.message.websocket.interceptor;
 
-import jakarta.servlet.http.HttpSession;
+import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
+import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
 import java.util.Map;
 
 /**
- * <p>Description: WebSocketHandler 拦截器 </p>
+ * <p>Description: WebSocketSessionHandshakeInterceptor </p>
  * <p>
  * 不是开启websocket的必要步骤，根据自身的业务逻辑决定是否添加拦截器
+ *
+ * 当前主要处理 Token 获取，以及 Token 的验证。如果验证成功，使用返回的用户名进行下一步，如果验证失败返回 false 终止握手。
  *
  * @author : gengwei.zheng
  * @date : 2022/12/4 21:34
@@ -49,22 +58,37 @@ public class WebSocketSessionHandshakeInterceptor extends HttpSessionHandshakeIn
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketSessionHandshakeInterceptor.class);
 
+    private static final String SEC_WEBSOCKET_PROTOCOL = com.google.common.net.HttpHeaders.SEC_WEBSOCKET_PROTOCOL;
+
+    private final BearerTokenResolver bearerTokenResolver;
+
+    public WebSocketSessionHandshakeInterceptor(BearerTokenResolver bearerTokenResolver) {
+        this.bearerTokenResolver = bearerTokenResolver;
+    }
+
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-        // websocket握手建立前调用，获取httpsession
-        if (request instanceof ServletServerHttpRequest) {
-            ServletServerHttpRequest servletRequset = (ServletServerHttpRequest) request;
 
-            // 这里从request中获取session,获取不到不创建，可以根据业务处理此段
-            HttpSession httpSession = servletRequset.getServletRequest().getSession(false);
-            if (ObjectUtils.isNotEmpty(httpSession)) {
-                // 这里打印一下session id 方便等下对比和springMVC获取到httpsession是不是同一个
-                log.info("[Herodotus] |- WebSocket session id is : [{}]" + httpSession.getId());
+        HttpServletRequest httpServletRequest = WebSocketUtils.getHttpServletRequest(request);
 
-                // 获取到httpsession后，可以根据自身业务，操作其中的信息，这里只是单纯的和websocket进行关联
-                attributes.put("SESSION", httpSession);
-            } else {
-                log.warn("[Herodotus] |- WebSocket session id is null");
+        if (ObjectUtils.isNotEmpty(httpServletRequest)) {
+
+            String protocol = httpServletRequest.getHeader(SEC_WEBSOCKET_PROTOCOL);
+
+            String token = determineToken(protocol);
+
+            if (StringUtils.isNotBlank(token)) {
+                log.debug("[Herodotus] |- WebSocket fetch the token is [{}].", token);
+
+                PrincipalDetails details = bearerTokenResolver.resolve(token);
+                if (ObjectUtils.isNotEmpty(details)) {
+                    attributes.put(BaseConstants.PRINCIPAL, details);
+                    attributes.put(HttpSessionHandshakeInterceptor.HTTP_SESSION_ID_ATTR_NAME, httpServletRequest.getSession(false));
+                } else {
+                    response.setStatusCode(HttpStatus.UNAUTHORIZED);
+                    log.info("[Herodotus] |- Token is invalid for WebSocket, stop handshake.");
+                    return false;
+                }
             }
         }
 
@@ -72,9 +96,28 @@ public class WebSocketSessionHandshakeInterceptor extends HttpSessionHandshakeIn
         return super.beforeHandshake(request, response, wsHandler, attributes);
     }
 
+    private String determineToken(String protocol) {
+        if (StringUtils.contains(protocol, SymbolConstants.COMMA)) {
+            String[] protocols = StringUtils.split(protocol, SymbolConstants.COMMA);
+            for (String item : protocols) {
+                if (!StringUtils.endsWith(item, ".stomp")) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
+
+        HttpServletRequest httpServletRequest = WebSocketUtils.getHttpServletRequest(request);
+        HttpServletResponse httpServletResponse = WebSocketUtils.getHttpServletResponse(response);
+
+        if (ObjectUtils.isNotEmpty(httpServletRequest) && ObjectUtils.isNotEmpty(httpServletResponse)) {
+            httpServletResponse.setHeader(SEC_WEBSOCKET_PROTOCOL, "v10.stomp");
+        }
+
         log.info("[Herodotus] |- WebSocket handshake success!");
-        super.afterHandshake(request, response, wsHandler, ex);
     }
 }

@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
-import cn.herodotus.engine.oauth2.core.definition.details.UserAuthenticationDetails;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
+import cn.herodotus.engine.oauth2.core.utils.PrincipalUtils;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -149,13 +149,8 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
 
     protected OAuth2AccessTokenAuthenticationToken createOAuth2AccessTokenAuthenticationToken(Authentication source, OAuth2AccessTokenAuthenticationToken destination) {
         if (source instanceof UsernamePasswordAuthenticationToken) {
-            if (source.getPrincipal() instanceof HerodotusUser) {
-                HerodotusUser user = (HerodotusUser) source.getPrincipal();
-                UserAuthenticationDetails details = new UserAuthenticationDetails();
-                details.setUserId(user.getUserId());
-                details.setUserName(user.getUsername());
-                details.setRoles(user.getRoles());
-                destination.setDetails(details);
+            if (source.getPrincipal() instanceof HerodotusUser user) {
+                destination.setDetails(PrincipalUtils.toPrincipalDetails(user));
             }
         }
 

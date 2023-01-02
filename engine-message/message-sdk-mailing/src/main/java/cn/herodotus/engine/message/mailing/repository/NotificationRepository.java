@@ -25,13 +25,13 @@
 
 package cn.herodotus.engine.message.mailing.repository;
 
+import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.message.mailing.entity.Notification;
-import jakarta.persistence.QueryHint;
-import org.hibernate.jpa.AvailableHints;
-import org.springframework.data.jpa.repository.QueryHints;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>Description: NotificationQueueRepository </p>
@@ -41,6 +41,8 @@ import java.util.List;
  */
 public interface NotificationRepository extends BaseRepository<Notification, String> {
 
-    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
-    List<Notification> findAllByUserIdAndRead(String userId, Boolean isRead);
+    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Modifying
+    @Query("update Notification n set n.read = true where n.userId = :userId")
+    int updateAllRead(@Param("userId") String userId);
 }

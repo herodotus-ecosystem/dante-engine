@@ -26,6 +26,7 @@
 package cn.herodotus.engine.message.mailing.entity;
 
 import cn.herodotus.engine.message.core.constants.MessageConstants;
+import cn.herodotus.engine.message.core.enums.NotificationCategory;
 import cn.herodotus.engine.message.mailing.base.BaseSenderEntity;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -64,12 +65,13 @@ public class Notification extends BaseSenderEntity {
     private String userId;
 
     @Schema(name = "公告内容")
-    @Column(name = "content", columnDefinition="TEXT")
+    @Column(name = "content", columnDefinition = "TEXT")
     private String content;
 
     @Schema(name = "通知类别", title = "1. 公告，2.私信")
     @Column(name = "category")
-    private Integer category;
+    @Enumerated(EnumType.ORDINAL)
+    private NotificationCategory category = NotificationCategory.ANNOUNCEMENT;
 
     public String getQueueId() {
         return queueId;
@@ -103,11 +105,11 @@ public class Notification extends BaseSenderEntity {
         this.content = content;
     }
 
-    public Integer getCategory() {
+    public NotificationCategory getCategory() {
         return category;
     }
 
-    public void setCategory(Integer category) {
+    public void setCategory(NotificationCategory category) {
         this.category = category;
     }
 

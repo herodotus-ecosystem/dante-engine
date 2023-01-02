@@ -44,12 +44,10 @@ import java.util.List;
 @ConfigurationProperties(prefix = MessageConstants.PROPERTY_PREFIX_WEBSOCKET)
 public class WebSocketProperties {
 
-    private String sockJsEndpoint = "websocket/stomp-sockjs";
-
     /**
      * 客户端尝试连接端点
      */
-    private String endpoint = "websocket/ws";
+    private String endpoint = "stomp/ws";
 
     /**
      * 全局使用的消息前缀
@@ -85,14 +83,6 @@ public class WebSocketProperties {
 
     public void setEndpoint(String endpoint) {
         this.endpoint = endpoint;
-    }
-
-    public String getSockJsEndpoint() {
-        return format(sockJsEndpoint);
-    }
-
-    public void setSockJsEndpoint(String sockJsEndpoint) {
-        this.sockJsEndpoint = sockJsEndpoint;
     }
 
     public List<String> getApplicationDestinationPrefixes() {

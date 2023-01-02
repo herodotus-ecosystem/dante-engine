@@ -35,4 +35,12 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface RestConstants extends BaseConstants {
 
+    String PROPERTY_PROTECT_SECURE = PROPERTY_PREFIX_HERODOTUS + ".secure";
+    String PROPERTY_PROTECT_CRYPTO = PROPERTY_PREFIX_HERODOTUS + ".crypto";
+
+    String ITEM_PROTECT_CRYPTO_STRATEGY = PROPERTY_PROTECT_CRYPTO + ".crypto-strategy";
+
+    String CACHE_NAME_TOKEN_IDEMPOTENT = CACHE_TOKEN_BASE_PREFIX + "idempotent:";
+    String CACHE_NAME_TOKEN_ACCESS_LIMITED = CACHE_TOKEN_BASE_PREFIX + "access_limited:";
+    String CACHE_NAME_TOKEN_SECURE_KEY = CACHE_TOKEN_BASE_PREFIX + "secure_key:";
 }

@@ -25,12 +25,13 @@
 
 package cn.herodotus.engine.data.jpa.hibernate.spi.cache;
 
+import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import cn.hutool.crypto.SecureUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.cache.spi.QueryKey;
 import org.hibernate.cache.spi.support.DomainDataStorageAccess;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.slf4j.Logger;
@@ -57,13 +58,14 @@ public class HerodotusDomainDataStorageAccess implements DomainDataStorageAccess
     }
 
     private String secure(Object key) {
-        String original = String.valueOf(key);
-        if (StringUtils.isNotBlank(original) && StringUtils.startsWith(original, "sql:")) {
-            String recent = SecureUtil.md5(original);
-            log.trace("[Herodotus] |- SPI - Secure the sql type key [{}] to [{}]", original, recent);
-            return recent;
+        if (key instanceof QueryKey queryKey) {
+            int hashCode = queryKey.hashCode();
+            String hashCodeString =  String.valueOf(hashCode);
+            String secureKey = SecureUtil.md5(hashCodeString);
+            log.info("[Herodotus] |- SPI - Convert query key hashcode [{}] to secureKey [{}]", hashCode, secureKey);
+            return secureKey;
         }
-        return original;
+        return String.valueOf(key);
     }
 
     private String getTenantId() {

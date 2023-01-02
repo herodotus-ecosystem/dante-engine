@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.compliance.listener;
 
-import cn.herodotus.engine.oauth2.core.definition.details.UserAuthenticationDetails;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
 import cn.herodotus.engine.oauth2.compliance.stamp.SignInFailureLimitedStampManager;
 import cn.hutool.crypto.SecureUtil;
@@ -72,8 +72,7 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
             Object details = authentication.getDetails();
 
             String username = null;
-            if (ObjectUtils.isNotEmpty(details) && details instanceof UserAuthenticationDetails) {
-                UserAuthenticationDetails user = (UserAuthenticationDetails) details;
+            if (ObjectUtils.isNotEmpty(details) && details instanceof PrincipalDetails user) {
                 username = user.getUserName();
             }
 

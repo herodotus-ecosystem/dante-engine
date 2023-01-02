@@ -25,23 +25,29 @@
 
 package cn.herodotus.engine.oauth2.authorization.configuration;
 
+import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
 import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusAuthorizationManager;
 import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusSecurityMetadataSource;
+import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusTokenStrategyConfigurer;
 import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataSyncListener;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceParser;
 import cn.herodotus.engine.oauth2.authorization.storage.SecurityMetadataSourceStorage;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
+import cn.herodotus.engine.web.core.properties.EndpointProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.bus.ServiceMatcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 
 /**
  * <p>Description: SecurityMetadata 配置 </p>
@@ -115,5 +121,21 @@ public class OAuth2AuthorizationConfiguration{
         RemoteSecurityMetadataSyncListener remoteSecurityMetadataSyncListener = new RemoteSecurityMetadataSyncListener(securityMetadataSourceAnalyzer, serviceMatcher);
         log.trace("[Herodotus] |- Bean [Security Metadata Refresh Listener] Auto Configure.");
         return remoteSecurityMetadataSyncListener;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer(JwtDecoder jwtDecoder, SecurityProperties securityProperties, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
+        HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer = new HerodotusTokenStrategyConfigurer(jwtDecoder, securityProperties, endpointProperties, resourceServerProperties);
+        log.trace("[Herodotus] |- Bean [Token Strategy Configurer] Auto Configure.");
+        return herodotusTokenStrategyConfigurer;
+    }
+
+    @Bean
+    @ConditionalOnBean(HerodotusTokenStrategyConfigurer.class)
+    public BearerTokenResolver bearerTokenResolver(HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer) {
+        BearerTokenResolver bearerTokenResolver = herodotusTokenStrategyConfigurer.createBearerTokenResolver();
+        log.trace("[Herodotus] |- Bean [Bearer Token Resolver] Auto Configure.");
+        return bearerTokenResolver;
     }
 }

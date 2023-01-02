@@ -27,6 +27,7 @@ package cn.herodotus.engine.facility.alibaba.sentinel.configuration;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import com.alibaba.cloud.sentinel.feign.SentinelFeignAutoConfiguration;
 import com.alibaba.csp.sentinel.SphU;
 import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
@@ -35,6 +36,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,8 +51,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
  * @author : gengwei.zheng
  * @date : 2022/2/5 17:57
  */
-//@AutoConfiguration(before = {SentinelFeignAutoConfiguration.class})
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ SphU.class, Feign.class })
+@AutoConfigureBefore(SentinelFeignAutoConfiguration.class)
 public class FacilityAlibabaSentinelConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(FacilityAlibabaSentinelConfiguration.class);
@@ -72,7 +75,6 @@ public class FacilityAlibabaSentinelConfiguration {
                 response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
                 Result<String> result = Result.failure("Too many request, please retry later.");
                 response.getWriter().print(JacksonUtils.toJson(result));
-                // TODO: Sentinel 不兼容 最新版 Spring Cloud
             };
         }
 

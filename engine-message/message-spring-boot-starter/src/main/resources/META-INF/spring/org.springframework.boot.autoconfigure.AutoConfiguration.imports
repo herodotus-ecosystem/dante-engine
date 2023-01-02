@@ -1,1 +1,3 @@
 cn.herodotus.engine.message.autoconfigure.AutoConfiguration
+cn.herodotus.engine.message.websocket.configuration.MessageWebSocketConfiguration
+cn.herodotus.engine.message.mailing.configuration.MessageMailingConfiguration

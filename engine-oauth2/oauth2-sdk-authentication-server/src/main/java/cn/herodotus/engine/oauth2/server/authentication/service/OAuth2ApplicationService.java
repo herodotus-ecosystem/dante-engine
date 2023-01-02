@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oauth2.server.authentication.service;
 
 import cn.herodotus.engine.assistant.core.enums.Target;
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionRollbackException;
+import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseLayeredService;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
@@ -83,7 +83,7 @@ public class OAuth2ApplicationService extends BaseLayeredService<OAuth2Applicati
         return this.applicationRepository;
     }
 
-    @Transactional(rollbackFor = TransactionRollbackException.class)
+    @Transactional(rollbackFor = TransactionalRollbackException.class)
     @Override
     public OAuth2Application saveOrUpdate(OAuth2Application entity) {
         OAuth2Application application = super.saveOrUpdate(entity);
@@ -97,7 +97,7 @@ public class OAuth2ApplicationService extends BaseLayeredService<OAuth2Applicati
         }
     }
 
-    @Transactional(rollbackFor = TransactionRollbackException.class)
+    @Transactional(rollbackFor = TransactionalRollbackException.class)
     @Override
     public void deleteById(String id) {
         super.deleteById(id);

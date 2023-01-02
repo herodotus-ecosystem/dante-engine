@@ -25,15 +25,16 @@
 
 package cn.herodotus.engine.message.websocket.interceptor;
 
-import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
+import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
@@ -55,41 +56,28 @@ public class WebSocketPrincipalHandshakeHandler extends DefaultHandshakeHandler 
 
         Principal principal = request.getPrincipal();
         if (ObjectUtils.isNotEmpty(principal)) {
-            log.debug("[Herodotus] |- Get user principal from request, value is  [{}].", principal.getName());
+            log.debug("[Herodotus] |- Determine user from request, value is  [{}].", principal.getName());
             return principal;
         }
 
-        HttpServletRequest httpServletRequest = getHttpServletRequest(request);
+        HttpServletRequest httpServletRequest = WebSocketUtils.getHttpServletRequest(request);
         if (ObjectUtils.isNotEmpty(httpServletRequest)) {
-            String herodotusOpenId = httpServletRequest.getHeader(HttpHeaders.X_HERODOTUS_OPEN_ID);
-            if (ObjectUtils.isNotEmpty(herodotusOpenId)) {
-                log.debug("[Herodotus] |- Get user principal [{}] from header X_HERODOTUS_OPEN_ID.", herodotusOpenId);
-                return new WebSocketPrincipal(herodotusOpenId);
+            Object object = attributes.get(BaseConstants.PRINCIPAL);
+            if (ObjectUtils.isNotEmpty(object) && object instanceof PrincipalDetails details) {
+                WebSocketPrincipal webSocketPrincipal = new WebSocketPrincipal(details);
+                log.debug("[Herodotus] |- Determine user by request parameter, userId is  [{}].", webSocketPrincipal.getUserId());
+                return webSocketPrincipal;
             }
 
-            String herodotusSessionId = httpServletRequest.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
-            if (ObjectUtils.isNotEmpty(herodotusSessionId)) {
-                log.debug("[Herodotus] |- Get user principal [{}] from header X_HERODOTUS_SESSION.", herodotusSessionId);
-                return new WebSocketPrincipal(herodotusSessionId);
+            String userId = httpServletRequest.getParameter(BaseConstants.OPEN_ID);
+            if (StringUtils.isNotBlank(userId)) {
+                WebSocketPrincipal webSocketPrincipal = new WebSocketPrincipal(userId);
+                log.debug("[Herodotus] |- Determine user by request parameter, userId is  [{}].", userId);
+                return webSocketPrincipal;
             }
         }
 
-        return null;
-    }
-
-    private HttpServletRequest getHttpServletRequest(ServerHttpRequest request) {
-        if (request instanceof ServletServerHttpRequest serverRequest) {
-            return serverRequest.getServletRequest();
-        }
-
-        return null;
-    }
-
-    private HttpSession getSession(ServerHttpRequest request) {
-        HttpServletRequest httpServletRequest = getHttpServletRequest(request);
-        if (ObjectUtils.isNotEmpty(httpServletRequest)) {
-            return httpServletRequest.getSession(false);
-        }
+        log.warn("[Herodotus] |- Can not determine user from request.");
         return null;
     }
 }

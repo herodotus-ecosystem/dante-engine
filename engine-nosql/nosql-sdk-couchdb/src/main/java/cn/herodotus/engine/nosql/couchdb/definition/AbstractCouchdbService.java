@@ -27,7 +27,7 @@ package cn.herodotus.engine.nosql.couchdb.definition;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.definition.http.AbstractRest;
+import cn.herodotus.engine.assistant.core.definition.AbstractRest;
 import cn.herodotus.engine.nosql.couchdb.properties.CouchdbProperties;
 import cn.hutool.core.codec.Base64;
 import org.apache.http.HttpHeaders;
