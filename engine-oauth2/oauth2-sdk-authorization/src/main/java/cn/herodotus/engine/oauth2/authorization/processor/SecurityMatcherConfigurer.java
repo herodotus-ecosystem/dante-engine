@@ -57,10 +57,13 @@ public class SecurityMatcherConfigurer {
             "/v3/api-docs/**",
             "/openapi.json",
             "/favicon.ico");
-    private static final List<String> DEFAULT_PERMIT_ALL_RESOURCES = Lists.newArrayList("/open/**", "/oauth2/sign-out");
+    private static final List<String> DEFAULT_PERMIT_ALL_RESOURCES = Lists.newArrayList("/open/**", "/stomp/ws", "/oauth2/sign-out");
+
+    private static final List<String> DEFAULT_HAS_AUTHENTICATED_RESOURCES = Lists.newArrayList("/engine-rest/**");
 
     private List<String> staticResources;
     private List<String> permitAllResources;
+    private List<String> hasAuthenticatedResources;
 
     private final SecurityProperties securityProperties;
 
@@ -68,6 +71,7 @@ public class SecurityMatcherConfigurer {
         this.securityProperties = securityProperties;
         this.staticResources = new ArrayList<>();
         this.permitAllResources = new ArrayList<>();
+        this.hasAuthenticatedResources = new ArrayList<>();
     }
 
 
@@ -83,6 +87,13 @@ public class SecurityMatcherConfigurer {
             this.permitAllResources = merge(securityProperties.getMatcher().getPermitAll(), DEFAULT_PERMIT_ALL_RESOURCES);
         }
         return this.permitAllResources;
+    }
+
+    public List<String> getHasAuthenticatedList() {
+        if (CollectionUtils.isEmpty(this.hasAuthenticatedResources)) {
+            this.hasAuthenticatedResources = merge(securityProperties.getMatcher().getHasAuthenticated(), DEFAULT_HAS_AUTHENTICATED_RESOURCES);
+        }
+        return this.hasAuthenticatedResources;
     }
 
     public String[] getStaticResourceArray() {

@@ -26,10 +26,9 @@
 package cn.herodotus.engine.oauth2.authorization.configuration;
 
 import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
-import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusAuthorizationManager;
-import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusSecurityMetadataSource;
 import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusTokenStrategyConfigurer;
 import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataSyncListener;
+import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceParser;
@@ -85,18 +84,10 @@ public class OAuth2AuthorizationConfiguration{
 
     @Bean
     @ConditionalOnMissingBean
-    public HerodotusSecurityMetadataSource herodotusSecurityMetadataSource(SecurityMetadataSourceStorage securityMetadataSourceStorage, SecurityMatcherConfigurer securityMatcherConfigurer) {
-        HerodotusSecurityMetadataSource herodotusAuthorizationManager = new HerodotusSecurityMetadataSource(securityMetadataSourceStorage, securityMatcherConfigurer);
-        log.trace("[Herodotus] |- Bean [Security Metadata Source] Auto Configure.");
-        return herodotusAuthorizationManager;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public HerodotusAuthorizationManager herodotusAuthorizationManager(HerodotusSecurityMetadataSource herodotusSecurityMetadataSource) {
-        HerodotusAuthorizationManager herodotusAuthorizationManager = new HerodotusAuthorizationManager(herodotusSecurityMetadataSource);
+    public SecurityAuthorizationManager securityAuthorizationManager(SecurityMetadataSourceStorage securityMetadataSourceStorage, SecurityMatcherConfigurer securityMatcherConfigurer) {
+        SecurityAuthorizationManager securityAuthorizationManager = new SecurityAuthorizationManager(securityMetadataSourceStorage, securityMatcherConfigurer);
         log.trace("[Herodotus] |- Bean [Authorization Manager] Auto Configure.");
-        return herodotusAuthorizationManager;
+        return securityAuthorizationManager;
     }
 
     @Bean

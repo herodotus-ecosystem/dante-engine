@@ -74,19 +74,19 @@ public class HerodotusAuthorizationService extends BaseLayeredService<HerodotusA
     }
 
     public Optional<HerodotusAuthorization> findByAuthorizationCode(String authorizationCode) {
-        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByAuthorizationCode(authorizationCode);
+        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByAuthorizationCodeValue(authorizationCode);
         log.debug("[Herodotus] |- HerodotusAuthorization Service findByAuthorizationCode.");
         return result;
     }
 
     public Optional<HerodotusAuthorization> findByAccessToken(String accessToken) {
-        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByAccessToken(accessToken);
+        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByAccessTokenValue(accessToken);
         log.debug("[Herodotus] |- HerodotusAuthorization Service findByAccessToken.");
         return result;
     }
 
     public Optional<HerodotusAuthorization> findByRefreshToken(String refreshToken) {
-        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByRefreshToken(refreshToken);
+        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByRefreshTokenValue(refreshToken);
         log.debug("[Herodotus] |- HerodotusAuthorization Service findByRefreshToken.");
         return result;
     }
@@ -96,9 +96,9 @@ public class HerodotusAuthorizationService extends BaseLayeredService<HerodotusA
         Specification<HerodotusAuthorization> specification = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             predicates.add(criteriaBuilder.equal(root.get("state"), token));
-            predicates.add(criteriaBuilder.equal(root.get("authorizationCode"), token));
-            predicates.add(criteriaBuilder.equal(root.get("accessToken"), token));
-            predicates.add(criteriaBuilder.equal(root.get("refreshToken"), token));
+            predicates.add(criteriaBuilder.equal(root.get("authorizationCodeValue"), token));
+            predicates.add(criteriaBuilder.equal(root.get("accessTokenValue"), token));
+            predicates.add(criteriaBuilder.equal(root.get("refreshTokenValue"), token));
 
             Predicate[] predicateArray = new Predicate[predicates.size()];
             criteriaQuery.where(criteriaBuilder.or(predicates.toArray(predicateArray)));

@@ -47,7 +47,7 @@ public interface MessageConstants extends BaseConstants {
 
     String PROPERTY_PREFIX_MESSAGE = PROPERTY_PREFIX_HERODOTUS + ".message";
 
-    String PROPERTY_PREFIX_SOCKET_IO = PROPERTY_PREFIX_MESSAGE + ".socketio";
+    String PROPERTY_PREFIX_ENGINE_IO = PROPERTY_PREFIX_MESSAGE + ".engineio";
     String PROPERTY_PREFIX_WEBSOCKET = PROPERTY_PREFIX_MESSAGE + ".websocket";
 
     String WEBSOCKET_CHANNEL_PROXY_BROADCAST = "/broadcast";
@@ -55,4 +55,9 @@ public interface MessageConstants extends BaseConstants {
     String WEBSOCKET_DESTINATION_BROADCAST_NOTICE = WEBSOCKET_CHANNEL_PROXY_BROADCAST + "/notice";
     String WEBSOCKET_DESTINATION_BROADCAST_ONLINE = WEBSOCKET_CHANNEL_PROXY_BROADCAST + "/online";
     String WEBSOCKET_DESTINATION_PERSONAL_MESSAGE = WEBSOCKET_CHANNEL_PROXY_PERSONAL + "/message";
+
+    String ENGINE_IO_INTERCEPTOR_PATH = "/engine.io/";
+    String ENGINE_IO_ATTRIBUTE_BRIDGE = "engineIo.bridge";
+    String ENGINE_IO_ATTRIBUTE_QUERY = "engineIo.query";
+    String ENGINE_IO_ATTRIBUTE_HEADERS = "engineIo.headers";
 }

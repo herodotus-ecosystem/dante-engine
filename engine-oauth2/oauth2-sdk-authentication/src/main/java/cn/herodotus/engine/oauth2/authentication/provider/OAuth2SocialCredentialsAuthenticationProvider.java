@@ -56,6 +56,7 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 import org.springframework.util.Assert;
 import org.springframework.web.bind.support.WebRequestDataBinder;
 
+import java.security.Principal;
 import java.util.Map;
 import java.util.Set;
 
@@ -134,7 +135,8 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
                 .principalName(usernamePasswordAuthentication.getName())
                 .authorizationGrantType(HerodotusGrantType.SOCIAL)
-                .authorizedScopes(authorizedScopes);
+                .authorizedScopes(authorizedScopes)
+                .attribute(Principal.class.getName(), usernamePasswordAuthentication);
 
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
                 .registeredClient(registeredClient)

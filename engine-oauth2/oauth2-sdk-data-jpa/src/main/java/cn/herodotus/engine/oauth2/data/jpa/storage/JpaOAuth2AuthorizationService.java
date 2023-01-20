@@ -168,40 +168,41 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
                 .id(entity.getId())
                 .principalName(entity.getPrincipalName())
                 .authorizationGrantType(OAuth2AuthorizationUtils.resolveAuthorizationGrantType(entity.getAuthorizationGrantType()))
+                .authorizedScopes(StringUtils.commaDelimitedListToSet(entity.getAuthorizedScopes()))
                 .attributes(attributes -> attributes.putAll(parseMap(entity.getAttributes())));
         if (entity.getState() != null) {
             builder.attribute(OAuth2ParameterNames.STATE, entity.getState());
         }
 
-        if (entity.getAuthorizationCode() != null) {
+        if (entity.getAuthorizationCodeValue() != null) {
             OAuth2AuthorizationCode authorizationCode = new OAuth2AuthorizationCode(
-                    entity.getAuthorizationCode(),
+                    entity.getAuthorizationCodeValue(),
                     DateUtil.toInstant(entity.getAuthorizationCodeIssuedAt()),
                     DateUtil.toInstant(entity.getAuthorizationCodeExpiresAt()));
             builder.token(authorizationCode, metadata -> metadata.putAll(parseMap(entity.getAuthorizationCodeMetadata())));
         }
 
-        if (entity.getAccessToken() != null) {
+        if (entity.getAccessTokenValue() != null) {
             OAuth2AccessToken accessToken = new OAuth2AccessToken(
                     OAuth2AccessToken.TokenType.BEARER,
-                    entity.getAccessToken(),
+                    entity.getAccessTokenValue(),
                     DateUtil.toInstant(entity.getAccessTokenIssuedAt()),
                     DateUtil.toInstant(entity.getAccessTokenExpiresAt()),
                     StringUtils.commaDelimitedListToSet(entity.getAccessTokenScopes()));
             builder.token(accessToken, metadata -> metadata.putAll(parseMap(entity.getAccessTokenMetadata())));
         }
 
-        if (entity.getRefreshToken() != null) {
+        if (entity.getRefreshTokenValue() != null) {
             OAuth2RefreshToken refreshToken = new OAuth2RefreshToken(
-                    entity.getRefreshToken(),
+                    entity.getRefreshTokenValue(),
                     DateUtil.toInstant(entity.getRefreshTokenIssuedAt()),
                     DateUtil.toInstant(entity.getRefreshTokenExpiresAt()));
             builder.token(refreshToken, metadata -> metadata.putAll(parseMap(entity.getRefreshTokenMetadata())));
         }
 
-        if (entity.getOidcIdToken() != null) {
+        if (entity.getOidcIdTokenValue() != null) {
             OidcIdToken idToken = new OidcIdToken(
-                    entity.getOidcIdToken(),
+                    entity.getOidcIdTokenValue(),
                     DateUtil.toInstant(entity.getOidcIdTokenIssuedAt()),
                     DateUtil.toInstant(entity.getOidcIdTokenExpiresAt()),
                     parseMap(entity.getOidcIdTokenClaims()));
@@ -224,7 +225,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
                 authorization.getToken(OAuth2AuthorizationCode.class);
         setTokenValues(
                 authorizationCode,
-                entity::setAuthorizationCode,
+                entity::setAuthorizationCodeValue,
                 entity::setAuthorizationCodeIssuedAt,
                 entity::setAuthorizationCodeExpiresAt,
                 entity::setAuthorizationCodeMetadata
@@ -234,7 +235,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
                 authorization.getToken(OAuth2AccessToken.class);
         setTokenValues(
                 accessToken,
-                entity::setAccessToken,
+                entity::setAccessTokenValue,
                 entity::setAccessTokenIssuedAt,
                 entity::setAccessTokenExpiresAt,
                 entity::setAccessTokenMetadata
@@ -247,7 +248,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
                 authorization.getToken(OAuth2RefreshToken.class);
         setTokenValues(
                 refreshToken,
-                entity::setRefreshToken,
+                entity::setRefreshTokenValue,
                 entity::setRefreshTokenIssuedAt,
                 entity::setRefreshTokenExpiresAt,
                 entity::setRefreshTokenMetadata
@@ -257,7 +258,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
                 authorization.getToken(OidcIdToken.class);
         setTokenValues(
                 oidcIdToken,
-                entity::setOidcIdToken,
+                entity::setOidcIdTokenValue,
                 entity::setOidcIdTokenIssuedAt,
                 entity::setOidcIdTokenExpiresAt,
                 entity::setOidcIdTokenMetadata

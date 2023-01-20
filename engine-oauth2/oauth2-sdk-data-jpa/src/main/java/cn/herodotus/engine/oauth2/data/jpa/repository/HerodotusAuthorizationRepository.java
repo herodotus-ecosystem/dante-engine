@@ -61,7 +61,7 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
      * @return OAuth2 认证信息 {@link HerodotusAuthorization}
      */
     @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
-    Optional<HerodotusAuthorization> findByAuthorizationCode(String authorizationCode);
+    Optional<HerodotusAuthorization> findByAuthorizationCodeValue(String authorizationCode);
 
     /**
      * 根据 Access Token 查询 OAuth2 认证信息
@@ -70,7 +70,7 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
      * @return OAuth2 认证信息 {@link HerodotusAuthorization}
      */
     @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
-    Optional<HerodotusAuthorization> findByAccessToken(String accessToken);
+    Optional<HerodotusAuthorization> findByAccessTokenValue(String accessToken);
 
     /**
      * 根据 Refresh Token 查询 OAuth2 认证信息
@@ -79,7 +79,7 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
      * @return OAuth2 认证信息 {@link HerodotusAuthorization}
      */
     @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
-    Optional<HerodotusAuthorization> findByRefreshToken(String refreshToken);
+    Optional<HerodotusAuthorization> findByRefreshTokenValue(String refreshToken);
 
     /**
      * 根据客户端ID和用户名查询未过期Token

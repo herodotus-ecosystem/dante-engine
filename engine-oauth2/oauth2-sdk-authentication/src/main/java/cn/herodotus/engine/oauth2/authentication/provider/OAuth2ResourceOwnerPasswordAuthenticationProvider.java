@@ -52,6 +52,7 @@ import org.springframework.security.oauth2.server.authorization.token.DefaultOAu
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.util.Assert;
 
+import java.security.Principal;
 import java.util.Map;
 import java.util.Set;
 
@@ -137,7 +138,8 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
                 .principalName(usernamePasswordAuthentication.getName())
                 .authorizationGrantType(HerodotusGrantType.PASSWORD)
-                .authorizedScopes(authorizedScopes);
+                .authorizedScopes(authorizedScopes)
+                .attribute(Principal.class.getName(), usernamePasswordAuthentication);
 
         // @formatter:off
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()

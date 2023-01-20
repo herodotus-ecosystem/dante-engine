@@ -79,6 +79,10 @@ public class SecurityProperties implements Serializable {
          * Security "permitAll" 权限列表。
          */
         private List<String> permitAll;
+        /**
+         * 只校验是否请求中包含Token，不校验Token中是否包含该权限的资源
+         */
+        private List<String> hasAuthenticated;
 
         public List<String> getStaticResources() {
             return staticResources;
@@ -94,6 +98,14 @@ public class SecurityProperties implements Serializable {
 
         public void setPermitAll(List<String> permitAll) {
             this.permitAll = permitAll;
+        }
+
+        public List<String> getHasAuthenticated() {
+            return hasAuthenticated;
+        }
+
+        public void setHasAuthenticated(List<String> hasAuthenticated) {
+            this.hasAuthenticated = hasAuthenticated;
         }
     }
 }

@@ -75,7 +75,7 @@ public class HerodotusBearerTokenResolver implements BearerTokenResolver {
         } else {
             Jwt jwt = getJwt(bearer);
             if (ObjectUtils.isNotEmpty(jwt)) {
-                PrincipalDetails details=  PrincipalUtils.toPrincipalDetails(jwt);
+                PrincipalDetails details = PrincipalUtils.toPrincipalDetails(jwt);
                 log.debug("[Herodotus] |- Resolve JWT token to principal details [{}]", details);
                 return details;
             }
@@ -87,11 +87,9 @@ public class HerodotusBearerTokenResolver implements BearerTokenResolver {
     private Jwt getJwt(BearerTokenAuthenticationToken bearer) {
         try {
             return this.jwtDecoder.decode(bearer.getToken());
-        }
-        catch (BadJwtException failed) {
+        } catch (BadJwtException failed) {
             log.warn("[Herodotus] |- Failed to decode since the JWT was invalid");
-        }
-        catch (JwtException failed) {
+        } catch (JwtException failed) {
             log.warn("[Herodotus] |- Failed to decode JWT, catch exception", failed);
         }
 
@@ -101,11 +99,9 @@ public class HerodotusBearerTokenResolver implements BearerTokenResolver {
     private OAuth2AuthenticatedPrincipal getOpaque(BearerTokenAuthenticationToken bearer) {
         try {
             return this.opaqueTokenIntrospector.introspect(bearer.getToken());
-        }
-        catch (BadOpaqueTokenException failed) {
+        } catch (BadOpaqueTokenException failed) {
             log.warn("Failed to introspect since the Opaque was invalid");
-        }
-        catch (OAuth2IntrospectionException failed) {
+        } catch (OAuth2IntrospectionException failed) {
             log.warn("[Herodotus] |- Failed to introspect Opaque, catch exception", failed);
         }
 

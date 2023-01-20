@@ -6,14 +6,14 @@
 
 <p align="center">
     <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-1.0.0-blue" alt="Spring Authorization Server 1.0.0"></a>
-    <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.0.1-blue" alt="Spring Boot 3.0.1"></a>
+    <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.0.2-blue" alt="Spring Boot 3.0.2"></a>
     <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2022.0.0-blue" alt="Spring Cloud 2022.0.0"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2022.0.0.0-RC1-blue" alt="Spring Cloud Alibaba 2022.0.0.0-RC1"></a>
-    <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.8.2--2022.0.0-blue" alt="Spring Cloud Tencent 1.8.2-2022.0.0"></a>
+    <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.8.4--2022.0.0-blue" alt="Spring Cloud Tencent 1.8.4-2022.0.0"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.1-RC-brightgreen" alt="Nacos 2.2.1-RC"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.1.0-red" alt="Version 3.0.1.0"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.2.0-red" alt="Version 3.0.2.0"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue" alt="License Apache 2.0"></a>
     <a href="https://blog.csdn.net/Pointer_v" target="_blank"><img src="https://shields.io/badge/Author-%E7%A0%81%E5%8C%A0%E5%90%9B-orange" alt="码匠君"></a>
@@ -100,8 +100,7 @@ dante-engine
 ├    └── facility-tencent-spring-boot-starter -- 面向 Spring Cloud Tencent 的微服务基础设施适配模块
 ├── engine-message -- 消息模块
 ├    ├── message-core -- 消息共性通用代码
-├    ├── message-sdk-information -- 站内消息、私信通用代码模块
-├    ├── message-sdk-socketio -- 基于 Socket IO 的消息代码模块
+├    ├── message-sdk-mailing -- 站内消息、私信通用代码模块
 ├    ├── message-sdk-websocket -- 基于 WebSocket 的消息代码模块
 ├    └── message-spring-boot-starter -- Message  模块统一 Starter
 ├── engine-nosql -- Nosql 数据库接入管理模块
@@ -141,7 +140,7 @@ dante-engine
 ├    ├── sms-sdk-tencent -- 腾讯短信发送组件模块
 ├    ├── sms-sdk-upyun -- 又拍短信发送组件模块
 ├    ├── sms-sdk-yunpian -- 云片短信发送组件模块
-├    └── sms-spring-boot-starter -- SMS 模块统一 Starter(包括通用CRUD代码)
+├    └── sms-spring-boot-starter -- SMS 模块统一 Starter
 ├── engine-web -- Web处理模块
 ├    ├── web-core -- Web 应用共性通用代码模块组件
 ├    ├── web-sdk-rest -- Web 应用基础支撑模块组件

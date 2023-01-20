@@ -54,12 +54,6 @@ public class WebSocketPrincipalHandshakeHandler extends DefaultHandshakeHandler 
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
 
-        Principal principal = request.getPrincipal();
-        if (ObjectUtils.isNotEmpty(principal)) {
-            log.debug("[Herodotus] |- Determine user from request, value is  [{}].", principal.getName());
-            return principal;
-        }
-
         HttpServletRequest httpServletRequest = WebSocketUtils.getHttpServletRequest(request);
         if (ObjectUtils.isNotEmpty(httpServletRequest)) {
             Object object = attributes.get(BaseConstants.PRINCIPAL);
@@ -75,6 +69,12 @@ public class WebSocketPrincipalHandshakeHandler extends DefaultHandshakeHandler 
                 log.debug("[Herodotus] |- Determine user by request parameter, userId is  [{}].", userId);
                 return webSocketPrincipal;
             }
+        }
+
+        Principal principal = request.getPrincipal();
+        if (ObjectUtils.isNotEmpty(principal)) {
+            log.debug("[Herodotus] |- Determine user from request, value is  [{}].", principal.getName());
+            return principal;
         }
 
         log.warn("[Herodotus] |- Can not determine user from request.");

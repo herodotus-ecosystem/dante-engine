@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.web.core.utils;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
 import cn.hutool.extra.spring.SpringUtil;
@@ -68,6 +69,72 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 
     public static PathMatcher getPathMatcher() {
         return pathMatcher;
+    }
+
+    /**
+     * 获取 AUTHORIZATION 请求头内容
+     *
+     * @param request {@link HttpServletRequest}
+     * @return AUTHORIZATION 请求头或者为空
+     */
+    public static String getAuthorizationHeader(HttpServletRequest request) {
+        return request.getHeader(HttpHeaders.AUTHORIZATION);
+    }
+
+    /**
+     * 获取 Bearer Token 的值
+     *
+     * @param request {@link HttpServletRequest}
+     * @return 如果 AUTHORIZATION 不存在，或者 Token 不是以 “Bearer ” 开头，则返回 null。如果 AUTHORIZATION 存在，而且是以 “Bearer ” 开头，那么返回 “Bearer ” 后面的值。
+     */
+    public static String getBearerTokenValue(HttpServletRequest request) {
+        String header = getAuthorizationHeader(request);
+        if (StringUtils.isNotBlank(header) && StringUtils.startsWith(header, BaseConstants.BEARER_TOKEN)) {
+            return StringUtils.remove(header, BaseConstants.BEARER_TOKEN);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 判断是否为静态资源
+     *
+     * @param uri 请求 URL
+     * @return 是否为静态资源
+     */
+    public static boolean isStaticResources(String uri) {
+        ResourceUrlProvider resourceUrlProvider = SpringUtil.getBean(ResourceUrlProvider.class);
+        String staticUri = resourceUrlProvider.getForLookupPath(uri);
+        return staticUri != null;
+    }
+
+    /**
+     * 判断路径是否与路径模式匹配
+     *
+     * @param patterns 路径模式字符串List
+     * @param path     url
+     * @return 是否匹配
+     */
+    public static boolean isPathMatch(List<String> patterns, String path) {
+        PathMatcher pathMatcher = getPathMatcher();
+        for (String pattern : patterns) {
+            if (pathMatcher.match(pattern, path)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断请求是否与设定的模式匹配
+     *
+     * @param patterns 路径匹配模式
+     * @param request  请求
+     * @return 是否匹配
+     */
+    public static boolean isRequestMatched(List<String> patterns, HttpServletRequest request) {
+        String url = request.getRequestURI();
+        return isPathMatch(patterns, url);
     }
 
     /**
@@ -166,47 +233,6 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
         }
     }
 
-    /**
-     * 获取ip
-     *
-     * @return {String}
-     */
-    public String getIP() {
-        return getIP(WebUtils.getRequest());
-    }
-
-    /**
-     * 获取ip
-     *
-     * @param request HttpServletRequest
-     * @return {String}
-     */
-    public String getIP(HttpServletRequest request) {
-        Assert.notNull(request, "HttpServletRequest is null");
-        String ip = request.getHeader(HttpHeaders.X_FORWARDED_FOR);
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(HttpHeaders.X_FORWARDED_FOR);
-        }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.PROXY_CLIENT_IP);
-        }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.WL_PROXY_CLIENT_IP);
-        }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.HTTP_CLIENT_IP);
-        }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.HTTP_X_FORWARDED_FOR);
-        }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getHeader(cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.X_REAL_IP);
-        }
-        if (StringUtils.isBlank(ip) || cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders.UNKNOWN.equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return StringUtils.isBlank(ip) ? null : ip.split(SymbolConstants.COMMA)[0];
-    }
 
     public static HttpServletRequest toHttp(ServletRequest request) {
         return (HttpServletRequest) request;
@@ -260,50 +286,6 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
         }
     }
 
-    public static boolean isStaticResources(String uri) {
-        ResourceUrlProvider resourceUrlProvider = SpringUtil.getBean(ResourceUrlProvider.class);
-        String staticUri = resourceUrlProvider.getForLookupPath(uri);
-        return staticUri != null;
-    }
-
-    /**
-     * 判断路径是否与路径模式匹配
-     *
-     * @param pattern 路径模式
-     * @param path    url
-     * @return 是否匹配
-     */
-    public static boolean isPathMatch(String pattern, String path) {
-        return getPathMatcher().match(pattern, path);
-    }
-
-    /**
-     * 判断路径是否与路径模式匹配
-     *
-     * @param patterns 路径模式数组
-     * @param path     url
-     * @return 是否匹配
-     */
-    public static boolean isPathMatch(String[] patterns, String path) {
-        return isPathMatch(Arrays.asList(patterns), path);
-    }
-
-    /**
-     * 判断路径是否与路径模式匹配
-     *
-     * @param patterns 路径模式字符串List
-     * @param path     url
-     * @return 是否匹配
-     */
-    public static boolean isPathMatch(List<String> patterns, String path) {
-        PathMatcher pathMatcher = getPathMatcher();
-        for (String pattern : patterns) {
-            if (pathMatcher.match(pattern, path)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * 从Map中获取url匹配的对象。

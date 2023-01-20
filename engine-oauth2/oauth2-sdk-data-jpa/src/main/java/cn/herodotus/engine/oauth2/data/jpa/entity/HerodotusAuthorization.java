@@ -68,6 +68,9 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "authorization_grant_type", nullable = false, length = 100)
     private String authorizationGrantType;
 
+    @Column(name = "authorized_scopes", length = 1000)
+    private String authorizedScopes;
+
     @Column(name="attributes", columnDefinition="TEXT")
     private String attributes;
 
@@ -75,7 +78,7 @@ public class HerodotusAuthorization extends AbstractEntity {
     private String state;
 
     @Column(name = "authorization_code_value", columnDefinition="TEXT")
-    private String authorizationCode;
+    private String authorizationCodeValue;
 
     @Column(name = "authorization_code_issued_at")
     private LocalDateTime authorizationCodeIssuedAt;
@@ -87,7 +90,7 @@ public class HerodotusAuthorization extends AbstractEntity {
     private String authorizationCodeMetadata;
 
     @Column(name = "access_token_value", columnDefinition="TEXT")
-    private String accessToken;
+    private String accessTokenValue;
 
     @Column(name = "access_token_issued_at")
     private LocalDateTime accessTokenIssuedAt;
@@ -104,8 +107,20 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "access_token_scopes", length = 1000)
     private String accessTokenScopes;
 
+    @Column(name = "refresh_token", columnDefinition="TEXT")
+    private String refreshTokenValue;
+
+    @Column(name = "refresh_token_issued_at")
+    private LocalDateTime refreshTokenIssuedAt;
+
+    @Column(name = "refresh_token_expires_at")
+    private LocalDateTime refreshTokenExpiresAt;
+
+    @Column(name = "refresh_token_metadata", columnDefinition="TEXT")
+    private String refreshTokenMetadata;
+
     @Column(name = "oidc_id_token_value", columnDefinition="TEXT")
-    private String oidcIdToken;
+    private String oidcIdTokenValue;
 
     @Column(name = "oidc_id_token_issued_at")
     private LocalDateTime oidcIdTokenIssuedAt;
@@ -118,18 +133,6 @@ public class HerodotusAuthorization extends AbstractEntity {
 
     @Column(name = "oidc_id_token_claims", length = 2000)
     private String oidcIdTokenClaims;
-
-    @Column(name = "refresh_token", columnDefinition="TEXT")
-    private String refreshToken;
-
-    @Column(name = "refresh_token_issued_at")
-    private LocalDateTime refreshTokenIssuedAt;
-
-    @Column(name = "refresh_token_expires_at")
-    private LocalDateTime refreshTokenExpiresAt;
-
-    @Column(name = "refresh_token_metadata", columnDefinition="TEXT")
-    private String refreshTokenMetadata;
 
     public String getId() {
         return id;
@@ -163,6 +166,14 @@ public class HerodotusAuthorization extends AbstractEntity {
         this.authorizationGrantType = authorizationGrantType;
     }
 
+    public String getAuthorizedScopes() {
+        return authorizedScopes;
+    }
+
+    public void setAuthorizedScopes(String authorizedScopes) {
+        this.authorizedScopes = authorizedScopes;
+    }
+
     public String getAttributes() {
         return attributes;
     }
@@ -179,12 +190,12 @@ public class HerodotusAuthorization extends AbstractEntity {
         this.state = state;
     }
 
-    public String getAuthorizationCode() {
-        return authorizationCode;
+    public String getAuthorizationCodeValue() {
+        return authorizationCodeValue;
     }
 
-    public void setAuthorizationCode(String authorizationCodeValue) {
-        this.authorizationCode = authorizationCodeValue;
+    public void setAuthorizationCodeValue(String authorizationCodeValue) {
+        this.authorizationCodeValue = authorizationCodeValue;
     }
 
     public LocalDateTime getAuthorizationCodeIssuedAt() {
@@ -211,12 +222,12 @@ public class HerodotusAuthorization extends AbstractEntity {
         this.authorizationCodeMetadata = authorizationCodeMetadata;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getAccessTokenValue() {
+        return accessTokenValue;
     }
 
-    public void setAccessToken(String accessTokenValue) {
-        this.accessToken = accessTokenValue;
+    public void setAccessTokenValue(String accessTokenValue) {
+        this.accessTokenValue = accessTokenValue;
     }
 
     public LocalDateTime getAccessTokenIssuedAt() {
@@ -259,44 +270,12 @@ public class HerodotusAuthorization extends AbstractEntity {
         this.accessTokenScopes = accessTokenScopes;
     }
 
-    public String getOidcIdToken() {
-        return oidcIdToken;
+    public String getRefreshTokenValue() {
+        return refreshTokenValue;
     }
 
-    public void setOidcIdToken(String oidcIdTokenValue) {
-        this.oidcIdToken = oidcIdTokenValue;
-    }
-
-    public LocalDateTime getOidcIdTokenIssuedAt() {
-        return oidcIdTokenIssuedAt;
-    }
-
-    public void setOidcIdTokenIssuedAt(LocalDateTime oidcIdTokenIssuedAt) {
-        this.oidcIdTokenIssuedAt = oidcIdTokenIssuedAt;
-    }
-
-    public LocalDateTime getOidcIdTokenExpiresAt() {
-        return oidcIdTokenExpiresAt;
-    }
-
-    public void setOidcIdTokenExpiresAt(LocalDateTime oidcIdTokenExpiresAt) {
-        this.oidcIdTokenExpiresAt = oidcIdTokenExpiresAt;
-    }
-
-    public String getOidcIdTokenMetadata() {
-        return oidcIdTokenMetadata;
-    }
-
-    public void setOidcIdTokenMetadata(String oidcIdTokenMetadata) {
-        this.oidcIdTokenMetadata = oidcIdTokenMetadata;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshTokenValue) {
-        this.refreshToken = refreshTokenValue;
+    public void setRefreshTokenValue(String refreshTokenValue) {
+        this.refreshTokenValue = refreshTokenValue;
     }
 
     public LocalDateTime getRefreshTokenIssuedAt() {
@@ -321,6 +300,38 @@ public class HerodotusAuthorization extends AbstractEntity {
 
     public void setRefreshTokenMetadata(String refreshTokenMetadata) {
         this.refreshTokenMetadata = refreshTokenMetadata;
+    }
+
+    public String getOidcIdTokenValue() {
+        return oidcIdTokenValue;
+    }
+
+    public void setOidcIdTokenValue(String oidcIdTokenValue) {
+        this.oidcIdTokenValue = oidcIdTokenValue;
+    }
+
+    public LocalDateTime getOidcIdTokenIssuedAt() {
+        return oidcIdTokenIssuedAt;
+    }
+
+    public void setOidcIdTokenIssuedAt(LocalDateTime oidcIdTokenIssuedAt) {
+        this.oidcIdTokenIssuedAt = oidcIdTokenIssuedAt;
+    }
+
+    public LocalDateTime getOidcIdTokenExpiresAt() {
+        return oidcIdTokenExpiresAt;
+    }
+
+    public void setOidcIdTokenExpiresAt(LocalDateTime oidcIdTokenExpiresAt) {
+        this.oidcIdTokenExpiresAt = oidcIdTokenExpiresAt;
+    }
+
+    public String getOidcIdTokenMetadata() {
+        return oidcIdTokenMetadata;
+    }
+
+    public void setOidcIdTokenMetadata(String oidcIdTokenMetadata) {
+        this.oidcIdTokenMetadata = oidcIdTokenMetadata;
     }
 
     public String getOidcIdTokenClaims() {
