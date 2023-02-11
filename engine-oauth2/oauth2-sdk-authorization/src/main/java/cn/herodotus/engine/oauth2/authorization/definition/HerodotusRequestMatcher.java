@@ -79,6 +79,10 @@ public final class HerodotusRequestMatcher implements RequestMatcher, Serializab
         this(pattern, null);
     }
 
+    public HerodotusRequestMatcher(HerodotusRequest request) {
+        this(request.getPattern(), request.getHttpMethod());
+    }
+
     /**
      * Creates a matcher with the supplied pattern and HTTP method in a case sensitive
      * manner.
@@ -176,10 +180,10 @@ public final class HerodotusRequestMatcher implements RequestMatcher, Serializab
         return this.matcher.matches(url);
     }
 
-    public boolean matches(HerodotusRequestMatcher requestMatcher) {
+    public boolean matches(HerodotusRequest request) {
 
-        if (StringUtils.isNotBlank(this.httpMethod) && StringUtils.isNotBlank(requestMatcher.getHttpMethod())
-                && !StringUtils.equalsIgnoreCase(this.httpMethod, requestMatcher.getHttpMethod())) {
+        if (StringUtils.isNotBlank(this.httpMethod) && StringUtils.isNotBlank(request.getHttpMethod())
+                && !StringUtils.equalsIgnoreCase(this.httpMethod, request.getHttpMethod())) {
             return false;
         }
 
@@ -187,16 +191,16 @@ public final class HerodotusRequestMatcher implements RequestMatcher, Serializab
             return true;
         }
 
-        if (StringUtils.equals(getPattern(), requestMatcher.getPattern())) {
+        if (StringUtils.equals(getPattern(), request.getPattern())) {
             return true;
         }
 
-        if (isHasWildcard() && !requestMatcher.isHasWildcard()) {
-            return this.matcher.matches(requestMatcher.getPattern());
+        if (isHasWildcard() && !request.isHasWildcard()) {
+            return this.matcher.matches(request.getPattern());
         }
 
-        if (!isHasWildcard() && requestMatcher.isHasWildcard()) {
-            Matcher matcher = new SpringAntMatcher(requestMatcher.getPattern(), this.caseSensitive);
+        if (!isHasWildcard() && request.isHasWildcard()) {
+            Matcher matcher = new SpringAntMatcher(request.getPattern(), this.caseSensitive);
             return matcher.matches(getPattern());
         }
 

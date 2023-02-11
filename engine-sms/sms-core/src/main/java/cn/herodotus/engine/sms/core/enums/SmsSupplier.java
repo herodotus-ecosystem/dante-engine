@@ -54,7 +54,6 @@ public enum SmsSupplier {
     QINIU(SmsConstants.CHANNEL_QINIU, "七牛短信"),
     TENCENT_CLOUD(SmsConstants.CHANNEL_TENCENT_CLOUD, "腾讯云短信"),
     UPYUN(SmsConstants.CHANNEL_UPYUN, "又拍短信"),
-    YUNPIAN(SmsConstants.CHANNEL_YUNPIAN, "云片网短信"),
     RECLUSE(SmsConstants.CHANNEL_RECLUSE, "内部短信");
 
 

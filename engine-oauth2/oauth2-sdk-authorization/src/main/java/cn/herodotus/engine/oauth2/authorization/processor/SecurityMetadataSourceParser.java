@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authorization.processor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
-import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
+import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.domain.SecurityAttribute;
 import cn.herodotus.engine.oauth2.core.enums.PermissionExpression;
@@ -71,14 +71,14 @@ public class SecurityMetadataSourceParser {
      *
      * @return requestMap 中存储的权限数据
      */
-    public LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> getConfiguredSecurityMetadata() {
+    public LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> getConfiguredSecurityMetadata() {
 
         List<String> permitAllMatcher = securityMatcherConfigurer.getPermitAllList();
 
         if (CollectionUtils.isNotEmpty(permitAllMatcher)) {
-            LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> result = new LinkedHashMap<>();
+            LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> result = new LinkedHashMap<>();
             permitAllMatcher.forEach(item -> {
-                result.put(new HerodotusRequestMatcher(item), new HerodotusConfigAttribute(PermissionExpression.PERMIT_ALL.getValue()));
+                result.put(new HerodotusRequest(item), new HerodotusConfigAttribute(PermissionExpression.PERMIT_ALL.getValue()));
             });
             return result;
         }
@@ -86,7 +86,7 @@ public class SecurityMetadataSourceParser {
     }
 
     /**
-     * 将 RequestMatcher 强制转换为 HerodotusRequestMatcher 方便使用。
+     * 将 RequestMatcher 强制转换为 HerodotusRequest 方便使用。
      * <p>
      * 1. 这里转换的内容，主要来源于 SecurityFilterChain 的 antMatchers 配置的权限过滤内容
      * 2. SecurityFilterChain 中的配置 RequestMatcher 的主要类型是 AntPathRequestMatcher，当然还有其它类型，通常不用作为权限数据，所以此处只处理 AntPathRequestMatcher 类型。
@@ -103,7 +103,7 @@ public class SecurityMetadataSourceParser {
      * @return 自定义 RequestMatcher
      */
     @Deprecated
-    private HerodotusRequestMatcher convert(RequestMatcher requestMatcher) {
+    private HerodotusRequest convert(RequestMatcher requestMatcher) {
         if (requestMatcher instanceof AntPathRequestMatcher) {
             AntPathRequestMatcher antPathRequestMatcher = (AntPathRequestMatcher) requestMatcher;
             String toStringValue = antPathRequestMatcher.toString();
@@ -124,7 +124,7 @@ public class SecurityMetadataSourceParser {
                     httpMethod = values.get(1);
                 }
                 log.trace("[Herodotus] |- Parse the request matcher value with regex is pattern: [{}], method: [{}]", pattern, httpMethod);
-                return new HerodotusRequestMatcher(pattern, httpMethod);
+                return new HerodotusRequest(pattern, httpMethod);
             }
         }
 
@@ -199,7 +199,7 @@ public class SecurityMetadataSourceParser {
      * @param securityAttribute {@link SecurityAttribute}
      * @return 保存请求和权限的映射的Map
      */
-    public LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> postProcess(SecurityAttribute securityAttribute) {
+    public LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> postProcess(SecurityAttribute securityAttribute) {
         return convertToSecurityMetadata(securityAttribute.getUrl(), securityAttribute.getRequestMethod(), analysis(securityAttribute));
     }
 
@@ -209,7 +209,7 @@ public class SecurityMetadataSourceParser {
      * @param requestMapping {@link RequestMapping}
      * @return 请求和权限的映射的Map
      */
-    public LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> postProcess(RequestMapping requestMapping) {
+    public LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> postProcess(RequestMapping requestMapping) {
         return convertToSecurityMetadata(requestMapping.getUrl(), requestMapping.getRequestMethod(), hasAuthority(requestMapping.getMetadataCode()));
     }
 
@@ -293,7 +293,7 @@ public class SecurityMetadataSourceParser {
      * @param expression 权限代码{@link GrantedAuthority#getAuthority()}
      * @return 请求和权限的映射的Map
      */
-    private LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> convertToSecurityMetadata(String url, String methods, String expression) {
+    private LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> convertToSecurityMetadata(String url, String methods, String expression) {
         return this.convertToSecurityMetadata(url, methods, new HerodotusConfigAttribute(expression));
     }
 
@@ -305,19 +305,19 @@ public class SecurityMetadataSourceParser {
      * @param herodotusConfigAttribute Security权限{@link ConfigAttribute}
      * @return 保存请求和权限的映射的Map
      */
-    private LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> convertToSecurityMetadata(String url, String methods, HerodotusConfigAttribute herodotusConfigAttribute) {
-        LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> result = new LinkedHashMap<>();
+    private LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> convertToSecurityMetadata(String url, String methods, HerodotusConfigAttribute herodotusConfigAttribute) {
+        LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> result = new LinkedHashMap<>();
         if (StringUtils.isBlank(methods)) {
-            result.put(new HerodotusRequestMatcher(url), herodotusConfigAttribute);
+            result.put(new HerodotusRequest(url), herodotusConfigAttribute);
         } else {
             // 如果methods是以逗号分隔的字符串，那么进行拆分处理
             if (StringUtils.contains(methods, SymbolConstants.COMMA)) {
                 String[] multiMethod = StringUtils.split(methods, SymbolConstants.COMMA);
                 for (String method : multiMethod) {
-                    result.put(new HerodotusRequestMatcher(url, method), herodotusConfigAttribute);
+                    result.put(new HerodotusRequest(url, method), herodotusConfigAttribute);
                 }
             } else {
-                result.put(new HerodotusRequestMatcher(url, methods), herodotusConfigAttribute);
+                result.put(new HerodotusRequest(url, methods), herodotusConfigAttribute);
             }
         }
 

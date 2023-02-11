@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.authorization.processor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
+import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
 import cn.herodotus.engine.oauth2.authorization.storage.SecurityMetadataSourceStorage;
 import cn.herodotus.engine.web.core.utils.WebUtils;
@@ -100,6 +101,7 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
 
         HerodotusConfigAttribute configAttribute = findConfigAttribute(url, method, request);
         if (ObjectUtils.isEmpty(configAttribute)) {
+            log.warn("[Herodotus] |- NO PRIVILEGES : [{}].", url);
             return new AuthorizationDecision(false);
         }
 
@@ -118,11 +120,12 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
             log.debug("[Herodotus] |- Get configAttributes from local storage for : [{}] - [{}]", url, method);
             return configAttribute;
         } else {
-            LinkedHashMap<HerodotusRequestMatcher, HerodotusConfigAttribute> compatible = this.securityMetadataSourceStorage.getCompatible();
+            LinkedHashMap<HerodotusRequest, HerodotusConfigAttribute> compatible = this.securityMetadataSourceStorage.getCompatible();
             if (MapUtils.isNotEmpty(compatible)) {
                 // 支持含有**通配符的路径搜索
-                for (Map.Entry<HerodotusRequestMatcher, HerodotusConfigAttribute> entry : compatible.entrySet()) {
-                    if (entry.getKey().matches(request)) {
+                for (Map.Entry<HerodotusRequest, HerodotusConfigAttribute> entry : compatible.entrySet()) {
+                    HerodotusRequestMatcher requestMatcher = new HerodotusRequestMatcher(entry.getKey());
+                    if (requestMatcher.matches(request)) {
                         log.debug("[Herodotus] |- Request match the wildcard [{}] - [{}]", entry.getKey(), entry.getValue());
                         return entry.getValue();
                     }

@@ -38,7 +38,6 @@ import cn.herodotus.engine.sms.netease.configuration.NeteaseSmsConfiguration;
 import cn.herodotus.engine.sms.qiniu.configuration.QiniuSmsConfiguration;
 import cn.herodotus.engine.sms.tencent.configuration.TencentSmsConfiguration;
 import cn.herodotus.engine.sms.upyun.configuration.UpyunSmsConfiguration;
-import cn.herodotus.engine.sms.yunpian.configuration.YunpianSmsConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +66,6 @@ import org.springframework.context.annotation.Import;
         QiniuSmsConfiguration.class,
         TencentSmsConfiguration.class,
         UpyunSmsConfiguration.class,
-        YunpianSmsConfiguration.class,
 })
 public class SmsConfiguration {
 
