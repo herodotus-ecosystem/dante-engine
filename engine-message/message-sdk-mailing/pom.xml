@@ -31,11 +31,11 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-message</artifactId>
-        <version>3.0.2.2</version>
+        <version>3.0.2.3</version>
     </parent>
 
     <artifactId>message-sdk-mailing</artifactId>
-    <version>3.0.2.2</version>
+    <version>3.0.2.3</version>
     <packaging>jar</packaging>
 
     <dependencies>
