@@ -78,6 +78,9 @@ public class HerodotusRegisteredClient extends AbstractEntity {
     @Column(name = "redirect_uris", length = 1000)
     private String redirectUris;
 
+    @Column(name = "post_logout_redirect_uris", length = 1000)
+    private String postLogoutRedirectUris;
+
     @Column(name = "scopes", nullable = false, length = 1000)
     private String scopes;
 
@@ -181,5 +184,13 @@ public class HerodotusRegisteredClient extends AbstractEntity {
 
     public void setTokenSettings(String tokenSettings) {
         this.tokenSettings = tokenSettings;
+    }
+
+    public String getPostLogoutRedirectUris() {
+        return postLogoutRedirectUris;
+    }
+
+    public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
+        this.postLogoutRedirectUris = postLogoutRedirectUris;
     }
 }

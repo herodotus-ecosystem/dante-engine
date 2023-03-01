@@ -76,10 +76,11 @@ public class RegisteredClientDeserializer extends JsonDeserializer<RegisteredCli
         Set<ClientAuthenticationMethod> clientAuthenticationMethods = JsonNodeUtils.findValue(root, "clientAuthenticationMethods", CLIENT_AUTHENTICATION_METHOD_SET, mapper);
         Set<AuthorizationGrantType> authorizationGrantTypes = JsonNodeUtils.findValue(root, "authorizationGrantTypes", AUTHORIZATION_GRANT_TYPE_SET, mapper);
         Set<String> redirectUris = JsonNodeUtils.findValue(root, "redirectUris", JsonNodeUtils.STRING_SET, mapper);
+        Set<String> postLogoutRedirectUris = JsonNodeUtils.findValue(root, "postLogoutRedirectUris", JsonNodeUtils.STRING_SET, mapper);
         Set<String> scopes = JsonNodeUtils.findValue(root, "scopes", JsonNodeUtils.STRING_SET, mapper);
-        ClientSettings clientSettings = JsonNodeUtils.findValue(root, "clientSettings", new TypeReference<ClientSettings>() {
+        ClientSettings clientSettings = JsonNodeUtils.findValue(root, "clientSettings", new TypeReference<>() {
         }, mapper);
-        TokenSettings tokenSettings = JsonNodeUtils.findValue(root, "tokenSettings", new TypeReference<TokenSettings>() {
+        TokenSettings tokenSettings = JsonNodeUtils.findValue(root, "tokenSettings", new TypeReference<>() {
         }, mapper);
 
         return RegisteredClient.withId(id)
@@ -91,6 +92,7 @@ public class RegisteredClientDeserializer extends JsonDeserializer<RegisteredCli
                 .clientAuthenticationMethods(methods -> methods.addAll(clientAuthenticationMethods))
                 .authorizationGrantTypes(types -> types.addAll(authorizationGrantTypes))
                 .redirectUris(uris -> uris.addAll(redirectUris))
+                .postLogoutRedirectUris(uris -> uris.addAll(postLogoutRedirectUris))
                 .scopes(s -> s.addAll(scopes))
                 .clientSettings(clientSettings)
                 .tokenSettings(tokenSettings)

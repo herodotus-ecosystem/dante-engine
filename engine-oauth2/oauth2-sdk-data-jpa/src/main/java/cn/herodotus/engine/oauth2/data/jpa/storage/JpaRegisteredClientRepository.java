@@ -111,6 +111,8 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
                 herodotusRegisteredClient.getAuthorizationGrantTypes());
         Set<String> redirectUris = StringUtils.commaDelimitedListToSet(
                 herodotusRegisteredClient.getRedirectUris());
+        Set<String> postLogoutRedirectUris = StringUtils.commaDelimitedListToSet(
+                herodotusRegisteredClient.getPostLogoutRedirectUris());
         Set<String> clientScopes = StringUtils.commaDelimitedListToSet(
                 herodotusRegisteredClient.getScopes());
 
@@ -127,6 +129,7 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
                         authorizationGrantTypes.forEach(grantType ->
                                 grantTypes.add(OAuth2AuthorizationUtils.resolveAuthorizationGrantType(grantType))))
                 .redirectUris((uris) -> uris.addAll(redirectUris))
+                .postLogoutRedirectUris((uris) -> uris.addAll(postLogoutRedirectUris))
                 .scopes((scopes) -> scopes.addAll(clientScopes));
 
         Map<String, Object> clientSettingsMap = parseMap(herodotusRegisteredClient.getClientSettings());
@@ -157,6 +160,7 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
         entity.setClientAuthenticationMethods(StringUtils.collectionToCommaDelimitedString(clientAuthenticationMethods));
         entity.setAuthorizationGrantTypes(StringUtils.collectionToCommaDelimitedString(authorizationGrantTypes));
         entity.setRedirectUris(StringUtils.collectionToCommaDelimitedString(registeredClient.getRedirectUris()));
+        entity.setPostLogoutRedirectUris(StringUtils.collectionToCommaDelimitedString(registeredClient.getPostLogoutRedirectUris()));
         entity.setScopes(StringUtils.collectionToCommaDelimitedString(registeredClient.getScopes()));
         entity.setClientSettings(writeMap(registeredClient.getClientSettings().getSettings()));
         entity.setTokenSettings(writeMap(registeredClient.getTokenSettings().getSettings()));
