@@ -29,7 +29,6 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * <p>Description: Security Metadata 传输数据实体 </p>
@@ -45,19 +44,15 @@ public class SecurityAttribute implements Serializable {
 
     private String attributeName;
 
-    private String expression;
+    private String webExpression;
 
-    private String manualSetting;
-
-    private String ipAddress;
+    private String permissions;
 
     private String url;
 
     private String requestMethod;
 
     private String serviceId;
-
-    private Set<HerodotusGrantedAuthority> roles;
 
     public SecurityAttribute() {
     }
@@ -78,28 +73,28 @@ public class SecurityAttribute implements Serializable {
         this.attributeCode = attributeCode;
     }
 
-    public String getExpression() {
-        return expression;
+    public String getAttributeName() {
+        return attributeName;
     }
 
-    public void setExpression(String expression) {
-        this.expression = expression;
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
     }
 
-    public String getManualSetting() {
-        return manualSetting;
+    public String getWebExpression() {
+        return webExpression;
     }
 
-    public void setManualSetting(String manualSetting) {
-        this.manualSetting = manualSetting;
+    public void setWebExpression(String webExpression) {
+        this.webExpression = webExpression;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
+    public String getPermissions() {
+        return permissions;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
     }
 
     public String getUrl() {
@@ -122,24 +117,8 @@ public class SecurityAttribute implements Serializable {
         return serviceId;
     }
 
-    public String getAttributeName() {
-        return attributeName;
-    }
-
-    public void setAttributeName(String attributeName) {
-        this.attributeName = attributeName;
-    }
-
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
-    }
-
-    public Set<HerodotusGrantedAuthority> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<HerodotusGrantedAuthority> roles) {
-        this.roles = roles;
     }
 
     @Override
@@ -165,9 +144,8 @@ public class SecurityAttribute implements Serializable {
                 .add("attributeId", attributeId)
                 .add("attributeCode", attributeCode)
                 .add("attributeName", attributeName)
-                .add("expression", expression)
-                .add("manualSetting", manualSetting)
-                .add("ipAddress", ipAddress)
+                .add("authorities", webExpression)
+                .add("permissions", permissions)
                 .add("url", url)
                 .add("requestMethod", requestMethod)
                 .add("serviceId", serviceId)

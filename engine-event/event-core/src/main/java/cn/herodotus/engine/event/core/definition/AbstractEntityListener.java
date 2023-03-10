@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.event.core.definition;
 
-import cn.herodotus.engine.web.core.context.ServiceContext;
+import cn.herodotus.engine.rest.core.context.ServiceContext;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

@@ -174,9 +174,11 @@
         <xnio.version>3.8.8.Final</xnio.version>
         <!--okio 最新版本在 JDK 17 下会出错误-->
         <okio.version>2.10.0</okio.version>
-        <!--以下为包依赖的特殊处理-->
+
+        <!--以下为特殊处理, 统一版本处理漏洞等-->
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
+        <commons-fileupload.version>1.5</commons-fileupload.version>
         <tea-xml.version>0.1.5</tea-xml.version>
         <dom4j.version>2.1.4</dom4j.version>
 
@@ -215,6 +217,12 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-oauth2-authorization-server</artifactId>
                 <version>${spring-security-oauth2-authorization-server.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-cas -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-cas</artifactId>
+                <version>${spring-security-cas.version}</version>
             </dependency>
 
             <!-- Dante Engine -->
@@ -515,7 +523,22 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
+                <artifactId>rest-sdk-client</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>rest-sdk-scan</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>rest-sdk-protect</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>rest-server-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>
@@ -578,28 +601,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>sms-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-
-            <!-- web -->
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-core</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-sdk-rest</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-sdk-scan</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
 
@@ -925,7 +926,7 @@
                 <version>${com.baidu.aip.version}</version>
             </dependency>
 
-            <!-- 依赖包特殊处理 -->
+            <!-- 阿里巴巴开源工具依赖 -->
             <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -965,19 +966,7 @@
                 <version>${okio.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor -->
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>logging-interceptor</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-
+            <!--以下为特殊处理, 统一版本处理漏洞等-->
             <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
@@ -1001,18 +990,13 @@
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+            <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
             <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>${postgresql.version}</version>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-cas -->
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-cas</artifactId>
-                <version>${spring-security-cas.version}</version>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oauth2.authentication.server.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Authority;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.authentication.server.repository.OAuth2ScopeRepository;
@@ -44,7 +44,7 @@ import java.util.Set;
  * @date : 2020/3/19 17:00
  */
 @Service
-public class OAuth2ScopeService extends BaseLayeredService<OAuth2Scope, String> {
+public class OAuth2ScopeService extends BaseService<OAuth2Scope, String> {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2ScopeService.class);
 

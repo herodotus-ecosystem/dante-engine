@@ -105,7 +105,6 @@
         <module>engine-assistant</module>
         <module>engine-cache</module>
         <module>engine-data</module>
-        <module>engine-web</module>
         <module>engine-rest</module>
         <module>engine-captcha</module>
         <module>engine-oss</module>
@@ -117,6 +116,7 @@
         <module>engine-access</module>
         <module>engine-sms</module>
         <module>engine-nosql</module>
+        <module>engine-supplier</module>
     </modules>
 
 </project>

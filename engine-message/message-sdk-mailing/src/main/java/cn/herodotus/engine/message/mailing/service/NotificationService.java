@@ -26,7 +26,7 @@
 package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.message.core.enums.NotificationCategory;
 import cn.herodotus.engine.message.mailing.entity.Announcement;
 import cn.herodotus.engine.message.mailing.entity.Notification;
@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +54,7 @@ import java.util.stream.Collectors;
  * @date : 2022/12/7 22:08
  */
 @Service
-public class NotificationService extends BaseLayeredService<Notification, String> {
+public class NotificationService extends BaseService<Notification, String> {
 
     private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
 

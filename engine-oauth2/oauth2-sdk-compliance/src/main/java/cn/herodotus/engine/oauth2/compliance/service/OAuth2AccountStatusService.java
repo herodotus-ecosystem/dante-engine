@@ -30,7 +30,7 @@ import cn.herodotus.engine.oauth2.compliance.definition.AccountStatusChangeServi
 import cn.herodotus.engine.oauth2.compliance.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
-import cn.herodotus.engine.web.core.domain.UserStatus;
+import cn.herodotus.engine.rest.core.domain.UserStatus;
 import jodd.util.StringUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;

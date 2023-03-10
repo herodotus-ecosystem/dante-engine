@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oauth2.data.jpa.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusAuthorizationRepository;
 import jakarta.persistence.criteria.Predicate;
@@ -51,7 +51,7 @@ import java.util.Optional;
  * @date : 2022/2/25 21:06
  */
 @Service
-public class HerodotusAuthorizationService extends BaseLayeredService<HerodotusAuthorization, String> {
+public class HerodotusAuthorizationService extends BaseService<HerodotusAuthorization, String> {
 
     private static final Logger log = LoggerFactory.getLogger(HerodotusAuthorizationService.class);
 

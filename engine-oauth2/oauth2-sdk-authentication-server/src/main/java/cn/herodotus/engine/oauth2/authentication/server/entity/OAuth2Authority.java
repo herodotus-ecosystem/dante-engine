@@ -52,14 +52,8 @@ public class OAuth2Authority extends BaseSysEntity {
     @Column(name = "authority_code", length = 128)
     private String authorityCode;
 
-    @Column(name = "service_id", length = 128)
-    private String serviceId;
-
-    @Column(name = "request_method", length = 20)
-    private String requestMethod;
-
-    @Column(name = "url", length = 2048)
-    private String url;
+    @Column(name = "authority_name", length = 128)
+    private String authorityName;
 
     public String getAuthorityId() {
         return authorityId;
@@ -77,28 +71,12 @@ public class OAuth2Authority extends BaseSysEntity {
         this.authorityCode = authorityCode;
     }
 
-    public String getServiceId() {
-        return serviceId;
+    public String getAuthorityName() {
+        return authorityName;
     }
 
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public String getRequestMethod() {
-        return requestMethod;
-    }
-
-    public void setRequestMethod(String requestMethod) {
-        this.requestMethod = requestMethod;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setAuthorityName(String authorityName) {
+        this.authorityName = authorityName;
     }
 
     @Override
@@ -106,9 +84,7 @@ public class OAuth2Authority extends BaseSysEntity {
         return MoreObjects.toStringHelper(this)
                 .add("authorityId", authorityId)
                 .add("authorityCode", authorityCode)
-                .add("serviceId", serviceId)
-                .add("requestMethod", requestMethod)
-                .add("url", url)
+                .add("authorityName", authorityName)
                 .toString();
     }
 }

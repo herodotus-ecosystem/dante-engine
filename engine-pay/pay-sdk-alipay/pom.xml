@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>web-core</artifactId>
+            <artifactId>rest-core</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>

@@ -26,7 +26,7 @@
 package cn.herodotus.engine.event.core.local;
 
 import cn.herodotus.engine.event.core.definition.LocalApplicationEvent;
-import cn.herodotus.engine.web.core.domain.RequestMapping;
+import cn.herodotus.engine.rest.core.domain.RequestMapping;
 
 import java.time.Clock;
 import java.util.List;

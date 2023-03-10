@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.oauth2.compliance.definition;
 
-import cn.herodotus.engine.web.core.definition.ApplicationStrategyEvent;
-import cn.herodotus.engine.web.core.domain.UserStatus;
+import cn.herodotus.engine.rest.core.definition.event.ApplicationStrategyEvent;
+import cn.herodotus.engine.rest.core.domain.UserStatus;
 
 /**
  * <p>Description: 用户状态变更服务 </p>

@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authorization.introspector;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
-import cn.herodotus.engine.web.core.properties.EndpointProperties;
+import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

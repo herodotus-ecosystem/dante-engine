@@ -64,11 +64,11 @@ public class RemoteSecurityMetadataSyncListener implements ApplicationListener<R
 
             String data = event.getData();
             if (StringUtils.isNotBlank(data)) {
-                List<SecurityAttribute> securityAttributes = JacksonUtils.toList(data, SecurityAttribute.class);
+                List<SecurityAttribute> securityMetadata = JacksonUtils.toList(data, SecurityAttribute.class);
 
-                if (CollectionUtils.isNotEmpty(securityAttributes)) {
+                if (CollectionUtils.isNotEmpty(securityMetadata)) {
                     log.debug("[Herodotus] |- Got security attributes from service [{}], current [{}] start to process security attributes.", event.getOriginService(), event.getDestinationService());
-                    securityMetadataSourceAnalyzer.processSecurityMetadata(securityAttributes);
+                    securityMetadataSourceAnalyzer.processSecurityAttribute(securityMetadata);
                 }
             }
         }

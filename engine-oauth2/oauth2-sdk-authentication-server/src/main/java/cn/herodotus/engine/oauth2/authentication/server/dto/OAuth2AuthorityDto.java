@@ -49,15 +49,7 @@ public class OAuth2AuthorityDto extends BaseDto {
 
     @Schema(name = "服务ID")
     @NotNull(message = "服务ID不能为空")
-    private String serviceId;
-
-    @Schema(name = "请求方法")
-    @NotNull(message = "请求方法不能为空")
-    private String requestMethod;
-
-    @Schema(name = "请求URL")
-    @NotNull(message = "请求URL不能为空")
-    private String url;
+    private String authorityName;
 
     public String getAuthorityId() {
         return authorityId;
@@ -75,28 +67,12 @@ public class OAuth2AuthorityDto extends BaseDto {
         this.authorityCode = authorityCode;
     }
 
-    public String getServiceId() {
-        return serviceId;
+    public String getAuthorityName() {
+        return authorityName;
     }
 
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public String getRequestMethod() {
-        return requestMethod;
-    }
-
-    public void setRequestMethod(String requestMethod) {
-        this.requestMethod = requestMethod;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setAuthorityName(String authorityName) {
+        this.authorityName = authorityName;
     }
 
     @Override
@@ -104,9 +80,7 @@ public class OAuth2AuthorityDto extends BaseDto {
         return MoreObjects.toStringHelper(this)
                 .add("authorityId", authorityId)
                 .add("authorityCode", authorityCode)
-                .add("serviceId", serviceId)
-                .add("requestMethod", requestMethod)
-                .add("url", url)
+                .add("authorityName", authorityName)
                 .toString();
     }
 }

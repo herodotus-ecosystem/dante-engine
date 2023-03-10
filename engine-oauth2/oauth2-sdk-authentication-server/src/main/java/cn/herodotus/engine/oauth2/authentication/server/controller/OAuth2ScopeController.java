@@ -122,9 +122,7 @@ public class OAuth2ScopeController extends BaseWriteableRestController<OAuth2Sco
         OAuth2Authority entity = new OAuth2Authority();
         entity.setAuthorityId(dto.getAuthorityId());
         entity.setAuthorityCode(dto.getAuthorityCode());
-        entity.setServiceId(dto.getServiceId());
-        entity.setRequestMethod(dto.getRequestMethod());
-        entity.setUrl(dto.getUrl());
+        entity.setAuthorityName(dto.getAuthorityName());
         return entity;
     }
 

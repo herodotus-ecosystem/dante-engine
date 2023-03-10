@@ -31,10 +31,9 @@ import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataS
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
-import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceParser;
-import cn.herodotus.engine.oauth2.authorization.storage.SecurityMetadataSourceStorage;
+import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceStorage;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
-import cn.herodotus.engine.web.core.properties.EndpointProperties;
+import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +48,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 
 /**
- * <p>Description: SecurityMetadata 配置 </p>
+ * <p>Description: SecurityAttribute 配置 </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/1/23 15:42
@@ -92,16 +91,8 @@ public class OAuth2AuthorizationConfiguration{
 
     @Bean
     @ConditionalOnMissingBean
-    public SecurityMetadataSourceParser securityMetadataSourceParser(SecurityMatcherConfigurer securityMatcherConfigurer) {
-        SecurityMetadataSourceParser securityMetadataSourceAnalyzer = new SecurityMetadataSourceParser(securityMatcherConfigurer);
-        log.trace("[Herodotus] |- Bean [Security Metadata Source Parser] Auto Configure.");
-        return securityMetadataSourceAnalyzer;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public SecurityMetadataSourceAnalyzer securityMetadataSourceAnalyzer(SecurityMetadataSourceStorage securityMetadataSourceStorage, SecurityMetadataSourceParser securityMetadataSourceParser) {
-        SecurityMetadataSourceAnalyzer securityMetadataSourceAnalyzer = new SecurityMetadataSourceAnalyzer(securityMetadataSourceStorage, securityMetadataSourceParser);
+    public SecurityMetadataSourceAnalyzer securityMetadataSourceAnalyzer(SecurityMetadataSourceStorage securityMetadataSourceStorage, SecurityMatcherConfigurer securityMatcherConfigurer) {
+        SecurityMetadataSourceAnalyzer securityMetadataSourceAnalyzer = new SecurityMetadataSourceAnalyzer(securityMetadataSourceStorage, securityMatcherConfigurer);
         log.trace("[Herodotus] |- Bean [Security Metadata Source Analyzer] Auto Configure.");
         return securityMetadataSourceAnalyzer;
     }

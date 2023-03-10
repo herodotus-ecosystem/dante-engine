@@ -26,7 +26,7 @@
 package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.message.core.enums.NotificationCategory;
 import cn.herodotus.engine.message.mailing.entity.Dialogue;
 import cn.herodotus.engine.message.mailing.entity.DialogueContact;
@@ -55,7 +55,7 @@ import java.util.List;
  * @date : 2022/12/7 22:10
  */
 @Service
-public class DialogueDetailService extends BaseLayeredService<DialogueDetail, String> {
+public class DialogueDetailService extends BaseService<DialogueDetail, String> {
 
     private static final Logger log = LoggerFactory.getLogger(DialogueDetailService.class);
 

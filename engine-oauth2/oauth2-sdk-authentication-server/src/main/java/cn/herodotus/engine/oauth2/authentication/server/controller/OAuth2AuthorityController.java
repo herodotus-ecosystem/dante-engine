@@ -83,13 +83,11 @@ public class OAuth2AuthorityController implements Controller {
         return authorities.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
-    private OAuth2Authority toEntity(Authority object) {
+    private OAuth2Authority toEntity(Authority domain) {
         OAuth2Authority authority = new OAuth2Authority();
-        authority.setAuthorityId(object.getAuthorityId());
-        authority.setAuthorityCode(object.getAuthorityCode());
-        authority.setServiceId(object.getServiceId());
-        authority.setRequestMethod(object.getRequestMethod());
-        authority.setUrl(object.getUrl());
+        authority.setAuthorityId(domain.getAuthorityId());
+        authority.setAuthorityCode(domain.getAuthorityCode());
+        authority.setAuthorityName(domain.getAuthorityName());
         return authority;
     }
 }

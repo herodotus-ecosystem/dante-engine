@@ -25,14 +25,12 @@
 
 package cn.herodotus.engine.message.websocket.controller;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.mailing.entity.DialogueDetail;
 import cn.herodotus.engine.message.mailing.service.DialogueDetailService;
 import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.message.websocket.processor.WebSocketMessageSender;
-import cn.herodotus.engine.web.core.constants.WebConstants;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -40,7 +38,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.web.bind.annotation.RestController;
 

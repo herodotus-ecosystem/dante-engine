@@ -26,7 +26,7 @@
 package cn.herodotus.engine.event.core.local;
 
 import cn.herodotus.engine.event.core.definition.LocalApplicationEvent;
-import cn.herodotus.engine.web.core.domain.UserStatus;
+import cn.herodotus.engine.rest.core.domain.UserStatus;
 
 import java.time.Clock;
 

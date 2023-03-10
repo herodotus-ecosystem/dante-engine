@@ -26,7 +26,7 @@
 package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.message.mailing.entity.Announcement;
 import cn.herodotus.engine.message.mailing.repository.AnnouncementRepository;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ import java.util.List;
  * @date : 2022/12/7 22:11
  */
 @Service
-public class AnnouncementService extends BaseLayeredService<Announcement, String> {
+public class AnnouncementService extends BaseService<Announcement, String> {
 
     private static final Logger log = LoggerFactory.getLogger(AnnouncementService.class);
 

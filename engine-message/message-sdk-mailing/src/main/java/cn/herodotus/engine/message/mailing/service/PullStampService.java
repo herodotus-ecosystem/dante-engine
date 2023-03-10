@@ -26,7 +26,7 @@
 package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.message.mailing.entity.PullStamp;
 import cn.herodotus.engine.message.mailing.repository.PullStampRepository;
 import org.apache.commons.lang3.ObjectUtils;
@@ -41,7 +41,7 @@ import java.util.Date;
  * @date : 2022/12/7 22:10
  */
 @Service
-public class PullStampService extends BaseLayeredService<PullStamp, String> {
+public class PullStampService extends BaseService<PullStamp, String> {
 
     private final PullStampRepository pullStampRepository;
 

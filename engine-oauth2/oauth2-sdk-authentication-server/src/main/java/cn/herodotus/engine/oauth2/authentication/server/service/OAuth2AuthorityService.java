@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oauth2.authentication.server.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Authority;
 import cn.herodotus.engine.oauth2.authentication.server.repository.OAuth2AuthorityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ import org.springframework.stereotype.Service;
  * @date : 2022/4/1 13:53
  */
 @Service
-public class OAuth2AuthorityService extends BaseLayeredService<OAuth2Authority, String> {
+public class OAuth2AuthorityService extends BaseService<OAuth2Authority, String> {
 
     private final OAuth2AuthorityRepository authorityRepository;
 

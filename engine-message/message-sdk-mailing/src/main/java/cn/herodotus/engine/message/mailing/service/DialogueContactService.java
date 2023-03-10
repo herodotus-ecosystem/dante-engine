@@ -26,13 +26,12 @@
 package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.message.mailing.entity.Dialogue;
 import cn.herodotus.engine.message.mailing.entity.DialogueContact;
 import cn.herodotus.engine.message.mailing.entity.DialogueDetail;
 import cn.herodotus.engine.message.mailing.repository.DialogueContactRepository;
 import jakarta.persistence.criteria.Predicate;
-import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -43,7 +42,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>Description: PersonalContactService </p>
@@ -52,7 +50,7 @@ import java.util.Optional;
  * @date : 2022/12/7 22:09
  */
 @Service
-public class DialogueContactService extends BaseLayeredService<DialogueContact, String> {
+public class DialogueContactService extends BaseService<DialogueContact, String> {
 
     private static final Logger log = LoggerFactory.getLogger(DialogueContactService.class);
 

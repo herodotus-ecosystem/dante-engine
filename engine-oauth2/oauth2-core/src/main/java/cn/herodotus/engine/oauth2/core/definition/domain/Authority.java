@@ -39,11 +39,7 @@ public class Authority {
 
     private String authorityCode;
 
-    private String serviceId;
-
-    private String requestMethod;
-
-    private String url;
+    private String authorityName;
 
     public String getAuthorityId() {
         return authorityId;
@@ -61,28 +57,12 @@ public class Authority {
         this.authorityCode = authorityCode;
     }
 
-    public String getServiceId() {
-        return serviceId;
+    public String getAuthorityName() {
+        return authorityName;
     }
 
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public String getRequestMethod() {
-        return requestMethod;
-    }
-
-    public void setRequestMethod(String requestMethod) {
-        this.requestMethod = requestMethod;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+    public void setAuthorityName(String authorityName) {
+        this.authorityName = authorityName;
     }
 
     @Override
@@ -90,9 +70,7 @@ public class Authority {
         return MoreObjects.toStringHelper(this)
                 .add("authorityId", authorityId)
                 .add("authorityCode", authorityCode)
-                .add("serviceId", serviceId)
-                .add("requestMethod", requestMethod)
-                .add("url", url)
+                .add("authorityName", authorityName)
                 .toString();
     }
 }

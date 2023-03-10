@@ -26,7 +26,7 @@
 package cn.herodotus.engine.message.mailing.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.message.mailing.entity.Dialogue;
 import cn.herodotus.engine.message.mailing.repository.DialogueRepository;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ import org.springframework.stereotype.Service;
  * @date : 2022/12/7 22:09
  */
 @Service
-public class DialogueService extends BaseLayeredService<Dialogue, String> {
+public class DialogueService extends BaseService<Dialogue, String> {
 
     private static final Logger log = LoggerFactory.getLogger(DialogueService.class);
 
