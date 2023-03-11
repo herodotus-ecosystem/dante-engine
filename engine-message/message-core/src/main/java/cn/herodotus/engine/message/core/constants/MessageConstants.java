@@ -37,6 +37,10 @@ public interface MessageConstants extends BaseConstants {
 
     String MSG_AREA_PREFIX = AREA_PREFIX + "msg:";
 
+    String PROPERTY_PREFIX_KAFKA = PROPERTY_PREFIX_EVENT + ".kafka";
+
+    String ITEM_KAFKA_ENABLED = PROPERTY_PREFIX_KAFKA + PROPERTY_ENABLED;
+
     String REDIS_CURRENT_ONLINE_USER = MSG_AREA_PREFIX + "online:user";
     String REGION_MESSAGE_ANNOUNCEMENT = MSG_AREA_PREFIX + "system_announcement";
     String REGION_MESSAGE_DIALOGUE_CONTACT = MSG_AREA_PREFIX + "personal:contact";

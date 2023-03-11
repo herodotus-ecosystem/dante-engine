@@ -28,7 +28,7 @@ package cn.herodotus.engine.supplier.upms.logic.entity.security;
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.supplier.upms.logic.constants.UpmsConstants;
 import cn.herodotus.engine.supplier.upms.logic.domain.generator.SysAttributeUuid;
-import cn.herodotus.engine.supplier.upms.logic.domain.listener.SysAttributeEntityListener;
+import cn.herodotus.engine.supplier.upms.logic.domain.listener.SysAttributeApplicationContextAware;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -51,7 +51,7 @@ import java.util.Set;
 @Table(name = "sys_attribute", indexes = {@Index(name = "sys_attribute_id_idx", columnList = "attribute_id")})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = UpmsConstants.REGION_SYS_ATTRIBUTE)
-@EntityListeners(value = {SysAttributeEntityListener.class})
+@EntityListeners(value = {SysAttributeApplicationContextAware.class})
 public class SysAttribute extends BaseSysEntity {
 
     @Schema(title = "元数据ID")

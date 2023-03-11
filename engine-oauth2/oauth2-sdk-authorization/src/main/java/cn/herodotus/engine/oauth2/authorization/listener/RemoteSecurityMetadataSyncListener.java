@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oauth2.authorization.listener;
 
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
-import cn.herodotus.engine.event.security.remote.RemoteSecurityMetadataSyncEvent;
+import cn.herodotus.engine.message.security.event.RemoteSecurityMetadataSyncEvent;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.core.definition.domain.SecurityAttribute;
 import org.apache.commons.collections4.CollectionUtils;

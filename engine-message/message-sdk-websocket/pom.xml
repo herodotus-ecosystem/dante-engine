@@ -41,9 +41,8 @@
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>message-sdk-mailing</artifactId>
+            <artifactId>message-core</artifactId>
         </dependency>
-
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>cache-sdk-redis</artifactId>

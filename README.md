@@ -88,11 +88,6 @@ dante-engine
 ├    ├── data-sdk-mybatis-plus -- MybatisPlus 相关代码模块
 ├    ├── data-sdk-p6spy -- P6spy 相关代码模块
 ├    └── data-spring-boot-starter -- Data 模块统一 Starter
-├── engine-event -- Spring 事件模块
-├    ├── event-core -- 事件共性代码模块
-├    ├── event-message-spring-boot-starter -- Kafka Message 统一 Starter
-├    ├── event-pay-spring-boot-starter -- 支付事件统一 Starter
-├    └── event-security-spring-boot-starter --安全事件统一 Starter
 ├── engine-facility -- 微服务基础设施模块
 ├    ├── facility-alibaba-spring-boot-starter -- 面向 Spring Cloud Alibaba 的微服务基础设施适配模块
 ├    ├── facility-core -- 基础设施共性通用代码
@@ -100,8 +95,11 @@ dante-engine
 ├    └── facility-tencent-spring-boot-starter -- 面向 Spring Cloud Tencent 的微服务基础设施适配模块
 ├── engine-message -- 消息模块
 ├    ├── message-core -- 消息共性通用代码
+├    ├── message-kafka-spring-boot-starter -- 基础 Kafka 配置 Starter
+├    ├── message-pay-spring-boot-starter -- 支付事件统一 Starter
 ├    ├── message-sdk-mailing -- 站内消息、私信通用代码模块
 ├    ├── message-sdk-websocket -- 基于 WebSocket 的消息代码模块
+├    ├── message-security-spring-boot-starter -- 安全相关事件统一 Starter
 ├    └── message-spring-boot-starter -- Message  模块统一 Starter
 ├── engine-nosql -- Nosql 数据库接入管理模块
 ├    ├── nosql-core -- nosql基础共性通用代码
@@ -142,7 +140,11 @@ dante-engine
 ├    ├── sms-sdk-qiniu -- 七牛短信发送模块
 ├    ├── sms-sdk-tencent -- 腾讯短信发送模块
 ├    ├── sms-sdk-upyun -- 又拍短信发送模块
-└──  └── sms-spring-boot-starter -- SMS 模块统一 Starter
+├    └── sms-spring-boot-starter -- SMS 模块统一 Starter
+├── engine-supplier -- 应用支持模块
+├    ├── supplier-sdk-core -- 消息功能支持模块
+├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
+└──  └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
 ```
 
 ## 阅读顺序

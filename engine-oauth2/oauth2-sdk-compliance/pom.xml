@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>event-security-spring-boot-starter</artifactId>
+            <artifactId>message-security-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

@@ -26,11 +26,12 @@
 package cn.herodotus.engine.message.websocket.controller;
 
 import cn.herodotus.engine.message.core.constants.MessageConstants;
-import cn.herodotus.engine.message.mailing.entity.DialogueDetail;
-import cn.herodotus.engine.message.mailing.service.DialogueDetailService;
+import cn.herodotus.engine.message.core.domain.DialogueMessage;
+import cn.herodotus.engine.message.core.event.LocalSendDialogueMessageEvent;
 import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.message.websocket.processor.WebSocketMessageSender;
+import cn.herodotus.engine.rest.core.definition.context.AbstractApplicationContextAware;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -48,17 +49,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @date : 2022/12/5 17:49
  */
 @RestController
-public class WebSocketPublishMessageController {
+public class WebSocketPublishMessageController extends AbstractApplicationContextAware {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketPublishMessageController.class);
 
     private final WebSocketMessageSender webSocketMessageSender;
 
-    private final DialogueDetailService dialogueDetailService;
-
-    public WebSocketPublishMessageController(WebSocketMessageSender webSocketMessageSender, DialogueDetailService dialogueDetailService) {
+    public WebSocketPublishMessageController(WebSocketMessageSender webSocketMessageSender) {
         this.webSocketMessageSender = webSocketMessageSender;
-        this.dialogueDetailService = dialogueDetailService;
     }
 
     @MessageMapping("/public/notice")
@@ -75,11 +73,11 @@ public class WebSocketPublishMessageController {
     /**
      * 发送私信消息。
      *
-     * @param detail           前端数据 {@link DialogueDetail}
+     * @param detail           前端数据 {@link DialogueMessage}
      * @param headerAccessor 在WebSocketChannelInterceptor拦截器中绑定上的对象
      */
     @MessageMapping("/private/message")
-    public void sendPrivateMessage(@Payload DialogueDetail detail, StompHeaderAccessor headerAccessor) {
+    public void sendPrivateMessage(@Payload DialogueMessage detail, StompHeaderAccessor headerAccessor) {
 
         WebSocketMessage<String> response = new WebSocketMessage<>();
         response.setTo(detail.getReceiverId());
@@ -93,15 +91,9 @@ public class WebSocketPublishMessageController {
                 detail.setSenderAvatar(sender.getAvatar());
             }
 
-            DialogueDetail result = dialogueDetailService.save(detail);
+            this.publishEvent(new LocalSendDialogueMessageEvent(detail));
 
-
-            if (ObjectUtils.isNotEmpty(result)) {
-                response.setPayload("私信发送成功");
-
-            } else {
-                response.setPayload("私信发送失败");
-            }
+            response.setPayload("私信发送成功");
         } else {
             response.setPayload("私信发送失败，参数错误");
         }

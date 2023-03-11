@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.domain.event;
 
-import cn.herodotus.engine.event.core.definition.LocalApplicationEvent;
+import cn.herodotus.engine.message.core.definition.LocalApplicationEvent;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysAttribute;
 
 import java.time.Clock;

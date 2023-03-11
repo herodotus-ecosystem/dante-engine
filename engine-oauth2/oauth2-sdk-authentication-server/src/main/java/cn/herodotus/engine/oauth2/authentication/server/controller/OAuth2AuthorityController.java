@@ -27,8 +27,8 @@ package cn.herodotus.engine.oauth2.authentication.server.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Authority;
-import cn.herodotus.engine.oauth2.core.definition.domain.Authority;
-import cn.herodotus.engine.oauth2.core.definition.strategy.StrategyAuthorityDetailsService;
+import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusPermission;
+import cn.herodotus.engine.oauth2.core.definition.strategy.StrategyPermissionDetailsService;
 import cn.herodotus.engine.rest.core.controller.Controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -59,18 +59,18 @@ import java.util.stream.Collectors;
 })
 public class OAuth2AuthorityController implements Controller {
 
-    private final StrategyAuthorityDetailsService strategyAuthorityDetailsService;
+    private final StrategyPermissionDetailsService strategyPermissionDetailsService;
 
     @Autowired
-    public OAuth2AuthorityController(StrategyAuthorityDetailsService strategyAuthorityDetailsService) {
-        this.strategyAuthorityDetailsService = strategyAuthorityDetailsService;
+    public OAuth2AuthorityController(StrategyPermissionDetailsService strategyPermissionDetailsService) {
+        this.strategyPermissionDetailsService = strategyPermissionDetailsService;
     }
 
     @Operation(summary = "查询所有权限数据", description = "查询所有权限数据用于给Scope分配权限",
             responses = {@ApiResponse(description = "权限列表", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OAuth2Authority.class)))})
     @GetMapping("/condition")
     public Result<List<OAuth2Authority>> findAll() {
-        List<Authority> authorities = strategyAuthorityDetailsService.findAll();
+        List<HerodotusPermission> authorities = strategyPermissionDetailsService.findAll();
         if (CollectionUtils.isNotEmpty(authorities)) {
             List<OAuth2Authority> result = toEntities(authorities);
             return result(result);
@@ -79,15 +79,15 @@ public class OAuth2AuthorityController implements Controller {
         }
     }
 
-    private List<OAuth2Authority> toEntities(List<Authority> authorities) {
+    private List<OAuth2Authority> toEntities(List<HerodotusPermission> authorities) {
         return authorities.stream().map(this::toEntity).collect(Collectors.toList());
     }
 
-    private OAuth2Authority toEntity(Authority domain) {
+    private OAuth2Authority toEntity(HerodotusPermission domain) {
         OAuth2Authority authority = new OAuth2Authority();
-        authority.setAuthorityId(domain.getAuthorityId());
-        authority.setAuthorityCode(domain.getAuthorityCode());
-        authority.setAuthorityName(domain.getAuthorityName());
+        authority.setAuthorityId(domain.getPermissionId());
+        authority.setAuthorityCode(domain.getPermissionCode());
+        authority.setAuthorityName(domain.getPermissionName());
         return authority;
     }
 }

@@ -27,10 +27,10 @@ package cn.herodotus.engine.pay.alipay.definition;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
-import cn.herodotus.engine.event.core.local.LocalPaymentNotifyEvent;
-import cn.herodotus.engine.event.core.local.LocalPaymentReturnEvent;
-import cn.herodotus.engine.event.pay.remote.RemotePaymentNotifyEvent;
-import cn.herodotus.engine.event.pay.remote.RemotePaymentReturnEvent;
+import cn.herodotus.engine.message.core.event.LocalPaymentNotifyEvent;
+import cn.herodotus.engine.message.core.event.LocalPaymentReturnEvent;
+import cn.herodotus.engine.message.pay.event.RemotePaymentNotifyEvent;
+import cn.herodotus.engine.message.pay.event.RemotePaymentReturnEvent;
 import cn.herodotus.engine.pay.alipay.properties.AlipayProperties;
 import cn.herodotus.engine.pay.core.constants.PayConstants;
 import cn.herodotus.engine.pay.core.exception.PaymentProfileIdIncorrectException;

@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>event-pay-spring-boot-starter</artifactId>
+            <artifactId>message-pay-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>

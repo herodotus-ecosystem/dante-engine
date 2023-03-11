@@ -110,7 +110,6 @@
         <module>engine-oss</module>
         <module>engine-pay</module>
         <module>engine-message</module>
-        <module>engine-event</module>
         <module>engine-facility</module>
         <module>engine-oauth2</module>
         <module>engine-access</module>
