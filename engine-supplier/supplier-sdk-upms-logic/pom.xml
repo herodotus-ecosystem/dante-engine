@@ -30,21 +30,32 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.herodotus.engine</groupId>
-        <artifactId>dante-engine</artifactId>
+        <artifactId>engine-supplier</artifactId>
         <version>3.0.4.0</version>
     </parent>
 
-    <artifactId>engine-supplier</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>supplier-sdk-upms-logic</module>
-        <module>supplier-sdk-upms-rest</module>
-    </modules>
+    <artifactId>supplier-sdk-upms-logic</artifactId>
+    <version>3.0.4.0</version>
+    <packaging>jar</packaging>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <description>基于 Spring Authorization Server 的 Dante Cloud UPMS 应用支持模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>data-sdk-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>oauth2-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>event-core</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

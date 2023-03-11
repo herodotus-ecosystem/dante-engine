@@ -604,6 +604,18 @@
                 <version>${dante-bom.version}</version>
             </dependency>
 
+            <!-- supplier -->
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>supplier-sdk-upms-logic</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>supplier-sdk-upms-rest</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+
             <!-- Maven 相关依赖 -->
             <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-embedder -->
             <dependency>
