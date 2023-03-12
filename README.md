@@ -156,23 +156,21 @@ dante-engine
 1. engine-assistant
 2. engine-cache
 3. engine-data
-4. engine-web
-5. engine-protect
-6. engine-rest
-7. engine-oauth2
-8. engine-facility
-9. engine-event
-10. engine-message
+4. engine-rest
+5. engine-oauth2
+6. engine-facility 
+7. engine-message
 
 ### 二、独立性阅读
 
 部分组件都是相对独立的，组件间的关联性非常弱。可分开独立阅读和了解代码：
 
+* engine-access
 * engine-captcha
 * engine-oss
 * engine-pay
-* engine-temporal
-* engine-websocket
+* engine-nosql
+* engine-supplier
 
 ## 参与贡献
 

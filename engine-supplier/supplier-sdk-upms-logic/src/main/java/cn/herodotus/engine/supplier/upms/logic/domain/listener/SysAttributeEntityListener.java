@@ -33,18 +33,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Description: SysSecurityAttribute实体数据变更监听 </p>
+ * <p>Description: SysAttribute实体数据变更监听 </p>
  *
  * @author : gengwei.zheng
  * @date : 2021/8/4 16:54
  */
-public class SysAttributeApplicationContextAware extends AbstractApplicationContextAware {
+public class SysAttributeEntityListener extends AbstractApplicationContextAware {
 
-    private static final Logger log = LoggerFactory.getLogger(SysAttributeApplicationContextAware.class);
+    private static final Logger log = LoggerFactory.getLogger(SysAttributeEntityListener.class);
 
     @PostUpdate
     protected void postUpdate(SysAttribute entity) {
-        log.debug("[Herodotus] |- (1) SysAttribute entity @PostUpdate actived, value is : [{}]. Trigger SysAttribute change event.", entity.toString());
+        log.debug("[Herodotus] |- [1] SysAttribute entity @PostUpdate activated, value is : [{}]. Trigger SysAttribute change event.", entity.toString());
         publishEvent(new SysAttributeChangeEvent(entity));
     }
 }

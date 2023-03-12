@@ -61,7 +61,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * <p>Description: HttpClient 自动配置 </p>
- *
+ * <p>
  * {@link org.springframework.cloud.openfeign.clientconfig.HttpClient5FeignConfiguration}
  *
  * @author : gengwei.zheng
@@ -125,14 +125,12 @@ public class HttpClientConfiguration {
         if (isDisableSslValidation) {
             try {
                 final SSLContext sslContext = SSLContext.getInstance("SSL");
-                sslContext.init(null, new TrustManager[] { new HttpClientConfiguration.DisabledValidationTrustManager() }, new SecureRandom());
+                sslContext.init(null, new TrustManager[]{new HttpClientConfiguration.DisabledValidationTrustManager()}, new SecureRandom());
                 sslConnectionSocketFactoryBuilder.setSslContext(sslContext);
-            }
-            catch (NoSuchAlgorithmException | KeyManagementException e) {
+            } catch (NoSuchAlgorithmException | KeyManagementException e) {
                 log.warn("Error creating SSLContext", e);
             }
-        }
-        else {
+        } else {
             sslConnectionSocketFactoryBuilder.setSslContext(SSLContexts.createSystemDefault());
         }
 

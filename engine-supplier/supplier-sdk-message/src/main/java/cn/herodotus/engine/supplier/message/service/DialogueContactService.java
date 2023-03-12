@@ -111,7 +111,7 @@ public class DialogueContactService extends BaseService<DialogueContact, String>
         dialogueContactRepository.deleteAllByDialogueId(dialogueId);
     }
 
-    public DialogueContact findBySenderIdAndReceiverId(String senderId, String receiverId){
-        return  dialogueContactRepository.findBySenderIdAndReceiverId(senderId, receiverId).orElse(null);
+    public DialogueContact findBySenderIdAndReceiverId(String senderId, String receiverId) {
+        return dialogueContactRepository.findBySenderIdAndReceiverId(senderId, receiverId).orElse(null);
     }
 }

@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * <p>Description: 对话消息监听 </p>
- *
+ * <p>
  * 解耦模块之间的依赖关系
  *
  * @author : gengwei.zheng
@@ -52,7 +52,7 @@ public class DialogueMessageListener implements ApplicationListener<LocalSendDia
 
     @Override
     public void onApplicationEvent(LocalSendDialogueMessageEvent event) {
-        if(ObjectUtils.isNotEmpty(event)) {
+        if (ObjectUtils.isNotEmpty(event)) {
             DialogueMessage dialogueMessage = event.getData();
             if (ObjectUtils.isNotEmpty(dialogueMessage)) {
                 DialogueDetail dialogueDetail = convertDialogueMessageToDialogueDetail(dialogueMessage);

@@ -207,7 +207,7 @@ public class RequestMappingScanner implements ApplicationListener<ApplicationRea
         String code = StringUtils.replaceEach(url, search, replacement);
 
         String result = StringUtils.isNotBlank(requestMethods) ? StringUtils.lowerCase(requestMethods) + code : StringUtils.removeStart(code, SymbolConstants.COLON);
-        log.debug("[Herodotus] |- Create code [{}] for Request [{}] : [{}]!", result, requestMethods, url);
+        log.trace("[Herodotus] |- Create code [{}] for Request [{}] : [{}]", result, requestMethods, url);
         return result;
     }
 

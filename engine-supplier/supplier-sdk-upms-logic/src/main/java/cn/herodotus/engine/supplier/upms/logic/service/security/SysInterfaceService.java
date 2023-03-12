@@ -126,6 +126,7 @@ public class SysInterfaceService extends BaseService<SysInterface, String> {
         sysInterface.setClassName(requestMapping.getClassName());
         sysInterface.setMethodName(requestMapping.getMethodName());
         sysInterface.setUrl(requestMapping.getUrl());
+        sysInterface.setDescription(requestMapping.getDescription());
         return sysInterface;
     }
 }

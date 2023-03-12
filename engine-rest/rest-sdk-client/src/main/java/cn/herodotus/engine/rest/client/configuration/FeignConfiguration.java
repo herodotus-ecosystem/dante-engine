@@ -75,7 +75,7 @@ public class FeignConfiguration {
 
     /**
      * Feign Logger 配置
-     *
+     * <p>
      * 1. NONE（默认） --- 不记录任何日志
      * 2. BASIC ---	仅记录请求方法，URL，响应状态代码以及执行时间（适合生产环境）
      * 3. HEADERS --- 记录BASIC级别的基础上，记录请求和响应的header
@@ -87,6 +87,7 @@ public class FeignConfiguration {
     public feign.Logger.Level logger() {
         return feign.Logger.Level.BASIC;
     }
+
     /**
      * FeignClient超时设置
      * feign超时设置有3种方式：配置文件直接配置FeignClient、自定义Request.Options及配置文件配置Ribbon，优先级从高到低如下。

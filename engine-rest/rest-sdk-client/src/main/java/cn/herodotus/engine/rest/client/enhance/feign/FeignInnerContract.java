@@ -51,7 +51,7 @@ public class FeignInnerContract extends SpringMvcContract {
     @Override
     protected void processAnnotationOnMethod(MethodMetadata data, Annotation methodAnnotation, Method method) {
 
-        if(Inner.class.isInstance(methodAnnotation)) {
+        if (Inner.class.isInstance(methodAnnotation)) {
             Inner inner = findMergedAnnotation(method, Inner.class);
             if (ObjectUtils.isNotEmpty(inner)) {
                 log.debug("[Herodotus] |- Found inner annotation on Feign interface, add header!");

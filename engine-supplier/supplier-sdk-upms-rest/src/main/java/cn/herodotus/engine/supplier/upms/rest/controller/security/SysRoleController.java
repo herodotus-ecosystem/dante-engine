@@ -109,7 +109,7 @@ public class SysRoleController extends BaseWriteableRestController<SysRole, Stri
             @Parameter(name = "permissions[]", required = true, description = "权限对象组成的数组")
     })
     @PutMapping
-    public Result<SysRole> assign(@RequestParam(name = "roleId") String roleId, @RequestParam(name = "permissions") String[] permissions) {
+    public Result<SysRole> assign(@RequestParam(name = "roleId") String roleId, @RequestParam(name = "permissions[]") String[] permissions) {
         SysRole sysRole = sysRoleService.assign(roleId, permissions);
         return result(sysRole);
     }
