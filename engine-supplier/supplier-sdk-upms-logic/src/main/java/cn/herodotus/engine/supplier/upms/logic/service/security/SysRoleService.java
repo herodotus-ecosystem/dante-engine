@@ -61,7 +61,7 @@ public class SysRoleService extends BaseService<SysRole, String> {
         return this.sysRoleRepository;
     }
 
-    public SysRole authorize(String roleId, String[] permissions) {
+    public SysRole assign(String roleId, String[] permissions) {
 
         Set<SysPermission> sysPermissions = new HashSet<>();
         for (String permission : permissions) {
