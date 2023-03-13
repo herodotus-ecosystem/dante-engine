@@ -46,7 +46,7 @@ public class OAuth2ScopeDto {
     private String scopeId;
 
     @Schema(name = "范围权限列表")
-    private Set<OAuth2AuthorityDto> authorities = new HashSet<>();
+    private Set<OAuth2PermissionDto> permissions = new HashSet<>();
 
     public String getScopeId() {
         return scopeId;
@@ -56,12 +56,12 @@ public class OAuth2ScopeDto {
         this.scopeId = scopeId;
     }
 
-    public Set<OAuth2AuthorityDto> getAuthorities() {
-        return authorities;
+    public Set<OAuth2PermissionDto> getPermissions() {
+        return permissions;
     }
 
-    public void setAuthorities(Set<OAuth2AuthorityDto> authorities) {
-        this.authorities = authorities;
+    public void setPermissions(Set<OAuth2PermissionDto> permissions) {
+        this.permissions = permissions;
     }
 
     @Override

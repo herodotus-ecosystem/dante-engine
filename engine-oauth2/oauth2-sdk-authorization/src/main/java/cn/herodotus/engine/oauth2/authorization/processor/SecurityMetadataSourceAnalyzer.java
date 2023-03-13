@@ -273,6 +273,6 @@ public class SecurityMetadataSourceAnalyzer {
         log.debug("[Herodotus] |- Store full path type security attributes.");
         securityMetadataSourceStorage.addToStorage(matchers, fullPaths, true);
 
-        log.debug("[Herodotus] |- [6] Security attributes process has FINISHED!");
+        log.debug("[Herodotus] |- [7] Security attributes process has FINISHED!");
     }
 }

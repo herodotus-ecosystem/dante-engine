@@ -23,33 +23,16 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.server.service;
+package cn.herodotus.engine.oauth2.authentication.server.repository;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Authority;
-import cn.herodotus.engine.oauth2.authentication.server.repository.OAuth2AuthorityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Permission;
 
 /**
- * <p>Description: OAuth2AuthorityService </p>
+ * <p>Description: OAuth2AuthorityRepository </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/4/1 13:53
+ * @date : 2022/4/1 13:52
  */
-@Service
-public class OAuth2AuthorityService extends BaseService<OAuth2Authority, String> {
-
-    private final OAuth2AuthorityRepository authorityRepository;
-
-    @Autowired
-    public OAuth2AuthorityService(OAuth2AuthorityRepository authorityRepository) {
-        this.authorityRepository = authorityRepository;
-    }
-
-    @Override
-    public BaseRepository<OAuth2Authority, String> getRepository() {
-        return authorityRepository;
-    }
+public interface OAuth2PermissionRepository extends BaseRepository<OAuth2Permission, String> {
 }

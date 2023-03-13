@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oauth2.authentication.server.entity;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
-import cn.herodotus.engine.oauth2.authentication.server.generator.OAuth2AuthorityUuid;
+import cn.herodotus.engine.oauth2.authentication.server.generator.OAuth2PermissionUuid;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
@@ -39,52 +39,52 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * @date : 2022/4/1 13:39
  */
 @Entity
-@Table(name = "oauth2_authority", indexes = {@Index(name = "oauth2_authority_id_idx", columnList = "authority_id")})
+@Table(name = "oauth2_permission", indexes = {@Index(name = "oauth2_permission_id_idx", columnList = "permission_id")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_AUTHORITY)
-public class OAuth2Authority extends BaseSysEntity {
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_PERMISSION)
+public class OAuth2Permission extends BaseSysEntity {
 
     @Id
-    @OAuth2AuthorityUuid
-    @Column(name = "authority_id", length = 64)
-    private String authorityId;
+    @OAuth2PermissionUuid
+    @Column(name = "permission_id", length = 64)
+    private String permissionId;
 
-    @Column(name = "authority_code", length = 128)
-    private String authorityCode;
+    @Column(name = "permission_code", length = 128)
+    private String permissionCode;
 
-    @Column(name = "authority_name", length = 128)
-    private String authorityName;
+    @Column(name = "permission_name", length = 128)
+    private String permissionName;
 
-    public String getAuthorityId() {
-        return authorityId;
+    public String getPermissionId() {
+        return permissionId;
     }
 
-    public void setAuthorityId(String authorityId) {
-        this.authorityId = authorityId;
+    public void setPermissionId(String permissionId) {
+        this.permissionId = permissionId;
     }
 
-    public String getAuthorityCode() {
-        return authorityCode;
+    public String getPermissionCode() {
+        return permissionCode;
     }
 
-    public void setAuthorityCode(String authorityCode) {
-        this.authorityCode = authorityCode;
+    public void setPermissionCode(String permissionCode) {
+        this.permissionCode = permissionCode;
     }
 
-    public String getAuthorityName() {
-        return authorityName;
+    public String getPermissionName() {
+        return permissionName;
     }
 
-    public void setAuthorityName(String authorityName) {
-        this.authorityName = authorityName;
+    public void setPermissionName(String permissionName) {
+        this.permissionName = permissionName;
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("authorityId", authorityId)
-                .add("authorityCode", authorityCode)
-                .add("authorityName", authorityName)
+                .add("permissionId", permissionId)
+                .add("permissionCode", permissionCode)
+                .add("permissionName", permissionName)
                 .toString();
     }
 }

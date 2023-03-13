@@ -45,7 +45,7 @@ public interface OAuth2Constants extends BaseConstants {
     String REGION_OAUTH2_REGISTERED_CLIENT = AREA_PREFIX + "oauth2:registered:client";
     String REGION_OAUTH2_APPLICATION = AREA_PREFIX + "oauth2:application";
     String REGION_OAUTH2_COMPLIANCE = AREA_PREFIX + "oauth2:compliance";
-    String REGION_OAUTH2_AUTHORITY = AREA_PREFIX + "oauth2:authority";
+    String REGION_OAUTH2_PERMISSION = AREA_PREFIX + "oauth2:permission";
     String REGION_OAUTH2_SCOPE = AREA_PREFIX + "oauth2:scope";
     String REGION_OAUTH2_APPLICATION_SCOPE = AREA_PREFIX + "oauth2:application:scope";
 

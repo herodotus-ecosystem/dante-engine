@@ -28,7 +28,7 @@ package cn.herodotus.engine.oauth2.authentication.server.processor;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceClientDetailsService;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Application;
-import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Authority;
+import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Permission;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.authentication.server.service.OAuth2ApplicationService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -61,9 +61,9 @@ public class HerodotusClientDetailsService implements EnhanceClientDetailsServic
             Set<HerodotusGrantedAuthority> result = new HashSet<>();
             if (CollectionUtils.isNotEmpty(scopes)) {
                 for (OAuth2Scope scope : scopes) {
-                    Set<OAuth2Authority> authorities = scope.getAuthorities();
-                    if (CollectionUtils.isNotEmpty(authorities)) {
-                        Set<HerodotusGrantedAuthority> grantedAuthorities = authorities.stream().map(item -> new HerodotusGrantedAuthority(item.getAuthorityCode())).collect(Collectors.toSet());
+                    Set<OAuth2Permission> permissions = scope.getPermissions();
+                    if (CollectionUtils.isNotEmpty(permissions)) {
+                        Set<HerodotusGrantedAuthority> grantedAuthorities = permissions.stream().map(item -> new HerodotusGrantedAuthority(item.getPermissionCode())).collect(Collectors.toSet());
                         result.addAll(grantedAuthorities);
                     }
                 }

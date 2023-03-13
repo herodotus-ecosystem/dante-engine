@@ -23,25 +23,33 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.server.generator;
+package cn.herodotus.engine.oauth2.authentication.server.service;
 
-import org.hibernate.annotations.IdGeneratorType;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
+import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.engine.data.core.service.BaseService;
+import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Permission;
+import cn.herodotus.engine.oauth2.authentication.server.repository.OAuth2PermissionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
- * <p>Description: OAuth2AuthorityUuid </p>
+ * <p>Description: OAuth2PermissionService </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/11/7 17:11
+ * @date : 2022/4/1 13:53
  */
-@IdGeneratorType( OAuth2AuthorityUuidGenerator.class )
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ FIELD, METHOD })
-public @interface OAuth2AuthorityUuid {
+@Service
+public class OAuth2PermissionService extends BaseService<OAuth2Permission, String> {
+
+    private final OAuth2PermissionRepository authorityRepository;
+
+    @Autowired
+    public OAuth2PermissionService(OAuth2PermissionRepository authorityRepository) {
+        this.authorityRepository = authorityRepository;
+    }
+
+    @Override
+    public BaseRepository<OAuth2Permission, String> getRepository() {
+        return authorityRepository;
+    }
 }

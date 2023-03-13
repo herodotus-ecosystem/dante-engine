@@ -25,41 +25,23 @@
 
 package cn.herodotus.engine.oauth2.authentication.server.generator;
 
-import cn.herodotus.engine.data.jpa.hibernate.identifier.AbstractUuidGenerator;
-import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Authority;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
+import org.hibernate.annotations.IdGeneratorType;
 
-import java.lang.reflect.Member;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
 
 /**
- * <p>Description: 使得保存实体类时可以在保留主键生成策略的情况下自定义表的主键 </p>
+ * <p>Description: OAuth2AuthorityUuid </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/31 21:11
+ * @date : 2022/11/7 17:11
  */
-public class OAuth2AuthorityUuidGenerator extends AbstractUuidGenerator {
-
-    public OAuth2AuthorityUuidGenerator(OAuth2AuthorityUuid config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
-        super(idMember);
-    }
-
-    @Override
-    public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-        if (ObjectUtils.isEmpty(object)) {
-            throw new HibernateException(new NullPointerException());
-        }
-
-        OAuth2Authority authority = (OAuth2Authority) object;
-
-        if (StringUtils.isEmpty(authority.getAuthorityId())) {
-            return super.generate(session, object);
-        } else {
-            return authority.getAuthorityId();
-        }
-    }
+@IdGeneratorType( OAuth2PermissionUuidGenerator.class )
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ FIELD, METHOD })
+public @interface OAuth2PermissionUuid {
 }
-
