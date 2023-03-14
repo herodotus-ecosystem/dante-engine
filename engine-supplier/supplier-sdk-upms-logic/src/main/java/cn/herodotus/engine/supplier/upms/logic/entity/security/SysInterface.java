@@ -26,13 +26,11 @@
 package cn.herodotus.engine.supplier.upms.logic.entity.security;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
-import cn.herodotus.engine.supplier.upms.logic.constants.UpmsConstants;
 import cn.herodotus.engine.supplier.upms.logic.domain.generator.SysInterfaceUuid;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * <p>Description: 系统应用程序接口实体 </p>
@@ -43,8 +41,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Schema(name = "系统应用接口")
 @Entity
 @Table(name = "sys_interface", indexes = {@Index(name = "sys_interface_id_idx", columnList = "interface_id")})
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = UpmsConstants.REGION_SYS_INTERFACE)
 public class SysInterface extends BaseSysEntity {
 
     @Schema(name = "接口ID")

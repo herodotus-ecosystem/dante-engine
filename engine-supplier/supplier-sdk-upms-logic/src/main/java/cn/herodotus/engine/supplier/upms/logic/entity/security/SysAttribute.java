@@ -26,14 +26,12 @@
 package cn.herodotus.engine.supplier.upms.logic.entity.security;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
-import cn.herodotus.engine.supplier.upms.logic.constants.UpmsConstants;
 import cn.herodotus.engine.supplier.upms.logic.domain.generator.SysAttributeUuid;
 import cn.herodotus.engine.supplier.upms.logic.domain.listener.SysAttributeEntityListener;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -49,8 +47,6 @@ import java.util.Set;
 @Schema(title = "系统安全属性数据")
 @Entity
 @Table(name = "sys_attribute", indexes = {@Index(name = "sys_attribute_id_idx", columnList = "attribute_id")})
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = UpmsConstants.REGION_SYS_ATTRIBUTE)
 @EntityListeners(value = {SysAttributeEntityListener.class})
 public class SysAttribute extends BaseSysEntity {
 
@@ -89,7 +85,6 @@ public class SysAttribute extends BaseSysEntity {
     private String webExpression;
 
     @Schema(name = "属性对应权限", title = "根据属性关联权限数据")
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = UpmsConstants.REGION_SYS_PERMISSION)
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "sys_attribute_permission",

@@ -42,7 +42,7 @@ public interface UpmsConstants {
     String REGION_SYS_INTERFACE = AREA_PREFIX + "sys:interface";
     String REGION_SYS_PERMISSION = AREA_PREFIX + "sys:permission";
     String REGION_SYS_SCOPE = AREA_PREFIX + "sys:scope";
-    String REGION_SYS_ATTRIBUTE = AREA_PREFIX + "sys:security:attribute";
+    String REGION_SYS_ATTRIBUTE = AREA_PREFIX + "sys:attribute";
     String REGION_SYS_OWNERSHIP = AREA_PREFIX + "sys:ownership";
     String REGION_SYS_ELEMENT = AREA_PREFIX + "sys:element";
     String REGION_SYS_SOCIAL_USER = AREA_PREFIX + "sys:social:user";
