@@ -53,18 +53,7 @@ public enum PermissionExpression implements BaseUiEnum<String> {
     REMEMBER_ME("rememberMe", "rememberMe"),
     DENY_ALL("denyAll", "denyAll"),
     AUTHENTICATED("authenticated", "authenticated"),
-    FULLY_AUTHENTICATED("fullyAuthenticated", "fullyAuthenticated"),
-    NOT_PERMIT_ALL("!permitAll", "!permitAll"),
-    NOT_ANONYMOUS("!anonymous", "!anonymous"),
-    NOT_REMEMBER_ME("!rememberMe", "!rememberMe"),
-    NOT_DENY_ALL("!denyAll", "!denyAll"),
-    NOT_AUTHENTICATED("!authenticated", "!authenticated"),
-    NOT_FULLY_AUTHENTICATED("!fullyAuthenticated", "!fullyAuthenticated"),
-    HAS_ROLE("hasRole", "hasRole"),
-    HAS_ANY_ROLE("hasAnyRole", "hasAnyRole"),
-    HAS_AUTHORITY("hasAuthority", "hasAuthority"),
-    HAS_ANY_AUTHORITY("hasAnyAuthority", "hasAnyAuthority"),
-    HAS_IP_ADDRESS("hasIpAddress", "hasIpAddress");
+    FULLY_AUTHENTICATED("fullyAuthenticated", "fullyAuthenticated");
 
     private static final Map<String, PermissionExpression> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
