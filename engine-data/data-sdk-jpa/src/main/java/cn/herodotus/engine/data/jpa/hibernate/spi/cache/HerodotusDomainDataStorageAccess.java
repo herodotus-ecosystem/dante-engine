@@ -62,7 +62,7 @@ public class HerodotusDomainDataStorageAccess implements DomainDataStorageAccess
             int hashCode = queryKey.hashCode();
             String hashCodeString =  String.valueOf(hashCode);
             String secureKey = SecureUtil.md5(hashCodeString);
-            log.info("[Herodotus] |- SPI - Convert query key hashcode [{}] to secureKey [{}]", hashCode, secureKey);
+            log.trace("[Herodotus] |- SPI - Convert query key hashcode [{}] to secureKey [{}]", hashCode, secureKey);
             return secureKey;
         }
         return String.valueOf(key);

@@ -26,8 +26,8 @@
 package cn.herodotus.engine.oauth2.authentication.server.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
-import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Authority;
+import cn.herodotus.engine.data.core.service.BaseService;
+import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Permission;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.authentication.server.repository.OAuth2ScopeRepository;
 import org.slf4j.Logger;
@@ -44,7 +44,7 @@ import java.util.Set;
  * @date : 2020/3/19 17:00
  */
 @Service
-public class OAuth2ScopeService extends BaseLayeredService<OAuth2Scope, String> {
+public class OAuth2ScopeService extends BaseService<OAuth2Scope, String> {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2ScopeService.class);
 
@@ -60,10 +60,10 @@ public class OAuth2ScopeService extends BaseLayeredService<OAuth2Scope, String> 
         return oauthScopesRepository;
     }
 
-    public OAuth2Scope authorize(String scopeId, Set<OAuth2Authority> authorities) {
+    public OAuth2Scope assigned(String scopeId, Set<OAuth2Permission> permissions) {
 
         OAuth2Scope oldScope = findById(scopeId);
-        oldScope.setAuthorities(authorities);
+        oldScope.setPermissions(permissions);
 
         OAuth2Scope newScope = saveOrUpdate(oldScope);
         log.debug("[Herodotus] |- OAuth2ScopeService assign.");

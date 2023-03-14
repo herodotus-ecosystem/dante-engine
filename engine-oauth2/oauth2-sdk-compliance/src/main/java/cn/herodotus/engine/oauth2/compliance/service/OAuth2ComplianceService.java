@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oauth2.compliance.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.compliance.entity.OAuth2Compliance;
 import cn.herodotus.engine.oauth2.compliance.repository.OAuth2ComplianceRepository;
 import cn.hutool.extra.servlet.JakartaServletUtil;
@@ -56,7 +56,7 @@ import java.util.List;
  * @date : 2022/7/7 20:37
  */
 @Service
-public class OAuth2ComplianceService extends BaseLayeredService<OAuth2Compliance, String> {
+public class OAuth2ComplianceService extends BaseService<OAuth2Compliance, String> {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2ComplianceService.class);
 

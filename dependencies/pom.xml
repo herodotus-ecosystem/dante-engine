@@ -102,7 +102,7 @@
         <dante-bom.version>3.0.4.0</dante-bom.version>
 
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.0.0</spring-boot-admin.version>
+        <spring-boot-admin.version>3.0.1</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.0.4</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.1</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC1</spring-cloud-alibaba-dependencies.version>
@@ -130,7 +130,7 @@
         <!-- 应用开发辅助工具组件 -->
         <redisson.version>3.20.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <springdoc.version>2.0.2</springdoc.version>
+        <springdoc.version>2.0.3</springdoc.version>
         <logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
         <skywalking.version>8.14.0</skywalking.version>
         <minio.version>8.5.2</minio.version>
@@ -143,9 +143,9 @@
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <!-- 国内开源通用组件 -->
-        <hutool.version>5.8.13</hutool.version>
+        <hutool.version>5.8.15</hutool.version>
         <okhttps.version>4.0.1</okhttps.version>
-        <weixin-java-sdk.version>4.4.8.B</weixin-java-sdk.version>
+        <weixin-java-sdk.version>4.4.9.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
 
         <!--第三方starter-->
@@ -153,18 +153,18 @@
         <camunda-bpm-spring-boot-starter-rest.version>7.18.0</camunda-bpm-spring-boot-starter-rest.version>
         <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
-        <mybatis.version>3.5.11</mybatis.version>
+        <mybatis.version>3.5.12</mybatis.version>
         <velocity.version>2.3</velocity.version>
 
         <!--厂商SDK集成-->
         <!--SMS SDK-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.706</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.711</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.12.1</qiniu-java-sdk.version>
         <!--支付 SDK-->
-        <alipay-sdk-java.version>4.35.65.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.35.71.ALL</alipay-sdk-java.version>
         <!--第三方应用集成SDK-->
         <com.baidu.aip.version>4.16.14</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
@@ -174,9 +174,11 @@
         <xnio.version>3.8.8.Final</xnio.version>
         <!--okio 最新版本在 JDK 17 下会出错误-->
         <okio.version>2.10.0</okio.version>
-        <!--以下为包依赖的特殊处理-->
+
+        <!--以下为特殊处理, 统一版本处理漏洞等-->
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
+        <commons-fileupload.version>1.5</commons-fileupload.version>
         <tea-xml.version>0.1.5</tea-xml.version>
         <dom4j.version>2.1.4</dom4j.version>
 
@@ -215,6 +217,12 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-oauth2-authorization-server</artifactId>
                 <version>${spring-security-oauth2-authorization-server.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-cas -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-cas</artifactId>
+                <version>${spring-security-cas.version}</version>
             </dependency>
 
             <!-- Dante Engine -->
@@ -348,28 +356,6 @@
                 <version>${dante-bom.version}</version>
             </dependency>
 
-            <!-- event -->
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>event-core</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>event-pay-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>event-security-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>event-message-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-
             <!-- facility -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -400,17 +386,27 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-sdk-mailing</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>message-sdk-websocket</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>message-spring-boot-starter</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-kafka-spring-boot-starter</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-security-spring-boot-starter</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-pay-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
 
@@ -515,7 +511,22 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
+                <artifactId>rest-sdk-client</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>rest-sdk-scan</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>rest-sdk-protect</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>rest-server-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>
@@ -581,25 +592,20 @@
                 <version>${dante-bom.version}</version>
             </dependency>
 
-            <!-- web -->
+            <!-- supplier -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-core</artifactId>
+                <artifactId>supplier-sdk-upms-logic</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-sdk-rest</artifactId>
+                <artifactId>supplier-sdk-upms-rest</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-sdk-scan</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>web-spring-boot-starter</artifactId>
+                <artifactId>supplier-sdk-message</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
 
@@ -925,7 +931,7 @@
                 <version>${com.baidu.aip.version}</version>
             </dependency>
 
-            <!-- 依赖包特殊处理 -->
+            <!-- 阿里巴巴开源工具依赖 -->
             <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -965,19 +971,7 @@
                 <version>${okio.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/logging-interceptor -->
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>logging-interceptor</artifactId>
-                <version>${okhttp.version}</version>
-            </dependency>
-
+            <!--以下为特殊处理, 统一版本处理漏洞等-->
             <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
@@ -1001,18 +995,13 @@
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+            <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
             <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>${postgresql.version}</version>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-cas -->
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-cas</artifactId>
-                <version>${spring-security-cas.version}</version>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

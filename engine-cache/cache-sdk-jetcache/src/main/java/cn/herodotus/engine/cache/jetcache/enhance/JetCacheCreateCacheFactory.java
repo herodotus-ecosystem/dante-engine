@@ -25,6 +25,8 @@
 
 package cn.herodotus.engine.cache.jetcache.enhance;
 
+import cn.hutool.crypto.SecureUtil;
+import com.alibaba.fastjson2.JSON;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.CacheManager;
 import com.alicp.jetcache.anno.CacheType;
@@ -114,6 +116,14 @@ public class JetCacheCreateCacheFactory {
                 builder.penetrationProtectTimeout(penetrationProtectTimeout);
             }
         }
+
+        builder.keyConvertor(key -> {
+            if (key instanceof String) {
+                return key;
+            } else {
+                return SecureUtil.md5(JSON.toJSONString(key));
+            }
+        });
 
         QuickConfig quickConfig = builder.build();
         return create(quickConfig);

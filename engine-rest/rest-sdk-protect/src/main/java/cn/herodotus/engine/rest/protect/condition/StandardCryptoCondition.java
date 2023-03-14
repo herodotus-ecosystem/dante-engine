@@ -26,7 +26,7 @@
 package cn.herodotus.engine.rest.protect.condition;
 
 import cn.herodotus.engine.rest.core.enums.CryptoStrategy;
-import cn.herodotus.engine.rest.core.support.CryptoPropertyFinder;
+import cn.herodotus.engine.rest.core.constants.RestPropertyFinder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ public class StandardCryptoCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = CryptoPropertyFinder.getCryptoStrategy(conditionContext.getEnvironment());
+        String property = RestPropertyFinder.getCryptoStrategy(conditionContext.getEnvironment());
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, CryptoStrategy.STANDARD.name());
         log.debug("[Herodotus] |- Condition [Standard Crypto] value is [{}]", result);
         return result;

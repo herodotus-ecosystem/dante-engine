@@ -105,18 +105,17 @@
         <module>engine-assistant</module>
         <module>engine-cache</module>
         <module>engine-data</module>
-        <module>engine-web</module>
         <module>engine-rest</module>
         <module>engine-captcha</module>
         <module>engine-oss</module>
         <module>engine-pay</module>
         <module>engine-message</module>
-        <module>engine-event</module>
         <module>engine-facility</module>
         <module>engine-oauth2</module>
         <module>engine-access</module>
         <module>engine-sms</module>
         <module>engine-nosql</module>
+        <module>engine-supplier</module>
     </modules>
 
 </project>

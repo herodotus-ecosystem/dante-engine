@@ -28,7 +28,7 @@ package cn.herodotus.engine.oauth2.authentication.server.service;
 import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseLayeredService;
+import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
 import cn.herodotus.engine.oauth2.data.jpa.utils.OAuth2AuthorizationUtils;
@@ -61,7 +61,7 @@ import java.util.Set;
  * @date : 2022/3/1 18:06
  */
 @Service
-public class OAuth2ApplicationService extends BaseLayeredService<OAuth2Application, String> {
+public class OAuth2ApplicationService extends BaseService<OAuth2Application, String> {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2ApplicationService.class);
 

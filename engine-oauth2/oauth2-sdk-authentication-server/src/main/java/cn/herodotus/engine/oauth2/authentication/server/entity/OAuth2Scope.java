@@ -64,15 +64,15 @@ public class OAuth2Scope extends BaseSysEntity {
     @Column(name = "scope_name", length = 128)
     private String scopeName;
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_AUTHORITY)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_PERMISSION)
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REMOVE, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
-    @JoinTable(name = "oauth2_scope_authority",
+    @JoinTable(name = "oauth2_scope_permission",
             joinColumns = {@JoinColumn(name = "scope_id")},
-            inverseJoinColumns = {@JoinColumn(name = "authority_id")},
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"scope_id", "authority_id"})},
-            indexes = {@Index(name = "oauth2_scope_authority_sid_idx", columnList = "scope_id"), @Index(name = "oauth2_scope_authority_aid_idx", columnList = "authority_id")})
-    private Set<OAuth2Authority> authorities = new HashSet<>();
+            inverseJoinColumns = {@JoinColumn(name = "permission_id")},
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"scope_id", "permission_id"})},
+            indexes = {@Index(name = "oauth2_scope_permission_sid_idx", columnList = "scope_id"), @Index(name = "oauth2_scope_permission_pid_idx", columnList = "permission_id")})
+    private Set<OAuth2Permission> permissions = new HashSet<>();
 
     public String getScopeId() {
         return scopeId;
@@ -98,12 +98,12 @@ public class OAuth2Scope extends BaseSysEntity {
         this.scopeName = scopeName;
     }
 
-    public Set<OAuth2Authority> getAuthorities() {
-        return authorities;
+    public Set<OAuth2Permission> getPermissions() {
+        return permissions;
     }
 
-    public void setAuthorities(Set<OAuth2Authority> authorities) {
-        this.authorities = authorities;
+    public void setPermissions(Set<OAuth2Permission> permissions) {
+        this.permissions = permissions;
     }
 
     @Override

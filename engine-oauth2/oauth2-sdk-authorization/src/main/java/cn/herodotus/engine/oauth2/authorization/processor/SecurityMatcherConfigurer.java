@@ -57,7 +57,7 @@ public class SecurityMatcherConfigurer {
             "/v3/api-docs/**",
             "/openapi.json",
             "/favicon.ico");
-    private static final List<String> DEFAULT_PERMIT_ALL_RESOURCES = Lists.newArrayList("/open/**", "/stomp/ws", "/oauth2/sign-out");
+    private static final List<String> DEFAULT_PERMIT_ALL_RESOURCES = Lists.newArrayList("/open/**", "/stomp/ws", "/oauth2/sign-out", "/login*");
 
     private static final List<String> DEFAULT_HAS_AUTHENTICATED_RESOURCES = Lists.newArrayList("/engine-rest/**");
 

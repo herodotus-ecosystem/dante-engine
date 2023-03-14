@@ -1,7 +1,0 @@
-cn.herodotus.engine.web.autoconfigure.AutoConfiguration
-cn.herodotus.engine.web.rest.configuration.WebRestConfiguration
-cn.herodotus.engine.web.rest.configuration.FeignConfiguration
-cn.herodotus.engine.web.rest.configuration.OkHttpFeignConfiguration
-cn.herodotus.engine.web.rest.configuration.HttpClientConfiguration
-cn.herodotus.engine.web.rest.configuration.RestTemplateConfiguration
-cn.herodotus.engine.web.scan.configuration.ScanConfiguration

@@ -32,14 +32,13 @@ import cn.herodotus.engine.oauth2.authorization.introspector.HerodotusOpaqueToke
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
 import cn.herodotus.engine.oauth2.core.response.HerodotusAccessDeniedHandler;
 import cn.herodotus.engine.oauth2.core.response.HerodotusAuthenticationEntryPoint;
-import cn.herodotus.engine.web.core.properties.EndpointProperties;
+import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
-import org.springframework.util.Assert;
 
 /**
  * <p>Description: Token 配置 通用代码 </p>
