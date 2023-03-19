@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.data.core.entity;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
@@ -48,21 +49,25 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity extends AbstractEntity {
 
-    @Schema(title = "数据创建时间")
+    @Schema(name = "数据创建时间")
     @Column(name = "create_time", updatable = false)
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime = new Date();
 
-    @Schema(title = "数据更新时间")
+    @Schema(name = "数据更新时间")
     @Column(name = "update_time")
     @LastModifiedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime = new Date();
 
-    @Schema(title = "排序值")
+    @Schema(name = "排序值")
     @Column(name = "ranking")
     private Integer ranking = 0;
+
+    @Schema(name = "租户ID", description = "Partitioned 类型租户ID")
+    @Column(name = "tenant_id", length = 20)
+    private String tenantId = BaseConstants.DEFAULT_TENANT_ID;
 
     public Date getCreateTime() {
         return createTime;
@@ -88,12 +93,21 @@ public abstract class BaseEntity extends AbstractEntity {
         this.ranking = ranking;
     }
 
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("createTime", createTime)
                 .add("updateTime", updateTime)
                 .add("ranking", ranking)
+                .add("tenantId", tenantId)
                 .toString();
     }
 }

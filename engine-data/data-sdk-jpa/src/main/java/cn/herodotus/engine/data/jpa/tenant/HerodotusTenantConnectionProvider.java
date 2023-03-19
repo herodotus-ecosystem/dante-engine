@@ -40,14 +40,14 @@ import javax.sql.DataSource;
  * @author : gengwei.zheng
  * @date : 2022/9/8 18:14
  */
-public class HerodotusMultiTenantConnectionProvider extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl {
+public class HerodotusTenantConnectionProvider extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl{
 
-    private static final Logger log = LoggerFactory.getLogger(HerodotusMultiTenantConnectionProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(HerodotusTenantConnectionProvider.class);
 
     private final DataSource defaultDataSource;
     private final DataSourceLookup dataSourceLookup;
 
-    public HerodotusMultiTenantConnectionProvider(DataSource dataSource, DataSourceLookup dataSourceLookup) {
+    public HerodotusTenantConnectionProvider(DataSource dataSource, DataSourceLookup dataSourceLookup) {
         this.defaultDataSource = dataSource;
         this.dataSourceLookup = dataSourceLookup;
     }

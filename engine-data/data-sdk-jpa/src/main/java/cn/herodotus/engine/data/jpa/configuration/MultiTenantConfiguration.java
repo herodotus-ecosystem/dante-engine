@@ -27,9 +27,9 @@ package cn.herodotus.engine.data.jpa.configuration;
 
 import cn.herodotus.engine.data.jpa.annotation.ConditionalOnMultiTenantEnabled;
 import cn.herodotus.engine.data.jpa.properties.MultiTenantProperties;
-import cn.herodotus.engine.data.jpa.tenant.HerodotusMultiTenantConnectionProvider;
 import cn.herodotus.engine.data.jpa.tenant.HerodotusMapDataSourceLookup;
-import cn.herodotus.engine.data.jpa.tenant.HerodotusCurrentTenantIdentifierResolver;
+import cn.herodotus.engine.data.jpa.tenant.HerodotusTenantConnectionProvider;
+import cn.herodotus.engine.data.jpa.tenant.HerodotusTenantIdentifierResolver;
 import jakarta.annotation.PostConstruct;
 import org.hibernate.cfg.Environment;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
@@ -43,6 +43,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.lookup.DataSourceLookup;
+import org.springframework.orm.jpa.AbstractEntityManagerFactoryBean;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -53,6 +54,10 @@ import java.util.function.Supplier;
 
 /**
  * <p>Description: Data JPA 模块 多租户配置 </p>
+ *
+ * Spring Boot 自动建表路径
+ * 1. {@link LocalContainerEntityManagerFactoryBean#afterPropertiesSet()}
+ * 2. {@link AbstractEntityManagerFactoryBean#afterPropertiesSet()}
  *
  * @author : gengwei.zheng
  * @date : 2022/9/8 22:15
@@ -83,16 +88,16 @@ public class MultiTenantConfiguration {
 
     @Bean
     public MultiTenantConnectionProvider multiTenantConnectionProvider(DataSource dataSource, DataSourceLookup dataSourceLookup) {
-        HerodotusMultiTenantConnectionProvider herodotusMultiTenantConnectionProvider = new HerodotusMultiTenantConnectionProvider(dataSource, dataSourceLookup);
+        HerodotusTenantConnectionProvider herodotusTenantConnectionProvider = new HerodotusTenantConnectionProvider(dataSource, dataSourceLookup);
         log.debug("[Herodotus] |- Bean [Multi Tenant Connection Provider] Auto Configure.");
-        return herodotusMultiTenantConnectionProvider;
+        return herodotusTenantConnectionProvider;
     }
 
     @Bean
     public CurrentTenantIdentifierResolver currentTenantIdentifierResolver() {
-        HerodotusCurrentTenantIdentifierResolver herodotusCurrentTenantIdentifierResolver = new HerodotusCurrentTenantIdentifierResolver();
+        HerodotusTenantIdentifierResolver herodotusTenantIdentifierResolver = new HerodotusTenantIdentifierResolver();
         log.debug("[Herodotus] |- Bean [Multi Tenant Connection Provider] Auto Configure.");
-        return herodotusCurrentTenantIdentifierResolver;
+        return herodotusTenantIdentifierResolver;
     }
 
     @Bean

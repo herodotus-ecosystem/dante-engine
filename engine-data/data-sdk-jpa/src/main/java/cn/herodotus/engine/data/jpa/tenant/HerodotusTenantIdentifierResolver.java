@@ -25,9 +25,7 @@
 
 package cn.herodotus.engine.data.jpa.tenant;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,21 +33,20 @@ import org.slf4j.LoggerFactory;
 /**
  * <p>Description: 租户选择器 </p>
  *
- * 选择具体使用哪个租户
+ * 数据库请求发生时，应该使用哪个租户的连接信息。使用 CurrentTenantIdentifierResolver （租户ID解析器）接口获取这一信息
  *
  * @author : gengwei.zheng
  * @date : 2022/9/8 18:14
  */
-public class HerodotusCurrentTenantIdentifierResolver implements CurrentTenantIdentifierResolver {
+public class HerodotusTenantIdentifierResolver implements CurrentTenantIdentifierResolver {
 
-    private static final Logger log = LoggerFactory.getLogger(HerodotusCurrentTenantIdentifierResolver.class);
+    private static final Logger log = LoggerFactory.getLogger(HerodotusTenantIdentifierResolver.class);
 
     @Override
     public String resolveCurrentTenantIdentifier() {
         String currentTenantId = TenantContextHolder.getTenantId();
-        String result = StringUtils.isNotBlank(currentTenantId) ? currentTenantId : BaseConstants.DEFAULT_TENANT_ID;
-        log.trace("[Herodotus] |- Resolve Current Tenant Identifier is : [{}]", result);
-        return result;
+        log.trace("[Herodotus] |- Resolve Current Tenant Identifier is : [{}]", currentTenantId);
+        return currentTenantId;
     }
 
     /**

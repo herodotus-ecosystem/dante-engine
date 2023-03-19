@@ -70,9 +70,8 @@ public class HerodotusDomainDataStorageAccess implements DomainDataStorageAccess
 
     private String getTenantId() {
         String tenantId = TenantContextHolder.getTenantId();
-        String result = StringUtils.isNotBlank(tenantId) ? tenantId : BaseConstants.DEFAULT_TENANT_ID;
-        log.trace("[Herodotus] |- SPI - Tenant identifier for jpa second level cache is : [{}]", result);
-        return StringUtils.toRootLowerCase(result);
+        log.trace("[Herodotus] |- SPI - Tenant identifier for jpa second level cache is : [{}]", tenantId);
+        return StringUtils.toRootLowerCase(tenantId);
     }
 
     private String wrapper(Object key) {

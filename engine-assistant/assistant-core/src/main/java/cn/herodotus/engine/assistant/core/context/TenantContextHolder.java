@@ -25,7 +25,9 @@
 
 package cn.herodotus.engine.assistant.core.context;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import com.alibaba.ttl.TransmittableThreadLocal;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>Description: 存储/获取当前线程的租户信息 </p>
@@ -38,11 +40,19 @@ public class TenantContextHolder {
     private static final ThreadLocal<String> CURRENT_CONTEXT = new TransmittableThreadLocal<>();
 
     public static String getTenantId() {
-        return CURRENT_CONTEXT.get();
+        String tenantId = CURRENT_CONTEXT.get();
+        if (StringUtils.isBlank(tenantId)) {
+            tenantId = BaseConstants.DEFAULT_TENANT_ID;
+        }
+        return tenantId;
     }
 
     public static void setTenantId(final String tenantId) {
-        CURRENT_CONTEXT.set(tenantId);
+        if (StringUtils.isBlank(tenantId)) {
+            CURRENT_CONTEXT.set(BaseConstants.DEFAULT_TENANT_ID);
+        } else {
+            CURRENT_CONTEXT.set(tenantId);
+        }
     }
 
     public static void clear() {

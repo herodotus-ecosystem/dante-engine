@@ -102,7 +102,7 @@
         <dante-bom.version>3.0.4.2</dante-bom.version>
 
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.0.1</spring-boot-admin.version>
+        <spring-boot-admin.version>3.0.2</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.0.4</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.1</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC1</spring-cloud-alibaba-dependencies.version>
@@ -139,7 +139,7 @@
         <fastjson.version>1.2.83</fastjson.version>
         <fastjson2.version>2.0.25</fastjson2.version>
         <jetcache.version>2.7.3</jetcache.version>
-        <nacos.version>2.2.1-RC</nacos.version>
+        <nacos.version>2.2.1</nacos.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <!-- 国内开源通用组件 -->
