@@ -39,6 +39,7 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -74,6 +75,7 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
 
     private final OAuth2AuthorizationService authorizationService;
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
+    private SessionRegistry sessionRegistry;
 
     public OAuth2SocialCredentialsAuthenticationProvider(OAuth2AuthorizationService authorizationService, OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator, UserDetailsService userDetailsService, OAuth2ComplianceProperties complianceProperties) {
         super(authorizationService, userDetailsService, complianceProperties);
@@ -127,20 +129,20 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
         }
 
-        Authentication usernamePasswordAuthentication = getUsernamePasswordAuthentication(socialCredentialsAuthentication.getAdditionalParameters(), registeredClient.getId());
+        Authentication principal = getUsernamePasswordAuthentication(socialCredentialsAuthentication.getAdditionalParameters(), registeredClient.getId());
 
         // Default to configured scopes
         Set<String> authorizedScopes = validateScopes(socialCredentialsAuthentication.getScopes(), registeredClient);
 
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
-                .principalName(usernamePasswordAuthentication.getName())
+                .principalName(principal.getName())
                 .authorizationGrantType(HerodotusGrantType.SOCIAL)
                 .authorizedScopes(authorizedScopes)
-                .attribute(Principal.class.getName(), usernamePasswordAuthentication);
+                .attribute(Principal.class.getName(), principal);
 
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
                 .registeredClient(registeredClient)
-                .principal(usernamePasswordAuthentication)
+                .principal(principal)
                 .authorizationServerContext(AuthorizationServerContextHolder.getContext())
                 .authorizedScopes(authorizedScopes)
                 .tokenType(OAuth2TokenType.ACCESS_TOKEN)
@@ -154,7 +156,7 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
         OAuth2RefreshToken refreshToken = creatOAuth2RefreshToken(tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, clientPrincipal, registeredClient);
 
         // ----- ID token -----
-        OidcIdToken idToken = createOidcIdToken(tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, socialCredentialsAuthentication.getScopes());
+        OidcIdToken idToken = createOidcIdToken(principal,sessionRegistry, tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, socialCredentialsAuthentication.getScopes());
 
         OAuth2Authorization authorization = authorizationBuilder.build();
 
@@ -166,7 +168,7 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
 
         OAuth2AccessTokenAuthenticationToken accessTokenAuthenticationToken = new OAuth2AccessTokenAuthenticationToken(
                 registeredClient, clientPrincipal, accessToken, refreshToken, additionalParameters);
-        return createOAuth2AccessTokenAuthenticationToken(usernamePasswordAuthentication, accessTokenAuthenticationToken);
+        return createOAuth2AccessTokenAuthenticationToken(principal, accessTokenAuthenticationToken);
     }
 
     @Override
@@ -174,6 +176,17 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
         boolean supports = OAuth2SocialCredentialsAuthenticationToken.class.isAssignableFrom(authentication);
         log.trace("[Herodotus] |- Resource Owner Password Authentication is supports! [{}]", supports);
         return supports;
+    }
+
+    /**
+     * Sets the {@link SessionRegistry} used to track OpenID Connect sessions.
+     *
+     * @param sessionRegistry the {@link SessionRegistry} used to track OpenID Connect sessions
+     * @since 1.1.0
+     */
+    public void setSessionRegistry(SessionRegistry sessionRegistry) {
+        Assert.notNull(sessionRegistry, "sessionRegistry cannot be null");
+        this.sessionRegistry = sessionRegistry;
     }
 
     private AccessPrincipal parameterBinder(Map<String, Object> parameters) throws SocialCredentialsParameterBindingFailedException {

@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.utils;
 
+import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 
@@ -43,6 +44,10 @@ public class OAuth2AuthorizationUtils {
             return AuthorizationGrantType.CLIENT_CREDENTIALS;
         } else if (AuthorizationGrantType.REFRESH_TOKEN.getValue().equals(authorizationGrantType)) {
             return AuthorizationGrantType.REFRESH_TOKEN;
+        } else if (AuthorizationGrantType.DEVICE_CODE.getValue().equals(authorizationGrantType)) {
+            return AuthorizationGrantType.DEVICE_CODE;
+        } else if (AuthorizationGrantType.JWT_BEARER.getValue().equals(authorizationGrantType)) {
+            return AuthorizationGrantType.JWT_BEARER;
         }
         return new AuthorizationGrantType(authorizationGrantType);		// Custom authorization grant type
     }

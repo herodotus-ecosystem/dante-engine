@@ -27,9 +27,13 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.utils.PrincipalUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -57,6 +61,8 @@ import java.util.*;
  */
 public abstract class AbstractAuthenticationProvider implements AuthenticationProvider {
 
+    private static final Logger log = LoggerFactory.getLogger(AbstractAuthenticationProvider.class);
+
     private static final OAuth2TokenType ID_TOKEN_TOKEN_TYPE = new OAuth2TokenType(OidcParameterNames.ID_TOKEN);
 
     protected OAuth2AccessToken createOAuth2AccessToken(DefaultOAuth2TokenContext.Builder tokenContextBuilder, OAuth2Authorization.Builder authorizationBuilder, OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator, String errorUri) {
@@ -68,6 +74,8 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
             throw new OAuth2AuthenticationException(error);
         }
 
+        log.trace("Generated access token");
+
         OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
                 generatedAccessToken.getTokenValue(), generatedAccessToken.getIssuedAt(),
                 generatedAccessToken.getExpiresAt(), tokenContext.getAuthorizedScopes());
@@ -78,6 +86,7 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
         } else {
             authorizationBuilder.accessToken(accessToken);
         }
+
         return accessToken;
     }
 
@@ -95,25 +104,39 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
                         "The token generator failed to generate the refresh token.", errorUri);
                 throw new OAuth2AuthenticationException(error);
             }
+
+            log.trace("Generated refresh token");
+
             refreshToken = (OAuth2RefreshToken) generatedRefreshToken;
             authorizationBuilder.refreshToken(refreshToken);
         }
+
         return refreshToken;
     }
 
-    protected OidcIdToken createOidcIdToken(DefaultOAuth2TokenContext.Builder tokenContextBuilder, OAuth2Authorization.Builder authorizationBuilder, OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator, String errorUri, Set<String> requestedScopes) {
+    protected OidcIdToken createOidcIdToken(Authentication principal, SessionRegistry sessionRegistry, DefaultOAuth2TokenContext.Builder tokenContextBuilder, OAuth2Authorization.Builder authorizationBuilder, OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator, String errorUri, Set<String> requestedScopes) {
         OidcIdToken idToken;
         if (requestedScopes.contains(OidcScopes.OPENID)) {
+
+            SessionInformation sessionInformation = getSessionInformation(principal, sessionRegistry);
+            if (sessionInformation != null) {
+                tokenContextBuilder.put(SessionInformation.class, sessionInformation);
+            }
+
             OAuth2TokenContext tokenContext = tokenContextBuilder
                     .tokenType(ID_TOKEN_TOKEN_TYPE)
                     .authorization(authorizationBuilder.build())    // ID token customizer may need access to the access token and/or refresh token
                     .build();
+
             OAuth2Token generatedIdToken = tokenGenerator.generate(tokenContext);
             if (!(generatedIdToken instanceof Jwt)) {
                 OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR,
                         "The token generator failed to generate the ID token.", errorUri);
                 throw new OAuth2AuthenticationException(error);
             }
+
+            log.trace("Generated id token");
+
             idToken = new OidcIdToken(generatedIdToken.getTokenValue(), generatedIdToken.getIssuedAt(),
                     generatedIdToken.getExpiresAt(), ((Jwt) generatedIdToken).getClaims());
             authorizationBuilder.token(idToken, (metadata) ->
@@ -121,7 +144,25 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
         } else {
             idToken = null;
         }
+
         return idToken;
+    }
+
+    private SessionInformation getSessionInformation(Authentication principal, SessionRegistry sessionRegistry) {
+        SessionInformation sessionInformation = null;
+        if (sessionRegistry != null) {
+            List<SessionInformation> sessions = sessionRegistry.getAllSessions(principal.getPrincipal(), false);
+            if (!CollectionUtils.isEmpty(sessions)) {
+                sessionInformation = sessions.get(0);
+                if (sessions.size() > 1) {
+                    // Get the most recent session
+                    sessions = new ArrayList<>(sessions);
+                    sessions.sort(Comparator.comparing(SessionInformation::getLastRequest));
+                    sessionInformation = sessions.get(sessions.size() - 1);
+                }
+            }
+        }
+        return sessionInformation;
     }
 
 

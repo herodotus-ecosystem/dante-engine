@@ -27,9 +27,11 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.log.LogMessage;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
@@ -76,6 +78,7 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
 
     private final OAuth2AuthorizationService authorizationService;
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
+    private SessionRegistry sessionRegistry;
 
     /**
      * Constructs an {@code OAuth2AuthorizationCodeAuthenticationProvider} using the provided parameters.
@@ -100,11 +103,16 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
                 OAuth2AuthenticationProviderUtils.getAuthenticatedClientElseThrowInvalidClient(authorizationCodeAuthentication);
         RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 
+        log.trace("Retrieved registered client");
+
         OAuth2Authorization authorization = this.authorizationService.findByToken(
                 authorizationCodeAuthentication.getCode(), AUTHORIZATION_CODE_TOKEN_TYPE);
         if (authorization == null) {
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);
         }
+
+        log.trace("Retrieved authorization with authorization code");
+
         OAuth2Authorization.Token<OAuth2AuthorizationCode> authorizationCode =
                 authorization.getToken(OAuth2AuthorizationCode.class);
 
@@ -116,6 +124,8 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
                 // Invalidate the authorization code given that a different client is attempting to use it
                 authorization = OAuth2AuthenticationProviderUtils.invalidate(authorization, authorizationCode.getToken());
                 this.authorizationService.save(authorization);
+
+                log.warn("Invalidated authorization code used by registered client '{}'", registeredClient.getId());
             }
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);
         }
@@ -129,12 +139,14 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);
         }
 
-        Authentication usernamePasswordAuthentication = authorization.getAttribute(Principal.class.getName());
+        log.trace("Validated token request parameters");
+
+        Authentication principal = authorization.getAttribute(Principal.class.getName());
 
         // @formatter:off
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
                 .registeredClient(registeredClient)
-                .principal(usernamePasswordAuthentication)
+                .principal(principal)
                 .authorizationServerContext(AuthorizationServerContextHolder.getContext())
                 .authorization(authorization)
                 .authorizedScopes(authorization.getAuthorizedScopes())
@@ -151,7 +163,7 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
         OAuth2RefreshToken refreshToken = creatOAuth2RefreshToken(tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, clientPrincipal, registeredClient);
 
         // ----- ID token -----
-        OidcIdToken idToken = createOidcIdToken(tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, authorizationRequest.getScopes());
+        OidcIdToken idToken = createOidcIdToken(principal, sessionRegistry, tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, authorizationRequest.getScopes());
 
         authorization = authorizationBuilder.build();
 
@@ -166,10 +178,19 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
 
         OAuth2AccessTokenAuthenticationToken accessTokenAuthenticationToken = new OAuth2AccessTokenAuthenticationToken(
                 registeredClient, clientPrincipal, accessToken, refreshToken, additionalParameters);
-        return createOAuth2AccessTokenAuthenticationToken(usernamePasswordAuthentication, accessTokenAuthenticationToken);
+        return createOAuth2AccessTokenAuthenticationToken(principal, accessTokenAuthenticationToken);
     }
 
-
+    /**
+     * Sets the {@link SessionRegistry} used to track OpenID Connect sessions.
+     *
+     * @param sessionRegistry the {@link SessionRegistry} used to track OpenID Connect sessions
+     * @since 1.1.0
+     */
+    public void setSessionRegistry(SessionRegistry sessionRegistry) {
+        Assert.notNull(sessionRegistry, "sessionRegistry cannot be null");
+        this.sessionRegistry = sessionRegistry;
+    }
 
     @Override
     public boolean supports(Class<?> authentication) {

@@ -91,11 +91,7 @@ public interface BaseConstants {
     /**
      * Oauth2 模式类型
      */
-    String AUTHORIZATION_CODE = "authorization_code";
-    String IMPLICIT = "implicit";
     String PASSWORD = "password";
-    String CLIENT_CREDENTIALS = "client_credentials";
-    String REFRESH_TOKEN = "refresh_token";
     String SOCIAL_CREDENTIALS = "social_credentials";
 
     String DEFAULT_AUTHORIZATION_ENDPOINT = "/oauth2/authorize";

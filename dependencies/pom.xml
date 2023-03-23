@@ -32,13 +32,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.4.2</version>
+    <version>3.0.5.0</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -99,24 +99,25 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.0.4.2</dante-bom.version>
+        <dante-bom.version>3.0.5.0</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.2</spring-boot-admin.version>
-        <spring-boot-dependencies.version>3.0.4</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.0.5</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.1</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC1</spring-cloud-alibaba-dependencies.version>
-        <spring-cloud-tencent-dependencies.version>1.10.0-2022.0.1</spring-cloud-tencent-dependencies.version>
-        <spring-security-oauth2-authorization-server.version>1.1.0-M1</spring-security-oauth2-authorization-server.version>
+        <spring-cloud-tencent-dependencies.version>1.10.2-2022.0.1</spring-cloud-tencent-dependencies.version>
+        <spring-security-oauth2-authorization-server.version>1.1.0-M2</spring-security-oauth2-authorization-server.version>
         <spring-security-cas.version>5.8.2</spring-security-cas.version>
+        <spring-security.version>6.1.0-M2</spring-security.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
         <mapstruct-processor.version>1.5.3.Final</mapstruct-processor.version>
         <maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-        <maven-embedder.version>3.9.0</maven-embedder.version>
-        <maven-compat.version>3.9.0</maven-compat.version>
+        <maven-embedder.version>3.9.1</maven-embedder.version>
+        <maven-compat.version>3.9.1</maven-compat.version>
         <maven-invoker.verison>3.2.0</maven-invoker.verison>
 
         <!--开源通用工具包-->
@@ -137,7 +138,7 @@
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.25</fastjson2.version>
+        <fastjson2.version>2.0.26</fastjson2.version>
         <jetcache.version>2.7.3</jetcache.version>
         <nacos.version>2.2.1</nacos.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
@@ -153,18 +154,18 @@
         <camunda-bpm-spring-boot-starter-rest.version>7.18.0</camunda-bpm-spring-boot-starter-rest.version>
         <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
-        <mybatis.version>3.5.12</mybatis.version>
+        <mybatis.version>3.5.13</mybatis.version>
         <velocity.version>2.3</velocity.version>
 
         <!--厂商SDK集成-->
         <!--SMS SDK-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.712</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.720</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.12.1</qiniu-java-sdk.version>
         <!--支付 SDK-->
-        <alipay-sdk-java.version>4.35.71.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.35.83.ALL</alipay-sdk-java.version>
         <!--第三方应用集成SDK-->
         <com.baidu.aip.version>4.16.14</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>

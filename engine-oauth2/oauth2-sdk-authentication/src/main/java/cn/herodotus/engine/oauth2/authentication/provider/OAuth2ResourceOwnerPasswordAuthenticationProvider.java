@@ -35,6 +35,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -70,6 +71,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
 
     private final OAuth2AuthorizationService authorizationService;
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
+    private SessionRegistry sessionRegistry;
 
     /**
      * Constructs an {@code OAuth2ClientCredentialsAuthenticationProvider} using the provided parameters.
@@ -130,21 +132,21 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
         }
 
-        Authentication usernamePasswordAuthentication = getUsernamePasswordAuthentication(resourceOwnerPasswordAuthentication.getAdditionalParameters(), registeredClient.getId());
+        Authentication principal = getUsernamePasswordAuthentication(resourceOwnerPasswordAuthentication.getAdditionalParameters(), registeredClient.getId());
 
         // Default to configured scopes
         Set<String> authorizedScopes = validateScopes(resourceOwnerPasswordAuthentication.getScopes(), registeredClient);
 
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
-                .principalName(usernamePasswordAuthentication.getName())
+                .principalName(principal.getName())
                 .authorizationGrantType(HerodotusGrantType.PASSWORD)
                 .authorizedScopes(authorizedScopes)
-                .attribute(Principal.class.getName(), usernamePasswordAuthentication);
+                .attribute(Principal.class.getName(), principal);
 
         // @formatter:off
         DefaultOAuth2TokenContext.Builder tokenContextBuilder = DefaultOAuth2TokenContext.builder()
                 .registeredClient(registeredClient)
-                .principal(usernamePasswordAuthentication)
+                .principal(principal)
                 .authorizationServerContext(AuthorizationServerContextHolder.getContext())
                 .authorizedScopes(authorizedScopes)
                 .tokenType(OAuth2TokenType.ACCESS_TOKEN)
@@ -159,7 +161,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
         OAuth2RefreshToken refreshToken = creatOAuth2RefreshToken(tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, clientPrincipal, registeredClient);
 
         // ----- ID token -----
-        OidcIdToken idToken = createOidcIdToken(tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, resourceOwnerPasswordAuthentication.getScopes());
+        OidcIdToken idToken = createOidcIdToken(principal, sessionRegistry, tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, resourceOwnerPasswordAuthentication.getScopes());
 
         OAuth2Authorization authorization = authorizationBuilder.build();
 
@@ -171,7 +173,18 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
 
         OAuth2AccessTokenAuthenticationToken accessTokenAuthenticationToken = new OAuth2AccessTokenAuthenticationToken(
                 registeredClient, clientPrincipal, accessToken, refreshToken, additionalParameters);
-        return createOAuth2AccessTokenAuthenticationToken(usernamePasswordAuthentication, accessTokenAuthenticationToken);
+        return createOAuth2AccessTokenAuthenticationToken(principal, accessTokenAuthenticationToken);
+    }
+
+    /**
+     * Sets the {@link SessionRegistry} used to track OpenID Connect sessions.
+     *
+     * @param sessionRegistry the {@link SessionRegistry} used to track OpenID Connect sessions
+     * @since 1.1.0
+     */
+    public void setSessionRegistry(SessionRegistry sessionRegistry) {
+        Assert.notNull(sessionRegistry, "sessionRegistry cannot be null");
+        this.sessionRegistry = sessionRegistry;
     }
 
     @Override

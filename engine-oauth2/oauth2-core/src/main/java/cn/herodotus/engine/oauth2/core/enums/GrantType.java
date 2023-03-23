@@ -30,6 +30,7 @@ import cn.herodotus.engine.assistant.core.definition.enums.BaseUiEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.ImmutableMap;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,10 +50,12 @@ public enum GrantType implements BaseUiEnum<String> {
     /**
      * enum
      */
-    AUTHORIZATION_CODE(BaseConstants.AUTHORIZATION_CODE, "Authorization Code 模式"),
+    AUTHORIZATION_CODE(AuthorizationGrantType.AUTHORIZATION_CODE.getValue(), "Authorization Code 模式"),
+    CLIENT_CREDENTIALS(AuthorizationGrantType.CLIENT_CREDENTIALS.getValue(), "Client Credentials 模式"),
+    DEVICE_CODE(AuthorizationGrantType.DEVICE_CODE.getValue(), "Device Code 模式"),
+    REFRESH_TOKEN(AuthorizationGrantType.REFRESH_TOKEN.getValue(), "Refresh Token 模式"),
+    JWT_BEARER(AuthorizationGrantType.JWT_BEARER.getValue(), "JWT Token 模式"),
     PASSWORD(BaseConstants.PASSWORD, "Password 模式"),
-    CLIENT_CREDENTIALS(BaseConstants.CLIENT_CREDENTIALS, "Client Credentials 模式"),
-    REFRESH_TOKEN(BaseConstants.REFRESH_TOKEN, "Refresh Token 模式"),
     SOCIAL_CREDENTIALS(BaseConstants.SOCIAL_CREDENTIALS, "Social Credentials 模式");
 
     @Schema(title = "认证模式")
