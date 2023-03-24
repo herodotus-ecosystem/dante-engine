@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>设备已激活</title>
+    <link th:href="@{/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <!--external css-->
+    <link th:href="@{/plugins/font-awesome/css/font-awesome.css}" rel="stylesheet" type="text/css" >
+    <!-- Custom styles for this template -->
+    <link th:href="@{/plugins/flat-lab/css/style.css}" rel="stylesheet" type="text/css" >
+    <link th:href="@{/plugins/flat-lab/css/style-responsive.css}" rel="stylesheet" type="text/css" >
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script th:src="@{https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js}"></script>
+    <script th:src="@{https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js}"></script>
+    <![endif]-->
+</head>
+
+<body class="lock-screen">
+    <div class="lock-wrapper">
+
+        <div id="time"></div>
+        <div class="lock-box text-center">
+            <img th:src="@{/plugins/flat-lab/img/activated.svg}"/>
+            <h3 style="color: #1afa29"><strong>激活成功</strong></h3>
+		    <span class="locked"><strong>您已成功激活设备。请返回您的设备继续。</strong></span>
+			<form role="form" class="form-inline">
+                <div class="form-group col-lg-12">
+                    <button id="close" class="btn btn-danger" type="button">关闭</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JQUERY -->
+    <script type="text/javascript" th:src="@{/plugins/jquery/jquery-2.1.4.min.js}"></script>
+    <!-- BOOTSTRAP -->
+    <script type="text/javascript" th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/plugins/flat-lab/js/custom.js}"></script>
+</body>
+</html>

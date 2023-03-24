@@ -180,6 +180,7 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         tokenSettingsBuilder.reuseRefreshTokens(application.getReuseRefreshTokens());
         tokenSettingsBuilder.authorizationCodeTimeToLive(application.getAuthorizationCodeTtl());
         tokenSettingsBuilder.accessTokenFormat(getTokenFormat());
+        tokenSettingsBuilder.deviceCodeTimeToLive(application.getDeviceCodeTimeToLive());
         if (ObjectUtils.isNotEmpty(application.getIdTokenSignatureAlgorithm())) {
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.from(application.getIdTokenSignatureAlgorithm().name());
             if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {

@@ -109,6 +109,22 @@ public class EndpointProperties {
      */
     private String tokenIntrospectionEndpoint = BaseConstants.DEFAULT_TOKEN_INTROSPECTION_ENDPOINT;
     /**
+     * OAuth2 /oauth2/device_authorization 设备授权认证 uri地址，可修改为自定义地址
+     */
+    private String deviceAuthorizationUri;
+    /**
+     * OAuth2 /oauth2/device_authorization 设备授权认证端点地址，可修改为自定义地址
+     */
+    private String deviceAuthorizationEndpoint = BaseConstants.DEFAULT_DEVICE_AUTHORIZATION_ENDPOINT;
+    /**
+     * OAuth2 /oauth2/device_verification 设备授权校验 uri地址，可修改为自定义地址
+     */
+    private String deviceVerificationUri;
+    /**
+     * OAuth2 /oauth2/device_verification 设备授权校验端点地址，可修改为自定义地址
+     */
+    private String deviceVerificationEndpoint = BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT;
+    /**
      * OAuth2 OIDC /connect/register uri 地址，可修改为自定义地址
      */
     private String oidcClientRegistrationUri;
@@ -116,6 +132,14 @@ public class EndpointProperties {
      * OAuth2 OIDC /connect/register 端点地址，可修改为自定义地址
      */
     private String oidcClientRegistrationEndpoint = BaseConstants.DEFAULT_OIDC_CLIENT_REGISTRATION_ENDPOINT;
+    /**
+     * OAuth2 OIDC /connect/logout uri 地址，可修改为自定义地址
+     */
+    private String oidcLogoutUri;
+    /**
+     * OAuth2 OIDC /connect/logout 端点地址，可修改为自定义地址
+     */
+    private String oidcLogoutEndpoint = BaseConstants.DEFAULT_OIDC_LOGOUT_ENDPOINT;
     /**
      * OAuth2 OIDC /userinfo uri 地址，可修改为自定义地址
      */
@@ -240,12 +264,36 @@ public class EndpointProperties {
         this.tokenIntrospectionUri = tokenIntrospectionUri;
     }
 
+    public String getDeviceAuthorizationUri() {
+        return getDefaultEndpoint(deviceAuthorizationUri, getDeviceAuthorizationEndpoint());
+    }
+
+    public void setDeviceAuthorizationUri(String deviceAuthorizationUri) {
+        this.deviceAuthorizationUri = deviceAuthorizationUri;
+    }
+
+    public String getDeviceVerificationUri() {
+        return getDefaultEndpoint(deviceVerificationUri, getDeviceVerificationEndpoint());
+    }
+
+    public void setDeviceVerificationUri(String deviceVerificationUri) {
+        this.deviceVerificationUri = deviceVerificationUri;
+    }
+
     public String getOidcClientRegistrationUri() {
         return getDefaultEndpoint(oidcClientRegistrationUri, getOidcClientRegistrationEndpoint());
     }
 
     public void setOidcClientRegistrationUri(String oidcClientRegistrationUri) {
         this.oidcClientRegistrationUri = oidcClientRegistrationUri;
+    }
+
+    public String getOidcLogoutUri() {
+        return getDefaultEndpoint(oidcLogoutUri, getOidcLogoutEndpoint());
+    }
+
+    public void setOidcLogoutUri(String oidcLogoutUri) {
+        this.oidcLogoutUri = oidcLogoutUri;
     }
 
     public String getOidcUserInfoUri() {
@@ -304,6 +352,22 @@ public class EndpointProperties {
         this.tokenIntrospectionEndpoint = tokenIntrospectionEndpoint;
     }
 
+    public String getDeviceAuthorizationEndpoint() {
+        return deviceAuthorizationEndpoint;
+    }
+
+    public void setDeviceAuthorizationEndpoint(String deviceAuthorizationEndpoint) {
+        this.deviceAuthorizationEndpoint = deviceAuthorizationEndpoint;
+    }
+
+    public String getDeviceVerificationEndpoint() {
+        return deviceVerificationEndpoint;
+    }
+
+    public void setDeviceVerificationEndpoint(String deviceVerificationEndpoint) {
+        this.deviceVerificationEndpoint = deviceVerificationEndpoint;
+    }
+
     public String getOidcClientRegistrationEndpoint() {
         return oidcClientRegistrationEndpoint;
     }
@@ -318,6 +382,14 @@ public class EndpointProperties {
 
     public void setOidcUserInfoEndpoint(String oidcUserInfoEndpoint) {
         this.oidcUserInfoEndpoint = oidcUserInfoEndpoint;
+    }
+
+    public String getOidcLogoutEndpoint() {
+        return oidcLogoutEndpoint;
+    }
+
+    public void setOidcLogoutEndpoint(String oidcLogoutEndpoint) {
+        this.oidcLogoutEndpoint = oidcLogoutEndpoint;
     }
 
     @Override
@@ -338,8 +410,14 @@ public class EndpointProperties {
                 .add("tokenRevocationEndpoint", tokenRevocationEndpoint)
                 .add("tokenIntrospectionUri", tokenIntrospectionUri)
                 .add("tokenIntrospectionEndpoint", tokenIntrospectionEndpoint)
+                .add("deviceAuthorizationUri", deviceAuthorizationUri)
+                .add("deviceAuthorizationEndpoint", deviceAuthorizationEndpoint)
+                .add("deviceVerificationUri", deviceVerificationUri)
+                .add("deviceVerificationEndpoint", deviceVerificationEndpoint)
                 .add("oidcClientRegistrationUri", oidcClientRegistrationUri)
                 .add("oidcClientRegistrationEndpoint", oidcClientRegistrationEndpoint)
+                .add("oidcLogoutUri", oidcLogoutUri)
+                .add("oidcLogoutEndpoint", oidcLogoutEndpoint)
                 .add("oidcUserInfoUri", oidcUserInfoUri)
                 .add("oidcUserInfoEndpoint", oidcUserInfoEndpoint)
                 .add("issuerUri", issuerUri)

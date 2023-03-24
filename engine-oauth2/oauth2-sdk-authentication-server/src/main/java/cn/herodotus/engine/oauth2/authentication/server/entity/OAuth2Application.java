@@ -127,6 +127,9 @@ public class OAuth2Application extends BaseSysEntity {
     @Column(name = "authorization_code_ttl")
     private Duration authorizationCodeTtl = Duration.ofMinutes(5);
 
+    @Column(name = "device_code_time_to_live")
+    private Duration deviceCodeTimeToLive = Duration.ofMinutes(30);
+
     @Column(name = "signature_algorithm")
     @Enumerated(EnumType.ORDINAL)
     private Signature idTokenSignatureAlgorithm = Signature.RS256;
@@ -325,6 +328,14 @@ public class OAuth2Application extends BaseSysEntity {
         this.authorizationCodeTtl = authorizationCodeTtl;
     }
 
+    public Duration getDeviceCodeTimeToLive() {
+        return deviceCodeTimeToLive;
+    }
+
+    public void setDeviceCodeTimeToLive(Duration deviceCodeTimeToLive) {
+        this.deviceCodeTimeToLive = deviceCodeTimeToLive;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -349,6 +360,7 @@ public class OAuth2Application extends BaseSysEntity {
                 .add("reuseRefreshTokens", reuseRefreshTokens)
                 .add("refreshTokenValidity", refreshTokenValidity)
                 .add("authorizationCodeTtl", authorizationCodeTtl)
+                .add("deviceCodeTimeToLive", deviceCodeTimeToLive)
                 .add("idTokenSignatureAlgorithm", idTokenSignatureAlgorithm)
                 .add("scopes", scopes)
                 .toString();
