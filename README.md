@@ -1,4 +1,4 @@
-<p align="center"><img src="./documents/readme/images/new-logo.png" height="150" width="200" alt="logo"/></p>
+<p align="center"><img src="./documents/readme/images/new-logo.png" height="250" width="300" alt="logo"/></p>
 <h2 align="center">简洁优雅 · 稳定高效 | 宁静致远 · 精益求精 </h2>
 <p align="center">Dante Engine 基于 Spring Boot 3.X， 是 Dante Cloud 微服务架构内核核心组件库，可用于任何 Spring Boot 工程</p>
 
