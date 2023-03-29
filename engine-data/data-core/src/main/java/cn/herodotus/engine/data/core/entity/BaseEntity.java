@@ -25,7 +25,6 @@
 
 package cn.herodotus.engine.data.core.entity;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
@@ -65,10 +64,6 @@ public abstract class BaseEntity extends AbstractEntity {
     @Column(name = "ranking")
     private Integer ranking = 0;
 
-    @Schema(name = "租户ID", description = "Partitioned 类型租户ID")
-    @Column(name = "tenant_id", length = 20)
-    private String tenantId = BaseConstants.DEFAULT_TENANT_ID;
-
     public Date getCreateTime() {
         return createTime;
     }
@@ -93,21 +88,12 @@ public abstract class BaseEntity extends AbstractEntity {
         this.ranking = ranking;
     }
 
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("createTime", createTime)
                 .add("updateTime", updateTime)
                 .add("ranking", ranking)
-                .add("tenantId", tenantId)
                 .toString();
     }
 }

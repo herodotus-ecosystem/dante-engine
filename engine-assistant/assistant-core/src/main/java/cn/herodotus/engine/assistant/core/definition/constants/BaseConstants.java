@@ -37,7 +37,7 @@ public interface BaseConstants {
     String CODE = "code";
     String LOWERCASE_DEFAULT = "default";
 
-    String DEFAULT_TENANT_ID = "master";
+    String DEFAULT_TENANT_ID = "public";
     String DEFAULT_TREE_ROOT_ID = "0";
 
     /* ---------- 配置属性通用常量 ---------- */

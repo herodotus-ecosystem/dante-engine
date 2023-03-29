@@ -1,4 +1,4 @@
-<p align="center"><img src="./documents/readme/images/logo2.png" height="150" width="200" alt="logo"/></p>
+<p align="center"><img src="./documents/readme/images/new-logo.png" height="300" width="400" alt="logo"/></p>
 <h2 align="center">简洁优雅 · 稳定高效 | 宁静致远 · 精益求精 </h2>
 <p align="center">Dante Engine 基于 Spring Boot 3.X， 是 Dante Cloud 微服务架构内核核心组件库，可用于任何 Spring Boot 工程</p>
 
@@ -7,7 +7,7 @@
 <p align="center">
     <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-1.1.0-blue.svg?logo=spring" alt="Spring Authorization Server 1.1.0"></a>
     <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.0.5-blue.svg?logo=spring" alt="Spring Boot 3.0.5"></a>
-    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2022.0.1-blue.svg?logo=spring" alt="Spring Cloud 2022.0.1"></a>
+    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2022.0.2-blue.svg?logo=spring" alt="Spring Cloud 2022.0.2"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2022.0.0.0-blue.svg?logo=alibabadotcom" alt="Spring Cloud Alibaba 2022.0.0.0"></a>
     <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.10.2--2022.0.1-blue.svg?logo=tencentqq" alt="Spring Cloud Tencent 1.10.2-2022.0.1"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.1-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.1"></a>
@@ -34,7 +34,9 @@
 
 ## 背景
 
-自11月22日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17 和 Spring Boot 3 的新时代。紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的 3.0 版本。
+自11月22日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17 和 Spring Boot 3 的新时代。
+
+紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的 3.0 版本。
 
 ## 友情提示
 

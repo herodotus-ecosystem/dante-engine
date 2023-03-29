@@ -23,24 +23,33 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.hibernate;
+package cn.herodotus.engine.data.tenant.condition;
 
-import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
-import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import cn.herodotus.engine.data.core.constants.DataPropertyFinder;
+import cn.herodotus.engine.data.core.enums.MultiTenantApproach;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * <p>Description: 使用hbm2ddl自动创建表时，默认将@Colume中的信息转换为小写，小写的字段名称与其它的字段标准不同（驼峰式，单词首字母大写） 复写原始类，生成符合标准的字段名称。</p>
+ * <p>Description: 标准算法策略条件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2019/11/15 10:34
+ * @date : 2022/5/3 23:00
  */
-public class HerodotusPhysicalNamingStrategy extends PhysicalNamingStrategyStandardImpl {
+public class DatabaseApproachCondition implements Condition {
 
+    private static final Logger log = LoggerFactory.getLogger(DatabaseApproachCondition.class);
+
+    @SuppressWarnings("NullableProblems")
     @Override
-    public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment context) {
-
-        // Hibernate 默认使用 Identifier.getCanonicalName()的值最为最终的值，text是原始值。如果quoted为true则使用text，否则就进行小写转换。所以此处quoted设置为true。参见具体方法。
-        return new Identifier(name.getText(), true);
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        String property = DataPropertyFinder.getMultiTenantApproach(conditionContext.getEnvironment());
+        boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, MultiTenantApproach.DATABASE.name());
+        log.debug("[Herodotus] |- Condition [Database Approach] value is [{}]", result);
+        return result;
     }
 }

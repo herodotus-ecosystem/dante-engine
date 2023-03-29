@@ -23,24 +23,35 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.hibernate;
+package cn.herodotus.engine.data.tenant.configuration;
 
-import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
-import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import cn.herodotus.engine.data.tenant.properties.MultiTenantProperties;
+import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: 使用hbm2ddl自动创建表时，默认将@Colume中的信息转换为小写，小写的字段名称与其它的字段标准不同（驼峰式，单词首字母大写） 复写原始类，生成符合标准的字段名称。</p>
+ * <p>Description: 多租户模块统一配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2019/11/15 10:34
+ * @date : 2023/3/28 23:12
  */
-public class HerodotusPhysicalNamingStrategy extends PhysicalNamingStrategyStandardImpl {
+@AutoConfiguration
+@EnableConfigurationProperties(MultiTenantProperties.class)
+@Import({
+        DiscriminatorApproachConfiguration.class,
+        SchemaApproachConfiguration.class,
+        DatabaseApproachConfiguration.class,
+})
+public class DataTenantConfiguration {
 
-    @Override
-    public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment context) {
+    private static final Logger log = LoggerFactory.getLogger(SchemaApproachConfiguration.class);
 
-        // Hibernate 默认使用 Identifier.getCanonicalName()的值最为最终的值，text是原始值。如果quoted为true则使用text，否则就进行小写转换。所以此处quoted设置为true。参见具体方法。
-        return new Identifier(name.getText(), true);
+    @PostConstruct
+    public void postConstruct() {
+        log.debug("[Herodotus] |- SDK [Data Tenant] Auto Configure.");
     }
 }

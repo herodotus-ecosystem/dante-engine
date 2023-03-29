@@ -23,24 +23,47 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.hibernate;
+package cn.herodotus.engine.assistant.core.utils;
 
-import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
-import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.List;
 
 /**
- * <p>Description: 使用hbm2ddl自动创建表时，默认将@Colume中的信息转换为小写，小写的字段名称与其它的字段标准不同（驼峰式，单词首字母大写） 复写原始类，生成符合标准的字段名称。</p>
+ * <p>Description: List 常用工具类 </p>
  *
  * @author : gengwei.zheng
- * @date : 2019/11/15 10:34
+ * @date : 2023/3/28 23:15
  */
-public class HerodotusPhysicalNamingStrategy extends PhysicalNamingStrategyStandardImpl {
+public class ListUtils {
 
-    @Override
-    public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment context) {
+    /**
+     * 将两个已排序的集合a和b合并到一个单独的已排序列表中，以便保留元素的自然顺序。
+     *
+     * @param appendResources  自定义配置
+     * @param defaultResources 默认配置
+     * @return 合并后的List
+     */
+    public static List<String> merge(List<String> appendResources, List<String> defaultResources) {
+        if (CollectionUtils.isEmpty(appendResources)) {
+            return defaultResources;
+        } else {
+            return CollectionUtils.collate(defaultResources, appendResources);
+        }
+    }
 
-        // Hibernate 默认使用 Identifier.getCanonicalName()的值最为最终的值，text是原始值。如果quoted为true则使用text，否则就进行小写转换。所以此处quoted设置为true。参见具体方法。
-        return new Identifier(name.getText(), true);
+    /**
+     * 将 List 转换为 String[]
+     *
+     * @param resources List
+     * @return String[]
+     */
+    public static String[] toArray(List<String> resources) {
+        if (CollectionUtils.isNotEmpty(resources)) {
+            String[] result = new String[resources.size()];
+            return resources.toArray(result);
+        } else {
+            return new String[]{};
+        }
     }
 }
