@@ -44,7 +44,7 @@ import org.springframework.context.annotation.Import;
 @Import({
         DiscriminatorApproachConfiguration.class,
         SchemaApproachConfiguration.class,
-        DatabaseApproachConfiguration.class
+        DatabaseApproachConfiguration.class,
 })
 public class DataTenantConfiguration {
 

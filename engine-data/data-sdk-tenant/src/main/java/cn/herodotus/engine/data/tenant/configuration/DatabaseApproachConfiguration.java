@@ -42,12 +42,17 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
@@ -58,6 +63,7 @@ import java.util.function.Supplier;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnDatabaseApproach
+@EnableTransactionManagement
 @EntityScan(basePackages = {
         "cn.herodotus.engine.data.tenant.entity",
 })
@@ -80,6 +86,7 @@ public class DatabaseApproachConfiguration {
         return herodotusTenantConnectionProvider;
     }
 
+    @Primary
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, HibernateProperties hibernateProperties, JpaVendorAdapter jpaVendorAdapter, JpaProperties jpaProperties, MultiTenantProperties multiTenantProperties, MultiTenantConnectionProvider multiTenantConnectionProvider, CurrentTenantIdentifierResolver currentTenantIdentifierResolver) {
 
@@ -95,6 +102,13 @@ public class DatabaseApproachConfiguration {
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
         entityManagerFactory.setJpaPropertyMap(properties);
         return entityManagerFactory;
+    }
+
+    @Primary
+    @Bean
+    @ConditionalOnClass({LocalContainerEntityManagerFactoryBean.class})
+    public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+        return new JpaTransactionManager(Objects.requireNonNull(entityManagerFactory.getObject()));
     }
 
     @Bean
