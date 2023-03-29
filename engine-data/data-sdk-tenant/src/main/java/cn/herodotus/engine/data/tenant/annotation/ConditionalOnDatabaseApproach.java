@@ -23,24 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.hibernate;
+package cn.herodotus.engine.data.tenant.annotation;
 
-import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
-import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import cn.herodotus.engine.data.tenant.condition.DatabaseApproachCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: 使用hbm2ddl自动创建表时，默认将@Colume中的信息转换为小写，小写的字段名称与其它的字段标准不同（驼峰式，单词首字母大写） 复写原始类，生成符合标准的字段名称。</p>
+ * <p>Description: Database 模式多租户条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2019/11/15 10:34
+ * @date : 2022/5/3 23:03
  */
-public class HerodotusPhysicalNamingStrategy extends PhysicalNamingStrategyStandardImpl {
-
-    @Override
-    public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment context) {
-
-        // Hibernate 默认使用 Identifier.getCanonicalName()的值最为最终的值，text是原始值。如果quoted为true则使用text，否则就进行小写转换。所以此处quoted设置为true。参见具体方法。
-        return new Identifier(name.getText(), true);
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Documented
+@Conditional(DatabaseApproachCondition.class)
+public @interface ConditionalOnDatabaseApproach {
 }

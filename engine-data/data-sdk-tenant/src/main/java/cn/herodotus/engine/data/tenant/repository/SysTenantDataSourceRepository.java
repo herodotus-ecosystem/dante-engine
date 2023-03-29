@@ -16,29 +16,23 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
  * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.annotation;
+package cn.herodotus.engine.data.tenant.repository;
 
-import cn.herodotus.engine.data.jpa.configuration.DataJpaConfiguration;
-import org.springframework.context.annotation.Import;
-
-import java.lang.annotation.*;
+import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.engine.data.tenant.entity.SysTenantDataSource;
 
 /**
- * <p>Description: 手动开启阿里云短信</p>
+ * <p>Description: 多租户数据源 Repository </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/17 21:22
+ * @date : 2023/3/28 21:58
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Import(DataJpaConfiguration.class)
-public @interface EnableHerodotusJpa {
+public interface SysTenantDataSourceRepository extends BaseRepository<SysTenantDataSource, String> {
 }

@@ -102,6 +102,12 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
         List<HerodotusConfigAttribute> configAttributes = findConfigAttribute(url, method, request);
         if (CollectionUtils.isEmpty(configAttributes)) {
             log.warn("[Herodotus] |- NO PRIVILEGES : [{}].", url);
+
+            if(authentication.get().isAuthenticated()) {
+                log.debug("[Herodotus] |- Request is authenticated: [{}].", url);
+                return new AuthorizationDecision(true);
+            }
+
             return new AuthorizationDecision(false);
         }
 

@@ -47,11 +47,11 @@
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>data-sdk-mybatis-plus</artifactId>
+            <artifactId>data-sdk-tenant</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>data-sdk-p6spy</artifactId>
+            <artifactId>data-sdk-mybatis-plus</artifactId>
         </dependency>
 
         <dependency>

@@ -23,24 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.hibernate;
+package cn.herodotus.engine.data.core.entity;
 
-import org.hibernate.boot.model.naming.Identifier;
-import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
-import org.hibernate.engine.jdbc.env.spi.JdbcEnvironment;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 
 /**
- * <p>Description: 使用hbm2ddl自动创建表时，默认将@Colume中的信息转换为小写，小写的字段名称与其它的字段标准不同（驼峰式，单词首字母大写） 复写原始类，生成符合标准的字段名称。</p>
+ * <p>Description: DISCRIMINATOR 类型多租户实体基础类 </p>
+ *
+ * Dante Cloud 系统本身如果要改成多租户模式，还是建议使用 DATABASE 模式。
+ * 根据需要指定具体是哪些实体（数据表）采用 DISCRIMINATOR 模式多租户。
+ * 不要什么实体都加以防产生不必要的干扰。
  *
  * @author : gengwei.zheng
- * @date : 2019/11/15 10:34
+ * @date : 2023/3/29 10:46
  */
-public class HerodotusPhysicalNamingStrategy extends PhysicalNamingStrategyStandardImpl {
+@MappedSuperclass
+public abstract class BaseTenantEntity extends AbstractEntity {
 
-    @Override
-    public Identifier toPhysicalColumnName(Identifier name, JdbcEnvironment context) {
-
-        // Hibernate 默认使用 Identifier.getCanonicalName()的值最为最终的值，text是原始值。如果quoted为true则使用text，否则就进行小写转换。所以此处quoted设置为true。参见具体方法。
-        return new Identifier(name.getText(), true);
-    }
+    @Schema(name = "租户ID", description = "Partitioned 类型租户ID")
+    @Column(name = "tenant_id", length = 20)
+    private String tenantId = BaseConstants.DEFAULT_TENANT_ID;
 }

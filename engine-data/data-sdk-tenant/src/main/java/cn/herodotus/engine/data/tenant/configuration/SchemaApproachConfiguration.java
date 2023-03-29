@@ -23,26 +23,40 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.configuration;
+package cn.herodotus.engine.data.tenant.configuration;
 
+import cn.herodotus.engine.data.tenant.annotation.ConditionalOnSchemaApproach;
+import cn.herodotus.engine.data.tenant.hibernate.SchemaMultiTenantConnectionProvider;
 import jakarta.annotation.PostConstruct;
+import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 /**
- * <p>Description: Data JPA 模块可配置 </p>
+ * <p>Description: 共享数据库，独立Schema多租户方式配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/9/8 18:12
+ * @date : 2023/3/28 22:26
  */
-@AutoConfiguration
-public class DataJpaConfiguration {
+@Configuration(proxyBeanMethods = false)
+@ConditionalOnSchemaApproach
+public class SchemaApproachConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(DataJpaConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(SchemaApproachConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Module [Data JPA] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Schema Approach] Auto Configure.");
+    }
+
+    @Bean
+    public MultiTenantConnectionProvider multiTenantConnectionProvider(DataSource dataSource) {
+        SchemaMultiTenantConnectionProvider schemaMultiTenantConnectionProvider = new SchemaMultiTenantConnectionProvider(dataSource);
+        log.debug("[Herodotus] |- Bean [Multi Tenant Connection Provider] Auto Configure.");
+        return schemaMultiTenantConnectionProvider;
     }
 }

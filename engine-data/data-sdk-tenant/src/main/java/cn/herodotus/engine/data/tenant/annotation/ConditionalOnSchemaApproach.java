@@ -16,29 +16,29 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
  * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.annotation;
+package cn.herodotus.engine.data.tenant.annotation;
 
-import cn.herodotus.engine.data.jpa.condition.MultiTenantEnabledCondition;
+import cn.herodotus.engine.data.tenant.condition.SchemaApproachCondition;
 import org.springframework.context.annotation.Conditional;
 
 import java.lang.annotation.*;
 
 /**
- * <p>Description: Influxdb条件注解 </p>
+ * <p>Description: Schema 模式多租户条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/11/18 10:12
+ * @date : 2022/5/3 23:03
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
-@Conditional(MultiTenantEnabledCondition.class)
-public @interface ConditionalOnMultiTenantEnabled {
+@Conditional(SchemaApproachCondition.class)
+public @interface ConditionalOnSchemaApproach {
 }

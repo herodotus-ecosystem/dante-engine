@@ -35,13 +35,14 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface DataConstants extends BaseConstants {
 
+    String AREA_PREFIX = "data:core:";
+
     String PROPERTY_PREFIX_MULTI_TENANT = PROPERTY_PREFIX_HERODOTUS + ".multi-tenant";
 
-    String ITEM_MULTI_TENANT_ENABLED = PROPERTY_PREFIX_MULTI_TENANT + PROPERTY_ENABLED;
-    String AREA_PREFIX = "data:core:";
-    String REGION_MULTI_TENANT = AREA_PREFIX + "tenant";
-
     String ITEM_SPRING_SQL_INIT_PLATFORM = "spring.sql.init.platform";
+    String ITEM_MULTI_TENANT_APPROACH = PROPERTY_PREFIX_MULTI_TENANT + ".approach";
 
     String ANNOTATION_SQL_INIT_PLATFORM = ANNOTATION_PREFIX + ITEM_SPRING_SQL_INIT_PLATFORM + ANNOTATION_SUFFIX;
+
+    String REGION_SYS_TENANT_DATASOURCE = AREA_PREFIX + "sys:tenant:datasource";
 }

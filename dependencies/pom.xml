@@ -343,7 +343,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>data-sdk-p6spy</artifactId>
+                <artifactId>data-sdk-tenant</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <dependency>

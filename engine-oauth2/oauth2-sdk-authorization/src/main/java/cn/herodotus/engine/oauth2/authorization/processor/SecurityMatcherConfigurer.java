@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.processor;
 
+import cn.herodotus.engine.assistant.core.utils.ListUtils;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
@@ -77,62 +78,30 @@ public class SecurityMatcherConfigurer {
 
     public List<String> getStaticResourceList() {
         if (CollectionUtils.isEmpty(this.staticResources)) {
-            this.staticResources = merge(securityProperties.getMatcher().getStaticResources(), DEFAULT_IGNORED_STATIC_RESOURCES);
+            this.staticResources = ListUtils.merge(securityProperties.getMatcher().getStaticResources(), DEFAULT_IGNORED_STATIC_RESOURCES);
         }
         return this.staticResources;
     }
 
     public List<String> getPermitAllList() {
         if (CollectionUtils.isEmpty(this.permitAllResources)) {
-            this.permitAllResources = merge(securityProperties.getMatcher().getPermitAll(), DEFAULT_PERMIT_ALL_RESOURCES);
+            this.permitAllResources = ListUtils.merge(securityProperties.getMatcher().getPermitAll(), DEFAULT_PERMIT_ALL_RESOURCES);
         }
         return this.permitAllResources;
     }
 
     public List<String> getHasAuthenticatedList() {
         if (CollectionUtils.isEmpty(this.hasAuthenticatedResources)) {
-            this.hasAuthenticatedResources = merge(securityProperties.getMatcher().getHasAuthenticated(), DEFAULT_HAS_AUTHENTICATED_RESOURCES);
+            this.hasAuthenticatedResources = ListUtils.merge(securityProperties.getMatcher().getHasAuthenticated(), DEFAULT_HAS_AUTHENTICATED_RESOURCES);
         }
         return this.hasAuthenticatedResources;
     }
 
     public String[] getStaticResourceArray() {
-        return convertToArray(getStaticResourceList());
+        return ListUtils.toArray(getStaticResourceList());
     }
 
     public String[] getPermitAllArray() {
-        return convertToArray(getPermitAllList());
-    }
-
-
-    /**
-     * 合并默认配置和自定义配置
-     *
-     * @param customResources  自定义配置
-     * @param defaultResources 默认配置
-     * @return 合并后的配置
-     */
-    private List<String> merge(List<String> customResources, List<String> defaultResources) {
-        if (CollectionUtils.isEmpty(customResources)) {
-            return defaultResources;
-        } else {
-            return CollectionUtils.collate(customResources, defaultResources);
-        }
-    }
-
-    /**
-     * 将 List 转换为 String[]
-     *
-     * @param resources List
-     * @return String[]
-     */
-    private String[] convertToArray(List<String> resources) {
-        if (CollectionUtils.isNotEmpty(resources)) {
-            String[] result = new String[resources.size()];
-            return resources.toArray(result);
-        } else {
-            return new String[]{};
-        }
-
+        return ListUtils.toArray(getPermitAllList());
     }
 }
