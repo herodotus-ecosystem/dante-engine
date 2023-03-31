@@ -31,11 +31,11 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-supplier</artifactId>
-        <version>3.0.5.0</version>
+        <version>3.0.5.1</version>
     </parent>
 
     <artifactId>supplier-sdk-upms-rest</artifactId>
-    <version>3.0.5.0</version>
+    <version>3.0.5.1</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud UPMS REST 模块</description>

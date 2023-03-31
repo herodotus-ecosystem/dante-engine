@@ -13,7 +13,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.1-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.1"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.5.0-red.svg?logo=spring" alt="Version 3.0.5.0"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.0.5.1-red.svg?logo=spring" alt="Version 3.0.5.1"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue.svg?logo=apache" alt="License Apache 2.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -34,13 +34,16 @@
 
 ## 背景
 
-自11月22日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17 和 Spring Boot 3 的新时代。
+自11月24日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17
+和 Spring Boot 3 的新时代。
 
-紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的 3.0 版本。
+紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的
+3.0 版本。
 
 ## 友情提示
 
-Dante Cloud 3.X 是“激进”尝鲜版本，周边生态的新技术、新特性、新功能都会在该版本上添加，加之 Spring Boot 3 周边生态还没有完全适配完成，很多还处于非正式版本，所以是否选择使用 Dante Cloud 3.X 版本，请谨慎评估后再做决定。
+Dante Cloud 3.X 是“激进”尝鲜版本，周边生态的新技术、新特性、新功能都会在该版本上添加，加之 Spring Boot 3
+周边生态还没有完全适配完成，很多还处于非正式版本，所以是否选择使用 Dante Cloud 3.X 版本，请谨慎评估后再做决定。
 
 ## 特点
 
@@ -58,7 +61,8 @@ Dante Cloud 3.X 是“激进”尝鲜版本，周边生态的新技术、新特�
 
 1. 虽然模块看似很多，但是每个模块职责单一、代码清晰，更有利于聚焦和定位问题。
 2. 通过对微服务架构的“庖丁解牛”，初学者不再需要在代码的海洋里“遨游”，通过针对性地了解各个模块，以点带面快速掌握微服务架构整体结构。
-3. 模块间的依赖极大的降低，想要替换为 `Spring Authorization Server`，影响到的代码和范围将会很小。该工程也是使用 `Spring Authorization Server` 的前序工作
+3. 模块间的依赖极大的降低，想要替换为 `Spring Authorization Server`
+   ，影响到的代码和范围将会很小。该工程也是使用 `Spring Authorization Server` 的前序工作
 4. 每个模块均是最小化依赖第三包，规避依赖包过度依赖，特别是 starter 过多依赖，导致不可预知、难以调试、不好修改等问题。
 5. 降低微服务系统代码量，独立组件可提前编译并上传至Maven仓库，降低工程代码编译耗时，改进 CICD 效率。
 
@@ -94,9 +98,9 @@ dante-engine
 ├    └── captcha-spring-boot-starter -- Captcha  模块统一 Starter
 ├── engine-data -- 数据访问模块
 ├    ├── data-core -- 数据访问共性通用代码
-├    ├── data-sdk-jpa -- JPA 及Hibernate 相关代码模块
+├    ├── data-sdk-jpa -- JPA 及Hibernate 配置代码模块
 ├    ├── data-sdk-mybatis-plus -- MybatisPlus 相关代码模块
-├    ├── data-sdk-p6spy -- P6spy 相关代码模块
+├    ├── data-sdk-tenant -- 基于JPA的多租户核心代码模块
 ├    └── data-spring-boot-starter -- Data 模块统一 Starter
 ├── engine-facility -- 微服务基础设施模块
 ├    ├── facility-alibaba-spring-boot-starter -- 面向 Spring Cloud Alibaba 的微服务基础设施适配模块
@@ -152,7 +156,8 @@ dante-engine
 ├    ├── sms-sdk-upyun -- 又拍短信发送模块
 ├    └── sms-spring-boot-starter -- SMS 模块统一 Starter
 ├── engine-supplier -- 应用支持模块
-├    ├── supplier-sdk-core -- 消息功能支持模块
+├    ├── supplier-sdk-message -- 消息功能支持模块
+├    ├── supplier-sdk-tenant -- 多租户功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
 └──  └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
 ```
@@ -168,7 +173,7 @@ dante-engine
 3. engine-data
 4. engine-rest
 5. engine-oauth2
-6. engine-facility 
+6. engine-facility
 7. engine-message
 
 ### 二、独立性阅读
@@ -196,6 +201,7 @@ dante-engine
 ## 关联项目
 
 - Dante 主工程地址：[https://gitee.com/dromara/dante-cloud](https://gitee.com/dromara/dante-cloud)
-- Dante 单体版示例工程地址：[https://gitee.com/herodotus/dante-cloud-athena](https://gitee.com/herodotus/dante-cloud-athena)
+- Dante
+  单体版示例工程地址：[https://gitee.com/herodotus/dante-cloud-athena](https://gitee.com/herodotus/dante-cloud-athena)
 - Dante 前端工程地址：[https://gitee.com/herodotus/dante-cloud-ui](https://gitee.com/herodotus/dante-cloud-ui)
 
