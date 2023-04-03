@@ -29,6 +29,8 @@ import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.data.tenant.entity.SysTenantDataSource;
 import cn.herodotus.engine.data.tenant.repository.SysTenantDataSourceRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -40,6 +42,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysTenantDataSourceService extends BaseService<SysTenantDataSource, String> {
 
+    private static final Logger log = LoggerFactory.getLogger(SysTenantDataSourceService.class);
+
     private final SysTenantDataSourceRepository sysTenantDataSourceRepository;
 
     public SysTenantDataSourceService(SysTenantDataSourceRepository sysTenantDataSourceRepository) {
@@ -49,5 +53,11 @@ public class SysTenantDataSourceService extends BaseService<SysTenantDataSource,
     @Override
     public BaseRepository<SysTenantDataSource, String> getRepository() {
         return sysTenantDataSourceRepository;
+    }
+
+    public SysTenantDataSource findByTenantId(String tenantId) {
+        SysTenantDataSource sysRole = sysTenantDataSourceRepository.findByTenantId(tenantId);
+        log.debug("[Herodotus] |- SysTenantDataSource Service findByTenantId.");
+        return sysRole;
     }
 }
