@@ -52,6 +52,11 @@
             <artifactId>p6spy</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-envers</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

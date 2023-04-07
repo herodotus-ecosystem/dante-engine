@@ -29,6 +29,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
  * <p>Description: Data JPA 模块可配置 </p>
@@ -37,6 +38,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
  * @date : 2022/9/8 18:12
  */
 @AutoConfiguration
+@EnableJpaAuditing
 public class DataJpaConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(DataJpaConfiguration.class);

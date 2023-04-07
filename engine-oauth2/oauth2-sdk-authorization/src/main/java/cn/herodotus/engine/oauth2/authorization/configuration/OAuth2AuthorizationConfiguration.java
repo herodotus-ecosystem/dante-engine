@@ -26,12 +26,14 @@
 package cn.herodotus.engine.oauth2.authorization.configuration;
 
 import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
+import cn.herodotus.engine.oauth2.authorization.auditing.SecurityAuditorAware;
 import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusTokenStrategyConfigurer;
 import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataSyncListener;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceStorage;
+import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import jakarta.annotation.PostConstruct;
@@ -44,6 +46,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2Res
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.bus.ServiceMatcher;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 
@@ -119,5 +122,12 @@ public class OAuth2AuthorizationConfiguration{
         BearerTokenResolver bearerTokenResolver = herodotusTokenStrategyConfigurer.createBearerTokenResolver();
         log.trace("[Herodotus] |- Bean [Bearer Token Resolver] Auto Configure.");
         return bearerTokenResolver;
+    }
+
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        SecurityAuditorAware securityAuditorAware = new SecurityAuditorAware();
+        log.debug("[Herodotus] |- Bean [Security Auditor Aware] Auto Configure.");
+        return securityAuditorAware;
     }
 }

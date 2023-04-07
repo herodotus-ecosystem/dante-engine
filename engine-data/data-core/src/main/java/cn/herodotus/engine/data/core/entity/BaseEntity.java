@@ -32,7 +32,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -59,6 +61,16 @@ public abstract class BaseEntity extends AbstractEntity {
     @LastModifiedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime = new Date();
+
+    @Schema(name = "创建人")
+    @Column(name = "create_by")
+    @CreatedBy
+    private String createBy;
+
+    @Schema(name = "最后修改")
+    @Column(name = "update_by")
+    @LastModifiedBy
+    private String updateBy;
 
     @Schema(name = "排序值")
     @Column(name = "ranking")
@@ -88,11 +100,29 @@ public abstract class BaseEntity extends AbstractEntity {
         this.ranking = ranking;
     }
 
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("createTime", createTime)
                 .add("updateTime", updateTime)
+                .add("createBy", createBy)
+                .add("updateBy", updateBy)
                 .add("ranking", ranking)
                 .toString();
     }
