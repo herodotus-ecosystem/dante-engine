@@ -147,8 +147,9 @@ public class SysOrganizationController extends BaseWriteableRestController<SysOr
         }
     }
 
+    @DeleteMapping("/{id}")
     @Override
-    public Result<String> delete(@RequestBody String id) {
+    public Result<String> delete(@PathVariable String id) {
         boolean isInUse = sysOrganizationService.isInUse(id);
         if (isInUse) {
             return Result.failure("该单位被部分部门引用，请删除关联关系后再删除！");
