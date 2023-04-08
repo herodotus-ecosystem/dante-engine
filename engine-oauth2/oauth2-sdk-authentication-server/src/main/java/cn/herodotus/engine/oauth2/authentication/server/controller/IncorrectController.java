@@ -47,7 +47,7 @@ public class IncorrectController implements ErrorController {
     public ModelAndView handleError(HttpServletRequest request) {
         String message = getErrorMessage(request);
         if (message.startsWith("[access_denied]")) {
-            return new ModelAndView("access-denied");
+            return new ModelAndView("activation-denied");
         }
         return new ModelAndView("error", Map.of("message", message));
     }

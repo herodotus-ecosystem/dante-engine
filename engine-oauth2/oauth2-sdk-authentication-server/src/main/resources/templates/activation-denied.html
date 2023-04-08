@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>激活被拒绝</title>
+    <link th:href="@{/plugin/custom/components/mdi-font-7.2.96/css/materialdesignicons.css}" rel="stylesheet"
+          type="text/css"/>
+    <link th:href="@{/plugin/custom/components/quasar-2.11.9/dist/quasar.prod.css}" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<div id="q-app">
+    <q-layout class="bg-grey-2">
+        <q-page-container>
+            <q-page padding class="flex justify-center items-start">
+                <div class="column" style="min-width: 500px">
+                    <div class="col">
+                        <div class="row justify-center">
+                            <img th:src="@{/plugins/custom/images/logo.png}" height="300" width="400"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <q-card flat bordered>
+                            <q-card-section>
+                                <div class="column q-gutter-md items-center">
+                                    <div class="col">
+                                        <q-icon name="mdi-close" color="red" size="100px"/>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-h5 text-weight-bolder">
+                                            激活被拒绝！
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="text-subtitle2">我们无法激活您的设备。</div>
+                                    </div>
+                                </div>
+                            </q-card-section>
+                        </q-card>
+                    </div>
+                </div>
+            </q-page>
+        </q-page-container>
+    </q-layout>
+</div>
+
+<!-- Add the following at the end of your body tag -->
+<script th:src="@{/plugins/custom/components/vue-3.2.47/vue.global.prod.js}"></script>
+<script th:src="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.umd.prod.js}"></script>
+<script th:src="@{/plugins/custom/components/quasar-2.11.9/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
+
+<script>
+    const app = Vue.createApp({
+        setup() {
+            return {};
+        },
+    });
+
+    app.use(Quasar);
+    Quasar.iconSet.set(Quasar.iconSet.svgMdiV7);
+    app.mount("#q-app");
+</script>
+</body>
+</html>

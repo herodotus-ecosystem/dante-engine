@@ -39,21 +39,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DeviceController {
 
-    @GetMapping("/activate")
+    @GetMapping("/activation")
     public String activate(@RequestParam(value = "user_code", required = false) String userCode) {
         if (StringUtils.isNotBlank(userCode)) {
             return "redirect:/oauth2/device_verification?user_code=" + userCode;
         }
-        return "activate";
+        return "activation";
     }
 
-    @GetMapping("/activated")
+    @GetMapping("/activation-allowed")
     public String activated() {
-        return "activated";
+        return "activation-allowed";
     }
 
     @GetMapping(value = "/", params = "success")
     public String success() {
-        return "activated";
+        return "activation-allowed";
     }
 }
