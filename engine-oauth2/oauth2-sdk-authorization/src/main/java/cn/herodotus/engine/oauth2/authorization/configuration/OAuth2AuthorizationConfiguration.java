@@ -29,7 +29,7 @@ import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
 import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusTokenStrategyConfigurer;
 import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataSyncListener;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
-import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
+import cn.herodotus.engine.oauth2.core.configurer.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceParser;
 import cn.herodotus.engine.oauth2.authorization.storage.SecurityMetadataSourceStorage;

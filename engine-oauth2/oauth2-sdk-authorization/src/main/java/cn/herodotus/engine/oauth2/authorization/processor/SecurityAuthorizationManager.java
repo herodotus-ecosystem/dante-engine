@@ -13,6 +13,7 @@ package cn.herodotus.engine.oauth2.authorization.processor;
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
 import cn.herodotus.engine.oauth2.authorization.storage.SecurityMetadataSourceStorage;
+import cn.herodotus.engine.oauth2.core.configurer.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.core.enums.PermissionExpression;
 import cn.herodotus.engine.web.core.utils.WebUtils;
 import org.apache.commons.collections4.CollectionUtils;
