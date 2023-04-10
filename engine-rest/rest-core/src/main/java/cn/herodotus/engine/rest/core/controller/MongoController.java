@@ -28,7 +28,7 @@ import java.util.Map;
  */
 public interface MongoController<E extends BaseMongoEntity, ID extends Serializable> extends Controller {
 
-    MongoService<E, ID> getBaseMongoService();
+    MongoService<E, ID> getMongoService();
 
     /**
      * 查询分页数据
@@ -38,7 +38,7 @@ public interface MongoController<E extends BaseMongoEntity, ID extends Serializa
      * @return {@link Result}
      */
     default Result<Map<String, Object>> findByPage(Integer pageNumber, Integer pageSize) {
-        Page<E> pages = getBaseMongoService().findByPage(pageNumber, pageSize);
+        Page<E> pages = getMongoService().findByPage(pageNumber, pageSize);
         return result(pages);
     }
 
@@ -52,22 +52,22 @@ public interface MongoController<E extends BaseMongoEntity, ID extends Serializa
      * @return 分页数据
      */
     default Result<Map<String, Object>> findByPage(Integer pageNumber, Integer pageSize, Sort.Direction direction, String... properties) {
-        Page<E> pages = getBaseMongoService().findByPage(pageNumber, pageSize, direction, properties);
+        Page<E> pages = getMongoService().findByPage(pageNumber, pageSize, direction, properties);
         return result(pages);
     }
 
     default Result<List<E>> findAll() {
-        List<E> domains = getBaseMongoService().findAll();
+        List<E> domains = getMongoService().findAll();
         return result(domains);
     }
 
     default Result<E> findById(ID id) {
-        E domain = getBaseMongoService().findById(id);
+        E domain = getMongoService().findById(id);
         return result(domain);
     }
 
     default Result<E> saveOrUpdate(E domain) {
-        E savedDomain = getBaseMongoService().save(domain);
+        E savedDomain = getMongoService().save(domain);
         return result(savedDomain);
     }
 
@@ -79,7 +79,7 @@ public interface MongoController<E extends BaseMongoEntity, ID extends Serializa
      */
     default Result<String> delete(ID id) {
         Result<String> result = result(String.valueOf(id));
-        getBaseMongoService().deleteById(id);
+        getMongoService().deleteById(id);
         return result;
     }
 }
