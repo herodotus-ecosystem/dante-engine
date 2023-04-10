@@ -26,14 +26,14 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2023/2/26 17:10
  */
-public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializable> {
+public interface MongoService<E extends BaseMongoEntity, ID extends Serializable> {
 
     /**
      * 获取对应的 Mongo Repository
      *
      * @return {@link BaseMongoRepository}
      */
-    BaseMongoRepository<E, ID> getBaseMongoRepository();
+    BaseMongoRepository<E, ID> getRepository();
 
     /**
      * 保存或更新数据
@@ -42,7 +42,7 @@ public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializ
      * @return 保存后的实体
      */
     default E save(E domain) {
-        return getBaseMongoRepository().save(domain);
+        return getRepository().save(domain);
     }
 
     /**
@@ -51,7 +51,7 @@ public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializ
      * @return 全部数据列表
      */
     default List<E> findAll() {
-        return getBaseMongoRepository().findAll();
+        return getRepository().findAll();
     }
 
     /**
@@ -61,7 +61,7 @@ public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializ
      * @return 分页数据
      */
     default Page<E> findByPage(Pageable pageable) {
-        return getBaseMongoRepository().findAll(pageable);
+        return getRepository().findAll(pageable);
     }
 
     /**
@@ -107,7 +107,7 @@ public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializ
      * @return 全部数据列表
      */
     default List<E> findAll(Sort sort) {
-        return getBaseMongoRepository().findAll(sort);
+        return getRepository().findAll(sort);
     }
 
     /**
@@ -117,7 +117,7 @@ public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializ
      * @return 数据对象
      */
     default E findById(ID id) {
-        return getBaseMongoRepository().findById(id).orElse(null);
+        return getRepository().findById(id).orElse(null);
     }
 
     /**
@@ -126,7 +126,7 @@ public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializ
      * @param id ID
      */
     default void deleteById(ID id) {
-        getBaseMongoRepository().deleteById(id);
+        getRepository().deleteById(id);
     }
 
     /**
@@ -135,6 +135,6 @@ public interface BaseMongoService<E extends BaseMongoEntity, ID extends Serializ
      * @param domain 数据对象实体
      */
     default void delete(E domain) {
-        getBaseMongoRepository().delete(domain);
+        getRepository().delete(domain);
     }
 }
