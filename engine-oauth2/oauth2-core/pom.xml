@@ -49,11 +49,6 @@
 
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>data-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
             <artifactId>access-core</artifactId>
         </dependency>
 
