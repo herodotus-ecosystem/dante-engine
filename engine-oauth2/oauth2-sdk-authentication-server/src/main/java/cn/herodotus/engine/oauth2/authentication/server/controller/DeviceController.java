@@ -51,9 +51,4 @@ public class DeviceController {
     public String activated() {
         return "activation-allowed";
     }
-
-    @GetMapping(value = "/", params = "success")
-    public String success() {
-        return "activation-allowed";
-    }
 }

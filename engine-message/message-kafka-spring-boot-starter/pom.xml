@@ -31,11 +31,11 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-message</artifactId>
-        <version>3.0.5.3</version>
+        <version>3.0.5.4</version>
     </parent>
 
     <artifactId>message-kafka-spring-boot-starter</artifactId>
-    <version>3.0.5.3</version>
+    <version>3.0.5.4</version>
     <packaging>jar</packaging>
 
     <dependencies>
