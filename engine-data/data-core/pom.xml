@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-data</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.5.2</version>
+        <version>3.0.5.3</version>
     </parent>
 
     <artifactId>data-core</artifactId>
-    <version>3.0.5.2</version>
+    <version>3.0.5.3</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
