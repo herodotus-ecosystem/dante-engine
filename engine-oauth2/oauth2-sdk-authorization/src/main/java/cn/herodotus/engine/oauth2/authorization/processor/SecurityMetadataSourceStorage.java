@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,8 +18,8 @@
  * 1.请不要删除和修改根目录下的LICENSE文件。
  * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
+ * 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
@@ -106,7 +106,7 @@ public class SecurityMetadataSourceStorage {
     /**
      * 写入 indexable 缓存
      *
-     * @param herodotusRequest         自定义扩展的 AntPathRequestMatchers {@link HerodotusRequest}
+     * @param herodotusRequest 自定义扩展的 AntPathRequestMatchers {@link HerodotusRequest}
      * @param configAttributes 权限配置属性
      */
     private void writeToIndexable(HerodotusRequest herodotusRequest, List<HerodotusConfigAttribute> configAttributes) {
@@ -174,7 +174,7 @@ public class SecurityMetadataSourceStorage {
      * 如果缓存中不存在以{@link HerodotusRequest}为Key的数据，那么添加数据
      * 如果缓存中存在以{@link HerodotusRequest}为Key的数据，那么合并数据
      *
-     * @param herodotusRequest         请求匹配对象 {@link HerodotusRequest}
+     * @param herodotusRequest 请求匹配对象 {@link HerodotusRequest}
      * @param configAttributes 权限配置 {@link HerodotusConfigAttribute}
      */
     private void appendToIndexable(HerodotusRequest herodotusRequest, List<HerodotusConfigAttribute> configAttributes) {
@@ -194,7 +194,7 @@ public class SecurityMetadataSourceStorage {
      * 将权限数据添加至本地存储
      *
      * @param configAttributes 权限数据
-     * @param isIndexable        true 存入 indexable cache；false 存入 compatible cache
+     * @param isIndexable      true 存入 indexable cache；false 存入 compatible cache
      */
     public void addToStorage(LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> configAttributes, boolean isIndexable) {
         if (MapUtils.isNotEmpty(configAttributes)) {
@@ -210,9 +210,9 @@ public class SecurityMetadataSourceStorage {
     /**
      * 将权限数据添加至本地存储，存储之前进行规则冲突校验
      *
-     * @param matchers           校验资源
+     * @param matchers         校验资源
      * @param configAttributes 权限数据
-     * @param isIndexable        true 存入 indexable cache；false 存入 compatible cache
+     * @param isIndexable      true 存入 indexable cache；false 存入 compatible cache
      */
     public void addToStorage(LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> matchers, LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> configAttributes, boolean isIndexable) {
         LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> result = new LinkedHashMap<>();
@@ -228,7 +228,7 @@ public class SecurityMetadataSourceStorage {
      * <p>
      * 如存在规则冲突，则保留可支持最大化范围规则，冲突的其它规则则不保存
      *
-     * @param matchers           校验资源
+     * @param matchers         校验资源
      * @param configAttributes 权限数据
      * @return 去除冲突的权限数据
      */

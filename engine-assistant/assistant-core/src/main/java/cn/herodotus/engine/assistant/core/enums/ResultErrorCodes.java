@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君)<herodotus@aliyun.com>
  *
- * Dante Engine Licensed under the Apache License, Version 2.0 (the "License");
+ * Dante Engine licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,10 +16,10 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
+ * 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
@@ -121,8 +121,8 @@ public enum ResultErrorCodes {
     INVALID_TOKEN(ErrorCode.INVALID_TOKEN, "提供的访问令牌已过期、吊销、格式错误或无效"),
     INVALID_GRANT(ErrorCode.INVALID_GRANT, "提供的授权授予或刷新令牌无效、已过期或已撤销"),
     UNAUTHORIZED_CLIENT(ErrorCode.UNAUTHORIZED_CLIENT, "客户端无权使用此方法请求授权码或访问令牌"),
-    USERNAME_NOT_FOUND(ErrorCode.USERNAME_NOT_FOUND,"用户名或密码错误"),
-    SESSION_EXPIRED(ErrorCode.SESSION_EXPIRED,"Session 已过期，请刷新页面后再使用"),
+    USERNAME_NOT_FOUND(ErrorCode.USERNAME_NOT_FOUND, "用户名或密码错误"),
+    SESSION_EXPIRED(ErrorCode.SESSION_EXPIRED, "Session 已过期，请刷新页面后再使用"),
 
     /**
      * 403.** 禁止的请求，与403对应

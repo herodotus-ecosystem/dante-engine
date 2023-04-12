@@ -35,8 +35,6 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface AccessConstants extends BaseConstants {
 
-    String PROPERTY_PREFIX_ACCESS = PROPERTY_PREFIX_HERODOTUS + ".access";
-
     String PROPERTY_ACCESS_JUSTAUTH = PROPERTY_PREFIX_ACCESS + ".justauth";
     String ITEM_JUSTAUTH_ENABLED = PROPERTY_ACCESS_JUSTAUTH + PROPERTY_ENABLED;
     String PROPERTY_ACCESS_WXAPP = PROPERTY_PREFIX_ACCESS + ".wxapp";

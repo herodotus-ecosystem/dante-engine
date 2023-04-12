@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,8 +18,8 @@
  * 1.请不要删除和修改根目录下的LICENSE文件。
  * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
+ * 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
@@ -102,15 +102,12 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
                         "UserDetailsService returned null, which is an interface contract violation");
             }
             return userDetails;
-        }
-        catch (UsernameNotFoundException ex) {
+        } catch (UsernameNotFoundException ex) {
             log.error("[Herodotus] |- User name can not found for：[{}]", source);
             throw ex;
-        }
-        catch (InternalAuthenticationServiceException ex) {
+        } catch (InternalAuthenticationServiceException ex) {
             throw ex;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new InternalAuthenticationServiceException(ex.getMessage(), ex);
         }
     }
@@ -156,7 +153,7 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
         OAuth2RefreshToken refreshToken = creatOAuth2RefreshToken(tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, clientPrincipal, registeredClient);
 
         // ----- ID token -----
-        OidcIdToken idToken = createOidcIdToken(principal,sessionRegistry, tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, socialCredentialsAuthentication.getScopes());
+        OidcIdToken idToken = createOidcIdToken(principal, sessionRegistry, tokenContextBuilder, authorizationBuilder, this.tokenGenerator, ERROR_URI, socialCredentialsAuthentication.getScopes());
 
         OAuth2Authorization authorization = authorizationBuilder.build();
 
@@ -194,7 +191,7 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
 
         MutablePropertyValues mutablePropertyValues = new MutablePropertyValues(parameters);
 
-        WebRequestDataBinder webRequestDataBinder  = new WebRequestDataBinder(accessPrincipal);
+        WebRequestDataBinder webRequestDataBinder = new WebRequestDataBinder(accessPrincipal);
         webRequestDataBinder.bind(mutablePropertyValues);
         if (BeanUtil.isNotEmpty(accessPrincipal)) {
             return accessPrincipal;

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,8 +18,8 @@
  * 1.请不要删除和修改根目录下的LICENSE文件。
  * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
+ * 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
@@ -43,7 +43,6 @@ public interface BaseConstants {
     /* ---------- 配置属性通用常量 ---------- */
 
     String PROPERTY_ENABLED = ".enabled";
-
     String PROPERTY_PREFIX_SPRING = "spring";
     String PROPERTY_PREFIX_FEIGN = "feign";
     String PROPERTY_PREFIX_SERVER = "server";
@@ -57,18 +56,30 @@ public interface BaseConstants {
     String ANNOTATION_SUFFIX = "}";
 
     /* ---------- Herodotus 自定义配置属性 ---------- */
-
-    String PROPERTY_PREFIX_PLATFORM = PROPERTY_PREFIX_HERODOTUS + ".platform";
-    String PROPERTY_PREFIX_SECURITY = PROPERTY_PREFIX_HERODOTUS + ".security";
-    String PROPERTY_PREFIX_REST = PROPERTY_PREFIX_HERODOTUS + ".rest";
-    String PROPERTY_PREFIX_SWAGGER = PROPERTY_PREFIX_HERODOTUS + ".swagger";
+    String PROPERTY_PREFIX_ACCESS = PROPERTY_PREFIX_HERODOTUS + ".access";
+    String PROPERTY_PREFIX_CACHE = PROPERTY_PREFIX_HERODOTUS + ".cache";
+    String PROPERTY_PREFIX_CAPTCHA = PROPERTY_PREFIX_HERODOTUS + ".captcha";
+    String PROPERTY_PREFIX_CRYPTO = PROPERTY_PREFIX_HERODOTUS + ".crypto";
+    String PROPERTY_PREFIX_ENDPOINT = PROPERTY_PREFIX_HERODOTUS + ".endpoint";
     String PROPERTY_PREFIX_EVENT = PROPERTY_PREFIX_HERODOTUS + ".event";
-
-    String ITEM_SWAGGER_ENABLED = PROPERTY_PREFIX_SWAGGER + PROPERTY_ENABLED;
-
+    String PROPERTY_PREFIX_LOG_CENTER = PROPERTY_PREFIX_HERODOTUS + ".log-center";
+    String PROPERTY_PREFIX_MANAGE = PROPERTY_PREFIX_HERODOTUS + ".manage";
+    String PROPERTY_PREFIX_MESSAGE = PROPERTY_PREFIX_HERODOTUS + ".message";
+    String PROPERTY_PREFIX_MULTI_TENANT = PROPERTY_PREFIX_HERODOTUS + ".multi-tenant";
+    String PROPERTY_PREFIX_NOSQL = PROPERTY_PREFIX_HERODOTUS + ".nosql";
+    String PROPERTY_PREFIX_OAUTH2 = PROPERTY_PREFIX_HERODOTUS + ".oauth2";
+    String PROPERTY_PREFIX_OSS = PROPERTY_PREFIX_HERODOTUS + ".oss";
+    String PROPERTY_PREFIX_PAY = PROPERTY_PREFIX_HERODOTUS + ".pay";
+    String PROPERTY_PREFIX_PLATFORM = PROPERTY_PREFIX_HERODOTUS + ".platform";
+    String PROPERTY_PREFIX_REST = PROPERTY_PREFIX_HERODOTUS + ".rest";
+    String PROPERTY_PREFIX_SECURE = PROPERTY_PREFIX_HERODOTUS + ".secure";
+    String PROPERTY_PREFIX_SECURITY = PROPERTY_PREFIX_HERODOTUS + ".security";
+    String PROPERTY_PREFIX_SMS = PROPERTY_PREFIX_HERODOTUS + ".sms";
+    String PROPERTY_PREFIX_SWAGGER = PROPERTY_PREFIX_HERODOTUS + ".swagger";
 
     /* ---------- Spring 家族配置属性 ---------- */
 
+    String ITEM_SWAGGER_ENABLED = PROPERTY_PREFIX_SWAGGER + PROPERTY_ENABLED;
     String ITEM_SPRING_APPLICATION_NAME = PROPERTY_PREFIX_SPRING + ".application.name";
     String ITEM_SPRING_SESSION_STORE_TYPE = PROPERTY_PREFIX_SPRING + ".session.store-type";
     String ITEM_SERVER_PORT = PROPERTY_PREFIX_SERVER + ".port";
@@ -79,7 +90,6 @@ public interface BaseConstants {
     /* ---------- 通用缓存常量 ---------- */
 
     String CACHE_PREFIX = "cache:";
-
     String CACHE_SIMPLE_BASE_PREFIX = CACHE_PREFIX + "simple:";
     String CACHE_TOKEN_BASE_PREFIX = CACHE_PREFIX + "token:";
 

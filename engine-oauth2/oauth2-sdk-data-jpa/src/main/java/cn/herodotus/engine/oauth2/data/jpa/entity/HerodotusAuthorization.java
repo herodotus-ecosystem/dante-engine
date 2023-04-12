@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君)<herodotus@aliyun.com>
  *
- * Dante Engine Licensed under the Apache License, Version 2.0 (the "License");
+ * Dante Engine licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,10 +16,10 @@
  * Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
  *
  * 1.请不要删除和修改根目录下的LICENSE文件。
- * 2.请不要删除和修改 Dante Engine 源码头部的版权声明。
+ * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
+ * 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
@@ -71,13 +71,13 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "authorized_scopes", length = 1000)
     private String authorizedScopes;
 
-    @Column(name="attributes", columnDefinition="TEXT")
+    @Column(name = "attributes", columnDefinition = "TEXT")
     private String attributes;
 
     @Column(name = "state", length = 500)
     private String state;
 
-    @Column(name = "authorization_code_value", columnDefinition="TEXT")
+    @Column(name = "authorization_code_value", columnDefinition = "TEXT")
     private String authorizationCodeValue;
 
     @Column(name = "authorization_code_issued_at")
@@ -86,10 +86,10 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "authorization_code_expires_at")
     private LocalDateTime authorizationCodeExpiresAt;
 
-    @Column(name = "authorization_code_metadata", columnDefinition="TEXT")
+    @Column(name = "authorization_code_metadata", columnDefinition = "TEXT")
     private String authorizationCodeMetadata;
 
-    @Column(name = "access_token_value", columnDefinition="TEXT")
+    @Column(name = "access_token_value", columnDefinition = "TEXT")
     private String accessTokenValue;
 
     @Column(name = "access_token_issued_at")
@@ -98,7 +98,7 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "access_token_expires_at")
     private LocalDateTime accessTokenExpiresAt;
 
-    @Column(name = "access_token_metadata", columnDefinition="TEXT")
+    @Column(name = "access_token_metadata", columnDefinition = "TEXT")
     private String accessTokenMetadata;
 
     @Column(name = "access_token_type", length = 100)
@@ -107,7 +107,7 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "access_token_scopes", length = 1000)
     private String accessTokenScopes;
 
-    @Column(name = "refresh_token", columnDefinition="TEXT")
+    @Column(name = "refresh_token", columnDefinition = "TEXT")
     private String refreshTokenValue;
 
     @Column(name = "refresh_token_issued_at")
@@ -116,10 +116,10 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "refresh_token_expires_at")
     private LocalDateTime refreshTokenExpiresAt;
 
-    @Column(name = "refresh_token_metadata", columnDefinition="TEXT")
+    @Column(name = "refresh_token_metadata", columnDefinition = "TEXT")
     private String refreshTokenMetadata;
 
-    @Column(name = "oidc_id_token_value", columnDefinition="TEXT")
+    @Column(name = "oidc_id_token_value", columnDefinition = "TEXT")
     private String oidcIdTokenValue;
 
     @Column(name = "oidc_id_token_issued_at")
@@ -128,7 +128,7 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "oidc_id_token_expires_at")
     private LocalDateTime oidcIdTokenExpiresAt;
 
-    @Column(name = "oidc_id_token_metadata", columnDefinition="TEXT")
+    @Column(name = "oidc_id_token_metadata", columnDefinition = "TEXT")
     private String oidcIdTokenMetadata;
 
     @Column(name = "oidc_id_token_claims", length = 2000)

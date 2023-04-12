@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ * <http://www.apache.org/licenses/LICENSE-2.0>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,12 +18,14 @@
  * 1.请不要删除和修改根目录下的LICENSE文件。
  * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
+ * 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
 package cn.herodotus.engine.supplier.upms.logic.constants;
+
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: Upms 模块常量 </p>
@@ -31,26 +33,18 @@ package cn.herodotus.engine.supplier.upms.logic.constants;
  * @author : gengwei.zheng
  * @date : 2022/2/16 18:19
  */
-public interface UpmsConstants {
+public interface UpmsConstants extends BaseConstants {
 
-    String AREA_PREFIX = "data:upms:";
+    String UPMS_AREA_PREFIX = AREA_PREFIX + "upms:";
 
-    String REGION_SYS_USER = AREA_PREFIX + "sys:user";
-    String REGION_SYS_ROLE = AREA_PREFIX + "sys:role";
-    String REGION_SYS_DEFAULT_ROLE = AREA_PREFIX + "sys:defaults:role";
-    String REGION_SYS_AUTHORITY = AREA_PREFIX + "sys:authority";
-    String REGION_SYS_INTERFACE = AREA_PREFIX + "sys:interface";
-    String REGION_SYS_PERMISSION = AREA_PREFIX + "sys:permission";
-    String REGION_SYS_SCOPE = AREA_PREFIX + "sys:scope";
-    String REGION_SYS_ATTRIBUTE = AREA_PREFIX + "sys:attribute";
-    String REGION_SYS_OWNERSHIP = AREA_PREFIX + "sys:ownership";
-    String REGION_SYS_ELEMENT = AREA_PREFIX + "sys:element";
-    String REGION_SYS_SOCIAL_USER = AREA_PREFIX + "sys:social:user";
-    String REGION_SYS_CLIENT = AREA_PREFIX + "sys:client";
-
-    String REGION_SYS_DEPARTMENT = AREA_PREFIX + "sys:department";
-    String REGION_SYS_EMPLOYEE = AREA_PREFIX + "sys:employee";
-    String REGION_SYS_EMPLOYEE_DEPARTMENT = AREA_PREFIX + "sys:employee:department";
-    String REGION_SYS_ORGANIZATION = AREA_PREFIX + "sys:organization";
-    String REGION_SYS_POSITION = AREA_PREFIX + "sys:position";
+    String REGION_SYS_USER = UPMS_AREA_PREFIX + "sys:user";
+    String REGION_SYS_ROLE = UPMS_AREA_PREFIX + "sys:role";
+    String REGION_SYS_DEFAULT_ROLE = UPMS_AREA_PREFIX + "sys:defaults:role";
+    String REGION_SYS_PERMISSION = UPMS_AREA_PREFIX + "sys:permission";
+    String REGION_SYS_OWNERSHIP = UPMS_AREA_PREFIX + "sys:ownership";
+    String REGION_SYS_ELEMENT = UPMS_AREA_PREFIX + "sys:element";
+    String REGION_SYS_SOCIAL_USER = UPMS_AREA_PREFIX + "sys:social:user";
+    String REGION_SYS_DEPARTMENT = UPMS_AREA_PREFIX + "sys:department";
+    String REGION_SYS_EMPLOYEE = UPMS_AREA_PREFIX + "sys:employee";
+    String REGION_SYS_ORGANIZATION = UPMS_AREA_PREFIX + "sys:organization";
 }
