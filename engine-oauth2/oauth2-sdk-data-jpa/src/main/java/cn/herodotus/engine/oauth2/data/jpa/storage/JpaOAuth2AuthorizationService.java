@@ -41,11 +41,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.OAuth2RefreshToken;
-import org.springframework.security.oauth2.core.OAuth2Token;
+import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationCode;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
@@ -149,6 +148,12 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
             result = this.herodotusAuthorizationService.findByAccessToken(token);
         } else if (OAuth2ParameterNames.REFRESH_TOKEN.equals(tokenType.getValue())) {
             result = this.herodotusAuthorizationService.findByRefreshToken(token);
+        } else if (OidcParameterNames.ID_TOKEN.equals(tokenType.getValue())) {
+            result = this.herodotusAuthorizationService.findByOidcIdTokenValue(token);
+        } else if (OAuth2ParameterNames.USER_CODE.equals(tokenType.getValue())) {
+            result = this.herodotusAuthorizationService.findByUserCodeValue(token);
+        } else if (OAuth2ParameterNames.DEVICE_CODE.equals(tokenType.getValue())) {
+            result = this.herodotusAuthorizationService.findByDeviceCodeValue(token);
         } else {
             result = Optional.empty();
         }
@@ -209,6 +214,22 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
             builder.token(idToken, metadata -> metadata.putAll(parseMap(entity.getOidcIdTokenMetadata())));
         }
 
+        if (entity.getUserCodeValue() != null) {
+            OAuth2UserCode userCode = new OAuth2UserCode(
+                    entity.getUserCodeValue(),
+                    DateUtil.toInstant(entity.getUserCodeIssuedAt()),
+                    DateUtil.toInstant(entity.getUserCodeExpiresAt()));
+            builder.token(userCode, metadata -> metadata.putAll(parseMap(entity.getUserCodeMetadata())));
+        }
+
+        if (entity.getDeviceCodeValue() != null) {
+            OAuth2DeviceCode deviceCode = new OAuth2DeviceCode(
+                    entity.getDeviceCodeValue(),
+                    DateUtil.toInstant(entity.getDeviceCodeIssuedAt()),
+                    DateUtil.toInstant(entity.getDeviceCodeExpiresAt()));
+            builder.token(deviceCode, metadata -> metadata.putAll(parseMap(entity.getDeviceCodeMetadata())));
+        }
+
         return builder.build();
     }
 
@@ -266,6 +287,26 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
         if (oidcIdToken != null) {
             entity.setOidcIdTokenClaims(writeMap(oidcIdToken.getClaims()));
         }
+
+        OAuth2Authorization.Token<OAuth2UserCode> userCode =
+                authorization.getToken(OAuth2UserCode.class);
+        setTokenValues(
+                userCode,
+                entity::setUserCodeValue,
+                entity::setUserCodeIssuedAt,
+                entity::setUserCodeExpiresAt,
+                entity::setUserCodeMetadata
+        );
+
+        OAuth2Authorization.Token<OAuth2DeviceCode> deviceCode =
+                authorization.getToken(OAuth2DeviceCode.class);
+        setTokenValues(
+                deviceCode,
+                entity::setDeviceCodeValue,
+                entity::setDeviceCodeIssuedAt,
+                entity::setDeviceCodeExpiresAt,
+                entity::setDeviceCodeMetadata
+        );
 
         return entity;
     }

@@ -91,6 +91,24 @@ public class HerodotusAuthorizationService extends BaseService<HerodotusAuthoriz
         return result;
     }
 
+    public Optional<HerodotusAuthorization> findByOidcIdTokenValue(String idToken) {
+        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByOidcIdTokenValue(idToken);
+        log.debug("[Herodotus] |- HerodotusAuthorization Service findByOidcIdTokenValue.");
+        return result;
+    }
+
+    public Optional<HerodotusAuthorization> findByUserCodeValue(String userCode) {
+        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByUserCodeValue(userCode);
+        log.debug("[Herodotus] |- HerodotusAuthorization Service findByUserCodeValue.");
+        return result;
+    }
+
+    public Optional<HerodotusAuthorization> findByDeviceCodeValue(String deviceCode) {
+        Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findByDeviceCodeValue(deviceCode);
+        log.debug("[Herodotus] |- HerodotusAuthorization Service findByDeviceCodeValue.");
+        return result;
+    }
+
     public Optional<HerodotusAuthorization> findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValue(String token) {
 
         Specification<HerodotusAuthorization> specification = (root, criteriaQuery, criteriaBuilder) -> {

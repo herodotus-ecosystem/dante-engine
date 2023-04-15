@@ -82,6 +82,33 @@ public interface HerodotusAuthorizationRepository extends BaseRepository<Herodot
     Optional<HerodotusAuthorization> findByRefreshTokenValue(String refreshToken);
 
     /**
+     * 根据 Id Token 查询 OAuth2 认证信息
+     *
+     * @param idToken OAuth2 idToken
+     * @return OAuth2 认证信息 {@link HerodotusAuthorization}
+     */
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
+    Optional<HerodotusAuthorization> findByOidcIdTokenValue(String idToken);
+
+    /**
+     * 根据 User Code 查询 OAuth2 认证信息
+     *
+     * @param userCode OAuth2 userCode
+     * @return OAuth2 认证信息 {@link HerodotusAuthorization}
+     */
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
+    Optional<HerodotusAuthorization> findByUserCodeValue(String userCode);
+
+    /**
+     * 根据 Device Code 查询 OAuth2 认证信息
+     *
+     * @param deviceCode OAuth2 deviceCode
+     * @return OAuth2 认证信息 {@link HerodotusAuthorization}
+     */
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
+    Optional<HerodotusAuthorization> findByDeviceCodeValue(String deviceCode);
+
+    /**
      * 根据客户端ID和用户名查询未过期Token
      *
      * @param registeredClientId 客户端ID

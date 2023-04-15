@@ -44,11 +44,7 @@ import java.time.LocalDateTime;
 @Table(name = "oauth2_authorization", indexes = {
         @Index(name = "oauth2_authorization_id_idx", columnList = "id"),
         @Index(name = "oauth2_authorization_rci_idx", columnList = "registered_client_id"),
-        @Index(name = "oauth2_authorization_pn_idx", columnList = "principal_name"),
-        @Index(name = "oauth2_authorization_atia_idx", columnList = "access_token_issued_at"),
-        @Index(name = "oauth2_authorization_atea_idx", columnList = "access_token_expires_at"),
-        @Index(name = "oauth2_authorization_rtia_idx", columnList = "refresh_token_issued_at"),
-        @Index(name = "oauth2_authorization_rtea_idx", columnList = "refresh_token_expires_at")}
+        @Index(name = "oauth2_authorization_pn_idx", columnList = "principal_name")}
 )
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_AUTHORIZATION)
@@ -107,18 +103,6 @@ public class HerodotusAuthorization extends AbstractEntity {
     @Column(name = "access_token_scopes", length = 1000)
     private String accessTokenScopes;
 
-    @Column(name = "refresh_token", columnDefinition = "TEXT")
-    private String refreshTokenValue;
-
-    @Column(name = "refresh_token_issued_at")
-    private LocalDateTime refreshTokenIssuedAt;
-
-    @Column(name = "refresh_token_expires_at")
-    private LocalDateTime refreshTokenExpiresAt;
-
-    @Column(name = "refresh_token_metadata", columnDefinition = "TEXT")
-    private String refreshTokenMetadata;
-
     @Column(name = "oidc_id_token_value", columnDefinition = "TEXT")
     private String oidcIdTokenValue;
 
@@ -133,6 +117,42 @@ public class HerodotusAuthorization extends AbstractEntity {
 
     @Column(name = "oidc_id_token_claims", length = 2000)
     private String oidcIdTokenClaims;
+
+    @Column(name = "refresh_token_value", columnDefinition = "TEXT")
+    private String refreshTokenValue;
+
+    @Column(name = "refresh_token_issued_at")
+    private LocalDateTime refreshTokenIssuedAt;
+
+    @Column(name = "refresh_token_expires_at")
+    private LocalDateTime refreshTokenExpiresAt;
+
+    @Column(name = "refresh_token_metadata", columnDefinition = "TEXT")
+    private String refreshTokenMetadata;
+
+    @Column(name = "user_code_value", columnDefinition = "TEXT")
+    private String userCodeValue;
+
+    @Column(name = "user_code_issued_at")
+    private LocalDateTime userCodeIssuedAt;
+
+    @Column(name = "user_code_expires_at")
+    private LocalDateTime userCodeExpiresAt;
+
+    @Column(name = "user_code_metadata", columnDefinition = "TEXT")
+    private String userCodeMetadata;
+
+    @Column(name = "device_code_value", columnDefinition = "TEXT")
+    private String deviceCodeValue;
+
+    @Column(name = "device_code_issued_at")
+    private LocalDateTime deviceCodeIssuedAt;
+
+    @Column(name = "device_code_expires_at")
+    private LocalDateTime deviceCodeExpiresAt;
+
+    @Column(name = "device_code_metadata", columnDefinition = "TEXT")
+    private String deviceCodeMetadata;
 
     public String getId() {
         return id;
@@ -270,38 +290,6 @@ public class HerodotusAuthorization extends AbstractEntity {
         this.accessTokenScopes = accessTokenScopes;
     }
 
-    public String getRefreshTokenValue() {
-        return refreshTokenValue;
-    }
-
-    public void setRefreshTokenValue(String refreshTokenValue) {
-        this.refreshTokenValue = refreshTokenValue;
-    }
-
-    public LocalDateTime getRefreshTokenIssuedAt() {
-        return refreshTokenIssuedAt;
-    }
-
-    public void setRefreshTokenIssuedAt(LocalDateTime refreshTokenIssuedAt) {
-        this.refreshTokenIssuedAt = refreshTokenIssuedAt;
-    }
-
-    public LocalDateTime getRefreshTokenExpiresAt() {
-        return refreshTokenExpiresAt;
-    }
-
-    public void setRefreshTokenExpiresAt(LocalDateTime refreshTokenExpiresAt) {
-        this.refreshTokenExpiresAt = refreshTokenExpiresAt;
-    }
-
-    public String getRefreshTokenMetadata() {
-        return refreshTokenMetadata;
-    }
-
-    public void setRefreshTokenMetadata(String refreshTokenMetadata) {
-        this.refreshTokenMetadata = refreshTokenMetadata;
-    }
-
     public String getOidcIdTokenValue() {
         return oidcIdTokenValue;
     }
@@ -340,6 +328,102 @@ public class HerodotusAuthorization extends AbstractEntity {
 
     public void setOidcIdTokenClaims(String oidcIdTokenClaims) {
         this.oidcIdTokenClaims = oidcIdTokenClaims;
+    }
+
+    public String getRefreshTokenValue() {
+        return refreshTokenValue;
+    }
+
+    public void setRefreshTokenValue(String refreshTokenValue) {
+        this.refreshTokenValue = refreshTokenValue;
+    }
+
+    public LocalDateTime getRefreshTokenIssuedAt() {
+        return refreshTokenIssuedAt;
+    }
+
+    public void setRefreshTokenIssuedAt(LocalDateTime refreshTokenIssuedAt) {
+        this.refreshTokenIssuedAt = refreshTokenIssuedAt;
+    }
+
+    public LocalDateTime getRefreshTokenExpiresAt() {
+        return refreshTokenExpiresAt;
+    }
+
+    public void setRefreshTokenExpiresAt(LocalDateTime refreshTokenExpiresAt) {
+        this.refreshTokenExpiresAt = refreshTokenExpiresAt;
+    }
+
+    public String getRefreshTokenMetadata() {
+        return refreshTokenMetadata;
+    }
+
+    public void setRefreshTokenMetadata(String refreshTokenMetadata) {
+        this.refreshTokenMetadata = refreshTokenMetadata;
+    }
+
+    public String getUserCodeValue() {
+        return userCodeValue;
+    }
+
+    public void setUserCodeValue(String userCodeValue) {
+        this.userCodeValue = userCodeValue;
+    }
+
+    public LocalDateTime getUserCodeIssuedAt() {
+        return userCodeIssuedAt;
+    }
+
+    public void setUserCodeIssuedAt(LocalDateTime userCodeIssuedAt) {
+        this.userCodeIssuedAt = userCodeIssuedAt;
+    }
+
+    public LocalDateTime getUserCodeExpiresAt() {
+        return userCodeExpiresAt;
+    }
+
+    public void setUserCodeExpiresAt(LocalDateTime userCodeExpiresAt) {
+        this.userCodeExpiresAt = userCodeExpiresAt;
+    }
+
+    public String getUserCodeMetadata() {
+        return userCodeMetadata;
+    }
+
+    public void setUserCodeMetadata(String userCodeMetadata) {
+        this.userCodeMetadata = userCodeMetadata;
+    }
+
+    public String getDeviceCodeValue() {
+        return deviceCodeValue;
+    }
+
+    public void setDeviceCodeValue(String deviceCodeValue) {
+        this.deviceCodeValue = deviceCodeValue;
+    }
+
+    public LocalDateTime getDeviceCodeIssuedAt() {
+        return deviceCodeIssuedAt;
+    }
+
+    public void setDeviceCodeIssuedAt(LocalDateTime deviceCodeIssuedAt) {
+        this.deviceCodeIssuedAt = deviceCodeIssuedAt;
+    }
+
+    public LocalDateTime getDeviceCodeExpiresAt() {
+        return deviceCodeExpiresAt;
+    }
+
+    public void setDeviceCodeExpiresAt(LocalDateTime deviceCodeExpiresAt) {
+        this.deviceCodeExpiresAt = deviceCodeExpiresAt;
+    }
+
+    public String getDeviceCodeMetadata() {
+        return deviceCodeMetadata;
+    }
+
+    public void setDeviceCodeMetadata(String deviceCodeMetadata) {
+        this.deviceCodeMetadata = deviceCodeMetadata;
     }
 
     @Override

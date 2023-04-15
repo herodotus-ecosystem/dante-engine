@@ -116,9 +116,7 @@
         <mapstruct-processor.version>1.5.3.Final</mapstruct-processor.version>
         <maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-        <maven-embedder.version>3.9.1</maven-embedder.version>
-        <maven-compat.version>3.9.1</maven-compat.version>
-        <maven-invoker.verison>3.2.0</maven-invoker.verison>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 
         <!--开源通用工具包-->
         <antisamy.version>1.7.2</antisamy.version>
@@ -617,24 +615,6 @@
             </dependency>
 
             <!-- Maven 相关依赖 -->
-            <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-embedder -->
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-embedder</artifactId>
-                <version>${maven-embedder.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-compat -->
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-compat</artifactId>
-                <version>${maven-compat.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.maven.shared/maven-invoker -->
-            <dependency>
-                <groupId>org.apache.maven.shared</groupId>
-                <artifactId>maven-invoker</artifactId>
-                <version>${maven-invoker.verison}</version>
-            </dependency>
 
             <!-- 开源通用工具包 -->
             <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
@@ -1173,6 +1153,17 @@
                         </gitDescribe>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-maven-plugin.version}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>sonatype-nexus-release</serverId>
+                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -1194,6 +1185,10 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>
