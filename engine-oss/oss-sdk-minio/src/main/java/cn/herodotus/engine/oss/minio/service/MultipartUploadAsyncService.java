@@ -26,7 +26,8 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
-import cn.herodotus.engine.oss.minio.core.MinioAsyncClient;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioAsyncClient;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioAsyncClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioAsyncService;
 import com.google.common.collect.Multimap;
 import io.minio.CreateMultipartUploadResponse;
@@ -55,6 +56,10 @@ import java.util.concurrent.ExecutionException;
 public class MultipartUploadAsyncService extends BaseMinioAsyncService {
 
     private static final Logger log = LoggerFactory.getLogger(MultipartUploadAsyncService.class);
+
+    public MultipartUploadAsyncService(MinioAsyncClientObjectPool minioAsyncClientObjectPool) {
+        super(minioAsyncClientObjectPool);
+    }
 
     /**
      * 创建分片上传请求
@@ -93,7 +98,7 @@ public class MultipartUploadAsyncService extends BaseMinioAsyncService {
     }
 
     /**
-     * 创建分片上传请求
+     * 创建分片上传请求, 返回 UploadId
      *
      * @param bucketName       存储桶
      * @param region           区域

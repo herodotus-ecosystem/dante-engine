@@ -25,11 +25,8 @@
 
 package cn.herodotus.engine.oss.minio.definition.service;
 
-import cn.herodotus.engine.oss.minio.core.MinioAsyncClient;
-import cn.herodotus.engine.oss.minio.core.MinioAsyncClientObjectPool;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioAsyncClient;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioAsyncClientObjectPool;
 
 /**
  * <p>Description: Minio 基础异步服务 </p>
@@ -39,10 +36,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class BaseMinioAsyncService {
 
-    private static final Logger log = LoggerFactory.getLogger(BaseMinioAsyncService.class);
+    private final MinioAsyncClientObjectPool minioAsyncClientObjectPool;
 
-    @Autowired
-    private MinioAsyncClientObjectPool minioAsyncClientObjectPool;
+    public BaseMinioAsyncService(MinioAsyncClientObjectPool minioAsyncClientObjectPool) {
+        this.minioAsyncClientObjectPool = minioAsyncClientObjectPool;
+    }
 
     protected MinioAsyncClient getMinioClient() {
         return minioAsyncClientObjectPool.getMinioClient();

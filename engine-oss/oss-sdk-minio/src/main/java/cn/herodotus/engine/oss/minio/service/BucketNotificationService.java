@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
 import io.minio.DeleteBucketNotificationArgs;
 import io.minio.GetBucketNotificationArgs;
@@ -51,6 +52,10 @@ import java.security.NoSuchAlgorithmException;
 public class BucketNotificationService extends BaseMinioService {
 
     private static final Logger log = LoggerFactory.getLogger(BucketNotificationService.class);
+
+    public BucketNotificationService(MinioClientObjectPool minioClientObjectPool) {
+        super(minioClientObjectPool);
+    }
 
     /**
      * 设置 Bucket 通知

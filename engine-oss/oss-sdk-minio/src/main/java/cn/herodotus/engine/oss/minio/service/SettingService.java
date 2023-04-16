@@ -28,12 +28,10 @@ package cn.herodotus.engine.oss.minio.service;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import io.minio.DeleteBucketTagsArgs;
-import io.minio.GetBucketTagsArgs;
+import io.minio.DisableObjectLegalHoldArgs;
+import io.minio.EnableObjectLegalHoldArgs;
 import io.minio.MinioClient;
-import io.minio.SetBucketTagsArgs;
 import io.minio.errors.*;
-import io.minio.messages.Tags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -41,77 +39,143 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
 
 /**
- * <p>Description: Bucket 标签服务 </p>
- * 当为桶添加标签时，该桶上所有请求产生的计费话单里都会带上这些标签，从而可以针对话单报表做分类筛选，进行更详细的成本分析。例如：某个应用程序在运行过程会往桶里上传数据，我们可以用应用名称作为标签，设置到被使用的桶上。在分析话单时，就可以通过应用名称的标签来分析此应用的成本
+ * <p>Description: 设置相关操作 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/6/30 15:58
+ * @date : 2023/4/16 16:10
  */
 @Service
-public class BucketTagsService extends BaseMinioService {
+public class SettingService extends BaseMinioService {
 
-    private static final Logger log = LoggerFactory.getLogger(BucketPolicyService.class);
-
-    public BucketTagsService(MinioClientObjectPool minioClientObjectPool) {
+    private static final Logger log = LoggerFactory.getLogger(SettingService.class);
+    public SettingService(MinioClientObjectPool minioClientObjectPool) {
         super(minioClientObjectPool);
     }
 
     /**
-     * 设置 Bucket 标签
-     *
-     * @param bucketName bucketName
-     * @param tags       {@link Tags}
+     * Disables accelerate endpoint for Amazon S3 endpoint.
      */
-    public void setBucketTags(String bucketName, Tags tags) {
-        setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).tags(tags).build());
+    public void disableAccelerateEndpoint() {
+        MinioClient minioClient = getMinioClient();
+        minioClient.disableAccelerateEndpoint();
     }
 
     /**
-     * 设置 Bucket 标签
+     * Enables accelerate endpoint for Amazon S3 endpoint.
+     */
+    public void enableAccelerateEndpoint() {
+        MinioClient minioClient = getMinioClient();
+        minioClient.enableAccelerateEndpoint();
+    }
+
+    /**
+     * Disables dual-stack endpoint for Amazon S3 endpoint.
+     */
+    public void disableDualStackEndpoint() {
+        MinioClient minioClient = getMinioClient();
+        minioClient.disableDualStackEndpoint();
+    }
+
+    /**
+     * Enables dual-stack endpoint for Amazon S3 endpoint.
+     */
+    public void enableDualStackEndpoint() {
+        MinioClient minioClient = getMinioClient();
+        minioClient.enableDualStackEndpoint();
+    }
+
+    /**
+     * Disables virtual-style endpoint
+     */
+    public void disableVirtualStyleEndpoint() {
+        MinioClient minioClient = getMinioClient();
+        minioClient.disableVirtualStyleEndpoint();
+    }
+
+    /**
+     * Enables virtual-style endpoint.
+     */
+    public void enableVirtualStyleEndpoint() {
+        MinioClient minioClient = getMinioClient();
+        minioClient.enableVirtualStyleEndpoint();
+    }
+
+    /**
+     * Sets HTTP connect, write and read timeouts. A value of 0 means no timeout, otherwise values
+     * must be between 1 and Integer.MAX_VALUE when converted to milliseconds.
+     *
+     * <pre>Example:{@code
+     * minioClient.setTimeout(TimeUnit.SECONDS.toMillis(10), TimeUnit.SECONDS.toMillis(10),
+     *     TimeUnit.SECONDS.toMillis(30));
+     * }</pre>
+     *
+     * @param connectTimeout HTTP connect timeout in milliseconds.
+     * @param writeTimeout HTTP write timeout in milliseconds.
+     * @param readTimeout HTTP read timeout in milliseconds.
+     */
+    public void setTimeout(long connectTimeout, long writeTimeout, long readTimeout) {
+        MinioClient minioClient = getMinioClient();
+        minioClient.setTimeout(connectTimeout, writeTimeout, readTimeout);
+    }
+
+    /**
+     * Sets application's name/version to user agent. For more information about user agent refer <a
+     * href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">#rfc2616</a>.
+     *
+     * @param name Your application name.
+     * @param version Your application version.
+     */
+    public void setAppInfo(String name, String version) {
+        MinioClient minioClient = getMinioClient();
+        minioClient.setAppInfo(name, version);
+    }
+
+    /**
+     * 启用对对象的合法保留
      *
      * @param bucketName bucketName
+     * @param objectName objectName
+     */
+    public void enableObjectLegalHold(String bucketName, String objectName) {
+        enableObjectLegalHold(EnableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
+    }
+
+    /**
+     * 启用对对象的合法保留
+     *
+     * @param bucketName bucketName
+     * @param objectName objectName
+     * @param versionId  versionId
+     */
+    public void enableObjectLegalHold(String bucketName, String objectName, String versionId) {
+        enableObjectLegalHold(EnableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).build());
+    }
+
+    /**
+     * 启用对对象的合法保留
+     *
+     * @param bucketName bucketName
+     * @param objectName objectName
      * @param region     region
-     * @param tags       tags
+     * @param versionId  versionId
      */
-    public void setBucketTags(String bucketName, String region, Tags tags) {
-        setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).region(region).tags(tags).build());
+    public void enableObjectLegalHold(String bucketName, String objectName, String region, String versionId) {
+        enableObjectLegalHold(EnableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).build());
     }
 
     /**
-     * 设置 Bucket 标签
+     * 启用对对象的合法保留
      *
-     * @param bucketName bucketName
-     * @param tags       {@link Map}
+     * @param enableObjectLegalHoldArgs {@link EnableObjectLegalHoldArgs}
      */
-    public void setBucketTags(String bucketName, Map<String, String> tags) {
-        setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).tags(tags).build());
-    }
-
-    /**
-     * 设置 Bucket 标签
-     *
-     * @param bucketName bucketName
-     * @param region     region
-     * @param tags       {@link Map}
-     */
-    public void setBucketTags(String bucketName, String region, Map<String, String> tags) {
-        setBucketTags(SetBucketTagsArgs.builder().bucket(bucketName).region(region).tags(tags).build());
-    }
-
-    /**
-     * 设置 Bucket 标签
-     *
-     * @param setBucketTagsArgs {@link SetBucketTagsArgs}
-     */
-    public void setBucketTags(SetBucketTagsArgs setBucketTagsArgs) {
-        String function = "setBucketTags";
+    public void enableObjectLegalHold(EnableObjectLegalHoldArgs enableObjectLegalHoldArgs) {
+        String function = "enableObjectLegalHold";
         MinioClient minioClient = getMinioClient();
 
         try {
-            minioClient.setBucketTags(setBucketTagsArgs);
+            minioClient.enableObjectLegalHold(enableObjectLegalHoldArgs);
         } catch (ErrorResponseException e) {
             log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
             throw new OssErrorResponseException("Minio response error.");
@@ -145,99 +209,49 @@ public class BucketTagsService extends BaseMinioService {
     }
 
     /**
-     * 获取 Bucket 标签配置
+     * 禁用对对象的合法保留。
      *
      * @param bucketName bucketName
-     * @return {@link Tags}
+     * @param objectName objectName
      */
-    public Tags getBucketTags(String bucketName) {
-        return getBucketTags(GetBucketTagsArgs.builder().bucket(bucketName).build());
+    public void disableObjectLegalHold(String bucketName, String objectName) {
+        disableObjectLegalHold(DisableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
     }
 
     /**
-     * 获取 Bucket 标签配置
+     * 禁用对对象的合法保留。
      *
      * @param bucketName bucketName
+     * @param objectName objectName
+     * @param versionId  versionId
+     */
+    public void disableObjectLegalHold(String bucketName, String objectName, String versionId) {
+        disableObjectLegalHold(DisableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).build());
+    }
+
+    /**
+     * 禁用对对象的合法保留。
+     *
+     * @param bucketName bucketName
+     * @param objectName objectName
      * @param region     region
-     * @return {@link Tags}
+     * @param versionId  versionId
      */
-    public Tags getBucketTags(String bucketName, String region) {
-        return getBucketTags(GetBucketTagsArgs.builder().bucket(bucketName).region(region).build());
+    public void disableObjectLegalHold(String bucketName, String objectName, String region, String versionId) {
+        disableObjectLegalHold(DisableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).build());
     }
 
     /**
-     * 获取 Bucket 标签配置
+     * 禁用对对象的合法保留。
      *
-     * @param getBucketTagsArgs {@link GetBucketTagsArgs}
+     * @param disableObjectLegalHoldArgs {@link DisableObjectLegalHoldArgs}
      */
-    public Tags getBucketTags(GetBucketTagsArgs getBucketTagsArgs) {
-        String function = "getBucketTags";
+    public void disableObjectLegalHold(DisableObjectLegalHoldArgs disableObjectLegalHoldArgs) {
+        String function = "disableObjectLegalHold";
         MinioClient minioClient = getMinioClient();
 
         try {
-            return minioClient.getBucketTags(getBucketTagsArgs);
-        } catch (ErrorResponseException e) {
-            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
-            throw new OssErrorResponseException("Minio response error.");
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio key invalid.");
-        } catch (InvalidResponseException e) {
-            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
-            throw new OssInvalidResponseException("Minio response invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
-        } catch (ServerException e) {
-            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
-            throw new OssServerException("Minio server error.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio catch XmlParserException in createBucket.", e);
-            throw new OssXmlParserException("Minio xml parser error.");
-        } finally {
-            close(minioClient);
-        }
-    }
-
-    /**
-     * 删除 Bucket 标签
-     *
-     * @param bucketName bucketName
-     */
-    public void deleteBucketTags(String bucketName) {
-        deleteBucketTags(DeleteBucketTagsArgs.builder().bucket(bucketName).build());
-    }
-
-    /**
-     * 删除 Bucket 标签
-     *
-     * @param bucketName bucketName
-     * @param region     region
-     */
-    public void deleteBucketTags(String bucketName, String region) {
-        deleteBucketTags(DeleteBucketTagsArgs.builder().bucket(bucketName).region(region).build());
-    }
-
-    /**
-     * 删除 Bucket 标签
-     *
-     * @param deleteBucketTagsArgs {@link DeleteBucketTagsArgs}
-     */
-    public void deleteBucketTags(DeleteBucketTagsArgs deleteBucketTagsArgs) {
-        String function = "deleteBucketTags";
-        MinioClient minioClient = getMinioClient();
-
-        try {
-            minioClient.deleteBucketTags(deleteBucketTagsArgs);
+            minioClient.disableObjectLegalHold(disableObjectLegalHoldArgs);
         } catch (ErrorResponseException e) {
             log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
             throw new OssErrorResponseException("Minio response error.");

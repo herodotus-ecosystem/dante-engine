@@ -26,8 +26,8 @@
 package cn.herodotus.engine.oss.minio.configuration;
 
 import cn.herodotus.engine.oss.minio.annotation.ConditionalOnMinioEnabled;
-import cn.herodotus.engine.oss.minio.core.MinioAsyncClientObjectPool;
-import cn.herodotus.engine.oss.minio.core.MinioClientObjectPool;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioAsyncClientObjectPool;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.properties.MinioProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;

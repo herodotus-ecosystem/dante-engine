@@ -26,10 +26,11 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import io.minio.DisableObjectLegalHoldArgs;
-import io.minio.EnableObjectLegalHoldArgs;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
+import io.minio.PostPolicy;
 import io.minio.errors.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,61 +39,36 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Map;
 
 /**
- * <p>Description: Minio 对象合法保留服务 </p>
+ * <p>Description: Presigned 相关操作 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/6/30 21:15
+ * @date : 2023/4/16 15:57
  */
 @Service
-public class ObjectLegalHoldService extends BaseMinioService {
-    private static final Logger log = LoggerFactory.getLogger(BucketVersioningService.class);
+public class PresignedService extends BaseMinioService {
 
-    /**
-     * 启用对对象的合法保留
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     */
-    public void enableObjectLegalHold(String bucketName, String objectName) {
-        enableObjectLegalHold(EnableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
+    private static final Logger log = LoggerFactory.getLogger(PresignedService.class);
+    public PresignedService(MinioClientObjectPool minioClientObjectPool) {
+        super(minioClientObjectPool);
     }
 
     /**
-     * 启用对对象的合法保留
+     * 使用此方法，获取对象的上传策略（包含签名、文件信息、路径等），然后使用这些信息采用POST 方法的表单数据上传数据。也就是可以生成一个临时上传的信息对象，第三方可以使用这些信息，就可以上传文件。
+     * <p>
+     * 一般可用于，前端请求一个上传策略，后端返回给前端，前端使用Post请求+访问策略去上传文件，这可以用于JS+SDK的混合方式集成
      *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param versionId  versionId
+     * @param postPolicy {@link PostPolicy}
+     * @return {@link  Map}
      */
-    public void enableObjectLegalHold(String bucketName, String objectName, String versionId) {
-        enableObjectLegalHold(EnableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).build());
-    }
-
-    /**
-     * 启用对对象的合法保留
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param versionId  versionId
-     */
-    public void enableObjectLegalHold(String bucketName, String objectName, String region, String versionId) {
-        enableObjectLegalHold(EnableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).build());
-    }
-
-    /**
-     * 启用对对象的合法保留
-     *
-     * @param enableObjectLegalHoldArgs {@link EnableObjectLegalHoldArgs}
-     */
-    public void enableObjectLegalHold(EnableObjectLegalHoldArgs enableObjectLegalHoldArgs) {
-        String function = "enableObjectLegalHold";
+    public Map<String, String> getPresignedPostFormData(PostPolicy postPolicy) {
+        String function = "getPresignedPostFormData";
         MinioClient minioClient = getMinioClient();
 
         try {
-            minioClient.enableObjectLegalHold(enableObjectLegalHoldArgs);
+            return minioClient.getPresignedPostFormData(postPolicy);
         } catch (ErrorResponseException e) {
             log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
             throw new OssErrorResponseException("Minio response error.");
@@ -126,49 +102,17 @@ public class ObjectLegalHoldService extends BaseMinioService {
     }
 
     /**
-     * 禁用对对象的合法保留。
+     * 获取一个指定了 HTTP 方法、到期时间和自定义请求参数的对象URL地址，也就是返回带签名的URL，这个地址可以提供给没有登录的第三方共享访问或者上传对象。
      *
-     * @param bucketName bucketName
-     * @param objectName objectName
+     * @param getPresignedObjectUrlArgs {@link GetPresignedObjectUrlArgs}
+     * @return url string
      */
-    public void disableObjectLegalHold(String bucketName, String objectName) {
-        disableObjectLegalHold(DisableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).build());
-    }
-
-    /**
-     * 禁用对对象的合法保留。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param versionId  versionId
-     */
-    public void disableObjectLegalHold(String bucketName, String objectName, String versionId) {
-        disableObjectLegalHold(DisableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).build());
-    }
-
-    /**
-     * 禁用对对象的合法保留。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param versionId  versionId
-     */
-    public void disableObjectLegalHold(String bucketName, String objectName, String region, String versionId) {
-        disableObjectLegalHold(DisableObjectLegalHoldArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).build());
-    }
-
-    /**
-     * 禁用对对象的合法保留。
-     *
-     * @param disableObjectLegalHoldArgs {@link DisableObjectLegalHoldArgs}
-     */
-    public void disableObjectLegalHold(DisableObjectLegalHoldArgs disableObjectLegalHoldArgs) {
-        String function = "disableObjectLegalHold";
+    public String getPresignedObjectUrl(GetPresignedObjectUrlArgs getPresignedObjectUrlArgs) {
+        String function = "getPresignedObjectUrl";
         MinioClient minioClient = getMinioClient();
 
         try {
-            minioClient.disableObjectLegalHold(disableObjectLegalHoldArgs);
+            return minioClient.getPresignedObjectUrl(getPresignedObjectUrlArgs);
         } catch (ErrorResponseException e) {
             log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
             throw new OssErrorResponseException("Minio response error.");

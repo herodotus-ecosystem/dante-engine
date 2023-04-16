@@ -23,32 +23,37 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.core;
+package cn.herodotus.engine.oss.minio.definition.pool;
+
 
 import cn.herodotus.engine.oss.core.exception.OssClientPoolErrorException;
 import cn.herodotus.engine.oss.minio.properties.MinioProperties;
+import io.minio.MinioClient;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
- * <p>Description: Minio 异步 Client 对象池 </p>
+ * <p>Description: Minio 客户端连接池 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/3 20:29
+ * @date : 2021/11/8 10:54
  */
-public class MinioAsyncClientObjectPool {
+@Component
+public class MinioClientObjectPool {
 
-    private static final Logger log = LoggerFactory.getLogger(MinioAsyncClientObjectPool.class);
+    private static final Logger log = LoggerFactory.getLogger(MinioClientObjectPool.class);
 
-    private final GenericObjectPool<MinioAsyncClient> minioAsyncClientPool;
+    private final GenericObjectPool<MinioClient> genericObjectPool;
 
-    public MinioAsyncClientObjectPool(MinioProperties minioProperties) {
-        MinioAsyncClientPooledObjectFactory factory = new MinioAsyncClientPooledObjectFactory(minioProperties);
+    public MinioClientObjectPool(MinioProperties minioProperties) {
 
-        GenericObjectPoolConfig<MinioAsyncClient> config = new GenericObjectPoolConfig<>();
+        MinioClientPooledObjectFactory factory = new MinioClientPooledObjectFactory(minioProperties);
+
+        GenericObjectPoolConfig<MinioClient> config = new GenericObjectPoolConfig<>();
         config.setMaxTotal(minioProperties.getPool().getMaxTotal());
         config.setMaxIdle(minioProperties.getPool().getMaxIdle());
         config.setMinIdle(minioProperties.getPool().getMinIdle());
@@ -57,24 +62,23 @@ public class MinioAsyncClientObjectPool {
         config.setSoftMinEvictableIdleTime(minioProperties.getPool().getSoftMinEvictableIdleTime());
         config.setLifo(minioProperties.getPool().getLifo());
         config.setBlockWhenExhausted(minioProperties.getPool().getBlockWhenExhausted());
-        minioAsyncClientPool = new GenericObjectPool<>(factory, config);
+        genericObjectPool = new GenericObjectPool<>(factory, config);
     }
 
-    public MinioAsyncClient getMinioClient() throws OssClientPoolErrorException {
+    public MinioClient getMinioClient() throws OssClientPoolErrorException {
         try {
-            MinioAsyncClient minioAsyncClient = minioAsyncClientPool.borrowObject();
-            log.debug("[Herodotus] |- Fetch minio async client from object pool.");
-            return minioAsyncClient;
+            MinioClient minioClient = genericObjectPool.borrowObject();
+            log.debug("[Herodotus] |- Fetch minio client from object pool.");
+            return minioClient;
         } catch (Exception e) {
             log.error("[Herodotus] |- Can not fetch minio client from pool.");
-            throw new OssClientPoolErrorException("Can not fetch minio async client from pool.");
+            throw new OssClientPoolErrorException("Can not fetch minio client from pool.");
         }
     }
 
-
-    public void close(MinioAsyncClient minioAsyncClient) {
-        if (ObjectUtils.isNotEmpty(minioAsyncClient)) {
-            minioAsyncClientPool.returnObject(minioAsyncClient);
+    public void close(MinioClient minioClient) {
+        if (ObjectUtils.isNotEmpty(minioClient)) {
+            genericObjectPool.returnObject(minioClient);
         }
     }
 }

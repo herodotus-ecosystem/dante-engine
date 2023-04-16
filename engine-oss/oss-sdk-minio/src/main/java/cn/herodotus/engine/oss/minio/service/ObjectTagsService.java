@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
 import io.minio.DeleteObjectTagsArgs;
 import io.minio.GetObjectTagsArgs;
@@ -52,6 +53,10 @@ import java.util.Map;
 public class ObjectTagsService extends BaseMinioService {
 
     private static final Logger log = LoggerFactory.getLogger(ObjectTagsService.class);
+
+    public ObjectTagsService(MinioClientObjectPool minioClientObjectPool) {
+        super(minioClientObjectPool);
+    }
 
     /**
      * 为对象设置标签

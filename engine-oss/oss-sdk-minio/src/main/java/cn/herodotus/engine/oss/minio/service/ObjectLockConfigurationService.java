@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
 import io.minio.DeleteObjectLockConfigurationArgs;
 import io.minio.GetObjectLockConfigurationArgs;
@@ -52,6 +53,10 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class ObjectLockConfigurationService extends BaseMinioService {
     private static final Logger log = LoggerFactory.getLogger(ObjectLockConfigurationService.class);
+
+    public ObjectLockConfigurationService(MinioClientObjectPool minioClientObjectPool) {
+        super(minioClientObjectPool);
+    }
 
     /**
      * 设置对象锁定

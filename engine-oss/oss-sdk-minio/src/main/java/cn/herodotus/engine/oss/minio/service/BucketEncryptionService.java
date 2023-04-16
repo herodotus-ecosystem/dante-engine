@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
 import io.minio.DeleteBucketEncryptionArgs;
 import io.minio.GetBucketEncryptionArgs;
@@ -51,6 +52,10 @@ import java.security.NoSuchAlgorithmException;
 public class BucketEncryptionService extends BaseMinioService {
 
     private static final Logger log = LoggerFactory.getLogger(BucketEncryptionService.class);
+
+    public BucketEncryptionService(MinioClientObjectPool minioClientObjectPool) {
+        super(minioClientObjectPool);
+    }
 
     public void setBucketEncryption(String bucketName) {
         setBucketEncryption(SetBucketEncryptionArgs.builder().bucket(bucketName).build());

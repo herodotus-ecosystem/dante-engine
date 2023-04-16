@@ -102,9 +102,9 @@ public class BucketController implements Controller {
     @PostMapping("/create")
     public Result<String> create(@Validated @RequestBody CreateBucketDto domain) {
         if (StringUtils.isNotBlank(domain.getRegion())) {
-            bucketService.createBucket(domain.getBucketName(), domain.getRegion());
+            bucketService.makeBucket(domain.getBucketName(), domain.getRegion());
         } else {
-            bucketService.createBucket(domain.getBucketName());
+            bucketService.makeBucket(domain.getBucketName());
         }
         return result(true);
     }

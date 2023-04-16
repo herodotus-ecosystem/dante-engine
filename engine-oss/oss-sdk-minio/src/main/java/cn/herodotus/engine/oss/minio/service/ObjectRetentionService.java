@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
 import io.minio.GetObjectRetentionArgs;
 import io.minio.MinioClient;
@@ -50,6 +51,10 @@ import java.security.NoSuchAlgorithmException;
 public class ObjectRetentionService extends BaseMinioService {
 
     private static final Logger log = LoggerFactory.getLogger(ObjectRetentionService.class);
+
+    public ObjectRetentionService(MinioClientObjectPool minioClientObjectPool) {
+        super(minioClientObjectPool);
+    }
 
     /**
      * 添加对象的保留配置，存储桶需要设置为对象锁定模式，并且没有开启版本控制，否则会报错收蠕虫保护。
