@@ -23,25 +23,43 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.api.bucket;
+package cn.herodotus.engine.oss.minio.dto.request.base;
 
-import cn.herodotus.engine.oss.minio.definition.dto.api.BucketArgsDto;
-import io.minio.MakeBucketArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectRequest;
+import io.minio.ObjectVersionArgs;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * <p>Description: 创建桶是参数实体 </p>
- * <p>
- * 与 Create Bucket 不同，这里仅是创建，Create Bucket 包含桶是否存在检查
+ * <p>Description: ObjectVersionDto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 0:09
+ * @date : 2022/7/2 22:30
  */
-@Schema(name = "创建桶是参数实体", title = "创建桶是参数实体")
-public class MakeBucketArgsDto extends BucketArgsDto<MakeBucketArgs.Builder, MakeBucketArgs> {
+public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A> {
+
+    private String versionId;
+
+    public String getVersionId() {
+        return versionId;
+    }
+
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
 
     @Override
-    public MakeBucketArgs.Builder getBuilder() {
-        return MakeBucketArgs.builder();
+    protected void prepare(B builder) {
+        if (StringUtils.isNotEmpty(getVersionId())) {
+            builder.versionId(getVersionId());
+        }
+
+        super.prepare(builder);
+    }
+
+    @Override
+    public A build() {
+        B builder = getBuilder();
+        prepare(builder);
+        return builder.build();
     }
 }

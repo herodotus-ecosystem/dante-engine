@@ -44,7 +44,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -57,7 +56,6 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2019/11/18 8:12
  */
-@RestControllerAdvice
 public class SecurityGlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(SecurityGlobalExceptionHandler.class);

@@ -23,30 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.api.object;
+package cn.herodotus.engine.oss.minio.dto.request.bucket;
 
-import cn.herodotus.engine.assistant.core.annotation.EnumeratedValue;
-import cn.herodotus.engine.oss.minio.dto.api.base.ObjectVersionArgsDto;
-import io.minio.GetPresignedObjectUrlArgs;
+import cn.herodotus.engine.oss.minio.definition.request.BucketRequest;
+import io.minio.MakeBucketArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: GetPresignedObjectUrlDto </p>
+ * <p>Description: 创建桶是参数实体 </p>
+ * <p>
+ * 与 Create Bucket 不同，这里仅是创建，Create Bucket 包含桶是否存在检查
  *
  * @author : gengwei.zheng
- * @date : 2022/7/3 22:26
+ * @date : 2022/7/2 0:09
  */
-@Schema(name = "预签名对象Url", title = "获取一个指定了 HTTP 方法、到期时间和自定义请求参数的对象URL地址，也就是返回带签名的URL，这个地址可以提供给没有登录的第三方共享访问或者上传对象")
-public class GetPresignedObjectUrlArgsDto extends ObjectVersionArgsDto<GetPresignedObjectUrlArgs.Builder, GetPresignedObjectUrlArgs> {
-
-    @EnumeratedValue(names = {"GET", "HEAD", "POST", "PUT", "DELETE"}, message = "预请求对象URL的值只能是大写   GET、HEAD、POST、PUT 和 DELETE")
-    @Schema(name = "对象保留模式", title = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
-    private String method;
-    @Schema(name = "过期时间", type = "integer", title = "单位为秒，默认值为 7 天")
-    private Integer expiry = GetPresignedObjectUrlArgs.DEFAULT_EXPIRY_TIME;
+@Schema(name = "创建桶是参数实体", title = "创建桶是参数实体")
+public class MakeBucketRequest extends BucketRequest<MakeBucketArgs.Builder, MakeBucketArgs> {
 
     @Override
-    public GetPresignedObjectUrlArgs.Builder getBuilder() {
-        return GetPresignedObjectUrlArgs.builder();
+    public MakeBucketArgs.Builder getBuilder() {
+        return MakeBucketArgs.builder();
     }
 }

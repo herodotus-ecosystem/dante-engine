@@ -23,43 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.api.base;
+package cn.herodotus.engine.oss.minio.domain;
 
-import cn.herodotus.engine.oss.minio.definition.dto.api.ObjectArgsDto;
-import io.minio.ObjectVersionArgs;
-import org.apache.commons.lang3.StringUtils;
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: ObjectVersionDto </p>
+ * <p>Description: Minio Owner </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 22:30
+ * @date : 2023/4/17 11:54
  */
-public abstract class ObjectVersionArgsDto<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectArgsDto<B, A> {
+public class MinioOwner implements Entity {
 
-    private String versionId;
+    private String id;
 
-    public String getVersionId() {
-        return versionId;
+    private String displayName;
+
+    public String getId() {
+        return id;
     }
 
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Override
-    protected void prepare(B builder) {
-        if (StringUtils.isNotEmpty(getVersionId())) {
-            builder.versionId(getVersionId());
-        }
-
-        super.prepare(builder);
-    }
-
-    @Override
-    public A build() {
-        B builder = getBuilder();
-        prepare(builder);
-        return builder.build();
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("displayName", displayName)
+                .toString();
     }
 }

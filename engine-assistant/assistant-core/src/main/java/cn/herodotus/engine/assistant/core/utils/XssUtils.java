@@ -84,12 +84,10 @@ public class XssUtils {
 
     private String cleanHtml(String taintedHtml) {
         try {
-            log.trace("[Herodotus] |- Before Antisamy Scan, value is: [{}]", taintedHtml);
-
             // 使用AntiSamy清洗数据
             final CleanResults cleanResults = scan(taintedHtml);
             String result = cleanResults.getCleanHTML();
-            log.trace("[Herodotus] |- After  Antisamy Scan, value is: [{}]", result);
+            log.trace("[Herodotus] |- Antisamy process value from [{}] to [{}]", taintedHtml, result);
             return result;
         } catch (ScanException | PolicyException e) {
             log.error("[Herodotus] |- Antisamy scan catch error! {}", e.getMessage());

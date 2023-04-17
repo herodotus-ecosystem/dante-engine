@@ -23,36 +23,13 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.server.controller;
-
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Map;
+package cn.herodotus.engine.oss.minio.dto.request.base;
 
 /**
- * <p>Description: 错误处理 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:05
+ * @date : 2022/7/2 22:31
  */
-@Controller
-public class IncorrectController implements ErrorController {
-
-    @RequestMapping("/error")
-    public ModelAndView handleError(HttpServletRequest request) {
-        String message = getErrorMessage(request);
-        if (message.startsWith("[access_denied]")) {
-            return new ModelAndView("activation-denied");
-        }
-        return new ModelAndView("error", Map.of("message", message));
-    }
-
-    private String getErrorMessage(HttpServletRequest request) {
-        return (String) request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
-    }
+public class BasePutObjectArgsDto {
 }

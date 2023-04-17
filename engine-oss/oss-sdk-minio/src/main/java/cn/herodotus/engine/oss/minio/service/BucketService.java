@@ -31,8 +31,6 @@ import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
 import cn.herodotus.engine.oss.minio.domain.MinioBucket;
 import io.minio.*;
 import io.minio.errors.*;
-import io.minio.messages.Bucket;
-import io.minio.messages.Item;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -126,7 +124,7 @@ public class BucketService extends BaseMinioService {
         MinioClient minioClient = getMinioClient();
 
         try {
-            List<Bucket> buckets;
+            List<io.minio.messages.Bucket> buckets;
             if(ObjectUtils.isNotEmpty(args)) {
                buckets = minioClient.listBuckets(args);
             } else {
@@ -291,7 +289,7 @@ public class BucketService extends BaseMinioService {
         }
     }
 
-    private List<MinioBucket> toEntities(List<Bucket> buckets) {
+    private List<MinioBucket> toEntities(List<io.minio.messages.Bucket> buckets) {
         if (CollectionUtils.isNotEmpty(buckets)) {
             return buckets.stream().map(this::toEntity).collect(Collectors.toList());
         } else {
@@ -299,13 +297,13 @@ public class BucketService extends BaseMinioService {
         }
     }
 
-    private MinioBucket toEntity(Bucket bucket) {
-        MinioBucket minioBucket = new MinioBucket();
-        minioBucket.setName(bucket.name());
+    private MinioBucket toEntity(io.minio.messages.Bucket bucket) {
+        MinioBucket minioMinioBucket = new MinioBucket();
+        minioMinioBucket.setName(bucket.name());
         if (ObjectUtils.isNotEmpty(bucket.creationDate())) {
-            minioBucket.setCreationDate(format(bucket.creationDate()));
+            minioMinioBucket.setCreationDate(format(bucket.creationDate()));
         }
-        return minioBucket;
+        return minioMinioBucket;
     }
 
     private String format(ZonedDateTime zonedDateTime) {

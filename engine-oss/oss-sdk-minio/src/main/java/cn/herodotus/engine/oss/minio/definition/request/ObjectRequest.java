@@ -23,57 +23,35 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.api.object;
+package cn.herodotus.engine.oss.minio.definition.request;
 
-import cn.herodotus.engine.oss.minio.dto.api.base.ObjectWriteArgsDto;
-import io.minio.PutObjectArgs;
-
-import java.io.InputStream;
+import io.minio.ObjectArgs;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
- * <p>Description: PutObjectDto </p>
+ * <p>Description: Minio 基础 Object Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 22:31
+ * @date : 2022/7/2 21:51
  */
-public class PutObjectArgsDto extends ObjectWriteArgsDto<PutObjectArgs.Builder, PutObjectArgs> {
+public abstract class ObjectRequest<B extends ObjectArgs.Builder<B, A>, A extends ObjectArgs> extends BucketRequest<B, A> {
 
-    private InputStream inputStream;
-    private Long objectSize;
-    private Long partSize;
+    @NotNull(message = "对象名称不能为空")
+    @Schema(name = "对象名称")
+    private String objectName;
 
-    public InputStream getInputStream() {
-        return inputStream;
+    public String getObjectName() {
+        return objectName;
     }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    public Long getObjectSize() {
-        return objectSize;
-    }
-
-    public void setObjectSize(Long objectSize) {
-        this.objectSize = objectSize;
-    }
-
-    public Long getPartSize() {
-        return partSize;
-    }
-
-    public void setPartSize(Long partSize) {
-        this.partSize = partSize;
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 
     @Override
-    protected void prepare(PutObjectArgs.Builder builder) {
-        builder.stream(getInputStream(), getObjectSize(), getPartSize());
+    protected void prepare(B builder) {
+        builder.object(getObjectName());
         super.prepare(builder);
-    }
-
-    @Override
-    public PutObjectArgs.Builder getBuilder() {
-        return PutObjectArgs.builder();
     }
 }

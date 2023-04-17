@@ -23,22 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.api.bucket;
+package cn.herodotus.engine.oss.minio.definition.request.logic;
 
-import cn.herodotus.engine.oss.minio.definition.dto.api.BucketArgsDto;
-import io.minio.RemoveBucketArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
- * <p>Description: 删除桶参数实体 </p>
+ * <p>Description: 扩展对象操作Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 14:40
+ * @date : 2022/7/4 16:12
  */
-@Schema(name = "删除桶参数实体", title = "删除桶参数实体")
-public class RemoveBucketArgsDto extends BucketArgsDto<RemoveBucketArgs.Builder, RemoveBucketArgs> {
-    @Override
-    public RemoveBucketArgs.Builder getBuilder() {
-        return RemoveBucketArgs.builder();
+public class BaseObjectDto extends BaseBucketDto {
+
+    @NotNull(message = "对象名称不能为空")
+    @Schema(name = "对象名称")
+    private String objectName;
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 }

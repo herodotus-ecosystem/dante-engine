@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.api.base;
+package cn.herodotus.engine.oss.minio.dto.request.base;
 
 import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
-import cn.herodotus.engine.oss.minio.definition.dto.api.ObjectArgsDto;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectRequest;
 import io.minio.ObjectWriteArgs;
 import io.minio.messages.Retention;
 import io.minio.messages.RetentionMode;
@@ -42,7 +42,7 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2022/7/2 21:58
  */
-public abstract class ObjectWriteArgsDto<B extends ObjectWriteArgs.Builder<B, A>, A extends ObjectWriteArgs> extends ObjectArgsDto<B, A> {
+public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>, A extends ObjectWriteArgs> extends ObjectRequest<B, A> {
 
     private Map<String, String> headers;
 

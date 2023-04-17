@@ -25,13 +25,18 @@
 
 package cn.herodotus.engine.oss.minio.service;
 
+import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
+import cn.herodotus.engine.oss.minio.domain.MinioItem;
+import cn.herodotus.engine.oss.minio.domain.MinioOwner;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.DeleteError;
 import io.minio.messages.Item;
+import io.minio.messages.Owner;
+import org.apache.commons.collections4.IterableUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -39,8 +44,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>Description: Minio 对象操作服务 </p>
@@ -240,9 +245,10 @@ public class ObjectService extends BaseMinioService {
      * @param listObjectsArgs {@link ListObjectsArgs}
      * @return Iterable<Result < Item>>
      */
-    public Iterable<Result<Item>> listObjects(ListObjectsArgs listObjectsArgs) {
+    public List<MinioItem> listObjects(ListObjectsArgs listObjectsArgs) {
         MinioClient minioClient = getMinioClient();
-        return minioClient.listObjects(listObjectsArgs);
+        Iterable<Result<Item>> results =  minioClient.listObjects(listObjectsArgs);
+        return toItemResponses(results);
     }
 
     /**
@@ -523,306 +529,70 @@ public class ObjectService extends BaseMinioService {
         }
     }
 
-    /**
-     * GetObject接口用于获取某个文件（Object）。此操作需要对此Object具有读权限。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @return {@link GetObjectResponse}
-     */
-    public GetObjectResponse getObject(String bucketName, String objectName) {
-        return getObject(GetObjectArgs.builder().bucket(bucketName).object(objectName).build());
+    private List<MinioItem> toItemResponses(Iterable<Result<Item>> results) {
+
+        List<MinioItem> responses = new ArrayList<>();
+
+        if (!IterableUtils.isEmpty(results)) {
+            for(Result<Item> result : results) {
+                MinioItem response = toItemResponse(result);
+                responses.add(response);
+            }
+        }
+
+        return responses;
     }
 
-    /**
-     * GetObject接口用于获取某个文件（Object）。此操作需要对此Object具有读权限。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param versionId  versionId
-     * @return {@link GetObjectResponse}
-     */
-    public GetObjectResponse getObject(String bucketName, String objectName, String versionId) {
-        return getObject(GetObjectArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).build());
-    }
+    private MinioItem toItemResponse(Result<Item> result) {
+        String function = "toItemResponse";
 
-    /**
-     * GetObject接口用于获取某个文件（Object）。此操作需要对此Object具有读权限。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param versionId  versionId
-     * @return {@link GetObjectResponse}
-     */
-    public GetObjectResponse getObject(String bucketName, String objectName, String region, String versionId) {
-        return getObject(GetObjectArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).build());
-    }
-
-
-
-    /**
-     * 将文件中的内容作为存储桶中的对象上传
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param filename   filename
-     */
-    public ObjectWriteResponse uploadObject(String bucketName, String objectName, String filename) {
         try {
-            return uploadObject(UploadObjectArgs.builder().bucket(bucketName).object(objectName).filename(filename).build());
+            Item item = result.get();
+            MinioItem minioItem = new MinioItem();
+            minioItem.setEtag(item.etag());
+            minioItem.setObjectName(item.objectName());
+            minioItem.setLastModified(DateTimeUtils.zonedDateTimeToString(item.lastModified()));
+            minioItem.setOwner(toOwnerResponse(item.owner()));
+            minioItem.setSize(item.size());
+            minioItem.setStorageClass(item.storageClass());
+            minioItem.setLatest(item.isLatest());
+            minioItem.setUserMetadata(item.userMetadata());
+            minioItem.setDir(item.isDir());
+            return minioItem;
+        } catch (ErrorResponseException e) {
+            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
+            throw new OssErrorResponseException("Minio response error.");
+        } catch (InsufficientDataException e) {
+            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
+            throw new OssInsufficientDataException("Minio insufficient data error.");
+        } catch (InternalException e) {
+            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
+            throw new OssInternalException("Minio internal error.");
+        } catch (InvalidKeyException e) {
+            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
+            throw new OssInvalidKeyException("Minio key invalid.");
+        } catch (InvalidResponseException e) {
+            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
+            throw new OssInvalidResponseException("Minio response invalid.");
         } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [uploadObject].", e);
-            throw new OssIOException("Minio uploadObject io error.");
+            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
+            throw new OssIOException("Minio io error.");
+        } catch (NoSuchAlgorithmException e) {
+            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
+            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
+        } catch (ServerException e) {
+            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
+            throw new OssServerException("Minio server error.");
+        } catch (XmlParserException e) {
+            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
+            throw new OssXmlParserException("Minio xml parser error.");
         }
     }
 
-    /**
-     * 将文件中的内容作为存储桶中的对象上传
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param filename   filename
-     */
-    public ObjectWriteResponse uploadObject(String bucketName, String objectName, String region, String filename) {
-        try {
-            return uploadObject(UploadObjectArgs.builder().bucket(bucketName).object(objectName).region(region).filename(filename).build());
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [uploadObject].", e);
-            throw new OssIOException("Minio uploadObject io error.");
-        }
-    }
-
-    /**
-     * 将文件中的内容作为存储桶中的对象上传
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param filename   filename
-     * @param partSize   partSize
-     */
-    public ObjectWriteResponse uploadObject(String bucketName, String objectName, String filename, long partSize) {
-        try {
-            return uploadObject(UploadObjectArgs.builder().bucket(bucketName).object(objectName).filename(filename, partSize).build());
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [uploadObject].", e);
-            throw new OssIOException("Minio uploadObject io error.");
-        }
-    }
-
-    /**
-     * 将文件中的内容作为存储桶中的对象上传
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param filename   filename
-     * @param partSize   partSize
-     */
-    public ObjectWriteResponse uploadObject(String bucketName, String objectName, String region, String filename, long partSize) {
-        try {
-            return uploadObject(UploadObjectArgs.builder().bucket(bucketName).object(objectName).region(region).filename(filename, partSize).build());
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [uploadObject].", e);
-            throw new OssIOException("Minio uploadObject io error.");
-        }
-    }
-
-
-
-    /**
-     * 将对象的数据下载到文件。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param filename   filename
-     */
-    public void downloadObject(String bucketName, String objectName, String filename) {
-        downloadObject(DownloadObjectArgs.builder().bucket(bucketName).object(objectName).filename(filename).build());
-    }
-
-    /**
-     * 将对象的数据下载到文件。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param filename   filename
-     * @param overwrite  overwrite
-     */
-    public void downloadObject(String bucketName, String objectName, String filename, Boolean overwrite) {
-        downloadObject(DownloadObjectArgs.builder().bucket(bucketName).object(objectName).filename(filename).overwrite(overwrite).build());
-    }
-
-    /**
-     * 将对象的数据下载到文件。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param versionId  versionId
-     * @param filename   filename
-     * @param overwrite  overwrite
-     */
-    public void downloadObject(String bucketName, String objectName, String versionId, String filename, Boolean overwrite) {
-        downloadObject(DownloadObjectArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).filename(filename).overwrite(overwrite).build());
-    }
-
-    /**
-     * 将对象的数据下载到文件。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param versionId  versionId
-     * @param filename   filename
-     * @param overwrite  overwrite
-     */
-    public void downloadObject(String bucketName, String objectName, String region, String versionId, String filename, Boolean overwrite) {
-        downloadObject(DownloadObjectArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).filename(filename).overwrite(overwrite).build());
-    }
-
-
-
-
-    /**
-     * 通过服务器端从另一个对象复制数据来创建一个对象
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param copySource {@link CopySource}
-     */
-    public void copyObject(String bucketName, String objectName, CopySource copySource) {
-        copyObject(CopyObjectArgs.builder().bucket(bucketName).object(objectName).source(copySource).build());
-    }
-
-    /**
-     * 通过服务器端从另一个对象复制数据来创建一个对象
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param copySource {@link CopySource}
-     */
-    public void copyObject(String bucketName, String objectName, String region, CopySource copySource) {
-        copyObject(CopyObjectArgs.builder().bucket(bucketName).object(objectName).region(region).source(copySource).build());
-    }
-
-
-
-    /**
-     * 移除一个对象
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     */
-    public void removeObject(String bucketName, String objectName) {
-        removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).build());
-    }
-
-    /**
-     * 移除一个对象
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param versionId  versionId
-     */
-    public void removeObject(String bucketName, String objectName, String versionId) {
-        removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).build());
-    }
-
-    /**
-     * 移除一个对象
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param versionId  versionId
-     */
-    public void removeObject(String bucketName, String objectName, String region, String versionId) {
-        removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).build());
-    }
-
-
-
-
-
-    /**
-     * listObjects列出桶的对象信息
-     *
-     * @param bucketName bucketName
-     * @return Iterable<Result < Item>>
-     */
-    public Iterable<Result<Item>> listObjects(String bucketName) {
-        return listObjects(ListObjectsArgs.builder().bucket(bucketName).build());
-    }
-
-    /**
-     * 递归listObjects列出桶的对象信息
-     *
-     * @param bucketName bucketName
-     * @param recursive  是否递归
-     * @return Iterable<Result < Item>>
-     */
-    public Iterable<Result<Item>> listObjects(String bucketName, Boolean recursive) {
-        return listObjects(ListObjectsArgs.builder().bucket(bucketName).recursive(recursive).build());
-    }
-
-    /**
-     * 懒惰地删除多个对象。它需要迭代返回的 Iterable 以执行删除
-     *
-     * @param bucketName bucketName
-     * @param region     region
-     * @return Iterable<Result < DeleteError>>
-     */
-    public Iterable<Result<DeleteError>> removeObjects(String bucketName, String region) {
-        return removeObjects(RemoveObjectsArgs.builder().bucket(bucketName).region(region).build());
-    }
-
-    /**
-     * 通过使用服务器端副本组合来自不同源对象的数据来创建对象，比如可以将文件分片上传，然后将他们合并为一个文件
-     *
-     * @param bucketName     bucketName
-     * @param objectName     objectName
-     * @param composeSources {@link ComposeSource}
-     * @return {@link ObjectWriteResponse}
-     */
-    public ObjectWriteResponse composeObject(String bucketName, String objectName, List<ComposeSource> composeSources) {
-        return composeObject(ComposeObjectArgs.builder().bucket(bucketName).object(objectName).sources(composeSources).build());
-    }
-
-    /**
-     * 通过使用服务器端副本组合来自不同源对象的数据来创建对象，比如可以将文件分片上传，然后将他们合并为一个文件
-     *
-     * @param bucketName     bucketName
-     * @param objectName     objectName
-     * @param region         region
-     * @param composeSources {@link ComposeSource}
-     * @return {@link ObjectWriteResponse}
-     */
-    public ObjectWriteResponse composeObject(String bucketName, String objectName, String region, List<ComposeSource> composeSources) {
-        return composeObject(ComposeObjectArgs.builder().bucket(bucketName).object(objectName).region(region).sources(composeSources).build());
-    }
-
-    /**
-     * 取对象的对象信息和元数据
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @return {@link StatObjectResponse}
-     */
-    public StatObjectResponse statObject(String bucketName, String objectName) {
-        return statObject(StatObjectArgs.builder().bucket(bucketName).object(objectName).build());
-    }
-
-    /**
-     * 取对象的对象信息和元数据
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @return {@link StatObjectResponse}
-     */
-    public StatObjectResponse statObject(String bucketName, String objectName, String region) {
-        return statObject(StatObjectArgs.builder().bucket(bucketName).object(objectName).region(region).build());
+    private MinioOwner toOwnerResponse(Owner owner) {
+        MinioOwner minioOwner = new MinioOwner();
+        minioOwner.setId(owner.id());
+        minioOwner.setDisplayName(owner.displayName());
+        return minioOwner;
     }
 }

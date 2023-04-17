@@ -28,8 +28,8 @@ package cn.herodotus.engine.oss.minio.controller;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.oss.minio.domain.MinioBucket;
 import cn.herodotus.engine.oss.minio.dto.logic.CreateBucketDto;
-import cn.herodotus.engine.oss.minio.dto.api.bucket.MakeBucketArgsDto;
-import cn.herodotus.engine.oss.minio.dto.api.bucket.RemoveBucketArgsDto;
+import cn.herodotus.engine.oss.minio.dto.request.bucket.MakeBucketRequest;
+import cn.herodotus.engine.oss.minio.dto.request.bucket.RemoveBucketRequest;
 import cn.herodotus.engine.oss.minio.service.BucketService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
@@ -56,7 +56,7 @@ import java.util.List;
  * @date : 2022/7/2 14:45
  */
 @RestController
-@RequestMapping("/oss/minio/bucket")
+@RequestMapping("/manage/oss/minio/bucket")
 @Tags({
         @Tag(name = "对象存储管理接口"),
         @Tag(name = "Minio 对象存储管理接口"),
@@ -75,8 +75,8 @@ public class BucketController implements Controller {
     @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口")
     @GetMapping("/list")
     public Result<List<MinioBucket>> findAll() {
-        List<MinioBucket> buckets = bucketService.listBuckets();
-        return result(buckets);
+        List<MinioBucket> minioBucketRespons = bucketService.listBuckets();
+        return result(minioBucketRespons);
     }
 
     @Idempotent
@@ -84,10 +84,10 @@ public class BucketController implements Controller {
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
             responses = {@ApiResponse(description = "是否成功", content = @Content(mediaType = "application/json"))})
     @Parameters({
-            @Parameter(name = "domain", required = true, description = "Make Bucket 请求实体", schema = @Schema(implementation = MakeBucketArgsDto.class))
+            @Parameter(name = "domain", required = true, description = "Make Bucket 请求实体", schema = @Schema(implementation = MakeBucketRequest.class))
     })
     @PostMapping
-    public Result<String> make(@Validated @RequestBody MakeBucketArgsDto domain) {
+    public Result<String> make(@Validated @RequestBody MakeBucketRequest domain) {
         bucketService.makeBucket(domain.build());
         return result(true);
     }
@@ -114,10 +114,10 @@ public class BucketController implements Controller {
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
             responses = {@ApiResponse(description = "操作消息", content = @Content(mediaType = "application/json"))})
     @Parameters({
-            @Parameter(name = "domain", required = true, description = "Remote Bucket 请求实体", schema = @Schema(implementation = RemoveBucketArgsDto.class))
+            @Parameter(name = "domain", required = true, description = "Remote Bucket 请求实体", schema = @Schema(implementation = RemoveBucketRequest.class))
     })
     @DeleteMapping
-    public Result<String> delete(@Validated @RequestBody RemoveBucketArgsDto domain) {
+    public Result<String> delete(@Validated @RequestBody RemoveBucketRequest domain) {
         bucketService.removeBucket(domain.build());
         return result(true);
     }

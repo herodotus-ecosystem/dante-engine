@@ -23,35 +23,13 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.dto.api;
-
-import io.minio.ObjectArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+package cn.herodotus.engine.oss.minio.dto.request.object;
 
 /**
- * <p>Description: Minio 基础 Object Dto </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 21:51
+ * @date : 2022/7/2 22:32
  */
-public abstract class ObjectArgsDto<B extends ObjectArgs.Builder<B, A>, A extends ObjectArgs> extends BucketArgsDto<B, A> {
-
-    @NotNull(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
-    }
-
-    @Override
-    protected void prepare(B builder) {
-        builder.object(getObjectName());
-        super.prepare(builder);
-    }
+public class UploadObjectDto {
 }

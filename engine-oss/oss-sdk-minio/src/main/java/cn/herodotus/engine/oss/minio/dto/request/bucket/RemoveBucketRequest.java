@@ -23,26 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.dto.logic;
+package cn.herodotus.engine.oss.minio.dto.request.bucket;
 
+import cn.herodotus.engine.oss.minio.definition.request.BucketRequest;
+import io.minio.RemoveBucketArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: 扩展桶操作Dto</p>
+ * <p>Description: 删除桶参数实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:11
+ * @date : 2022/7/2 14:40
  */
-public class BaseBucketDto extends BaseDto {
-
-    @Schema(name = "存储区域")
-    private String region;
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
+@Schema(name = "删除桶参数实体", title = "删除桶参数实体")
+public class RemoveBucketRequest extends BucketRequest<RemoveBucketArgs.Builder, RemoveBucketArgs> {
+    @Override
+    public RemoveBucketArgs.Builder getBuilder() {
+        return RemoveBucketArgs.builder();
     }
 }

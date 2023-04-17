@@ -25,46 +25,35 @@
 
 package cn.herodotus.engine.oss.minio.domain;
 
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
 import com.google.common.base.MoreObjects;
-import io.minio.messages.Item;
-import io.minio.messages.Owner;
 
-import java.util.Date;
+import java.util.Map;
 
 /**
- * <p>Description: MinioItem </p>
+ * <p>Description: Minio Item </p>
  *
  * @author : gengwei.zheng
  * @date : 2021/11/8 15:18
  */
-public class MinioItem {
+public class MinioItem implements Entity {
 
-    private String objectName;
-    private Date lastModified;
     private String etag;
-    private long size;
+    private String objectName;
+    private String lastModified;
+    private MinioOwner owner;
+    private Long size;
     private String storageClass;
-    private Owner owner;
-    private String type;
+    private Boolean isLatest;
+    private Map<String, String> userMetadata;
+    private Boolean isDir;
 
-    public MinioItem(String objectName, Date lastModified, String etag, long size, String storageClass, Owner owner, String type) {
-        this.objectName = objectName;
-        this.lastModified = lastModified;
-        this.etag = etag;
-        this.size = size;
-        this.storageClass = storageClass;
-        this.owner = owner;
-        this.type = type;
+    public String getEtag() {
+        return etag;
     }
 
-    public MinioItem(Item item) {
-        this.objectName = item.objectName();
-        this.lastModified = Date.from(item.lastModified().toInstant());
-        this.etag = item.etag();
-        this.size = item.size();
-        this.storageClass = item.storageClass();
-        this.owner = item.owner();
-        this.type = item.isDir() ? "directory" : "file";
+    public void setEtag(String etag) {
+        this.etag = etag;
     }
 
     public String getObjectName() {
@@ -75,27 +64,27 @@ public class MinioItem {
         this.objectName = objectName;
     }
 
-    public Date getLastModified() {
+    public String getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(String lastModified) {
         this.lastModified = lastModified;
     }
 
-    public String getEtag() {
-        return etag;
+    public MinioOwner getOwner() {
+        return owner;
     }
 
-    public void setEtag(String etag) {
-        this.etag = etag;
+    public void setOwner(MinioOwner owner) {
+        this.owner = owner;
     }
 
-    public long getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 
@@ -107,32 +96,42 @@ public class MinioItem {
         this.storageClass = storageClass;
     }
 
-    public Owner getOwner() {
-        return owner;
+    public Boolean getLatest() {
+        return isLatest;
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public void setLatest(Boolean latest) {
+        isLatest = latest;
     }
 
-    public String getType() {
-        return type;
+    public Map<String, String> getUserMetadata() {
+        return userMetadata;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUserMetadata(Map<String, String> userMetadata) {
+        this.userMetadata = userMetadata;
+    }
+
+    public Boolean getDir() {
+        return isDir;
+    }
+
+    public void setDir(Boolean dir) {
+        isDir = dir;
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                .add("etag", etag)
                 .add("objectName", objectName)
                 .add("lastModified", lastModified)
-                .add("etag", etag)
+                .add("owner", owner)
                 .add("size", size)
                 .add("storageClass", storageClass)
-                .add("owner", owner)
-                .add("type", type)
+                .add("isLatest", isLatest)
+                .add("userMetadata", userMetadata)
+                .add("isDir", isDir)
                 .toString();
     }
 }

@@ -28,6 +28,7 @@ package cn.herodotus.engine.oss.minio.processor;
 import cn.herodotus.engine.oss.minio.domain.MultipartUploadCreate;
 import cn.herodotus.engine.oss.minio.service.MultipartUploadAsyncService;
 import cn.herodotus.engine.oss.minio.service.ObjectService;
+import cn.herodotus.engine.oss.minio.service.PresignedService;
 import io.minio.CreateMultipartUploadResponse;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.ListPartsResponse;
@@ -53,12 +54,12 @@ import java.util.concurrent.TimeUnit;
 public class MultipartUploadProcessor {
 
     private final MultipartUploadAsyncService multipartUploadAsyncService;
-    private final ObjectService objectService;
+    private final PresignedService presignedService;
 
     @Autowired
-    public MultipartUploadProcessor(MultipartUploadAsyncService multipartUploadAsyncService, ObjectService objectService) {
+    public MultipartUploadProcessor(MultipartUploadAsyncService multipartUploadAsyncService, PresignedService presignedService) {
         this.multipartUploadAsyncService = multipartUploadAsyncService;
-        this.objectService = objectService;
+        this.presignedService = presignedService;
     }
 
     private String createUploadId(String bucketName, String objectName) {
@@ -78,7 +79,7 @@ public class MultipartUploadProcessor {
                 .extraQueryParams(extraQueryParams)
                 .expiry(1, TimeUnit.HOURS)
                 .build();
-        return objectService.getPresignedObjectUrl(args);
+        return presignedService.getPresignedObjectUrl(args);
     }
 
     private Part[] listParts(String bucketName, String objectName, String uploadId) {

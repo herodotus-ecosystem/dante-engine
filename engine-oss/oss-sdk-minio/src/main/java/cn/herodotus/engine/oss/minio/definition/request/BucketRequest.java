@@ -23,28 +23,56 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.dto.logic;
+package cn.herodotus.engine.oss.minio.definition.request;
 
+import io.minio.BucketArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import org.apache.commons.lang3.StringUtils;
 
 /**
- * <p>Description: 扩展对象操作Dto </p>
+ * <p>Description: Minio 基础 Bucket Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:12
+ * @date : 2022/7/1 23:44
  */
-public class BaseObjectDto extends BaseBucketDto {
+public abstract class BucketRequest<B extends BucketArgs.Builder<B, A>, A extends BucketArgs> extends BaseRequest<B, A> {
 
-    @NotNull(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
+    @NotNull(message = "存储桶名称不能为空")
+    @Schema(name = "存储桶名称")
+    private String bucketName;
+    @Schema(name = "存储区域")
+    private String region;
 
-    public String getObjectName() {
-        return objectName;
+    public String getBucketName() {
+        return bucketName;
     }
 
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    @Override
+    protected void prepare(B builder) {
+        builder.bucket(getBucketName());
+        if (StringUtils.isNotBlank(getRegion())) {
+            builder.region(getRegion());
+        }
+        super.prepare(builder);
+    }
+
+    @Override
+    public A build() {
+        B builder = getBuilder();
+        prepare(builder);
+        return builder.build();
     }
 }

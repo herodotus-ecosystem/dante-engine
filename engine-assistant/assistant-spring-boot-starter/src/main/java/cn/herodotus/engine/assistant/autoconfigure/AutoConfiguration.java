@@ -42,7 +42,7 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @Import({
         SpringUtil.class,
-        JacksonConfiguration.class
+        JacksonConfiguration.class,
 })
 public class AutoConfiguration {
 
