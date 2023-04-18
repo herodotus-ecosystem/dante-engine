@@ -23,44 +23,43 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import com.google.common.base.MoreObjects;
+import cn.herodotus.engine.oss.minio.definition.request.BucketRequest;
+import io.minio.RemoveObjectsArgs;
+import io.minio.messages.DeleteObject;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 /**
- * <p>Description: Minio Owner </p>
+ * <p>Description: 删除对象 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/17 11:54
+ * @date : 2023/4/18 11:32
  */
-public class MinioOwner implements Entity {
+public class RemoveObjectsRequest extends BucketRequest<RemoveObjectsArgs.Builder, RemoveObjectsArgs> {
 
-    private String id;
+    @Size(min = 1, message = "至少传入一项")
+    private List<String> objects;
 
-    private String displayName;
-
-    public String getId() {
-        return id;
+    public List<String> getObjects() {
+        return objects;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setObjects(List<String> objects) {
+        this.objects = objects;
     }
 
     @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("displayName", displayName)
-                .toString();
+    protected void prepare(RemoveObjectsArgs.Builder builder) {
+        List<DeleteObject> deleteObjects = getObjects().stream().map(DeleteObject::new).toList();
+        builder.objects(deleteObjects);
+        super.prepare(builder);
+    }
+
+    @Override
+    public RemoveObjectsArgs.Builder getBuilder() {
+        return RemoveObjectsArgs.builder();
     }
 }

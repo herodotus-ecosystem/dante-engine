@@ -23,30 +23,37 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request.logic;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-
-import java.io.Serializable;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectVersionRequest;
+import io.minio.RemoveObjectArgs;
 
 /**
- * <p>Description: 扩展 Minio 应用Dto </p>
+ * <p>Description: 删除对象请求参数 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:08
+ * @date : 2023/4/18 12:01
  */
-public class BaseDto implements Serializable {
+public class RemoveObjectRequest extends ObjectVersionRequest<RemoveObjectArgs.Builder, RemoveObjectArgs> {
 
-    @NotNull(message = "存储桶名称不能为空")
-    @Schema(name = "存储桶名称")
-    private String bucketName;
+    private Boolean bypassGovernanceMode = false;
 
-    public String getBucketName() {
-        return bucketName;
+    public Boolean getBypassGovernanceMode() {
+        return bypassGovernanceMode;
     }
 
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
+    public void setBypassGovernanceMode(Boolean bypassGovernanceMode) {
+        this.bypassGovernanceMode = bypassGovernanceMode;
+    }
+
+    @Override
+    protected void prepare(RemoveObjectArgs.Builder builder) {
+        builder.bypassGovernanceMode(getBypassGovernanceMode());
+        super.prepare(builder);
+    }
+
+    @Override
+    public RemoveObjectArgs.Builder getBuilder() {
+        return RemoveObjectArgs.builder();
     }
 }

@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.MinioBucket;
+import cn.herodotus.engine.oss.minio.domain.BucketResponse;
 import cn.herodotus.engine.oss.minio.dto.logic.CreateBucketDto;
 import cn.herodotus.engine.oss.minio.dto.request.bucket.MakeBucketRequest;
 import cn.herodotus.engine.oss.minio.dto.request.bucket.RemoveBucketRequest;
@@ -74,9 +74,9 @@ public class BucketController implements Controller {
     @AccessLimited
     @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口")
     @GetMapping("/list")
-    public Result<List<MinioBucket>> findAll() {
-        List<MinioBucket> minioBucketRespons = bucketService.listBuckets();
-        return result(minioBucketRespons);
+    public Result<List<BucketResponse>> findAll() {
+        List<BucketResponse> bucketResponseRespons = bucketService.listBuckets();
+        return result(bucketResponseRespons);
     }
 
     @Idempotent

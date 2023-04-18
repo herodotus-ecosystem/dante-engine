@@ -26,18 +26,24 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.MinioItem;
+import cn.herodotus.engine.oss.minio.domain.DeleteErrorResponse;
+import cn.herodotus.engine.oss.minio.domain.ItemResponse;
 import cn.herodotus.engine.oss.minio.request.object.ListObjectsRequest;
+import cn.herodotus.engine.oss.minio.request.object.RemoveObjectRequest;
+import cn.herodotus.engine.oss.minio.request.object.RemoveObjectsRequest;
 import cn.herodotus.engine.oss.minio.service.ObjectService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
+import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.Controller;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -64,9 +70,34 @@ public class ObjectController implements Controller {
 
     @AccessLimited
     @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口")
+    @Parameters({
+            @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "对象列表请求参数对象", schema = @Schema(implementation = ListObjectsRequest.class))
+    })
     @GetMapping("/list")
-    public Result<List<MinioItem>> list(@Validated ListObjectsRequest request) {
-        List<MinioItem> items = objectService.listObjects(request.build());
+    public Result<List<ItemResponse>> list(@Validated ListObjectsRequest request) {
+        List<ItemResponse> items = objectService.listObjects(request.build());
+        return result(items);
+    }
+
+    @Idempotent
+    @Operation(summary = "删除一个对象", description = "根据传入的Object名称删除对应的对象")
+    @Parameters({
+            @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectRequest.class))
+    })
+    @DeleteMapping
+    public Result<String> removeObject(@Validated @RequestBody RemoveObjectRequest request) {
+        objectService.removeObject(request.build());
+        return result(true);
+    }
+
+    @Idempotent
+    @Operation(summary = "删除多个对象", description = "根据传入的Object名称删除对应的对象")
+    @Parameters({
+            @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectsRequest.class))
+    })
+    @DeleteMapping("/multi")
+    public Result<List<DeleteErrorResponse>> removeObjects(@Validated @RequestBody RemoveObjectsRequest request) {
+        List<DeleteErrorResponse> items = objectService.removeObjects(request.build());
         return result(items);
     }
 }

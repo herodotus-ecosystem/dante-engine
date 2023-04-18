@@ -36,12 +36,12 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2021/11/8 15:18
  */
-public class MinioItem implements Entity {
+public class ItemResponse implements Entity {
 
     private String etag;
     private String objectName;
     private String lastModified;
-    private MinioOwner owner;
+    private OwnerResponse owner;
     private Long size;
     private String storageClass;
     private Boolean isLatest;
@@ -72,11 +72,11 @@ public class MinioItem implements Entity {
         this.lastModified = lastModified;
     }
 
-    public MinioOwner getOwner() {
+    public OwnerResponse getOwner() {
         return owner;
     }
 
-    public void setOwner(MinioOwner owner) {
+    public void setOwner(OwnerResponse owner) {
         this.owner = owner;
     }
 

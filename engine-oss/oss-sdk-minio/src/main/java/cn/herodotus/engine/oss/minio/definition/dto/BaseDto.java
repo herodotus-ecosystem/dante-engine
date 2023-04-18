@@ -23,44 +23,30 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.definition.dto;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import com.google.common.base.MoreObjects;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+
+import java.io.Serializable;
 
 /**
- * <p>Description: Minio Bucket 可序列化实体 </p>
+ * <p>Description: 扩展 Minio 应用Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 22:59
+ * @date : 2022/7/4 16:08
  */
-public class MinioBucket implements Entity {
+public class BaseDto implements Serializable {
 
-    private String name;
+    @NotNull(message = "存储桶名称不能为空")
+    @Schema(name = "存储桶名称")
+    private String bucketName;
 
-    private String creationDate;
-
-    public String getName() {
-        return name;
+    public String getBucketName() {
+        return bucketName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("name", name)
-                .add("creationDate", creationDate)
-                .toString();
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
     }
 }

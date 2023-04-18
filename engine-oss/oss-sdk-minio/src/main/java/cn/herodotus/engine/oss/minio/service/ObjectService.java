@@ -29,14 +29,16 @@ import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.domain.MinioItem;
-import cn.herodotus.engine.oss.minio.domain.MinioOwner;
+import cn.herodotus.engine.oss.minio.domain.DeleteErrorResponse;
+import cn.herodotus.engine.oss.minio.domain.ItemResponse;
+import cn.herodotus.engine.oss.minio.domain.OwnerResponse;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.DeleteError;
 import io.minio.messages.Item;
 import io.minio.messages.Owner;
 import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -245,7 +247,7 @@ public class ObjectService extends BaseMinioService {
      * @param listObjectsArgs {@link ListObjectsArgs}
      * @return Iterable<Result < Item>>
      */
-    public List<MinioItem> listObjects(ListObjectsArgs listObjectsArgs) {
+    public List<ItemResponse> listObjects(ListObjectsArgs listObjectsArgs) {
         MinioClient minioClient = getMinioClient();
         Iterable<Result<Item>> results =  minioClient.listObjects(listObjectsArgs);
         return toItemResponses(results);
@@ -348,9 +350,10 @@ public class ObjectService extends BaseMinioService {
      * @param removeObjectsArgs {@link RemoveObjectsArgs}
      * @return Iterable<Result < DeleteError>>
      */
-    public Iterable<Result<DeleteError>> removeObjects(RemoveObjectsArgs removeObjectsArgs) {
+    public List<DeleteErrorResponse> removeObjects(RemoveObjectsArgs removeObjectsArgs) {
         MinioClient minioClient = getMinioClient();
-        return minioClient.removeObjects(removeObjectsArgs);
+        Iterable<Result<DeleteError>> results = minioClient.removeObjects(removeObjectsArgs);
+        return toDeleteErrorResponses(results);
     }
 
 
@@ -529,36 +532,34 @@ public class ObjectService extends BaseMinioService {
         }
     }
 
-    private List<MinioItem> toItemResponses(Iterable<Result<Item>> results) {
-
-        List<MinioItem> responses = new ArrayList<>();
-
+    private List<DeleteErrorResponse> toDeleteErrorResponses(Iterable<Result<DeleteError>> results) {
+        List<DeleteErrorResponse> responses = new ArrayList<>();
         if (!IterableUtils.isEmpty(results)) {
-            for(Result<Item> result : results) {
-                MinioItem response = toItemResponse(result);
+            for(Result<DeleteError> result : results) {
+                DeleteErrorResponse response = toDeleteErrorResponse(result);
                 responses.add(response);
             }
         }
-
         return responses;
     }
 
-    private MinioItem toItemResponse(Result<Item> result) {
-        String function = "toItemResponse";
+    private DeleteErrorResponse toDeleteErrorResponse(Result<DeleteError> result) {
+        String function = "toDeleteErrorResponse";
 
         try {
-            Item item = result.get();
-            MinioItem minioItem = new MinioItem();
-            minioItem.setEtag(item.etag());
-            minioItem.setObjectName(item.objectName());
-            minioItem.setLastModified(DateTimeUtils.zonedDateTimeToString(item.lastModified()));
-            minioItem.setOwner(toOwnerResponse(item.owner()));
-            minioItem.setSize(item.size());
-            minioItem.setStorageClass(item.storageClass());
-            minioItem.setLatest(item.isLatest());
-            minioItem.setUserMetadata(item.userMetadata());
-            minioItem.setDir(item.isDir());
-            return minioItem;
+            DeleteError deleteError = result.get();
+
+            DeleteErrorResponse deleteErrorResponse = new DeleteErrorResponse();
+            if (ObjectUtils.isNotEmpty(deleteError)) {
+                deleteErrorResponse.setCode(deleteError.code());
+                deleteErrorResponse.setMessage(deleteError.message());
+                deleteErrorResponse.setBucketName(deleteError.bucketName());
+                deleteErrorResponse.setObjectName(deleteError.objectName());
+                deleteErrorResponse.setResource(deleteError.resource());
+                deleteErrorResponse.setRequestId(deleteError.requestId());
+                deleteErrorResponse.setHostId(deleteError.hostId());
+            }
+            return deleteErrorResponse;
         } catch (ErrorResponseException e) {
             log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
             throw new OssErrorResponseException("Minio response error.");
@@ -589,10 +590,67 @@ public class ObjectService extends BaseMinioService {
         }
     }
 
-    private MinioOwner toOwnerResponse(Owner owner) {
-        MinioOwner minioOwner = new MinioOwner();
-        minioOwner.setId(owner.id());
-        minioOwner.setDisplayName(owner.displayName());
-        return minioOwner;
+    private List<ItemResponse> toItemResponses(Iterable<Result<Item>> results) {
+        List<ItemResponse> responses = new ArrayList<>();
+        if (!IterableUtils.isEmpty(results)) {
+            for(Result<Item> result : results) {
+                ItemResponse response = toItemResponse(result);
+                responses.add(response);
+            }
+        }
+        return responses;
+    }
+
+    private ItemResponse toItemResponse(Result<Item> result) {
+        String function = "toItemResponse";
+
+        try {
+            Item item = result.get();
+            ItemResponse itemResponse = new ItemResponse();
+            itemResponse.setEtag(item.etag());
+            itemResponse.setObjectName(item.objectName());
+            itemResponse.setLastModified(DateTimeUtils.zonedDateTimeToString(item.lastModified()));
+            itemResponse.setOwner(toOwnerResponse(item.owner()));
+            itemResponse.setSize(item.size());
+            itemResponse.setStorageClass(item.storageClass());
+            itemResponse.setLatest(item.isLatest());
+            itemResponse.setUserMetadata(item.userMetadata());
+            itemResponse.setDir(item.isDir());
+            return itemResponse;
+        } catch (ErrorResponseException e) {
+            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
+            throw new OssErrorResponseException("Minio response error.");
+        } catch (InsufficientDataException e) {
+            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
+            throw new OssInsufficientDataException("Minio insufficient data error.");
+        } catch (InternalException e) {
+            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
+            throw new OssInternalException("Minio internal error.");
+        } catch (InvalidKeyException e) {
+            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
+            throw new OssInvalidKeyException("Minio key invalid.");
+        } catch (InvalidResponseException e) {
+            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
+            throw new OssInvalidResponseException("Minio response invalid.");
+        } catch (IOException e) {
+            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
+            throw new OssIOException("Minio io error.");
+        } catch (NoSuchAlgorithmException e) {
+            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
+            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
+        } catch (ServerException e) {
+            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
+            throw new OssServerException("Minio server error.");
+        } catch (XmlParserException e) {
+            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
+            throw new OssXmlParserException("Minio xml parser error.");
+        }
+    }
+
+    private OwnerResponse toOwnerResponse(Owner owner) {
+        OwnerResponse ownerResponse = new OwnerResponse();
+        ownerResponse.setId(owner.id());
+        ownerResponse.setDisplayName(owner.displayName());
+        return ownerResponse;
     }
 }

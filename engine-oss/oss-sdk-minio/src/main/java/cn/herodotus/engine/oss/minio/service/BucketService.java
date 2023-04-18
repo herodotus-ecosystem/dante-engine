@@ -28,7 +28,7 @@ package cn.herodotus.engine.oss.minio.service;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.domain.MinioBucket;
+import cn.herodotus.engine.oss.minio.domain.BucketResponse;
 import io.minio.*;
 import io.minio.errors.*;
 import org.apache.commons.collections4.CollectionUtils;
@@ -110,7 +110,7 @@ public class BucketService extends BaseMinioService {
      *
      * @return Bucket 列表
      */
-    public List<MinioBucket> listBuckets() {
+    public List<BucketResponse> listBuckets() {
         return listBuckets(null);
     }
 
@@ -119,7 +119,7 @@ public class BucketService extends BaseMinioService {
      * @param args {@link ListBucketsArgs}
      * @return Bucket 列表
      */
-    public List<MinioBucket> listBuckets(ListBucketsArgs args) {
+    public List<BucketResponse> listBuckets(ListBucketsArgs args) {
         String function = "listBuckets";
         MinioClient minioClient = getMinioClient();
 
@@ -289,7 +289,7 @@ public class BucketService extends BaseMinioService {
         }
     }
 
-    private List<MinioBucket> toEntities(List<io.minio.messages.Bucket> buckets) {
+    private List<BucketResponse> toEntities(List<io.minio.messages.Bucket> buckets) {
         if (CollectionUtils.isNotEmpty(buckets)) {
             return buckets.stream().map(this::toEntity).collect(Collectors.toList());
         } else {
@@ -297,13 +297,13 @@ public class BucketService extends BaseMinioService {
         }
     }
 
-    private MinioBucket toEntity(io.minio.messages.Bucket bucket) {
-        MinioBucket minioMinioBucket = new MinioBucket();
-        minioMinioBucket.setName(bucket.name());
+    private BucketResponse toEntity(io.minio.messages.Bucket bucket) {
+        BucketResponse minioBucketResponse = new BucketResponse();
+        minioBucketResponse.setName(bucket.name());
         if (ObjectUtils.isNotEmpty(bucket.creationDate())) {
-            minioMinioBucket.setCreationDate(format(bucket.creationDate()));
+            minioBucketResponse.setCreationDate(format(bucket.creationDate()));
         }
-        return minioMinioBucket;
+        return minioBucketResponse;
     }
 
     private String format(ZonedDateTime zonedDateTime) {

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oss.minio.dto.logic;
 
-import cn.herodotus.engine.oss.minio.definition.request.logic.BaseBucketDto;
+import cn.herodotus.engine.oss.minio.definition.dto.BaseBucketDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 

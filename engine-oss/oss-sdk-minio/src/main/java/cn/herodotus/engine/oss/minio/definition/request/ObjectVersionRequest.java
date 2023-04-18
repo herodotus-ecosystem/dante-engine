@@ -23,28 +23,33 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request.logic;
+package cn.herodotus.engine.oss.minio.definition.request;
 
+import io.minio.ObjectVersionArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
 
 /**
- * <p>Description: 扩展对象操作Dto </p>
+ * <p>Description: Minio 基础 Object Version Request  </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:12
+ * @date : 2023/4/18 14:16
  */
-public class BaseObjectDto extends BaseBucketDto {
+public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A>{
 
-    @NotNull(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
+    @Schema(name = "版本ID")
+    private String versionId;
 
-    public String getObjectName() {
-        return objectName;
+    public String getVersionId() {
+        return versionId;
     }
 
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
+
+    @Override
+    protected void prepare(B builder) {
+        builder.object(getVersionId());
+        super.prepare(builder);
     }
 }

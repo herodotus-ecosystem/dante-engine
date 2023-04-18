@@ -23,35 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.domain;
 
-import io.minio.ObjectArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: Minio 基础 Object Dto </p>
+ * <p>Description: Minio Owner </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 21:51
+ * @date : 2023/4/17 11:54
  */
-public abstract class ObjectRequest<B extends ObjectArgs.Builder<B, A>, A extends ObjectArgs> extends BucketRequest<B, A> {
+public class OwnerResponse implements Entity {
 
-    @NotNull(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
+    private String id;
 
-    public String getObjectName() {
-        return objectName;
+    private String displayName;
+
+    public String getId() {
+        return id;
     }
 
-    public void setObjectName(String versionId) {
-        this.objectName = versionId;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Override
-    protected void prepare(B builder) {
-        builder.object(getObjectName());
-        super.prepare(builder);
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("displayName", displayName)
+                .toString();
     }
 }

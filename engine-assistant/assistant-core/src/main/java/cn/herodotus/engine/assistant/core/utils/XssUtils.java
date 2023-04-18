@@ -86,9 +86,7 @@ public class XssUtils {
         try {
             // 使用AntiSamy清洗数据
             final CleanResults cleanResults = scan(taintedHtml);
-            String result = cleanResults.getCleanHTML();
-            log.trace("[Herodotus] |- Antisamy process value from [{}] to [{}]", taintedHtml, result);
-            return result;
+            return cleanResults.getCleanHTML();
         } catch (ScanException | PolicyException e) {
             log.error("[Herodotus] |- Antisamy scan catch error! {}", e.getMessage());
             return taintedHtml;
@@ -102,7 +100,7 @@ public class XssUtils {
         String temp = cleanHtml.replaceAll(getInstance().nbsp, "");
         temp = temp.replaceAll(getInstance().quot, "\"");
         String result = temp.replaceAll("\n", "");
-        log.trace("[Herodotus] |- After  Antisamy Well Formed, value is: [{}]", result);
+        log.trace("[Herodotus] |- Antisamy process value from [{}] to [{}]", taintedHTML, result);
         return result;
     }
 }
