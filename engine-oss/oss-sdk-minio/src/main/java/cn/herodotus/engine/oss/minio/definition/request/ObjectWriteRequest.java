@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.base;
+package cn.herodotus.engine.oss.minio.definition.request;
 
 import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
-import cn.herodotus.engine.oss.minio.definition.request.ObjectRequest;
+import cn.herodotus.engine.oss.minio.domain.request.RetentionRequest;
 import io.minio.ObjectWriteArgs;
 import io.minio.messages.Retention;
 import io.minio.messages.RetentionMode;
@@ -37,7 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
- * <p>Description: ObjectWriteDto </p>
+ * <p>Description: ObjectWriteRequest </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/7/2 21:58
@@ -50,7 +50,7 @@ public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>
 
     private Map<String, String> tags;
 
-    private RetentionDto retention;
+    private RetentionRequest retention;
 
     private Boolean legalHold;
 
@@ -78,11 +78,11 @@ public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>
         this.tags = tags;
     }
 
-    public RetentionDto getRetention() {
+    public RetentionRequest getRetention() {
         return retention;
     }
 
-    public void setRetention(RetentionDto retention) {
+    public void setRetention(RetentionRequest retention) {
         this.retention = retention;
     }
 
@@ -115,12 +115,5 @@ public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>
         }
 
         super.prepare(builder);
-    }
-
-    @Override
-    public A build() {
-        B builder = getBuilder();
-        prepare(builder);
-        return builder.build();
     }
 }

@@ -26,12 +26,10 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.response.DeleteErrorResponse;
-import cn.herodotus.engine.oss.minio.domain.response.ItemResponse;
-import cn.herodotus.engine.oss.minio.request.object.ListObjectsRequest;
-import cn.herodotus.engine.oss.minio.request.object.RemoveObjectRequest;
-import cn.herodotus.engine.oss.minio.request.object.RemoveObjectsRequest;
-import cn.herodotus.engine.oss.minio.service.ObjectService;
+import cn.herodotus.engine.oss.minio.domain.response.RetentionResponse;
+import cn.herodotus.engine.oss.minio.request.object.GetObjectRetentionRequest;
+import cn.herodotus.engine.oss.minio.request.object.SetObjectRetentionRequest;
+import cn.herodotus.engine.oss.minio.service.ObjectRetentionService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.Controller;
@@ -47,8 +45,6 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * <p>Description: 对象存储对象管理接口 </p>
  *
@@ -56,54 +52,41 @@ import java.util.List;
  * @date : 2023/4/16 21:29
  */
 @RestController
-@RequestMapping("/manage/oss/minio/object")
+@RequestMapping("/manage/oss/minio/object/retention")
 @Tags({
         @Tag(name = "对象存储管理接口"),
         @Tag(name = "Minio 对象存储管理接口"),
-        @Tag(name = "Minio 对象存储Object管理接口")
+        @Tag(name = "Object Retention管理接口")
 })
-public class ObjectController implements Controller {
+public class ObjectRetentionController implements Controller {
 
-    private final ObjectService objectService;
+    private final ObjectRetentionService objectRetentionService;
 
-    public ObjectController(ObjectService objectService) {
-        this.objectService = objectService;
+    public ObjectRetentionController(ObjectRetentionService objectRetentionService) {
+        this.objectRetentionService = objectRetentionService;
     }
 
     @AccessLimited
-    @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口")
+    @Operation(summary = "获取对象的保留配置", description = "获取对象的保留配置")
     @Parameters({
-            @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "对象列表请求参数对象", schema = @Schema(implementation = ListObjectsRequest.class))
+            @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "获取对象保留配置请求参数实体", schema = @Schema(implementation = GetObjectRetentionRequest.class))
     })
-    @GetMapping("/list")
-    public Result<List<ItemResponse>> list(@Validated ListObjectsRequest request) {
-        List<ItemResponse> items = objectService.listObjects(request.build());
-        return result(items);
+    @GetMapping
+    public Result<RetentionResponse> get(@Validated GetObjectRetentionRequest request) {
+        RetentionResponse response = objectRetentionService.getObjectRetention(request.build());
+        return result(response);
     }
 
     @Idempotent
-    @Operation(summary = "删除一个对象", description = "根据传入的Object名称删除对应的对象",
+    @Operation(summary = "设置对象的保留配置", description = "设置对象的保留配置",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
             responses = {@ApiResponse(description = "已保存数据", content = @Content(mediaType = "application/json"))})
     @Parameters({
-            @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectRequest.class))
+            @Parameter(name = "request", required = true, description = "设置对象保留配置请求参数实体", schema = @Schema(implementation = SetObjectRetentionRequest.class))
     })
-    @DeleteMapping
-    public Result<String> removeObject(@Validated @RequestBody RemoveObjectRequest request) {
-        objectService.removeObject(request.build());
+    @PutMapping
+    public Result<String> set(@Validated @RequestBody SetObjectRetentionRequest request) {
+        objectRetentionService.setObjectRetention(request.build());
         return result(true);
-    }
-
-    @Idempotent
-    @Operation(summary = "删除多个对象", description = "根据传入的Object名称删除对应的对象",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "已保存数据", content = @Content(mediaType = "application/json"))})
-    @Parameters({
-            @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectsRequest.class))
-    })
-    @DeleteMapping("/multi")
-    public Result<List<DeleteErrorResponse>> removeObjects(@Validated @RequestBody RemoveObjectsRequest request) {
-        List<DeleteErrorResponse> items = objectService.removeObjects(request.build());
-        return result(items);
     }
 }

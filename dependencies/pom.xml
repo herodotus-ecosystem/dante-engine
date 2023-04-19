@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.5.4</version>
+    <version>3.0.5.5</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -99,7 +99,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.0.5.4</dante-bom.version>
+        <dante-bom.version>3.0.5.5</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.2</spring-boot-admin.version>
@@ -107,16 +107,15 @@
         <spring-cloud-dependencies.version>2022.0.2</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC1</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-tencent-dependencies.version>1.11.1-2022.0.1</spring-cloud-tencent-dependencies.version>
-        <spring-security-oauth2-authorization-server.version>1.1.0-M2</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>1.1.0-RC1</spring-security-oauth2-authorization-server.version>
         <spring-security-cas.version>5.8.2</spring-security-cas.version>
-        <spring-security.version>6.1.0-M2</spring-security.version>
+        <spring-security.version>6.1.0-RC1</spring-security.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
         <mapstruct-processor.version>1.5.3.Final</mapstruct-processor.version>
         <maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 
         <!--开源通用工具包-->
         <antisamy.version>1.7.3</antisamy.version>
@@ -1153,17 +1152,6 @@
                         </gitDescribe>
                     </configuration>
                 </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus-staging-maven-plugin.version}</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <serverId>sonatype-nexus-release</serverId>
-                        <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -1185,10 +1173,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>

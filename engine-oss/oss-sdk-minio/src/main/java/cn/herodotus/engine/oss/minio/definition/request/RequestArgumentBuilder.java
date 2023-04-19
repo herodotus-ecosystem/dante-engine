@@ -23,44 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.definition.request;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import com.google.common.base.MoreObjects;
+import io.minio.BaseArgs;
 
 /**
- * <p>Description: Minio Bucket 可序列化实体 </p>
+ * <p>Description: Minio 参数构建器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 22:59
+ * @date : 2022/7/1 23:49
  */
-public class BucketResponse implements Entity {
+public interface RequestArgumentBuilder<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> extends BaseRequest {
 
-    private String name;
+    /**
+     * 构建 Minio 参数对象
+     *
+     * @return Minio 参数对象
+     */
+    A build();
 
-    private String creationDate;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("name", name)
-                .add("creationDate", creationDate)
-                .toString();
-    }
+    /**
+     * 获取Builder
+     *
+     * @return builder
+     */
+    B getBuilder();
 }

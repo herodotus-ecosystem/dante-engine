@@ -23,39 +23,57 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.base;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import cn.herodotus.engine.assistant.core.annotation.EnumeratedValue;
-import cn.herodotus.engine.rest.core.definition.dto.BaseDto;
-import io.swagger.v3.oas.annotations.media.Schema;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectWriteRequest;
+import io.minio.PutObjectArgs;
+
+import java.io.InputStream;
 
 /**
- * <p>Description: 对象保留设置请求参实体 </p>
+ * <p>Description: PutObjectDto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 22:22
+ * @date : 2022/7/2 22:31
  */
-public class RetentionDto extends BaseDto {
-    @EnumeratedValue(names = {"GOVERNANCE", "COMPLIANCE"}, message = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
-    @Schema(name = "对象保留模式", title = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
-    private String mode;
+public class PutObjectRequest extends ObjectWriteRequest<PutObjectArgs.Builder, PutObjectArgs> {
 
-    @Schema(name = "保留到日期", title = "对象保留到的日期")
-    private String retainUntilDate;
+    private InputStream inputStream;
+    private Long objectSize;
+    private Long partSize;
 
-    public String getMode() {
-        return mode;
+    public InputStream getInputStream() {
+        return inputStream;
     }
 
-    public void setMode(String mode) {
-        this.mode = mode;
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
     }
 
-    public String getRetainUntilDate() {
-        return retainUntilDate;
+    public Long getObjectSize() {
+        return objectSize;
     }
 
-    public void setRetainUntilDate(String retainUntilDate) {
-        this.retainUntilDate = retainUntilDate;
+    public void setObjectSize(Long objectSize) {
+        this.objectSize = objectSize;
+    }
+
+    public Long getPartSize() {
+        return partSize;
+    }
+
+    public void setPartSize(Long partSize) {
+        this.partSize = partSize;
+    }
+
+    @Override
+    protected void prepare(PutObjectArgs.Builder builder) {
+        builder.stream(getInputStream(), getObjectSize(), getPartSize());
+        super.prepare(builder);
+    }
+
+    @Override
+    public PutObjectArgs.Builder getBuilder() {
+        return PutObjectArgs.builder();
     }
 }

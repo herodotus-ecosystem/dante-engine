@@ -23,56 +23,39 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.domain.request;
 
-import io.minio.BucketArgs;
+import cn.herodotus.engine.assistant.core.annotation.EnumeratedValue;
+import cn.herodotus.engine.oss.minio.definition.request.BaseRequest;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-import org.apache.commons.lang3.StringUtils;
 
 /**
- * <p>Description: Minio 基础 Bucket Dto </p>
+ * <p>Description: 对象保留设置请求参实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 23:44
+ * @date : 2022/7/2 22:22
  */
-public abstract class BucketRequest<B extends BucketArgs.Builder<B, A>, A extends BucketArgs> extends BaseMinioRequest<B, A> {
+public class RetentionRequest implements BaseRequest {
+    @EnumeratedValue(names = {"GOVERNANCE", "COMPLIANCE"}, message = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
+    @Schema(name = "对象保留模式", title = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
+    private String mode;
 
-    @NotNull(message = "存储桶名称不能为空")
-    @Schema(name = "存储桶名称")
-    private String bucketName;
-    @Schema(name = "存储区域")
-    private String region;
+    @Schema(name = "保留到日期", title = "对象保留到的日期")
+    private String retainUntilDate;
 
-    public String getBucketName() {
-        return bucketName;
+    public String getMode() {
+        return mode;
     }
 
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
-    public String getRegion() {
-        return region;
+    public String getRetainUntilDate() {
+        return retainUntilDate;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    @Override
-    protected void prepare(B builder) {
-        builder.bucket(getBucketName());
-        if (StringUtils.isNotBlank(getRegion())) {
-            builder.region(getRegion());
-        }
-        super.prepare(builder);
-    }
-
-    @Override
-    public A build() {
-        B builder = getBuilder();
-        prepare(builder);
-        return builder.build();
+    public void setRetainUntilDate(String retainUntilDate) {
+        this.retainUntilDate = retainUntilDate;
     }
 }

@@ -25,14 +25,17 @@
 
 package cn.herodotus.engine.oss.minio.service;
 
+import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
+import cn.herodotus.engine.oss.minio.domain.response.RetentionResponse;
 import io.minio.GetObjectRetentionArgs;
 import io.minio.MinioClient;
 import io.minio.SetObjectRetentionArgs;
 import io.minio.errors.*;
 import io.minio.messages.Retention;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -54,42 +57,6 @@ public class ObjectRetentionService extends BaseMinioService {
 
     public ObjectRetentionService(MinioClientObjectPool minioClientObjectPool) {
         super(minioClientObjectPool);
-    }
-
-    /**
-     * 添加对象的保留配置，存储桶需要设置为对象锁定模式，并且没有开启版本控制，否则会报错收蠕虫保护。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param retention  {@link Retention}
-     */
-    public void setObjectRetention(String bucketName, String objectName, Retention retention) {
-        setObjectRetention(SetObjectRetentionArgs.builder().bucket(bucketName).object(objectName).config(retention).build());
-    }
-
-    /**
-     * 添加对象的保留配置，存储桶需要设置为对象锁定模式，并且没有开启版本控制，否则会报错收蠕虫保护。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param versionId  versionId
-     * @param retention  {@link Retention}
-     */
-    public void setObjectRetention(String bucketName, String objectName, String versionId, Retention retention) {
-        setObjectRetention(SetObjectRetentionArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).config(retention).build());
-    }
-
-    /**
-     * 添加对象的保留配置，存储桶需要设置为对象锁定模式，并且没有开启版本控制，否则会报错收蠕虫保护。
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param versionId  versionId
-     * @param retention  {@link Retention}
-     */
-    public void setObjectRetention(String bucketName, String objectName, String region, String versionId, Retention retention) {
-        setObjectRetention(SetObjectRetentionArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).config(retention).build());
     }
 
     /**
@@ -138,48 +105,16 @@ public class ObjectRetentionService extends BaseMinioService {
     /**
      * 获取对象的保留配置
      *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     */
-    public Retention getObjectRetention(String bucketName, String objectName) {
-        return getObjectRetention(GetObjectRetentionArgs.builder().bucket(bucketName).object(objectName).build());
-    }
-
-    /**
-     * 获取对象的保留配置
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param versionId  versionId
-     */
-    public Retention getObjectRetention(String bucketName, String objectName, String versionId) {
-        return getObjectRetention(GetObjectRetentionArgs.builder().bucket(bucketName).object(objectName).versionId(versionId).build());
-    }
-
-    /**
-     * 获取对象的保留配置
-     *
-     * @param bucketName bucketName
-     * @param objectName objectName
-     * @param region     region
-     * @param versionId  versionId
-     */
-    public Retention getObjectRetention(String bucketName, String objectName, String region, String versionId) {
-        return getObjectRetention(GetObjectRetentionArgs.builder().bucket(bucketName).object(objectName).region(region).versionId(versionId).build());
-    }
-
-    /**
-     * 获取对象的保留配置
-     *
      * @param getObjectRetentionArgs {@link GetObjectRetentionArgs}
-     * @return {@link Retention}
+     * @return {@link RetentionResponse}
      */
-    public Retention getObjectRetention(GetObjectRetentionArgs getObjectRetentionArgs) {
+    public RetentionResponse getObjectRetention(GetObjectRetentionArgs getObjectRetentionArgs) {
         String function = "getObjectRetention";
         MinioClient minioClient = getMinioClient();
 
         try {
-            return minioClient.getObjectRetention(getObjectRetentionArgs);
+            Retention retention = minioClient.getObjectRetention(getObjectRetentionArgs);
+            return toRetentionResponse(retention);
         } catch (ErrorResponseException e) {
             log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
             throw new OssErrorResponseException("Minio response error.");
@@ -210,6 +145,17 @@ public class ObjectRetentionService extends BaseMinioService {
         } finally {
             close(minioClient);
         }
+    }
+
+    private RetentionResponse toRetentionResponse(Retention retention) {
+        RetentionResponse retentionResponse = new RetentionResponse();
+        if (ObjectUtils.isNotEmpty(retention)) {
+            retentionResponse.setMode(retention.mode().name());
+            if (ObjectUtils.isNotEmpty(retention.retainUntilDate())) {
+                retentionResponse.setRetainUntilDate(DateTimeUtils.zonedDateTimeToString(retention.retainUntilDate()));
+            }
+        }
+        return retentionResponse;
     }
 
 

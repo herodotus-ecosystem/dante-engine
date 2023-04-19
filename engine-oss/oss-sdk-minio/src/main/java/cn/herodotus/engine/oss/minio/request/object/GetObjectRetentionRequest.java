@@ -23,31 +23,20 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import io.minio.BaseArgs;
-
-import java.io.Serializable;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectVersionRequest;
+import io.minio.GetObjectRetentionArgs;
 
 /**
- * <p>Description: Minio 参数构建器 </p>
+ * <p>Description: GetObjectRetentionRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 23:49
+ * @date : 2023/4/18 16:00
  */
-public interface MinioArgumentBuilder<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> extends Serializable {
-
-    /**
-     * 构建 Minio 参数对象
-     *
-     * @return Minio 参数对象
-     */
-    A build();
-
-    /**
-     * 获取Builder
-     *
-     * @return builder
-     */
-    B getBuilder();
+public class GetObjectRetentionRequest extends ObjectVersionRequest<GetObjectRetentionArgs.Builder, GetObjectRetentionArgs> {
+    @Override
+    public GetObjectRetentionArgs.Builder getBuilder() {
+        return GetObjectRetentionArgs.builder();
+    }
 }

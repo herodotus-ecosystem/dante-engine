@@ -23,13 +23,16 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.definition.request;
+
+import io.minio.PutObjectBaseArgs;
 
 /**
- * <p>Description: Minio 删除操作错误信息实体 </p>
+ * <p>Description: PutObjectBaseRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 15:14
+ * @date : 2022/7/2 22:31
  */
-public class DeleteErrorResponse extends ErrorResponse{
+public abstract class PutObjectBaseRequest<B extends PutObjectBaseArgs.Builder<B, A>, A extends PutObjectBaseArgs> extends ObjectWriteRequest<B, A> {
+
 }

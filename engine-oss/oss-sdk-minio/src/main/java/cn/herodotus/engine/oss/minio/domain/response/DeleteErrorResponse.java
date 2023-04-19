@@ -23,57 +23,13 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.object;
-
-import cn.herodotus.engine.oss.minio.dto.request.base.ObjectWriteRequest;
-import io.minio.PutObjectArgs;
-
-import java.io.InputStream;
+package cn.herodotus.engine.oss.minio.domain.response;
 
 /**
- * <p>Description: PutObjectDto </p>
+ * <p>Description: Minio 删除操作错误信息实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 22:31
+ * @date : 2023/4/18 15:14
  */
-public class PutObjectRequest extends ObjectWriteRequest<PutObjectArgs.Builder, PutObjectArgs> {
-
-    private InputStream inputStream;
-    private Long objectSize;
-    private Long partSize;
-
-    public InputStream getInputStream() {
-        return inputStream;
-    }
-
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    public Long getObjectSize() {
-        return objectSize;
-    }
-
-    public void setObjectSize(Long objectSize) {
-        this.objectSize = objectSize;
-    }
-
-    public Long getPartSize() {
-        return partSize;
-    }
-
-    public void setPartSize(Long partSize) {
-        this.partSize = partSize;
-    }
-
-    @Override
-    protected void prepare(PutObjectArgs.Builder builder) {
-        builder.stream(getInputStream(), getObjectSize(), getPartSize());
-        super.prepare(builder);
-    }
-
-    @Override
-    public PutObjectArgs.Builder getBuilder() {
-        return PutObjectArgs.builder();
-    }
+public class DeleteErrorResponse extends ErrorResponse{
 }

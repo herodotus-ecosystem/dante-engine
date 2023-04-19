@@ -23,9 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.domain.response;
 
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import cn.herodotus.engine.oss.minio.domain.OwnerResponse;
 import com.google.common.base.MoreObjects;
 
 import java.util.Map;

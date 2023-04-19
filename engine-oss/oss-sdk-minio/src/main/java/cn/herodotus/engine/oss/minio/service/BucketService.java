@@ -28,7 +28,7 @@ package cn.herodotus.engine.oss.minio.service;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.domain.BucketResponse;
+import cn.herodotus.engine.oss.minio.domain.response.BucketResponse;
 import io.minio.*;
 import io.minio.errors.*;
 import org.apache.commons.collections4.CollectionUtils;

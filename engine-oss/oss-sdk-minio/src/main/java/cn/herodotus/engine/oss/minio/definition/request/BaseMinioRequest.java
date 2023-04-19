@@ -25,54 +25,46 @@
 
 package cn.herodotus.engine.oss.minio.definition.request;
 
-import io.minio.BucketArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-import org.apache.commons.lang3.StringUtils;
+import io.minio.BaseArgs;
+import org.apache.commons.collections4.MapUtils;
+
+import java.util.Map;
 
 /**
- * <p>Description: Minio 基础 Bucket Dto </p>
+ * <p>Description: Minio 基础 Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 23:44
+ * @date : 2022/7/1 23:39
  */
-public abstract class BucketRequest<B extends BucketArgs.Builder<B, A>, A extends BucketArgs> extends BaseMinioRequest<B, A> {
+public abstract class BaseMinioRequest<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> implements RequestArgumentBuilder<B, A> {
 
-    @NotNull(message = "存储桶名称不能为空")
-    @Schema(name = "存储桶名称")
-    private String bucketName;
-    @Schema(name = "存储区域")
-    private String region;
+    private Map<String, String> extraHeaders;
 
-    public String getBucketName() {
-        return bucketName;
+    private Map<String, String> extraQueryParams;
+
+    public Map<String, String> getExtraHeaders() {
+        return extraHeaders;
     }
 
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
+    public void setExtraHeaders(Map<String, String> extraHeaders) {
+        this.extraHeaders = extraHeaders;
     }
 
-    public String getRegion() {
-        return region;
+    public Map<String, String> getExtraQueryParams() {
+        return extraQueryParams;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setExtraQueryParams(Map<String, String> extraQueryParams) {
+        this.extraQueryParams = extraQueryParams;
     }
 
-    @Override
     protected void prepare(B builder) {
-        builder.bucket(getBucketName());
-        if (StringUtils.isNotBlank(getRegion())) {
-            builder.region(getRegion());
+        if (MapUtils.isNotEmpty(getExtraHeaders())) {
+            builder.extraHeaders(getExtraHeaders());
         }
-        super.prepare(builder);
-    }
 
-    @Override
-    public A build() {
-        B builder = getBuilder();
-        prepare(builder);
-        return builder.build();
+        if (MapUtils.isNotEmpty(getExtraQueryParams())) {
+            builder.extraHeaders(getExtraQueryParams());
+        }
     }
 }
