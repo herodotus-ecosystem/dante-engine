@@ -62,12 +62,6 @@
     <build>
         <resources>
             <resource>
-                <directory>${project.basedir}/src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
                 <directory>${project.basedir}/src/main/resources</directory>
             </resource>
         </resources>

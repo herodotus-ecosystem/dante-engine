@@ -123,7 +123,7 @@ public class EndpointProperties {
     /**
      * OAuth2 /oauth2/device_verification 设备授权校验端点地址，可修改为自定义地址
      */
-    private String deviceVerificationEndpoint = BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT;
+    private String deviceVerificationEndpoint = BaseConstants.DEFAULT_DEVICE_AUTHORIZATION_VERIFICATION_ENDPOINT;
     /**
      * OAuth2 OIDC /connect/register uri 地址，可修改为自定义地址
      */

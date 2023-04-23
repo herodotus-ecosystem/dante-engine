@@ -191,28 +191,6 @@ public final class OAuth2ConfigurerUtils {
         return authorizationServerSettings;
     }
 
-    public static SessionRegistry getSessionRegistry(HttpSecurity httpSecurity) {
-        SessionRegistry sessionRegistry = httpSecurity.getSharedObject(SessionRegistry.class);
-        if (sessionRegistry == null) {
-            sessionRegistry = getOptionalBean(httpSecurity, SessionRegistry.class);
-            if (sessionRegistry == null) {
-                sessionRegistry = new SessionRegistryImpl();
-                registerDelegateApplicationListener(httpSecurity, (SessionRegistryImpl) sessionRegistry);
-            }
-            httpSecurity.setSharedObject(SessionRegistry.class, sessionRegistry);
-        }
-        return sessionRegistry;
-    }
-
-    private static void registerDelegateApplicationListener(HttpSecurity httpSecurity, ApplicationListener<?> delegate) {
-        DelegatingApplicationListener delegatingApplicationListener = getOptionalBean(httpSecurity, DelegatingApplicationListener.class);
-        if (delegatingApplicationListener == null) {
-            return;
-        }
-        SmartApplicationListener smartListener = new GenericApplicationListenerAdapter(delegate);
-        delegatingApplicationListener.addListener(smartListener);
-    }
-
     public static <T> T getBean(HttpSecurity httpSecurity, Class<T> type) {
         return httpSecurity.getSharedObject(ApplicationContext.class).getBean(type);
     }

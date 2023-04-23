@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.server.controller;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
@@ -79,7 +80,7 @@ public class ConsentController {
      * @param state     state参数
      * @return Consent页面
      */
-    @GetMapping(value = "/oauth2/consent")
+    @GetMapping(BaseConstants.CUSTOM_AUTHORIZATION_CODE_CONSENT)
     public String consent(Principal principal, Model model,
                           @RequestParam(OAuth2ParameterNames.CLIENT_ID) String clientId,
                           @RequestParam(OAuth2ParameterNames.SCOPE) String scope,

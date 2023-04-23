@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>设备确认</title>
-    <link th:href="@{/plugin/custom/components/mdi-font-7.2.96/css/materialdesignicons.css}" rel="stylesheet"
-          type="text/css"/>
-    <link th:href="@{/plugin/custom/components/quasar-2.11.9/dist/quasar.prod.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/custom/components/mdi-font-7.2.96/css/materialdesignicons.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.prod.css}"/>
 </head>
 
 <body>
@@ -72,9 +71,9 @@
 </div>
 
 <!-- Add the following at the end of your body tag -->
-<script th:src="@{/plugins/custom/components/vue-3.2.47/vue.global.prod.js}"></script>
-<script th:src="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.umd.prod.js}"></script>
-<script th:src="@{/plugins/custom/components/quasar-2.11.9/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/custom/components/vue-3.2.47/vue.global.prod.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.umd.prod.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/custom/components/quasar-2.11.9/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
 
 <script>
     const app = Vue.createApp({

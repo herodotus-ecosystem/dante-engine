@@ -139,7 +139,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
 
         Optional<HerodotusAuthorization> result;
         if (tokenType == null) {
-            result = this.herodotusAuthorizationService.findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValue(token);
+            result = this.herodotusAuthorizationService.findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValueOrOidcIdTokenValueOrUserCodeValueOrDeviceCodeValue(token);
         } else if (OAuth2ParameterNames.STATE.equals(tokenType.getValue())) {
             result = this.herodotusAuthorizationService.findByState(token);
         } else if (OAuth2ParameterNames.CODE.equals(tokenType.getValue())) {
@@ -239,6 +239,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
         entity.setRegisteredClientId(authorization.getRegisteredClientId());
         entity.setPrincipalName(authorization.getPrincipalName());
         entity.setAuthorizationGrantType(authorization.getAuthorizationGrantType().getValue());
+        entity.setAuthorizedScopes(StringUtils.collectionToDelimitedString(authorization.getAuthorizedScopes(), SymbolConstants.COMMA));
         entity.setAttributes(writeMap(authorization.getAttributes()));
         entity.setState(authorization.getAttribute(OAuth2ParameterNames.STATE));
 

@@ -90,10 +90,10 @@ public class DatabaseMultiTenantConnectionProvider extends AbstractDataSourceBas
 
         DataSource currentDataSource = dataSources.get(tenantIdentifier);
         if (ObjectUtils.isNotEmpty(currentDataSource)) {
-            log.debug("[Herodotus] |- Found the dataSource of [{}]", tenantIdentifier);
+            log.debug("[Herodotus] |- Found the multi tenant dataSource for id : [{}]", tenantIdentifier);
             return currentDataSource;
         } else {
-            log.warn("[Herodotus] |- Cannot found the dataSource for [{}], change to use default.", tenantIdentifier);
+            log.warn("[Herodotus] |- Cannot found the dataSource for tenant [{}], change to use default.", tenantIdentifier);
             return defaultDataSource;
         }
     }

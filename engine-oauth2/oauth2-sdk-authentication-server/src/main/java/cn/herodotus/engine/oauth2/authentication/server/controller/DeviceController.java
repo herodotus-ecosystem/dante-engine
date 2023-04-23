@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.server.controller;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,16 +40,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DeviceController {
 
-    @GetMapping("/activation")
+    @GetMapping(BaseConstants.CUSTOM_DEVICE_ACTIVATION)
     public String activate(@RequestParam(value = "user_code", required = false) String userCode) {
         if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:/oauth2/device_verification?user_code=" + userCode;
+            return "redirect:" + BaseConstants.DEFAULT_DEVICE_AUTHORIZATION_VERIFICATION_ENDPOINT + "?user_code=" + userCode;
         }
         return "activation";
     }
 
     @GetMapping("/activation-allowed")
     public String activated() {
+        return "activation-allowed";
+    }
+
+    @GetMapping(value = "/", params = "success")
+    public String success() {
         return "activation-allowed";
     }
 }

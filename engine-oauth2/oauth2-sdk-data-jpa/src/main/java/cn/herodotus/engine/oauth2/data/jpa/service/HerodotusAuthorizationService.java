@@ -109,7 +109,7 @@ public class HerodotusAuthorizationService extends BaseService<HerodotusAuthoriz
         return result;
     }
 
-    public Optional<HerodotusAuthorization> findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValue(String token) {
+    public Optional<HerodotusAuthorization> findByStateOrAuthorizationCodeValueOrAccessTokenValueOrRefreshTokenValueOrOidcIdTokenValueOrUserCodeValueOrDeviceCodeValue(String token) {
 
         Specification<HerodotusAuthorization> specification = (root, criteriaQuery, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -117,6 +117,9 @@ public class HerodotusAuthorizationService extends BaseService<HerodotusAuthoriz
             predicates.add(criteriaBuilder.equal(root.get("authorizationCodeValue"), token));
             predicates.add(criteriaBuilder.equal(root.get("accessTokenValue"), token));
             predicates.add(criteriaBuilder.equal(root.get("refreshTokenValue"), token));
+            predicates.add(criteriaBuilder.equal(root.get("oidcIdTokenValue"), token));
+            predicates.add(criteriaBuilder.equal(root.get("userCodeValue"), token));
+            predicates.add(criteriaBuilder.equal(root.get("deviceCodeValue"), token));
 
             Predicate[] predicateArray = new Predicate[predicates.size()];
             criteriaQuery.where(criteriaBuilder.or(predicates.toArray(predicateArray)));
