@@ -80,7 +80,7 @@ public class ConsentController {
      * @param state     state参数
      * @return Consent页面
      */
-    @GetMapping(BaseConstants.CUSTOM_AUTHORIZATION_CODE_CONSENT)
+    @GetMapping(BaseConstants.DEFAULT_AUTHORIZATION_CONSENT_ENDPOINT)
     public String consent(Principal principal, Model model,
                           @RequestParam(OAuth2ParameterNames.CLIENT_ID) String clientId,
                           @RequestParam(OAuth2ParameterNames.SCOPE) String scope,

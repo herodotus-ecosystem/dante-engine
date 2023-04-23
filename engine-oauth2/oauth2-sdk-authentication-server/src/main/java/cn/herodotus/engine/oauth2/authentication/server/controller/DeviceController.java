@@ -40,10 +40,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DeviceController {
 
-    @GetMapping(BaseConstants.CUSTOM_DEVICE_ACTIVATION)
+    @GetMapping(BaseConstants.DEFAULT_DEVICE_ACTIVATION_ENDPOINT)
     public String activate(@RequestParam(value = "user_code", required = false) String userCode) {
         if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + BaseConstants.DEFAULT_DEVICE_AUTHORIZATION_VERIFICATION_ENDPOINT + "?user_code=" + userCode;
+            return "redirect:" + BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT + "?user_code=" + userCode;
         }
         return "activation";
     }

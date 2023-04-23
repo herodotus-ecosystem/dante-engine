@@ -109,14 +109,13 @@ public interface BaseConstants {
     String DEFAULT_JWK_SET_ENDPOINT = "/oauth2/jwks";
     String DEFAULT_TOKEN_REVOCATION_ENDPOINT = "/oauth2/revoke";
     String DEFAULT_TOKEN_INTROSPECTION_ENDPOINT = "/oauth2/introspect";
+    String DEFAULT_AUTHORIZATION_CONSENT_ENDPOINT = "/oauth2/consent";
     String DEFAULT_DEVICE_AUTHORIZATION_ENDPOINT = "/oauth2/device_authorization";
-    String DEFAULT_DEVICE_AUTHORIZATION_VERIFICATION_ENDPOINT = "/oauth2/device_verification";
+    String DEFAULT_DEVICE_ACTIVATION_ENDPOINT = "/oauth2/device_activation";
+    String DEFAULT_DEVICE_VERIFICATION_ENDPOINT = "/oauth2/device_verification";
     String DEFAULT_OIDC_CLIENT_REGISTRATION_ENDPOINT = "/connect/register";
     String DEFAULT_OIDC_LOGOUT_ENDPOINT = "/connect/logout";
     String DEFAULT_OIDC_USER_INFO_ENDPOINT = "/userinfo";
-    String CUSTOM_DEVICE_ACTIVATION = "/oauth2/device_activation";
-    String CUSTOM_AUTHORIZATION_CODE_CONSENT = "/oauth2/authorization_consent";
-    String CUSTOM_DEVICE_AUTHORIZATION_CONSENT = "/oauth2/device_consent";
 
     String OPEN_API_SECURITY_SCHEME_BEARER_NAME = "HERODOTUS_AUTH";
 

@@ -180,6 +180,7 @@
         <tea-xml.version>0.1.5</tea-xml.version>
         <dom4j.version>2.1.4</dom4j.version>
         <postgresql.version>42.6.0</postgresql.version>
+        <snakeyaml.version>2.0</snakeyaml.version>
 
     </properties>
 
