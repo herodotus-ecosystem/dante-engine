@@ -23,33 +23,45 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.server.controller;
+package cn.herodotus.engine.assistant.core.domain;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.google.common.base.MoreObjects;
+
+import java.io.Serializable;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: 前端选项基础格式 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/4/24 10:00
  */
-@Controller
-public class DeviceController {
+public class Option implements Serializable {
 
-    @GetMapping(BaseConstants.DEFAULT_DEVICE_ACTIVATION_ENDPOINT)
-    public String activate(@RequestParam(value = "user_code", required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT + "?user_code=" + userCode;
-        }
-        return "activation";
+    private String label;
+
+    private String value;
+
+    public String getLabel() {
+        return label;
     }
 
-    @GetMapping("/activation-allowed")
-    public String activated() {
-        return "activation-allowed";
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("label", label)
+                .add("value", value)
+                .toString();
     }
 }

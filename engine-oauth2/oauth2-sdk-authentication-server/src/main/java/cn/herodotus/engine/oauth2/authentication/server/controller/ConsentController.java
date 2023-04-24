@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.server.controller;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.domain.Option;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.authentication.server.service.OAuth2ApplicationService;
@@ -84,39 +85,48 @@ public class ConsentController {
     public String consent(Principal principal, Model model,
                           @RequestParam(OAuth2ParameterNames.CLIENT_ID) String clientId,
                           @RequestParam(OAuth2ParameterNames.SCOPE) String scope,
-                          @RequestParam(OAuth2ParameterNames.STATE) String state) {
+                          @RequestParam(OAuth2ParameterNames.STATE) String state,
+                          @RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
 
         /** 移除已经授权过的scope */
-        //待授权的scope
+        // 待授权的scope
         Set<String> scopesToApprove = new HashSet<>();
-        //之前已经授权过的scope
+        // 之前已经授权过的scope
         Set<String> previouslyApprovedScopes = new HashSet<>();
-        //获取客户端注册信息
+        // 获取客户端注册信息
         OAuth2Application application = this.applicationService.findByClientId(clientId);
-        //获取当前Client下用户之前的consent信息
-        OAuth2AuthorizationConsent currentAuthorizationConsent =
-                this.authorizationConsentService.findById(clientId, principal.getName());
-        //当前Client下用户已经授权的scope
+        // 获取当前Client下用户之前的consent信息
+        OAuth2AuthorizationConsent currentAuthorizationConsent = this.authorizationConsentService.findById(clientId, principal.getName());
+        // 当前Client下用户已经授权的scope
         Set<String> authorizedScopes = Optional.ofNullable(currentAuthorizationConsent)
                 .map(OAuth2AuthorizationConsent::getScopes)
                 .orElse(Collections.emptySet());
-        //遍历请求的scope，提取之前已授权过 和 待授权的scope
+
+        // 遍历请求的scope，提取之前已授权过 和 待授权的scope
         for (String requestedScope : StringUtils.delimitedListToStringArray(scope, SymbolConstants.SPACE)) {
+            if (OidcScopes.OPENID.equals(requestedScope)) {
+                continue;
+            }
+
             if (authorizedScopes.contains(requestedScope)) {
                 previouslyApprovedScopes.add(requestedScope);
-            } else if (!OidcScopes.OPENID.equals(requestedScope)) {
+            } else {
                 scopesToApprove.add(requestedScope);
             }
         }
 
+        Set<String> redirectUris = StringUtils.commaDelimitedListToSet(application.getRedirectUris());
+
         //输出信息指consent页面
         model.addAttribute("clientId", clientId);
         model.addAttribute("state", state);
-        model.addAttribute("scopes", withDescription(scopesToApprove));
-        model.addAttribute("previouslyApprovedScopes", withDescription(previouslyApprovedScopes));
+        model.addAttribute("scopesToAuthorize", withDescription(scopesToApprove));
+        model.addAttribute("scopesPreviouslyAuthorized", withDescription(previouslyApprovedScopes));
         model.addAttribute("principalName", principal.getName());
         model.addAttribute("applicationName", application.getApplicationName());
         model.addAttribute("logo", application.getLogo());
+        model.addAttribute("userCode", userCode);
+        model.addAttribute("redirectUri", redirectUris.iterator().next());
         return "consent";
     }
 
@@ -135,11 +145,19 @@ public class ConsentController {
      * @param scopes scope集合
      * @return scope描述集合
      */
-    private Set<OAuth2Scope> withDescription(Set<String> scopes) {
+    private Set<Option> withDescription(Set<String> scopes) {
         if (CollectionUtils.isNotEmpty(scopes)) {
-            return scopes.stream().map(item -> dictionaries.get(item)).collect(Collectors.toSet());
+            return scopes.stream().map(item -> scopeToOption(dictionaries.get(item))).collect(Collectors.toSet());
         } else {
             return new HashSet<>();
         }
+    }
+
+    private Option scopeToOption(OAuth2Scope scope) {
+        Option option = new Option();
+        String label = scope.getDescription() == null ? scope.getScopeName() : scope.getDescription();
+        option.setLabel(label);
+        option.setValue(scope.getScopeCode());
+        return option;
     }
 }
