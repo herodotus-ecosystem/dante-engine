@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-captcha</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>2.7.10.2</version>
+        <version>2.7.11.0</version>
     </parent>
 
     <artifactId>captcha-sdk-hutool</artifactId>
-    <version>2.7.10.2</version>
+    <version>2.7.11.0</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>

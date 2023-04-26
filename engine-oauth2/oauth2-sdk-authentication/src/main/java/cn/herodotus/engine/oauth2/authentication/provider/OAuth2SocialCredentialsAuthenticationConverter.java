@@ -94,6 +94,10 @@ public class OAuth2SocialCredentialsAuthenticationConverter implements Authentic
                         OAuth2EndpointUtils.checkRequiredParameter(parameters, "code");
                         break;
                     case AccountType.WECHAT_MINI_APP_HANDLER:
+                        OAuth2EndpointUtils.checkRequiredParameter(parameters, "appId");
+                        OAuth2EndpointUtils.checkRequiredParameter(parameters, "sessionKey");
+                        OAuth2EndpointUtils.checkRequiredParameter(parameters, "encryptedData");
+                        OAuth2EndpointUtils.checkRequiredParameter(parameters, "iv");
                         break;
                     default:
                         break;
