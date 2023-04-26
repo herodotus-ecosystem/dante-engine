@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-access</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>2.7.10.2</version>
+        <version>2.7.11.0</version>
     </parent>
 
     <artifactId>access-sdk-wxapp</artifactId>
-    <version>2.7.10.2</version>
+    <version>2.7.11.0</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 微信小程序外部接入基础核心组件模块</description>
