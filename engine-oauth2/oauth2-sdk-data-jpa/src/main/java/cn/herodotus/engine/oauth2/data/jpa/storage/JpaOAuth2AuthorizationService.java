@@ -26,8 +26,9 @@
 package cn.herodotus.engine.oauth2.data.jpa.storage;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.oauth2.core.jackson2.HerodotusJackson2Module;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
+import cn.herodotus.engine.oauth2.data.jpa.jackson2.HerodotusJackson2Module;
+import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2TokenJackson2Module;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationService;
 import cn.herodotus.engine.oauth2.data.jpa.utils.OAuth2AuthorizationUtils;
@@ -76,18 +77,14 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
 
     private final HerodotusAuthorizationService herodotusAuthorizationService;
     private final RegisteredClientRepository registeredClientRepository;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    private final OAuth2JacksonProcessor jacksonProcessor;
 
     public JpaOAuth2AuthorizationService(HerodotusAuthorizationService herodotusAuthorizationService, RegisteredClientRepository registeredClientRepository) {
         this.herodotusAuthorizationService = herodotusAuthorizationService;
         this.registeredClientRepository = registeredClientRepository;
 
-        ClassLoader classLoader = JpaOAuth2AuthorizationService.class.getClassLoader();
-        List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
-        this.objectMapper.registerModules(securityModules);
-        this.objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
-        this.objectMapper.registerModules(new HerodotusJackson2Module());
-        this.objectMapper.registerModules(new OAuth2TokenJackson2Module());
+        this.jacksonProcessor = new OAuth2JacksonProcessor();
     }
 
     @Override
@@ -328,19 +325,10 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     }
 
     private Map<String, Object> parseMap(String data) {
-        try {
-            return this.objectMapper.readValue(data, new TypeReference<Map<String, Object>>() {
-            });
-        } catch (Exception ex) {
-            throw new IllegalArgumentException(ex.getMessage(), ex);
-        }
+        return jacksonProcessor.parseMap(data);
     }
 
     private String writeMap(Map<String, Object> data) {
-        try {
-            return this.objectMapper.writeValueAsString(data);
-        } catch (Exception ex) {
-            throw new IllegalArgumentException(ex.getMessage(), ex);
-        }
+        return jacksonProcessor.writeMap(data);
     }
 }

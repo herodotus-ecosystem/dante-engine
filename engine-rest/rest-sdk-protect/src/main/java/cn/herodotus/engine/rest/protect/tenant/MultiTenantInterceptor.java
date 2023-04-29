@@ -25,13 +25,12 @@
 
 package cn.herodotus.engine.rest.protect.tenant;
 
+import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
-import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
+import cn.herodotus.engine.rest.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,8 +60,7 @@ public class MultiTenantInterceptor implements HandlerInterceptor {
         log.debug("[Herodotus] |- Current TENANT ID is : [{}].", tenantId);
         TenantContextHolder.setTenantId(tenantId);
 
-        HttpSession httpSession = request.getSession();
-        String sessionId = ObjectUtils.isNotEmpty(httpSession) ? httpSession.getId() : null;
+        String sessionId = WebUtils.getSessionId(request);
         String herodotusSessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
 
         log.debug("[Herodotus] |- SESSION ID is : [{}].", sessionId);

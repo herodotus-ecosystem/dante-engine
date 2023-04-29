@@ -23,35 +23,21 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.server.controller;
+package cn.herodotus.engine.assistant.core.json.jackson2.modules;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: Java 封装类 Jackson 处理定义 Module </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/4/29 16:35
  */
-@Controller
-public class DeviceController {
+public class EncapsulationClassJackson2Module extends SimpleModule {
 
-    @GetMapping(BaseConstants.CUSTOM_DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
-        }
-        return "activation";
-    }
-
-    @GetMapping("/activation-allowed")
-    public String activated() {
-        return "activation-allowed";
+    public EncapsulationClassJackson2Module() {
+        this.addSerializer(Long.class, ToStringSerializer.instance);
+        this.addSerializer(Long.TYPE, ToStringSerializer.instance);
     }
 }

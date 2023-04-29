@@ -30,9 +30,10 @@ import cn.herodotus.engine.oauth2.authorization.auditing.SecurityAuditorAware;
 import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusTokenStrategyConfigurer;
 import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataSyncListener;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
-import cn.herodotus.engine.oauth2.core.configurer.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceStorage;
+import cn.herodotus.engine.oauth2.core.configurer.SecurityMatcherConfigurer;
+import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import jakarta.annotation.PostConstruct;
@@ -45,6 +46,7 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2Res
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.bus.ServiceMatcher;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -58,6 +60,9 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 @AutoConfiguration
 @EnableConfigurationProperties({SecurityProperties.class})
 @EnableMethodSecurity(proxyTargetClass = true)
+@Import({
+        SecurityGlobalExceptionHandler.class
+})
 public class OAuth2AuthorizationConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2AuthorizationConfiguration.class);

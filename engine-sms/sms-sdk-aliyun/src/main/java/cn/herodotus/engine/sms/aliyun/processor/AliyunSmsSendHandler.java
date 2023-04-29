@@ -24,7 +24,7 @@
  */
 package cn.herodotus.engine.sms.aliyun.processor;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.sms.aliyun.properties.AliyunSmsProperties;
 import cn.herodotus.engine.sms.core.definition.AbstractSmsSendHandler;
 import cn.herodotus.engine.sms.core.domain.Template;
@@ -89,7 +89,7 @@ public class AliyunSmsSendHandler extends AbstractSmsSendHandler {
         request.putQueryParameter("PhoneNumbers", join(phones));
         request.putQueryParameter("SignName", this.properties.getSignName());
         request.putQueryParameter("TemplateCode", this.getTemplateId(template));
-        request.putQueryParameter("TemplateParam", JacksonUtils.toJson(template.getParams()));
+        request.putQueryParameter("TemplateParam", Jackson2Utils.toJson(template.getParams()));
 
         try {
             CommonResponse response = iAcsClient.getCommonResponse(request);

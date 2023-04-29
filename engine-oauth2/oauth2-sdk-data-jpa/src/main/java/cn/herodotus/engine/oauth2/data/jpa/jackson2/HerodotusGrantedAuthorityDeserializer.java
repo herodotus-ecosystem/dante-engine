@@ -23,9 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.core.jackson2;
+package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
-import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
+import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -37,26 +37,18 @@ import com.fasterxml.jackson.databind.node.MissingNode;
 import java.io.IOException;
 
 /**
- * <p>Description: FormLoginWebAuthenticationDetailsDeserializer </p>
+ * <p>Description: HerodotusGrantedAuthority 反序列化 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/4/14 11:48
+ * @date : 2022/3/17 20:28
  */
-public class FormLoginWebAuthenticationDetailsDeserializer extends JsonDeserializer<FormLoginWebAuthenticationDetails> {
+public class HerodotusGrantedAuthorityDeserializer extends JsonDeserializer<HerodotusGrantedAuthority> {
     @Override
-    public FormLoginWebAuthenticationDetails deserialize(JsonParser jp, DeserializationContext deserializationContext) throws IOException, JacksonException {
+    public HerodotusGrantedAuthority deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JacksonException {
         ObjectMapper mapper = (ObjectMapper) jp.getCodec();
         JsonNode jsonNode = mapper.readTree(jp);
-
-        String remoteAddress = readJsonNode(jsonNode, "remoteAddress").asText();
-        String sessionId = readJsonNode(jsonNode, "sessionId").asText();
-        String parameterName = readJsonNode(jsonNode, "parameterName").asText();
-        String category = readJsonNode(jsonNode, "category").asText();
-        String code = readJsonNode(jsonNode, "code").asText();
-        String identity = readJsonNode(jsonNode, "identity").asText();
-        boolean closed = readJsonNode(jsonNode, "closed").asBoolean();
-
-        return new FormLoginWebAuthenticationDetails(remoteAddress, sessionId, closed, parameterName, category, code, identity);
+        String authority = readJsonNode(jsonNode, "authority").asText();
+        return new HerodotusGrantedAuthority(authority);
     }
 
     private JsonNode readJsonNode(JsonNode jsonNode, String field) {

@@ -27,9 +27,9 @@ package cn.herodotus.engine.rest.core.definition;
 
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.rest.core.utils.WebUtils;
 import cn.hutool.crypto.SecureUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +51,7 @@ public abstract class AbstractBaseHandlerInterceptor implements HandlerIntercept
 
         String sessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
         if (StringUtils.isBlank(sessionId)) {
-            HttpSession session = request.getSession();
-            sessionId = session.getId();
+            sessionId = WebUtils.getSessionId(request);
         }
 
         String url = request.getRequestURI();

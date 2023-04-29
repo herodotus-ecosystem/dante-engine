@@ -23,12 +23,12 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.core.jackson2;
+package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
+import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2Constants;
 import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 
@@ -41,7 +41,7 @@ import org.springframework.security.jackson2.SecurityJackson2Modules;
 public class HerodotusJackson2Module extends SimpleModule {
 
     public HerodotusJackson2Module() {
-        super(HerodotusJackson2Module.class.getName(), new Version(1, 0, 0, null, null, null));
+        super(HerodotusJackson2Module.class.getName(), Jackson2Constants.VERSION);
     }
 
     @Override

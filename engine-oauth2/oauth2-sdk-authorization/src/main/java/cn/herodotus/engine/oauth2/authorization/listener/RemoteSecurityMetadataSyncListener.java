@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.listener;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.message.security.event.RemoteSecurityMetadataSyncEvent;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.core.definition.domain.SecurityAttribute;
@@ -64,7 +64,7 @@ public class RemoteSecurityMetadataSyncListener implements ApplicationListener<R
 
             String data = event.getData();
             if (StringUtils.isNotBlank(data)) {
-                List<SecurityAttribute> securityMetadata = JacksonUtils.toList(data, SecurityAttribute.class);
+                List<SecurityAttribute> securityMetadata = Jackson2Utils.toList(data, SecurityAttribute.class);
 
                 if (CollectionUtils.isNotEmpty(securityMetadata)) {
                     log.debug("[Herodotus] |- Got security attributes from service [{}], current [{}] start to process security attributes.", event.getOriginService(), event.getDestinationService());

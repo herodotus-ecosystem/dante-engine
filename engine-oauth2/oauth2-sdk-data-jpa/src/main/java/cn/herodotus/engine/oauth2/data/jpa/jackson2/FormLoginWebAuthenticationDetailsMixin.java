@@ -23,22 +23,27 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.cache.redis.annotation;
+package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
-import cn.herodotus.engine.cache.redis.condition.RedisSessionSharingCondition;
-import org.springframework.context.annotation.Conditional;
-
-import java.lang.annotation.*;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * <p>Description: 基于 Redis Session 共享条件注解 </p>
+ * <p>Description: FormLoginWebAuthenticationDetailsMixin </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/5/23 22:34
+ * @date : 2022/4/14 11:03
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Conditional(RedisSessionSharingCondition.class)
-public @interface ConditionalOnRedisSessionSharing {
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
+@JsonDeserialize(using = FormLoginWebAuthenticationDetailsDeserializer.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonAutoDetect(
+        fieldVisibility = JsonAutoDetect.Visibility.ANY,
+        getterVisibility = JsonAutoDetect.Visibility.NONE,
+        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
+        creatorVisibility = JsonAutoDetect.Visibility.ANY)
+public class FormLoginWebAuthenticationDetailsMixin {
+
 }

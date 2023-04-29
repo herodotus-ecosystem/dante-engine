@@ -44,6 +44,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 
@@ -56,6 +57,7 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2019/11/18 8:12
  */
+@RestControllerAdvice
 public class SecurityGlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(SecurityGlobalExceptionHandler.class);
@@ -85,6 +87,7 @@ public class SecurityGlobalExceptionHandler {
         EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.ACCOUNT_ENDPOINT_LIMITED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_ENDPOINT_LIMITED));
         EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.USERNAME_NOT_FOUND, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.USERNAME_NOT_FOUND));
         EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.SESSION_EXPIRED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.SESSION_EXPIRED));
+        EXCEPTION_DICTIONARY.put("authorization_pending", GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
     }
 
     /**

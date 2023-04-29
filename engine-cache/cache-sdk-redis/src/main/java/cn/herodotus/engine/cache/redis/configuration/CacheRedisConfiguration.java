@@ -53,7 +53,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @date : 2022/5/23 17:00
  */
 @Configuration(proxyBeanMethods = false)
-@Import(RedisSessionSharingConfiguration.class)
 public class CacheRedisConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(CacheRedisConfiguration.class);

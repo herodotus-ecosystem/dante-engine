@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oauth2.core.definition.details;
 
 import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
+import cn.herodotus.engine.rest.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
@@ -75,7 +76,7 @@ public class FormLoginWebAuthenticationDetails extends WebAuthenticationDetails 
         String encryptedCode = request.getParameter(parameterName);
         String key = request.getParameter("symmetric");
 
-        HttpSession session = request.getSession();
+        HttpSession session = WebUtils.getSession(request);
         this.identity = session.getId();
 
         if (StringUtils.isNotBlank(key) && StringUtils.isNotBlank(encryptedCode)) {

@@ -28,7 +28,7 @@ package cn.herodotus.engine.facility.core.configuration;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.facility.core.constants.FacilityConstants;
 import cn.herodotus.engine.facility.core.annotation.ConditionalOnLogEnabled;
 import cn.herodotus.engine.facility.core.properties.LogProperties;
@@ -92,7 +92,7 @@ public class FacilityLogConfiguration {
         customFields.setService(serviceName);
 
         LogstashEncoder logstashEncoder = new LogstashEncoder();
-        logstashEncoder.setCustomFields(JacksonUtils.toJson(customFields));
+        logstashEncoder.setCustomFields(Jackson2Utils.toJson(customFields));
         logstashEncoder.addProvider(traceIdJsonProvider);
 
         logstashTcpSocketAppender.setEncoder(logstashEncoder);

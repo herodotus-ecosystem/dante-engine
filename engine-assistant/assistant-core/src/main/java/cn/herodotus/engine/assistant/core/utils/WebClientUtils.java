@@ -23,25 +23,20 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.core.jackson2;
+package cn.herodotus.engine.assistant.core.utils;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.core.ParameterizedTypeReference;
+
+import java.util.Map;
 
 /**
- * <p>Description: HerodotusGrantedAuthority Jackson2 Mixin </p>
+ * <p>Description: WebClient 基础支持工具 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/17 20:28
+ * @date : 2023/4/24 22:18
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-@JsonDeserialize(using = HerodotusGrantedAuthorityDeserializer.class)
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.ANY,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE)
-@JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class HerodotusGrantedAuthorityMixin {
+public class WebClientUtils {
+
+    public static final ParameterizedTypeReference<Map<String, Object>> MAP_TYPE_REFERENCE = new ParameterizedTypeReference<>() {
+    };
 }

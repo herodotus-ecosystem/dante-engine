@@ -26,7 +26,8 @@
 package cn.herodotus.engine.rest.core.utils;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.definition.constants.Settings;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.hutool.extra.spring.SpringUtil;
 import com.google.common.net.HttpHeaders;
 import jakarta.servlet.ServletRequest;
@@ -34,6 +35,8 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +70,55 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 
     public static PathMatcher getPathMatcher() {
         return pathMatcher;
+    }
+
+    /**
+     * 将 getSession 统一封装为一个方法，方便统一修改
+     *
+     * @param request request {@link HttpServletRequest}
+     * @param create  是否创建新的 Session
+     * @return {@link HttpSession}
+     */
+    public static HttpSession getSession(HttpServletRequest request, boolean create) {
+        return request.getSession(create);
+    }
+
+    /**
+     * 将 getSession 统一封装为一个方法，方便统一修改
+     * <p>
+     * 该方法默认不创建新的 getSession
+     *
+     * @param request {@link HttpServletRequest}
+     * @return {@link HttpSession} or null
+     */
+    public static HttpSession getSession(HttpServletRequest request) {
+        return getSession(request, Settings.CREATE_NEW_SESSION);
+    }
+
+    /**
+     * 获取 Session Id。
+     *
+     * @param request {@link HttpServletRequest}
+     * @param create  create 是否创建新的 Session
+     * @return id 或者 null
+     */
+    public static String getSessionId(HttpServletRequest request, boolean create) {
+        HttpSession httpSession = getSession(request, create);
+        if (ObjectUtils.isNotEmpty(httpSession)) {
+            return httpSession.getId();
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 获取 Session Id。
+     *
+     * @param request {@link HttpServletRequest}
+     * @return id 或者 null
+     */
+    public static String getSessionId(HttpServletRequest request) {
+        return getSessionId(request, Settings.CREATE_NEW_SESSION);
     }
 
     /**
@@ -210,7 +262,7 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
      * @param object   需要转换的对象
      */
     public static void renderJson(HttpServletResponse response, Object object) {
-        renderJson(response, JacksonUtils.toJson(object), MediaType.APPLICATION_JSON.toString());
+        renderJson(response, Jackson2Utils.toJson(object), MediaType.APPLICATION_JSON.toString());
     }
 
     /**

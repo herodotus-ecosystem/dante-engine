@@ -40,9 +40,9 @@ import org.slf4j.LoggerFactory;
  * @author : gengwei.zheng
  * @date : 2020/5/3 8:50
  */
-public class JacksonYamlUtils {
+public class Jackson2YamlUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(JacksonYamlUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(Jackson2YamlUtils.class);
 
     private static final ObjectMapper objectMapper;
 

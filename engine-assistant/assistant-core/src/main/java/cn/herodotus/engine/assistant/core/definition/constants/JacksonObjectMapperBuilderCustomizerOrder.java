@@ -23,27 +23,19 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.core.jackson2;
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+package cn.herodotus.engine.assistant.core.definition.constants;
 
 /**
- * <p>Description: FormLoginWebAuthenticationDetailsMixin </p>
+ * <p>Description: Jackson2 Object Mapper Customer 顺序控制 </p>
+ *
+ * 方便控制 Jackson2 Customer 设置的覆盖顺序
  *
  * @author : gengwei.zheng
- * @date : 2022/4/14 11:03
+ * @date : 2023/4/27 23:18
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-@JsonDeserialize(using = FormLoginWebAuthenticationDetailsDeserializer.class)
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonAutoDetect(
-        fieldVisibility = JsonAutoDetect.Visibility.ANY,
-        getterVisibility = JsonAutoDetect.Visibility.NONE,
-        isGetterVisibility = JsonAutoDetect.Visibility.NONE,
-        creatorVisibility = JsonAutoDetect.Visibility.ANY)
-public class FormLoginWebAuthenticationDetailsMixin {
+public interface JacksonObjectMapperBuilderCustomizerOrder {
 
+    int UNIFIED_CORE = 1;
+
+    int OAUTH2_MODULE = UNIFIED_CORE + 1;
 }

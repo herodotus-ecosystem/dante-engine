@@ -26,7 +26,7 @@
 package cn.herodotus.engine.pay.alipay.definition;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.message.core.event.LocalPaymentNotifyEvent;
 import cn.herodotus.engine.message.core.event.LocalPaymentReturnEvent;
 import cn.herodotus.engine.message.pay.event.RemotePaymentNotifyEvent;
@@ -218,7 +218,7 @@ public class AlipayPaymentTemplate {
             applicationContext.publishEvent(new LocalPaymentNotifyEvent(params));
         } else {
             if (StringUtils.isNotBlank(getAlipayProperties().getDestination())) {
-                applicationContext.publishEvent(new RemotePaymentNotifyEvent(JacksonUtils.toJson(params), serviceId, getAlipayProperties().getDestination()));
+                applicationContext.publishEvent(new RemotePaymentNotifyEvent(Jackson2Utils.toJson(params), serviceId, getAlipayProperties().getDestination()));
             }
         }
     }
@@ -233,7 +233,7 @@ public class AlipayPaymentTemplate {
             applicationContext.publishEvent(new LocalPaymentReturnEvent(params));
         } else {
             if (StringUtils.isNotBlank(getAlipayProperties().getDestination())) {
-                applicationContext.publishEvent(new RemotePaymentReturnEvent(JacksonUtils.toJson(params), serviceId, getAlipayProperties().getDestination()));
+                applicationContext.publishEvent(new RemotePaymentReturnEvent(Jackson2Utils.toJson(params), serviceId, getAlipayProperties().getDestination()));
             }
         }
     }

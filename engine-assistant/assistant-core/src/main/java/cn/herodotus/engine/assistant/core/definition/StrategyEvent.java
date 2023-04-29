@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.definition;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 
 /**
  * <p>Description: 策略 Event 定义 </p>
@@ -73,7 +73,7 @@ public interface StrategyEvent<T> {
         if (isLocal(destinationService)) {
             postLocalProcess(data);
         } else {
-            postRemoteProcess(JacksonUtils.toJson(data), originService, destinationService);
+            postRemoteProcess(Jackson2Utils.toJson(data), originService, destinationService);
         }
     }
 }

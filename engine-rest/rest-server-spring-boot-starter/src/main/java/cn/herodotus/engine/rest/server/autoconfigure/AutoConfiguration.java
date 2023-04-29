@@ -25,7 +25,6 @@
 
 package cn.herodotus.engine.rest.server.autoconfigure;
 
-import cn.herodotus.engine.assistant.core.exception.GlobalExceptionHandler;
 import cn.herodotus.engine.rest.server.configuration.UndertowWebServerFactoryCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -42,7 +41,6 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @Import({
         UndertowWebServerFactoryCustomizer.class,
-        GlobalExceptionHandler.class
 })
 public class AutoConfiguration {
 

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.rest.protect.crypto.enhance;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -110,10 +110,10 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
     }
 
     private String decrypt(String sessionKey, String content) throws SessionInvalidException {
-        JsonNode jsonNode = JacksonUtils.toNode(content);
+        JsonNode jsonNode = Jackson2Utils.toNode(content);
         if (ObjectUtils.isNotEmpty(jsonNode)) {
             decrypt(sessionKey, jsonNode);
-            return JacksonUtils.toJson(jsonNode);
+            return Jackson2Utils.toJson(jsonNode);
         }
 
         return content;

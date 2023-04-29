@@ -60,9 +60,9 @@ public class ArrayOrStringDeserializer extends StdDeserializer<Set<String>> {
     public Set<String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JacksonException {
         JsonToken token = jp.getCurrentToken();
         if (token.isScalarValue()) {
-            String list = jp.getText();
-            list = list.replaceAll("\\s+", ",");
-            return new LinkedHashSet(Arrays.asList(StringUtils.commaDelimitedListToStringArray(list)));
+            String value = jp.getText();
+            value = value.replaceAll("\\s+", ",");
+            return new LinkedHashSet<>(Arrays.asList(StringUtils.commaDelimitedListToStringArray(value)));
         } else {
             return jp.readValueAs(new TypeReference<Set<String>>() {
             });

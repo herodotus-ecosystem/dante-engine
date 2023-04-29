@@ -23,35 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.server.controller;
+package cn.herodotus.engine.assistant.core.json.jackson2;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.fasterxml.jackson.databind.Module;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.core.Ordered;
+
+import java.util.List;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: 提取公共操作 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/4/29 17:09
  */
-@Controller
-public class DeviceController {
+public interface BaseObjectMapperBuilderCustomizer extends Jackson2ObjectMapperBuilderCustomizer, Ordered {
 
-    @GetMapping(BaseConstants.CUSTOM_DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
+    default Module[] toArray(List<Module> modules) {
+        if (CollectionUtils.isNotEmpty(modules)) {
+            Module[] temps = new Module[modules.size()];
+            return modules.toArray(temps);
+        } else {
+            return new Module[] {};
         }
-        return "activation";
-    }
-
-    @GetMapping("/activation-allowed")
-    public String activated() {
-        return "activation-allowed";
     }
 }

@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.server.controller;
 
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2UiProperties;
 import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
+import cn.herodotus.engine.rest.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.ObjectUtils;
@@ -94,15 +95,7 @@ public class LoginController {
         modelAndView.addObject("logout_success", logoutSuccess);
         modelAndView.addObject("message", StringUtils.isNotBlank(errorMessage) ? HtmlUtils.htmlEscape(errorMessage) : null);
         modelAndView.addObject("contentPath", request.getContextPath());
-
-        String sessionId;
-        HttpSession httpSession = request.getSession(false);
-        if (ObjectUtils.isNotEmpty(httpSession)) {
-            sessionId = httpSession.getId();
-        } else {
-            sessionId = request.getSession().getId();
-        }
-        modelAndView.addObject("sessionId", sessionId);
+        modelAndView.addObject("sessionId", WebUtils.getSessionId(request, true));
 
         return modelAndView;
     }
@@ -124,7 +117,7 @@ public class LoginController {
     }
 
     private String getErrorMessage(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = WebUtils.getSession(request);
         if (ObjectUtils.isNotEmpty(session)) {
             String message = (String) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
             if (ObjectUtils.isNotEmpty(message)) {

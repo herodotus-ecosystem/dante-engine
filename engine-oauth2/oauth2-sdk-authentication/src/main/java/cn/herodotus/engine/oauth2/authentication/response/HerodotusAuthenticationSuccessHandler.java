@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.response;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JacksonUtils;
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import jakarta.servlet.ServletException;
@@ -104,7 +104,7 @@ public class HerodotusAuthenticationSuccessHandler implements AuthenticationSucc
             Object details = authentication.getDetails();
             if (isHerodotusUserInfoPattern(sessionId, details)) {
                 PrincipalDetails authenticationDetails = (PrincipalDetails) details;
-                String data = JacksonUtils.toJson(authenticationDetails);
+                String data = Jackson2Utils.toJson(authenticationDetails);
                 String encryptData = httpCryptoProcessor.encrypt(sessionId, data);
                 Map<String, Object> parameters = new HashMap<>(additionalParameters);
                 parameters.put(BaseConstants.OPEN_ID, encryptData);

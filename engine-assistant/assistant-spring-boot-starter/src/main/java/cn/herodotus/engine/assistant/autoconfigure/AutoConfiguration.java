@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.autoconfigure;
 
-import cn.herodotus.engine.assistant.configuration.JacksonConfiguration;
+import cn.herodotus.engine.assistant.configuration.Jackson2Configuration;
 import cn.hutool.extra.spring.SpringUtil;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -41,8 +41,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration(proxyBeanMethods = false)
 @Import({
-        SpringUtil.class,
-        JacksonConfiguration.class,
+        SpringUtil.class
 })
 public class AutoConfiguration {
 

@@ -32,6 +32,7 @@ import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Application
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.authentication.server.service.OAuth2ApplicationService;
 import cn.herodotus.engine.oauth2.authentication.server.service.OAuth2ScopeService;
+import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
@@ -61,13 +62,15 @@ public class ConsentController {
     private final OAuth2ApplicationService applicationService;
     private final OAuth2AuthorizationConsentService authorizationConsentService;
     private final OAuth2ScopeService scopeService;
+    private final EndpointProperties endpointProperties;
 
     private Map<String, OAuth2Scope> dictionaries;
 
-    public ConsentController(OAuth2ApplicationService applicationService, OAuth2AuthorizationConsentService authorizationConsentService, OAuth2ScopeService scopeService) {
+    public ConsentController(OAuth2ApplicationService applicationService, OAuth2AuthorizationConsentService authorizationConsentService, OAuth2ScopeService scopeService, EndpointProperties endpointProperties) {
         this.applicationService = applicationService;
         this.authorizationConsentService = authorizationConsentService;
         this.scopeService = scopeService;
+        this.endpointProperties = endpointProperties;
         initDictionaries();
     }
 
@@ -81,14 +84,13 @@ public class ConsentController {
      * @param state     state参数
      * @return Consent页面
      */
-    @GetMapping(BaseConstants.DEFAULT_AUTHORIZATION_CONSENT_ENDPOINT)
+    @GetMapping(BaseConstants.CUSTOM_AUTHORIZATION_CONSENT_URI)
     public String consent(Principal principal, Model model,
                           @RequestParam(OAuth2ParameterNames.CLIENT_ID) String clientId,
                           @RequestParam(OAuth2ParameterNames.SCOPE) String scope,
                           @RequestParam(OAuth2ParameterNames.STATE) String state,
                           @RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
 
-        /** 移除已经授权过的scope */
         // 待授权的scope
         Set<String> scopesToApprove = new HashSet<>();
         // 之前已经授权过的scope
@@ -117,6 +119,11 @@ public class ConsentController {
 
         Set<String> redirectUris = StringUtils.commaDelimitedListToSet(application.getRedirectUris());
 
+        String action = endpointProperties.getAuthorizationEndpoint();
+        if (StringUtils.hasText(userCode)) {
+            action = endpointProperties.getDeviceVerificationEndpoint();
+        }
+
         //输出信息指consent页面
         model.addAttribute("clientId", clientId);
         model.addAttribute("state", state);
@@ -125,8 +132,8 @@ public class ConsentController {
         model.addAttribute("principalName", principal.getName());
         model.addAttribute("applicationName", application.getApplicationName());
         model.addAttribute("logo", application.getLogo());
-        model.addAttribute("userCode", userCode);
         model.addAttribute("redirectUri", redirectUris.iterator().next());
+        model.addAttribute("action", action);
         return "consent";
     }
 

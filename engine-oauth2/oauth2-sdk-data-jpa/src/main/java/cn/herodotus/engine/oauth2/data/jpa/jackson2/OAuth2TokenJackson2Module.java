@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
-import com.fasterxml.jackson.core.Version;
+import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2Constants;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
@@ -44,7 +44,7 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 public class OAuth2TokenJackson2Module extends SimpleModule {
 
     public OAuth2TokenJackson2Module() {
-        super(OAuth2TokenJackson2Module.class.getName(), new Version(1, 0, 0, null, null, null));
+        super(OAuth2TokenJackson2Module.class.getName(), Jackson2Constants.VERSION);
     }
 
     @Override

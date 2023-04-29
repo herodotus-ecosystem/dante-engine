@@ -23,32 +23,41 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.cache.redis.condition;
+package cn.herodotus.engine.rest.protect.jackson2;
 
-import cn.herodotus.engine.assistant.core.context.PropertyFinder;
+import cn.herodotus.engine.assistant.core.utils.XssUtils;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Condition;
-import org.springframework.context.annotation.ConditionContext;
-import org.springframework.core.type.AnnotatedTypeMetadata;
+
+import java.io.IOException;
 
 /**
- * <p>Description: 开启基于 Redis 的 Session 共享条件 </p>
+ * <p>Description: Xss Json 处理 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/5/23 22:30
+ * @date : 2021/8/30 23:58
  */
-public class RedisSessionSharingCondition implements Condition {
+public class XssStringJsonDeserializer extends JsonDeserializer<String> {
 
-    private static final Logger log = LoggerFactory.getLogger(RedisSessionSharingCondition.class);
+    private static final Logger log = LoggerFactory.getLogger(XssStringJsonDeserializer.class);
 
-    @SuppressWarnings("NullableProblems")
     @Override
-    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = PropertyFinder.getSessionStoreType(conditionContext.getEnvironment());
-        boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, "redis");
-        log.debug("[Herodotus] |- Condition [Redis Session Sharing] value is [{}]", result);
-        return result;
+    public Class<String> handledType() {
+        return String.class;
+    }
+
+    @Override
+    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        String value = jsonParser.getValueAsString();
+        if (StringUtils.isNotBlank(value)) {
+            return XssUtils.cleaning(value);
+        }
+
+        return value;
     }
 }
