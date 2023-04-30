@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.6.0</version>
+    <version>3.0.6.1</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -99,7 +99,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.0.6.0</dante-bom.version>
+        <dante-bom.version>3.0.6.1</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.3</spring-boot-admin.version>
@@ -126,7 +126,7 @@
         <guava.version>31.1-jre</guava.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.20.1</redisson.version>
+        <redisson.version>3.21.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.1.0</springdoc.version>
         <logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
