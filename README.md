@@ -5,14 +5,14 @@
 ---
 
 <p align="center">
-    <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-0.4.1-blue.svg?logo=Spring" alt="Spring Authorization Server 0.4.1"></a>
+    <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-0.4.2-blue.svg?logo=Spring" alt="Spring Authorization Server 0.4.2"></a>
     <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-2.7.11-blue.svg?logo=Spring" alt="Spring Boot 2.7.11"></a>
-    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2021.0.6-blue.svg?logo=Spring" alt="Spring Cloud 2021.0.6"></a>
+    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2021.0.7-blue.svg?logo=Spring" alt="Spring Cloud 2021.0.7"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.5.0-blue.svg?logo=alibabadotcom" alt="Spring Cloud Alibaba 2021.0.5.0"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.2-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.2"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-2.7.11.0-red.svg?logo=Spring" alt="Version 2.7.11.0"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-2.7.11.1-red.svg?logo=Spring" alt="Version 2.7.11.1"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-8%2C11%2C17-green.svg?logo=openjdk" alt="Java 8,11,17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue.svg?logo=apache" alt="License Apache 2.0"></a>
     <a href="https://gitee.com/dromara/dante-cloud"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="License Apache 2.0"></a>
@@ -39,8 +39,8 @@
 紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的
 3.0 版本。
 
-基于 Spring Authorization Server 1.1.0、Spring Boot 3.0.5、Spring Cloud 2022.0.1、Spring Cloud Tencent
-1.10.2-2022.0.0、Spring Cloud Alibaba 2022.0.0.0-RC1、Nacos 2.2.2 等主流技术栈开发的 Dante Cloud v3.0.1
+基于 Spring Authorization Server 1.1.0、Spring Boot 3.0.6、Spring Cloud 2022.0.1、Spring Cloud Tencent
+1.11.2-2022.0.0、Spring Cloud Alibaba 2022.0.0.0-RC1、Nacos 2.2.2 等主流技术栈开发的 Dante Cloud v3.0.1
 已经正式发布，关注请移步 [【v3.0.0 分支】](https://gitee.com/herodotus/dante-engine/tree/3.0.0/)
 
 ## 特点
@@ -85,7 +85,7 @@ dante-engine
 ├    ├── cache-core -- 缓存通用代码
 ├    ├── cache-sdk-caffeine -- Caffeine 缓存配置相关代码模块
 ├    ├── cache-sdk-jetcache -- JetCache 相关代码模块
-├    ├── cache-sdk-redis -- Caffeine 缓存配置相关代码模块
+├    ├── cache-sdk-redis -- Redis 缓存配置相关代码模块
 ├    ├── cache-sdk-redisson -- Redisson 相关代码模块
 ├    └── cache-spring-boot-starter -- Cache  模块统一 Starter
 ├── engine-captcha -- 验证码模块
