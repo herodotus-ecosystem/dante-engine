@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-oss</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>2.7.11.0</version>
+        <version>2.7.11.1</version>
     </parent>
 
     <artifactId>oss-sdk-minio</artifactId>
-    <version>2.7.11.0</version>
+    <version>2.7.11.1</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
