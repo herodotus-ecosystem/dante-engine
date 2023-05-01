@@ -23,17 +23,18 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.sms.core.constants;
+package cn.herodotus.engine.message.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 
 /**
- * <p>Description: Recluse 错误代码 </p>
+ * <p>Description: WebSocket 统一错误代码定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/25 20:31
+ * @date : 2022/12/29 15:57
  */
-public interface SmsErrorCode extends ErrorCode {
+public interface MessageErrorCodes extends ErrorCodes {
 
-    int SMS_RECLUSE_EXECUTE_ERROR = SMS_MODULE_500_BEGIN + 1;
+    int ILLEGAL_CHANNEL = MESSAGE_MODULE_406_BEGIN + 1;
+    int PRINCIPAL_NOT_FOUND = ILLEGAL_CHANNEL + 1;
 }

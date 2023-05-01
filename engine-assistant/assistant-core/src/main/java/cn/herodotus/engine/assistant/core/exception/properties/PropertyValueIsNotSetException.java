@@ -25,9 +25,10 @@
 
 package cn.herodotus.engine.assistant.core.exception.properties;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import org.apache.http.HttpStatus;
 
 /**
  * <p>Description: Property 属性值没有设置错误 </p>
@@ -59,6 +60,6 @@ public class PropertyValueIsNotSetException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(50101, "必要的Property配置属性值没有设置", HttpStatus.SC_NOT_IMPLEMENTED);
+        return FeedbackFactory.notImplemented(ErrorCodes.PROPERTY_VALUE_IS_NOT, "必要的Property配置属性值没有设置");
     }
 }

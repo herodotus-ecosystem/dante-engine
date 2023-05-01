@@ -23,9 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.constants;
+package cn.herodotus.engine.cache.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 
 /**
  * <p>Description: Cache 相关错误代码 </p>
@@ -33,10 +33,10 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
  * @author : gengwei.zheng
  * @date : 2022/5/2 13:25
  */
-public interface RestErrorCode extends ErrorCode {
+public interface CacheErrorCodes extends ErrorCodes {
 
-    int SESSION_INVALID = REST_MODULE_406_BEGIN + 1;
-    int REPEAT_SUBMISSION = SESSION_INVALID + 1;
-    int FREQUENT_REQUESTS = REPEAT_SUBMISSION + 1;
-    int FEIGN_DECODER_IO_EXCEPTION = REST_MODULE_503_BEGIN + 1;
+    int STAMP_DELETE_FAILED = CACHE_MODULE_406_BEGIN + 1;
+    int STAMP_HAS_EXPIRED = STAMP_DELETE_FAILED + 1;
+    int STAMP_MISMATCH = STAMP_HAS_EXPIRED + 1;
+    int STAMP_PARAMETER_ILLEGAL = STAMP_MISMATCH + 1;
 }

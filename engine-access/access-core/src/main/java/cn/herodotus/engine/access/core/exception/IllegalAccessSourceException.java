@@ -25,10 +25,10 @@
 
 package cn.herodotus.engine.access.core.exception;
 
-import cn.herodotus.engine.access.core.constants.AccessErrorCode;
+import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import org.apache.http.HttpStatus;
 
 /**
  * <p>Description: 非法的外部访问参数类型错误 </p>
@@ -60,6 +60,6 @@ public class IllegalAccessSourceException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(AccessErrorCode.ILLEGAL_ACCESS_SOURCE, "社交登录Source参数错误", HttpStatus.SC_PRECONDITION_FAILED);
+        return FeedbackFactory.preconditionFailed(AccessErrorCodes.ILLEGAL_ACCESS_SOURCE, "社交登录Source参数错误");
     }
 }

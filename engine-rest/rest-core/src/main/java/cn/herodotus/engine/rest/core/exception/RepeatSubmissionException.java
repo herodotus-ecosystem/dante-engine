@@ -26,8 +26,8 @@
 package cn.herodotus.engine.rest.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.rest.core.constants.RestErrorCode;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
+import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 
 /**
  * <p>Description: 重复提交Exception </p>
@@ -57,6 +57,6 @@ public class RepeatSubmissionException extends IllegalOperationException {
     }
 
     public Feedback getFeedback() {
-        return new Feedback(RestErrorCode.REPEAT_SUBMISSION, "提交进行中，请不要重复提交", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(RestErrorCodes.REPEAT_SUBMISSION, "提交进行中，请不要重复提交");
     }
 }

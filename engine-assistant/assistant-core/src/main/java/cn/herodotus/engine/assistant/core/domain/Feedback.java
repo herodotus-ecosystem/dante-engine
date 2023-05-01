@@ -25,10 +25,11 @@
 
 package cn.herodotus.engine.assistant.core.domain;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.enums.ResultErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import org.apache.http.HttpStatus;
 
 /**
  * <p>Description: HerodotusException 交互信息 </p>
@@ -98,9 +99,9 @@ import org.apache.http.HttpStatus;
  */
 public class Feedback {
 
-    public static final Feedback OK = new Feedback(20000, "成功", HttpStatus.SC_OK);
-    public static final Feedback NO_CONTENT = new Feedback(20400, "无内容", HttpStatus.SC_NO_CONTENT);
-    public static final Feedback ERROR = new Feedback(50000, "服务器内部错误，无法完成请求", HttpStatus.SC_INTERNAL_SERVER_ERROR);
+    public static final Feedback OK = FeedbackFactory.ok(ErrorCodes.OK, "成功");
+    public static final Feedback NO_CONTENT = FeedbackFactory.noContent(ErrorCodes.NO_CONTENT, "无内容");
+    public static final Feedback ERROR = FeedbackFactory.internalServerError(ErrorCodes.INTERNAL_SERVER_ERROR, "服务器内部错误，无法完成请求");
 
     /**
      * 自定义错误代码

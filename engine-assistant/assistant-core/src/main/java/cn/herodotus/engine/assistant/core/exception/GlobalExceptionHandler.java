@@ -29,7 +29,6 @@ import cn.herodotus.engine.assistant.core.definition.exception.HerodotusExceptio
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.assistant.core.enums.ResultErrorCodes;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,112 +104,37 @@ public class GlobalExceptionHandler {
 
     static {
         // 401.** 对应错误
-        EXCEPTION_DICTIONARY.put("AccessDeniedException", getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
-        EXCEPTION_DICTIONARY.put("InsufficientAuthenticationException", getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
+        EXCEPTION_DICTIONARY.put("AccessDeniedException", FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
+        EXCEPTION_DICTIONARY.put("InsufficientAuthenticationException", FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
         // 405.** 对应错误
-        EXCEPTION_DICTIONARY.put("HttpRequestMethodNotSupportedException", getResult(ResultErrorCodes.HTTP_REQUEST_METHOD_NOT_SUPPORTED, HttpStatus.SC_METHOD_NOT_ALLOWED));
+        EXCEPTION_DICTIONARY.put("HttpRequestMethodNotSupportedException", FeedbackFactory.getMethodNotAllowedResult(ResultErrorCodes.HTTP_REQUEST_METHOD_NOT_SUPPORTED));
         // 415.** 对应错误
-        EXCEPTION_DICTIONARY.put("HttpMediaTypeNotAcceptableException", getUnsupportedMediaTypeResult(ResultErrorCodes.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE));
+        EXCEPTION_DICTIONARY.put("HttpMediaTypeNotAcceptableException", FeedbackFactory.getUnsupportedMediaTypeResult(ResultErrorCodes.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE));
         // 5*.** 对应错误
-        EXCEPTION_DICTIONARY.put("IllegalArgumentException", getInternalServerErrorResult(ResultErrorCodes.ILLEGAL_ARGUMENT_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("NullPointerException", getInternalServerErrorResult(ResultErrorCodes.NULL_POINTER_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("IOException", getInternalServerErrorResult(ResultErrorCodes.IO_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("HttpMessageNotReadableException", getInternalServerErrorResult(ResultErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("TypeMismatchException", getInternalServerErrorResult(ResultErrorCodes.TYPE_MISMATCH_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("MissingServletRequestParameterException", getInternalServerErrorResult(ResultErrorCodes.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("ProviderNotFoundException", getServiceUnavailableResult(ResultErrorCodes.PROVIDER_NOT_FOUND));
-        EXCEPTION_DICTIONARY.put("CookieTheftException", getServiceUnavailableResult(ResultErrorCodes.COOKIE_THEFT));
-        EXCEPTION_DICTIONARY.put("InvalidCookieException", getServiceUnavailableResult(ResultErrorCodes.INVALID_COOKIE));
+        EXCEPTION_DICTIONARY.put("IllegalArgumentException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.ILLEGAL_ARGUMENT_EXCEPTION));
+        EXCEPTION_DICTIONARY.put("NullPointerException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.NULL_POINTER_EXCEPTION));
+        EXCEPTION_DICTIONARY.put("IOException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.IO_EXCEPTION));
+        EXCEPTION_DICTIONARY.put("HttpMessageNotReadableException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION));
+        EXCEPTION_DICTIONARY.put("TypeMismatchException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.TYPE_MISMATCH_EXCEPTION));
+        EXCEPTION_DICTIONARY.put("MissingServletRequestParameterException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION));
+        EXCEPTION_DICTIONARY.put("ProviderNotFoundException", FeedbackFactory.getServiceUnavailableResult(ResultErrorCodes.PROVIDER_NOT_FOUND));
+        EXCEPTION_DICTIONARY.put("CookieTheftException", FeedbackFactory.getServiceUnavailableResult(ResultErrorCodes.COOKIE_THEFT));
+        EXCEPTION_DICTIONARY.put("InvalidCookieException", FeedbackFactory.getServiceUnavailableResult(ResultErrorCodes.INVALID_COOKIE));
         // 6*.** 对应错误
-        EXCEPTION_DICTIONARY.put("BadSqlGrammarException", getInternalServerErrorResult(ResultErrorCodes.BAD_SQL_GRAMMAR));
-        EXCEPTION_DICTIONARY.put("DataIntegrityViolationException", getInternalServerErrorResult(ResultErrorCodes.DATA_INTEGRITY_VIOLATION));
-        EXCEPTION_DICTIONARY.put("TransactionRollbackException", getInternalServerErrorResult(ResultErrorCodes.TRANSACTION_ROLLBACK));
-        EXCEPTION_DICTIONARY.put("BindException", getNotAcceptableResult(ResultErrorCodes.METHOD_ARGUMENT_NOT_VALID));
-        EXCEPTION_DICTIONARY.put("MethodArgumentNotValidException", getNotAcceptableResult(ResultErrorCodes.METHOD_ARGUMENT_NOT_VALID));
+        EXCEPTION_DICTIONARY.put("BadSqlGrammarException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.BAD_SQL_GRAMMAR));
+        EXCEPTION_DICTIONARY.put("DataIntegrityViolationException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.DATA_INTEGRITY_VIOLATION));
+        EXCEPTION_DICTIONARY.put("TransactionRollbackException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.TRANSACTION_ROLLBACK));
+        EXCEPTION_DICTIONARY.put("BindException", FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.METHOD_ARGUMENT_NOT_VALID));
+        EXCEPTION_DICTIONARY.put("MethodArgumentNotValidException", FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.METHOD_ARGUMENT_NOT_VALID));
         // 7*.** 对应错误
-        EXCEPTION_DICTIONARY.put("RedisPipelineException", getResult(ResultErrorCodes.PIPELINE_INVALID_COMMANDS, HttpStatus.SC_INTERNAL_SERVER_ERROR));
-    }
-
-    protected static Result<String> getResult(ResultErrorCodes resultErrorCodes, int httpStatus) {
-        return Result.failure(resultErrorCodes.getMessage(), resultErrorCodes.getCode(), httpStatus, null);
-    }
-
-    /**
-     * 401	Unauthorized	请求要求用户的身份认证
-     *
-     * @param resultCode 401
-     * @return {@link Result}
-     */
-    public static Result<String> getUnauthorizedResult(ResultErrorCodes resultCode) {
-        return getResult(resultCode, HttpStatus.SC_UNAUTHORIZED);
-    }
-
-    /**
-     * 403	Forbidden	服务器理解请求客户端的请求，但是拒绝执行此请求
-     *
-     * @param resultCode 403
-     * @return {@link Result}
-     */
-    public static Result<String> getForbiddenResult(ResultErrorCodes resultCode) {
-        return getResult(resultCode, HttpStatus.SC_FORBIDDEN);
-    }
-
-    /**
-     * 406	Not Acceptable	服务器无法根据客户端请求的内容特性完成请求
-     *
-     * @param resultCode 406
-     * @return {@link Result}
-     */
-    public static Result<String> getNotAcceptableResult(ResultErrorCodes resultCode) {
-        return getResult(resultCode, HttpStatus.SC_NOT_ACCEPTABLE);
-    }
-
-    /**
-     * 412 Precondition Failed	客户端请求信息的先决条件错误
-     *
-     * @param resultCode 412
-     * @return {@link Result}
-     */
-    public static Result<String> getPreconditionFailedResult(ResultErrorCodes resultCode) {
-        return getResult(resultCode, HttpStatus.SC_PRECONDITION_FAILED);
-    }
-
-    /**
-     * 415	Unsupported Media Type	服务器无法处理请求附带的媒体格式
-     *
-     * @param resultCode 415
-     * @return {@link Result}
-     */
-    private static Result<String> getUnsupportedMediaTypeResult(ResultErrorCodes resultCode) {
-        return getResult(resultCode, HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE);
-    }
-
-    /**
-     * 500	Internal Server Error	服务器内部错误，无法完成请求
-     *
-     * @param resultCode 500
-     * @return {@link Result}
-     */
-    public static Result<String> getInternalServerErrorResult(ResultErrorCodes resultCode) {
-        return getResult(resultCode, HttpStatus.SC_INTERNAL_SERVER_ERROR);
-    }
-
-    /**
-     * 503	Service Unavailable	由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中
-     *
-     * @param resultCode 503
-     * @return {@link Result}
-     */
-    public static Result<String> getServiceUnavailableResult(ResultErrorCodes resultCode) {
-        return getResult(resultCode, HttpStatus.SC_SERVICE_UNAVAILABLE);
+        EXCEPTION_DICTIONARY.put("RedisPipelineException", FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.PIPELINE_INVALID_COMMANDS));
     }
 
     public static Result<String> resolveException(Exception ex, String path) {
 
-        log.trace("[Herodotus] |- Global Exception Handler, Path : [{}], Exception : [{}]", path, ex);
+        log.trace("[Herodotus] |- Global Exception Handler, Path : [{}], Exception：", path, ex);
 
-        if (ex instanceof HerodotusException) {
-            HerodotusException exception = (HerodotusException) ex;
+        if (ex instanceof HerodotusException exception) {
             Result<String> result = exception.getResult();
             result.path(path);
             return result;

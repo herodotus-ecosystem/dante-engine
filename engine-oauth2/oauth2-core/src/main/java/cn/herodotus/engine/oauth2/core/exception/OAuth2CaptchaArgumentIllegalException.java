@@ -26,7 +26,8 @@
 package cn.herodotus.engine.oauth2.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
+import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 
 /**
  * <p>Description: Oauth2 使用的验证码参数错误 </p>
@@ -46,6 +47,6 @@ public class OAuth2CaptchaArgumentIllegalException extends OAuth2CaptchaExceptio
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(40613, "验证码参数格式错误", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(CaptchaErrorCodes.CAPTCHA_PARAMETER_ILLEGAL, "验证码参数格式错误");
     }
 }

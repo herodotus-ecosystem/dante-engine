@@ -26,9 +26,9 @@
 package cn.herodotus.engine.message.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.message.core.constants.MessageErrorCode;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.message.core.constants.MessageErrorCodes;
 
 /**
  * <p>Description: 无法找到 Principal 错误 </p>
@@ -60,6 +60,6 @@ public class PrincipalNotFoundException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(MessageErrorCode.PRINCIPAL_NOT_FOUND, "WebSocket 无法获取用户身份信息", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(MessageErrorCodes.PRINCIPAL_NOT_FOUND, "WebSocket 无法获取用户身份信息");
     }
 }

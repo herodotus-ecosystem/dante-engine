@@ -93,14 +93,20 @@ import org.apache.http.HttpStatus;
  * @author : gengwei.zheng
  * @date : 2022/5/2 0:22
  */
-public interface ErrorCode {
+public interface ErrorCodes {
+
+    /* ---------- 200 ---------- */
+    int OK = HttpStatus.SC_OK * 100;
+
+    /* ---------- 204 ---------- */
+    int NO_CONTENT = HttpStatus.SC_NO_CONTENT * 100;
 
     /* ---------- 401 ---------- */
     int UNAUTHORIZED = HttpStatus.SC_UNAUTHORIZED * 100;
+
     int ACCESS_DENIED = UNAUTHORIZED + 1;
     int ACCOUNT_DISABLED = ACCESS_DENIED + 1;
     int ACCOUNT_ENDPOINT_LIMITED = ACCOUNT_DISABLED + 1;
-
     int ACCOUNT_EXPIRED = ACCOUNT_ENDPOINT_LIMITED + 1;
     int ACCOUNT_LOCKED = ACCOUNT_EXPIRED + 1;
     int BAD_CREDENTIALS = ACCOUNT_LOCKED + 1;
@@ -114,28 +120,36 @@ public interface ErrorCode {
 
     /* ---------- 403 ---------- */
     int FORBIDDEN = HttpStatus.SC_FORBIDDEN * 100;
+
     int INSUFFICIENT_SCOPE = FORBIDDEN + 1;
     int SQL_INJECTION_REQUEST = INSUFFICIENT_SCOPE + 1;
 
     /* ---------- 405 ---------- */
     int METHOD_NOT_ALLOWED = HttpStatus.SC_METHOD_NOT_ALLOWED * 100;
+
     int HTTP_REQUEST_METHOD_NOT_SUPPORTED = METHOD_NOT_ALLOWED + 1;
 
     /* ---------- 406 ---------- */
     int NOT_ACCEPTABLE = HttpStatus.SC_NOT_ACCEPTABLE * 100;
+
     int UNSUPPORTED_GRANT_TYPE = NOT_ACCEPTABLE + 1;
     int UNSUPPORTED_RESPONSE_TYPE = UNSUPPORTED_GRANT_TYPE + 1;
     int UNSUPPORTED_TOKEN_TYPE = UNSUPPORTED_RESPONSE_TYPE + 1;
 
     int CACHE_MODULE_406_BEGIN = UNSUPPORTED_TOKEN_TYPE;
     int CACHE_MODULE_406_END = CACHE_MODULE_406_BEGIN + 4;
-    int REST_MODULE_406_BEGIN = CACHE_MODULE_406_END;
-    int REST_MODULE_406_END = CACHE_MODULE_406_BEGIN + 3;
+    int CAPTCHA_MODULE_406_BEGIN = CACHE_MODULE_406_END;
+    int CAPTCHA_MODULE_406_END = CAPTCHA_MODULE_406_BEGIN + 6;
+    int OAUTH2_MODULE_406_BEGIN = CAPTCHA_MODULE_406_END;
+    int OAUTH2_MODULE_406_END = OAUTH2_MODULE_406_BEGIN + 1;
+    int REST_MODULE_406_BEGIN = OAUTH2_MODULE_406_END;
+    int REST_MODULE_406_END = REST_MODULE_406_BEGIN + 3;
     int MESSAGE_MODULE_406_BEGIN = REST_MODULE_406_END;
     int MESSAGE_MODULE_406_END = MESSAGE_MODULE_406_BEGIN + 2;
 
     /* ---------- 412 ---------- */
     int PRECONDITION_FAILED = HttpStatus.SC_PRECONDITION_FAILED * 100;
+
     int INVALID_REDIRECT_URI = PRECONDITION_FAILED + 1;
     int INVALID_REQUEST = INVALID_REDIRECT_URI + 1;
     int INVALID_SCOPE = INVALID_REQUEST + 1;
@@ -144,10 +158,12 @@ public interface ErrorCode {
 
     /* ---------- 415 ---------- */
     int UNSUPPORTED_MEDIA_TYPE = HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE * 100;
+
     int HTTP_MEDIA_TYPE_NOT_ACCEPTABLE = UNSUPPORTED_MEDIA_TYPE + 1;
 
     /* ---------- 500 ---------- */
     int INTERNAL_SERVER_ERROR = HttpStatus.SC_INTERNAL_SERVER_ERROR * 100;
+
     int SERVER_ERROR = INTERNAL_SERVER_ERROR + 1;
     int HTTP_MESSAGE_NOT_READABLE_EXCEPTION = SERVER_ERROR + 1;
     int ILLEGAL_ARGUMENT_EXCEPTION = HTTP_MESSAGE_NOT_READABLE_EXCEPTION + 1;
@@ -161,8 +177,16 @@ public interface ErrorCode {
     int SMS_MODULE_500_BEGIN = OSS_MODULE_500_END;
     int SMS_MODULE_500_END = OSS_MODULE_500_END + 2;
 
+    /* ---------- 501 ---------- */
+    int NOT_IMPLEMENTED = HttpStatus.SC_NOT_IMPLEMENTED * 100;
+
+    int PROPERTY_VALUE_IS_NOT  = NOT_IMPLEMENTED + 1;
+    int URL_FORMAT_INCORRECT  = NOT_IMPLEMENTED + 1;
+    int ILLEGAL_SYMMETRIC_KEY = URL_FORMAT_INCORRECT + 1;
+
     /* ---------- 503 ---------- */
     int SERVICE_UNAVAILABLE = HttpStatus.SC_SERVICE_UNAVAILABLE * 100;
+
     int COOKIE_THEFT = SERVICE_UNAVAILABLE + 1;
     int INVALID_COOKIE = COOKIE_THEFT + 1;
     int PROVIDER_NOT_FOUND = INVALID_COOKIE + 1;
@@ -174,6 +198,8 @@ public interface ErrorCode {
     /* ---------- 600 ---------- */
     int DATABASE = 60000;
 
+    int TRANSACTION_ROLLBACK = DATABASE + 1;
+
     /* ---------- 601 数据库操作运行前校验 ---------- */
     int DATABASE_VALIDATION = DATABASE + 100;
     int METHOD_ARGUMENT_NOT_VALID = DATABASE_VALIDATION + 1;
@@ -182,7 +208,7 @@ public interface ErrorCode {
     int DATABASE_EXECUTION = DATABASE_VALIDATION + 100;
     int BAD_SQL_GRAMMAR = DATABASE_EXECUTION + 1;
     int DATA_INTEGRITY_VIOLATION = BAD_SQL_GRAMMAR + 1;
-    int TRANSACTION_ROLLBACK = DATA_INTEGRITY_VIOLATION + 1;
+
 
     /* ---------- 700 基础设施交互错误 ---------- */
     int BASIC_FACILITIES = DATABASE + 10000;

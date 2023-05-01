@@ -26,8 +26,9 @@
 package cn.herodotus.engine.captcha.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 
 /**
  * <p>Description: 验证码校验参数错误 </p>
@@ -59,6 +60,6 @@ public class CaptchaParameterIllegalException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(40613, "验证码参数格式错误", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(CaptchaErrorCodes.CAPTCHA_PARAMETER_ILLEGAL, "验证码参数格式错误");
     }
 }

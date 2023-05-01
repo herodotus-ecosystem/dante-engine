@@ -26,7 +26,8 @@
 package cn.herodotus.engine.oauth2.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
+import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 
 /**
  * <p>Description: Oauth2 使用的验证码不匹配错误 </p>
@@ -46,6 +47,6 @@ public class OAuth2CaptchaMismatchException extends OAuth2CaptchaException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(40612, "验证码不匹配", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(CaptchaErrorCodes.CAPTCHA_MISMATCH, "验证码不匹配");
     }
 }

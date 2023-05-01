@@ -27,9 +27,10 @@ package cn.herodotus.engine.oauth2.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.assistant.core.enums.ResultErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.GlobalExceptionHandler;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
+import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ObjectUtils;
@@ -65,29 +66,29 @@ public class SecurityGlobalExceptionHandler {
     private static final Map<String, Result<String>> EXCEPTION_DICTIONARY = new HashMap<>();
 
     static {
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.ACCESS_DENIED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.INSUFFICIENT_SCOPE, GlobalExceptionHandler.getForbiddenResult(ResultErrorCodes.INSUFFICIENT_SCOPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.INVALID_CLIENT, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.INVALID_CLIENT));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.INVALID_GRANT, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.INVALID_GRANT));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.INVALID_REDIRECT_URI, GlobalExceptionHandler.getPreconditionFailedResult(ResultErrorCodes.INVALID_REDIRECT_URI));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.INVALID_REQUEST, GlobalExceptionHandler.getPreconditionFailedResult(ResultErrorCodes.INVALID_REQUEST));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.INVALID_SCOPE, GlobalExceptionHandler.getPreconditionFailedResult(ResultErrorCodes.INVALID_SCOPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.INVALID_TOKEN, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.INVALID_TOKEN));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.SERVER_ERROR, GlobalExceptionHandler.getInternalServerErrorResult(ResultErrorCodes.SERVER_ERROR));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.TEMPORARILY_UNAVAILABLE, GlobalExceptionHandler.getServiceUnavailableResult(ResultErrorCodes.TEMPORARILY_UNAVAILABLE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.UNAUTHORIZED_CLIENT));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.UNSUPPORTED_GRANT_TYPE, GlobalExceptionHandler.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_GRANT_TYPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.UNSUPPORTED_RESPONSE_TYPE, GlobalExceptionHandler.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_RESPONSE_TYPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.UNSUPPORTED_TOKEN_TYPE, GlobalExceptionHandler.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_TOKEN_TYPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.ACCOUNT_EXPIRED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_EXPIRED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.BAD_CREDENTIALS, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.BAD_CREDENTIALS));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.CREDENTIALS_EXPIRED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.CREDENTIALS_EXPIRED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.ACCOUNT_DISABLED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_DISABLED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.ACCOUNT_LOCKED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_LOCKED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.ACCOUNT_ENDPOINT_LIMITED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_ENDPOINT_LIMITED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.USERNAME_NOT_FOUND, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.USERNAME_NOT_FOUND));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorCodes.SESSION_EXPIRED, GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.SESSION_EXPIRED));
-        EXCEPTION_DICTIONARY.put("authorization_pending", GlobalExceptionHandler.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCESS_DENIED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INSUFFICIENT_SCOPE, FeedbackFactory.getForbiddenResult(ResultErrorCodes.INSUFFICIENT_SCOPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_CLIENT, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.INVALID_CLIENT));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_GRANT, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.INVALID_GRANT));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_REDIRECT_URI, FeedbackFactory.getPreconditionFailedResult(ResultErrorCodes.INVALID_REDIRECT_URI));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_REQUEST, FeedbackFactory.getPreconditionFailedResult(ResultErrorCodes.INVALID_REQUEST));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_SCOPE, FeedbackFactory.getPreconditionFailedResult(ResultErrorCodes.INVALID_SCOPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_TOKEN, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.INVALID_TOKEN));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.SERVER_ERROR, FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.SERVER_ERROR));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.TEMPORARILY_UNAVAILABLE, FeedbackFactory.getServiceUnavailableResult(ResultErrorCodes.TEMPORARILY_UNAVAILABLE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNAUTHORIZED_CLIENT, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.UNAUTHORIZED_CLIENT));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_GRANT_TYPE, FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_GRANT_TYPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_RESPONSE_TYPE, FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_RESPONSE_TYPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_TOKEN_TYPE, FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_TOKEN_TYPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_EXPIRED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_EXPIRED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.BAD_CREDENTIALS, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.BAD_CREDENTIALS));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.CREDENTIALS_EXPIRED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.CREDENTIALS_EXPIRED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_DISABLED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_DISABLED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_LOCKED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_LOCKED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_ENDPOINT_LIMITED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_ENDPOINT_LIMITED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.USERNAME_NOT_FOUND, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.USERNAME_NOT_FOUND));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.SESSION_EXPIRED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.SESSION_EXPIRED));
+        EXCEPTION_DICTIONARY.put("authorization_pending", FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
     }
 
     /**
@@ -170,8 +171,7 @@ public class SecurityGlobalExceptionHandler {
     public static Result<String> resolveSecurityException(Exception exception, String path) {
 
         Exception reason = new Exception();
-        if (exception instanceof OAuth2AuthenticationException) {
-            OAuth2AuthenticationException oAuth2AuthenticationException = (OAuth2AuthenticationException) exception;
+        if (exception instanceof OAuth2AuthenticationException oAuth2AuthenticationException) {
             OAuth2Error oAuth2Error = oAuth2AuthenticationException.getError();
             if (EXCEPTION_DICTIONARY.containsKey(oAuth2Error.getErrorCode())) {
                 Result<String> result = EXCEPTION_DICTIONARY.get(oAuth2Error.getErrorCode());

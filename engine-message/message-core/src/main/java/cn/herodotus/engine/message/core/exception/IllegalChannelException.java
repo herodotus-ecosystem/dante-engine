@@ -26,9 +26,9 @@
 package cn.herodotus.engine.message.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.message.core.constants.MessageErrorCode;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.message.core.constants.MessageErrorCodes;
 
 /**
  * <p>Description: Web Socket Channel 错误 </p>
@@ -60,6 +60,6 @@ public class IllegalChannelException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(MessageErrorCode.ILLEGAL_CHANNEL, "WebSocket Channel 设置错误", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(MessageErrorCodes.ILLEGAL_CHANNEL, "WebSocket Channel 设置错误");
     }
 }

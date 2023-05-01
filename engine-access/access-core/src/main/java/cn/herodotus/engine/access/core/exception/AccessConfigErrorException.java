@@ -25,10 +25,10 @@
 
 package cn.herodotus.engine.access.core.exception;
 
-import cn.herodotus.engine.access.core.constants.AccessErrorCode;
+import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import org.apache.http.HttpStatus;
 
 /**
  * <p>Description: Access 配置错误 </p>
@@ -60,6 +60,6 @@ public class AccessConfigErrorException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(AccessErrorCode.ACCESS_CONFIG_ERROR, "Access 模块配置错误", HttpStatus.SC_PRECONDITION_FAILED);
+        return FeedbackFactory.preconditionFailed(AccessErrorCodes.ACCESS_CONFIG_ERROR, "Access 模块配置错误");
     }
 }

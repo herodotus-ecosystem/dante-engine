@@ -26,9 +26,9 @@
 package cn.herodotus.engine.oss.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.oss.core.constants.OssErrorCode;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.oss.core.constants.OssErrorCodes;
 
 /**
  * <p>Description: OssInterruptedException </p>
@@ -60,6 +60,6 @@ public class OssInterruptedException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(OssErrorCode.OSS_INTERRUPTED, "对象存储服务器异步执行中断错误", HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        return FeedbackFactory.internalServerError(OssErrorCodes.OSS_INTERRUPTED, "对象存储服务器异步执行中断错误");
     }
 }

@@ -29,6 +29,7 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
+import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -132,7 +133,7 @@ public class OAuth2SocialCredentialsAuthenticationConverter implements Authentic
                     return httpCryptoProcessor.decrypt(sessionId, object.toString());
                 } catch (SessionInvalidException e) {
                     OAuth2EndpointUtils.throwError(
-                            cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes.SESSION_EXPIRED,
+                            OAuth2ErrorKeys.SESSION_EXPIRED,
                             e.getMessage(),
                             OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
                 }

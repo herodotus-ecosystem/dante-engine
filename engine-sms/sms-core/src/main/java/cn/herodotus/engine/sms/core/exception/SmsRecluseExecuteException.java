@@ -26,9 +26,9 @@
 package cn.herodotus.engine.sms.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.sms.core.constants.SmsErrorCode;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.sms.core.constants.SmsErrorCodes;
 
 /**
  * <p>Description: Recluse SMS 执行错误 </p>
@@ -60,6 +60,6 @@ public class SmsRecluseExecuteException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(SmsErrorCode.SMS_RECLUSE_EXECUTE_ERROR, "短信平台操作错误", HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        return FeedbackFactory.internalServerError(SmsErrorCodes.SMS_RECLUSE_EXECUTE_ERROR, "短信平台操作错误");
     }
 }

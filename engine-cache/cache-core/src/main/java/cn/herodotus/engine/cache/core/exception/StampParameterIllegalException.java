@@ -26,9 +26,9 @@
 package cn.herodotus.engine.cache.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.cache.core.constants.CacheErrorCode;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
 
 /**
  * <p>Description: 请求参数中缺少幂等Token错误 </p>
@@ -60,6 +60,6 @@ public class StampParameterIllegalException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(CacheErrorCode.STAMP_PARAMETER_ILLEGAL, "缺少签章身份标记参数", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(CacheErrorCodes.STAMP_PARAMETER_ILLEGAL, "缺少签章身份标记参数");
     }
 }

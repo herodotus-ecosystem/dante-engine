@@ -26,9 +26,9 @@
 package cn.herodotus.engine.oss.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.oss.core.constants.OssErrorCode;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.oss.core.constants.OssErrorCodes;
 
 /**
  * <p>Description: OssServerException </p>
@@ -59,6 +59,6 @@ public class OssServerException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(OssErrorCode.OSS_SERVER, "对象存储服务器出现错误", HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        return FeedbackFactory.internalServerError(OssErrorCodes.OSS_SERVER, "对象存储服务器出现错误");
     }
 }

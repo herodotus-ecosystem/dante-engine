@@ -23,43 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.captcha.core.exception;
+package cn.herodotus.engine.oss.core.constants;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 
 /**
- * <p>Description: 验证码已过期 </p>
+ * <p>Description: 对象存储错误代码 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/12/15 18:06
+ * @date : 2022/6/30 13:15
  */
-public class CaptchaHasExpiredException extends PlatformException {
+public interface OssErrorCodes extends ErrorCodes {
 
-    public CaptchaHasExpiredException() {
-        super();
-    }
-
-    public CaptchaHasExpiredException(String message) {
-        super(message);
-    }
-
-    public CaptchaHasExpiredException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public CaptchaHasExpiredException(Throwable cause) {
-        super(cause);
-    }
-
-    protected CaptchaHasExpiredException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    @Override
-    public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(CaptchaErrorCodes.CAPTCHA_HAS_EXPIRED, "验证码已过期");
-    }
+    int OSS_CLIENT_POOL_ERROR = OSS_MODULE_500_BEGIN + 1;
+    int OSS_ERROR_RESPONSE = OSS_CLIENT_POOL_ERROR + 1;
+    int OSS_INSUFFICIENT_DATA = OSS_ERROR_RESPONSE + 1;
+    int OSS_INTERNAL = OSS_INSUFFICIENT_DATA + 1;
+    int OSS_INVALID_KEY = OSS_INTERNAL + 1;
+    int OSS_INVALID_RESPONSE = OSS_INVALID_KEY + 1;
+    int OSS_IO = OSS_INVALID_RESPONSE + 1;
+    int OSS_NO_SUCH_ALGORITHM = OSS_IO + 1;
+    int OSS_SERVER = OSS_NO_SUCH_ALGORITHM + 1;
+    int OSS_XML_PARSER = OSS_SERVER + 1;
+    int OSS_EXECUTION = OSS_XML_PARSER + 1;
+    int OSS_INTERRUPTED = OSS_EXECUTION + 1;
 }

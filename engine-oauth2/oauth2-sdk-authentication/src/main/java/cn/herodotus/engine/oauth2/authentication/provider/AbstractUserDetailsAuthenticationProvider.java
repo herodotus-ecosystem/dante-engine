@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
+import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
 import cn.herodotus.engine.oauth2.core.exception.AccountEndpointLimitedException;
 import cn.herodotus.engine.oauth2.core.properties.OAuth2ComplianceProperties;
@@ -164,12 +164,12 @@ public abstract class AbstractUserDetailsAuthenticationProvider extends Abstract
                     OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
         } catch (BadCredentialsException bce) {
             OAuth2EndpointUtils.throwError(
-                    OAuth2ErrorCodes.BAD_CREDENTIALS,
+                    OAuth2ErrorKeys.BAD_CREDENTIALS,
                     bce.getMessage(),
                     OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
         } catch (UsernameNotFoundException unfe) {
             OAuth2EndpointUtils.throwError(
-                    OAuth2ErrorCodes.USERNAME_NOT_FOUND,
+                    OAuth2ErrorKeys.USERNAME_NOT_FOUND,
                     unfe.getMessage(),
                     OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
         }

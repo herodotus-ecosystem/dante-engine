@@ -26,7 +26,8 @@
 package cn.herodotus.engine.oauth2.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
+import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
 
 /**
  * <p>Description: UsernameAlreadyExistsException </p>
@@ -46,6 +47,6 @@ public class UsernameAlreadyExistsException extends PlatformAuthenticationExcept
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(40614, "静态AES加密算法KEY非法", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(OAuth2ErrorCodes.USERNAME_ALREADY_EXISTS, "用户名已经存在");
     }
 }

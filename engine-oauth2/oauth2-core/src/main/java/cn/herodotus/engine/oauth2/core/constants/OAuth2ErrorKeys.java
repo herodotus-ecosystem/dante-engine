@@ -25,15 +25,37 @@
 
 package cn.herodotus.engine.oauth2.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
-
 /**
- * <p>Description: OAuth2 错误代码 </p>
+ * <p>Description: 扩展 OAuth2 错误代码 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/1 11:51
+ * @date : 2022/7/9 12:59
  */
-public interface OAuth2ErrorCodes extends ErrorCodes {
+public interface OAuth2ErrorKeys {
 
-    int USERNAME_ALREADY_EXISTS = OAUTH2_MODULE_406_BEGIN + 1;
+    String INVALID_REQUEST = "invalid_request";
+    String UNAUTHORIZED_CLIENT = "unauthorized_client";
+    String ACCESS_DENIED = "access_denied";
+    String UNSUPPORTED_RESPONSE_TYPE = "unsupported_response_type";
+    String INVALID_SCOPE = "invalid_scope";
+    String INSUFFICIENT_SCOPE = "insufficient_scope";
+    String INVALID_TOKEN = "invalid_token";
+    String SERVER_ERROR = "server_error";
+    String TEMPORARILY_UNAVAILABLE = "temporarily_unavailable";
+    String INVALID_CLIENT = "invalid_client";
+    String INVALID_GRANT = "invalid_grant";
+    String UNSUPPORTED_GRANT_TYPE = "unsupported_grant_type";
+    String UNSUPPORTED_TOKEN_TYPE = "unsupported_token_type";
+    String INVALID_REDIRECT_URI = "invalid_redirect_uri";
+
+    String ACCOUNT_EXPIRED = "AccountExpiredException";
+    String ACCOUNT_DISABLED = "DisabledException";
+    String ACCOUNT_LOCKED = "LockedException";
+    String ACCOUNT_ENDPOINT_LIMITED = "AccountEndpointLimitedException";
+    String BAD_CREDENTIALS = "BadCredentialsException";
+    String CREDENTIALS_EXPIRED = "CredentialsExpiredException";
+    String USERNAME_NOT_FOUND = "UsernameNotFoundException";
+
+    String SESSION_EXPIRED = "SessionExpiredException";
+
 }

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.enums;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCode;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -110,77 +110,77 @@ public enum ResultErrorCodes {
     /**
      * 401.** 未经授权 Unauthorized	请求要求用户的身份认证
      */
-    ACCESS_DENIED(ErrorCode.ACCESS_DENIED, "您没有权限，拒绝访问"),
-    ACCOUNT_DISABLED(ErrorCode.ACCOUNT_DISABLED, "该账户已经被禁用"),
-    ACCOUNT_ENDPOINT_LIMITED(ErrorCode.ACCOUNT_ENDPOINT_LIMITED, "您已经使用其它终端登录,请先退出其它终端"),
-    ACCOUNT_EXPIRED(ErrorCode.ACCOUNT_EXPIRED, "该账户已经过期"),
-    ACCOUNT_LOCKED(ErrorCode.ACCOUNT_LOCKED, "该账户已经被锁定"),
-    BAD_CREDENTIALS(ErrorCode.BAD_CREDENTIALS, "用户名或密码错误"),
-    CREDENTIALS_EXPIRED(ErrorCode.CREDENTIALS_EXPIRED, "该账户密码凭证已过期"),
-    INVALID_CLIENT(ErrorCode.INVALID_CLIENT, "客户端身份验证失败"),
-    INVALID_TOKEN(ErrorCode.INVALID_TOKEN, "提供的访问令牌已过期、吊销、格式错误或无效"),
-    INVALID_GRANT(ErrorCode.INVALID_GRANT, "提供的授权授予或刷新令牌无效、已过期或已撤销"),
-    UNAUTHORIZED_CLIENT(ErrorCode.UNAUTHORIZED_CLIENT, "客户端无权使用此方法请求授权码或访问令牌"),
-    USERNAME_NOT_FOUND(ErrorCode.USERNAME_NOT_FOUND, "用户名或密码错误"),
-    SESSION_EXPIRED(ErrorCode.SESSION_EXPIRED, "Session 已过期，请刷新页面后再使用"),
+    ACCESS_DENIED(ErrorCodes.ACCESS_DENIED, "您没有权限，拒绝访问"),
+    ACCOUNT_DISABLED(ErrorCodes.ACCOUNT_DISABLED, "该账户已经被禁用"),
+    ACCOUNT_ENDPOINT_LIMITED(ErrorCodes.ACCOUNT_ENDPOINT_LIMITED, "您已经使用其它终端登录,请先退出其它终端"),
+    ACCOUNT_EXPIRED(ErrorCodes.ACCOUNT_EXPIRED, "该账户已经过期"),
+    ACCOUNT_LOCKED(ErrorCodes.ACCOUNT_LOCKED, "该账户已经被锁定"),
+    BAD_CREDENTIALS(ErrorCodes.BAD_CREDENTIALS, "用户名或密码错误"),
+    CREDENTIALS_EXPIRED(ErrorCodes.CREDENTIALS_EXPIRED, "该账户密码凭证已过期"),
+    INVALID_CLIENT(ErrorCodes.INVALID_CLIENT, "客户端身份验证失败"),
+    INVALID_TOKEN(ErrorCodes.INVALID_TOKEN, "提供的访问令牌已过期、吊销、格式错误或无效"),
+    INVALID_GRANT(ErrorCodes.INVALID_GRANT, "提供的授权授予或刷新令牌无效、已过期或已撤销"),
+    UNAUTHORIZED_CLIENT(ErrorCodes.UNAUTHORIZED_CLIENT, "客户端无权使用此方法请求授权码或访问令牌"),
+    USERNAME_NOT_FOUND(ErrorCodes.USERNAME_NOT_FOUND, "用户名或密码错误"),
+    SESSION_EXPIRED(ErrorCodes.SESSION_EXPIRED, "Session 已过期，请刷新页面后再使用"),
 
     /**
      * 403.** 禁止的请求，与403对应
      */
-    INSUFFICIENT_SCOPE(ErrorCode.INSUFFICIENT_SCOPE, "TOKEN权限不足，您需要更高级别的权限"),
-    SQL_INJECTION_REQUEST(ErrorCode.SQL_INJECTION_REQUEST, "疑似SQL注入请求"),
+    INSUFFICIENT_SCOPE(ErrorCodes.INSUFFICIENT_SCOPE, "TOKEN权限不足，您需要更高级别的权限"),
+    SQL_INJECTION_REQUEST(ErrorCodes.SQL_INJECTION_REQUEST, "疑似SQL注入请求"),
 
     /**
      * 405.** 方法不允许 与405对应
      */
-    HTTP_REQUEST_METHOD_NOT_SUPPORTED(ErrorCode.HTTP_REQUEST_METHOD_NOT_SUPPORTED, "请求使用的方法类型不支持"),
+    HTTP_REQUEST_METHOD_NOT_SUPPORTED(ErrorCodes.HTTP_REQUEST_METHOD_NOT_SUPPORTED, "请求使用的方法类型不支持"),
 
     /**
      * 406.** 不接受的请求，与406对应
      */
-    UNSUPPORTED_GRANT_TYPE(ErrorCode.UNSUPPORTED_GRANT_TYPE, "授权服务器不支持授权授予类型"),
-    UNSUPPORTED_RESPONSE_TYPE(ErrorCode.UNSUPPORTED_RESPONSE_TYPE, "授权服务器不支持使用此方法获取授权代码或访问令牌"),
-    UNSUPPORTED_TOKEN_TYPE(ErrorCode.UNSUPPORTED_TOKEN_TYPE, "授权服务器不支持撤销提供的令牌类型"),
+    UNSUPPORTED_GRANT_TYPE(ErrorCodes.UNSUPPORTED_GRANT_TYPE, "授权服务器不支持授权授予类型"),
+    UNSUPPORTED_RESPONSE_TYPE(ErrorCodes.UNSUPPORTED_RESPONSE_TYPE, "授权服务器不支持使用此方法获取授权代码或访问令牌"),
+    UNSUPPORTED_TOKEN_TYPE(ErrorCodes.UNSUPPORTED_TOKEN_TYPE, "授权服务器不支持撤销提供的令牌类型"),
 
     /**
      * 412.* 未经授权 Precondition Failed 客户端请求信息的先决条件错误
      */
-    INVALID_REDIRECT_URI(ErrorCode.INVALID_REDIRECT_URI, "OAuth2 URI 重定向的值无效"),
-    INVALID_REQUEST(ErrorCode.INVALID_REQUEST, "无效的请求，参数使用错误或无效."),
-    INVALID_SCOPE(ErrorCode.INVALID_SCOPE, "授权范围错误"),
+    INVALID_REDIRECT_URI(ErrorCodes.INVALID_REDIRECT_URI, "OAuth2 URI 重定向的值无效"),
+    INVALID_REQUEST(ErrorCodes.INVALID_REQUEST, "无效的请求，参数使用错误或无效."),
+    INVALID_SCOPE(ErrorCodes.INVALID_SCOPE, "授权范围错误"),
 
     /**
      * 415.* Unsupported Media Type	服务器无法处理请求附带的媒体格式
      */
-    HTTP_MEDIA_TYPE_NOT_ACCEPTABLE(ErrorCode.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE, "不支持的 Media Type"),
+    HTTP_MEDIA_TYPE_NOT_ACCEPTABLE(ErrorCodes.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE, "不支持的 Media Type"),
 
     /**
      * 500.* Internal Server Error	服务器内部错误，无法完成请求
      */
-    SERVER_ERROR(ErrorCode.SERVER_ERROR, "授权服务器遇到意外情况，无法满足请求"),
-    HTTP_MESSAGE_NOT_READABLE_EXCEPTION(ErrorCode.HTTP_MESSAGE_NOT_READABLE_EXCEPTION, "JSON字符串反序列化为实体出错！"),
-    ILLEGAL_ARGUMENT_EXCEPTION(ErrorCode.ILLEGAL_ARGUMENT_EXCEPTION, "参数不合法错误，请仔细确认参数使用是否正确。"),
-    IO_EXCEPTION(ErrorCode.IO_EXCEPTION, "IO异常"),
-    MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION(ErrorCode.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION, "接口参数使用错误或必要参数缺失，请查阅接口文档！"),
-    NULL_POINTER_EXCEPTION(ErrorCode.NULL_POINTER_EXCEPTION, "后台代码执行过程中出现了空值"),
-    TYPE_MISMATCH_EXCEPTION(ErrorCode.TYPE_MISMATCH_EXCEPTION, "类型不匹配"),
+    SERVER_ERROR(ErrorCodes.SERVER_ERROR, "授权服务器遇到意外情况，无法满足请求"),
+    HTTP_MESSAGE_NOT_READABLE_EXCEPTION(ErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION, "JSON字符串反序列化为实体出错！"),
+    ILLEGAL_ARGUMENT_EXCEPTION(ErrorCodes.ILLEGAL_ARGUMENT_EXCEPTION, "参数不合法错误，请仔细确认参数使用是否正确。"),
+    IO_EXCEPTION(ErrorCodes.IO_EXCEPTION, "IO异常"),
+    MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION(ErrorCodes.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION, "接口参数使用错误或必要参数缺失，请查阅接口文档！"),
+    NULL_POINTER_EXCEPTION(ErrorCodes.NULL_POINTER_EXCEPTION, "后台代码执行过程中出现了空值"),
+    TYPE_MISMATCH_EXCEPTION(ErrorCodes.TYPE_MISMATCH_EXCEPTION, "类型不匹配"),
 
     /**
      * 503.* Service Unavailable	由于超载或系统维护，服务器暂时的无法处理客户端的请求。延时的长度可包含在服务器的Retry-After头信息中
      */
-    SERVICE_UNAVAILABLE(ErrorCode.SERVICE_UNAVAILABLE, "服务不可用"),
-    TEMPORARILY_UNAVAILABLE(ErrorCode.TEMPORARILY_UNAVAILABLE, "由于服务器临时超载或维护，授权服务器当前无法处理该请求"),
-    PROVIDER_NOT_FOUND(ErrorCode.PROVIDER_NOT_FOUND, "授权服务器代码逻辑配置错误"),
-    COOKIE_THEFT(ErrorCode.COOKIE_THEFT, "Cookie 信息不安全"),
-    INVALID_COOKIE(ErrorCode.INVALID_COOKIE, "不可用的 Cookie 信息"),
+    SERVICE_UNAVAILABLE(ErrorCodes.SERVICE_UNAVAILABLE, "服务不可用"),
+    TEMPORARILY_UNAVAILABLE(ErrorCodes.TEMPORARILY_UNAVAILABLE, "由于服务器临时超载或维护，授权服务器当前无法处理该请求"),
+    PROVIDER_NOT_FOUND(ErrorCodes.PROVIDER_NOT_FOUND, "授权服务器代码逻辑配置错误"),
+    COOKIE_THEFT(ErrorCodes.COOKIE_THEFT, "Cookie 信息不安全"),
+    INVALID_COOKIE(ErrorCodes.INVALID_COOKIE, "不可用的 Cookie 信息"),
 
     /**
      * 6*.* 为数据操作相关错误
      */
-    METHOD_ARGUMENT_NOT_VALID(ErrorCode.METHOD_ARGUMENT_NOT_VALID, "接口参数校验失败，参数使用错误或者未接收到参数"),
-    BAD_SQL_GRAMMAR(ErrorCode.BAD_SQL_GRAMMAR, "低级SQL语法错误，检查SQL能否正常运行或者字段名称是否正确"),
-    DATA_INTEGRITY_VIOLATION(ErrorCode.DATA_INTEGRITY_VIOLATION, "该数据正在被其它数据引用，请先删除引用关系，再进行数据删除操作"),
-    TRANSACTION_ROLLBACK(ErrorCode.TRANSACTION_ROLLBACK, "数据事务处理失败，数据回滚"),
+    METHOD_ARGUMENT_NOT_VALID(ErrorCodes.METHOD_ARGUMENT_NOT_VALID, "接口参数校验失败，参数使用错误或者未接收到参数"),
+    BAD_SQL_GRAMMAR(ErrorCodes.BAD_SQL_GRAMMAR, "低级SQL语法错误，检查SQL能否正常运行或者字段名称是否正确"),
+    DATA_INTEGRITY_VIOLATION(ErrorCodes.DATA_INTEGRITY_VIOLATION, "该数据正在被其它数据引用，请先删除引用关系，再进行数据删除操作"),
+    TRANSACTION_ROLLBACK(ErrorCodes.TRANSACTION_ROLLBACK, "数据事务处理失败，数据回滚"),
 
     /**
      * 7*.* 基础设施交互错误

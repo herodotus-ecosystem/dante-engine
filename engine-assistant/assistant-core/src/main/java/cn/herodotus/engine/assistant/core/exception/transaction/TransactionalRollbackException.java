@@ -25,9 +25,10 @@
 
 package cn.herodotus.engine.assistant.core.exception.transaction;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
-import org.apache.http.HttpStatus;
 
 /**
  * <p>Description: 事务回滚Exception </p>
@@ -59,6 +60,6 @@ public class TransactionalRollbackException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(60001, "数据库操作失败，事务回滚", HttpStatus.SC_INTERNAL_SERVER_ERROR);
+        return FeedbackFactory.internalServerError(ErrorCodes.TRANSACTION_ROLLBACK, "数据库操作失败，事务回滚");
     }
 }

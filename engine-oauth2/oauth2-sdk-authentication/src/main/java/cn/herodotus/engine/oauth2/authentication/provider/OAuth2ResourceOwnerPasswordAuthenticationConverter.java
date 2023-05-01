@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
+import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -93,8 +93,8 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter implements
         Authentication clientPrincipal = SecurityContextHolder.getContext().getAuthentication();
         if (clientPrincipal == null) {
             OAuth2EndpointUtils.throwError(
-                    OAuth2ErrorCodes.INVALID_REQUEST,
-                    OAuth2ErrorCodes.INVALID_CLIENT,
+                    OAuth2ErrorKeys.INVALID_REQUEST,
+                    OAuth2ErrorKeys.INVALID_CLIENT,
                     OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
         }
 
@@ -118,7 +118,7 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter implements
                     return httpCryptoProcessor.decrypt(sessionId, object.toString());
                 } catch (SessionInvalidException e) {
                     OAuth2EndpointUtils.throwError(
-                            OAuth2ErrorCodes.SESSION_EXPIRED,
+                            OAuth2ErrorKeys.SESSION_EXPIRED,
                             e.getMessage(),
                             OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
                 }

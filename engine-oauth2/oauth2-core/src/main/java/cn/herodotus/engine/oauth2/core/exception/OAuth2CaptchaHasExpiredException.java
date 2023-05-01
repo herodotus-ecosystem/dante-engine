@@ -26,7 +26,8 @@
 package cn.herodotus.engine.oauth2.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import org.apache.http.HttpStatus;
+import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
+import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 
 /**
  * <p>Description: Oauth2 使用的验证码不匹配错误 </p>
@@ -46,6 +47,6 @@ public class OAuth2CaptchaHasExpiredException extends OAuth2CaptchaException {
 
     @Override
     public Feedback getFeedback() {
-        return new Feedback(40610, "验证码已过期", HttpStatus.SC_NOT_ACCEPTABLE);
+        return FeedbackFactory.notAcceptable(CaptchaErrorCodes.CAPTCHA_HAS_EXPIRED, "验证码已过期");
     }
 }
