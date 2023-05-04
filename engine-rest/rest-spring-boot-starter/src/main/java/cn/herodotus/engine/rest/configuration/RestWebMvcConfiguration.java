@@ -32,11 +32,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.web.servlet.resource.PathResourceResolver;
+import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 
 /**
  * <p>Description: WebMvcAutoConfiguration </p>
@@ -45,6 +48,7 @@ import jakarta.annotation.PostConstruct;
  * @date : 2020/3/4 11:00
  */
 @Configuration(proxyBeanMethods = false)
+@EnableWebMvc
 public class RestWebMvcConfiguration implements WebMvcConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(RestWebMvcConfiguration.class);
@@ -76,7 +80,9 @@ public class RestWebMvcConfiguration implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+                .addResourceLocations("classpath:/META-INF/resources/webjars/")
+                .resourceChain(false)
+                .addResolver(new WebJarsResourceResolver());
     }
 
 }

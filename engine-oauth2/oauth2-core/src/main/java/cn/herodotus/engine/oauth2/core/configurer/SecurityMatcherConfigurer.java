@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.core.configurer;
 
 import cn.herodotus.engine.assistant.core.utils.ListUtils;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
+import cn.herodotus.engine.rest.core.constants.WebResources;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
@@ -45,23 +46,6 @@ import java.util.List;
 @Component
 public class SecurityMatcherConfigurer {
 
-    private static final List<String> DEFAULT_IGNORED_STATIC_RESOURCES = Lists.newArrayList(
-            "/error/**",
-            "/plugins/**",
-            "/authorization/**",
-            "/static/**",
-            "/webjars/**",
-            "/swagger-ui.html",
-            "/swagger-ui/**",
-            "/swagger-resources/**",
-            "/v3/api-docs",
-            "/v3/api-docs/**",
-            "/openapi.json",
-            "/favicon.ico");
-    private static final List<String> DEFAULT_PERMIT_ALL_RESOURCES = Lists.newArrayList("/open/**", "/stomp/ws", "/oauth2/sign-out", "/login*");
-
-    private static final List<String> DEFAULT_HAS_AUTHENTICATED_RESOURCES = Lists.newArrayList("/engine-rest/**");
-
     private List<String> staticResources;
     private List<String> permitAllResources;
     private List<String> hasAuthenticatedResources;
@@ -78,30 +62,30 @@ public class SecurityMatcherConfigurer {
 
     public List<String> getStaticResourceList() {
         if (CollectionUtils.isEmpty(this.staticResources)) {
-            this.staticResources = ListUtils.merge(securityProperties.getMatcher().getStaticResources(), DEFAULT_IGNORED_STATIC_RESOURCES);
+            this.staticResources = ListUtils.merge(securityProperties.getMatcher().getStaticResources(), WebResources.DEFAULT_IGNORED_STATIC_RESOURCES);
         }
         return this.staticResources;
     }
 
     public List<String> getPermitAllList() {
         if (CollectionUtils.isEmpty(this.permitAllResources)) {
-            this.permitAllResources = ListUtils.merge(securityProperties.getMatcher().getPermitAll(), DEFAULT_PERMIT_ALL_RESOURCES);
+            this.permitAllResources = ListUtils.merge(securityProperties.getMatcher().getPermitAll(), WebResources.DEFAULT_PERMIT_ALL_RESOURCES);
         }
         return this.permitAllResources;
     }
 
     public List<String> getHasAuthenticatedList() {
         if (CollectionUtils.isEmpty(this.hasAuthenticatedResources)) {
-            this.hasAuthenticatedResources = ListUtils.merge(securityProperties.getMatcher().getHasAuthenticated(), DEFAULT_HAS_AUTHENTICATED_RESOURCES);
+            this.hasAuthenticatedResources = ListUtils.merge(securityProperties.getMatcher().getHasAuthenticated(), WebResources.DEFAULT_HAS_AUTHENTICATED_RESOURCES);
         }
         return this.hasAuthenticatedResources;
     }
 
     public String[] getStaticResourceArray() {
-        return ListUtils.toArray(getStaticResourceList());
+        return ListUtils.toStringArray(getStaticResourceList());
     }
 
     public String[] getPermitAllArray() {
-        return ListUtils.toArray(getPermitAllList());
+        return ListUtils.toStringArray(getPermitAllList());
     }
 }

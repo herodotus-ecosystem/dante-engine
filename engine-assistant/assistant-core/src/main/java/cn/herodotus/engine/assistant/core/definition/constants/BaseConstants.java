@@ -117,6 +117,7 @@ public interface BaseConstants {
 
     String CUSTOM_AUTHORIZATION_CONSENT_URI = "/oauth2/consent";
     String CUSTOM_DEVICE_ACTIVATION_URI = "/oauth2/device_activation";
+    String CUSTOM_DEVICE_VERIFICATION_SUCCESS_URI = "/device_activated";
 
     String OPEN_API_SECURITY_SCHEME_BEARER_NAME = "HERODOTUS_AUTH";
 

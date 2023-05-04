@@ -7,8 +7,8 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>设备激活</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/plugins/custom/components/mdi-font-7.2.96/css/materialdesignicons.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.prod.css}"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/mdi__font/css/materialdesignicons.min.css" th:href="@{/webjars/mdi__font/css/materialdesignicons.min.css}" />
+    <link rel="stylesheet" type="text/css" href="/webjars/quasar/dist/quasar.prod.css" th:href="@{/webjars/quasar/dist/quasar.prod.css}"/>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
                 <div class="column" style="min-width: 500px">
                     <div class="col">
                         <div class="row justify-center">
-                            <img th:src="@{/plugins/custom/images/logo.png}" height="300" width="400"/>
+                            <img th:src="@{/herodotus/custom/images/logo.png}" height="300" width="400"/>
                         </div>
                     </div>
                     <div class="col">
@@ -56,9 +56,9 @@
 </div>
 
 <!-- Add the following at the end of your body tag -->
-<script type="text/javascript" th:src="@{/plugins/custom/components/vue-3.2.47/vue.global.prod.js}"></script>
-<script type="text/javascript" th:src="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.umd.prod.js}"></script>
-<script type="text/javascript" th:src="@{/plugins/custom/components/quasar-2.11.9/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
+<script type="text/javascript" src="/webjars/vue/dist/vue.global.prod.js" th:src="@{/webjars/vue/dist/vue.global.prod.js}"></script>
+<script type="text/javascript" src="/webjars/quasar/dist/quasar.umd.prod.js" th:src="@{/webjars/quasar/dist/quasar.umd.prod.js}"></script>
+<script type="text/javascript" src="/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js"  th:src="@{/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
 
 <script>
     const app = Vue.createApp({

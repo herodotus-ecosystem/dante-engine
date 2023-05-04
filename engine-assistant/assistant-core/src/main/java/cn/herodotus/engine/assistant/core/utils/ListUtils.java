@@ -58,7 +58,7 @@ public class ListUtils {
      * @param resources List
      * @return String[]
      */
-    public static String[] toArray(List<String> resources) {
+    public static String[] toStringArray(List<String> resources) {
         if (CollectionUtils.isNotEmpty(resources)) {
             String[] result = new String[resources.size()];
             return resources.toArray(result);

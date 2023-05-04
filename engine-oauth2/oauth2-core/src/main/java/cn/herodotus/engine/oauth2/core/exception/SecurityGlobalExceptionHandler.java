@@ -88,7 +88,6 @@ public class SecurityGlobalExceptionHandler {
         EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_ENDPOINT_LIMITED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_ENDPOINT_LIMITED));
         EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.USERNAME_NOT_FOUND, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.USERNAME_NOT_FOUND));
         EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.SESSION_EXPIRED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.SESSION_EXPIRED));
-        EXCEPTION_DICTIONARY.put("authorization_pending", FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
     }
 
     /**

@@ -119,11 +119,6 @@ public class ConsentController {
 
         Set<String> redirectUris = StringUtils.commaDelimitedListToSet(application.getRedirectUris());
 
-        String action = endpointProperties.getAuthorizationEndpoint();
-        if (StringUtils.hasText(userCode)) {
-            action = endpointProperties.getDeviceVerificationEndpoint();
-        }
-
         //输出信息指consent页面
         model.addAttribute("clientId", clientId);
         model.addAttribute("state", state);
@@ -133,6 +128,11 @@ public class ConsentController {
         model.addAttribute("applicationName", application.getApplicationName());
         model.addAttribute("logo", application.getLogo());
         model.addAttribute("redirectUri", redirectUris.iterator().next());
+        model.addAttribute("userCode", userCode);
+        String action = endpointProperties.getAuthorizationEndpoint();
+        if (StringUtils.hasText(userCode)) {
+            action = endpointProperties.getDeviceVerificationEndpoint();
+        }
         model.addAttribute("action", action);
         return "consent";
     }

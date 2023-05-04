@@ -23,35 +23,33 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.server.controller;
+package cn.herodotus.engine.assistant.core.utils;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: 数组工具类 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/5/3 23:12
  */
-@Controller
-public class DeviceController {
+public class ArrayUtils {
 
-    @GetMapping(BaseConstants.CUSTOM_DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
+    /**
+     * 将字符串数组转换成字符串List
+     *
+     * @param array 字符串数组
+     * @return 字符串List
+     */
+    public static List<String> toStringList(String[] array) {
+        if (org.apache.commons.lang3.ArrayUtils.isNotEmpty(array)) {
+            List<String> list = new ArrayList<>(array.length);
+            Collections.addAll(list, array);
+            return list;
+        } else {
+            return new ArrayList<>();
         }
-        return "activation";
-    }
-
-    @GetMapping(value = BaseConstants.CUSTOM_DEVICE_VERIFICATION_SUCCESS_URI)
-    public String activated() {
-        return "activation-allowed";
     }
 }

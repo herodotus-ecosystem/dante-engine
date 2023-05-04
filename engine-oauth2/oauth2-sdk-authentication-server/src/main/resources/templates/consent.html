@@ -33,9 +33,8 @@
     <meta http-equiv="Expires" content="0">
 
     <title>授权登录</title>
-    <link rel="stylesheet" type="text/css"
-          th:href="@{/plugins/custom/components/mdi-font-7.2.96/css/materialdesignicons.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.prod.css}"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/mdi__font/css/materialdesignicons.min.css" th:href="@{/webjars/mdi__font/css/materialdesignicons.min.css}" />
+    <link rel="stylesheet" type="text/css" href="/webjars/quasar/dist/quasar.prod.css" th:href="@{/webjars/quasar/dist/quasar.prod.css}"/>
 </head>
 
 <body>
@@ -46,7 +45,7 @@
             <q-page padding class="flex justify-center items-start q-pa-none">
                 <q-list class="column items-center" style="min-width: 500px">
                     <q-item>
-                        <img th:src="@{/plugins/custom/images/logo.png}" height="240" width="320"/>
+                        <img th:src="@{/herodotus/custom/images/logo.png}" height="240" width="320"/>
                     </q-item>
                     <q-item>
                         <div class="text-h5 text-weight-bold">
@@ -62,7 +61,7 @@
                                             <q-item-section avatar>
                                                 <q-avatar rounded th:with="condition=${logo ne null}">
                                                     <img th:if="${condition}" th:src="@{${logo}}"/>
-                                                    <img th:unless="${condition}" th:src="@{/plugins/custom/images/boy-avatar.png}"/>
+                                                    <img th:unless="${condition}" th:src="@{/herodotus/custom/images/boy-avatar.png}"/>
                                                 </q-avatar>
                                             </q-item-section>
 
@@ -142,7 +141,7 @@
                                 </q-card-section>
                                 <input type="hidden" name="client_id" th:value="${clientId}">
                                 <input type="hidden" name="state" th:value="${state}">
-                                <input v-if="code" type="hidden" name="state" th:value="${userCode}">
+                                <input v-if="code" type="hidden" name="user_code" th:value="${userCode}">
                             </q-form>
                         </q-card>
                     </q-item>
@@ -153,9 +152,9 @@
 </div>
 
 <!-- Add the following at the end of your body tag -->
-<script type="text/javascript" th:src="@{/plugins/custom/components/vue-3.2.47/vue.global.prod.js}"></script>
-<script type="text/javascript" th:src="@{/plugins/custom/components/quasar-2.11.9/dist/quasar.umd.prod.js}"></script>
-<script type="text/javascript" th:src="@{/plugins/custom/components/quasar-2.11.9/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
+<script type="text/javascript" src="/webjars/vue/dist/vue.global.prod.js" th:src="@{/webjars/vue/dist/vue.global.prod.js}"></script>
+<script type="text/javascript" src="/webjars/quasar/dist/quasar.umd.prod.js" th:src="@{/webjars/quasar/dist/quasar.umd.prod.js}"></script>
+<script type="text/javascript" src="/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js"  th:src="@{/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
 
 <script th:inline="javascript">
     const app = Vue.createApp({

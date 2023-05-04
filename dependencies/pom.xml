@@ -49,21 +49,6 @@
         <license>
             <name>Apache License, Version 2.0</name>
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-            <comments>Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君) 'herodotus@aliyun.com'.
-
-                Dante Engine Licensed under the Apache License, Version 2.0 (the "License");
-                you may not use this file except in compliance with the License.
-                You may obtain a copy of the License at
-
-                https://www.apache.org/licenses/LICENSE-2.0
-
-                Unless required by applicable law or agreed to in writing, software
-                distributed under the License is distributed on an "AS IS" BASIS,
-                WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-                implied.
-
-                See the License for the specific language governing permissions and
-                limitations under the License.</comments>
         </license>
     </licenses>
     <scm>
@@ -154,7 +139,17 @@
         <mybatis.version>3.5.13</mybatis.version>
         <velocity.version>2.3</velocity.version>
 
-        <!--厂商SDK集成-->
+        <!--Webjars 依赖-->
+        <animate.css.version>3.7.2</animate.css.version>
+        <bootstrap.version>5.2.3</bootstrap.version>
+        <font-awesome.version>6.4.0</font-awesome.version>
+        <jquery.version>3.6.4</jquery.version>
+        <jquery-backstretch.version>2.1.16</jquery-backstretch.version>
+        <mdi__font.version>7.2.96</mdi__font.version>
+        <quasar.version>2.11.9</quasar.version>
+        <uniform.version>2.1.2-1</uniform.version>
+        <vue.version>3.2.47</vue.version>
+
         <!--SMS SDK-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
@@ -177,7 +172,6 @@
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
         <commons-fileupload.version>1.5</commons-fileupload.version>
-        <tea-xml.version>0.1.5</tea-xml.version>
         <dom4j.version>2.1.4</dom4j.version>
         <postgresql.version>42.6.0</postgresql.version>
         <snakeyaml.version>2.0</snakeyaml.version>
@@ -257,7 +251,6 @@
                 <artifactId>access-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- assistant -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -269,7 +262,6 @@
                 <artifactId>assistant-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- cache -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -301,7 +293,6 @@
                 <artifactId>cache-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- captcha -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -328,7 +319,6 @@
                 <artifactId>captcha-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- data -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -355,7 +345,6 @@
                 <artifactId>data-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- facility -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -377,7 +366,6 @@
                 <artifactId>facility-original-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- message -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -409,7 +397,6 @@
                 <artifactId>message-pay-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- nosql -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -426,7 +413,6 @@
                 <artifactId>nosql-sdk-influxdb</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- oauth2 -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -458,7 +444,6 @@
                 <artifactId>oauth2-sdk-compliance</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- oss -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -475,7 +460,6 @@
                 <artifactId>oss-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- pay -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -502,7 +486,6 @@
                 <artifactId>pay-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- rest -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -534,7 +517,6 @@
                 <artifactId>rest-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- sms -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -591,7 +573,6 @@
                 <artifactId>sms-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-
             <!-- supplier -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -614,60 +595,47 @@
                 <version>${dante-bom.version}</version>
             </dependency>
 
-            <!-- Maven 相关依赖 -->
-
             <!-- 开源通用工具包 -->
-            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
                 <version>${commons-collections4.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
                 <version>${commons-text.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
             <dependency>
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-yaml</artifactId>
                 <version>${jackson-bom.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>${jackson-bom.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jdk8 -->
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jdk8</artifactId>
                 <version>${jackson-bom.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin -->
             <dependency>
                 <groupId>com.fasterxml.jackson.module</groupId>
                 <artifactId>jackson-module-kotlin</artifactId>
                 <version>${jackson-bom.version}</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.owasp.antisamy/antisamy -->
             <dependency>
                 <groupId>org.owasp.antisamy</groupId>
                 <artifactId>antisamy</artifactId>
@@ -675,56 +643,47 @@
             </dependency>
 
             <!-- 应用开发辅助工具组件 -->
-            <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-common -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-common</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webflux-ui -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
 
-
             <dependency>
                 <groupId>p6spy</groupId>
                 <artifactId>p6spy</artifactId>
                 <version>${p6spy.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/net.logstash.logback/logstash-logback-encoder -->
             <dependency>
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
                 <version>${logstash-logback-encoder.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.skywalking/apm-toolkit-logback-1.x -->
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-logback-1.x</artifactId>
                 <version>${skywalking.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.skywalking/apm-toolkit-trace -->
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-trace</artifactId>
                 <version>${skywalking.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/io.minio/minio -->
             <dependency>
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
@@ -737,7 +696,6 @@
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.alicp.jetcache/jetcache-starter-redis -->
             <dependency>
                 <groupId>com.alicp.jetcache</groupId>
                 <artifactId>jetcache-starter-redis-lettuce</artifactId>
@@ -760,32 +718,26 @@
             </dependency>
 
             <!-- 国内开源通用组件 -->
-            <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>cn.zhxu</groupId>
                 <artifactId>okhttps-jackson</artifactId>
                 <version>${okhttps.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>cn.zhxu</groupId>
                 <artifactId>okhttps-gson</artifactId>
                 <version>${okhttps.version}</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/me.zhyd.oauth/JustAuth -->
             <dependency>
                 <groupId>me.zhyd.oauth</groupId>
                 <artifactId>JustAuth</artifactId>
                 <version>${just-auth.verison}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-miniapp -->
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-miniapp</artifactId>
@@ -796,7 +748,6 @@
                 <artifactId>weixin-java-mp</artifactId>
                 <version>${weixin-java-sdk.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.github.binarywang/weixin-java-pay -->
             <dependency>
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-pay</artifactId>
@@ -809,81 +760,110 @@
                 <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
                 <version>${camunda-bpm-spring-boot-starter-rest.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter -->
             <dependency>
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt-spring-boot-starter.version}</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-core -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-core</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis-plus-generator.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.apache.velocity/velocity-engine-core -->
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity-engine-core</artifactId>
-                <version>${velocity.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis</artifactId>
                 <version>${mybatis.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
 
+            <!-- Webjars -->
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>animate.css</artifactId>
+                <version>${animate.css.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>bootstrap</artifactId>
+                <version>${bootstrap.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>font-awesome</artifactId>
+                <version>${font-awesome.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery</artifactId>
+                <version>${jquery.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>jquery-backstretch</artifactId>
+                <version>${jquery-backstretch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.npm</groupId>
+                <artifactId>mdi__font</artifactId>
+                <version>${mdi__font.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.npm</groupId>
+                <artifactId>quasar</artifactId>
+                <version>${quasar.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>uniform</artifactId>
+                <version>${uniform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.webjars.npm</groupId>
+                <artifactId>vue</artifactId>
+                <version>${vue.version}</version>
+            </dependency>
 
-            <!-- 厂商SDK集成 -->
             <!-- SMS SDK -->
-            <!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-core -->
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-core</artifactId>
                 <version>${aliyun-java-sdk-core.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.aliyun/dysmsapi20170525 -->
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>dysmsapi20170525</artifactId>
                 <version>${dysmsapi20170525.version}</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/com.jdcloud.sdk/sms -->
             <dependency>
                 <groupId>com.jdcloud.sdk</groupId>
                 <artifactId>sms</artifactId>
                 <version>${com.jdcloud.sdk.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.tencentcloudapi/tencentcloud-sdk-java-sms -->
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java-sms</artifactId>
                 <version>${tencentcloud-sdk-java.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.tencentcloudapi/tencentcloud-sdk-java-common -->
             <dependency>
                 <groupId>com.tencentcloudapi</groupId>
                 <artifactId>tencentcloud-sdk-java-common</artifactId>
                 <version>${tencentcloud-sdk-java.version}</version>
             </dependency>
-
-
-            <!-- https://mvnrepository.com/artifact/com.qiniu/qiniu-java-sdk -->
             <dependency>
                 <groupId>com.qiniu</groupId>
                 <artifactId>qiniu-java-sdk</artifactId>
@@ -891,7 +871,6 @@
             </dependency>
 
             <!-- 支付 SDK -->
-            <!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
             <dependency>
                 <groupId>com.alipay.sdk</groupId>
                 <artifactId>alipay-sdk-java</artifactId>
@@ -904,21 +883,17 @@
                 </exclusions>
             </dependency>
 
-
             <!-- 第三方应用集成 -->
-            <!-- https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-green -->
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-green</artifactId>
                 <version>${aliyun-java-sdk-green.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.aliyun.oss/aliyun-sdk-oss -->
             <dependency>
                 <groupId>com.aliyun.oss</groupId>
                 <artifactId>aliyun-sdk-oss</artifactId>
                 <version>${aliyun-sdk-oss.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.baidu.aip/java-sdk -->
             <dependency>
                 <groupId>com.baidu.aip</groupId>
                 <artifactId>java-sdk</artifactId>
@@ -926,19 +901,16 @@
             </dependency>
 
             <!-- 阿里巴巴开源工具依赖 -->
-            <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2 -->
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson2.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.alibaba/transmittable-thread-local -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>transmittable-thread-local</artifactId>
@@ -946,19 +918,16 @@
             </dependency>
 
             <!--以下为 JDK 17 兼容性处理-->
-            <!-- https://mvnrepository.com/artifact/org.jboss.xnio/xnio-nio -->
             <dependency>
                 <groupId>org.jboss.xnio</groupId>
                 <artifactId>xnio-nio</artifactId>
                 <version>${xnio.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.jboss.xnio/xnio-api -->
             <dependency>
                 <groupId>org.jboss.xnio</groupId>
                 <artifactId>xnio-api</artifactId>
                 <version>${xnio.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
             <dependency>
                 <groupId>com.squareup.okio</groupId>
                 <artifactId>okio</artifactId>
@@ -966,7 +935,6 @@
             </dependency>
 
             <!--以下为特殊处理, 统一版本处理漏洞等-->
-            <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk15on -->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
@@ -977,31 +945,21 @@
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>${bcpkix-jdk15on.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.aliyun/tea-xml -->
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>tea-xml</artifactId>
-                <version>${tea-xml.version}</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.dom4j/dom4j -->
             <dependency>
                 <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
             <dependency>
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
                 <version>${commons-fileupload.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
             <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -1133,19 +1091,9 @@
                     <configuration>
                         <!-- 检查的仓库根目录，${project.basedir}：项目根目录，即包含pom.xml文件的目录 -->
                         <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                        <!-- git属性文件中各属性前缀，默认值git，可以不配置 -->
-                        <prefix>git</prefix>
-                        <!-- false：扫描路径时不打印更多信息，默认值false，可以不配置 -->
-                        <verbose>false</verbose>
                         <!-- 生成git属性文件，默认false：不生成 -->
                         <generateGitPropertiesFile>true</generateGitPropertiesFile>
-                        <!-- 生成git属性文件路径及文件名，默认${project.build.outputDirectory}/git.properties -->
-                        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties
-                        </generateGitPropertiesFilename>
                         <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
-                        <!-- 生成git属性文件格式，默认值properties -->
-                        <!--                        <format>json</format>-->
-                        <!-- 配置git-describe命令 -->
                         <gitDescribe>
                             <skip>false</skip>
                             <always>false</always>

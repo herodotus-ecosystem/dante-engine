@@ -1,1 +1,1 @@
-## 缓存通用代码模块
+## Spring Authorization Server 相关模块通用代码

@@ -137,6 +137,7 @@ public class GlobalExceptionHandler {
         if (ex instanceof HerodotusException exception) {
             Result<String> result = exception.getResult();
             result.path(path);
+            log.error("[Herodotus] |- Global Exception Handler, Error is : {}", result);
             return result;
         } else {
             Result<String> result = Result.failure();
@@ -151,7 +152,7 @@ public class GlobalExceptionHandler {
             result.stackTrace(ex.getStackTrace());
             result.detail(ex.getMessage());
 
-            log.debug("[Herodotus] |- Global Exception Handler, Error is : {}", result);
+            log.error("[Herodotus] |- Global Exception Handler, Error is : {}", result);
             return result;
         }
     }

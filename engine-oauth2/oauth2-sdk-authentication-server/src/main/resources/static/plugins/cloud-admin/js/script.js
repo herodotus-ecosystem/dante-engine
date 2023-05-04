@@ -137,28 +137,28 @@ var App = function () {
 	/*-----------------------------------------------------------------------------------*/
 	/*	Responsive Sidebar Collapse
 	/*-----------------------------------------------------------------------------------*/
-	var responsiveSidebar = function () {
-		//Handle sidebar collapse on screen width
-		var width = $(window).width();
-		if ( width < 768 ) {
-			is_mobile = true;
-			//Hide the sidebar completely
-			jQuery('#main-content').addClass("margin-left-0");
-		}
-		else {
-			is_mobile = false;
-			//Show the sidebar completely
-			jQuery('#main-content').removeClass("margin-left-0");
-			var menu = $('.sidebar');
-			if (menu.parent('.slimScrollDiv').size() === 1) { // destroy existing instance before resizing
-				menu.slimScroll({
-					destroy: true
-				});
-				menu.removeAttr('style');
-				$('#sidebar').removeAttr('style');
-			}
-		}
-	}
+	// var responsiveSidebar = function () {
+	// 	//Handle sidebar collapse on screen width
+	// 	var width = $(window).width();
+	// 	if ( width < 768 ) {
+	// 		is_mobile = true;
+	// 		//Hide the sidebar completely
+	// 		jQuery('#main-content').addClass("margin-left-0");
+	// 	}
+	// 	else {
+	// 		is_mobile = false;
+	// 		//Show the sidebar completely
+	// 		jQuery('#main-content').removeClass("margin-left-0");
+	// 		var menu = $('.sidebar');
+	// 		if (menu.parent('.slimScrollDiv').size() === 1) { // destroy existing instance before resizing
+	// 			menu.slimScroll({
+	// 				destroy: true
+	// 			});
+	// 			menu.removeAttr('style');
+	// 			$('#sidebar').removeAttr('style');
+	// 		}
+	// 	}
+	// }
 	/*-----------------------------------------------------------------------------------*/
 	/*	Sidebar Collapse
 	/*-----------------------------------------------------------------------------------*/
@@ -300,7 +300,7 @@ var App = function () {
 		setTimeout(function () {
 			checkLayout();
 			handleSidebarAndContentHeight();
-			responsiveSidebar();
+			// responsiveSidebar();
 			handleFixedSidebar();
 			handleNavbarFixedTop();
 			runResponsiveFunctions(); 
