@@ -26,23 +26,16 @@
 package cn.herodotus.engine.oauth2.data.jpa.storage;
 
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
-import cn.herodotus.engine.oauth2.data.jpa.jackson2.HerodotusJackson2Module;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
-import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2TokenJackson2Module;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusRegisteredClientService;
-import cn.herodotus.engine.oauth2.data.jpa.utils.OAuth2AuthorizationUtils;
+import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
 import cn.hutool.core.date.DateUtil;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.util.StringUtils;

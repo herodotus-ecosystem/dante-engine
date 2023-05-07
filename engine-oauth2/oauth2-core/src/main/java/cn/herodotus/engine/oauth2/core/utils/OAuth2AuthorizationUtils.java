@@ -23,9 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.data.jpa.utils;
+package cn.herodotus.engine.oauth2.core.utils;
 
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
+import org.springframework.security.oauth2.core.AuthenticationMethod;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 
@@ -57,9 +58,24 @@ public class OAuth2AuthorizationUtils {
             return ClientAuthenticationMethod.CLIENT_SECRET_BASIC;
         } else if (ClientAuthenticationMethod.CLIENT_SECRET_POST.getValue().equals(clientAuthenticationMethod)) {
             return ClientAuthenticationMethod.CLIENT_SECRET_POST;
+        } else if (ClientAuthenticationMethod.CLIENT_SECRET_JWT.getValue().equals(clientAuthenticationMethod)) {
+            return ClientAuthenticationMethod.CLIENT_SECRET_JWT;
+        } else if (ClientAuthenticationMethod.PRIVATE_KEY_JWT.getValue().equals(clientAuthenticationMethod)) {
+            return ClientAuthenticationMethod.PRIVATE_KEY_JWT;
         } else if (ClientAuthenticationMethod.NONE.getValue().equals(clientAuthenticationMethod)) {
             return ClientAuthenticationMethod.NONE;
         }
         return new ClientAuthenticationMethod(clientAuthenticationMethod);
+    }
+
+    public static AuthenticationMethod resolveAuthenticationMethod(String authenticationMethod) {
+        if (AuthenticationMethod.HEADER.getValue().equals(authenticationMethod)) {
+            return AuthenticationMethod.HEADER;
+        } else if (AuthenticationMethod.FORM.getValue().equals(authenticationMethod)) {
+            return AuthenticationMethod.FORM;
+        } else if (AuthenticationMethod.QUERY.getValue().equals(authenticationMethod)) {
+            return AuthenticationMethod.QUERY;
+        }
+        return new AuthenticationMethod(authenticationMethod);
     }
 }

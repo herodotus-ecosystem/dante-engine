@@ -31,7 +31,7 @@ import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
-import cn.herodotus.engine.oauth2.data.jpa.utils.OAuth2AuthorizationUtils;
+import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.authentication.server.repository.OAuth2ApplicationRepository;

@@ -25,7 +25,6 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
-import cn.herodotus.engine.oauth2.data.jpa.storage.JpaOAuth2AuthorizationService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -127,6 +127,10 @@ public class Jackson2Utils {
         return toObject(content, javaType);
     }
 
+    public static Map<String, Object> toMap(String content) {
+        return toMap(content, String.class, Object.class);
+    }
+
     public static <T> Set<T> toSet(String content, Class<T> clazz) {
         JavaType javaType = getTypeFactory().constructCollectionLikeType(Set.class, clazz);
         return toObject(content, javaType);

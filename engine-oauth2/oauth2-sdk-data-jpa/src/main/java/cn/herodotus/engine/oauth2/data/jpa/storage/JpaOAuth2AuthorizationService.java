@@ -27,21 +27,15 @@ package cn.herodotus.engine.oauth2.data.jpa.storage;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
-import cn.herodotus.engine.oauth2.data.jpa.jackson2.HerodotusJackson2Module;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
-import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2TokenJackson2Module;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationService;
-import cn.herodotus.engine.oauth2.data.jpa.utils.OAuth2AuthorizationUtils;
+import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
 import cn.hutool.core.date.DateUtil;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;
@@ -52,7 +46,6 @@ import org.springframework.security.oauth2.server.authorization.OAuth2Authorizat
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -260,7 +253,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
                 entity::setAccessTokenMetadata
         );
         if (accessToken != null && accessToken.getToken().getScopes() != null) {
-            entity.setAccessTokenScopes(StringUtils.collectionToDelimitedString(accessToken.getToken().getScopes(), SymbolConstants.COMMA));
+            entity.setAccessTokenScopes(StringUtils.collectionToCommaDelimitedString(accessToken.getToken().getScopes()));
         }
 
         OAuth2Authorization.Token<OAuth2RefreshToken> refreshToken =
