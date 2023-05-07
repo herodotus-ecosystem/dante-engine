@@ -1153,6 +1153,11 @@
             <url>https://mirrors.tencent.com/nexus/repository/maven-public/</url>
         </repository>
         <repository>
+            <id>huawei</id>
+            <name>华为云公共库。包括release和snapshot</name>
+            <url>https://repo.huaweicloud.com/repository/maven/</url>
+        </repository>
+        <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
@@ -1179,6 +1184,11 @@
             <id>tencent</id>
             <name>腾讯云公共库。包括release和snapshot</name>
             <url>https://mirrors.tencent.com/nexus/repository/maven-public/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>huawei</id>
+            <name>华为云公共库。包括release和snapshot</name>
+            <url>https://repo.huaweicloud.com/repository/maven/</url>
         </pluginRepository>
         <pluginRepository>
             <id>spring-milestones</id>
