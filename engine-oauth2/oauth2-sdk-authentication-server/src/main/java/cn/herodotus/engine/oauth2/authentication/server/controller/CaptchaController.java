@@ -99,8 +99,8 @@ public class CaptchaController implements Controller {
     public Result<Boolean> check(@Valid @RequestBody Verification verification) {
         boolean isSuccess = captchaRendererFactory.verify(verification);
         if (isSuccess) {
-            return Result.success("验证码创建成功", true);
+            return Result.success("验证码验证成功", true);
         }
-        return Result.failure("验证失败", true);
+        return Result.failure("验证码验证失败", true);
     }
 }

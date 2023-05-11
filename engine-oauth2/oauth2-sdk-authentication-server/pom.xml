@@ -33,11 +33,11 @@
     <parent>
         <artifactId>engine-oauth2</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.6.1</version>
+        <version>3.0.6.2</version>
     </parent>
 
     <artifactId>oauth2-sdk-authentication-server</artifactId>
-    <version>3.0.6.1</version>
+    <version>3.0.6.2</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
@@ -59,31 +59,4 @@
         </dependency>
 
     </dependencies>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <!-- 解决字体图标不显示以及Chrome控制台Failed to decode downloaded font错误的问题-->
-                    <!-- 主要原因是maven打包项目的时候对项目进行统一编码，这就导致字体文件被破坏，增加过滤配置，让maven不对字体文件进行处理-->
-                    <nonFilteredFileExtensions>
-                        <nonFilteredFileExtension>woff</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>eot</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>otf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-                        <nonFilteredFileExtension>svg</nonFilteredFileExtension>
-                    </nonFilteredFileExtensions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>

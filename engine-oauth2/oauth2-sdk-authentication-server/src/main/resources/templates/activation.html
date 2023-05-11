@@ -1,79 +1,73 @@
+<!--
+  ~ Copyright (c) 2020-2030 ZHENGGENGWEI(码匠君)<herodotus@aliyun.com>
+  ~
+  ~ Dante Engine licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ <http://www.apache.org/licenses/LICENSE-2.0>
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  ~ Dante Engine 采用APACHE LICENSE 2.0开源协议，您在使用过程中，需要注意以下几点：
+  ~
+  ~ 1.请不要删除和修改根目录下的LICENSE文件。
+  ~ 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
+  ~ 3.请保留源码和相关描述文件的项目出处，作者声明等。
+  ~ 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+  ~ 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+  ~ 6.若您的项目无法满足以上几点，可申请商业授权
+  -->
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>设备激活</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/mdi__font/css/materialdesignicons.min.css" th:href="@{/webjars/mdi__font/css/materialdesignicons.min.css}" />
-    <link rel="stylesheet" type="text/css" href="/webjars/quasar/dist/quasar.prod.css" th:href="@{/webjars/quasar/dist/quasar.prod.css}"/>
-</head>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{activation-layout}">
 
 <body>
-<div id="q-app">
-    <q-layout class="bg-grey-4">
-        <q-page-container>
-            <q-page padding class="flex justify-center items-start">
-                <div class="column" style="min-width: 500px">
-                    <div class="col">
-                        <div class="row justify-center">
-                            <img th:src="@{/herodotus/custom/images/logo.png}" height="300" width="400"/>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <q-card flat bordered>
-                            <q-card-section>
-                                <q-form th:action="@{/oauth2/device_verification}" method="post">
-                                    <div class="column q-gutter-md q-pt-lg items-center">
-                                        <div class="col">
-                                            <div class="text-h4 text-weight-bolder">设备激活</div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="text-subtitle2">
-                                                请输入您设备上显示的代码
-                                            </div>
-                                        </div>
+    <title layout:fragment="title">设备激活</title>
 
-                                        <div class="col" style="width: 90%">
-                                            <q-input name="user_code" outlined dense mask="XXXX - XXXX" fill-mask
-                                                     v-model="code"
-                                                     :rules="[ val => val !== null && val !== '' || '请输入激活码' ]"/>
-                                        </div>
-                                        <div class="col q-mt-sm" style="width: 90%">
-                                            <q-btn color="primary" class="full-width" label="继续" type="submit"/>
-                                        </div>
-                                    </div>
-                                </q-form>
-                            </q-card-section>
-                        </q-card>
+    <div layout:fragment="content">
+        <div class="col">
+            <div class="text-h4 text-weight-bolder">设备激活</div>
+        </div>
+        <div class="col">
+            <div class="text-subtitle2">
+                请输入您设备上显示的代码
+            </div>
+        </div>
+        <div class="col" style="width: 90%">
+            <form th:action="@{/oauth2/device_verification}" method="post">
+                <div class="column items-center q-mb-md">
+                    <div class="col" style="width: 90%">
+                        <q-input name="user_code" outlined dense mask="XXXX - XXXX" fill-mask v-model="code" :rules="[ val => val !== null && val !== '' || '请输入激活码' ]"/>
+                    </div>
+                    <div class="col" style="width: 90%">
+                        <q-btn color="primary" class="full-width" label="继续" type="submit"/>
                     </div>
                 </div>
-            </q-page>
-        </q-page-container>
-    </q-layout>
-</div>
+            </form>
+        </div>
+    </div>
 
-<!-- Add the following at the end of your body tag -->
-<script type="text/javascript" src="/webjars/vue/dist/vue.global.prod.js" th:src="@{/webjars/vue/dist/vue.global.prod.js}"></script>
-<script type="text/javascript" src="/webjars/quasar/dist/quasar.umd.prod.js" th:src="@{/webjars/quasar/dist/quasar.umd.prod.js}"></script>
-<script type="text/javascript" src="/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js"  th:src="@{/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
+    <th:block layout:fragment="script">
+        <script>
+            const app = Vue.createApp({
+                setup() {
+                    code = Vue.ref("");
 
-<script>
-    const app = Vue.createApp({
-        setup() {
-            code = Vue.ref("");
+                    return {
+                        code,
+                    };
+                },
+            });
 
-            return {
-                code,
-            };
-        },
-    });
-
-    app.use(Quasar);
-    Quasar.iconSet.set(Quasar.iconSet.svgMdiV7);
-    app.mount("#q-app");
-</script>
+            app.use(Quasar);
+            Quasar.iconSet.set(Quasar.iconSet.svgMdiV7);
+            app.mount("#q-app");
+        </script>
+    </th:block>
 </body>
 </html>

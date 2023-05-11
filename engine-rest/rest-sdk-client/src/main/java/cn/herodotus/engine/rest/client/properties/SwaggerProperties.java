@@ -23,58 +23,38 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.properties;
+package cn.herodotus.engine.rest.client.properties;
 
-import cn.herodotus.engine.assistant.core.enums.Protocol;
-import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
-import cn.herodotus.engine.rest.core.enums.Architecture;
+import com.google.common.base.MoreObjects;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * <p>Description: 平台服务相关配置 </p>
+ * <p>Description: Swagger 自定义配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2019/11/17 15:22
+ * @date : 2023/5/9 18:45
  */
-@ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_PLATFORM)
-public class PlatformProperties {
+@ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_SWAGGER)
+public class SwaggerProperties {
 
     /**
-     * 平台架构类型，默认：DISTRIBUTED（分布式架构）
+     * 是否开启Swagger
      */
-    private Architecture architecture = Architecture.DISTRIBUTED;
-    /**
-     * 数据访问策略，默认：远程
-     */
-    private Target dataAccessStrategy = Target.REMOTE;
+    private Boolean enabled;
 
-    /**
-     * 接口地址默认采用的Http协议类型
-     */
-    private Protocol protocol = Protocol.HTTP;
-
-    public Architecture getArchitecture() {
-        return architecture;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setArchitecture(Architecture architecture) {
-        this.architecture = architecture;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public Target getDataAccessStrategy() {
-        return dataAccessStrategy;
-    }
-
-    public void setDataAccessStrategy(Target dataAccessStrategy) {
-        this.dataAccessStrategy = dataAccessStrategy;
-    }
-
-    public Protocol getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(Protocol protocol) {
-        this.protocol = protocol;
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("enabled", enabled)
+                .toString();
     }
 }

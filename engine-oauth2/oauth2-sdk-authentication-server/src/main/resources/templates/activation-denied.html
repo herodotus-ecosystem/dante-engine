@@ -1,64 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>激活被拒绝</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/mdi__font/css/materialdesignicons.min.css" th:href="@{/webjars/mdi__font/css/materialdesignicons.min.css}" />
-    <link rel="stylesheet" type="text/css" href="/webjars/quasar/dist/quasar.prod.css" th:href="@{/webjars/quasar/dist/quasar.prod.css}"/>
-</head>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{activation-layout}">
 
 <body>
-<div id="q-app">
-    <q-layout class="bg-grey-2">
-        <q-page-container>
-            <q-page padding class="flex justify-center items-start">
-                <div class="column" style="min-width: 500px">
-                    <div class="col">
-                        <div class="row justify-center">
-                            <img th:src="@{/herodotus/custom/images/logo.png}" height="300" width="400"/>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <q-card flat bordered>
-                            <q-card-section>
-                                <div class="column q-gutter-md items-center">
-                                    <div class="col">
-                                        <q-icon name="mdi-close" color="red" size="100px"/>
-                                    </div>
-                                    <div class="col">
-                                        <div class="text-h5 text-weight-bolder">
-                                            激活被拒绝！
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="text-subtitle2">我们无法激活您的设备。</div>
-                                    </div>
-                                </div>
-                            </q-card-section>
-                        </q-card>
-                    </div>
+    <title layout:fragment="title">设备激活被拒绝</title>
+    <div layout:fragment="content">
+        <div class="column q-gutter-md items-center">
+            <div class="col">
+                <q-icon name="mdi-progress-close" color="red" size="100px"/>
+            </div>
+            <div class="col">
+                <div class="text-h5 text-weight-bolder">
+                    激活被拒绝！
                 </div>
-            </q-page>
-        </q-page-container>
-    </q-layout>
-</div>
+            </div>
+            <div class="col">
+                <div class="text-subtitle2">我们无法激活您的设备。</div>
+            </div>
+        </div>
+    </div>
 
-<!-- Add the following at the end of your body tag -->
-<script type="text/javascript" src="/webjars/vue/dist/vue.global.prod.js" th:src="@{/webjars/vue/dist/vue.global.prod.js}"></script>
-<script type="text/javascript" src="/webjars/quasar/dist/quasar.umd.prod.js" th:src="@{/webjars/quasar/dist/quasar.umd.prod.js}"></script>
-<script type="text/javascript" src="/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js"  th:src="@{/webjars/quasar/dist/icon-set/svg-mdi-v7.umd.prod.js}"></script>
+    <th:block layout:fragment="script">
+        <script>
+            const app = Vue.createApp({
+                setup() {
+                    return {};
+                },
+            });
 
-<script>
-    const app = Vue.createApp({
-        setup() {
-            return {};
-        },
-    });
-
-    app.use(Quasar);
-    Quasar.iconSet.set(Quasar.iconSet.svgMdiV7);
-    app.mount("#q-app");
-</script>
+            app.use(Quasar);
+            Quasar.iconSet.set(Quasar.iconSet.svgMdiV7);
+            app.mount("#q-app");
+        </script>
+    </th:block>
 </body>
 </html>

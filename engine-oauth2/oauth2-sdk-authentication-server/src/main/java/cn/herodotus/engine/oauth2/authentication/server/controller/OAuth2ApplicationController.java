@@ -134,15 +134,22 @@ public class OAuth2ApplicationController extends BaseController<OAuth2Applicatio
         dto.setHomepage(entity.getHomepage());
         dto.setApplicationType(entity.getApplicationType());
         dto.setClientId(entity.getClientId());
+        dto.setClientIdIssuedAt(entity.getClientIdIssuedAt());
         dto.setClientSecret(entity.getClientSecret());
-        dto.setRedirectUris(entity.getRedirectUris());
-        dto.setAuthorizationGrantTypes(StringUtils.commaDelimitedListToSet(entity.getAuthorizationGrantTypes()));
+        dto.setClientSecretExpiresAt(entity.getClientSecretExpiresAt());
         dto.setClientAuthenticationMethods(StringUtils.commaDelimitedListToSet(entity.getClientAuthenticationMethods()));
+        dto.setAuthorizationGrantTypes(StringUtils.commaDelimitedListToSet(entity.getAuthorizationGrantTypes()));
+        dto.setRedirectUris(entity.getRedirectUris());
+        dto.setPostLogoutRedirectUris(entity.getPostLogoutRedirectUris());
         dto.setRequireProofKey(entity.getRequireProofKey());
         dto.setRequireAuthorizationConsent(entity.getRequireAuthorizationConsent());
         dto.setJwkSetUrl(entity.getJwkSetUrl());
+        dto.setAuthenticationSigningAlgorithm(entity.getAuthenticationSigningAlgorithm());
         dto.setAccessTokenValidity(entity.getAccessTokenValidity());
+        dto.setAuthorizationCodeValidity(entity.getAuthorizationCodeValidity());
+        dto.setDeviceCodeValidity(entity.getDeviceCodeValidity());
         dto.setReuseRefreshTokens(entity.getReuseRefreshTokens());
+        dto.setAccessTokenFormat(entity.getAccessTokenFormat());
         dto.setRefreshTokenValidity(entity.getRefreshTokenValidity());
         dto.setIdTokenSignatureAlgorithm(entity.getIdTokenSignatureAlgorithm());
         dto.setScopes(entity.getScopes());
@@ -151,10 +158,6 @@ public class OAuth2ApplicationController extends BaseController<OAuth2Applicatio
         dto.setReversion(entity.getReversion());
         dto.setRanking(entity.getRanking());
         dto.setStatus(entity.getStatus());
-        dto.setClientSecretExpiresAt(entity.getClientSecretExpiresAt());
-        dto.setIdTokenSignatureAlgorithm(entity.getIdTokenSignatureAlgorithm());
-        dto.setAccessTokenFormat(entity.getAccessTokenFormat());
-        dto.setAuthenticationSigningAlgorithm(entity.getAuthenticationSigningAlgorithm());
         return dto;
     }
 
@@ -167,28 +170,31 @@ public class OAuth2ApplicationController extends BaseController<OAuth2Applicatio
         entity.setHomepage(dto.getHomepage());
         entity.setApplicationType(dto.getApplicationType());
         entity.setClientId(dto.getClientId());
+        entity.setClientIdIssuedAt(dto.getClientIdIssuedAt());
         entity.setClientSecret(dto.getClientSecret());
-        entity.setRedirectUris(dto.getRedirectUris());
-        entity.setAuthorizationGrantTypes(StringUtils.collectionToCommaDelimitedString(dto.getAuthorizationGrantTypes()));
+        entity.setClientSecretExpiresAt(dto.getClientSecretExpiresAt());
         entity.setClientAuthenticationMethods(StringUtils.collectionToCommaDelimitedString(dto.getClientAuthenticationMethods()));
+        entity.setAuthorizationGrantTypes(StringUtils.collectionToCommaDelimitedString(dto.getAuthorizationGrantTypes()));
+        entity.setRedirectUris(dto.getRedirectUris());
+        entity.setPostLogoutRedirectUris(dto.getPostLogoutRedirectUris());
         entity.setRequireProofKey(dto.getRequireProofKey());
         entity.setRequireAuthorizationConsent(dto.getRequireAuthorizationConsent());
         entity.setJwkSetUrl(dto.getJwkSetUrl());
+        entity.setAuthenticationSigningAlgorithm(dto.getAuthenticationSigningAlgorithm());
         entity.setAccessTokenValidity(dto.getAccessTokenValidity());
-        entity.setReuseRefreshTokens(dto.getReuseRefreshTokens());
+        entity.setAuthorizationCodeValidity(dto.getAuthorizationCodeValidity());
         entity.setRefreshTokenValidity(dto.getRefreshTokenValidity());
+        entity.setDeviceCodeValidity(dto.getDeviceCodeValidity());
+        entity.setReuseRefreshTokens(dto.getReuseRefreshTokens());
         entity.setIdTokenSignatureAlgorithm(dto.getIdTokenSignatureAlgorithm());
-        entity.setClientSecretExpiresAt(dto.getClientSecretExpiresAt());
+        entity.setAccessTokenFormat(dto.getAccessTokenFormat());
+        entity.setIdTokenSignatureAlgorithm(dto.getIdTokenSignatureAlgorithm());
         entity.setScopes(dto.getScopes());
         entity.setReserved(dto.getReserved());
         entity.setDescription(dto.getDescription());
         entity.setReversion(dto.getReversion());
         entity.setRanking(dto.getRanking());
         entity.setStatus(dto.getStatus());
-        entity.setIdTokenSignatureAlgorithm(dto.getIdTokenSignatureAlgorithm());
-        entity.setAccessTokenFormat(dto.getAccessTokenFormat());
-        entity.setAuthenticationSigningAlgorithm(dto.getAuthenticationSigningAlgorithm());
-
         return entity;
     }
 }

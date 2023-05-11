@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.DurationDeserializer;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -57,6 +58,7 @@ public class OAuth2ApplicationDto extends BaseSysDto {
     private String applicationId;
 
     @Schema(name = "应用名称", required = true)
+    @NotBlank(message = "应用名称不能为空")
     private String applicationName;
 
     @Schema(name = "应用简称", title = "应用的简称、别名、缩写等信息")
@@ -74,6 +76,10 @@ public class OAuth2ApplicationDto extends BaseSysDto {
     @Schema(name = "客户端Id", title = "默认为系统自动生成")
     private String clientId = IdUtil.fastSimpleUUID();
 
+    @Schema(name = "客户端ID发布日期", title = "客户端发布日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8", shape = JsonFormat.Shape.STRING)
+    private LocalDateTime clientIdIssuedAt;
+
     @Schema(name = "客户端秘钥", title = "这里存储的客户端秘钥是明文，方便使用。默认为系统自动生成")
     private String clientSecret = IdUtil.fastSimpleUUID();
 
@@ -81,16 +87,19 @@ public class OAuth2ApplicationDto extends BaseSysDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8", shape = JsonFormat.Shape.STRING)
     private LocalDateTime clientSecretExpiresAt;
 
-    @Schema(name = "回调地址", title = "支持多个值，以逗号分隔", required = true)
-    private String redirectUris;
+    @Schema(name = "客户端认证模式", title = "支持多个值，以逗号分隔", required = true)
+    @JsonDeserialize(using = ArrayOrStringDeserializer.class)
+    private Set<String> clientAuthenticationMethods = Collections.emptySet();
 
     @Schema(name = "认证模式", title = "支持多个值，以逗号分隔", required = true)
     @JsonDeserialize(using = ArrayOrStringDeserializer.class)
     private Set<String> authorizationGrantTypes = Collections.emptySet();
 
-    @Schema(name = "客户端认证模式", title = "支持多个值，以逗号分隔", required = true)
-    @JsonDeserialize(using = ArrayOrStringDeserializer.class)
-    private Set<String> clientAuthenticationMethods = Collections.emptySet();
+    @Schema(name = "回调地址", title = "支持多个值，以逗号分隔")
+    private String redirectUris;
+
+    @Schema(name = "OIDC Logout 回调地址", title = "支持多个值，以逗号分隔")
+    private String postLogoutRedirectUris;
 
     @Schema(name = "需要证明Key", title = "如果客户端在执行授权码授予流时需要提供验证密钥质询和验证器, 默认False")
     private Boolean requireProofKey = Boolean.FALSE;
@@ -104,19 +113,27 @@ public class OAuth2ApplicationDto extends BaseSysDto {
     @Schema(name = "JWT 签名算法", title = "仅在 clientAuthenticationMethods 为 private_key_jwt 和 client_secret_jwt 方法下使用")
     private Signature authenticationSigningAlgorithm;
 
-    @Schema(name = "Access Token", title = "OAuth 2.0令牌的标准数据格式")
-    private TokenFormat accessTokenFormat = TokenFormat.SELF_CONTAINED;
+    @Schema(name = "授权码有效时间", title = "默认5分钟，使用 Duration 时间格式")
+    @JsonDeserialize(using = DurationDeserializer.class)
+    private Duration authorizationCodeValidity = Duration.ofSeconds(5);
 
     @Schema(name = "accessToken 有效时间", title = "默认5分钟，使用 Duration 时间格式")
     @JsonDeserialize(using = DurationDeserializer.class)
     private Duration accessTokenValidity = Duration.ofSeconds(5);
 
-    @Schema(name = "是否重用 Refresh Token", title = "默认值 True")
-    private Boolean reuseRefreshTokens = Boolean.TRUE;
+    @Schema(name = "激活码有效时间", title = "默认5分钟，使用 Duration 时间格式")
+    @JsonDeserialize(using = DurationDeserializer.class)
+    private Duration deviceCodeValidity = Duration.ofSeconds(5);
 
     @Schema(name = "refreshToken 有效时间", title = "默认60分钟，使用 Duration 时间格式")
     @JsonDeserialize(using = DurationDeserializer.class)
     private Duration refreshTokenValidity = Duration.ofHours(1);
+
+    @Schema(name = "Access Token 格式", title = "OAuth 2.0令牌的标准数据格式")
+    private TokenFormat accessTokenFormat = TokenFormat.SELF_CONTAINED;
+
+    @Schema(name = "是否重用 Refresh Token", title = "默认值 True")
+    private Boolean reuseRefreshTokens = Boolean.TRUE;
 
     @Schema(name = "IdToken 签名算法", title = "JWT 算法用于签名 ID Token， 默认值 RS256")
     private Signature idTokenSignatureAlgorithm = Signature.RS256;
@@ -180,6 +197,14 @@ public class OAuth2ApplicationDto extends BaseSysDto {
         this.clientId = clientId;
     }
 
+    public LocalDateTime getClientIdIssuedAt() {
+        return clientIdIssuedAt;
+    }
+
+    public void setClientIdIssuedAt(LocalDateTime clientIdIssuedAt) {
+        this.clientIdIssuedAt = clientIdIssuedAt;
+    }
+
     public String getClientSecret() {
         return clientSecret;
     }
@@ -188,12 +213,20 @@ public class OAuth2ApplicationDto extends BaseSysDto {
         this.clientSecret = clientSecret;
     }
 
-    public String getRedirectUris() {
-        return redirectUris;
+    public LocalDateTime getClientSecretExpiresAt() {
+        return clientSecretExpiresAt;
     }
 
-    public void setRedirectUris(String redirectUris) {
-        this.redirectUris = redirectUris;
+    public void setClientSecretExpiresAt(LocalDateTime clientSecretExpiresAt) {
+        this.clientSecretExpiresAt = clientSecretExpiresAt;
+    }
+
+    public Set<String> getClientAuthenticationMethods() {
+        return clientAuthenticationMethods;
+    }
+
+    public void setClientAuthenticationMethods(Set<String> clientAuthenticationMethods) {
+        this.clientAuthenticationMethods = clientAuthenticationMethods;
     }
 
     public Set<String> getAuthorizationGrantTypes() {
@@ -204,12 +237,20 @@ public class OAuth2ApplicationDto extends BaseSysDto {
         this.authorizationGrantTypes = authorizationGrantTypes;
     }
 
-    public Set<String> getClientAuthenticationMethods() {
-        return clientAuthenticationMethods;
+    public String getRedirectUris() {
+        return redirectUris;
     }
 
-    public void setClientAuthenticationMethods(Set<String> clientAuthenticationMethods) {
-        this.clientAuthenticationMethods = clientAuthenticationMethods;
+    public void setRedirectUris(String redirectUris) {
+        this.redirectUris = redirectUris;
+    }
+
+    public String getPostLogoutRedirectUris() {
+        return postLogoutRedirectUris;
+    }
+
+    public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
+        this.postLogoutRedirectUris = postLogoutRedirectUris;
     }
 
     public Boolean getRequireProofKey() {
@@ -236,6 +277,22 @@ public class OAuth2ApplicationDto extends BaseSysDto {
         this.jwkSetUrl = jwkSetUrl;
     }
 
+    public Signature getAuthenticationSigningAlgorithm() {
+        return authenticationSigningAlgorithm;
+    }
+
+    public void setAuthenticationSigningAlgorithm(Signature authenticationSigningAlgorithm) {
+        this.authenticationSigningAlgorithm = authenticationSigningAlgorithm;
+    }
+
+    public Duration getAuthorizationCodeValidity() {
+        return authorizationCodeValidity;
+    }
+
+    public void setAuthorizationCodeValidity(Duration authorizationCodeValidity) {
+        this.authorizationCodeValidity = authorizationCodeValidity;
+    }
+
     public Duration getAccessTokenValidity() {
         return accessTokenValidity;
     }
@@ -244,12 +301,12 @@ public class OAuth2ApplicationDto extends BaseSysDto {
         this.accessTokenValidity = accessTokenValidity;
     }
 
-    public Boolean getReuseRefreshTokens() {
-        return reuseRefreshTokens;
+    public Duration getDeviceCodeValidity() {
+        return deviceCodeValidity;
     }
 
-    public void setReuseRefreshTokens(Boolean reuseRefreshTokens) {
-        this.reuseRefreshTokens = reuseRefreshTokens;
+    public void setDeviceCodeValidity(Duration deviceCodeValidity) {
+        this.deviceCodeValidity = deviceCodeValidity;
     }
 
     public Duration getRefreshTokenValidity() {
@@ -258,6 +315,22 @@ public class OAuth2ApplicationDto extends BaseSysDto {
 
     public void setRefreshTokenValidity(Duration refreshTokenValidity) {
         this.refreshTokenValidity = refreshTokenValidity;
+    }
+
+    public TokenFormat getAccessTokenFormat() {
+        return accessTokenFormat;
+    }
+
+    public void setAccessTokenFormat(TokenFormat accessTokenFormat) {
+        this.accessTokenFormat = accessTokenFormat;
+    }
+
+    public Boolean getReuseRefreshTokens() {
+        return reuseRefreshTokens;
+    }
+
+    public void setReuseRefreshTokens(Boolean reuseRefreshTokens) {
+        this.reuseRefreshTokens = reuseRefreshTokens;
     }
 
     public Signature getIdTokenSignatureAlgorithm() {
@@ -276,30 +349,6 @@ public class OAuth2ApplicationDto extends BaseSysDto {
         this.scopes = scopes;
     }
 
-    public LocalDateTime getClientSecretExpiresAt() {
-        return clientSecretExpiresAt;
-    }
-
-    public void setClientSecretExpiresAt(LocalDateTime clientSecretExpiresAt) {
-        this.clientSecretExpiresAt = clientSecretExpiresAt;
-    }
-
-    public Signature getAuthenticationSigningAlgorithm() {
-        return authenticationSigningAlgorithm;
-    }
-
-    public void setAuthenticationSigningAlgorithm(Signature authenticationSigningAlgorithm) {
-        this.authenticationSigningAlgorithm = authenticationSigningAlgorithm;
-    }
-
-    public TokenFormat getAccessTokenFormat() {
-        return accessTokenFormat;
-    }
-
-    public void setAccessTokenFormat(TokenFormat accessTokenFormat) {
-        this.accessTokenFormat = accessTokenFormat;
-    }
-
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
@@ -310,19 +359,23 @@ public class OAuth2ApplicationDto extends BaseSysDto {
                 .add("homepage", homepage)
                 .add("applicationType", applicationType)
                 .add("clientId", clientId)
+                .add("clientIdIssuedAt", clientIdIssuedAt)
                 .add("clientSecret", clientSecret)
                 .add("clientSecretExpiresAt", clientSecretExpiresAt)
-                .add("redirectUris", redirectUris)
-                .add("authorizationGrantTypes", authorizationGrantTypes)
                 .add("clientAuthenticationMethods", clientAuthenticationMethods)
+                .add("authorizationGrantTypes", authorizationGrantTypes)
+                .add("redirectUris", redirectUris)
+                .add("postLogoutRedirectUris", postLogoutRedirectUris)
                 .add("requireProofKey", requireProofKey)
                 .add("requireAuthorizationConsent", requireAuthorizationConsent)
                 .add("jwkSetUrl", jwkSetUrl)
                 .add("authenticationSigningAlgorithm", authenticationSigningAlgorithm)
-                .add("accessTokenFormat", accessTokenFormat)
+                .add("authorizationCodeValidity", authorizationCodeValidity)
                 .add("accessTokenValidity", accessTokenValidity)
-                .add("reuseRefreshTokens", reuseRefreshTokens)
+                .add("deviceCodeValidity", deviceCodeValidity)
                 .add("refreshTokenValidity", refreshTokenValidity)
+                .add("accessTokenFormat", accessTokenFormat)
+                .add("reuseRefreshTokens", reuseRefreshTokens)
                 .add("idTokenSignatureAlgorithm", idTokenSignatureAlgorithm)
                 .toString();
     }

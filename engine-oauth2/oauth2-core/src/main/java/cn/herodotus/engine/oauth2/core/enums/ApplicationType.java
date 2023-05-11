@@ -51,9 +51,10 @@ public enum ApplicationType implements BaseUiEnum<Integer> {
      */
     WEB(0, "PC网页应用"),
     SERVICE(1, "服务应用"),
-    APP(2, "手机应用"),
+    APP(2, "手机APP应用"),
     WAP(3, "手机网页应用"),
-    MINI(4, "小程序应用");
+    MINI(4, "小程序应用"),
+    IOT(5, "物联网应用");
 
     @Schema(title = "枚举值")
     private final Integer value;

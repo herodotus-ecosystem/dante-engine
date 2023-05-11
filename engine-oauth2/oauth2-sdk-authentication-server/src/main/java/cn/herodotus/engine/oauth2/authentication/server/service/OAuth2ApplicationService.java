@@ -133,6 +133,7 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         Set<String> clientAuthenticationMethods = StringUtils.commaDelimitedListToSet(application.getClientAuthenticationMethods());
         Set<String> authorizationGrantTypes = StringUtils.commaDelimitedListToSet(application.getAuthorizationGrantTypes());
         Set<String> redirectUris = StringUtils.commaDelimitedListToSet(application.getRedirectUris());
+        Set<String> postLogoutRedirectUris = StringUtils.commaDelimitedListToSet(application.getPostLogoutRedirectUris());
         Set<OAuth2Scope> clientScopes = application.getScopes();
 
         return RegisteredClient.withId(application.getApplicationId())
@@ -148,6 +149,7 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
                         authorizationGrantTypes.forEach(grantType ->
                                 grantTypes.add(OAuth2AuthorizationUtils.resolveAuthorizationGrantType(grantType))))
                 .redirectUris((uris) -> uris.addAll(redirectUris))
+                .postLogoutRedirectUris((uris) -> uris.addAll(postLogoutRedirectUris))
                 .scopes((scopes) -> clientScopes.forEach(clientScope -> scopes.add(clientScope.getScopeCode())))
                 .clientSettings(createClientSettings(application))
                 .tokenSettings(createTokenSettings(application))
@@ -172,15 +174,14 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
 
     private TokenSettings createTokenSettings(OAuth2Application application) {
         TokenSettings.Builder tokenSettingsBuilder = TokenSettings.builder();
-        // accessToken 的有效期
+        tokenSettingsBuilder.authorizationCodeTimeToLive(application.getAuthorizationCodeValidity());
+        tokenSettingsBuilder.deviceCodeTimeToLive(application.getDeviceCodeValidity());
         tokenSettingsBuilder.accessTokenTimeToLive(application.getAccessTokenValidity());
         // refreshToken 的有效期
         tokenSettingsBuilder.refreshTokenTimeToLive(application.getRefreshTokenValidity());
         // 是否可重用刷新令牌
         tokenSettingsBuilder.reuseRefreshTokens(application.getReuseRefreshTokens());
-        tokenSettingsBuilder.authorizationCodeTimeToLive(application.getAuthorizationCodeTtl());
         tokenSettingsBuilder.accessTokenFormat(getTokenFormat());
-        tokenSettingsBuilder.deviceCodeTimeToLive(application.getDeviceCodeTimeToLive());
         if (ObjectUtils.isNotEmpty(application.getIdTokenSignatureAlgorithm())) {
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.from(application.getIdTokenSignatureAlgorithm().name());
             if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {

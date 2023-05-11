@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-assistant</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.6.1</version>
+        <version>3.0.6.2</version>
     </parent>
 
     <artifactId>assistant-core</artifactId>
-    <version>3.0.6.1</version>
+    <version>3.0.6.2</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 核心通用代码组件</description>
@@ -122,7 +122,10 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
         <dependency>
             <groupId>cn.zhxu</groupId>
             <artifactId>okhttps-jackson</artifactId>
