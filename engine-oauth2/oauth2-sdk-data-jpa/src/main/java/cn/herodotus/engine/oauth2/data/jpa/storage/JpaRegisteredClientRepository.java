@@ -25,25 +25,15 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.storage;
 
+import cn.herodotus.engine.oauth2.data.jpa.adapter.HerodotusRegisteredClientAdapter;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
-import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusRegisteredClientService;
-import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
-import cn.hutool.core.date.DateUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
-import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
-import org.springframework.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * <p>Description: 基于Jpa 的 RegisteredClient服务 </p>
@@ -56,15 +46,12 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
     private static final Logger log = LoggerFactory.getLogger(JpaRegisteredClientRepository.class);
 
     private final HerodotusRegisteredClientService herodotusRegisteredClientService;
-    private final PasswordEncoder passwordEncoder;
 
-    private final OAuth2JacksonProcessor jacksonProcessor;
+    private final HerodotusRegisteredClientAdapter herodotusRegisteredClientAdapter;
 
     public JpaRegisteredClientRepository(HerodotusRegisteredClientService herodotusRegisteredClientService, PasswordEncoder passwordEncoder) {
         this.herodotusRegisteredClientService = herodotusRegisteredClientService;
-        this.passwordEncoder = passwordEncoder;
-
-        this.jacksonProcessor = new OAuth2JacksonProcessor();
+        this.herodotusRegisteredClientAdapter = new HerodotusRegisteredClientAdapter(passwordEncoder);
     }
 
     @Override
@@ -95,81 +82,10 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
     }
 
     private RegisteredClient toObject(HerodotusRegisteredClient herodotusRegisteredClient) {
-        Set<String> clientAuthenticationMethods = StringUtils.commaDelimitedListToSet(
-                herodotusRegisteredClient.getClientAuthenticationMethods());
-        Set<String> authorizationGrantTypes = StringUtils.commaDelimitedListToSet(
-                herodotusRegisteredClient.getAuthorizationGrantTypes());
-        Set<String> redirectUris = StringUtils.commaDelimitedListToSet(
-                herodotusRegisteredClient.getRedirectUris());
-        Set<String> postLogoutRedirectUris = StringUtils.commaDelimitedListToSet(
-                herodotusRegisteredClient.getPostLogoutRedirectUris());
-        Set<String> clientScopes = StringUtils.commaDelimitedListToSet(
-                herodotusRegisteredClient.getScopes());
-
-        RegisteredClient.Builder builder = RegisteredClient.withId(herodotusRegisteredClient.getId())
-                .clientId(herodotusRegisteredClient.getClientId())
-                .clientIdIssuedAt(DateUtil.toInstant(herodotusRegisteredClient.getClientIdIssuedAt()))
-                .clientSecret(herodotusRegisteredClient.getClientSecret())
-                .clientSecretExpiresAt(DateUtil.toInstant(herodotusRegisteredClient.getClientSecretExpiresAt()))
-                .clientName(herodotusRegisteredClient.getClientName())
-                .clientAuthenticationMethods(authenticationMethods ->
-                        clientAuthenticationMethods.forEach(authenticationMethod ->
-                                authenticationMethods.add(OAuth2AuthorizationUtils.resolveClientAuthenticationMethod(authenticationMethod))))
-                .authorizationGrantTypes((grantTypes) ->
-                        authorizationGrantTypes.forEach(grantType ->
-                                grantTypes.add(OAuth2AuthorizationUtils.resolveAuthorizationGrantType(grantType))))
-                .redirectUris((uris) -> uris.addAll(redirectUris))
-                .postLogoutRedirectUris((uris) -> uris.addAll(postLogoutRedirectUris))
-                .scopes((scopes) -> scopes.addAll(clientScopes));
-
-        Map<String, Object> clientSettingsMap = parseMap(herodotusRegisteredClient.getClientSettings());
-        builder.clientSettings(ClientSettings.withSettings(clientSettingsMap).build());
-
-        Map<String, Object> tokenSettingsMap = parseMap(herodotusRegisteredClient.getTokenSettings());
-        builder.tokenSettings(TokenSettings.withSettings(tokenSettingsMap).build());
-
-        return builder.build();
+        return herodotusRegisteredClientAdapter.toObject(herodotusRegisteredClient);
     }
 
     private HerodotusRegisteredClient toEntity(RegisteredClient registeredClient) {
-        List<String> clientAuthenticationMethods = new ArrayList<>(registeredClient.getClientAuthenticationMethods().size());
-        registeredClient.getClientAuthenticationMethods().forEach(clientAuthenticationMethod ->
-                clientAuthenticationMethods.add(clientAuthenticationMethod.getValue()));
-
-        List<String> authorizationGrantTypes = new ArrayList<>(registeredClient.getAuthorizationGrantTypes().size());
-        registeredClient.getAuthorizationGrantTypes().forEach(authorizationGrantType ->
-                authorizationGrantTypes.add(authorizationGrantType.getValue()));
-
-        HerodotusRegisteredClient entity = new HerodotusRegisteredClient();
-        entity.setId(registeredClient.getId());
-        entity.setClientId(registeredClient.getClientId());
-        entity.setClientIdIssuedAt(DateUtil.toLocalDateTime(registeredClient.getClientIdIssuedAt()));
-        entity.setClientSecret(encode(registeredClient.getClientSecret()));
-        entity.setClientSecretExpiresAt(DateUtil.toLocalDateTime(registeredClient.getClientSecretExpiresAt()));
-        entity.setClientName(registeredClient.getClientName());
-        entity.setClientAuthenticationMethods(StringUtils.collectionToCommaDelimitedString(clientAuthenticationMethods));
-        entity.setAuthorizationGrantTypes(StringUtils.collectionToCommaDelimitedString(authorizationGrantTypes));
-        entity.setRedirectUris(StringUtils.collectionToCommaDelimitedString(registeredClient.getRedirectUris()));
-        entity.setPostLogoutRedirectUris(StringUtils.collectionToCommaDelimitedString(registeredClient.getPostLogoutRedirectUris()));
-        entity.setScopes(StringUtils.collectionToCommaDelimitedString(registeredClient.getScopes()));
-        entity.setClientSettings(writeMap(registeredClient.getClientSettings().getSettings()));
-        entity.setTokenSettings(writeMap(registeredClient.getTokenSettings().getSettings()));
-
-        return entity;
-    }
-
-    private String encode(String value) {
-        if (value != null) {
-            return this.passwordEncoder.encode(value);
-        }
-        return null;
-    }
-
-    private Map<String, Object> parseMap(String data) {
-        return jacksonProcessor.parseMap(data);
-    }
-
-    private String writeMap(Map<String, Object> data) {
-        return jacksonProcessor.writeMap(data);
+        return herodotusRegisteredClientAdapter.toEntity(registeredClient);
     }
 }

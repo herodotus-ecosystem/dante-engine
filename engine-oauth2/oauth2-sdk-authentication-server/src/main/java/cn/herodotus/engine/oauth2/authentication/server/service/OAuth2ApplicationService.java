@@ -25,31 +25,22 @@
 
 package cn.herodotus.engine.oauth2.authentication.server.service;
 
-import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
-import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
-import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
+import cn.herodotus.engine.oauth2.authentication.server.adapter.OAuth2ApplicationRegisteredClientAdapter;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.authentication.server.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.authentication.server.repository.OAuth2ApplicationRepository;
-import cn.hutool.core.date.DateUtil;
+import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
+import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
-import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
-import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
-import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -68,14 +59,13 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     private final RegisteredClientRepository registeredClientRepository;
     private final HerodotusRegisteredClientRepository herodotusRegisteredClientRepository;
     private final OAuth2ApplicationRepository applicationRepository;
-    private final SecurityProperties securityProperties;
+    private final OAuth2ApplicationRegisteredClientAdapter registeredClientAdapter;
 
-    @Autowired
     public OAuth2ApplicationService(RegisteredClientRepository registeredClientRepository, HerodotusRegisteredClientRepository herodotusRegisteredClientRepository, OAuth2ApplicationRepository applicationRepository, SecurityProperties securityProperties) {
         this.registeredClientRepository = registeredClientRepository;
         this.herodotusRegisteredClientRepository = herodotusRegisteredClientRepository;
         this.applicationRepository = applicationRepository;
-        this.securityProperties = securityProperties;
+        this.registeredClientAdapter = new OAuth2ApplicationRegisteredClientAdapter(securityProperties);
     }
 
     @Override
@@ -83,12 +73,11 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         return this.applicationRepository;
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
     @Override
     public OAuth2Application saveOrUpdate(OAuth2Application entity) {
         OAuth2Application application = super.saveOrUpdate(entity);
         if (ObjectUtils.isNotEmpty(application)) {
-            registeredClientRepository.save(toRegisteredClient(application));
+            registeredClientRepository.save(toObject(application));
             log.debug("[Herodotus] |- OAuth2ApplicationService saveOrUpdate.");
             return application;
         } else {
@@ -105,6 +94,7 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         log.debug("[Herodotus] |- OAuth2ApplicationService deleteById.");
     }
 
+    @Transactional(rollbackFor = TransactionalRollbackException.class)
     public OAuth2Application authorize(String applicationId, String[] scopeIds) {
 
         Set<OAuth2Scope> scopes = new HashSet<>();
@@ -128,74 +118,7 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         return application;
     }
 
-    private RegisteredClient toRegisteredClient(OAuth2Application application) {
-
-        Set<String> clientAuthenticationMethods = StringUtils.commaDelimitedListToSet(application.getClientAuthenticationMethods());
-        Set<String> authorizationGrantTypes = StringUtils.commaDelimitedListToSet(application.getAuthorizationGrantTypes());
-        Set<String> redirectUris = StringUtils.commaDelimitedListToSet(application.getRedirectUris());
-        Set<String> postLogoutRedirectUris = StringUtils.commaDelimitedListToSet(application.getPostLogoutRedirectUris());
-        Set<OAuth2Scope> clientScopes = application.getScopes();
-
-        return RegisteredClient.withId(application.getApplicationId())
-                // 客户端id 需要唯一
-                .clientId(application.getClientId())
-                // 客户端密码
-                .clientSecret(application.getClientSecret())
-                .clientSecretExpiresAt(DateUtil.toInstant(application.getClientSecretExpiresAt()))
-                .clientAuthenticationMethods(authenticationMethods ->
-                        clientAuthenticationMethods.forEach(authenticationMethod ->
-                                authenticationMethods.add(OAuth2AuthorizationUtils.resolveClientAuthenticationMethod(authenticationMethod))))
-                .authorizationGrantTypes((grantTypes) ->
-                        authorizationGrantTypes.forEach(grantType ->
-                                grantTypes.add(OAuth2AuthorizationUtils.resolveAuthorizationGrantType(grantType))))
-                .redirectUris((uris) -> uris.addAll(redirectUris))
-                .postLogoutRedirectUris((uris) -> uris.addAll(postLogoutRedirectUris))
-                .scopes((scopes) -> clientScopes.forEach(clientScope -> scopes.add(clientScope.getScopeCode())))
-                .clientSettings(createClientSettings(application))
-                .tokenSettings(createTokenSettings(application))
-                .build();
-    }
-
-    private ClientSettings createClientSettings(OAuth2Application application) {
-        ClientSettings.Builder clientSettingsBuilder = ClientSettings.builder();
-        clientSettingsBuilder.requireAuthorizationConsent(application.getRequireAuthorizationConsent());
-        clientSettingsBuilder.requireProofKey(application.getRequireProofKey());
-        if (StringUtils.hasText(application.getJwkSetUrl())) {
-            clientSettingsBuilder.jwkSetUrl(application.getJwkSetUrl());
-        }
-        if (ObjectUtils.isNotEmpty(application.getAuthenticationSigningAlgorithm())) {
-            JwsAlgorithm jwsAlgorithm = SignatureAlgorithm.from(application.getAuthenticationSigningAlgorithm().name());
-            if (ObjectUtils.isNotEmpty(jwsAlgorithm)) {
-                clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(jwsAlgorithm);
-            }
-        }
-        return clientSettingsBuilder.build();
-    }
-
-    private TokenSettings createTokenSettings(OAuth2Application application) {
-        TokenSettings.Builder tokenSettingsBuilder = TokenSettings.builder();
-        tokenSettingsBuilder.authorizationCodeTimeToLive(application.getAuthorizationCodeValidity());
-        tokenSettingsBuilder.deviceCodeTimeToLive(application.getDeviceCodeValidity());
-        tokenSettingsBuilder.accessTokenTimeToLive(application.getAccessTokenValidity());
-        // refreshToken 的有效期
-        tokenSettingsBuilder.refreshTokenTimeToLive(application.getRefreshTokenValidity());
-        // 是否可重用刷新令牌
-        tokenSettingsBuilder.reuseRefreshTokens(application.getReuseRefreshTokens());
-        tokenSettingsBuilder.accessTokenFormat(getTokenFormat());
-        if (ObjectUtils.isNotEmpty(application.getIdTokenSignatureAlgorithm())) {
-            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.from(application.getIdTokenSignatureAlgorithm().name());
-            if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {
-                tokenSettingsBuilder.idTokenSignatureAlgorithm(signatureAlgorithm);
-            }
-        }
-        return tokenSettingsBuilder.build();
-    }
-
-    private OAuth2TokenFormat getTokenFormat() {
-        if (securityProperties.getValidate() == Target.REMOTE) {
-            return new OAuth2TokenFormat("reference");
-        } else {
-            return new OAuth2TokenFormat("self-contained");
-        }
+    private RegisteredClient toObject(OAuth2Application application) {
+        return registeredClientAdapter.toObject(application);
     }
 }

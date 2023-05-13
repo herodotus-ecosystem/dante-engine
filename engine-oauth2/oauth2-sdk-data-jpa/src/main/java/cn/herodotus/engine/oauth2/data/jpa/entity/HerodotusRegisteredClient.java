@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.data.jpa.entity;
 
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
 import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusRegisteredClientUuid;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -46,7 +47,7 @@ import java.time.LocalDateTime;
         @Index(name = "oauth2_registered_client_cid_idx", columnList = "client_id")})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_REGISTERED_CLIENT)
-public class HerodotusRegisteredClient extends AbstractEntity {
+public class HerodotusRegisteredClient extends AbstractEntity implements RegisteredClientDetails {
 
     @Id
     @HerodotusRegisteredClientUuid
@@ -90,6 +91,7 @@ public class HerodotusRegisteredClient extends AbstractEntity {
     @Column(name = "token_settings", nullable = false, length = 2000)
     private String tokenSettings;
 
+    @Override
     public String getId() {
         return id;
     }
@@ -98,6 +100,7 @@ public class HerodotusRegisteredClient extends AbstractEntity {
         this.id = id;
     }
 
+    @Override
     public String getClientId() {
         return clientId;
     }
@@ -106,6 +109,7 @@ public class HerodotusRegisteredClient extends AbstractEntity {
         this.clientId = clientId;
     }
 
+    @Override
     public LocalDateTime getClientIdIssuedAt() {
         return clientIdIssuedAt;
     }
@@ -114,6 +118,7 @@ public class HerodotusRegisteredClient extends AbstractEntity {
         this.clientIdIssuedAt = clientIdIssuedAt;
     }
 
+    @Override
     public String getClientSecret() {
         return clientSecret;
     }
@@ -122,6 +127,7 @@ public class HerodotusRegisteredClient extends AbstractEntity {
         this.clientSecret = clientSecret;
     }
 
+    @Override
     public LocalDateTime getClientSecretExpiresAt() {
         return clientSecretExpiresAt;
     }
@@ -130,6 +136,7 @@ public class HerodotusRegisteredClient extends AbstractEntity {
         this.clientSecretExpiresAt = clientSecretExpiresAt;
     }
 
+    @Override
     public String getClientName() {
         return clientName;
     }
@@ -138,6 +145,7 @@ public class HerodotusRegisteredClient extends AbstractEntity {
         this.clientName = clientName;
     }
 
+    @Override
     public String getClientAuthenticationMethods() {
         return clientAuthenticationMethods;
     }
@@ -146,20 +154,31 @@ public class HerodotusRegisteredClient extends AbstractEntity {
         this.clientAuthenticationMethods = clientAuthenticationMethods;
     }
 
+    @Override
     public String getAuthorizationGrantTypes() {
         return authorizationGrantTypes;
     }
 
-    public void setAuthorizationGrantTypes(String authorizationGantTypes) {
-        this.authorizationGrantTypes = authorizationGantTypes;
+    public void setAuthorizationGrantTypes(String authorizationGrantTypes) {
+        this.authorizationGrantTypes = authorizationGrantTypes;
     }
 
+    @Override
     public String getRedirectUris() {
         return redirectUris;
     }
 
     public void setRedirectUris(String redirectUris) {
         this.redirectUris = redirectUris;
+    }
+
+    @Override
+    public String getPostLogoutRedirectUris() {
+        return postLogoutRedirectUris;
+    }
+
+    public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
+        this.postLogoutRedirectUris = postLogoutRedirectUris;
     }
 
     public String getScopes() {
@@ -184,13 +203,5 @@ public class HerodotusRegisteredClient extends AbstractEntity {
 
     public void setTokenSettings(String tokenSettings) {
         this.tokenSettings = tokenSettings;
-    }
-
-    public String getPostLogoutRedirectUris() {
-        return postLogoutRedirectUris;
-    }
-
-    public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
-        this.postLogoutRedirectUris = postLogoutRedirectUris;
     }
 }

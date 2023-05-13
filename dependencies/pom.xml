@@ -87,11 +87,11 @@
         <dante-bom.version>3.0.6.2</dante-bom.version>
 
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.0.3</spring-boot-admin.version>
+        <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.0.6</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.2</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC2</spring-cloud-alibaba-dependencies.version>
-        <spring-cloud-tencent-dependencies.version>1.11.2-2022.0.1</spring-cloud-tencent-dependencies.version>
+        <spring-cloud-tencent-dependencies.version>1.11.4-2022.0.1</spring-cloud-tencent-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.1.0-RC1</spring-security-oauth2-authorization-server.version>
         <spring-security-cas.version>5.8.3</spring-security-cas.version>
         <spring-security.version>6.1.0-RC1</spring-security.version>
@@ -1149,21 +1149,6 @@
 
     <repositories>
         <repository>
-            <id>aliyun</id>
-            <name>阿里云公共库。聚合了central和jcenter，包括release和snapshot</name>
-            <url>https://maven.aliyun.com/repository/public/</url>
-        </repository>
-        <repository>
-            <id>tencent</id>
-            <name>腾讯云公共库。包括release和snapshot</name>
-            <url>https://mirrors.tencent.com/nexus/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>huawei</id>
-            <name>华为云公共库。包括release和snapshot</name>
-            <url>https://repo.huaweicloud.com/repository/maven/</url>
-        </repository>
-        <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
@@ -1181,21 +1166,6 @@
         </repository>
     </repositories>
     <pluginRepositories>
-        <pluginRepository>
-            <id>aliyun</id>
-            <name>阿里云公共库，聚合了central和jcenter，包括release和snapshot</name>
-            <url>https://maven.aliyun.com/repository/public/</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>tencent</id>
-            <name>腾讯云公共库。包括release和snapshot</name>
-            <url>https://mirrors.tencent.com/nexus/repository/maven-public/</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>huawei</id>
-            <name>华为云公共库。包括release和snapshot</name>
-            <url>https://repo.huaweicloud.com/repository/maven/</url>
-        </pluginRepository>
         <pluginRepository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>

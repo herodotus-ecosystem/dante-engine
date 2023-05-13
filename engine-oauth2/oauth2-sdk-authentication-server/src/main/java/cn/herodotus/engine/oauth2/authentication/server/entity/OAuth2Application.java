@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.server.entity;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
 import cn.herodotus.engine.oauth2.core.enums.ApplicationType;
 import cn.herodotus.engine.oauth2.core.enums.Signature;
 import cn.herodotus.engine.oauth2.core.enums.TokenFormat;
@@ -56,7 +57,7 @@ import java.util.Set;
         @Index(name = "oauth2_application_cid_idx", columnList = "client_id")})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_APPLICATION)
-public class OAuth2Application extends BaseSysEntity {
+public class OAuth2Application extends BaseSysEntity implements RegisteredClientDetails {
 
     @Id
     @UuidGenerator
@@ -203,6 +204,12 @@ public class OAuth2Application extends BaseSysEntity {
         this.applicationType = applicationType;
     }
 
+    @Override
+    public String getId() {
+        return getApplicationId();
+    }
+
+    @Override
     public String getClientId() {
         return clientId;
     }
@@ -211,6 +218,7 @@ public class OAuth2Application extends BaseSysEntity {
         this.clientId = clientId;
     }
 
+    @Override
     public LocalDateTime getClientIdIssuedAt() {
         return clientIdIssuedAt;
     }
@@ -219,6 +227,7 @@ public class OAuth2Application extends BaseSysEntity {
         this.clientIdIssuedAt = clientIdIssuedAt;
     }
 
+    @Override
     public String getClientSecret() {
         return clientSecret;
     }
@@ -227,14 +236,21 @@ public class OAuth2Application extends BaseSysEntity {
         this.clientSecret = clientSecret;
     }
 
+    @Override
     public LocalDateTime getClientSecretExpiresAt() {
         return clientSecretExpiresAt;
+    }
+
+    @Override
+    public String getClientName() {
+        return getApplicationId();
     }
 
     public void setClientSecretExpiresAt(LocalDateTime clientSecretExpiresAt) {
         this.clientSecretExpiresAt = clientSecretExpiresAt;
     }
 
+    @Override
     public String getClientAuthenticationMethods() {
         return clientAuthenticationMethods;
     }
@@ -243,6 +259,7 @@ public class OAuth2Application extends BaseSysEntity {
         this.clientAuthenticationMethods = clientAuthenticationMethods;
     }
 
+    @Override
     public String getAuthorizationGrantTypes() {
         return authorizationGrantTypes;
     }
@@ -251,6 +268,7 @@ public class OAuth2Application extends BaseSysEntity {
         this.authorizationGrantTypes = authorizationGrantTypes;
     }
 
+    @Override
     public String getRedirectUris() {
         return redirectUris;
     }
@@ -259,6 +277,7 @@ public class OAuth2Application extends BaseSysEntity {
         this.redirectUris = redirectUris;
     }
 
+    @Override
     public String getPostLogoutRedirectUris() {
         return postLogoutRedirectUris;
     }
