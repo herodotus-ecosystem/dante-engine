@@ -122,8 +122,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider extends Abstract
         }
 
         if (complianceProperties.getSignInEndpointLimited().getEnabled() && !complianceProperties.getSignInKickOutLimited().getEnabled()) {
-            if (authorizationService instanceof JpaOAuth2AuthorizationService) {
-                JpaOAuth2AuthorizationService jpaOAuth2AuthorizationService = (JpaOAuth2AuthorizationService) authorizationService;
+            if (authorizationService instanceof JpaOAuth2AuthorizationService jpaOAuth2AuthorizationService) {
                 int count = jpaOAuth2AuthorizationService.findAuthorizationCount(registeredClientId, user.getUsername());
                 if (count >= complianceProperties.getSignInEndpointLimited().getMaximum()) {
                     throw new AccountEndpointLimitedException("Use same endpoint signIn exceed limit");
@@ -132,8 +131,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider extends Abstract
         }
 
         if (!complianceProperties.getSignInEndpointLimited().getEnabled() && complianceProperties.getSignInKickOutLimited().getEnabled()) {
-            if (authorizationService instanceof JpaOAuth2AuthorizationService) {
-                JpaOAuth2AuthorizationService jpaOAuth2AuthorizationService = (JpaOAuth2AuthorizationService) authorizationService;
+            if (authorizationService instanceof JpaOAuth2AuthorizationService jpaOAuth2AuthorizationService) {
                 List<OAuth2Authorization> authorizations = jpaOAuth2AuthorizationService.findAvailableAuthorizations(registeredClientId, user.getUsername());
                 if (CollectionUtils.isNotEmpty(authorizations)) {
                     authorizations.forEach(authorization -> {
