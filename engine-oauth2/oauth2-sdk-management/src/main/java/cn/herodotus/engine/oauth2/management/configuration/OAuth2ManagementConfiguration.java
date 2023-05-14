@@ -26,12 +26,17 @@
 package cn.herodotus.engine.oauth2.management.configuration;
 
 import cn.herodotus.engine.oauth2.authentication.configuration.OAuth2AuthenticationConfiguration;
+import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.oauth2.data.jpa.configuration.OAuth2DataJpaConfiguration;
+import cn.herodotus.engine.oauth2.management.compliance.listener.AuthenticationSuccessListener;
+import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -45,7 +50,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @date : 2022/2/26 12:35
  */
 @AutoConfiguration
-@Import({OAuth2DataJpaConfiguration.class, OAuth2AuthenticationConfiguration.class})
+@Import({OAuth2DataJpaConfiguration.class, OAuth2AuthenticationConfiguration.class, OAuth2ComplianceConfiguration.class})
 @EntityScan(basePackages = {
         "cn.herodotus.engine.oauth2.management.entity"
 })
@@ -63,6 +68,14 @@ public class OAuth2ManagementConfiguration {
     @PostConstruct
     public void postConstruct() {
         log.debug("[Herodotus] |- SDK [OAuth2 Authorization Server] Auto Configure.");
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public AuthenticationSuccessListener authenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService) {
+        AuthenticationSuccessListener authenticationSuccessListener = new AuthenticationSuccessListener(stampManager, complianceService);
+        log.trace("[Herodotus] |- Bean [OAuth2 Authentication Success Listener] Auto Configure.");
+        return authenticationSuccessListener;
     }
 
 }

@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.entity;
+package cn.herodotus.engine.oauth2.management.entity;
 
 import cn.herodotus.engine.data.core.entity.BaseEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;

@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.definition;
+package cn.herodotus.engine.oauth2.management.compliance.event;
 
 import cn.herodotus.engine.rest.core.definition.event.ApplicationStrategyEvent;
 import cn.herodotus.engine.rest.core.domain.UserStatus;
@@ -34,7 +34,7 @@ import cn.herodotus.engine.rest.core.domain.UserStatus;
  * @author : gengwei.zheng
  * @date : 2022/7/10 16:23
  */
-public interface AccountStatusChangeService extends ApplicationStrategyEvent<UserStatus> {
+public interface AccountStatusChanger extends ApplicationStrategyEvent<UserStatus> {
 
     /**
      * Request Mapping 收集汇总的服务名称

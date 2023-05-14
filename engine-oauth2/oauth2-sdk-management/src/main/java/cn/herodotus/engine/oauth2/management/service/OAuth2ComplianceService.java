@@ -23,12 +23,12 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.service;
+package cn.herodotus.engine.oauth2.management.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.engine.oauth2.compliance.entity.OAuth2Compliance;
-import cn.herodotus.engine.oauth2.compliance.repository.OAuth2ComplianceRepository;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Compliance;
+import cn.herodotus.engine.oauth2.management.repository.OAuth2ComplianceRepository;
 import cn.hutool.extra.servlet.JakartaServletUtil;
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;

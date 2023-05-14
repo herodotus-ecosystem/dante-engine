@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.repository;
+package cn.herodotus.engine.oauth2.management.repository;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.oauth2.compliance.entity.OAuth2Compliance;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Compliance;
 
 /**
  * <p>Description: ActionAuditRepository </p>

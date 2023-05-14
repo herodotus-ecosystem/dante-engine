@@ -442,11 +442,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>oauth2-sdk-compliance</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>oauth2-sdk-iot</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>

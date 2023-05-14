@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.listener;
+package cn.herodotus.engine.oauth2.management.compliance.listener;
 
 import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
+import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.hutool.crypto.SecureUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,8 +67,7 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
 
         Authentication authentication = event.getAuthentication();
 
-        if (authentication instanceof OAuth2AccessTokenAuthenticationToken) {
-            OAuth2AccessTokenAuthenticationToken authenticationToken = (OAuth2AccessTokenAuthenticationToken) authentication;
+        if (authentication instanceof OAuth2AccessTokenAuthenticationToken authenticationToken) {
             Object details = authentication.getDetails();
 
             String username = null;
@@ -79,8 +78,7 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
             String clientId = authenticationToken.getRegisteredClient().getId();
 
             RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-            if (ObjectUtils.isNotEmpty(requestAttributes) && requestAttributes instanceof ServletRequestAttributes) {
-                ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+            if (ObjectUtils.isNotEmpty(requestAttributes) && requestAttributes instanceof ServletRequestAttributes servletRequestAttributes) {
                 HttpServletRequest request = servletRequestAttributes.getRequest();
 
                 if (ObjectUtils.isNotEmpty(request) && StringUtils.isNotBlank(username)) {

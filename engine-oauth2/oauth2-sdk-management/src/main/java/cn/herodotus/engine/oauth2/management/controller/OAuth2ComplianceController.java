@@ -23,12 +23,12 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.controller;
+package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
-import cn.herodotus.engine.oauth2.compliance.entity.OAuth2Compliance;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Compliance;
+import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

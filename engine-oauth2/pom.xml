@@ -45,7 +45,6 @@
         <module>oauth2-sdk-authentication</module>
         <module>oauth2-sdk-authorization</module>
         <module>oauth2-sdk-management</module>
-        <module>oauth2-sdk-compliance</module>
         <module>oauth2-sdk-iot</module>
     </modules>
 

@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.listener;
+package cn.herodotus.engine.oauth2.management.compliance.listener;
 
 import cn.herodotus.engine.cache.core.exception.MaximumLimitExceededException;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2AccountStatusService;
+import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -55,11 +55,11 @@ public class AuthenticationFailureListener implements ApplicationListener<Abstra
     private static final Logger log = LoggerFactory.getLogger(AuthenticationFailureListener.class);
 
     private final SignInFailureLimitedStampManager stampManager;
-    private final OAuth2AccountStatusService accountLockService;
+    private final OAuth2AccountStatusManager accountStatusManager;
 
-    public AuthenticationFailureListener(SignInFailureLimitedStampManager stampManager, OAuth2AccountStatusService accountLockService) {
+    public AuthenticationFailureListener(SignInFailureLimitedStampManager stampManager, OAuth2AccountStatusManager accountStatusManager) {
         this.stampManager = stampManager;
-        this.accountLockService = accountLockService;
+        this.accountStatusManager = accountStatusManager;
     }
 
     @Override
@@ -103,7 +103,7 @@ public class AuthenticationFailureListener implements ApplicationListener<Abstra
                     log.debug("[Herodotus] |- Sign in user input password error [{}] items", times);
                 } catch (MaximumLimitExceededException e) {
                     log.warn("[Herodotus] |- User [{}] password error [{}] items, LOCK ACCOUNT!", username, maxTimes);
-                    accountLockService.lock(username);
+                    accountStatusManager.lock(username);
                 }
             }
         }

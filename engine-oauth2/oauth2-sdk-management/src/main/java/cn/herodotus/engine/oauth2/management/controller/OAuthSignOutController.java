@@ -23,11 +23,11 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.controller;
+package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2AccountStatusService;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
+import cn.herodotus.engine.oauth2.management.compliance.event.AccountReleaseFromCacheEvent;
+import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -39,7 +39,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
@@ -60,17 +60,16 @@ import org.springframework.web.bind.annotation.RestController;
         @Tag(name = "OAuth2 认证服务接口"),
         @Tag(name = "OAuth2 扩展接口")
 })
-public class OAuth2ExtendController {
+public class OAuthSignOutController {
 
     private final OAuth2AuthorizationService authorizationService;
     private final OAuth2ComplianceService complianceService;
-    private final OAuth2AccountStatusService accountLockService;
+    private final ApplicationContext applicationContext;
 
-    @Autowired
-    public OAuth2ExtendController(OAuth2AuthorizationService authorizationService, OAuth2ComplianceService complianceService, OAuth2AccountStatusService accountLockService) {
+    public OAuthSignOutController(OAuth2AuthorizationService authorizationService, OAuth2ComplianceService complianceService, ApplicationContext applicationContext) {
         this.authorizationService = authorizationService;
         this.complianceService = complianceService;
-        this.accountLockService = accountLockService;
+        this.applicationContext = applicationContext;
     }
 
     @Operation(summary = "注销OAuth2应用", description = "根据接收到的AccessToken,删除后端存储的Token信息,起到注销效果",
@@ -86,7 +85,7 @@ public class OAuth2ExtendController {
         if (ObjectUtils.isNotEmpty(authorization)) {
             authorizationService.remove(authorization);
             complianceService.save(authorization.getPrincipalName(), authorization.getRegisteredClientId(), "退出系统", request);
-            accountLockService.releaseFromCache(authorization.getPrincipalName());
+            applicationContext.publishEvent(new AccountReleaseFromCacheEvent(authorization.getPrincipalName()));
         }
         return Result.success("注销成功");
     }

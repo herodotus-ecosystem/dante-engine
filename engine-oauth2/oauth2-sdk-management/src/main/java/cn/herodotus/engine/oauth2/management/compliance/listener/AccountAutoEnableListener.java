@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.listener;
+package cn.herodotus.engine.oauth2.management.compliance.listener;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2AccountStatusService;
+import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -43,15 +43,15 @@ import java.nio.charset.StandardCharsets;
  * @author : gengwei.zheng
  * @date : 2022/7/8 11:11
  */
-public class AccountStatusListener extends KeyExpirationEventMessageListener {
+public class AccountAutoEnableListener extends KeyExpirationEventMessageListener {
 
-    private static final Logger log = LoggerFactory.getLogger(AccountStatusListener.class);
+    private static final Logger log = LoggerFactory.getLogger(AccountAutoEnableListener.class);
 
-    private final OAuth2AccountStatusService accountLockService;
+    private final OAuth2AccountStatusManager accountStatusManager;
 
-    public AccountStatusListener(RedisMessageListenerContainer listenerContainer, OAuth2AccountStatusService accountLockService) {
+    public AccountAutoEnableListener(RedisMessageListenerContainer listenerContainer, OAuth2AccountStatusManager accountStatusManager) {
         super(listenerContainer);
-        this.accountLockService = accountLockService;
+        this.accountStatusManager = accountStatusManager;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class AccountStatusListener extends KeyExpirationEventMessageListener {
             log.info("[Herodotus] |- Parse the user [{}] at expired redis cache key [{}]", userId, key);
             if (StringUtils.isNotBlank(userId)) {
                 log.debug("[Herodotus] |- Automatically unlock user account [{}]", userId);
-                accountLockService.enable(userId);
+                accountStatusManager.enable(userId);
             }
         }
     }

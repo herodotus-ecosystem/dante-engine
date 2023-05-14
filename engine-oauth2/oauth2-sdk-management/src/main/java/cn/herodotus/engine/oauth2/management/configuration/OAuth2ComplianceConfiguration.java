@@ -23,28 +23,24 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.configuration;
+package cn.herodotus.engine.oauth2.management.configuration;
 
-import cn.herodotus.engine.oauth2.compliance.definition.AccountStatusChangeService;
-import cn.herodotus.engine.oauth2.compliance.listener.AccountStatusListener;
-import cn.herodotus.engine.oauth2.compliance.listener.AuthenticationFailureListener;
-import cn.herodotus.engine.oauth2.compliance.listener.AuthenticationSuccessListener;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2AccountStatusService;
-import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
+import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
-import cn.herodotus.engine.oauth2.compliance.annotation.ConditionalOnAutoUnlockUserAccount;
+import cn.herodotus.engine.oauth2.management.compliance.annotation.ConditionalOnAutoUnlockUserAccount;
+import cn.herodotus.engine.oauth2.management.compliance.listener.AccountAutoEnableListener;
+import cn.herodotus.engine.oauth2.management.compliance.listener.AuthenticationFailureListener;
+import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
+import cn.herodotus.engine.oauth2.management.compliance.event.AccountStatusChanger;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-
-import jakarta.annotation.PostConstruct;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * <p>Description: OAuth2 应用安全合规配置 </p>
@@ -53,18 +49,7 @@ import jakarta.annotation.PostConstruct;
  * @date : 2022/7/11 10:20
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnClass(AccountStatusChangeService.class)
-@EntityScan(basePackages = {
-        "cn.herodotus.engine.oauth2.compliance.entity"
-})
-@EnableJpaRepositories(basePackages = {
-        "cn.herodotus.engine.oauth2.compliance.repository",
-})
-@ComponentScan(basePackages = {
-        "cn.herodotus.engine.oauth2.compliance.stamp",
-        "cn.herodotus.engine.oauth2.compliance.service",
-        "cn.herodotus.engine.oauth2.compliance.controller",
-})
+@ConditionalOnBean(AccountStatusChanger.class)
 public class OAuth2ComplianceConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2ComplianceConfiguration.class);
@@ -75,27 +60,25 @@ public class OAuth2ComplianceConfiguration {
     }
 
     @Bean
+    public OAuth2AccountStatusManager accountStatusManager(UserDetailsService userDetailsService, AccountStatusChanger accountStatusChanger, LockedUserDetailsStampManager lockedUserDetailsStampManager) {
+        OAuth2AccountStatusManager manager = new OAuth2AccountStatusManager(userDetailsService, accountStatusChanger, lockedUserDetailsStampManager);
+        log.trace("[Herodotus] |- Bean [OAuth2 Account Status Manager] Auto Configure.");
+        return manager;
+    }
+
+    @Bean
     @ConditionalOnAutoUnlockUserAccount
-    public AccountStatusListener accountLockStatusListener(RedisMessageListenerContainer redisMessageListenerContainer, OAuth2AccountStatusService accountLockService) {
-        AccountStatusListener lockStatusListener = new AccountStatusListener(redisMessageListenerContainer, accountLockService);
+    public AccountAutoEnableListener accountLockStatusListener(RedisMessageListenerContainer redisMessageListenerContainer, OAuth2AccountStatusManager accountStatusManager) {
+        AccountAutoEnableListener lockStatusListener = new AccountAutoEnableListener(redisMessageListenerContainer, accountStatusManager);
         log.trace("[Herodotus] |- Bean [OAuth2 Account Lock Status Listener] Auto Configure.");
         return lockStatusListener;
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public AuthenticationFailureListener authenticationFailureListener(SignInFailureLimitedStampManager stampManager, OAuth2AccountStatusService accountLockService) {
+    public AuthenticationFailureListener authenticationFailureListener(SignInFailureLimitedStampManager stampManager, OAuth2AccountStatusManager accountLockService) {
         AuthenticationFailureListener authenticationFailureListener = new AuthenticationFailureListener(stampManager, accountLockService);
         log.trace("[Herodotus] |- Bean [OAuth2 Authentication Failure Listener] Auto Configure.");
         return authenticationFailureListener;
     }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AuthenticationSuccessListener authenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService) {
-        AuthenticationSuccessListener authenticationSuccessListener = new AuthenticationSuccessListener(stampManager, complianceService);
-        log.trace("[Herodotus] |- Bean [OAuth2 Authentication Success Listener] Auto Configure.");
-        return authenticationSuccessListener;
-    }
-
 }

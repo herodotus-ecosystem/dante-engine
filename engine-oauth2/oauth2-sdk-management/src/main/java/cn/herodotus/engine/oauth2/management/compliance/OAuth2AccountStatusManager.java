@@ -23,19 +23,18 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.service;
+package cn.herodotus.engine.oauth2.management.compliance;
 
 import cn.herodotus.engine.data.core.enums.DataItemStatus;
-import cn.herodotus.engine.oauth2.compliance.definition.AccountStatusChangeService;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
+import cn.herodotus.engine.oauth2.management.compliance.event.AccountStatusChanger;
 import cn.herodotus.engine.rest.core.domain.UserStatus;
-import jodd.util.StringUtil;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
@@ -46,19 +45,18 @@ import org.springframework.stereotype.Service;
  * @date : 2022/7/8 19:25
  */
 @Service
-public class OAuth2AccountStatusService {
+public class OAuth2AccountStatusManager {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2AccountStatusService.class);
+    private static final Logger log = LoggerFactory.getLogger(OAuth2AccountStatusManager.class);
 
     private final UserDetailsService userDetailsService;
-    private final AccountStatusChangeService accountStatusChangeService;
-    private final LockedUserDetailsStampManager userDetailsStampManager;
+    private final AccountStatusChanger accountStatusChanger;
+    private final LockedUserDetailsStampManager lockedUserDetailsStampManager;
 
-    @Autowired
-    public OAuth2AccountStatusService(UserDetailsService userDetailsService, AccountStatusChangeService accountStatusChangeService, LockedUserDetailsStampManager userDetailsStampManager) {
+    public OAuth2AccountStatusManager(UserDetailsService userDetailsService, AccountStatusChanger accountStatusChanger, LockedUserDetailsStampManager lockedUserDetailsStampManager) {
         this.userDetailsService = userDetailsService;
-        this.userDetailsStampManager = userDetailsStampManager;
-        this.accountStatusChangeService = accountStatusChangeService;
+        this.lockedUserDetailsStampManager = lockedUserDetailsStampManager;
+        this.accountStatusChanger = accountStatusChanger;
     }
 
     private EnhanceUserDetailsService getUserDetailsService() {
@@ -79,24 +77,24 @@ public class OAuth2AccountStatusService {
     public void lock(String username) {
         String userId = getUserId(username);
         if (ObjectUtils.isNotEmpty(userId)) {
-            accountStatusChangeService.process(new UserStatus(userId, DataItemStatus.LOCKING.name()));
-            userDetailsStampManager.put(userId, username);
+            accountStatusChanger.process(new UserStatus(userId, DataItemStatus.LOCKING.name()));
+            lockedUserDetailsStampManager.put(userId, username);
             log.info("[Herodotus] |- User count [{}] has been locked, and record into cache!", username);
         }
     }
 
     public void enable(String userId) {
         if (ObjectUtils.isNotEmpty(userId)) {
-            accountStatusChangeService.process(new UserStatus(userId, DataItemStatus.ENABLE.name()));
+            accountStatusChanger.process(new UserStatus(userId, DataItemStatus.ENABLE.name()));
         }
     }
 
     public void releaseFromCache(String username) {
         String userId = getUserId(username);
         if (ObjectUtils.isNotEmpty(userId)) {
-            String value = userDetailsStampManager.get(userId);
-            if (StringUtil.isNotEmpty(value)) {
-                this.userDetailsStampManager.delete(userId);
+            String value = lockedUserDetailsStampManager.get(userId);
+            if (StringUtils.isNotEmpty(value)) {
+                this.lockedUserDetailsStampManager.delete(userId);
                 log.info("[Herodotus] |- User count [{}] locked info has been release!", username);
             }
         }
