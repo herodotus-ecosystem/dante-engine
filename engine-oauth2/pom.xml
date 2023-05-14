@@ -32,11 +32,11 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.6.2</version>
+        <version>3.0.6.3</version>
     </parent>
 
     <artifactId>engine-oauth2</artifactId>
-    <version>3.0.6.2</version>
+    <version>3.0.6.3</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -45,7 +45,6 @@
         <module>oauth2-sdk-authentication</module>
         <module>oauth2-sdk-authorization</module>
         <module>oauth2-sdk-management</module>
-        <module>oauth2-sdk-iot</module>
     </modules>
 
 </project>

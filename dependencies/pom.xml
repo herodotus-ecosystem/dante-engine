@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.0.6.2</version>
+    <version>3.0.6.3</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,7 +84,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.0.6.2</dante-bom.version>
+        <dante-bom.version>3.0.6.3</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
@@ -154,7 +154,7 @@
         <!--SMS SDK-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.752</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.754</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.13.0</qiniu-java-sdk.version>
         <!--支付 SDK-->
@@ -438,11 +438,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>oauth2-sdk-management</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>oauth2-sdk-iot</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
             <!-- oss -->
