@@ -26,15 +26,14 @@
 package cn.herodotus.engine.oauth2.authentication.form;
 
 import cn.herodotus.engine.captcha.core.processor.CaptchaRendererFactory;
-import cn.herodotus.engine.oauth2.authentication.properties.OAuth2UiProperties;
+import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.authentication.response.OAuth2FormLoginAuthenticationFailureHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextRepository;
 
@@ -47,38 +46,45 @@ import org.springframework.security.web.context.SecurityContextRepository;
  * @date : 2022/4/12 13:29
  * @see org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer
  */
-public class OAuth2FormLoginConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+public class OAuth2FormLoginSecureConfigurer<H extends HttpSecurityBuilder<H>>
+        extends AbstractHttpConfigurer<OAuth2FormLoginSecureConfigurer<H>, H> {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2FormLoginConfigurer.class);
+    private static final Logger log = LoggerFactory.getLogger(OAuth2FormLoginSecureConfigurer.class);
 
     private final UserDetailsService userDetailsService;
-    private final OAuth2UiProperties uiProperties;
+    private final OAuth2AuthenticationProperties authenticationProperties;
     private final CaptchaRendererFactory captchaRendererFactory;
 
-    public OAuth2FormLoginConfigurer(UserDetailsService userDetailsService, OAuth2UiProperties uiProperties, CaptchaRendererFactory captchaRendererFactory) {
+    public OAuth2FormLoginSecureConfigurer(UserDetailsService userDetailsService, OAuth2AuthenticationProperties authenticationProperties, CaptchaRendererFactory captchaRendererFactory) {
         this.userDetailsService = userDetailsService;
-        this.uiProperties = uiProperties;
+        this.authenticationProperties = authenticationProperties;
         this.captchaRendererFactory = captchaRendererFactory;
     }
 
     @Override
-    public void configure(HttpSecurity httpSecurity) throws Exception {
+    public void configure(H httpSecurity) throws Exception {
 
         AuthenticationManager authenticationManager = httpSecurity.getSharedObject(AuthenticationManager.class);
         SecurityContextRepository securityContextRepository = httpSecurity.getSharedObject(SecurityContextRepository.class);
 
         OAuth2FormLoginAuthenticationFilter filter = new OAuth2FormLoginAuthenticationFilter(authenticationManager);
-        filter.setUsernameParameter(uiProperties.getUsernameParameter());
-        filter.setPasswordParameter(uiProperties.getPasswordParameter());
-        filter.setAuthenticationDetailsSource(new OAuth2FormLoginWebAuthenticationDetailSource(uiProperties));
-        filter.setAuthenticationFailureHandler(new OAuth2FormLoginAuthenticationFailureHandler(uiProperties.getFailureForwardUrl()));
+        filter.setUsernameParameter(getFormLogin().getUsernameParameter());
+        filter.setPasswordParameter(getFormLogin().getPasswordParameter());
+        filter.setAuthenticationDetailsSource(new OAuth2FormLoginWebAuthenticationDetailSource(authenticationProperties));
+
+        filter.setAuthenticationFailureHandler(new OAuth2FormLoginAuthenticationFailureHandler(getFormLogin().getFailureForwardUrl()));
         filter.setSecurityContextRepository(securityContextRepository);
 
         OAuth2FormLoginAuthenticationProvider provider = new OAuth2FormLoginAuthenticationProvider(captchaRendererFactory);
         provider.setUserDetailsService(userDetailsService);
         provider.setHideUserNotFoundExceptions(false);
 
-        httpSecurity.authenticationProvider(provider)
+        httpSecurity
+                .authenticationProvider(provider)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+    }
+
+    private OAuth2AuthenticationProperties.FormLogin getFormLogin() {
+        return authenticationProperties.getFormLogin();
     }
 }

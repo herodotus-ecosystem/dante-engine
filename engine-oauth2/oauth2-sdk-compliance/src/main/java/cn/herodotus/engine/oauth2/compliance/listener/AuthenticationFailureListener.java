@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.compliance.listener;
 
 import cn.herodotus.engine.cache.core.exception.MaximumLimitExceededException;
 import cn.herodotus.engine.oauth2.compliance.service.OAuth2AccountStatusService;
-import cn.herodotus.engine.oauth2.compliance.stamp.SignInFailureLimitedStampManager;
+import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -96,8 +96,8 @@ public class AuthenticationFailureListener implements ApplicationListener<Abstra
 
                 log.debug("[Herodotus] |- Parse the username in failure event is [{}].", username);
 
-                int maxTimes = stampManager.getComplianceProperties().getSignInFailureLimited().getMaxTimes();
-                Duration expire = stampManager.getComplianceProperties().getSignInFailureLimited().getExpire();
+                int maxTimes = stampManager.getAuthenticationProperties().getSignInFailureLimited().getMaxTimes();
+                Duration expire = stampManager.getAuthenticationProperties().getSignInFailureLimited().getExpire();
                 try {
                     int times = stampManager.counting(username, maxTimes, expire, true, "AuthenticationFailureListener");
                     log.debug("[Herodotus] |- Sign in user input password error [{}] items", times);

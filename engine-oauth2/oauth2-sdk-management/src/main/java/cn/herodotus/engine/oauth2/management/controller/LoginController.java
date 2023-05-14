@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.management.controller;
 
-import cn.herodotus.engine.oauth2.authentication.properties.OAuth2UiProperties;
+import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
 import cn.herodotus.engine.rest.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,11 +59,11 @@ public class LoginController {
     private static final String DEFAULT_LOGIN_PAGE_VIEW = "login";
     private static final String DEFAULT_ERROR_PAGE_VIEW = "error";
 
-    private final OAuth2UiProperties uiProperties;
+    private final OAuth2AuthenticationProperties authenticationProperties;
 
     @Autowired
-    public LoginController(OAuth2UiProperties uiProperties) {
-        this.uiProperties = uiProperties;
+    public LoginController(OAuth2AuthenticationProperties authenticationProperties) {
+        this.authenticationProperties = authenticationProperties;
     }
 
 
@@ -79,17 +79,17 @@ public class LoginController {
         Map<String, String> hiddenInputs = hiddenInputs(request);
 
         // 登录可配置用户名参数
-        modelAndView.addObject("vulgar_tycoon", uiProperties.getUsernameParameter());
+        modelAndView.addObject("vulgar_tycoon", getFormLogin().getUsernameParameter());
         // 登录可配置密码参数
-        modelAndView.addObject("beast", uiProperties.getPasswordParameter());
-        modelAndView.addObject("anubis", uiProperties.getRememberMeParameter());
-        modelAndView.addObject("graphic", uiProperties.getCaptchaParameter());
-        modelAndView.addObject("hide_verification_code", uiProperties.getCloseCaptcha());
+        modelAndView.addObject("beast", getFormLogin().getPasswordParameter());
+        modelAndView.addObject("anubis", getFormLogin().getRememberMeParameter());
+        modelAndView.addObject("graphic", getFormLogin().getCaptchaParameter());
+        modelAndView.addObject("hide_verification_code", getFormLogin().getCloseCaptcha());
         // Security 隐藏域
         // AES加密key
         modelAndView.addObject("soup_spoon", SymmetricUtils.getEncryptedSymmetricKey());
         // 验证码类别
-        modelAndView.addObject("verification_category", uiProperties.getCategory());
+        modelAndView.addObject("verification_category", getFormLogin().getCategory());
         modelAndView.addObject("hidden_inputs", hiddenInputs);
         modelAndView.addObject("login_error", loginError);
         modelAndView.addObject("logout_success", logoutSuccess);
@@ -98,6 +98,10 @@ public class LoginController {
         modelAndView.addObject("sessionId", WebUtils.getSessionId(request, true));
 
         return modelAndView;
+    }
+
+    private OAuth2AuthenticationProperties.FormLogin getFormLogin() {
+        return authenticationProperties.getFormLogin();
     }
 
     private boolean isErrorPage(HttpServletRequest request) {

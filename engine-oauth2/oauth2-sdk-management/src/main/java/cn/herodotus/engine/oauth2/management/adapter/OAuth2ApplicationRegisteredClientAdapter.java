@@ -25,11 +25,9 @@
 
 package cn.herodotus.engine.oauth2.management.adapter;
 
-import cn.herodotus.engine.assistant.core.enums.Target;
+import cn.herodotus.engine.oauth2.data.jpa.definition.AbstractRegisteredClientAdapter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
-import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
-import cn.herodotus.engine.oauth2.data.jpa.definition.AbstractRegisteredClientAdapter;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
@@ -49,11 +47,8 @@ import java.util.stream.Collectors;
  */
 public class OAuth2ApplicationRegisteredClientAdapter extends AbstractRegisteredClientAdapter<OAuth2Application> {
 
-    private final SecurityProperties securityProperties;
-
-    public OAuth2ApplicationRegisteredClientAdapter(SecurityProperties securityProperties) {
+    public OAuth2ApplicationRegisteredClientAdapter() {
         super();
-        this.securityProperties = securityProperties;
     }
 
     @Override
@@ -89,7 +84,7 @@ public class OAuth2ApplicationRegisteredClientAdapter extends AbstractRegistered
         tokenSettingsBuilder.refreshTokenTimeToLive(details.getRefreshTokenValidity());
         // 是否可重用刷新令牌
         tokenSettingsBuilder.reuseRefreshTokens(details.getReuseRefreshTokens());
-        tokenSettingsBuilder.accessTokenFormat(getTokenFormat());
+        tokenSettingsBuilder.accessTokenFormat(new OAuth2TokenFormat(details.getAccessTokenFormat().getFormat()));
         if (ObjectUtils.isNotEmpty(details.getIdTokenSignatureAlgorithm())) {
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.from(details.getIdTokenSignatureAlgorithm().name());
             if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {
@@ -97,13 +92,5 @@ public class OAuth2ApplicationRegisteredClientAdapter extends AbstractRegistered
             }
         }
         return tokenSettingsBuilder.build();
-    }
-
-    private OAuth2TokenFormat getTokenFormat() {
-        if (securityProperties.getValidate() == Target.REMOTE) {
-            return new OAuth2TokenFormat("reference");
-        } else {
-            return new OAuth2TokenFormat("self-contained");
-        }
     }
 }

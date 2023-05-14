@@ -31,7 +31,7 @@ import cn.herodotus.engine.oauth2.compliance.listener.AuthenticationFailureListe
 import cn.herodotus.engine.oauth2.compliance.listener.AuthenticationSuccessListener;
 import cn.herodotus.engine.oauth2.compliance.service.OAuth2AccountStatusService;
 import cn.herodotus.engine.oauth2.compliance.service.OAuth2ComplianceService;
-import cn.herodotus.engine.oauth2.compliance.stamp.SignInFailureLimitedStampManager;
+import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.oauth2.compliance.annotation.ConditionalOnAutoUnlockUserAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

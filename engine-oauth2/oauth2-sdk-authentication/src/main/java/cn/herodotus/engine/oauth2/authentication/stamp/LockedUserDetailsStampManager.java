@@ -23,11 +23,11 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.stamp;
+package cn.herodotus.engine.oauth2.authentication.stamp;
 
 import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
-import cn.herodotus.engine.oauth2.core.properties.OAuth2ComplianceProperties;
+import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.hutool.core.util.IdUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,15 +38,13 @@ import org.springframework.stereotype.Component;
  * @author : gengwei.zheng
  * @date : 2022/7/8 21:27
  */
-@Component
 public class LockedUserDetailsStampManager extends AbstractStampManager<String, String> {
 
-    private final OAuth2ComplianceProperties complianceProperties;
+    private final OAuth2AuthenticationProperties authenticationProperties;
 
-    @Autowired
-    public LockedUserDetailsStampManager(OAuth2ComplianceProperties complianceProperties) {
+    public LockedUserDetailsStampManager(OAuth2AuthenticationProperties authenticationProperties) {
         super(OAuth2Constants.CACHE_NAME_TOKEN_LOCKED_USER_DETAIL);
-        this.complianceProperties = complianceProperties;
+        this.authenticationProperties = authenticationProperties;
     }
 
     @Override
@@ -56,6 +54,6 @@ public class LockedUserDetailsStampManager extends AbstractStampManager<String, 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        super.setExpire(complianceProperties.getSignInFailureLimited().getExpire());
+        super.setExpire(authenticationProperties.getSignInFailureLimited().getExpire());
     }
 }

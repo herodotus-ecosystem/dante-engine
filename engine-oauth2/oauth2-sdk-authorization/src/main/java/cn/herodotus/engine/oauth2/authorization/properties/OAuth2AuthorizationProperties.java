@@ -23,8 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.core.properties;
+package cn.herodotus.engine.oauth2.authorization.properties;
 
+import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.core.enums.Certificate;
 import com.google.common.base.MoreObjects;
@@ -35,15 +36,35 @@ import java.util.List;
 /**
  * <p>Description: OAuth2 配置属性 </p>
  * <p>
- * 仅认证服务会使用到的安全相关配置，这是与 SecurityProperties 的主要区别。
+ * 仅认证服务会使用到的安全相关配置，这是与 OAuth2Properties 的主要区别。
  *
  * @author : gengwei.zheng
  * @date : 2022/3/6 16:36
  */
-@ConfigurationProperties(prefix = OAuth2Constants.PROPERTY_PREFIX_OAUTH2)
-public class OAuth2Properties {
+@ConfigurationProperties(prefix = OAuth2Constants.PROPERTY_OAUTH2_AUTHORIZATION)
+public class OAuth2AuthorizationProperties {
 
+    /**
+     * Token 校验是采用远程方式还是本地方式。
+     */
+    private Target validate = Target.REMOTE;
+
+    /**
+     * JWT的密钥或者密钥对(JSON Web Key) 配置
+     */
     private Jwk jwk = new Jwk();
+    /**
+     * 指定 Request Matcher 静态安全规则
+     */
+    private Matcher matcher = new Matcher();
+
+    public Target getValidate() {
+        return validate;
+    }
+
+    public void setValidate(Target validate) {
+        this.validate = validate;
+    }
 
     public Jwk getJwk() {
         return jwk;
@@ -51,6 +72,14 @@ public class OAuth2Properties {
 
     public void setJwk(Jwk jwk) {
         this.jwk = jwk;
+    }
+
+    public Matcher getMatcher() {
+        return matcher;
+    }
+
+    public void setMatcher(Matcher matcher) {
+        this.matcher = matcher;
     }
 
     public static class Jwk {
@@ -147,6 +176,10 @@ public class OAuth2Properties {
          * Security "permitAll" 权限列表。
          */
         private List<String> permitAll;
+        /**
+         * 只校验是否请求中包含Token，不校验Token中是否包含该权限的资源
+         */
+        private List<String> hasAuthenticated;
 
         public List<String> getStaticResources() {
             return staticResources;
@@ -162,6 +195,14 @@ public class OAuth2Properties {
 
         public void setPermitAll(List<String> permitAll) {
             this.permitAll = permitAll;
+        }
+
+        public List<String> getHasAuthenticated() {
+            return hasAuthenticated;
+        }
+
+        public void setHasAuthenticated(List<String> hasAuthenticated) {
+            this.hasAuthenticated = hasAuthenticated;
         }
     }
 }

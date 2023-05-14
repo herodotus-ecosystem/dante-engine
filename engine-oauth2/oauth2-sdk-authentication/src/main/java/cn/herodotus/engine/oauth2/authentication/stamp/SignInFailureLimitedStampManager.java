@@ -23,12 +23,12 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.stamp;
+package cn.herodotus.engine.oauth2.authentication.stamp;
 
 import cn.herodotus.engine.cache.jetcache.stamp.AbstractCountStampManager;
-import cn.herodotus.engine.oauth2.compliance.dto.SignInErrorStatus;
+import cn.herodotus.engine.oauth2.authentication.dto.SignInErrorStatus;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
-import cn.herodotus.engine.oauth2.core.properties.OAuth2ComplianceProperties;
+import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.hutool.crypto.SecureUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +40,13 @@ import org.springframework.stereotype.Component;
  * @author : gengwei.zheng
  * @date : 2022/7/6 23:36
  */
-@Component
 public class SignInFailureLimitedStampManager extends AbstractCountStampManager {
 
-    private final OAuth2ComplianceProperties complianceProperties;
+    private final OAuth2AuthenticationProperties authenticationProperties;
 
-    @Autowired
-    public SignInFailureLimitedStampManager(OAuth2ComplianceProperties complianceProperties) {
+    public SignInFailureLimitedStampManager(OAuth2AuthenticationProperties authenticationProperties) {
         super(OAuth2Constants.CACHE_NAME_TOKEN_SIGN_IN_FAILURE_LIMITED);
-        this.complianceProperties = complianceProperties;
+        this.authenticationProperties = authenticationProperties;
     }
 
     @Override
@@ -58,15 +56,15 @@ public class SignInFailureLimitedStampManager extends AbstractCountStampManager 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        super.setExpire(complianceProperties.getSignInFailureLimited().getExpire());
+        super.setExpire(authenticationProperties.getSignInFailureLimited().getExpire());
     }
 
-    public OAuth2ComplianceProperties getComplianceProperties() {
-        return complianceProperties;
+    public OAuth2AuthenticationProperties getAuthenticationProperties() {
+        return authenticationProperties;
     }
 
     public SignInErrorStatus errorStatus(String username) {
-        int maxTimes = complianceProperties.getSignInFailureLimited().getMaxTimes();
+        int maxTimes = authenticationProperties.getSignInFailureLimited().getMaxTimes();
         Long storedTimes = get(SecureUtil.md5(username));
 
         int errorTimes = 0;

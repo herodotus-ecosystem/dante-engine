@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.compliance.service;
 
 import cn.herodotus.engine.data.core.enums.DataItemStatus;
 import cn.herodotus.engine.oauth2.compliance.definition.AccountStatusChangeService;
-import cn.herodotus.engine.oauth2.compliance.stamp.LockedUserDetailsStampManager;
+import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
 import cn.herodotus.engine.rest.core.domain.UserStatus;

@@ -23,43 +23,30 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.compliance.dto;
+package cn.herodotus.engine.oauth2.authentication.dto;
 
-import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
+import cn.herodotus.engine.rest.core.definition.dto.BaseDto;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 
 /**
- * <p>Description: 用户错误状态信息 </p>
+ * <p>Description: 登录提示信息 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:46
+ * @date : 2022/7/8 20:52
  */
-public class SignInErrorStatus extends AbstractEntity {
+@Schema(title = "登录错误提示信息")
+public class SignInErrorPrompt extends BaseDto {
 
-    private int errorTimes;
-    private int remainTimes;
-    private Boolean locked;
+    @NotBlank(message = "登录用户名不能为空")
+    @Schema(name = "登录用户名", title = "必须是有效的用户名")
+    private String username;
 
-    public int getErrorTimes() {
-        return errorTimes;
+    public String getUsername() {
+        return username;
     }
 
-    public void setErrorTimes(int errorTimes) {
-        this.errorTimes = errorTimes;
-    }
-
-    public int getRemainTimes() {
-        return remainTimes;
-    }
-
-    public void setRemainTimes(int remainTimes) {
-        this.remainTimes = remainTimes;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public void setLocked(Boolean locked) {
-        this.locked = locked;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

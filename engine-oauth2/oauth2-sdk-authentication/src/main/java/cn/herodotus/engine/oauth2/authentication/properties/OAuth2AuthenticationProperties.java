@@ -23,11 +23,15 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.core.properties;
+package cn.herodotus.engine.oauth2.authentication.properties;
 
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import com.google.common.base.MoreObjects;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
+import org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter;
 
 import java.time.Duration;
 
@@ -37,14 +41,25 @@ import java.time.Duration;
  * @author : gengwei.zheng
  * @date : 2022/7/7 0:16
  */
-@ConfigurationProperties(prefix = OAuth2Constants.PROPERTY_OAUTH2_COMPLIANCE)
-public class OAuth2ComplianceProperties {
+@ConfigurationProperties(prefix = OAuth2Constants.PROPERTY_OAUTH2_AUTHENTICATION)
+public class OAuth2AuthenticationProperties {
 
-    private SignInEndpointLimited signInEndpointLimited = new SignInEndpointLimited();
-
+    /**
+     * 开启登录失败限制
+     */
     private SignInFailureLimited signInFailureLimited = new SignInFailureLimited();
 
+    /**
+     * 同一终端登录限制
+     */
+    private SignInEndpointLimited signInEndpointLimited = new SignInEndpointLimited();
+
+    /**
+     * 账户踢出限制
+     */
     private SignInKickOutLimited signInKickOutLimited = new SignInKickOutLimited();
+
+    private FormLogin formLogin = new FormLogin();
 
     public SignInEndpointLimited getSignInEndpointLimited() {
         return signInEndpointLimited;
@@ -68,6 +83,14 @@ public class OAuth2ComplianceProperties {
 
     public void setSignInKickOutLimited(SignInKickOutLimited signInKickOutLimited) {
         this.signInKickOutLimited = signInKickOutLimited;
+    }
+
+    public FormLogin getFormLogin() {
+        return formLogin;
+    }
+
+    public void setFormLogin(FormLogin formLogin) {
+        this.formLogin = formLogin;
     }
 
     public static class SignInFailureLimited {
@@ -188,6 +211,132 @@ public class OAuth2ComplianceProperties {
         public String toString() {
             return MoreObjects.toStringHelper(this)
                     .add("enabled", enabled)
+                    .toString();
+        }
+    }
+
+    public static class FormLogin {
+        /**
+         * UI 界面用户名标输入框 name 属性值
+         */
+        private String usernameParameter = UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
+        /**
+         * UI 界面密码标输入框 name 属性值
+         */
+        private String passwordParameter = UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY;
+        /**
+         * UI 界面Remember Me name 属性值
+         */
+        private String rememberMeParameter = AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY;
+        /**
+         * UI 界面验证码 name 属性值
+         */
+        private String captchaParameter = "captcha";
+        /**
+         * 登录页面地址
+         */
+        private String loginPageUrl = DefaultLoginPageGeneratingFilter.DEFAULT_LOGIN_PAGE_URL;
+        /**
+         * 登录失败重定向地址
+         */
+        private String failureForwardUrl = loginPageUrl + SymbolConstants.QUESTION + DefaultLoginPageGeneratingFilter.ERROR_PARAMETER_NAME;
+        /**
+         * 登录成功重定向地址
+         */
+        private String successForwardUrl;
+        /**
+         * 关闭验证码显示，默认 false，显示
+         */
+        private Boolean closeCaptcha = false;
+        /**
+         * 验证码类别，默认为 Hutool Gif 类型
+         */
+        private String category = "HUTOOL_GIF";
+
+        public String getUsernameParameter() {
+            return usernameParameter;
+        }
+
+        public void setUsernameParameter(String usernameParameter) {
+            this.usernameParameter = usernameParameter;
+        }
+
+        public String getPasswordParameter() {
+            return passwordParameter;
+        }
+
+        public void setPasswordParameter(String passwordParameter) {
+            this.passwordParameter = passwordParameter;
+        }
+
+        public String getRememberMeParameter() {
+            return rememberMeParameter;
+        }
+
+        public void setRememberMeParameter(String rememberMeParameter) {
+            this.rememberMeParameter = rememberMeParameter;
+        }
+
+        public String getCaptchaParameter() {
+            return captchaParameter;
+        }
+
+        public void setCaptchaParameter(String captchaParameter) {
+            this.captchaParameter = captchaParameter;
+        }
+
+        public String getLoginPageUrl() {
+            return loginPageUrl;
+        }
+
+        public void setLoginPageUrl(String loginPageUrl) {
+            this.loginPageUrl = loginPageUrl;
+        }
+
+        public String getFailureForwardUrl() {
+            return failureForwardUrl;
+        }
+
+        public void setFailureForwardUrl(String failureForwardUrl) {
+            this.failureForwardUrl = failureForwardUrl;
+        }
+
+        public String getSuccessForwardUrl() {
+            return successForwardUrl;
+        }
+
+        public void setSuccessForwardUrl(String successForwardUrl) {
+            this.successForwardUrl = successForwardUrl;
+        }
+
+        public Boolean getCloseCaptcha() {
+            return closeCaptcha;
+        }
+
+        public void setCloseCaptcha(Boolean closeCaptcha) {
+            this.closeCaptcha = closeCaptcha;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
+
+        @Override
+        public String toString() {
+            return MoreObjects.toStringHelper(this)
+                    .add("usernameParameter", usernameParameter)
+                    .add("passwordParameter", passwordParameter)
+                    .add("rememberMeParameter", rememberMeParameter)
+                    .add("captchaParameter", captchaParameter)
+                    .add("loginPageUrl", loginPageUrl)
+                    .add("failureForwardUrl", failureForwardUrl)
+                    .add("successForwardUrl", successForwardUrl)
+                    .add("closeCaptcha", closeCaptcha)
+                    .add("category", category)
                     .toString();
         }
     }

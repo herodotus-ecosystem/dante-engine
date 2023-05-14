@@ -30,7 +30,7 @@ import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
 import cn.herodotus.engine.oauth2.core.exception.AccountEndpointLimitedException;
-import cn.herodotus.engine.oauth2.core.properties.OAuth2ComplianceProperties;
+import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.data.jpa.storage.JpaOAuth2AuthorizationService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -70,14 +70,14 @@ public abstract class AbstractUserDetailsAuthenticationProvider extends Abstract
     private final MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
     private final UserDetailsService userDetailsService;
     private final OAuth2AuthorizationService authorizationService;
-    private final OAuth2ComplianceProperties complianceProperties;
+    private final OAuth2AuthenticationProperties authenticationProperties;
     private PasswordEncoder passwordEncoder;
 
 
-    public AbstractUserDetailsAuthenticationProvider(OAuth2AuthorizationService authorizationService, UserDetailsService userDetailsService, OAuth2ComplianceProperties complianceProperties) {
+    public AbstractUserDetailsAuthenticationProvider(OAuth2AuthorizationService authorizationService, UserDetailsService userDetailsService, OAuth2AuthenticationProperties authenticationProperties) {
         this.userDetailsService = userDetailsService;
         this.authorizationService = authorizationService;
-        this.complianceProperties = complianceProperties;
+        this.authenticationProperties = authenticationProperties;
         setPasswordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
     }
 
@@ -121,16 +121,16 @@ public abstract class AbstractUserDetailsAuthenticationProvider extends Abstract
             throw new CredentialsExpiredException(messages.getMessage("AbstractUserDetailsAuthenticationProvider.credentialsExpired", "User credentials have expired"));
         }
 
-        if (complianceProperties.getSignInEndpointLimited().getEnabled() && !complianceProperties.getSignInKickOutLimited().getEnabled()) {
+        if (authenticationProperties.getSignInEndpointLimited().getEnabled() && !authenticationProperties.getSignInKickOutLimited().getEnabled()) {
             if (authorizationService instanceof JpaOAuth2AuthorizationService jpaOAuth2AuthorizationService) {
                 int count = jpaOAuth2AuthorizationService.findAuthorizationCount(registeredClientId, user.getUsername());
-                if (count >= complianceProperties.getSignInEndpointLimited().getMaximum()) {
+                if (count >= authenticationProperties.getSignInEndpointLimited().getMaximum()) {
                     throw new AccountEndpointLimitedException("Use same endpoint signIn exceed limit");
                 }
             }
         }
 
-        if (!complianceProperties.getSignInEndpointLimited().getEnabled() && complianceProperties.getSignInKickOutLimited().getEnabled()) {
+        if (!authenticationProperties.getSignInEndpointLimited().getEnabled() && authenticationProperties.getSignInKickOutLimited().getEnabled()) {
             if (authorizationService instanceof JpaOAuth2AuthorizationService jpaOAuth2AuthorizationService) {
                 List<OAuth2Authorization> authorizations = jpaOAuth2AuthorizationService.findAvailableAuthorizations(registeredClientId, user.getUsername());
                 if (CollectionUtils.isNotEmpty(authorizations)) {

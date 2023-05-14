@@ -29,7 +29,7 @@ import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
 import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.oauth2.authorization.converter.HerodotusJwtAuthenticationConverter;
 import cn.herodotus.engine.oauth2.authorization.introspector.HerodotusOpaqueTokenIntrospector;
-import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
+import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.oauth2.core.response.HerodotusAccessDeniedHandler;
 import cn.herodotus.engine.oauth2.core.response.HerodotusAuthenticationEntryPoint;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
@@ -48,22 +48,18 @@ import org.springframework.security.oauth2.server.resource.web.DefaultBearerToke
  */
 public class HerodotusTokenStrategyConfigurer {
 
-    private JwtDecoder jwtDecoder;
-    private SecurityProperties securityProperties;
-    private EndpointProperties endpointProperties;
-    private OAuth2ResourceServerProperties resourceServerProperties;
-    private OpaqueTokenIntrospector opaqueTokenIntrospector;
+    private final JwtDecoder jwtDecoder;
+    private final OAuth2AuthorizationProperties authorizationProperties;
+    private final OpaqueTokenIntrospector opaqueTokenIntrospector;
 
-    public HerodotusTokenStrategyConfigurer(JwtDecoder jwtDecoder, SecurityProperties securityProperties, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
+    public HerodotusTokenStrategyConfigurer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
         this.jwtDecoder = jwtDecoder;
-        this.securityProperties = securityProperties;
-        this.endpointProperties = endpointProperties;
-        this.resourceServerProperties = resourceServerProperties;
-        this.opaqueTokenIntrospector = new HerodotusOpaqueTokenIntrospector(this.endpointProperties, this.resourceServerProperties);
+        this.authorizationProperties = authorizationProperties;
+        this.opaqueTokenIntrospector = new HerodotusOpaqueTokenIntrospector(endpointProperties, resourceServerProperties);
     }
 
     private boolean isRemoteValidate() {
-        return this.securityProperties.getValidate() == Target.REMOTE;
+        return this.authorizationProperties.getValidate() == Target.REMOTE;
     }
 
     public OAuth2ResourceServerConfigurer<HttpSecurity> from(OAuth2ResourceServerConfigurer<HttpSecurity> configurer) {

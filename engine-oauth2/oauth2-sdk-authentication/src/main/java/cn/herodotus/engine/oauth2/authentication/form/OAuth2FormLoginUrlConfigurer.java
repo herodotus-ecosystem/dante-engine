@@ -26,26 +26,41 @@
 package cn.herodotus.engine.oauth2.authentication.form;
 
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
-import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 
 /**
- * <p>Description: 表单登录 Details 定义 </p>
+ * <p>Description: Form Login 配置统一配置类 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/4/12 10:41
+ * @date : 2023/5/14 9:02
  */
-public class OAuth2FormLoginWebAuthenticationDetailSource implements AuthenticationDetailsSource<HttpServletRequest, FormLoginWebAuthenticationDetails> {
+public class OAuth2FormLoginUrlConfigurer {
 
     private final OAuth2AuthenticationProperties authenticationProperties;
 
-    public OAuth2FormLoginWebAuthenticationDetailSource(OAuth2AuthenticationProperties authenticationProperties) {
+    public OAuth2FormLoginUrlConfigurer(OAuth2AuthenticationProperties authenticationProperties) {
         this.authenticationProperties = authenticationProperties;
     }
 
-    @Override
-    public FormLoginWebAuthenticationDetails buildDetails(HttpServletRequest context) {
-        return new FormLoginWebAuthenticationDetails(context, authenticationProperties.getFormLogin().getCloseCaptcha(), authenticationProperties.getFormLogin().getCaptchaParameter(), authenticationProperties.getFormLogin().getCategory());
+    public FormLoginConfigurer<HttpSecurity> from(FormLoginConfigurer<HttpSecurity> configurer) {
+        configurer
+                .loginPage(getFormLogin().getLoginPageUrl())
+                .usernameParameter(getFormLogin().getUsernameParameter())
+                .passwordParameter(getFormLogin().getPasswordParameter());
+
+        if (StringUtils.isNotBlank(getFormLogin().getFailureForwardUrl())) {
+            configurer.failureForwardUrl(getFormLogin().getFailureForwardUrl());
+        }
+        if (StringUtils.isNotBlank(getFormLogin().getSuccessForwardUrl())) {
+            configurer.successForwardUrl(getFormLogin().getSuccessForwardUrl());
+        }
+
+        return configurer;
+    }
+
+    private OAuth2AuthenticationProperties.FormLogin getFormLogin() {
+        return authenticationProperties.getFormLogin();
     }
 }

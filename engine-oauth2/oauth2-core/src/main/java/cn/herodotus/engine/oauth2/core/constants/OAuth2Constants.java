@@ -35,9 +35,9 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface OAuth2Constants extends BaseConstants {
 
-    String PROPERTY_OAUTH2_UI = PROPERTY_PREFIX_OAUTH2 + ".ui";
-    String PROPERTY_OAUTH2_COMPLIANCE = PROPERTY_PREFIX_OAUTH2 + ".compliance";
-    String ITEM_COMPLIANCE_AUTO_UNLOCK = PROPERTY_OAUTH2_COMPLIANCE + ".auto-unlock";
+    String PROPERTY_OAUTH2_AUTHENTICATION = PROPERTY_PREFIX_OAUTH2 + ".authentication";
+    String PROPERTY_OAUTH2_AUTHORIZATION = PROPERTY_PREFIX_OAUTH2 + ".authorization";
+    String ITEM_COMPLIANCE_AUTO_UNLOCK = PROPERTY_OAUTH2_AUTHENTICATION + ".auto-unlock";
 
     String REGION_OAUTH2_AUTHORIZATION = AREA_PREFIX + "oauth2:authorization";
     String REGION_OAUTH2_AUTHORIZATION_CONSENT = AREA_PREFIX + "oauth2:authorization:consent";

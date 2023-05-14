@@ -26,9 +26,9 @@
 package cn.herodotus.engine.oauth2.compliance.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oauth2.compliance.dto.SignInErrorPrompt;
-import cn.herodotus.engine.oauth2.compliance.dto.SignInErrorStatus;
-import cn.herodotus.engine.oauth2.compliance.stamp.SignInFailureLimitedStampManager;
+import cn.herodotus.engine.oauth2.authentication.dto.SignInErrorPrompt;
+import cn.herodotus.engine.oauth2.authentication.dto.SignInErrorStatus;
+import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

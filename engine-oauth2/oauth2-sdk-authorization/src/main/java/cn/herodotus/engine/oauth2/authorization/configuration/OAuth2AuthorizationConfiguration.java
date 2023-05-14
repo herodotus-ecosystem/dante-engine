@@ -30,11 +30,11 @@ import cn.herodotus.engine.oauth2.authorization.auditing.SecurityAuditorAware;
 import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusTokenStrategyConfigurer;
 import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataSyncListener;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
+import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceStorage;
-import cn.herodotus.engine.oauth2.core.configurer.SecurityMatcherConfigurer;
+import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
-import cn.herodotus.engine.oauth2.core.properties.SecurityProperties;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -58,7 +58,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
  * @date : 2022/1/23 15:42
  */
 @AutoConfiguration
-@EnableConfigurationProperties({SecurityProperties.class})
+@EnableConfigurationProperties({OAuth2AuthorizationProperties.class})
 @EnableMethodSecurity(proxyTargetClass = true)
 @Import({
         SecurityGlobalExceptionHandler.class
@@ -82,8 +82,8 @@ public class OAuth2AuthorizationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public SecurityMatcherConfigurer securityMatcherConfigurer(SecurityProperties securityProperties) {
-        SecurityMatcherConfigurer securityMatcherConfigurer = new SecurityMatcherConfigurer(securityProperties);
+    public SecurityMatcherConfigurer securityMatcherConfigurer(OAuth2AuthorizationProperties authorizationProperties) {
+        SecurityMatcherConfigurer securityMatcherConfigurer = new SecurityMatcherConfigurer(authorizationProperties);
         log.trace("[Herodotus] |- Bean [Security Metadata Configurer] Auto Configure.");
         return securityMatcherConfigurer;
     }
@@ -114,8 +114,8 @@ public class OAuth2AuthorizationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer(JwtDecoder jwtDecoder, SecurityProperties securityProperties, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
-        HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer = new HerodotusTokenStrategyConfigurer(jwtDecoder, securityProperties, endpointProperties, resourceServerProperties);
+    public HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
+        HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer = new HerodotusTokenStrategyConfigurer(authorizationProperties, jwtDecoder, endpointProperties, resourceServerProperties);
         log.trace("[Herodotus] |- Bean [Token Strategy Configurer] Auto Configure.");
         return herodotusTokenStrategyConfigurer;
     }

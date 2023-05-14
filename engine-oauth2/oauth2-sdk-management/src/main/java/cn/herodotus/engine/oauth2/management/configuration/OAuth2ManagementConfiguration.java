@@ -25,16 +25,13 @@
 
 package cn.herodotus.engine.oauth2.management.configuration;
 
-import cn.herodotus.engine.oauth2.authentication.properties.OAuth2UiProperties;
-import cn.herodotus.engine.oauth2.core.properties.OAuth2ComplianceProperties;
-import cn.herodotus.engine.oauth2.core.properties.OAuth2Properties;
+import cn.herodotus.engine.oauth2.authentication.configuration.OAuth2AuthenticationConfiguration;
 import cn.herodotus.engine.oauth2.data.jpa.configuration.OAuth2DataJpaConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -48,8 +45,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @date : 2022/2/26 12:35
  */
 @AutoConfiguration
-@EnableConfigurationProperties({OAuth2Properties.class, OAuth2UiProperties.class, OAuth2ComplianceProperties.class})
-@Import({OAuth2DataJpaConfiguration.class})
+@Import({OAuth2DataJpaConfiguration.class, OAuth2AuthenticationConfiguration.class})
 @EntityScan(basePackages = {
         "cn.herodotus.engine.oauth2.management.entity"
 })
