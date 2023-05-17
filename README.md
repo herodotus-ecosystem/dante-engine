@@ -32,18 +32,13 @@
 
 <h1 align="center"> 如果您觉得有帮助，请点右上角 "Star" 支持一下，谢谢！</h1>
 
-## 背景
+## 重要说明
 
-自11月24日，Spring Boot 3.0 以及 Spring Cloud 2022.0.0、Spring Cloud Tencent 等全新版本发布，整个Java 社区也步入的 Java 17
-和 Spring Boot 3 的新时代。
+随着 Spring Boot 3 周边生态组件的不断完善和新特性的加入，Dante Cloud 也同步的将 3.X 版本作为开发重心。
 
-紧跟 Java 技术和 Spring 社区的发展，让更多质量更好、性能更优的新特性服务于实际的开发工作，Dante Cloud 也同步进行升级及适配，开发了全新的
-3.0 版本。
+因此，Dante Cloud 3.X 版本代码将移动到 master 分支，作为主力版本开发。2.7.X 版本代码将移动到 2.7.X 分支，后续不会增加新特性和新功能，仅会结合 Spring Boot 2.X 版本发布情况，做低频例行更新。
 
-## 友情提示
-
-Dante Cloud 3.X 是“激进”尝鲜版本，周边生态的新技术、新特性、新功能都会在该版本上添加，加之 Spring Boot 3
-周边生态还没有完全适配完成，很多还处于非正式版本，所以是否选择使用 Dante Cloud 3.X 版本，请谨慎评估后再做决定。
+请请悉知！
 
 ## 特点
 
