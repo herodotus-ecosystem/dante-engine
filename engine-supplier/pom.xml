@@ -32,11 +32,11 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>dante-engine</artifactId>
-        <version>3.0.6.3</version>
+        <version>3.0.6.4</version>
     </parent>
 
     <artifactId>engine-supplier</artifactId>
-    <version>3.0.6.3</version>
+    <version>3.0.6.4</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -44,5 +44,6 @@
         <module>supplier-sdk-upms-rest</module>
         <module>supplier-sdk-message</module>
         <module>supplier-sdk-tenant</module>
+        <module>supplier-sdk-iot</module>
     </modules>
 </project>

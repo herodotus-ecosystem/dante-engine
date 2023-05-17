@@ -59,7 +59,6 @@ public class SysAttributeController extends BaseWriteableRestController<SysAttri
 
     private final SysAttributeService sysAttributeService;
 
-    @Autowired
     public SysAttributeController(SysAttributeService sysAttributeService) {
         this.sysAttributeService = sysAttributeService;
     }

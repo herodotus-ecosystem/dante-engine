@@ -35,7 +35,6 @@ public interface BaseConstants {
 
     String NONE = "none";
     String CODE = "code";
-    String LOWERCASE_DEFAULT = "default";
 
     String DEFAULT_TENANT_ID = "public";
     String DEFAULT_TREE_ROOT_ID = "0";
@@ -45,7 +44,6 @@ public interface BaseConstants {
     String PROPERTY_ENABLED = ".enabled";
     String PROPERTY_PREFIX_SPRING = "spring";
     String PROPERTY_PREFIX_FEIGN = "feign";
-    String PROPERTY_PREFIX_SERVER = "server";
     String PROPERTY_PREFIX_HERODOTUS = "herodotus";
 
     String PROPERTY_SPRING_CLOUD = PROPERTY_PREFIX_SPRING + ".cloud";
@@ -73,7 +71,6 @@ public interface BaseConstants {
     String PROPERTY_PREFIX_PLATFORM = PROPERTY_PREFIX_HERODOTUS + ".platform";
     String PROPERTY_PREFIX_REST = PROPERTY_PREFIX_HERODOTUS + ".rest";
     String PROPERTY_PREFIX_SECURE = PROPERTY_PREFIX_HERODOTUS + ".secure";
-    String PROPERTY_PREFIX_SECURITY = PROPERTY_PREFIX_HERODOTUS + ".security";
     String PROPERTY_PREFIX_SMS = PROPERTY_PREFIX_HERODOTUS + ".sms";
     String PROPERTY_PREFIX_SWAGGER = PROPERTY_PREFIX_HERODOTUS + ".swagger";
 
@@ -81,8 +78,6 @@ public interface BaseConstants {
 
     String ITEM_SWAGGER_ENABLED = PROPERTY_PREFIX_SWAGGER + PROPERTY_ENABLED;
     String ITEM_SPRING_APPLICATION_NAME = PROPERTY_PREFIX_SPRING + ".application.name";
-    String ITEM_SPRING_SESSION_STORE_TYPE = PROPERTY_PREFIX_SPRING + ".session.store-type";
-    String ITEM_SERVER_PORT = PROPERTY_PREFIX_SERVER + ".port";
 
     String ANNOTATION_APPLICATION_NAME = ANNOTATION_PREFIX + ITEM_SPRING_APPLICATION_NAME + ANNOTATION_SUFFIX;
 
@@ -125,9 +120,6 @@ public interface BaseConstants {
     String BEARER_TOKEN = BEARER_TYPE + SymbolConstants.SPACE;
     String BASIC_TYPE = "Basic";
     String BASIC_TOKEN = BASIC_TYPE + SymbolConstants.SPACE;
-    String ROLE_PREFIX = "ROLE_";
-    String AUTHORITY_PREFIX = "OP_";
-
     String AUTHORITIES = "authorities";
     String AVATAR = "avatar";
     String EMPLOYEE_ID = "employeeId";

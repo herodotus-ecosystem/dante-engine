@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-access</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.6.3</version>
+        <version>3.0.6.4</version>
     </parent>
 
     <artifactId>access-sdk-justauth</artifactId>
-    <version>3.0.6.3</version>
+    <version>3.0.6.4</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 JustAuth 外部接入组件模块</description>
