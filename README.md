@@ -26,7 +26,6 @@
 <p align="center">
     <a href="https://github.com/herodotus-cloud/dante-cloud">Github 仓库</a> &nbsp; | &nbsp;
     <a href="https://gitee.com/dromara/dante-cloud">Gitee 仓库</a> &nbsp; | &nbsp;
-    <a href="https://gitee.com/herodotus/dante-engine">v2.7.X</a> &nbsp; |
     <a href="https://www.herodotus.cn">文档</a>
 </p>
 
