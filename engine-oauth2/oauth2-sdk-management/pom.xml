@@ -33,11 +33,11 @@
     <parent>
         <artifactId>engine-oauth2</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.0.6.4</version>
+        <version>3.0.7.0</version>
     </parent>
 
     <artifactId>oauth2-sdk-management</artifactId>
-    <version>3.0.6.4</version>
+    <version>3.0.7.0</version>
     <packaging>jar</packaging>
 
     <description>Dante Cloud 基于 Spring Authorization Server 的认证核心管理模块</description>
@@ -65,6 +65,45 @@
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>message-security-spring-boot-starter</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>animate.css</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery-backstretch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>uniform</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>mdi__font</artifactId>
+            <version>${mdi__font.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>vue</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>quasar</artifactId>
         </dependency>
 
     </dependencies>
