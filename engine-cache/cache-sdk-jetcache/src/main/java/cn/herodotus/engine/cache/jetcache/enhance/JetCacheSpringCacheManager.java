@@ -26,6 +26,7 @@
 package cn.herodotus.engine.cache.jetcache.enhance;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.cache.core.properties.CacheSetting;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,6 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
 
-import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -91,9 +91,9 @@ public class JetCacheSpringCacheManager implements CacheManager {
         return new JetCacheSpringCache(name, cache, allowNullValues);
     }
 
-    protected Cache createJetCache(String name, Duration expire) {
-        com.alicp.jetcache.Cache<Object, Object> cache = jetCacheCreateCacheFactory.create(name, expire, allowNullValues, true);
-        log.debug("[Herodotus] |- CACHE - Herodotus cache [{}] with expire is CREATED.", name);
+    protected Cache createJetCache(String name, CacheSetting cacheSetting) {
+        com.alicp.jetcache.Cache<Object, Object> cache = jetCacheCreateCacheFactory.create(name, allowNullValues, cacheSetting);
+        log.debug("[Herodotus] |- CACHE - Herodotus cache [{}] use entity cache is CREATED.", name);
         return new JetCacheSpringCache(name, cache, allowNullValues);
     }
 

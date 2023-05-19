@@ -28,7 +28,7 @@ package cn.herodotus.engine.assistant.core.exception;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.assistant.core.enums.ResultErrorCodes;
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
  * <p>Description: FeedbackFactory </p>

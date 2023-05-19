@@ -26,8 +26,8 @@
 package cn.herodotus.engine.cache.jetcache.enhance;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.cache.core.properties.CacheSetting;
 import cn.herodotus.engine.cache.core.properties.CacheProperties;
-import cn.herodotus.engine.cache.core.properties.Expire;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -61,13 +61,13 @@ public class HerodotusCacheManager extends JetCacheSpringCacheManager {
 
     @Override
     protected Cache createJetCache(String name) {
-        Map<String, Expire> expires = cacheProperties.getExpires();
-        if (MapUtils.isNotEmpty(expires)) {
+        Map<String, CacheSetting> instances = cacheProperties.getInstances();
+        if (MapUtils.isNotEmpty(instances)) {
             String key = StringUtils.replace(name, SymbolConstants.COLON, cacheProperties.getSeparator());
-            if (expires.containsKey(key)) {
-                Expire expire = expires.get(key);
-                log.debug("[Herodotus] |- CACHE - Cache [{}] is set to use CUSTOM expire.", name);
-                return super.createJetCache(name, expire.getTtl());
+            if (instances.containsKey(key)) {
+                CacheSetting cacheSetting = instances.get(key);
+                log.debug("[Herodotus] |- CACHE - Cache [{}] is set to use INSTANCE cache.", name);
+                return super.createJetCache(name, cacheSetting);
             }
         }
         return super.createJetCache(name);

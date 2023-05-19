@@ -27,6 +27,7 @@ package cn.herodotus.engine.data.jpa.hibernate.identifier;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
 import org.hibernate.id.factory.spi.StandardGenerator;
 import org.hibernate.id.uuid.StandardRandomStrategy;
 import org.hibernate.type.descriptor.java.UUIDJavaType;
@@ -44,7 +45,7 @@ import java.util.UUID;
  * @author : gengwei.zheng
  * @date : 2022/11/7 17:15
  */
-public abstract class AbstractUuidGenerator implements StandardGenerator {
+public abstract class AbstractUuidGenerator implements IdentifierGenerator, StandardGenerator {
 
     private final StandardRandomStrategy generator;
     private final UUIDJavaType.ValueTransformer valueTransformer;

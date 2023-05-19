@@ -39,7 +39,7 @@ import java.util.Map;
  * @date : 2021/7/13 10:16
  */
 @ConfigurationProperties(prefix = CacheConstants.PROPERTY_PREFIX_CACHE)
-public class CacheProperties extends Expire {
+public class CacheProperties extends CacheSetting {
 
     /**
      * 是否允许存储空值
@@ -57,7 +57,7 @@ public class CacheProperties extends Expire {
     /**
      * 针对不同实体单独设置的过期时间，如果不设置，则统一使用默认时间。
      */
-    private Map<String, Expire> expires = new HashMap<>();
+    private Map<String, CacheSetting> instances = new HashMap<>();
 
     public Boolean getAllowNullValues() {
         return allowNullValues;
@@ -67,12 +67,12 @@ public class CacheProperties extends Expire {
         this.allowNullValues = allowNullValues;
     }
 
-    public Map<String, Expire> getExpires() {
-        return expires;
+    public Map<String, CacheSetting> getInstances() {
+        return instances;
     }
 
-    public void setExpires(Map<String, Expire> expires) {
-        this.expires = expires;
+    public void setInstances(Map<String, CacheSetting> instances) {
+        this.instances = instances;
     }
 
     public String getSeparator() {

@@ -37,12 +37,7 @@ import cn.zhxu.okhttps.OkHttps;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.http.HttpHeaders;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
-import org.apache.http.ssl.TrustStrategy;
+import org.apache.hc.core5.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,9 +128,7 @@ public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
 
         if (result.isSuccessful()) {
             HuaweiSmsResponse huaweiSmsResponse = result.getBody().toBean(HuaweiSmsResponse.class);
-            if (ObjectUtils.isNotEmpty(huaweiSmsResponse) && HuaweiSmsResponse.SUCCESS_CODE.equals(huaweiSmsResponse.getCode())) {
-                return true;
-            }
+            return ObjectUtils.isNotEmpty(huaweiSmsResponse) && HuaweiSmsResponse.SUCCESS_CODE.equals(huaweiSmsResponse.getCode());
         }
 
         return false;

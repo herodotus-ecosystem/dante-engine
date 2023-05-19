@@ -26,8 +26,8 @@
 package cn.herodotus.engine.cache.redis.enhance;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.cache.core.properties.CacheSetting;
 import cn.herodotus.engine.cache.core.properties.CacheProperties;
-import cn.herodotus.engine.cache.core.properties.Expire;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -79,13 +79,13 @@ public class HerodotusRedisCacheManager extends RedisCacheManager {
 
     @Override
     protected RedisCache createRedisCache(String name, RedisCacheConfiguration cacheConfig) {
-        Map<String, Expire> expires = cacheProperties.getExpires();
+        Map<String, CacheSetting> expires = cacheProperties.getInstances();
         if (MapUtils.isNotEmpty(expires)) {
             String key = StringUtils.replace(name, SymbolConstants.COLON, cacheProperties.getSeparator());
             if (expires.containsKey(key)) {
-                Expire expire = expires.get(key);
+                CacheSetting cacheSetting = expires.get(key);
                 log.debug("[Herodotus] |- CACHE - Redis cache [{}] is setted to use CUSTEM exprie.", name);
-                cacheConfig = cacheConfig.entryTtl(expire.getTtl());
+                cacheConfig = cacheConfig.entryTtl(cacheSetting.getExpire());
             }
         }
 

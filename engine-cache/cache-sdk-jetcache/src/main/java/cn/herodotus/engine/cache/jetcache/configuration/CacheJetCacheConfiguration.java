@@ -72,8 +72,8 @@ public class CacheJetCacheConfiguration {
     }
 
     @Bean
-    public JetCacheCreateCacheFactory jetCacheCreateCacheFactory(@Qualifier("jcCacheManager") CacheManager cacheManager) {
-        JetCacheCreateCacheFactory factory = new JetCacheCreateCacheFactory(cacheManager);
+    public JetCacheCreateCacheFactory jetCacheCreateCacheFactory(@Qualifier("jcCacheManager") CacheManager cacheManager, CacheProperties cacheProperties) {
+        JetCacheCreateCacheFactory factory = new JetCacheCreateCacheFactory(cacheManager, cacheProperties);
         JetCacheUtils.setJetCacheCreateCacheFactory(factory);
         log.trace("[Herodotus] |- Bean [Jet Cache Create Cache Factory] Auto Configure.");
         return factory;

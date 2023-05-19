@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.definition.constants;
 
-import org.apache.http.HttpStatus;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
  * <p>Description: 错误代码计数器 </p>

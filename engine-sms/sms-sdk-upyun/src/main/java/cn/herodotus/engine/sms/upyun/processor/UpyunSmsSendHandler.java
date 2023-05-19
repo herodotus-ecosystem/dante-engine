@@ -36,7 +36,7 @@ import cn.herodotus.engine.sms.upyun.properties.UpyunSmsProperties;
 import cn.zhxu.okhttps.HttpResult;
 import cn.zhxu.okhttps.OkHttps;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.http.HttpHeaders;
+import org.apache.hc.core5.http.HttpHeaders;
 
 import java.util.List;
 

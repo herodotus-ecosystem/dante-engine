@@ -26,10 +26,10 @@
 package cn.herodotus.engine.cache.caffeine.configuration;
 
 import cn.herodotus.engine.cache.caffeine.enhance.HerodotusCaffeineCacheManager;
-import cn.herodotus.engine.cache.caffeine.enhance.SimpleCaffeineCache;
 import cn.herodotus.engine.cache.core.properties.CacheProperties;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,8 +49,11 @@ public class CacheCaffeineConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(CacheCaffeineConfiguration.class);
 
-    @Autowired
-    private CacheProperties cacheProperties;
+    private final CacheProperties cacheProperties;
+
+    public CacheCaffeineConfiguration(CacheProperties cacheProperties) {
+        this.cacheProperties = cacheProperties;
+    }
 
     @PostConstruct
     public void postConstruct() {
@@ -61,7 +64,7 @@ public class CacheCaffeineConfiguration {
     public Caffeine<Object, Object> caffeine() {
         Caffeine<Object, Object> caffeine = Caffeine
                 .newBuilder()
-                .expireAfterWrite(cacheProperties.getDuration(), cacheProperties.getUnit());
+                .expireAfterWrite(ObjectUtils.isNotEmpty(cacheProperties.getLocalExpire()) ? cacheProperties.getLocalExpire() : cacheProperties.getExpire());
 
         log.trace("[Herodotus] |- Bean [Caffeine] Auto Configure.");
 
