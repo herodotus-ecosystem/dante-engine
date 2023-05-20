@@ -355,6 +355,11 @@
                 <artifactId>facility-original-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>facility-gateway-spring-boot-starter</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
             <!-- message -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>

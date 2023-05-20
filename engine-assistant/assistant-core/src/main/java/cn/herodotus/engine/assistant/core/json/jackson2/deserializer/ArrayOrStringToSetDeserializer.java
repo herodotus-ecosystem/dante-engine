@@ -46,9 +46,9 @@ import java.util.Set;
  * @author : gengwei.zheng
  * @date : 2022/3/18 12:16
  */
-public class ArrayOrStringDeserializer extends StdDeserializer<Set<String>> {
+public class ArrayOrStringToSetDeserializer extends StdDeserializer<Set<String>> {
 
-    public ArrayOrStringDeserializer() {
+    public ArrayOrStringToSetDeserializer() {
         super(Set.class);
     }
 

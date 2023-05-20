@@ -54,7 +54,7 @@
                     <div id="login-input" class="login-box">
                         <h2 class="bigintro">账号登录</h2>
                         <div class="divide-40"></div>
-                        <div th:if="${message ne null}" class="alert alert-block alert-danger fade in">
+                        <div th:if="${message} != null" class="alert alert-block alert-danger">
                             <p th:inline="text">[[${message}]]</p>
                         </div>
                         <form id="form" role="form">

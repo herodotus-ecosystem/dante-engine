@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.management.dto;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.ArrayOrStringDeserializer;
+import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.ArrayOrStringToSetDeserializer;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.core.enums.ApplicationType;
 import cn.herodotus.engine.oauth2.core.enums.Signature;
@@ -87,12 +87,12 @@ public class OAuth2ApplicationDto extends BaseSysDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8", shape = JsonFormat.Shape.STRING)
     private LocalDateTime clientSecretExpiresAt;
 
-    @Schema(name = "客户端认证模式", title = "支持多个值，以逗号分隔", required = true)
-    @JsonDeserialize(using = ArrayOrStringDeserializer.class)
+    @Schema(name = "客户端认证模式", title = "支持多个值，以逗号分隔", requiredMode = Schema.RequiredMode.REQUIRED)
+    @JsonDeserialize(using = ArrayOrStringToSetDeserializer.class)
     private Set<String> clientAuthenticationMethods = Collections.emptySet();
 
-    @Schema(name = "认证模式", title = "支持多个值，以逗号分隔", required = true)
-    @JsonDeserialize(using = ArrayOrStringDeserializer.class)
+    @Schema(name = "认证模式", title = "支持多个值，以逗号分隔", requiredMode = Schema.RequiredMode.REQUIRED)
+    @JsonDeserialize(using = ArrayOrStringToSetDeserializer.class)
     private Set<String> authorizationGrantTypes = Collections.emptySet();
 
     @Schema(name = "回调地址", title = "支持多个值，以逗号分隔")

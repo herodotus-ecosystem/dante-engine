@@ -1,6 +1,4 @@
 cn.herodotus.engine.rest.server.autoconfigure.AutoConfiguration
 cn.herodotus.engine.rest.client.configuration.RestClientConfiguration
 cn.herodotus.engine.rest.client.configuration.FeignConfiguration
-cn.herodotus.engine.rest.client.configuration.OkHttpFeignConfiguration
-cn.herodotus.engine.rest.client.configuration.HttpClientConfiguration
 cn.herodotus.engine.rest.client.configuration.RestTemplateConfiguration
