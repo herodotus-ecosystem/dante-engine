@@ -44,6 +44,5 @@
         <module>supplier-sdk-upms-rest</module>
         <module>supplier-sdk-message</module>
         <module>supplier-sdk-tenant</module>
-        <module>supplier-sdk-iot</module>
     </modules>
 </project>

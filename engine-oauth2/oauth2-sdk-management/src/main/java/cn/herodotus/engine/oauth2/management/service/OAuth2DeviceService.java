@@ -23,32 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.service;
+package cn.herodotus.engine.oauth2.management.service;
 
-import cn.herodotus.engine.data.core.entity.BaseEntity;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.engine.supplier.iot.entity.IotDevice;
-import cn.herodotus.engine.supplier.iot.repository.IotDeviceRepository;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Device;
+import cn.herodotus.engine.oauth2.management.repository.OAuth2DeviceRepository;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>Description: IotDeviceService </p>
+ * <p>Description: OAuth2DeviceService </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/5/15 16:36
  */
 @Service
-public class IotDeviceService extends BaseService<IotDevice, String> {
+public class OAuth2DeviceService extends BaseService<OAuth2Device, String> {
 
-    private final IotDeviceRepository iotDeviceRepository;
+    private final OAuth2DeviceRepository deviceRepository;
 
-    public IotDeviceService(IotDeviceRepository iotDeviceRepository) {
-        this.iotDeviceRepository = iotDeviceRepository;
+    public OAuth2DeviceService(OAuth2DeviceRepository deviceRepository) {
+        this.deviceRepository = deviceRepository;
     }
 
     @Override
-    public BaseRepository<IotDevice, String> getRepository() {
-        return iotDeviceRepository;
+    public BaseRepository<OAuth2Device, String> getRepository() {
+        return deviceRepository;
     }
 }

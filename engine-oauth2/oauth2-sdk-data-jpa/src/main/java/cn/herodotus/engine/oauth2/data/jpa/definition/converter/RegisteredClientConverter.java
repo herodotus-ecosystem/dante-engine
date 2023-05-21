@@ -23,11 +23,12 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.data.jpa.definition;
+package cn.herodotus.engine.oauth2.data.jpa.definition.converter;
 
 import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
 import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
 import cn.hutool.core.date.DateUtil;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
@@ -36,20 +37,21 @@ import org.springframework.util.StringUtils;
 import java.util.Set;
 
 /**
- * <p>Description: RegisteredClient 转换器</p>
+ * <p>Description: 转换为 RegisteredClient 转换器定义</p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/12 23:07
+ * @date : 2023/5/21 20:36
  */
-public interface RegisteredClientAdapter<T extends RegisteredClientDetails> {
+public interface RegisteredClientConverter<S extends RegisteredClientDetails> extends Converter<S, RegisteredClient> {
 
-    Set<String> getScopes(T details);
+    Set<String> getScopes(S details);
 
-    ClientSettings getClientSettings(T details);
+    ClientSettings getClientSettings(S details);
 
-    TokenSettings getTokenSettings(T details);
+    TokenSettings getTokenSettings(S details);
 
-    default RegisteredClient toObject(T details) {
+    @Override
+    default RegisteredClient convert(S details) {
         Set<String> clientScopes = getScopes(details);
         ClientSettings clientSettings = getClientSettings(details);
         TokenSettings tokenSettings = getTokenSettings(details);

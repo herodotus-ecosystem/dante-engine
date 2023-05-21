@@ -23,39 +23,24 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.configuration;
+package cn.herodotus.engine.oauth2.management.repository;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Device;
 
 /**
- * <p>Description: Iot 模块配置 </p>
+ * <p>Description: OAuth2DeviceRepository </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/15 17:00
+ * @date : 2023/5/15 16:14
  */
-@Configuration(proxyBeanMethods = false)
-@EntityScan(basePackages = {
-        "cn.herodotus.engine.supplier.iot.entity"
-})
-@EnableJpaRepositories(basePackages = {
-        "cn.herodotus.engine.supplier.iot.repository",
-})
-@ComponentScan(basePackages = {
-        "cn.herodotus.engine.supplier.iot.service",
-        "cn.herodotus.engine.supplier.iot.controller",
-})
-public class SupplierIotConfiguration {
+public interface OAuth2DeviceRepository extends BaseRepository<OAuth2Device, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SupplierIotConfiguration.class);
-
-    @PostConstruct
-    public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Supplier IOT] Auto Configure.");
-    }
+    /**
+     * 根据 Client ID 查询 OAuth2Device
+     *
+     * @param clientId OAuth2Device 中的 clientId
+     * @return {@link OAuth2Device}
+     */
+    OAuth2Device findByClientId(String clientId);
 }

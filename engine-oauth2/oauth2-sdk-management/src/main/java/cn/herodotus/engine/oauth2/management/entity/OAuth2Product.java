@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.entity;
+package cn.herodotus.engine.oauth2.management.entity;
 
 import cn.herodotus.engine.data.core.entity.BaseEntity;
-import cn.herodotus.engine.supplier.iot.constants.IotConstants;
+import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -41,11 +41,11 @@ import org.hibernate.annotations.UuidGenerator;
  */
 @Schema(name = "物联网产品")
 @Entity
-@Table(name = "iot_product", uniqueConstraints = {@UniqueConstraint(columnNames = {"product_key"})},
-        indexes = {@Index(name = "iot_product_pid_idx", columnList = "product_id"), @Index(name = "iot_product_ipk_idx", columnList = "product_key")})
+@Table(name = "oauth2_product", uniqueConstraints = {@UniqueConstraint(columnNames = {"product_key"})},
+        indexes = {@Index(name = "oauth2_product_pid_idx", columnList = "product_id"), @Index(name = "oauth2_product_ipk_idx", columnList = "product_key")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = IotConstants.REGION_IOT_PRODUCT)
-public class IotProduct extends BaseEntity {
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_IOT_PRODUCT)
+public class OAuth2Product extends BaseEntity {
 
     @Id
     @UuidGenerator

@@ -23,18 +23,17 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.constants;
+package cn.herodotus.engine.oauth2.management.converter;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2RegisteredClientConverter;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 
 /**
- * <p>Description: 物联网模块常量 </p>
+ * <p>Description: OAuth2ApplicationRegisteredClientConverter </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/15 14:49
+ * @date : 2023/5/21 19:04
  */
-public interface IotConstants extends BaseConstants {
+public class OAuth2ApplicationRegisteredClientConverter extends AbstractOAuth2RegisteredClientConverter<OAuth2Application> {
 
-    String REGION_IOT_PRODUCT = AREA_PREFIX + "iot:product";
-    String REGION_IOT_DEVICE = AREA_PREFIX + "iot:role";
 }

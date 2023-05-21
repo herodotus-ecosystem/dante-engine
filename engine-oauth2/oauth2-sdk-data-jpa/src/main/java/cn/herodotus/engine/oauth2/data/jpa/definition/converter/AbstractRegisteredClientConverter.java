@@ -23,16 +23,26 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.repository;
+package cn.herodotus.engine.oauth2.data.jpa.definition.converter;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.supplier.iot.entity.IotDevice;
+import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
+import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 
 /**
- * <p>Description: IotDeviceRepository </p>
+ * <p>Description: RegisteredClient 转换器</p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/15 16:14
+ * @date : 2023/5/12 23:07
  */
-public interface IotDeviceRepository extends BaseRepository<IotDevice, String> {
+public abstract class AbstractRegisteredClientConverter<S extends RegisteredClientDetails> extends AbstractOAuth2EntityConverter<S, RegisteredClient> implements RegisteredClientConverter<S>{
+
+    public AbstractRegisteredClientConverter(OAuth2JacksonProcessor jacksonProcessor) {
+        super(jacksonProcessor);
+    }
+
+    @Override
+    public RegisteredClient convert(S details) {
+        return RegisteredClientConverter.super.convert(details);
+    }
 }

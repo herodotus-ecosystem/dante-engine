@@ -25,22 +25,17 @@
 
 package cn.herodotus.engine.oauth2.management.entity;
 
-import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
-import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
 import cn.herodotus.engine.oauth2.core.enums.ApplicationType;
-import cn.herodotus.engine.oauth2.core.enums.Signature;
-import cn.herodotus.engine.oauth2.core.enums.TokenFormat;
-import cn.hutool.core.util.IdUtil;
+import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2RegisteredClient;
 import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.*;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -57,7 +52,7 @@ import java.util.Set;
         @Index(name = "oauth2_application_cid_idx", columnList = "client_id")})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_APPLICATION)
-public class OAuth2Application extends BaseSysEntity implements RegisteredClientDetails {
+public class OAuth2Application extends AbstractOAuth2RegisteredClient {
 
     @Id
     @UuidGenerator
@@ -79,72 +74,6 @@ public class OAuth2Application extends BaseSysEntity implements RegisteredClient
     @Column(name = "application_type")
     @Enumerated(EnumType.ORDINAL)
     private ApplicationType applicationType = ApplicationType.WEB;
-
-    @Column(name = "client_id", length = 100)
-    private String clientId = IdUtil.fastSimpleUUID();
-
-    @Column(name = "client_id_issued_at")
-    @CreationTimestamp
-    private LocalDateTime clientIdIssuedAt;
-
-    @Column(name = "client_secret", length = 100)
-    private String clientSecret = IdUtil.fastSimpleUUID();
-
-    @Column(name = "client_secret_expires_at")
-    private LocalDateTime clientSecretExpiresAt;
-
-    @Column(name = "client_authentication_methods", length = 1000)
-    private String clientAuthenticationMethods;
-
-    @Column(name = "authorization_grant_types", length = 1000)
-    private String authorizationGrantTypes;
-
-    @Column(name = "redirect_uris", length = 1000)
-    private String redirectUris;
-
-    @Column(name = "post_logout_redirect_uris", length = 1000)
-    private String postLogoutRedirectUris;
-
-    /* --- ClientSettings Begin --- */
-    @Column(name = "require_proof_key")
-    private Boolean requireProofKey = Boolean.FALSE;
-
-    @Column(name = "require_authorization_consent")
-    private Boolean requireAuthorizationConsent = Boolean.TRUE;
-
-    @Column(name = "jwk_set_url", length = 1000)
-    private String jwkSetUrl;
-
-    @Column(name = "signing_algorithm")
-    @Enumerated(EnumType.ORDINAL)
-    private Signature authenticationSigningAlgorithm;
-    /* --- ClientSettings End --- */
-
-
-    /* --- TokenSettings Begin --- */
-    @Column(name = "authorization_code_validity")
-    private Duration authorizationCodeValidity = Duration.ofMinutes(5);
-
-    @Column(name = "access_token_validity")
-    private Duration accessTokenValidity = Duration.ofMinutes(5);
-
-    @Column(name = "device_code_validity")
-    private Duration deviceCodeValidity = Duration.ofMinutes(5);
-
-    @Column(name = "refresh_token_validity")
-    private Duration refreshTokenValidity = Duration.ofMinutes(60);
-
-    @Column(name = "access_token_format")
-    @Enumerated(EnumType.ORDINAL)
-    private TokenFormat accessTokenFormat = TokenFormat.REFERENCE;
-
-    @Column(name = "reuse_refresh_tokens")
-    private Boolean reuseRefreshTokens = Boolean.TRUE;
-
-    @Column(name = "signature_algorithm")
-    @Enumerated(EnumType.ORDINAL)
-    private Signature idTokenSignatureAlgorithm = Signature.RS256;
-    /* --- TokenSettings End --- */
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_APPLICATION_SCOPE)
     @ManyToMany(fetch = FetchType.EAGER)
@@ -205,181 +134,34 @@ public class OAuth2Application extends BaseSysEntity implements RegisteredClient
     }
 
     @Override
-    public String getId() {
-        return getApplicationId();
-    }
-
-    @Override
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
-    }
-
-    @Override
-    public LocalDateTime getClientIdIssuedAt() {
-        return clientIdIssuedAt;
-    }
-
-    public void setClientIdIssuedAt(LocalDateTime clientIdIssuedAt) {
-        this.clientIdIssuedAt = clientIdIssuedAt;
-    }
-
-    @Override
-    public String getClientSecret() {
-        return clientSecret;
-    }
-
-    public void setClientSecret(String clientSecret) {
-        this.clientSecret = clientSecret;
-    }
-
-    @Override
-    public LocalDateTime getClientSecretExpiresAt() {
-        return clientSecretExpiresAt;
-    }
-
-    @Override
-    public String getClientName() {
-        return getApplicationId();
-    }
-
-    public void setClientSecretExpiresAt(LocalDateTime clientSecretExpiresAt) {
-        this.clientSecretExpiresAt = clientSecretExpiresAt;
-    }
-
-    @Override
-    public String getClientAuthenticationMethods() {
-        return clientAuthenticationMethods;
-    }
-
-    public void setClientAuthenticationMethods(String clientAuthenticationMethods) {
-        this.clientAuthenticationMethods = clientAuthenticationMethods;
-    }
-
-    @Override
-    public String getAuthorizationGrantTypes() {
-        return authorizationGrantTypes;
-    }
-
-    public void setAuthorizationGrantTypes(String authorizationGrantTypes) {
-        this.authorizationGrantTypes = authorizationGrantTypes;
-    }
-
-    @Override
-    public String getRedirectUris() {
-        return redirectUris;
-    }
-
-    public void setRedirectUris(String redirectUris) {
-        this.redirectUris = redirectUris;
-    }
-
-    @Override
-    public String getPostLogoutRedirectUris() {
-        return postLogoutRedirectUris;
-    }
-
-    public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
-        this.postLogoutRedirectUris = postLogoutRedirectUris;
-    }
-
-    public Boolean getRequireProofKey() {
-        return requireProofKey;
-    }
-
-    public void setRequireProofKey(Boolean requireProofKey) {
-        this.requireProofKey = requireProofKey;
-    }
-
-    public Boolean getRequireAuthorizationConsent() {
-        return requireAuthorizationConsent;
-    }
-
-    public void setRequireAuthorizationConsent(Boolean requireAuthorizationConsent) {
-        this.requireAuthorizationConsent = requireAuthorizationConsent;
-    }
-
-    public String getJwkSetUrl() {
-        return jwkSetUrl;
-    }
-
-    public void setJwkSetUrl(String jwkSetUrl) {
-        this.jwkSetUrl = jwkSetUrl;
-    }
-
-    public Signature getAuthenticationSigningAlgorithm() {
-        return authenticationSigningAlgorithm;
-    }
-
-    public void setAuthenticationSigningAlgorithm(Signature authenticationSigningAlgorithm) {
-        this.authenticationSigningAlgorithm = authenticationSigningAlgorithm;
-    }
-
-    public Duration getAuthorizationCodeValidity() {
-        return authorizationCodeValidity;
-    }
-
-    public void setAuthorizationCodeValidity(Duration authorizationCodeValidity) {
-        this.authorizationCodeValidity = authorizationCodeValidity;
-    }
-
-    public Duration getAccessTokenValidity() {
-        return accessTokenValidity;
-    }
-
-    public void setAccessTokenValidity(Duration accessTokenValidity) {
-        this.accessTokenValidity = accessTokenValidity;
-    }
-
-    public Duration getDeviceCodeValidity() {
-        return deviceCodeValidity;
-    }
-
-    public void setDeviceCodeValidity(Duration deviceCodeValidity) {
-        this.deviceCodeValidity = deviceCodeValidity;
-    }
-
-    public Duration getRefreshTokenValidity() {
-        return refreshTokenValidity;
-    }
-
-    public void setRefreshTokenValidity(Duration refreshTokenValidity) {
-        this.refreshTokenValidity = refreshTokenValidity;
-    }
-
-    public TokenFormat getAccessTokenFormat() {
-        return accessTokenFormat;
-    }
-
-    public void setAccessTokenFormat(TokenFormat accessTokenFormat) {
-        this.accessTokenFormat = accessTokenFormat;
-    }
-
-    public Boolean getReuseRefreshTokens() {
-        return reuseRefreshTokens;
-    }
-
-    public void setReuseRefreshTokens(Boolean reuseRefreshTokens) {
-        this.reuseRefreshTokens = reuseRefreshTokens;
-    }
-
-    public Signature getIdTokenSignatureAlgorithm() {
-        return idTokenSignatureAlgorithm;
-    }
-
-    public void setIdTokenSignatureAlgorithm(Signature idTokenSignatureAlgorithm) {
-        this.idTokenSignatureAlgorithm = idTokenSignatureAlgorithm;
-    }
-
     public Set<OAuth2Scope> getScopes() {
         return scopes;
     }
 
     public void setScopes(Set<OAuth2Scope> scopes) {
         this.scopes = scopes;
+    }
+
+    @Override
+    public String getId() {
+        return getApplicationId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OAuth2Application that = (OAuth2Application) o;
+        return Objects.equals(applicationId, that.applicationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(applicationId);
     }
 
     @Override
@@ -391,26 +173,6 @@ public class OAuth2Application extends BaseSysEntity implements RegisteredClient
                 .add("logo", logo)
                 .add("homepage", homepage)
                 .add("applicationType", applicationType)
-                .add("clientId", clientId)
-                .add("clientIdIssuedAt", clientIdIssuedAt)
-                .add("clientSecret", clientSecret)
-                .add("clientSecretExpiresAt", clientSecretExpiresAt)
-                .add("clientAuthenticationMethods", clientAuthenticationMethods)
-                .add("authorizationGrantTypes", authorizationGrantTypes)
-                .add("redirectUris", redirectUris)
-                .add("postLogoutRedirectUris", postLogoutRedirectUris)
-                .add("requireProofKey", requireProofKey)
-                .add("requireAuthorizationConsent", requireAuthorizationConsent)
-                .add("jwkSetUrl", jwkSetUrl)
-                .add("authenticationSigningAlgorithm", authenticationSigningAlgorithm)
-                .add("authorizationCodeValidity", authorizationCodeValidity)
-                .add("accessTokenValidity", accessTokenValidity)
-                .add("deviceCodeValidity", deviceCodeValidity)
-                .add("refreshTokenValidity", refreshTokenValidity)
-                .add("accessTokenFormat", accessTokenFormat)
-                .add("reuseRefreshTokens", reuseRefreshTokens)
-                .add("idTokenSignatureAlgorithm", idTokenSignatureAlgorithm)
-                .add("scopes", scopes)
                 .toString();
     }
 }

@@ -60,11 +60,8 @@ public class OAuth2FormLoginAuthenticationFailureHandler extends SimpleUrlAuthen
     private static final Logger log = LoggerFactory.getLogger(OAuth2FormLoginAuthenticationFailureHandler.class);
 
     private String defaultFailureUrl;
-
     private boolean forwardToDestination = false;
-
     private boolean allowSessionCreation = true;
-
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     public OAuth2FormLoginAuthenticationFailureHandler() {

@@ -23,31 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.service;
+package cn.herodotus.engine.oauth2.management.service;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.engine.supplier.iot.entity.IotProduct;
-import cn.herodotus.engine.supplier.iot.repository.IotProductRepository;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Product;
+import cn.herodotus.engine.oauth2.management.repository.OAuth2ProductRepository;
 import org.springframework.stereotype.Service;
 
 /**
- * <p>Description: IotProductService </p>
+ * <p>Description: OAuth2ProductService </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/5/15 16:33
  */
 @Service
-public class IotProductService extends BaseService<IotProduct, String> {
+public class OAuth2ProductService extends BaseService<OAuth2Product, String> {
 
-    private final IotProductRepository iotProductRepository;
+    private final OAuth2ProductRepository productRepository;
 
-    public IotProductService(IotProductRepository iotProductRepository) {
-        this.iotProductRepository = iotProductRepository;
+    public OAuth2ProductService(OAuth2ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
-    public BaseRepository<IotProduct, String> getRepository() {
-        return iotProductRepository;
+    public BaseRepository<OAuth2Product, String> getRepository() {
+        return productRepository;
     }
 }

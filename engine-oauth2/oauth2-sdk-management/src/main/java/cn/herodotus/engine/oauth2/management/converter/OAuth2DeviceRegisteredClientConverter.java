@@ -23,16 +23,17 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.repository;
+package cn.herodotus.engine.oauth2.management.converter;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.supplier.iot.entity.IotProduct;
+import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2RegisteredClientConverter;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Device;
 
 /**
- * <p>Description: IotProductRepository </p>
+ * <p>Description: OAuth2ApplicationRegisteredClientConverter </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/15 16:29
+ * @date : 2023/5/21 19:04
  */
-public interface IotProductRepository extends BaseRepository<IotProduct, String> {
+public class OAuth2DeviceRegisteredClientConverter extends AbstractOAuth2RegisteredClientConverter<OAuth2Device> {
+
 }

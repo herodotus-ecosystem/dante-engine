@@ -23,33 +23,37 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.entity;
+package cn.herodotus.engine.oauth2.management.entity;
 
-import cn.herodotus.engine.data.core.entity.BaseEntity;
-import cn.herodotus.engine.supplier.iot.constants.IotConstants;
-import com.google.common.base.MoreObjects;
+import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2RegisteredClient;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
- * <p>Description: TODO </p>
+ * <p>Description: 物联网设备管理 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/5/15 14:26
  */
 @Schema(name = "物联网设备")
 @Entity
-@Table(name = "iot_device",
+@Table(name = "oauth2_device",
         uniqueConstraints = {@UniqueConstraint(columnNames = {"device_name"})},
-        indexes = {@Index(name = "iot_device_id_idx", columnList = "device_id"),
-                @Index(name = "iot_device_ipk_idx", columnList = "device_name"),
-                @Index(name = "iot_device_pid_idx", columnList = "product_id")
+        indexes = {@Index(name = "oauth2_device_id_idx", columnList = "device_id"),
+                @Index(name = "oauth2_device_ipk_idx", columnList = "device_name"),
+                @Index(name = "oauth2_device_pid_idx", columnList = "product_id")
         })
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = IotConstants.REGION_IOT_PRODUCT)
-public class IotDevice extends BaseEntity {
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_IOT_DEVICE)
+public class OAuth2Device extends AbstractOAuth2RegisteredClient {
 
     @Id
     @UuidGenerator
@@ -61,6 +65,16 @@ public class IotDevice extends BaseEntity {
 
     @Column(name = "product_id", length = 32)
     private String productId;
+
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_APPLICATION_SCOPE)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    @JoinTable(name = "oauth2_device_scope",
+            joinColumns = {@JoinColumn(name = "device_id")},
+            inverseJoinColumns = {@JoinColumn(name = "scope_id")},
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"device_id", "scope_id"})},
+            indexes = {@Index(name = "oauth2_device_scope_aid_idx", columnList = "device_id"), @Index(name = "oauth2_device_scope_sid_idx", columnList = "scope_id")})
+    private Set<OAuth2Scope> scopes = new HashSet<>();
 
     public String getDeviceId() {
         return deviceId;
@@ -87,11 +101,16 @@ public class IotDevice extends BaseEntity {
     }
 
     @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("deviceId", deviceId)
-                .add("deviceName", deviceName)
-                .add("productId", productId)
-                .toString();
+    public Set<OAuth2Scope> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(Set<OAuth2Scope> scopes) {
+        this.scopes = scopes;
+    }
+
+    @Override
+    public String getId() {
+        return getDeviceId();
     }
 }

@@ -38,6 +38,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AccessTokenAuthenticationToken;
+import org.springframework.security.oauth2.server.authorization.oidc.OidcClientRegistration;
+import org.springframework.security.oauth2.server.authorization.oidc.authentication.OidcClientRegistrationAuthenticationToken;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -92,6 +94,11 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
             } else {
                 log.warn("[Herodotus] |- Can not get request and username, skip!");
             }
+        }
+
+        if (authentication instanceof OidcClientRegistrationAuthenticationToken authenticationToken) {
+
+            OidcClientRegistration clientRegistration = authenticationToken.getClientRegistration();
         }
     }
 }

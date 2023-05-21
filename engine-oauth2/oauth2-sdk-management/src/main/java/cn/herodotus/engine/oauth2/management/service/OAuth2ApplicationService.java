@@ -29,13 +29,14 @@ import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRol
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
-import cn.herodotus.engine.oauth2.management.adapter.OAuth2ApplicationRegisteredClientAdapter;
+import cn.herodotus.engine.oauth2.management.converter.OAuth2ApplicationRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.management.repository.OAuth2ApplicationRepository;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.stereotype.Service;
@@ -58,13 +59,13 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     private final RegisteredClientRepository registeredClientRepository;
     private final HerodotusRegisteredClientRepository herodotusRegisteredClientRepository;
     private final OAuth2ApplicationRepository applicationRepository;
-    private final OAuth2ApplicationRegisteredClientAdapter registeredClientAdapter;
+    private final Converter<OAuth2Application, RegisteredClient> registeredClientConverter;
 
     public OAuth2ApplicationService(RegisteredClientRepository registeredClientRepository, HerodotusRegisteredClientRepository herodotusRegisteredClientRepository, OAuth2ApplicationRepository applicationRepository) {
         this.registeredClientRepository = registeredClientRepository;
         this.herodotusRegisteredClientRepository = herodotusRegisteredClientRepository;
         this.applicationRepository = applicationRepository;
-        this.registeredClientAdapter = new OAuth2ApplicationRegisteredClientAdapter();
+        this.registeredClientConverter = new OAuth2ApplicationRegisteredClientConverter();
     }
 
     @Override
@@ -118,6 +119,6 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     }
 
     private RegisteredClient toObject(OAuth2Application application) {
-        return registeredClientAdapter.toObject(application);
+        return registeredClientConverter.convert(application);
     }
 }

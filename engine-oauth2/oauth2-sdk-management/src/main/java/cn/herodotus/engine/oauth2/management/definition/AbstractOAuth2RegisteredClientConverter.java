@@ -23,10 +23,12 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.adapter;
+package cn.herodotus.engine.oauth2.management.definition;
 
-import cn.herodotus.engine.oauth2.data.jpa.definition.AbstractRegisteredClientAdapter;
-import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
+import cn.herodotus.engine.oauth2.data.jpa.definition.converter.AbstractOAuth2EntityConverter;
+import cn.herodotus.engine.oauth2.data.jpa.definition.converter.AbstractRegisteredClientConverter;
+import cn.herodotus.engine.oauth2.data.jpa.definition.converter.RegisteredClientConverter;
+import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
@@ -45,20 +47,16 @@ import java.util.stream.Collectors;
  * @author : gengwei.zheng
  * @date : 2023/5/13 10:34
  */
-public class OAuth2ApplicationRegisteredClientAdapter extends AbstractRegisteredClientAdapter<OAuth2Application> {
-
-    public OAuth2ApplicationRegisteredClientAdapter() {
-        super();
-    }
+public abstract class AbstractOAuth2RegisteredClientConverter<T extends AbstractOAuth2RegisteredClient> implements RegisteredClientConverter<T> {
 
     @Override
-    public Set<String> getScopes(OAuth2Application details) {
+    public Set<String> getScopes(T details) {
         Set<OAuth2Scope> clientScopes = details.getScopes();
         return clientScopes.stream().map(OAuth2Scope::getScopeCode).collect(Collectors.toSet());
     }
 
     @Override
-    public ClientSettings getClientSettings(OAuth2Application details) {
+    public ClientSettings getClientSettings(T details) {
         ClientSettings.Builder clientSettingsBuilder = ClientSettings.builder();
         clientSettingsBuilder.requireAuthorizationConsent(details.getRequireAuthorizationConsent());
         clientSettingsBuilder.requireProofKey(details.getRequireProofKey());
@@ -75,7 +73,7 @@ public class OAuth2ApplicationRegisteredClientAdapter extends AbstractRegistered
     }
 
     @Override
-    public TokenSettings getTokenSettings(OAuth2Application details) {
+    public TokenSettings getTokenSettings(T details) {
         TokenSettings.Builder tokenSettingsBuilder = TokenSettings.builder();
         tokenSettingsBuilder.authorizationCodeTimeToLive(details.getAuthorizationCodeValidity());
         tokenSettingsBuilder.deviceCodeTimeToLive(details.getDeviceCodeValidity());

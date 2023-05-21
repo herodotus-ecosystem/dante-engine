@@ -23,39 +23,16 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.supplier.iot.controller;
+package cn.herodotus.engine.oauth2.management.repository;
 
-import cn.herodotus.engine.data.core.service.WriteableService;
-import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
-import cn.herodotus.engine.supplier.iot.entity.IotDevice;
-import cn.herodotus.engine.supplier.iot.service.IotDeviceService;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.tags.Tags;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Product;
 
 /**
- * <p>Description: IotDeviceController </p>
+ * <p>Description: OAuth2ProductRepository </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/15 16:58
+ * @date : 2023/5/15 16:29
  */
-@RestController
-@RequestMapping("/iot/device")
-@Tags({
-        @Tag(name = "物联网管理接口"),
-        @Tag(name = "物联网设备接口")
-})
-public class IotDeviceController extends BaseWriteableRestController<IotDevice, String> {
-
-    private final IotDeviceService iotDeviceService;
-
-    public IotDeviceController(IotDeviceService iotDeviceService) {
-        this.iotDeviceService = iotDeviceService;
-    }
-
-    @Override
-    public WriteableService<IotDevice, String> getWriteableService() {
-        return iotDeviceService;
-    }
+public interface OAuth2ProductRepository extends BaseRepository<OAuth2Product, String> {
 }

@@ -23,10 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.data.jpa.definition;
+package cn.herodotus.engine.oauth2.data.jpa.definition.converter;
 
-import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
+import org.springframework.core.convert.converter.Converter;
 
 import java.util.Map;
 
@@ -36,12 +36,12 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2023/5/12 23:54
  */
-public abstract class AbstractRegisteredClientAdapter<T extends RegisteredClientDetails> implements RegisteredClientAdapter<T>{
+public abstract class AbstractOAuth2EntityConverter<S, T> implements Converter<S, T> {
 
     private final OAuth2JacksonProcessor jacksonProcessor;
 
-    public AbstractRegisteredClientAdapter() {
-        this.jacksonProcessor = new OAuth2JacksonProcessor();
+    public AbstractOAuth2EntityConverter(OAuth2JacksonProcessor jacksonProcessor) {
+        this.jacksonProcessor = jacksonProcessor;
     }
 
     protected Map<String, Object> parseMap(String data) {
