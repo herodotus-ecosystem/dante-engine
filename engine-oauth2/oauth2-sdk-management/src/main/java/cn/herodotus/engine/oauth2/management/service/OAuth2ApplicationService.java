@@ -29,7 +29,7 @@ import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRol
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
-import cn.herodotus.engine.oauth2.management.converter.OAuth2ApplicationRegisteredClientConverter;
+import cn.herodotus.engine.oauth2.management.converter.OAuth2ApplicationToRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.management.repository.OAuth2ApplicationRepository;
@@ -59,13 +59,13 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     private final RegisteredClientRepository registeredClientRepository;
     private final HerodotusRegisteredClientRepository herodotusRegisteredClientRepository;
     private final OAuth2ApplicationRepository applicationRepository;
-    private final Converter<OAuth2Application, RegisteredClient> registeredClientConverter;
+    private final Converter<OAuth2Application, RegisteredClient> objectConverter;
 
     public OAuth2ApplicationService(RegisteredClientRepository registeredClientRepository, HerodotusRegisteredClientRepository herodotusRegisteredClientRepository, OAuth2ApplicationRepository applicationRepository) {
         this.registeredClientRepository = registeredClientRepository;
         this.herodotusRegisteredClientRepository = herodotusRegisteredClientRepository;
         this.applicationRepository = applicationRepository;
-        this.registeredClientConverter = new OAuth2ApplicationRegisteredClientConverter();
+        this.objectConverter = new OAuth2ApplicationToRegisteredClientConverter();
     }
 
     @Override
@@ -77,7 +77,7 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     public OAuth2Application saveOrUpdate(OAuth2Application entity) {
         OAuth2Application application = super.saveOrUpdate(entity);
         if (ObjectUtils.isNotEmpty(application)) {
-            registeredClientRepository.save(toObject(application));
+            registeredClientRepository.save(objectConverter.convert(application));
             log.debug("[Herodotus] |- OAuth2ApplicationService saveOrUpdate.");
             return application;
         } else {
@@ -116,9 +116,5 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         OAuth2Application application = applicationRepository.findByClientId(clientId);
         log.debug("[Herodotus] |- OAuth2ApplicationService findByClientId.");
         return application;
-    }
-
-    private RegisteredClient toObject(OAuth2Application application) {
-        return registeredClientConverter.convert(application);
     }
 }

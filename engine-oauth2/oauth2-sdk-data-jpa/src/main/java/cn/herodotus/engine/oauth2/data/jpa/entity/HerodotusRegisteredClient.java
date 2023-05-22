@@ -59,6 +59,9 @@ public class HerodotusRegisteredClient extends AbstractRegisteredClient {
     @Column(name = "client_secret", length = 200)
     private String clientSecret;
 
+    @Column(name = "client_name", nullable = false, length = 200)
+    private String clientName;
+
     @Column(name = "scopes", nullable = false, length = 1000)
     private String scopes;
 
@@ -93,6 +96,14 @@ public class HerodotusRegisteredClient extends AbstractRegisteredClient {
 
     public void setClientSecret(String clientSecret) {
         this.clientSecret = clientSecret;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public String getScopes() {
@@ -142,6 +153,7 @@ public class HerodotusRegisteredClient extends AbstractRegisteredClient {
                 .add("id", id)
                 .add("clientId", clientId)
                 .add("clientSecret", clientSecret)
+                .add("clientName", clientName)
                 .add("scopes", scopes)
                 .add("clientSettings", clientSettings)
                 .add("tokenSettings", tokenSettings)

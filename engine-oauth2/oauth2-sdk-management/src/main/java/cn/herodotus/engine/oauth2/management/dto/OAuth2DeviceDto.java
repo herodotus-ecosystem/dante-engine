@@ -23,33 +23,57 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.repository;
+package cn.herodotus.engine.oauth2.management.dto;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
-
-import java.util.List;
+import cn.herodotus.engine.oauth2.management.definition.BaseRegisteredClientDto;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p> Description : OauthScopeRepository </p>
+ * <p>Description: OAuth2 Application Dto </p>
+ * <p>
+ * 方便数据的转换
  *
  * @author : gengwei.zheng
- * @date : 2020/3/19 16:57
+ * @date : 2022/3/18 14:56
  */
-public interface OAuth2ScopeRepository extends BaseRepository<OAuth2Scope, String> {
+public class OAuth2DeviceDto extends BaseRegisteredClientDto {
 
-    /**
-     * 根据范围代码查询应用范围
-     *
-     * @param scopeCode 范围代码
-     * @return 应用范围 {@link OAuth2Scope}
-     */
-    OAuth2Scope findByScopeCode(String scopeCode);
+    private String deviceId;
 
-    /**
-     * 根据 scope codes 查询对应的对象列表
-     * @param scopeCodes 范围代码
-     * @return 对象列表
-     */
-    List<OAuth2Scope> findByScopeCodeIn(List<String> scopeCodes);
+    private String deviceName;
+
+    private String productId;
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("deviceId", deviceId)
+                .add("deviceName", deviceName)
+                .add("productId", productId)
+                .toString();
+    }
 }

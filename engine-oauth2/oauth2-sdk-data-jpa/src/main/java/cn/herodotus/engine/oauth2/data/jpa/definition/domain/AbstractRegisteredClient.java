@@ -25,8 +25,12 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.definition.domain;
 
+import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.CommaDelimitedStringToSetSerializer;
+import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.SetToCommaDelimitedStringDeserializer;
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import org.hibernate.annotations.CreationTimestamp;
@@ -49,13 +53,14 @@ public abstract class AbstractRegisteredClient extends BaseSysEntity implements 
     @Column(name = "client_secret_expires_at")
     private LocalDateTime clientSecretExpiresAt;
 
-    @Column(name = "client_name", nullable = false, length = 200)
-    private String clientName;
-
     @Column(name = "client_authentication_methods", nullable = false, length = 1000)
+    @JsonDeserialize(using = SetToCommaDelimitedStringDeserializer.class)
+    @JsonSerialize(using = CommaDelimitedStringToSetSerializer.class)
     private String clientAuthenticationMethods;
 
     @Column(name = "authorization_grant_types", nullable = false, length = 1000)
+    @JsonDeserialize(using = SetToCommaDelimitedStringDeserializer.class)
+    @JsonSerialize(using = CommaDelimitedStringToSetSerializer.class)
     private String authorizationGrantTypes;
 
     @Column(name = "redirect_uris", length = 1000)
@@ -81,16 +86,6 @@ public abstract class AbstractRegisteredClient extends BaseSysEntity implements 
     public void setClientSecretExpiresAt(LocalDateTime clientSecretExpiresAt) {
         this.clientSecretExpiresAt = clientSecretExpiresAt;
     }
-
-    @Override
-    public String getClientName() {
-        return clientName;
-    }
-
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
-    }
-
     @Override
     public String getClientAuthenticationMethods() {
         return clientAuthenticationMethods;

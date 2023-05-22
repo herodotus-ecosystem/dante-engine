@@ -55,14 +55,14 @@ public class ArrayOrStringToListDeserializer extends StdDeserializer<List<String
     }
 
     @Override
-    public List<String> deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JacksonException {
-        JsonToken token = jp.getCurrentToken();
+    public List<String> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
+        JsonToken token = jsonParser.getCurrentToken();
         if (token.isScalarValue()) {
-            String value = jp.getText();
+            String value = jsonParser.getText();
             value = value.replaceAll("\\s+", ",");
             return new ArrayList<>(Arrays.asList(StringUtils.commaDelimitedListToStringArray(value)));
         } else {
-            return jp.readValueAs(new TypeReference<List<String>>() {
+            return jsonParser.readValueAs(new TypeReference<List<String>>() {
             });
         }
     }

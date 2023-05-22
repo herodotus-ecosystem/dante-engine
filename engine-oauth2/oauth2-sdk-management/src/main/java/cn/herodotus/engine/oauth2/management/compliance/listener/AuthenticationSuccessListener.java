@@ -26,8 +26,9 @@
 package cn.herodotus.engine.oauth2.management.compliance.listener;
 
 import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
-import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
+import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
+import cn.herodotus.engine.oauth2.management.service.OAuth2DeviceService;
 import cn.hutool.crypto.SecureUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ObjectUtils;
@@ -56,10 +57,12 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
 
     private final SignInFailureLimitedStampManager stampManager;
     private final OAuth2ComplianceService complianceService;
+    private final OAuth2DeviceService deviceService;
 
-    public AuthenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService) {
+    public AuthenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService, OAuth2DeviceService deviceService) {
         this.stampManager = stampManager;
         this.complianceService = complianceService;
+        this.deviceService = deviceService;
     }
 
     @Override
@@ -97,8 +100,13 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
         }
 
         if (authentication instanceof OidcClientRegistrationAuthenticationToken authenticationToken) {
-
             OidcClientRegistration clientRegistration = authenticationToken.getClientRegistration();
+            boolean success = deviceService.sync(clientRegistration);
+            if (success) {
+                log.info("[Herodotus] |- Sync oidcClientRegistration to device succeed.");
+            } else {
+                log.warn("[Herodotus] |- Sync oidcClientRegistration to device failed!");
+            }
         }
     }
 }

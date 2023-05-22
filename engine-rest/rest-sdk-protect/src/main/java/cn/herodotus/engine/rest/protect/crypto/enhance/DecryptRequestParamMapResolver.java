@@ -117,9 +117,7 @@ public class DecryptRequestParamMapResolver implements HandlerMethodArgumentReso
         if (!MultiValueMap.class.isAssignableFrom(methodParameter.getParameterType())) {
             ResolvableType resolvableType = ResolvableType.forMethodParameter(methodParameter);
             Class<?> valueType = resolvableType.asMap().getGeneric(1).resolve();
-            if (!(valueType == MultipartFile.class || valueType == Part.class)) {
-                return true;
-            }
+            return !(valueType == MultipartFile.class || valueType == Part.class);
         }
 
         return false;

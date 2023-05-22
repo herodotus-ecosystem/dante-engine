@@ -27,6 +27,8 @@ package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.engine.oauth2.management.converter.OAuth2ApplicationToDtoConverter;
+import cn.herodotus.engine.oauth2.management.converter.OAuth2ApplicationToEntityConverter;
 import cn.herodotus.engine.oauth2.management.dto.OAuth2ApplicationDto;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ApplicationService;
@@ -39,8 +41,8 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,10 +64,13 @@ import java.util.stream.Collectors;
 public class OAuth2ApplicationController extends BaseController<OAuth2Application, String> {
 
     private final OAuth2ApplicationService applicationService;
+    private final Converter<OAuth2Application, OAuth2ApplicationDto> toDto;
+    private final Converter<OAuth2ApplicationDto, OAuth2Application> toEntity;
 
-    @Autowired
     public OAuth2ApplicationController(OAuth2ApplicationService applicationService) {
         this.applicationService = applicationService;
+        this.toEntity = new OAuth2ApplicationToEntityConverter();
+        this.toDto = new OAuth2ApplicationToDtoConverter();
     }
 
     @Override
@@ -86,7 +91,7 @@ public class OAuth2ApplicationController extends BaseController<OAuth2Applicatio
 
         Page<OAuth2Application> pages = applicationService.findByPage(pageNumber, pageSize);
         if (ObjectUtils.isNotEmpty(pages) && CollectionUtils.isNotEmpty(pages.getContent())) {
-            List<OAuth2ApplicationDto> auth2Applications = pages.getContent().stream().map(this::toDto).collect(Collectors.toList());
+            List<OAuth2ApplicationDto> auth2Applications = pages.getContent().stream().map(toDto::convert).collect(Collectors.toList());
             return result(getPageInfoMap(auth2Applications, pages.getTotalPages(), pages.getTotalElements()));
         }
 
@@ -99,7 +104,7 @@ public class OAuth2ApplicationController extends BaseController<OAuth2Applicatio
     })
     @PostMapping
     public Result<OAuth2Application> saveOrUpdate(@RequestBody OAuth2ApplicationDto domain) {
-        OAuth2Application oAuth2Application = applicationService.saveOrUpdate(toEntity(domain));
+        OAuth2Application oAuth2Application = applicationService.saveOrUpdate(toEntity.convert(domain));
         return result(oAuth2Application);
     }
 
@@ -123,78 +128,5 @@ public class OAuth2ApplicationController extends BaseController<OAuth2Applicatio
     public Result<OAuth2Application> authorize(@RequestParam(name = "applicationId") String scopeId, @RequestParam(name = "scopes[]") String[] scopes) {
         OAuth2Application application = applicationService.authorize(scopeId, scopes);
         return result(application);
-    }
-
-    private OAuth2ApplicationDto toDto(OAuth2Application entity) {
-        OAuth2ApplicationDto dto = new OAuth2ApplicationDto();
-        dto.setApplicationId(entity.getApplicationId());
-        dto.setApplicationName(entity.getApplicationName());
-        dto.setAbbreviation(entity.getAbbreviation());
-        dto.setLogo(entity.getLogo());
-        dto.setHomepage(entity.getHomepage());
-        dto.setApplicationType(entity.getApplicationType());
-        dto.setClientId(entity.getClientId());
-        dto.setClientIdIssuedAt(entity.getClientIdIssuedAt());
-        dto.setClientSecret(entity.getClientSecret());
-        dto.setClientSecretExpiresAt(entity.getClientSecretExpiresAt());
-        dto.setClientAuthenticationMethods(StringUtils.commaDelimitedListToSet(entity.getClientAuthenticationMethods()));
-        dto.setAuthorizationGrantTypes(StringUtils.commaDelimitedListToSet(entity.getAuthorizationGrantTypes()));
-        dto.setRedirectUris(entity.getRedirectUris());
-        dto.setPostLogoutRedirectUris(entity.getPostLogoutRedirectUris());
-        dto.setRequireProofKey(entity.getRequireProofKey());
-        dto.setRequireAuthorizationConsent(entity.getRequireAuthorizationConsent());
-        dto.setJwkSetUrl(entity.getJwkSetUrl());
-        dto.setAuthenticationSigningAlgorithm(entity.getAuthenticationSigningAlgorithm());
-        dto.setAccessTokenValidity(entity.getAccessTokenValidity());
-        dto.setAuthorizationCodeValidity(entity.getAuthorizationCodeValidity());
-        dto.setDeviceCodeValidity(entity.getDeviceCodeValidity());
-        dto.setReuseRefreshTokens(entity.getReuseRefreshTokens());
-        dto.setAccessTokenFormat(entity.getAccessTokenFormat());
-        dto.setRefreshTokenValidity(entity.getRefreshTokenValidity());
-        dto.setIdTokenSignatureAlgorithm(entity.getIdTokenSignatureAlgorithm());
-        dto.setScopes(entity.getScopes());
-        dto.setReserved(entity.getReserved());
-        dto.setDescription(entity.getDescription());
-        dto.setReversion(entity.getReversion());
-        dto.setRanking(entity.getRanking());
-        dto.setStatus(entity.getStatus());
-        return dto;
-    }
-
-    public OAuth2Application toEntity(OAuth2ApplicationDto dto) {
-        OAuth2Application entity = new OAuth2Application();
-        entity.setApplicationId(dto.getApplicationId());
-        entity.setApplicationName(dto.getApplicationName());
-        entity.setAbbreviation(dto.getAbbreviation());
-        entity.setLogo(dto.getLogo());
-        entity.setHomepage(dto.getHomepage());
-        entity.setApplicationType(dto.getApplicationType());
-        entity.setClientId(dto.getClientId());
-        entity.setClientIdIssuedAt(dto.getClientIdIssuedAt());
-        entity.setClientSecret(dto.getClientSecret());
-        entity.setClientSecretExpiresAt(dto.getClientSecretExpiresAt());
-        entity.setClientAuthenticationMethods(StringUtils.collectionToCommaDelimitedString(dto.getClientAuthenticationMethods()));
-        entity.setAuthorizationGrantTypes(StringUtils.collectionToCommaDelimitedString(dto.getAuthorizationGrantTypes()));
-        entity.setRedirectUris(dto.getRedirectUris());
-        entity.setPostLogoutRedirectUris(dto.getPostLogoutRedirectUris());
-        entity.setRequireProofKey(dto.getRequireProofKey());
-        entity.setRequireAuthorizationConsent(dto.getRequireAuthorizationConsent());
-        entity.setJwkSetUrl(dto.getJwkSetUrl());
-        entity.setAuthenticationSigningAlgorithm(dto.getAuthenticationSigningAlgorithm());
-        entity.setAccessTokenValidity(dto.getAccessTokenValidity());
-        entity.setAuthorizationCodeValidity(dto.getAuthorizationCodeValidity());
-        entity.setRefreshTokenValidity(dto.getRefreshTokenValidity());
-        entity.setDeviceCodeValidity(dto.getDeviceCodeValidity());
-        entity.setReuseRefreshTokens(dto.getReuseRefreshTokens());
-        entity.setIdTokenSignatureAlgorithm(dto.getIdTokenSignatureAlgorithm());
-        entity.setAccessTokenFormat(dto.getAccessTokenFormat());
-        entity.setIdTokenSignatureAlgorithm(dto.getIdTokenSignatureAlgorithm());
-        entity.setScopes(dto.getScopes());
-        entity.setReserved(dto.getReserved());
-        entity.setDescription(dto.getDescription());
-        entity.setReversion(dto.getReversion());
-        entity.setRanking(dto.getRanking());
-        entity.setStatus(dto.getStatus());
-        return entity;
     }
 }

@@ -45,8 +45,6 @@ public interface RegisteredClientDetails {
 
     LocalDateTime getClientSecretExpiresAt();
 
-    String getClientName();
-
     String getClientAuthenticationMethods();
 
     String getAuthorizationGrantTypes();

@@ -66,7 +66,7 @@ public interface RegisteredClientConverter<S extends RegisteredClientDetails> ex
                 .clientIdIssuedAt(DateUtil.toInstant(details.getClientIdIssuedAt()))
                 .clientSecret(details.getClientSecret())
                 .clientSecretExpiresAt(DateUtil.toInstant(details.getClientSecretExpiresAt()))
-                .clientName(details.getClientName())
+                .clientName(details.getId())
                 .clientAuthenticationMethods(authenticationMethods ->
                         clientAuthenticationMethods.forEach(authenticationMethod ->
                                 authenticationMethods.add(OAuth2AuthorizationUtils.resolveClientAuthenticationMethod(authenticationMethod))))

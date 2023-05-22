@@ -30,6 +30,7 @@ import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStamp
 import cn.herodotus.engine.oauth2.data.jpa.configuration.OAuth2DataJpaConfiguration;
 import cn.herodotus.engine.oauth2.management.compliance.listener.AuthenticationSuccessListener;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
+import cn.herodotus.engine.oauth2.management.service.OAuth2DeviceService;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,8 +73,8 @@ public class OAuth2ManagementConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public AuthenticationSuccessListener authenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService) {
-        AuthenticationSuccessListener authenticationSuccessListener = new AuthenticationSuccessListener(stampManager, complianceService);
+    public AuthenticationSuccessListener authenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService, OAuth2DeviceService deviceService) {
+        AuthenticationSuccessListener authenticationSuccessListener = new AuthenticationSuccessListener(stampManager, complianceService, deviceService);
         log.trace("[Herodotus] |- Bean [OAuth2 Authentication Success Listener] Auto Configure.");
         return authenticationSuccessListener;
     }

@@ -26,14 +26,14 @@
 package cn.herodotus.engine.oauth2.management.converter;
 
 import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2RegisteredClientConverter;
-import cn.herodotus.engine.oauth2.management.entity.OAuth2Device;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 
 /**
- * <p>Description: OAuth2ApplicationRegisteredClientConverter </p>
+ * <p>Description: OAuth2Application 转 RegisteredClient 转换器 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/5/21 19:04
  */
-public class OAuth2DeviceRegisteredClientConverter extends AbstractOAuth2RegisteredClientConverter<OAuth2Device> {
+public class OAuth2ApplicationToRegisteredClientConverter extends AbstractOAuth2RegisteredClientConverter<OAuth2Application> {
 
 }

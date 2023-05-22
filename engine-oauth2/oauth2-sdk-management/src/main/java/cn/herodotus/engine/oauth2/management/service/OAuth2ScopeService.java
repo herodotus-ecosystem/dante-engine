@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -74,5 +75,11 @@ public class OAuth2ScopeService extends BaseService<OAuth2Scope, String> {
         OAuth2Scope scope = oauthScopesRepository.findByScopeCode(scopeCode);
         log.debug("[Herodotus] |- OAuth2ScopeService findByScopeCode.");
         return scope;
+    }
+
+    public List<OAuth2Scope> findByScopeCodeIn(List<String> scopeCodes) {
+        List<OAuth2Scope> scopes = oauthScopesRepository.findByScopeCodeIn(scopeCodes);
+        log.debug("[Herodotus] |- OAuth2ScopeService findByScopeCodeIn.");
+        return scopes;
     }
 }
