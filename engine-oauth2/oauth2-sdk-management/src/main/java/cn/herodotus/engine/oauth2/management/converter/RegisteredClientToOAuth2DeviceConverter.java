@@ -72,6 +72,7 @@ public class RegisteredClientToOAuth2DeviceConverter implements Converter<Regist
         device.setClientSecret(registeredClient.getClientSecret());
         device.setClientIdIssuedAt(DateUtil.toLocalDateTime(registeredClient.getClientIdIssuedAt()));
         device.setClientSecretExpiresAt(DateUtil.toLocalDateTime(registeredClient.getClientSecretExpiresAt()));
+        device.setClientAuthenticationMethods(StringUtils.collectionToCommaDelimitedString(registeredClient.getClientAuthenticationMethods()));
         device.setAuthorizationGrantTypes(StringUtils.collectionToCommaDelimitedString(registeredClient.getAuthorizationGrantTypes().stream().map(AuthorizationGrantType::getValue).collect(Collectors.toSet())));
         device.setRedirectUris(StringUtils.collectionToCommaDelimitedString(registeredClient.getRedirectUris()));
         device.setPostLogoutRedirectUris(StringUtils.collectionToCommaDelimitedString(registeredClient.getRedirectUris()));
@@ -89,7 +90,7 @@ public class RegisteredClientToOAuth2DeviceConverter implements Converter<Regist
         device.setAccessTokenValidity(tokenSettings.getAccessTokenTimeToLive());
         device.setDeviceCodeValidity(tokenSettings.getDeviceCodeTimeToLive());
         device.setRefreshTokenValidity(tokenSettings.getRefreshTokenTimeToLive());
-        device.setAccessTokenFormat(TokenFormat.valueOf(tokenSettings.getAccessTokenFormat().getValue()));
+        device.setAccessTokenFormat(TokenFormat.get(tokenSettings.getAccessTokenFormat().getValue()));
         device.setReuseRefreshTokens(tokenSettings.isReuseRefreshTokens());
         device.setIdTokenSignatureAlgorithm(Signature.valueOf(tokenSettings.getIdTokenSignatureAlgorithm().getName()));
 

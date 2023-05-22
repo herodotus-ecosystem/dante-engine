@@ -60,10 +60,10 @@ public class OAuth2Device extends AbstractOAuth2RegisteredClient {
     @Column(name = "device_id", length = 64)
     private String deviceId;
 
-    @Column(name = "device_name", length = 32, unique = true)
+    @Column(name = "device_name", length = 64, unique = true)
     private String deviceName;
 
-    @Column(name = "product_id", length = 32)
+    @Column(name = "product_id", length = 64)
     private String productId;
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_APPLICATION_SCOPE)
