@@ -32,8 +32,6 @@ import cn.herodotus.engine.supplier.message.entity.DialogueContact;
 import cn.herodotus.engine.supplier.message.entity.DialogueDetail;
 import cn.herodotus.engine.supplier.message.repository.DialogueContactRepository;
 import jakarta.persistence.criteria.Predicate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -51,8 +49,6 @@ import java.util.List;
  */
 @Service
 public class DialogueContactService extends BaseService<DialogueContact, String> {
-
-    private static final Logger log = LoggerFactory.getLogger(DialogueContactService.class);
 
     private final DialogueContactRepository dialogueContactRepository;
 
@@ -84,7 +80,6 @@ public class DialogueContactService extends BaseService<DialogueContact, String>
         personalContacts.add(contact);
         personalContacts.add(reverseContext);
 
-        log.debug("[Herodotus] |- DialogueContact Service createContact.");
         return this.saveAll(personalContacts);
     }
 
@@ -103,7 +98,6 @@ public class DialogueContactService extends BaseService<DialogueContact, String>
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- DialogueContact Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 

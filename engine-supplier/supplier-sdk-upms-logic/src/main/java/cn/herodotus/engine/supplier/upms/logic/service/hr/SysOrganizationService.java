@@ -35,9 +35,6 @@ import cn.herodotus.engine.supplier.upms.logic.repository.hr.SysOrganizationRepo
 import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,13 +54,10 @@ import java.util.List;
 @Service
 public class SysOrganizationService extends BaseService<SysOrganization, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysOrganizationService.class);
-
     private final SysOrganizationRepository sysOrganizationRepository;
     private final SysOwnershipService sysOwnershipService;
     private final SysDepartmentService sysDepartmentService;
 
-    @Autowired
     public SysOrganizationService(SysOrganizationRepository sysOrganizationRepository, SysOwnershipService sysOwnershipService, SysDepartmentService sysDepartmentService) {
         this.sysOrganizationRepository = sysOrganizationRepository;
         this.sysOwnershipService = sysOwnershipService;
@@ -99,7 +93,6 @@ public class SysOrganizationService extends BaseService<SysOrganization, String>
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- SysOrganization Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 
@@ -111,7 +104,7 @@ public class SysOrganizationService extends BaseService<SysOrganization, String>
      * 默认情况下，只有来自外部的方法调用才会被AOP代理捕获，也就是，类内部方法调用本类内部的其他方法并不会引起事务行为，即使被调用方法使用@Transactional注解进行修饰。
      * <p>
      * 作者：tuacy
-     * 链接：https://www.jianshu.com/p/befc2d73e487
+     * 链接：<a href="https://www.jianshu.com/p/befc2d73e487">...</a>
      *
      * @param organizationId 单位ID
      */
@@ -120,7 +113,6 @@ public class SysOrganizationService extends BaseService<SysOrganization, String>
     public void deleteById(String organizationId) {
         sysOwnershipService.deleteByOrganizationId(organizationId);
         super.deleteById(organizationId);
-        log.debug("[Herodotus] |- SysOrganization Service deleteById.");
     }
 
     /**

@@ -74,8 +74,8 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     }
 
     @Override
-    public OAuth2Application saveOrUpdate(OAuth2Application entity) {
-        OAuth2Application application = super.saveOrUpdate(entity);
+    public OAuth2Application saveAndFlush(OAuth2Application entity) {
+        OAuth2Application application = super.saveAndFlush(entity);
         if (ObjectUtils.isNotEmpty(application)) {
             registeredClientRepository.save(objectConverter.convert(application));
             log.debug("[Herodotus] |- OAuth2ApplicationService saveOrUpdate.");
@@ -91,7 +91,6 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     public void deleteById(String id) {
         super.deleteById(id);
         herodotusRegisteredClientRepository.deleteById(id);
-        log.debug("[Herodotus] |- OAuth2ApplicationService deleteById.");
     }
 
     @Transactional(rollbackFor = TransactionalRollbackException.class)
@@ -107,14 +106,10 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         OAuth2Application oldApplication = findById(applicationId);
         oldApplication.setScopes(scopes);
 
-        OAuth2Application newApplication = saveOrUpdate(oldApplication);
-        log.debug("[Herodotus] |- OAuth2ApplicationService assign.");
-        return newApplication;
+        return saveAndFlush(oldApplication);
     }
 
     public OAuth2Application findByClientId(String clientId) {
-        OAuth2Application application = applicationRepository.findByClientId(clientId);
-        log.debug("[Herodotus] |- OAuth2ApplicationService findByClientId.");
-        return application;
+        return applicationRepository.findByClientId(clientId);
     }
 }

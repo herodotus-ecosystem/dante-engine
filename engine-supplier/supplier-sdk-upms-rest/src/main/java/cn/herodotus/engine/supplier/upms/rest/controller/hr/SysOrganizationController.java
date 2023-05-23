@@ -45,7 +45,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -68,7 +67,6 @@ public class SysOrganizationController extends BaseWriteableRestController<SysOr
 
     private final SysOrganizationService sysOrganizationService;
 
-    @Autowired
     public SysOrganizationController(SysOrganizationService sysOrganizationService) {
         this.sysOrganizationService = sysOrganizationService;
     }

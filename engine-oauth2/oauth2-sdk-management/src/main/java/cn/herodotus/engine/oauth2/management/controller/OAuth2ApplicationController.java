@@ -40,7 +40,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -104,7 +103,7 @@ public class OAuth2ApplicationController extends BaseController<OAuth2Applicatio
     })
     @PostMapping
     public Result<OAuth2Application> saveOrUpdate(@RequestBody OAuth2ApplicationDto domain) {
-        OAuth2Application oAuth2Application = applicationService.saveOrUpdate(toEntity.convert(domain));
+        OAuth2Application oAuth2Application = applicationService.saveAndFlush(toEntity.convert(domain));
         return result(oAuth2Application);
     }
 

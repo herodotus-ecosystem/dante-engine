@@ -23,35 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.utils;
+package cn.herodotus.engine.supplier.upms.logic.converter;
+
+import cn.herodotus.engine.rest.core.domain.RequestMapping;
+import cn.herodotus.engine.supplier.upms.logic.entity.security.SysInterface;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: 常用正则表达式 </p>
+ * <p>Description: RequestMapping 转 SysInterface 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/10/12 10:43
+ * @date : 2023/5/23 17:15
  */
-public interface RegexPool extends cn.hutool.core.lang.RegexPool {
+public class RequestMappingToSysInterfaceConverter implements Converter<RequestMapping, SysInterface> {
 
-    /**
-     * 匹配大括号以及其中的内容，
-     * <p>
-     * 示例： "ab{gnfnm}ah{hell}o"，匹配结果：{gnfnm}、{hell}
-     */
-    String BRACES_AND_CONTENT = "\\{([^}])*\\}";
-
-    /**
-     * 匹配所有字符
-     * <p>
-     * 示例：String cat = "abc", cat.split((?!^)) 匹配结果： array["a", "b", "c"]
-     */
-    String ALL_CHARACTERS = "(?!^)";
-
-    /**
-     * 单引号字符串等式
-     * <p>
-     * 示例：pattern='/open/**'  匹配结果：pattern 和 /open/**
-     */
-    String SINGLE_QUOTE_STRING_EQUATION = "(\\w+)\\s*=\\s*'(.*?)'";
-
+    @Override
+    public SysInterface convert(RequestMapping requestMapping) {
+        SysInterface sysInterface = new SysInterface();
+        sysInterface.setInterfaceId(requestMapping.getMappingId());
+        sysInterface.setInterfaceCode(requestMapping.getMappingCode());
+        sysInterface.setRequestMethod(requestMapping.getRequestMethod());
+        sysInterface.setServiceId(requestMapping.getServiceId());
+        sysInterface.setClassName(requestMapping.getClassName());
+        sysInterface.setMethodName(requestMapping.getMethodName());
+        sysInterface.setUrl(requestMapping.getUrl());
+        sysInterface.setDescription(requestMapping.getDescription());
+        return sysInterface;
+    }
 }

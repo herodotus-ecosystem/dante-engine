@@ -54,7 +54,7 @@ public interface WriteableController<E extends AbstractEntity, ID extends Serial
      */
 
     default Result<E> saveOrUpdate(E domain) {
-        E savedDomain = getWriteableService().saveOrUpdate(domain);
+        E savedDomain = getWriteableService().saveAndFlush(domain);
         return result(savedDomain);
     }
 

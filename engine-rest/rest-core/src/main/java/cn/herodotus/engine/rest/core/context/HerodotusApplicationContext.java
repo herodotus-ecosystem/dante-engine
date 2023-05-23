@@ -26,7 +26,7 @@
 package cn.herodotus.engine.rest.core.context;
 
 import cn.herodotus.engine.assistant.core.context.PropertyFinder;
-import cn.herodotus.engine.assistant.core.utils.EnvUtils;
+import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import cn.herodotus.engine.rest.core.properties.PlatformProperties;
 import org.apache.commons.lang3.ObjectUtils;
@@ -68,7 +68,7 @@ public class HerodotusApplicationContext {
     }
 
     private String getHostAddress() {
-        String address = EnvUtils.getHostAddress();
+        String address = WellFormedUtils.getHostAddress();
         if (ObjectUtils.isNotEmpty(serverProperties.getAddress())) {
             address = serverProperties.getAddress().getHostAddress();
         }

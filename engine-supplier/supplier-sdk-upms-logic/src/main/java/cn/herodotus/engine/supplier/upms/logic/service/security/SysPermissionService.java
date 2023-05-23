@@ -29,9 +29,6 @@ import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysPermission;
 import cn.herodotus.engine.supplier.upms.logic.repository.security.SysPermissionRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,11 +40,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysPermissionService extends BaseService<SysPermission, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysPermissionService.class);
-
     private final SysPermissionRepository sysPermissionRepository;
 
-    @Autowired
     public SysPermissionService(SysPermissionRepository sysPermissionRepository) {
         this.sysPermissionRepository = sysPermissionRepository;
     }

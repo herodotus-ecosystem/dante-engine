@@ -105,7 +105,7 @@ public class OAuth2DeviceController extends BaseController<OAuth2Device, String>
     })
     @PostMapping
     public Result<OAuth2Device> saveOrUpdate(@RequestBody OAuth2DeviceDto domain) {
-        OAuth2Device device = deviceService.saveOrUpdate(toEntity.convert(domain));
+        OAuth2Device device = deviceService.saveAndFlush(toEntity.convert(domain));
         return result(device);
     }
 

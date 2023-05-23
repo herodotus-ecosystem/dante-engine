@@ -30,9 +30,6 @@ import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysPermission;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysRole;
 import cn.herodotus.engine.supplier.upms.logic.repository.security.SysRoleRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -47,11 +44,8 @@ import java.util.Set;
 @Service
 public class SysRoleService extends BaseService<SysRole, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysRoleService.class);
-
     private final SysRoleRepository sysRoleRepository;
 
-    @Autowired
     public SysRoleService(SysRoleRepository sysRoleRepository) {
         this.sysRoleRepository = sysRoleRepository;
     }
@@ -73,19 +67,14 @@ public class SysRoleService extends BaseService<SysRole, String> {
         SysRole sysRole = findById(roleId);
         sysRole.setPermissions(sysPermissions);
 
-        log.debug("[Herodotus] |- SysRole Service authorize.");
-        return saveOrUpdate(sysRole);
+        return saveAndFlush(sysRole);
     }
 
     public SysRole findByRoleCode(String roleCode) {
-        SysRole sysRole = sysRoleRepository.findByRoleCode(roleCode);
-        log.debug("[Herodotus] |- SysRole Service findByRoleCode.");
-        return sysRole;
+        return sysRoleRepository.findByRoleCode(roleCode);
     }
 
     public SysRole findByRoleId(String roleId) {
-        SysRole sysRole = sysRoleRepository.findByRoleId(roleId);
-        log.debug("[Herodotus] |- SysRole Service findByRoleId.");
-        return sysRole;
+        return sysRoleRepository.findByRoleId(roleId);
     }
 }

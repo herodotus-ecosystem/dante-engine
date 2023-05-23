@@ -30,9 +30,6 @@ import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Permission;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.management.repository.OAuth2ScopeRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,11 +44,8 @@ import java.util.Set;
 @Service
 public class OAuth2ScopeService extends BaseService<OAuth2Scope, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2ScopeService.class);
-
     private final OAuth2ScopeRepository oauthScopesRepository;
 
-    @Autowired
     public OAuth2ScopeService(OAuth2ScopeRepository oauthScopesRepository) {
         this.oauthScopesRepository = oauthScopesRepository;
     }
@@ -66,20 +60,14 @@ public class OAuth2ScopeService extends BaseService<OAuth2Scope, String> {
         OAuth2Scope oldScope = findById(scopeId);
         oldScope.setPermissions(permissions);
 
-        OAuth2Scope newScope = saveOrUpdate(oldScope);
-        log.debug("[Herodotus] |- OAuth2ScopeService assign.");
-        return newScope;
+        return saveAndFlush(oldScope);
     }
 
     public OAuth2Scope findByScopeCode(String scopeCode) {
-        OAuth2Scope scope = oauthScopesRepository.findByScopeCode(scopeCode);
-        log.debug("[Herodotus] |- OAuth2ScopeService findByScopeCode.");
-        return scope;
+        return oauthScopesRepository.findByScopeCode(scopeCode);
     }
 
     public List<OAuth2Scope> findByScopeCodeIn(List<String> scopeCodes) {
-        List<OAuth2Scope> scopes = oauthScopesRepository.findByScopeCodeIn(scopeCodes);
-        log.debug("[Herodotus] |- OAuth2ScopeService findByScopeCodeIn.");
-        return scopes;
+        return oauthScopesRepository.findByScopeCodeIn(scopeCodes);
     }
 }

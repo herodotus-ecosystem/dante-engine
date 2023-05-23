@@ -44,7 +44,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +62,6 @@ public class SysEmployeeController extends BaseWriteableRestController<SysEmploy
 
     private final SysEmployeeService sysEmployeeService;
 
-    @Autowired
     public SysEmployeeController(SysEmployeeService sysEmployeeService) {
         this.sysEmployeeService = sysEmployeeService;
     }

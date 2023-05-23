@@ -27,6 +27,7 @@ package cn.herodotus.engine.oauth2.management.entity;
 
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2RegisteredClient;
+import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -66,6 +67,9 @@ public class OAuth2Device extends AbstractOAuth2RegisteredClient {
     @Column(name = "product_id", length = 64)
     private String productId;
 
+    @Column(name = "is_activated")
+    private Boolean activated = Boolean.FALSE;
+
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_APPLICATION_SCOPE)
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
@@ -100,6 +104,14 @@ public class OAuth2Device extends AbstractOAuth2RegisteredClient {
         this.productId = productId;
     }
 
+    public Boolean getActivated() {
+        return activated;
+    }
+
+    public void setActivated(Boolean activated) {
+        this.activated = activated;
+    }
+
     @Override
     public Set<OAuth2Scope> getScopes() {
         return scopes;
@@ -112,5 +124,15 @@ public class OAuth2Device extends AbstractOAuth2RegisteredClient {
     @Override
     public String getId() {
         return getDeviceId();
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("deviceId", deviceId)
+                .add("deviceName", deviceName)
+                .add("productId", productId)
+                .add("activated", activated)
+                .toString();
     }
 }

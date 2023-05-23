@@ -43,7 +43,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -63,7 +62,6 @@ public class SysUserService extends BaseService<SysUser, String> {
     private final SysUserRepository sysUserRepository;
     private final SysDefaultRoleService sysDefaultRoleService;
 
-    @Autowired
     public SysUserService(SysUserRepository sysUserRepository, SysDefaultRoleService sysDefaultRoleService) {
         this.sysUserRepository = sysUserRepository;
         this.sysDefaultRoleService = sysDefaultRoleService;
@@ -75,27 +73,20 @@ public class SysUserService extends BaseService<SysUser, String> {
     }
 
     public SysUser findByUserName(String userName) {
-        SysUser sysUser = sysUserRepository.findByUserName(userName);
-        log.debug("[Herodotus] |- SysUser Service findByUserName.");
-        return sysUser;
+        return sysUserRepository.findByUserName(userName);
     }
 
     public SysUser findByUserId(String userId) {
-        SysUser sysUser = sysUserRepository.findByUserId(userId);
-        log.debug("[Herodotus] |- SysUser Service findByUserId.");
-        return sysUser;
+        return sysUserRepository.findByUserId(userId);
     }
 
     public SysUser changePassword(String userId, String password) {
         SysUser sysUser = findByUserId(userId);
         sysUser.setPassword(SecurityUtils.encrypt(password));
-        log.debug("[Herodotus] |- SysUser Service changePassword.");
-        return saveOrUpdate(sysUser);
+        return saveAndFlush(sysUser);
     }
 
     public SysUser assign(String userId, String[] roleIds) {
-        log.debug("[Herodotus] |- SysUser Service assign.");
-
         SysUser sysUser = findByUserId(userId);
         return this.register(sysUser, roleIds);
     }
@@ -132,8 +123,7 @@ public class SysUserService extends BaseService<SysUser, String> {
         if (CollectionUtils.isNotEmpty(sysRoles)) {
             sysUser.setRoles(sysRoles);
         }
-        log.debug("[Herodotus] |- SysUser Service register.");
-        return saveOrUpdate(sysUser);
+        return saveAndFlush(sysUser);
     }
 
     private String enhance(String userName) {
@@ -177,8 +167,6 @@ public class SysUserService extends BaseService<SysUser, String> {
 
     public HerodotusUser registerUserDetails(SocialUserDetails socialUserDetails) {
         SysUser newSysUser = register(socialUserDetails);
-
-        log.debug("[Herodotus] |- SysUser Service register UserDetails.");
         return UpmsHelper.convertSysUserToHerodotusUser(newSysUser);
     }
 

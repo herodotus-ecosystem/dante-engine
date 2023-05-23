@@ -64,7 +64,6 @@ public class OAuth2DeviceService extends BaseService<OAuth2Device, String> {
     private final Converter<OAuth2Device, RegisteredClient> oauth2DeviceToRegisteredClientConverter;
     private final Converter<RegisteredClient, OAuth2Device> registeredClientToOAuth2DeviceConverter;
 
-
     public OAuth2DeviceService(RegisteredClientRepository registeredClientRepository, HerodotusRegisteredClientRepository herodotusRegisteredClientRepository, OAuth2DeviceRepository deviceRepository, OAuth2ScopeService scopeService) {
         this.registeredClientRepository = registeredClientRepository;
         this.herodotusRegisteredClientRepository = herodotusRegisteredClientRepository;
@@ -78,12 +77,12 @@ public class OAuth2DeviceService extends BaseService<OAuth2Device, String> {
         return deviceRepository;
     }
 
+    @Transactional(rollbackFor = TransactionalRollbackException.class)
     @Override
-    public OAuth2Device saveOrUpdate(OAuth2Device entity) {
-        OAuth2Device device = super.saveOrUpdate(entity);
+    public OAuth2Device saveAndFlush(OAuth2Device entity) {
+        OAuth2Device device = super.saveAndFlush(entity);
         if (ObjectUtils.isNotEmpty(device)) {
             registeredClientRepository.save(oauth2DeviceToRegisteredClientConverter.convert(device));
-            log.trace("[Herodotus] |- OAuth2DeviceService saveOrUpdate.");
             return device;
         } else {
             log.error("[Herodotus] |- OAuth2DeviceService saveOrUpdate error, rollback data!");
@@ -91,25 +90,11 @@ public class OAuth2DeviceService extends BaseService<OAuth2Device, String> {
         }
     }
 
-    public boolean sync(OidcClientRegistration oidcClientRegistration) {
-        RegisteredClient registeredClient = registeredClientRepository.findByClientId(oidcClientRegistration.getClientId());
-
-        if (ObjectUtils.isNotEmpty(registeredClient)) {
-            OAuth2Device oauth2Device = registeredClientToOAuth2DeviceConverter.convert(registeredClient);
-            if (ObjectUtils.isNotEmpty(oauth2Device)) {
-                OAuth2Device result = deviceRepository.save(oauth2Device);
-                return ObjectUtils.isNotEmpty(result);
-            }
-        }
-        return false;
-    }
-
     @Transactional(rollbackFor = TransactionalRollbackException.class)
     @Override
     public void deleteById(String id) {
         super.deleteById(id);
         herodotusRegisteredClientRepository.deleteById(id);
-        log.debug("[Herodotus] |- OAuth2DeviceService deleteById.");
     }
 
     @Transactional(rollbackFor = TransactionalRollbackException.class)
@@ -125,14 +110,31 @@ public class OAuth2DeviceService extends BaseService<OAuth2Device, String> {
         OAuth2Device oldDevice = findById(deviceId);
         oldDevice.setScopes(scopes);
 
-        OAuth2Device newApplication = saveOrUpdate(oldDevice);
-        log.debug("[Herodotus] |- OAuth2DeviceService assign.");
-        return newApplication;
+        return saveAndFlush(oldDevice);
     }
 
-    public OAuth2Device findByClientId(String clientId) {
-        OAuth2Device device = deviceRepository.findByClientId(clientId);
-        log.debug("[Herodotus] |- OAuth2DeviceService findByClientId.");
-        return device;
+    /**
+     * 客户端自动注册是将信息存储在 oauth2_registered_client 中。
+     * 为了方便管理，将该条数据同步至 oauth2_device 表中。
+     *
+     * @param oidcClientRegistration {@link OidcClientRegistration}
+     * @return 是否同步成功
+     */
+    public boolean sync(OidcClientRegistration oidcClientRegistration) {
+        RegisteredClient registeredClient = registeredClientRepository.findByClientId(oidcClientRegistration.getClientId());
+
+        if (ObjectUtils.isNotEmpty(registeredClient)) {
+            OAuth2Device oauth2Device = registeredClientToOAuth2DeviceConverter.convert(registeredClient);
+            if (ObjectUtils.isNotEmpty(oauth2Device)) {
+                OAuth2Device result = deviceRepository.save(oauth2Device);
+                return ObjectUtils.isNotEmpty(result);
+            }
+        }
+        return false;
+    }
+
+    public boolean activate(String clientId, boolean isActivated) {
+        int result = deviceRepository.activate(clientId, isActivated);
+        return result != 0;
     }
 }

@@ -53,7 +53,7 @@ public abstract class BaseController<E extends AbstractEntity, ID extends Serial
 
     @Override
     public Result<E> saveOrUpdate(E domain) {
-        E savedDomain = getWriteableService().saveOrUpdate(domain);
+        E savedDomain = getWriteableService().saveAndFlush(domain);
         return result(savedDomain);
     }
 

@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.response;
+package cn.herodotus.engine.oauth2.management.response;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
@@ -52,7 +52,7 @@ import java.io.IOException;
  * @author : gengwei.zheng
  * @date : 2022/2/19 20:48
  */
-public class HerodotusAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class OAuth2AuthenticationFailureResponseHandler implements AuthenticationFailureHandler {
 
     private final HttpMessageConverter<OAuth2Error> errorHttpResponseConverter = new OAuth2ErrorHttpMessageConverter();
 

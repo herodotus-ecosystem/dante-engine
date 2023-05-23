@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.response;
+package cn.herodotus.engine.oauth2.management.response;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
@@ -60,16 +60,16 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2022/2/25 16:53
  */
-public class HerodotusAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class OAuth2AccessTokenResponseHandler implements AuthenticationSuccessHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(HerodotusAuthenticationSuccessHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(OAuth2AccessTokenResponseHandler.class);
 
     private final HttpMessageConverter<OAuth2AccessTokenResponse> accessTokenHttpResponseConverter =
             new OAuth2AccessTokenResponseHttpMessageConverter();
 
     private final HttpCryptoProcessor httpCryptoProcessor;
 
-    public HerodotusAuthenticationSuccessHandler(HttpCryptoProcessor httpCryptoProcessor) {
+    public OAuth2AccessTokenResponseHandler(HttpCryptoProcessor httpCryptoProcessor) {
         this.httpCryptoProcessor = httpCryptoProcessor;
     }
 

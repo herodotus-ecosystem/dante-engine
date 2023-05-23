@@ -23,20 +23,35 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.response;
-
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+package cn.herodotus.engine.assistant.core.definition.constants;
 
 /**
- * <p>Description: 设备校验成功跳转处理 </p>
+ * <p>Description: 常用正则表达式 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/3 9:35
+ * @date : 2021/10/12 10:43
  */
-public class OAuth2DeviceVerificationAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public interface RegexPool extends cn.hutool.core.lang.RegexPool {
 
-    public OAuth2DeviceVerificationAuthenticationSuccessHandler() {
-        super(BaseConstants.CUSTOM_DEVICE_VERIFICATION_SUCCESS_URI);
-    }
+    /**
+     * 匹配大括号以及其中的内容，
+     * <p>
+     * 示例： "ab{gnfnm}ah{hell}o"，匹配结果：{gnfnm}、{hell}
+     */
+    String BRACES_AND_CONTENT = "\\{([^}])*\\}";
+
+    /**
+     * 匹配所有字符
+     * <p>
+     * 示例：String cat = "abc", cat.split((?!^)) 匹配结果： array["a", "b", "c"]
+     */
+    String ALL_CHARACTERS = "(?!^)";
+
+    /**
+     * 单引号字符串等式
+     * <p>
+     * 示例：pattern='/open/**'  匹配结果：pattern 和 /open/**
+     */
+    String SINGLE_QUOTE_STRING_EQUATION = "(\\w+)\\s*=\\s*'(.*?)'";
+
 }

@@ -74,7 +74,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
 
     @Override
     public void save(OAuth2Authorization authorization) {
-        this.herodotusAuthorizationService.saveOrUpdate(toEntity(authorization));
+        this.herodotusAuthorizationService.saveAndFlush(toEntity(authorization));
         log.debug("[Herodotus] |- Jpa OAuth2 Authorization Service save entity.");
     }
 

@@ -28,6 +28,7 @@ package cn.herodotus.engine.supplier.upms.logic.service.security;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.rest.core.domain.RequestMapping;
+import cn.herodotus.engine.supplier.upms.logic.converter.RequestMappingToSysInterfaceConverter;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysAttribute;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysInterface;
 import cn.herodotus.engine.supplier.upms.logic.repository.security.SysInterfaceRepository;
@@ -35,8 +36,7 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import jakarta.persistence.criteria.Subquery;
 import org.apache.commons.collections4.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -54,12 +54,12 @@ import java.util.stream.Collectors;
 @Service
 public class SysInterfaceService extends BaseService<SysInterface, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysInterfaceService.class);
-
     private final SysInterfaceRepository sysInterfaceRepository;
+    private final Converter<RequestMapping, SysInterface> toSysInterface;
 
     public SysInterfaceService(SysInterfaceRepository sysInterfaceRepository) {
         this.sysInterfaceRepository = sysInterfaceRepository;
+        this.toSysInterface = new RequestMappingToSysInterfaceConverter();
     }
 
     @Override
@@ -95,38 +95,18 @@ public class SysInterfaceService extends BaseService<SysInterface, String> {
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- SysInterface Service findAllocatable.");
         return this.findAll(specification);
-    }
-
-    public List<SysInterface> batchSaveOrUpdate(List<SysInterface> domains) {
-        List<SysInterface> interfaces = sysInterfaceRepository.saveAllAndFlush(domains);
-        log.debug("[Herodotus] |- SysInterface Service batchSaveOrUpdate.");
-        return interfaces;
     }
 
     public List<SysInterface> storeRequestMappings(Collection<RequestMapping> requestMappings) {
         List<SysInterface> sysAuthorities = toSysInterfaces(requestMappings);
-        return batchSaveOrUpdate(sysAuthorities);
+        return saveAllAndFlush(sysAuthorities);
     }
 
     private List<SysInterface> toSysInterfaces(Collection<RequestMapping> requestMappings) {
         if (CollectionUtils.isNotEmpty(requestMappings)) {
-            return requestMappings.stream().map(this::toSysInterface).collect(Collectors.toList());
+            return requestMappings.stream().map(toSysInterface::convert).collect(Collectors.toList());
         }
         return new ArrayList<>();
-    }
-
-    private SysInterface toSysInterface(RequestMapping requestMapping) {
-        SysInterface sysInterface = new SysInterface();
-        sysInterface.setInterfaceId(requestMapping.getMappingId());
-        sysInterface.setInterfaceCode(requestMapping.getMappingCode());
-        sysInterface.setRequestMethod(requestMapping.getRequestMethod());
-        sysInterface.setServiceId(requestMapping.getServiceId());
-        sysInterface.setClassName(requestMapping.getClassName());
-        sysInterface.setMethodName(requestMapping.getMethodName());
-        sysInterface.setUrl(requestMapping.getUrl());
-        sysInterface.setDescription(requestMapping.getDescription());
-        return sysInterface;
     }
 }
