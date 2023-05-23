@@ -50,7 +50,7 @@ public class CommaDelimitedStringToSetSerializer extends StdSerializer<String> {
     public void serialize(String value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         Set<String> collection = new HashSet<>();
         if (StringUtils.hasText(value)) {
-            if (StringUtils.matchesCharacter(value, SymbolConstants.COMMA.charAt(0))) {
+            if (org.apache.commons.lang3.StringUtils.contains(value, SymbolConstants.COMMA)) {
                 collection = StringUtils.commaDelimitedListToSet(value);
             } else {
                 collection.add(value);

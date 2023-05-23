@@ -27,27 +27,18 @@ package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
-import cn.herodotus.engine.oauth2.management.converter.OAuth2DeviceToDtoConverter;
-import cn.herodotus.engine.oauth2.management.converter.OAuth2DeviceToEntityConverter;
-import cn.herodotus.engine.oauth2.management.dto.OAuth2DeviceDto;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Device;
 import cn.herodotus.engine.oauth2.management.service.OAuth2DeviceService;
-import cn.herodotus.engine.rest.core.controller.BaseController;
+import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>Description: OAuth2DeviceController </p>
@@ -62,62 +53,17 @@ import java.util.stream.Collectors;
         @Tag(name = "物联网管理接口"),
         @Tag(name = "物联网设备接口")
 })
-public class OAuth2DeviceController extends BaseController<OAuth2Device, String> {
+public class OAuth2DeviceController extends BaseWriteableRestController<OAuth2Device, String> {
 
     private final OAuth2DeviceService deviceService;
-    private final Converter<OAuth2Device, OAuth2DeviceDto> toDto;
-    private final Converter<OAuth2DeviceDto, OAuth2Device> toEntity;
 
     public OAuth2DeviceController(OAuth2DeviceService deviceService) {
         this.deviceService = deviceService;
-        this.toDto = new OAuth2DeviceToDtoConverter();
-        this.toEntity = new OAuth2DeviceToEntityConverter();
     }
 
     @Override
     public WriteableService<OAuth2Device, String> getWriteableService() {
         return deviceService;
-    }
-
-    @Operation(summary = "获取OAuth2Device分页数据", description = "通过pageNumber和pageSize获取分页数据")
-    @Parameters({
-            @Parameter(name = "pageNumber", required = true, description = "当前页数"),
-            @Parameter(name = "pageSize", required = true, description = "每页显示数据条目")
-    })
-    @GetMapping
-    @Override
-    public Result<Map<String, Object>> findByPage(
-            @RequestParam("pageNumber") Integer pageNumber,
-            @RequestParam("pageSize") Integer pageSize) {
-
-        Page<OAuth2Device> pages = deviceService.findByPage(pageNumber, pageSize);
-        if (ObjectUtils.isNotEmpty(pages) && CollectionUtils.isNotEmpty(pages.getContent())) {
-            List<OAuth2DeviceDto> auth2Devices = pages.getContent().stream().map(toDto::convert).collect(Collectors.toList());
-            return result(getPageInfoMap(auth2Devices, pages.getTotalPages(), pages.getTotalElements()));
-        }
-
-        return Result.failure("查询数据失败！");
-    }
-
-    @Operation(summary = "保存或更新OAuth2设备", description = "接收JSON数据，转换为OauthClientDetails实体，进行更新")
-    @Parameters({
-            @Parameter(name = "domain", required = true, description = "可转换为OauthClientDetails实体的json数据", schema = @Schema(implementation = OAuth2DeviceDto.class))
-    })
-    @PostMapping
-    public Result<OAuth2Device> saveOrUpdate(@RequestBody OAuth2DeviceDto domain) {
-        OAuth2Device device = deviceService.saveAndFlush(toEntity.convert(domain));
-        return result(device);
-    }
-
-    @Operation(summary = "删除OAuth2设备", description = "根据设备ID删除OAuth2设备，以及相关联的关系数据")
-    @Parameters({
-            @Parameter(name = "deviceId", required = true, description = "deviceId")
-    })
-    @DeleteMapping
-    @Override
-    public Result<String> delete(@RequestBody String deviceId) {
-        deviceService.deleteById(deviceId);
-        return Result.success("删除成功");
     }
 
     @Operation(summary = "给设备分配Scope", description = "给设备分配Scope")

@@ -29,8 +29,10 @@ import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.CommaDelimi
 import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.SetToCommaDelimitedStringDeserializer;
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,26 +48,34 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public abstract class AbstractRegisteredClient extends BaseSysEntity implements RegisteredClientDetails {
 
+    @Schema(name = "客户端ID发布日期", title = "客户端发布日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8", shape = JsonFormat.Shape.STRING)
     @Column(name = "client_id_issued_at", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime clientIdIssuedAt;
 
+    @Schema(name = "客户端秘钥过期时间", title = "客户端秘钥过期时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8", shape = JsonFormat.Shape.STRING)
     @Column(name = "client_secret_expires_at")
     private LocalDateTime clientSecretExpiresAt;
 
+    @Schema(name = "客户端认证模式", title = "支持多个值，以逗号分隔", requiredMode = Schema.RequiredMode.REQUIRED)
     @Column(name = "client_authentication_methods", nullable = false, length = 1000)
     @JsonDeserialize(using = SetToCommaDelimitedStringDeserializer.class)
     @JsonSerialize(using = CommaDelimitedStringToSetSerializer.class)
     private String clientAuthenticationMethods;
 
+    @Schema(name = "认证模式", title = "支持多个值，以逗号分隔", requiredMode = Schema.RequiredMode.REQUIRED)
     @Column(name = "authorization_grant_types", nullable = false, length = 1000)
     @JsonDeserialize(using = SetToCommaDelimitedStringDeserializer.class)
     @JsonSerialize(using = CommaDelimitedStringToSetSerializer.class)
     private String authorizationGrantTypes;
 
+    @Schema(name = "回调地址", title = "支持多个值，以逗号分隔")
     @Column(name = "redirect_uris", length = 1000)
     private String redirectUris;
 
+    @Schema(name = "OIDC Logout 回调地址", title = "支持多个值，以逗号分隔")
     @Column(name = "post_logout_redirect_uris", length = 1000)
     private String postLogoutRedirectUris;
 
