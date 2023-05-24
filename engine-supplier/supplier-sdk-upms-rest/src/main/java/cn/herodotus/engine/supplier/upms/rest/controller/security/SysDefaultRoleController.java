@@ -60,7 +60,6 @@ public class SysDefaultRoleController extends BaseWriteableRestController<SysDef
 
     private final SysDefaultRoleService sysDefaultRoleService;
 
-    @Autowired
     public SysDefaultRoleController(SysDefaultRoleService sysDefaultRoleService) {
         this.sysDefaultRoleService = sysDefaultRoleService;
     }

@@ -34,6 +34,7 @@ import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -188,7 +189,12 @@ public class SecurityGlobalExceptionHandler {
             }
             log.debug("[Herodotus] |- InsufficientAuthenticationException cause content is [{}]", reason.getClass().getSimpleName());
         } else {
-            reason = exception;
+            String exceptionName = exception.getClass().getSimpleName();
+            if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
+                return EXCEPTION_DICTIONARY.get(exceptionName);
+            } else {
+                reason = exception;
+            }
         }
 
         return resolveException(reason, path);

@@ -127,7 +127,7 @@ public class HerodotusAuthorizationService extends BaseService<HerodotusAuthoriz
         };
 
         Optional<HerodotusAuthorization> result = this.herodotusAuthorizationRepository.findOne(specification);
-        log.debug("[Herodotus] |- HerodotusAuthorization Service findByDetection.");
+        log.trace("[Herodotus] |- HerodotusAuthorization Service findByDetection.");
         return result;
     }
 

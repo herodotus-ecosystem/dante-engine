@@ -94,6 +94,4 @@ public interface BaseRepository<E extends Entity, ID extends Serializable> exten
     @Transactional
     @Override
     void deleteById(ID id);
-
-
 }

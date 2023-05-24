@@ -44,7 +44,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,7 +69,6 @@ public class SysDepartmentController extends BaseWriteableRestController<SysDepa
 
     private final SysDepartmentService sysDepartmentService;
 
-    @Autowired
     public SysDepartmentController(SysDepartmentService sysDepartmentService) {
         this.sysDepartmentService = sysDepartmentService;
     }

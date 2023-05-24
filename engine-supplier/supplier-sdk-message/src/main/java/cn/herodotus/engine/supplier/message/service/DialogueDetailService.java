@@ -36,8 +36,6 @@ import cn.herodotus.engine.supplier.message.repository.DialogueDetailRepository;
 import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -56,8 +54,6 @@ import java.util.List;
  */
 @Service
 public class DialogueDetailService extends BaseService<DialogueDetail, String> {
-
-    private static final Logger log = LoggerFactory.getLogger(DialogueDetailService.class);
 
     private final DialogueDetailRepository dialogueDetailRepository;
     private final DialogueContactService dialogueContactService;
@@ -102,7 +98,7 @@ public class DialogueDetailService extends BaseService<DialogueDetail, String> {
      * 2. 如果已经有Dialogue，那么就直接保存私信对话，同时更新 Dialogue 中的最新信息。
      *
      * @param domain 数据对应实体
-     * @return
+     * @return {@link DialogueDetail}
      */
     @Transactional
     @Override
@@ -133,7 +129,6 @@ public class DialogueDetailService extends BaseService<DialogueDetail, String> {
         dialogueContactService.deleteByDialogueId(dialogueId);
         dialogueService.deleteById(dialogueId);
         dialogueDetailRepository.deleteAllByDialogueId(dialogueId);
-        log.debug("[Herodotus] |- DialogueDetail Service deleteAllByDialogueId.");
     }
 
     public Page<DialogueDetail> findByCondition(int pageNumber, int pageSize, String dialogueId) {
@@ -151,7 +146,6 @@ public class DialogueDetailService extends BaseService<DialogueDetail, String> {
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- DialogueDetail Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 }

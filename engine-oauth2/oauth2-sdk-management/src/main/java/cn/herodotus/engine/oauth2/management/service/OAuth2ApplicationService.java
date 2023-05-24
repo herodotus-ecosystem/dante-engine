@@ -29,13 +29,14 @@ import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRol
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
-import cn.herodotus.engine.oauth2.management.adapter.OAuth2ApplicationRegisteredClientAdapter;
+import cn.herodotus.engine.oauth2.management.converter.OAuth2ApplicationToRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.management.repository.OAuth2ApplicationRepository;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.stereotype.Service;
@@ -58,13 +59,13 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     private final RegisteredClientRepository registeredClientRepository;
     private final HerodotusRegisteredClientRepository herodotusRegisteredClientRepository;
     private final OAuth2ApplicationRepository applicationRepository;
-    private final OAuth2ApplicationRegisteredClientAdapter registeredClientAdapter;
+    private final Converter<OAuth2Application, RegisteredClient> objectConverter;
 
     public OAuth2ApplicationService(RegisteredClientRepository registeredClientRepository, HerodotusRegisteredClientRepository herodotusRegisteredClientRepository, OAuth2ApplicationRepository applicationRepository) {
         this.registeredClientRepository = registeredClientRepository;
         this.herodotusRegisteredClientRepository = herodotusRegisteredClientRepository;
         this.applicationRepository = applicationRepository;
-        this.registeredClientAdapter = new OAuth2ApplicationRegisteredClientAdapter();
+        this.objectConverter = new OAuth2ApplicationToRegisteredClientConverter();
     }
 
     @Override
@@ -73,10 +74,10 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     }
 
     @Override
-    public OAuth2Application saveOrUpdate(OAuth2Application entity) {
-        OAuth2Application application = super.saveOrUpdate(entity);
+    public OAuth2Application saveAndFlush(OAuth2Application entity) {
+        OAuth2Application application = super.saveAndFlush(entity);
         if (ObjectUtils.isNotEmpty(application)) {
-            registeredClientRepository.save(toObject(application));
+            registeredClientRepository.save(objectConverter.convert(application));
             log.debug("[Herodotus] |- OAuth2ApplicationService saveOrUpdate.");
             return application;
         } else {
@@ -90,7 +91,6 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
     public void deleteById(String id) {
         super.deleteById(id);
         herodotusRegisteredClientRepository.deleteById(id);
-        log.debug("[Herodotus] |- OAuth2ApplicationService deleteById.");
     }
 
     @Transactional(rollbackFor = TransactionalRollbackException.class)
@@ -106,18 +106,10 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         OAuth2Application oldApplication = findById(applicationId);
         oldApplication.setScopes(scopes);
 
-        OAuth2Application newApplication = saveOrUpdate(oldApplication);
-        log.debug("[Herodotus] |- OAuth2ApplicationService assign.");
-        return newApplication;
+        return saveAndFlush(oldApplication);
     }
 
     public OAuth2Application findByClientId(String clientId) {
-        OAuth2Application application = applicationRepository.findByClientId(clientId);
-        log.debug("[Herodotus] |- OAuth2ApplicationService findByClientId.");
-        return application;
-    }
-
-    private RegisteredClient toObject(OAuth2Application application) {
-        return registeredClientAdapter.toObject(application);
+        return applicationRepository.findByClientId(clientId);
     }
 }

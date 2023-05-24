@@ -25,15 +25,14 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.entity;
 
-import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
-import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
+import cn.herodotus.engine.oauth2.data.jpa.definition.domain.AbstractRegisteredClient;
 import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusRegisteredClientUuid;
+import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * <p>Description: OAuth2 客户端实体 </p>
@@ -47,7 +46,7 @@ import java.time.LocalDateTime;
         @Index(name = "oauth2_registered_client_cid_idx", columnList = "client_id")})
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_REGISTERED_CLIENT)
-public class HerodotusRegisteredClient extends AbstractEntity implements RegisteredClientDetails {
+public class HerodotusRegisteredClient extends AbstractRegisteredClient {
 
     @Id
     @HerodotusRegisteredClientUuid
@@ -57,30 +56,11 @@ public class HerodotusRegisteredClient extends AbstractEntity implements Registe
     @Column(name = "client_id", nullable = false, length = 100)
     private String clientId;
 
-    @Column(name = "client_id_issued_at", nullable = false, updatable = false)
-    @CreationTimestamp
-    private LocalDateTime clientIdIssuedAt;
-
     @Column(name = "client_secret", length = 200)
     private String clientSecret;
 
-    @Column(name = "client_secret_expires_at")
-    private LocalDateTime clientSecretExpiresAt;
-
     @Column(name = "client_name", nullable = false, length = 200)
     private String clientName;
-
-    @Column(name = "client_authentication_methods", nullable = false, length = 1000)
-    private String clientAuthenticationMethods;
-
-    @Column(name = "authorization_grant_types", nullable = false, length = 1000)
-    private String authorizationGrantTypes;
-
-    @Column(name = "redirect_uris", length = 1000)
-    private String redirectUris;
-
-    @Column(name = "post_logout_redirect_uris", length = 1000)
-    private String postLogoutRedirectUris;
 
     @Column(name = "scopes", nullable = false, length = 1000)
     private String scopes;
@@ -110,15 +90,6 @@ public class HerodotusRegisteredClient extends AbstractEntity implements Registe
     }
 
     @Override
-    public LocalDateTime getClientIdIssuedAt() {
-        return clientIdIssuedAt;
-    }
-
-    public void setClientIdIssuedAt(LocalDateTime clientIdIssuedAt) {
-        this.clientIdIssuedAt = clientIdIssuedAt;
-    }
-
-    @Override
     public String getClientSecret() {
         return clientSecret;
     }
@@ -127,58 +98,12 @@ public class HerodotusRegisteredClient extends AbstractEntity implements Registe
         this.clientSecret = clientSecret;
     }
 
-    @Override
-    public LocalDateTime getClientSecretExpiresAt() {
-        return clientSecretExpiresAt;
-    }
-
-    public void setClientSecretExpiresAt(LocalDateTime clientSecretExpiresAt) {
-        this.clientSecretExpiresAt = clientSecretExpiresAt;
-    }
-
-    @Override
     public String getClientName() {
         return clientName;
     }
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
-    }
-
-    @Override
-    public String getClientAuthenticationMethods() {
-        return clientAuthenticationMethods;
-    }
-
-    public void setClientAuthenticationMethods(String clientAuthenticationMethods) {
-        this.clientAuthenticationMethods = clientAuthenticationMethods;
-    }
-
-    @Override
-    public String getAuthorizationGrantTypes() {
-        return authorizationGrantTypes;
-    }
-
-    public void setAuthorizationGrantTypes(String authorizationGrantTypes) {
-        this.authorizationGrantTypes = authorizationGrantTypes;
-    }
-
-    @Override
-    public String getRedirectUris() {
-        return redirectUris;
-    }
-
-    public void setRedirectUris(String redirectUris) {
-        this.redirectUris = redirectUris;
-    }
-
-    @Override
-    public String getPostLogoutRedirectUris() {
-        return postLogoutRedirectUris;
-    }
-
-    public void setPostLogoutRedirectUris(String postLogoutRedirectUris) {
-        this.postLogoutRedirectUris = postLogoutRedirectUris;
     }
 
     public String getScopes() {
@@ -203,5 +128,35 @@ public class HerodotusRegisteredClient extends AbstractEntity implements Registe
 
     public void setTokenSettings(String tokenSettings) {
         this.tokenSettings = tokenSettings;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        HerodotusRegisteredClient that = (HerodotusRegisteredClient) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("clientId", clientId)
+                .add("clientSecret", clientSecret)
+                .add("clientName", clientName)
+                .add("scopes", scopes)
+                .add("clientSettings", clientSettings)
+                .add("tokenSettings", tokenSettings)
+                .toString();
     }
 }

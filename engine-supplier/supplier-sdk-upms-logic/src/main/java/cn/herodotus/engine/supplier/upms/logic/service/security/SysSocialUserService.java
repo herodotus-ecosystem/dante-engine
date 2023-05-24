@@ -29,9 +29,6 @@ import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysSocialUser;
 import cn.herodotus.engine.supplier.upms.logic.repository.security.SysSocialUserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,11 +40,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysSocialUserService extends BaseService<SysSocialUser, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysSocialUserService.class);
-
     private final SysSocialUserRepository sysSocialUserRepository;
 
-    @Autowired
     public SysSocialUserService(SysSocialUserRepository sysSocialUserRepository) {
         this.sysSocialUserRepository = sysSocialUserRepository;
     }
@@ -58,8 +52,6 @@ public class SysSocialUserService extends BaseService<SysSocialUser, String> {
     }
 
     public SysSocialUser findByUuidAndSource(String uuid, String source) {
-        SysSocialUser sysSocialUser = sysSocialUserRepository.findSysSocialUserByUuidAndSource(uuid, source);
-        log.debug("[Herodotus] |- SysSocialSocial Service findByUuidAndSource.");
-        return sysSocialUser;
+        return sysSocialUserRepository.findSysSocialUserByUuidAndSource(uuid, source);
     }
 }

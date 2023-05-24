@@ -80,7 +80,7 @@ public interface WriteableService<E extends Entity, ID extends Serializable> ext
     }
 
     /**
-     * 保存数据
+     * 保存或更新数据
      *
      * @param domain 数据对应实体
      * @return 已保存数据
@@ -90,7 +90,7 @@ public interface WriteableService<E extends Entity, ID extends Serializable> ext
     }
 
     /**
-     * 批量保存
+     * 批量保存或更新数据
      *
      * @param entities 实体集合
      * @return 已经保存的实体集合
@@ -100,7 +100,7 @@ public interface WriteableService<E extends Entity, ID extends Serializable> ext
     }
 
     /**
-     * 保存并且刷新
+     * 保存或者更新
      *
      * @param entity 实体
      * @return 保存后实体
@@ -110,13 +110,13 @@ public interface WriteableService<E extends Entity, ID extends Serializable> ext
     }
 
     /**
-     * 保存或者更新
+     * 批量保存或者更新
      *
-     * @param entity 实体
-     * @return 保存后实体
+     * @param entities 实体列表
+     * @return 保存或更新后的实体
      */
-    default E saveOrUpdate(E entity) {
-        return saveAndFlush(entity);
+    default List<E> saveAllAndFlush(List<E> entities) {
+        return getRepository().saveAllAndFlush(entities);
     }
 
     /**

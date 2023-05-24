@@ -30,7 +30,6 @@ import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOwnership;
 import cn.herodotus.engine.supplier.upms.logic.service.hr.SysOwnershipService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,7 +46,6 @@ public class SysOwnershipController extends BaseWriteableRestController<SysOwner
 
     private final SysOwnershipService sysOwnershipService;
 
-    @Autowired
     public SysOwnershipController(SysOwnershipService sysOwnershipService) {
         this.sysOwnershipService = sysOwnershipService;
     }

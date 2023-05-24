@@ -26,8 +26,8 @@
 package cn.herodotus.engine.cache.caffeine.enhance;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.cache.core.properties.CacheSetting;
 import cn.herodotus.engine.cache.core.properties.CacheProperties;
-import cn.herodotus.engine.cache.core.properties.Expire;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.apache.commons.collections4.MapUtils;
@@ -65,13 +65,13 @@ public class HerodotusCaffeineCacheManager extends CaffeineCacheManager {
 
     @Override
     protected Cache<Object, Object> createNativeCaffeineCache(String name) {
-        Map<String, Expire> expires = cacheProperties.getExpires();
-        if (MapUtils.isNotEmpty(expires)) {
+        Map<String, CacheSetting> instances = cacheProperties.getInstances();
+        if (MapUtils.isNotEmpty(instances)) {
             String key = StringUtils.replace(name, SymbolConstants.COLON, cacheProperties.getSeparator());
-            if (expires.containsKey(key)) {
-                Expire expire = expires.get(key);
-                log.debug("[Herodotus] |- CACHE - Caffeine cache [{}] is setted to use CUSTEM exprie.", name);
-                return Caffeine.newBuilder().expireAfterWrite(expire.getDuration(), expire.getUnit()).build();
+            if (instances.containsKey(key)) {
+                CacheSetting cacheSetting = instances.get(key);
+                log.debug("[Herodotus] |- CACHE - Caffeine cache [{}] is set to use INSTANCE config.", name);
+                return Caffeine.newBuilder().expireAfterWrite(cacheSetting.getExpire()).build();
             }
         }
 

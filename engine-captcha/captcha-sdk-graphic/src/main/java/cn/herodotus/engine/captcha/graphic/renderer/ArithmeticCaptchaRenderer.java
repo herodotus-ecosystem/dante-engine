@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.captcha.graphic.renderer;
 
-import cn.herodotus.engine.assistant.core.utils.RegexPool;
+import cn.herodotus.engine.assistant.core.definition.constants.RegexPool;
 import cn.herodotus.engine.captcha.core.definition.domain.Metadata;
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCategory;
 import cn.herodotus.engine.captcha.core.provider.RandomProvider;

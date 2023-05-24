@@ -29,7 +29,10 @@ import cn.herodotus.engine.oauth2.authentication.configuration.OAuth2Authenticat
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.oauth2.data.jpa.configuration.OAuth2DataJpaConfiguration;
 import cn.herodotus.engine.oauth2.management.compliance.listener.AuthenticationSuccessListener;
+import cn.herodotus.engine.oauth2.management.response.OAuth2DeviceVerificationResponseHandler;
+import cn.herodotus.engine.oauth2.management.response.OidcClientRegistrationResponseHandler;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
+import cn.herodotus.engine.oauth2.management.service.OAuth2DeviceService;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,15 +70,31 @@ public class OAuth2ManagementConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [OAuth2 Authorization Server] Auto Configure.");
+        log.debug("[Herodotus] |- Module [OAuth2 Management] Auto Configure.");
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public AuthenticationSuccessListener authenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService) {
-        AuthenticationSuccessListener authenticationSuccessListener = new AuthenticationSuccessListener(stampManager, complianceService);
+    public AuthenticationSuccessListener authenticationSuccessListener(SignInFailureLimitedStampManager stampManager, OAuth2ComplianceService complianceService, OAuth2DeviceService deviceService) {
+        AuthenticationSuccessListener listener = new AuthenticationSuccessListener(stampManager, complianceService);
         log.trace("[Herodotus] |- Bean [OAuth2 Authentication Success Listener] Auto Configure.");
-        return authenticationSuccessListener;
+        return listener;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public OAuth2DeviceVerificationResponseHandler oauth2DeviceVerificationResponseHandler(OAuth2DeviceService oauth2DeviceService) {
+        OAuth2DeviceVerificationResponseHandler handler = new OAuth2DeviceVerificationResponseHandler(oauth2DeviceService);
+        log.trace("[Herodotus] |- Bean [OAuth2 Device Verification Response Handler] Auto Configure.");
+        return handler;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public OidcClientRegistrationResponseHandler oidcClientRegistrationResponseHandler(OAuth2DeviceService oauth2DeviceService) {
+        OidcClientRegistrationResponseHandler handler = new OidcClientRegistrationResponseHandler(oauth2DeviceService);
+        log.trace("[Herodotus] |- Bean [Oidc Client Registration Response Handler] Auto Configure.");
+        return handler;
     }
 
 }

@@ -25,33 +25,23 @@
 
 package cn.herodotus.engine.supplier.upms.logic.service.security;
 
-import cn.herodotus.engine.assistant.core.component.router.BaseMeta;
-import cn.herodotus.engine.assistant.core.component.router.ChildMeta;
-import cn.herodotus.engine.assistant.core.component.router.ParentMeta;
-import cn.herodotus.engine.assistant.core.component.router.RootMeta;
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysRole;
 import cn.herodotus.engine.supplier.upms.logic.repository.security.SysElementRepository;
-import cn.hutool.core.lang.tree.TreeNode;
 import jakarta.persistence.criteria.Predicate;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>Description: SysMenuService </p>
@@ -62,11 +52,8 @@ import java.util.stream.Collectors;
 @Service
 public class SysElementService extends BaseService<SysElement, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysElementService.class);
-
     private final SysElementRepository sysElementRepository;
 
-    @Autowired
     public SysElementService(SysElementRepository sysElementRepository) {
         this.sysElementRepository = sysElementRepository;
     }
@@ -96,7 +83,6 @@ public class SysElementService extends BaseService<SysElement, String> {
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- SysElementService Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 
@@ -112,69 +98,6 @@ public class SysElementService extends BaseService<SysElement, String> {
         SysElement sysElement = findById(elementId);
         sysElement.setRoles(sysRoles);
 
-        log.debug("[Herodotus] |- SysElementService Service authorize.");
-        return saveOrUpdate(sysElement);
-    }
-
-    private String convertParentId(String parentId) {
-        if (StringUtils.isBlank(parentId)) {
-            return BaseConstants.DEFAULT_TREE_ROOT_ID;
-        } else {
-            return parentId;
-        }
-    }
-
-    private void setBaseMeta(SysElement sysMenu, BaseMeta meta) {
-        meta.setIcon(sysMenu.getIcon());
-        meta.setTitle(sysMenu.getTitle());
-        meta.setIgnoreAuth(sysMenu.getIgnoreAuth());
-        meta.setNotKeepAlive(sysMenu.getNotKeepAlive());
-    }
-
-    private Map<String, Object> getExtra(SysElement sysMenu) {
-        Map<String, Object> extra = new HashMap<>();
-
-        if (StringUtils.isBlank(sysMenu.getParentId())) {
-            RootMeta meta = new RootMeta();
-            meta.setSort(sysMenu.getRanking());
-            setBaseMeta(sysMenu, meta);
-            extra.put("meta", meta);
-            extra.put("redirect", sysMenu.getRedirect());
-        } else {
-            if (BooleanUtils.isTrue(sysMenu.getHaveChild())) {
-                ParentMeta meta = new ParentMeta();
-                meta.setHideAllChild(sysMenu.getHideAllChild());
-                setBaseMeta(sysMenu, meta);
-                extra.put("meta", meta);
-                extra.put("componentName", sysMenu.getName());
-            } else {
-                ChildMeta meta = new ChildMeta();
-                meta.setDetailContent(sysMenu.getDetailContent());
-                setBaseMeta(sysMenu, meta);
-                extra.put("meta", meta);
-                extra.put("componentName", sysMenu.getName());
-            }
-        }
-        extra.put("componentPath", sysMenu.getComponent());
-
-        Set<SysRole> sysRoles = sysMenu.getRoles();
-        if (CollectionUtils.isNotEmpty(sysRoles)) {
-            List<String> roles = sysRoles.stream().map(SysRole::getRoleCode).collect(Collectors.toList());
-            extra.put("roles", roles);
-        } else {
-            extra.put("roles", new ArrayList<>());
-        }
-
-        return extra;
-    }
-
-    public TreeNode<String> convertToTreeNode(SysElement sysMenu) {
-        TreeNode<String> treeNode = new TreeNode<>();
-        treeNode.setId(sysMenu.getElementId());
-        treeNode.setName(sysMenu.getPath());
-        treeNode.setWeight(sysMenu.getRanking());
-        treeNode.setParentId(convertParentId(sysMenu.getParentId()));
-        treeNode.setExtra(getExtra(sysMenu));
-        return treeNode;
+        return saveAndFlush(sysElement);
     }
 }

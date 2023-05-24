@@ -35,8 +35,6 @@ import cn.herodotus.engine.supplier.message.repository.NotificationRepository;
 import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -55,8 +53,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class NotificationService extends BaseService<Notification, String> {
-
-    private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
 
     private final NotificationRepository notificationRepository;
     private final PullStampService pullStampService;
@@ -106,7 +102,6 @@ public class NotificationService extends BaseService<Notification, String> {
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- Notification Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 
@@ -126,8 +121,6 @@ public class NotificationService extends BaseService<Notification, String> {
     }
 
     public int setAllRead(String userId) {
-        int result = notificationRepository.updateAllRead(userId);
-        log.debug("[Herodotus] |- Notification Service setAllRead.");
-        return result;
+        return notificationRepository.updateAllRead(userId);
     }
 }

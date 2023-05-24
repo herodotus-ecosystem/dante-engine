@@ -42,7 +42,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -68,7 +67,6 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
     private final SysOwnershipService sysOwnershipService;
     private final SysUserService sysUserService;
 
-    @Autowired
     public SysEmployeeService(SysEmployeeRepository sysEmployeeRepository, SysOwnershipService sysOwnershipService, SysUserService sysUserService) {
         this.sysEmployeeRepository = sysEmployeeRepository;
         this.sysOwnershipService = sysOwnershipService;
@@ -140,7 +138,6 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- SysEmployee Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 
@@ -227,7 +224,6 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- SysEmployee Service findAllocatable.");
         return this.findByPage(specification, pageable);
     }
 
@@ -239,7 +235,6 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
             return criteriaBuilder.equal(join.get("departmentId"), departmentId);
         };
 
-        log.debug("[Herodotus] |- SysEmployee Service findAllocatable.");
         return this.findByPage(specification, pageable);
     }
 
@@ -249,9 +244,8 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
         SysUser sysUser = sysUserService.register(sysEmployee);
         if (ObjectUtils.isNotEmpty(sysUser) && ObjectUtils.isNotEmpty(sysEmployee)) {
             sysUser.setEmployee(sysEmployee);
-            SysUser newUser = sysUserService.saveOrUpdate(sysUser);
+            SysUser newUser = sysUserService.saveAndFlush(sysUser);
             if (ObjectUtils.isNotEmpty(newUser)) {
-                log.debug("[Herodotus] |- SysEmployee Service authorize.");
                 return newUser.getEmployee();
             }
         }
@@ -264,7 +258,6 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
     public void deleteById(String employeeId) {
         sysOwnershipService.deleteByEmployeeId(employeeId);
         super.deleteById(employeeId);
-        log.debug("[Herodotus] |- SysEmployee Service deleteById.");
     }
 
     @Transactional(rollbackFor = TransactionalRollbackException.class)
@@ -273,7 +266,6 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
             List<SysEmployee> result = sysEmployeeRepository.saveAllAndFlush(sysEmployees);
             if (CollectionUtils.isNotEmpty(result)) {
                 sysOwnershipService.saveAll(sysOwnerships);
-                log.debug("[Herodotus] |- SysEmployee Service deleteById.");
                 return true;
             }
         }
@@ -299,9 +291,7 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
     }
 
     public SysEmployee findByEmployeeName(String employeeName) {
-        SysEmployee sysEmployee = sysEmployeeRepository.findByEmployeeName(employeeName);
-        log.debug("[Herodotus] |- SysEmployee Service findByEmployeName.");
-        return sysEmployee;
+        return sysEmployeeRepository.findByEmployeeName(employeeName);
     }
 
 }

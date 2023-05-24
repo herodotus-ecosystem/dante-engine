@@ -31,7 +31,6 @@ import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOwnership;
 import cn.herodotus.engine.supplier.upms.logic.repository.hr.SysOwnershipRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -47,7 +46,6 @@ public class SysOwnershipService extends BaseService<SysOwnership, String> {
 
     private final SysOwnershipRepository sysOwnershipRepository;
 
-    @Autowired
     public SysOwnershipService(SysOwnershipRepository sysOwnershipRepository) {
         this.sysOwnershipRepository = sysOwnershipRepository;
     }
@@ -59,21 +57,17 @@ public class SysOwnershipService extends BaseService<SysOwnership, String> {
 
     public void deleteByOrganizationId(String organizationId) {
         sysOwnershipRepository.deleteByOrganizationId(organizationId);
-        log.debug("[Herodotus] |- SysOwnershipService Service deleteByOrganizationId.");
     }
 
     public void deleteByDepartmentId(String departmentId) {
         sysOwnershipRepository.deleteByDepartmentId(departmentId);
-        log.debug("[Herodotus] |- SysOwnershipService Service deleteByDepartmentId.");
     }
 
     public void deleteByEmployeeId(String employeeId) {
         sysOwnershipRepository.deleteByEmployeeId(employeeId);
-        log.debug("[Herodotus] |- SysOwnershipService Service deleteByEmployeeId.");
     }
 
     public void delete(String organizationId, String departmentId, String employeeId) {
         sysOwnershipRepository.deleteByOrganizationIdAndDepartmentIdAndEmployeeId(organizationId, departmentId, employeeId);
-        log.debug("[Herodotus] |- SysOwnershipService delete.");
     }
 }

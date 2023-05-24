@@ -39,7 +39,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -58,7 +57,6 @@ public class SysUserController extends BaseWriteableRestController<SysUser, Stri
 
     private final SysUserService sysUserService;
 
-    @Autowired
     public SysUserController(SysUserService sysUserService) {
         this.sysUserService = sysUserService;
     }

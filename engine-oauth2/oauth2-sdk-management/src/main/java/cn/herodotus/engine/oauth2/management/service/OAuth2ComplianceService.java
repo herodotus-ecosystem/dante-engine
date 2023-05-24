@@ -39,7 +39,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -62,7 +61,6 @@ public class OAuth2ComplianceService extends BaseService<OAuth2Compliance, Strin
 
     private final OAuth2ComplianceRepository complianceRepository;
 
-    @Autowired
     public OAuth2ComplianceService(OAuth2ComplianceRepository complianceRepository) {
         this.complianceRepository = complianceRepository;
     }
@@ -96,7 +94,6 @@ public class OAuth2ComplianceService extends BaseService<OAuth2Compliance, Strin
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- OAuth2Compliance Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 

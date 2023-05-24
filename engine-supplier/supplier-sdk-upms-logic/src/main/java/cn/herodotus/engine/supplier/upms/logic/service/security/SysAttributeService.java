@@ -30,9 +30,6 @@ import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysAttribute;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysPermission;
 import cn.herodotus.engine.supplier.upms.logic.repository.security.SysAttributeRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -48,11 +45,8 @@ import java.util.Set;
 @Service
 public class SysAttributeService extends BaseService<SysAttribute, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysAttributeService.class);
-
     private final SysAttributeRepository sysAttributeRepository;
 
-    @Autowired
     public SysAttributeService(SysAttributeRepository sysAttributeRepository) {
         this.sysAttributeRepository = sysAttributeRepository;
     }
@@ -74,18 +68,10 @@ public class SysAttributeService extends BaseService<SysAttribute, String> {
         SysAttribute sysAttribute = findById(attributeId);
         sysAttribute.setPermissions(sysPermissions);
 
-        log.debug("[Herodotus] |- SysAttribute Service assign.");
-        return saveOrUpdate(sysAttribute);
-    }
-
-    public List<SysAttribute> batchSaveOrUpdate(List<SysAttribute> domains) {
-        List<SysAttribute> sysAttributes = sysAttributeRepository.saveAllAndFlush(domains);
-        log.debug("[Herodotus] |- SysAttribute Service batchSaveOrUpdate.");
-        return sysAttributes;
+        return saveAndFlush(sysAttribute);
     }
 
     public List<SysAttribute> findByAttributeIdIn(List<String> ids) {
-        log.debug("[Herodotus] |- SysAttribute Service findByAttributeIdIn.");
         return sysAttributeRepository.findByAttributeIdIn(ids);
     }
 }

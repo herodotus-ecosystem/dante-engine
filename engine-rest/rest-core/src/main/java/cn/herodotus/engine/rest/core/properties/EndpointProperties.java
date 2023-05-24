@@ -27,7 +27,7 @@ package cn.herodotus.engine.rest.core.properties;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.exception.properties.PropertyValueIsNotSetException;
-import cn.herodotus.engine.assistant.core.utils.ConvertUtils;
+import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.StringUtils;
@@ -185,7 +185,7 @@ public class EndpointProperties {
                 log.error("[Herodotus] |- Property [Uaa Service Name] is not set or property format is incorrect!");
                 throw new PropertyValueIsNotSetException();
             } else {
-                return ConvertUtils.wellFormed(getGatewayServiceUri()) + uaaServiceName;
+                return WellFormedUtils.url(getGatewayServiceUri()) + uaaServiceName;
             }
         }
     }
@@ -214,7 +214,7 @@ public class EndpointProperties {
                 log.error("[Herodotus] |- Property [Upms Service Name] is not set or property format is incorrect!");
                 throw new PropertyValueIsNotSetException();
             } else {
-                return ConvertUtils.wellFormed(getGatewayServiceUri()) + upmsServiceName;
+                return WellFormedUtils.url(getGatewayServiceUri()) + upmsServiceName;
             }
         }
     }

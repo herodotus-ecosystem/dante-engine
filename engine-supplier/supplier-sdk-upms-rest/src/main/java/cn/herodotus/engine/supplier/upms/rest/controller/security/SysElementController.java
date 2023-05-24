@@ -30,6 +30,7 @@ import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
+import cn.herodotus.engine.supplier.upms.logic.converter.SysElementToTreeNodeConverter;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 import cn.herodotus.engine.supplier.upms.logic.service.security.SysElementService;
 import cn.hutool.core.lang.tree.Tree;
@@ -46,7 +47,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -69,10 +70,11 @@ import java.util.stream.Collectors;
 public class SysElementController extends BaseWriteableRestController<SysElement, String> {
 
     private final SysElementService sysElementService;
+    private final Converter<SysElement, TreeNode<String>> toTreeNode;
 
-    @Autowired
     public SysElementController(SysElementService sysElementService) {
         this.sysElementService = sysElementService;
+        this.toTreeNode = new SysElementToTreeNodeConverter();
     }
 
     @Override
@@ -86,7 +88,7 @@ public class SysElementController extends BaseWriteableRestController<SysElement
     public Result<List<Tree<String>>> findTree() {
         List<SysElement> sysMenus = sysElementService.findAll();
         if (ObjectUtils.isNotEmpty(sysMenus)) {
-            List<TreeNode<String>> treeNodes = sysMenus.stream().map(sysElementService::convertToTreeNode).collect(Collectors.toList());
+            List<TreeNode<String>> treeNodes = sysMenus.stream().map(toTreeNode::convert).collect(Collectors.toList());
             return Result.success("查询数据成功", TreeUtil.build(treeNodes, BaseConstants.DEFAULT_TREE_ROOT_ID));
         } else {
             return Result.failure("查询数据失败");

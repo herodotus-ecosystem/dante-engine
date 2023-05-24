@@ -25,21 +25,16 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.storage;
 
+import cn.herodotus.engine.oauth2.data.jpa.converter.HerodotusToOAuth2AuthorizationConsentConverter;
+import cn.herodotus.engine.oauth2.data.jpa.converter.OAuth2ToHerodotusAuthorizationConsentConverter;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationConsentService;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataRetrievalFailureException;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.util.StringUtils;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * <p>Description: 基于 JPA 的 OAuth2 认证服务 </p>
@@ -52,11 +47,13 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
     private static final Logger log = LoggerFactory.getLogger(JpaOAuth2AuthorizationConsentService.class);
 
     private final HerodotusAuthorizationConsentService herodotusAuthorizationConsentService;
-    private final RegisteredClientRepository registeredClientRepository;
+    private final Converter<HerodotusAuthorizationConsent, OAuth2AuthorizationConsent> herodotusToOAuth2Converter;
+    private final Converter<OAuth2AuthorizationConsent, HerodotusAuthorizationConsent> oauth2ToherodotusConverter;
 
     public JpaOAuth2AuthorizationConsentService(HerodotusAuthorizationConsentService herodotusAuthorizationConsentService, RegisteredClientRepository registeredClientRepository) {
         this.herodotusAuthorizationConsentService = herodotusAuthorizationConsentService;
-        this.registeredClientRepository = registeredClientRepository;
+        this.herodotusToOAuth2Converter = new HerodotusToOAuth2AuthorizationConsentConverter(registeredClientRepository);
+        this.oauth2ToherodotusConverter = new OAuth2ToHerodotusAuthorizationConsentConverter();
     }
 
     @Override
@@ -80,35 +77,10 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
     }
 
     private OAuth2AuthorizationConsent toObject(HerodotusAuthorizationConsent authorizationConsent) {
-        String registeredClientId = authorizationConsent.getRegisteredClientId();
-        RegisteredClient registeredClient = this.registeredClientRepository.findById(registeredClientId);
-        if (registeredClient == null) {
-            throw new DataRetrievalFailureException(
-                    "The RegisteredClient with id '" + registeredClientId + "' was not found in the RegisteredClientRepository.");
-        }
-
-        OAuth2AuthorizationConsent.Builder builder = OAuth2AuthorizationConsent.withId(
-                registeredClientId, authorizationConsent.getPrincipalName());
-        if (authorizationConsent.getAuthorities() != null) {
-            for (String authority : StringUtils.commaDelimitedListToSet(authorizationConsent.getAuthorities())) {
-                builder.authority(new HerodotusGrantedAuthority(authority));
-            }
-        }
-
-        return builder.build();
+        return herodotusToOAuth2Converter.convert(authorizationConsent);
     }
 
     private HerodotusAuthorizationConsent toEntity(OAuth2AuthorizationConsent authorizationConsent) {
-        HerodotusAuthorizationConsent entity = new HerodotusAuthorizationConsent();
-        entity.setRegisteredClientId(authorizationConsent.getRegisteredClientId());
-        entity.setPrincipalName(authorizationConsent.getPrincipalName());
-
-        Set<String> authorities = new HashSet<>();
-        for (GrantedAuthority authority : authorizationConsent.getAuthorities()) {
-            authorities.add(authority.getAuthority());
-        }
-        entity.setAuthorities(StringUtils.collectionToCommaDelimitedString(authorities));
-
-        return entity;
+        return oauth2ToherodotusConverter.convert(authorizationConsent);
     }
 }

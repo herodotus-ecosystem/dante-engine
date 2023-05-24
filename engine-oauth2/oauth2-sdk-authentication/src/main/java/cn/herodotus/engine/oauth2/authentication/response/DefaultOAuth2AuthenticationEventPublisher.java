@@ -56,28 +56,26 @@ public class DefaultOAuth2AuthenticationEventPublisher extends DefaultAuthentica
     }
 
     private AuthenticationException convert(AuthenticationException exception) {
-        if (exception instanceof OAuth2AuthenticationException) {
-            OAuth2AuthenticationException authenticationException = (OAuth2AuthenticationException) exception;
+        if (exception instanceof OAuth2AuthenticationException authenticationException) {
             OAuth2Error error = authenticationException.getError();
 
-            switch (error.getErrorCode()) {
-                case OAuth2ErrorKeys.ACCOUNT_EXPIRED:
-                    return new AccountExpiredException(exception.getMessage(), exception.getCause());
-                case OAuth2ErrorKeys.CREDENTIALS_EXPIRED:
-                    return new CredentialsExpiredException(exception.getMessage(), exception.getCause());
-                case OAuth2ErrorKeys.ACCOUNT_DISABLED:
-                    return new DisabledException(exception.getMessage(), exception.getCause());
-                case OAuth2ErrorKeys.ACCOUNT_LOCKED:
-                    return new LockedException(exception.getMessage(), exception.getCause());
-                case OAuth2ErrorKeys.ACCOUNT_ENDPOINT_LIMITED:
-                    return new AccountEndpointLimitedException(exception.getMessage(), exception.getCause());
-                case OAuth2ErrorKeys.USERNAME_NOT_FOUND:
-                    return new UsernameNotFoundException(exception.getMessage(), exception.getCause());
-                case OAuth2ErrorKeys.SESSION_EXPIRED:
-                    return new SessionExpiredException(exception.getMessage(), exception.getCause());
-                default:
-                    return new BadCredentialsException(exception.getMessage(), exception.getCause());
-            }
+            return switch (error.getErrorCode()) {
+                case OAuth2ErrorKeys.ACCOUNT_EXPIRED ->
+                        new AccountExpiredException(exception.getMessage(), exception.getCause());
+                case OAuth2ErrorKeys.CREDENTIALS_EXPIRED ->
+                        new CredentialsExpiredException(exception.getMessage(), exception.getCause());
+                case OAuth2ErrorKeys.ACCOUNT_DISABLED ->
+                        new DisabledException(exception.getMessage(), exception.getCause());
+                case OAuth2ErrorKeys.ACCOUNT_LOCKED ->
+                        new LockedException(exception.getMessage(), exception.getCause());
+                case OAuth2ErrorKeys.ACCOUNT_ENDPOINT_LIMITED ->
+                        new AccountEndpointLimitedException(exception.getMessage(), exception.getCause());
+                case OAuth2ErrorKeys.USERNAME_NOT_FOUND ->
+                        new UsernameNotFoundException(exception.getMessage(), exception.getCause());
+                case OAuth2ErrorKeys.SESSION_EXPIRED ->
+                        new SessionExpiredException(exception.getMessage(), exception.getCause());
+                default -> new BadCredentialsException(exception.getMessage(), exception.getCause());
+            };
         }
 
         return exception;

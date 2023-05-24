@@ -59,12 +59,12 @@ public enum TokenFormat implements BaseUiEnum<Integer> {
     @Schema(title = "文字")
     private final String description;
 
-    private static final Map<Integer, TokenFormat> INDEX_MAP = new HashMap<>();
+    private static final Map<String, TokenFormat> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
     static {
         for (TokenFormat tokenFormat : TokenFormat.values()) {
-            INDEX_MAP.put(tokenFormat.getValue(), tokenFormat);
+            INDEX_MAP.put(tokenFormat.getFormat(), tokenFormat);
             JSON_STRUCTURE.add(tokenFormat.getValue(),
                     ImmutableMap.<String, Object>builder()
                             // 使用数字作为 value, 适用于单选，同时数据库只存 value值即可
@@ -107,8 +107,8 @@ public enum TokenFormat implements BaseUiEnum<Integer> {
         return description;
     }
 
-    public static TokenFormat get(Integer index) {
-        return INDEX_MAP.get(index);
+    public static TokenFormat get(String format) {
+        return INDEX_MAP.get(format);
     }
 
     public static List<Map<String, Object>> getPreprocessedJsonStructure() {

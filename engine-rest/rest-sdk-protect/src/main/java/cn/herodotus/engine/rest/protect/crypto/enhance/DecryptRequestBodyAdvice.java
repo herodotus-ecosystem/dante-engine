@@ -124,8 +124,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
             Iterator<Map.Entry<String, JsonNode>> it = jsonNode.fields();
             while (it.hasNext()) {
                 Map.Entry<String, JsonNode> entry = it.next();
-                if (entry.getValue() instanceof TextNode && entry.getValue().isValueNode()) {
-                    TextNode t = (TextNode) entry.getValue();
+                if (entry.getValue() instanceof TextNode t && entry.getValue().isValueNode()) {
                     String value = httpCryptoProcessor.decrypt(sessionKey, t.asText());
                     entry.setValue(new TextNode(value));
                 }

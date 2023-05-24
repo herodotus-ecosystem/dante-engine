@@ -28,6 +28,8 @@ package cn.herodotus.engine.oauth2.management.repository;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 
+import java.util.List;
+
 /**
  * <p> Description : OauthScopeRepository </p>
  *
@@ -44,4 +46,10 @@ public interface OAuth2ScopeRepository extends BaseRepository<OAuth2Scope, Strin
      */
     OAuth2Scope findByScopeCode(String scopeCode);
 
+    /**
+     * 根据 scope codes 查询对应的对象列表
+     * @param scopeCodes 范围代码
+     * @return 对象列表
+     */
+    List<OAuth2Scope> findByScopeCodeIn(List<String> scopeCodes);
 }

@@ -25,6 +25,9 @@
 
 package cn.herodotus.engine.cache.jetcache.enhance;
 
+import cn.herodotus.engine.cache.core.enums.CacheMethod;
+import cn.herodotus.engine.cache.core.properties.CacheProperties;
+import cn.herodotus.engine.cache.core.properties.CacheSetting;
 import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alicp.jetcache.Cache;
@@ -46,37 +49,35 @@ import java.time.Duration;
 public class JetCacheCreateCacheFactory {
 
     private final CacheManager cacheManager;
+    private final CacheProperties cacheProperties;
 
-    public JetCacheCreateCacheFactory(CacheManager cacheManager) {
+    public JetCacheCreateCacheFactory(CacheManager cacheManager, CacheProperties cacheProperties) {
         this.cacheManager = cacheManager;
+        this.cacheProperties = cacheProperties;
+    }
+
+    public <K, V> Cache<K, V> create(String name, CacheSetting cacheSetting) {
+        return create(name, false, cacheSetting);
+    }
+
+    public <K, V> Cache<K, V> create(String name, Boolean cacheNullValue, CacheSetting cacheSetting) {
+        return create(cacheSetting.getArea(), name, getCacheType(cacheSetting.getMethod()), cacheSetting.getExpire(), cacheNullValue, cacheSetting.getSync(), cacheSetting.getLocalExpire(), cacheSetting.getLocalLimit(), false, cacheSetting.getPenetrationProtect(), cacheSetting.getPenetrationProtectTimeout());
     }
 
     public <K, V> Cache<K, V> create(String name) {
-        return create(name, Duration.ofHours(2L));
+        return create(name, cacheProperties.getExpire());
     }
 
     public <K, V> Cache<K, V> create(String name, Duration expire) {
-        return create(name, expire, true);
+        return create(name, expire, cacheProperties.getAllowNullValues());
     }
 
     public <K, V> Cache<K, V> create(String name, Duration expire, Boolean cacheNullValue) {
-        return create(name, expire, cacheNullValue, null);
+        return create(name, expire, cacheNullValue, cacheProperties.getSync());
     }
 
     public <K, V> Cache<K, V> create(String name, Duration expire, Boolean cacheNullValue, Boolean syncLocal) {
-        return create(name, CacheType.BOTH, expire, cacheNullValue, syncLocal);
-    }
-
-    public <K, V> Cache<K, V> create(String name, CacheType cacheType) {
-        return create(name, cacheType, null);
-    }
-
-    public <K, V> Cache<K, V> create(String name, CacheType cacheType, Duration expire) {
-        return create(name, cacheType, expire, true);
-    }
-
-    public <K, V> Cache<K, V> create(String name, CacheType cacheType, Duration expire, Boolean cacheNullValue) {
-        return create(name, cacheType, expire, cacheNullValue, null);
+        return create(name, getCacheType(cacheProperties.getMethod()), expire, cacheNullValue, syncLocal);
     }
 
     public <K, V> Cache<K, V> create(String name, CacheType cacheType, Duration expire, Boolean cacheNullValue, Boolean syncLocal) {
@@ -84,11 +85,11 @@ public class JetCacheCreateCacheFactory {
     }
 
     public <K, V> Cache<K, V> create(String area, String name, CacheType cacheType, Duration expire, Boolean cacheNullValue, Boolean syncLocal) {
-        return create(area, name, cacheType, expire, cacheNullValue, syncLocal, null);
+        return create(area, name, cacheType, expire, cacheNullValue, syncLocal, cacheProperties.getLocalExpire());
     }
 
     public <K, V> Cache<K, V> create(String area, String name, CacheType cacheType, Duration expire, Boolean cacheNullValue, Boolean syncLocal, Duration localExpire) {
-        return create(area, name, cacheType, expire, cacheNullValue, syncLocal, localExpire, null);
+        return create(area, name, cacheType, expire, cacheNullValue, syncLocal, localExpire, cacheProperties.getLocalLimit());
     }
 
     public <K, V> Cache<K, V> create(String area, String name, CacheType cacheType, Duration expire, Boolean cacheNullValue, Boolean syncLocal, Duration localExpire, Integer localLimit) {
@@ -96,7 +97,7 @@ public class JetCacheCreateCacheFactory {
     }
 
     public <K, V> Cache<K, V> create(String area, String name, CacheType cacheType, Duration expire, Boolean cacheNullValue, Boolean syncLocal, Duration localExpire, Integer localLimit, Boolean useAreaInPrefix) {
-        return create(area, name, cacheType, expire, cacheNullValue, syncLocal, localExpire, localLimit, useAreaInPrefix, false, null);
+        return create(area, name, cacheType, expire, cacheNullValue, syncLocal, localExpire, localLimit, useAreaInPrefix, cacheProperties.getPenetrationProtect(), cacheProperties.getPenetrationProtectTimeout());
     }
 
     public <K, V> Cache<K, V> create(String area, String name, CacheType cacheType, Duration expire, Boolean cacheNullValue, Boolean syncLocal, Duration localExpire, Integer localLimit, Boolean useAreaInPrefix, Boolean penetrationProtect, Duration penetrationProtectTimeout) {
@@ -133,5 +134,13 @@ public class JetCacheCreateCacheFactory {
     @SuppressWarnings("unchecked")
     private <K, V> Cache<K, V> create(QuickConfig quickConfig) {
         return cacheManager.getOrCreateCache(quickConfig);
+    }
+
+    private CacheType getCacheType(CacheMethod cacheMethod) {
+        if (ObjectUtils.isNotEmpty(cacheMethod)) {
+            return CacheType.valueOf(cacheMethod.name());
+        } else {
+            return CacheType.BOTH;
+        }
     }
 }

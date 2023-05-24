@@ -69,16 +69,16 @@ public class OAuth2ComplianceConfiguration {
     @Bean
     @ConditionalOnAutoUnlockUserAccount
     public AccountAutoEnableListener accountLockStatusListener(RedisMessageListenerContainer redisMessageListenerContainer, OAuth2AccountStatusManager accountStatusManager) {
-        AccountAutoEnableListener lockStatusListener = new AccountAutoEnableListener(redisMessageListenerContainer, accountStatusManager);
+        AccountAutoEnableListener listener = new AccountAutoEnableListener(redisMessageListenerContainer, accountStatusManager);
         log.trace("[Herodotus] |- Bean [OAuth2 Account Lock Status Listener] Auto Configure.");
-        return lockStatusListener;
+        return listener;
     }
 
     @Bean
     @ConditionalOnMissingBean
     public AuthenticationFailureListener authenticationFailureListener(SignInFailureLimitedStampManager stampManager, OAuth2AccountStatusManager accountLockService) {
-        AuthenticationFailureListener authenticationFailureListener = new AuthenticationFailureListener(stampManager, accountLockService);
+        AuthenticationFailureListener listener = new AuthenticationFailureListener(stampManager, accountLockService);
         log.trace("[Herodotus] |- Bean [OAuth2 Authentication Failure Listener] Auto Configure.");
-        return authenticationFailureListener;
+        return listener;
     }
 }

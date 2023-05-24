@@ -31,9 +31,6 @@ import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysDepartment;
 import cn.herodotus.engine.supplier.upms.logic.repository.hr.SysDepartmentRepository;
 import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.lang3.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -52,12 +49,9 @@ import java.util.List;
 @Service
 public class SysDepartmentService extends BaseService<SysDepartment, String> {
 
-    private static final Logger log = LoggerFactory.getLogger(SysDepartmentService.class);
-
     private final SysDepartmentRepository sysDepartmentRepository;
     private final SysOwnershipService sysOwnershipService;
 
-    @Autowired
     public SysDepartmentService(SysDepartmentRepository sysDepartmentRepository, SysOwnershipService sysOwnershipService) {
         this.sysDepartmentRepository = sysDepartmentRepository;
         this.sysOwnershipService = sysOwnershipService;
@@ -84,7 +78,6 @@ public class SysDepartmentService extends BaseService<SysDepartment, String> {
             return criteriaQuery.getRestriction();
         };
 
-        log.debug("[Herodotus] |- SysDepartment Service findByCondition.");
         return this.findByPage(specification, pageable);
     }
 
@@ -100,6 +93,5 @@ public class SysDepartmentService extends BaseService<SysDepartment, String> {
     public void deleteById(String departmentId) {
         sysOwnershipService.deleteByDepartmentId(departmentId);
         super.deleteById(departmentId);
-        log.debug("[Herodotus] |- SysDepartment Service deleteById.");
     }
 }

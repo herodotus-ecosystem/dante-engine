@@ -29,7 +29,6 @@ import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Permission;
 import cn.herodotus.engine.oauth2.management.repository.OAuth2PermissionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -43,7 +42,6 @@ public class OAuth2PermissionService extends BaseService<OAuth2Permission, Strin
 
     private final OAuth2PermissionRepository authorityRepository;
 
-    @Autowired
     public OAuth2PermissionService(OAuth2PermissionRepository authorityRepository) {
         this.authorityRepository = authorityRepository;
     }

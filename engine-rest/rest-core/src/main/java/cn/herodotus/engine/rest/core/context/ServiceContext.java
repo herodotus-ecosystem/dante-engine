@@ -28,7 +28,7 @@ package cn.herodotus.engine.rest.core.context;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.enums.Target;
-import cn.herodotus.engine.assistant.core.utils.ConvertUtils;
+import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.enums.Architecture;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -186,7 +186,7 @@ public class ServiceContext {
         if (StringUtils.isBlank(this.url)) {
             String address = this.getAddress();
             if (StringUtils.isNotBlank(address)) {
-                return ConvertUtils.addressToUri(address, getProtocol(), false);
+                return WellFormedUtils.addressToUri(address, getProtocol(), false);
             }
         }
         return url;
