@@ -116,9 +116,10 @@
         <springdoc.version>2.1.0</springdoc.version>
         <logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
         <skywalking.version>8.15.0</skywalking.version>
-        <minio.version>8.5.2</minio.version>
+        <minio.version>8.5.3</minio.version>
 
         <!-- 阿里巴巴开源工具依赖 -->
+        <fastjson.version>1.2.83</fastjson.version>
         <fastjson2.version>2.0.32</fastjson2.version>
         <jetcache.version>2.7.3</jetcache.version>
         <nacos.version>2.2.2</nacos.version>
@@ -147,7 +148,7 @@
         <mdi__font.version>7.2.96</mdi__font.version>
         <quasar.version>2.11.9</quasar.version>
         <uniform.version>2.1.2-1</uniform.version>
-        <vue.version>3.2.47</vue.version>
+        <vue.version>3.3.3</vue.version>
 
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
@@ -155,7 +156,7 @@
         <tencentcloud-sdk-java.version>3.1.757</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.13.0</qiniu-java-sdk.version>
-        <alipay-sdk-java.version>4.35.132.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.35.136.ALL</alipay-sdk-java.version>
         <com.baidu.aip.version>4.16.16</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.16.3</aliyun-sdk-oss.version>
@@ -171,7 +172,6 @@
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
         <dom4j.version>2.1.4</dom4j.version>
-        <fastjson.version>1.2.83</fastjson.version>
 <!--        <snakeyaml.version>2.0</snakeyaml.version>-->
 
     </properties>
