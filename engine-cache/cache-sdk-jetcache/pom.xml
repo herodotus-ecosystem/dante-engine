@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-cache</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.0.0</version>
+        <version>3.1.0.1</version>
     </parent>
 
     <artifactId>cache-sdk-jetcache</artifactId>
-    <version>3.1.0.0</version>
+    <version>3.1.0.1</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud JetCache 组件相关代码模块</description>

@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-sms</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.0.0</version>
+        <version>3.1.0.1</version>
     </parent>
 
     <artifactId>sms-spring-boot-starter</artifactId>
-    <version>3.1.0.0</version>
+    <version>3.1.0.1</version>
     <packaging>jar</packaging>
 
     <description>Dante Engine 短信 Starter</description>
