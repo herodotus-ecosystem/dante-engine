@@ -103,10 +103,10 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
         if (CollectionUtils.isEmpty(configAttributes)) {
             log.warn("[Herodotus] |- NO PRIVILEGES : [{}].", url);
 
-            if (authentication.get().isAuthenticated()) {
-                log.debug("[Herodotus] |- Request is authenticated: [{}].", url);
-                return new AuthorizationDecision(true);
-            }
+//            if (authentication.get().isAuthenticated()) {
+//                log.debug("[Herodotus] |- Request is authenticated: [{}].", url);
+//                return new AuthorizationDecision(true);
+//            }
 
             return new AuthorizationDecision(false);
         }
