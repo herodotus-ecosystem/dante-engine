@@ -126,7 +126,7 @@
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <!-- 国内开源通用组件 -->
-        <hutool.version>5.8.18</hutool.version>
+        <hutool.version>5.8.19</hutool.version>
         <okhttps.version>4.0.1</okhttps.version>
         <weixin-java-sdk.version>4.5.0</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
@@ -665,7 +665,6 @@
                 <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>p6spy</groupId>
                 <artifactId>p6spy</artifactId>
