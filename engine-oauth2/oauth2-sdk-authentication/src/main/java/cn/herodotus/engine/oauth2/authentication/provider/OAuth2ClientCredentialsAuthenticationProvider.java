@@ -28,7 +28,7 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.service.ClientDetailsService;
-import cn.hutool.core.util.ReflectUtil;
+import org.dromara.hutool.core.reflect.FieldUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -98,7 +98,7 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
 
         Set<HerodotusGrantedAuthority> authorities = clientDetailsService.findAuthoritiesById(registeredClient.getClientId());
         if (org.apache.commons.collections4.CollectionUtils.isNotEmpty(authorities)) {
-            ReflectUtil.setFieldValue(clientPrincipal, "authorities", authorities);
+            FieldUtil.setFieldValue(clientPrincipal, "authorities", authorities);
             log.debug("[Herodotus] |- Assign authorities to OAuth2ClientAuthenticationToken.");
         }
 

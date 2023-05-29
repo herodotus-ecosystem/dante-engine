@@ -28,8 +28,8 @@ package cn.herodotus.engine.captcha.hutool.renderer;
 import cn.herodotus.engine.captcha.core.definition.AbstractGraphicRenderer;
 import cn.herodotus.engine.captcha.core.definition.domain.Metadata;
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCategory;
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.ShearCaptcha;
+import org.dromara.hutool.swing.captcha.CaptchaUtil;
+import org.dromara.hutool.swing.captcha.ShearCaptcha;
 
 /**
  * <p>Description: Hutool扭曲干扰验证码绘制器 </p>

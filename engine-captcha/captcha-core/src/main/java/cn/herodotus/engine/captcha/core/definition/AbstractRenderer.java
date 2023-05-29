@@ -28,8 +28,8 @@ package cn.herodotus.engine.captcha.core.definition;
 import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
-import cn.hutool.core.img.ImgUtil;
 import com.alicp.jetcache.anno.CacheType;
+import org.dromara.hutool.swing.img.ImgUtil;
 
 import java.awt.image.BufferedImage;
 import java.time.Duration;

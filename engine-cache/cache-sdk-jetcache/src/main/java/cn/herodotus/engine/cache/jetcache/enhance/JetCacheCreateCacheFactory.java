@@ -28,7 +28,6 @@ package cn.herodotus.engine.cache.jetcache.enhance;
 import cn.herodotus.engine.cache.core.enums.CacheMethod;
 import cn.herodotus.engine.cache.core.properties.CacheProperties;
 import cn.herodotus.engine.cache.core.properties.CacheSetting;
-import cn.hutool.crypto.SecureUtil;
 import com.alibaba.fastjson2.JSON;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.CacheManager;
@@ -37,6 +36,7 @@ import com.alicp.jetcache.template.QuickConfig;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.crypto.SecureUtil;
 
 import java.time.Duration;
 

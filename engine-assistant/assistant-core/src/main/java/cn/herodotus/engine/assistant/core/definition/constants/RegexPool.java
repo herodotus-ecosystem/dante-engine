@@ -31,7 +31,7 @@ package cn.herodotus.engine.assistant.core.definition.constants;
  * @author : gengwei.zheng
  * @date : 2021/10/12 10:43
  */
-public interface RegexPool extends cn.hutool.core.lang.RegexPool {
+public interface RegexPool extends org.dromara.hutool.core.regex.RegexPool {
 
     /**
      * 匹配大括号以及其中的内容，

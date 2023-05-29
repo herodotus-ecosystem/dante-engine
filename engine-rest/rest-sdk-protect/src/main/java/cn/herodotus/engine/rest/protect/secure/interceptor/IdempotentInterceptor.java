@@ -25,12 +25,10 @@
 
 package cn.herodotus.engine.rest.protect.secure.interceptor;
 
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.definition.AbstractBaseHandlerInterceptor;
 import cn.herodotus.engine.rest.core.exception.RepeatSubmissionException;
 import cn.herodotus.engine.rest.protect.secure.stamp.IdempotentStampManager;
-import cn.hutool.crypto.SecureUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -60,28 +58,15 @@ public class IdempotentInterceptor extends AbstractBaseHandlerInterceptor {
         this.idempotentStampManager = idempotentStampManager;
     }
 
-    private String generateKey(String sessionId, String url, String method) {
-
-        if (StringUtils.isNotBlank(sessionId)) {
-            String key = SecureUtil.md5(sessionId + SymbolConstants.COLON + url + SymbolConstants.COLON + method);
-            log.debug("[Herodotus] |- IdempotentInterceptor key is [{}].", key);
-            return key;
-        } else {
-            log.warn("[Herodotus] |- IdempotentInterceptor cannot create key, because sessionId is null.");
-            return null;
-        }
-    }
-
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         log.trace("[Herodotus] |- IdempotentInterceptor preHandle postProcess.");
 
-        if (!(handler instanceof HandlerMethod)) {
+        if (!(handler instanceof HandlerMethod handlerMethod)) {
             return true;
         }
 
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
 
         Idempotent idempotent = method.getAnnotation(Idempotent.class);

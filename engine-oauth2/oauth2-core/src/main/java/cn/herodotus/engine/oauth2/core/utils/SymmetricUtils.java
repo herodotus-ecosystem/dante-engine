@@ -27,11 +27,11 @@ package cn.herodotus.engine.oauth2.core.utils;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.core.exception.IllegalSymmetricKeyException;
-import cn.hutool.core.util.RandomUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.symmetric.AES;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.util.RandomUtil;
+import org.dromara.hutool.crypto.SecureUtil;
+import org.dromara.hutool.crypto.symmetric.AES;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,11 +61,9 @@ public class SymmetricUtils {
         String realSecretKey = encryptedRealSecretKey(symmetricKey);
         log.trace("[Herodotus] |- Generate Symmetric Key is : [{}]", realSecretKey);
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(symmetricKey);
-        builder.append(SymbolConstants.FORWARD_SLASH);
-        builder.append(realSecretKey);
-        return builder.toString();
+        return symmetricKey +
+                SymbolConstants.FORWARD_SLASH +
+                realSecretKey;
     }
 
     public static byte[] getDecryptedSymmetricKey(String key) {

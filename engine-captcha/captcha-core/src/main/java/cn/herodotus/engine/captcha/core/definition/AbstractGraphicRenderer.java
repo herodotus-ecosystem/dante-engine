@@ -30,15 +30,13 @@ import cn.herodotus.engine.captcha.core.definition.domain.Metadata;
 import cn.herodotus.engine.captcha.core.dto.Captcha;
 import cn.herodotus.engine.captcha.core.dto.GraphicCaptcha;
 import cn.herodotus.engine.captcha.core.dto.Verification;
-import cn.herodotus.engine.captcha.core.exception.*;
 import cn.herodotus.engine.captcha.core.exception.CaptchaHasExpiredException;
 import cn.herodotus.engine.captcha.core.exception.CaptchaIsEmptyException;
-import cn.hutool.core.util.IdUtil;
-import com.alicp.jetcache.Cache;
-import com.alicp.jetcache.anno.CacheType;
-import com.alicp.jetcache.anno.CreateCache;
+import cn.herodotus.engine.captcha.core.exception.CaptchaMismatchException;
+import cn.herodotus.engine.captcha.core.exception.CaptchaParameterIllegalException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.data.id.IdUtil;
 
 import java.awt.*;
 

@@ -27,16 +27,18 @@ package cn.herodotus.engine.rest.protect.crypto.processor;
 
 import cn.herodotus.engine.assistant.core.domain.SecretKey;
 import cn.herodotus.engine.rest.core.definition.crypto.AsymmetricCryptoProcessor;
-import cn.hutool.core.util.HexUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.BCUtil;
-import cn.hutool.crypto.SmUtil;
-import cn.hutool.crypto.asymmetric.KeyType;
-import cn.hutool.crypto.asymmetric.SM2;
 import org.bouncycastle.crypto.engines.SM2Engine;
 import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey;
+import org.dromara.hutool.core.codec.HexUtil;
+import org.dromara.hutool.core.text.StrUtil;
+import org.dromara.hutool.crypto.asymmetric.KeyType;
+import org.dromara.hutool.crypto.asymmetric.SM2;
+import org.dromara.hutool.crypto.bc.BCUtil;
+import org.dromara.hutool.crypto.bc.SmUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * <p>Description: 国密 SM2 算法处理 </p>
@@ -75,7 +77,7 @@ public class SM2CryptoProcessor implements AsymmetricCryptoProcessor {
         SM2 sm2 = SmUtil.sm2(privateKey, null);
         sm2.setMode(SM2Engine.Mode.C1C3C2);
 
-        String result = StrUtil.utf8Str(sm2.decryptFromBcd(content, KeyType.PrivateKey));
+        String result = StrUtil.utf8Str(sm2.decrypt(content, KeyType.PrivateKey));
         log.trace("[Herodotus] |- SM2 crypto decrypt data, value is : [{}]", result);
 
         return result;
@@ -85,7 +87,7 @@ public class SM2CryptoProcessor implements AsymmetricCryptoProcessor {
     public String encrypt(String content, String publicKey) {
         SM2 sm2 = SmUtil.sm2(null, publicKey);
 
-        String result = sm2.encryptBcd(content, KeyType.PublicKey);
+        String result = sm2.encryptHex(content, KeyType.PublicKey);
         log.trace("[Herodotus] |- SM2 crypto encrypt data, value is : [{}]", result);
         return result;
     }

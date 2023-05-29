@@ -29,12 +29,12 @@ import cn.herodotus.engine.oauth2.core.enums.Signature;
 import cn.herodotus.engine.oauth2.core.enums.TokenFormat;
 import cn.herodotus.engine.oauth2.data.jpa.definition.domain.AbstractRegisteredClient;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
-import cn.hutool.core.util.IdUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
+import org.dromara.hutool.core.data.id.IdUtil;
 
 import java.time.Duration;
 import java.util.Set;

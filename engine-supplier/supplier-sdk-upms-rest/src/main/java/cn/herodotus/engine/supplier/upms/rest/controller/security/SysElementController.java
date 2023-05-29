@@ -33,9 +33,6 @@ import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.upms.logic.converter.SysElementToTreeNodeConverter;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 import cn.herodotus.engine.supplier.upms.logic.service.security.SysElementService;
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -47,6 +44,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.ObjectUtils;
+import org.dromara.hutool.core.tree.MapTree;
+import org.dromara.hutool.core.tree.TreeNode;
+import org.dromara.hutool.core.tree.TreeUtil;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -85,7 +85,7 @@ public class SysElementController extends BaseWriteableRestController<SysElement
     @Operation(summary = "获取菜单树", description = "获取系统菜单树",
             responses = {@ApiResponse(description = "单位列表", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class)))})
     @GetMapping("/tree")
-    public Result<List<Tree<String>>> findTree() {
+    public Result<List<MapTree<String>>> findTree() {
         List<SysElement> sysMenus = sysElementService.findAll();
         if (ObjectUtils.isNotEmpty(sysMenus)) {
             List<TreeNode<String>> treeNodes = sysMenus.stream().map(toTreeNode::convert).collect(Collectors.toList());

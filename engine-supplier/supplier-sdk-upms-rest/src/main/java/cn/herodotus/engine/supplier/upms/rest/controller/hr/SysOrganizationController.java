@@ -32,9 +32,6 @@ import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOrganization;
 import cn.herodotus.engine.supplier.upms.logic.enums.OrganizationCategory;
 import cn.herodotus.engine.supplier.upms.logic.service.hr.SysOrganizationService;
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -45,6 +42,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.tree.MapTree;
+import org.dromara.hutool.core.tree.TreeNode;
+import org.dromara.hutool.core.tree.TreeUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -129,7 +129,7 @@ public class SysOrganizationController extends BaseWriteableRestController<SysOr
             @Parameter(name = "category", description = "机构分类 （索引数字值）"),
     })
     @GetMapping("/tree")
-    public Result<List<Tree<String>>> findTree(@RequestParam(value = "category", required = false) Integer category) {
+    public Result<List<MapTree<String>>> findTree(@RequestParam(value = "category", required = false) Integer category) {
         List<SysOrganization> sysOrganizations = getSysOrganizations(category);
         if (ObjectUtils.isNotEmpty(sysOrganizations)) {
             List<TreeNode<String>> treeNodes = sysOrganizations.stream().map(sysOrganization -> {

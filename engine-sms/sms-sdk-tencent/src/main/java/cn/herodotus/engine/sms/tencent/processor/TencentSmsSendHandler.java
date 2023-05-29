@@ -24,14 +24,13 @@
  */
 package cn.herodotus.engine.sms.tencent.processor;
 
+import cn.herodotus.engine.assistant.core.utils.ListUtils;
 import cn.herodotus.engine.sms.core.definition.AbstractSmsSendHandler;
 import cn.herodotus.engine.sms.core.domain.Template;
 import cn.herodotus.engine.sms.core.enums.SmsSupplier;
 import cn.herodotus.engine.sms.core.exception.ParameterOrdersInvalidException;
 import cn.herodotus.engine.sms.core.exception.TemplateIdInvalidException;
 import cn.herodotus.engine.sms.tencent.properties.TencentSmsProperties;
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ArrayUtil;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.sms.v20190711.SmsClient;
@@ -39,6 +38,8 @@ import com.tencentcloudapi.sms.v20190711.models.SendSmsRequest;
 import com.tencentcloudapi.sms.v20190711.models.SendSmsResponse;
 import com.tencentcloudapi.sms.v20190711.models.SendStatus;
 import org.apache.commons.collections4.CollectionUtils;
+import org.dromara.hutool.core.array.ArrayUtil;
+import org.dromara.hutool.core.collection.CollUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,7 +74,7 @@ public class TencentSmsSendHandler extends AbstractSmsSendHandler {
 
     @Override
     protected boolean execute(Template template, List<String> phones) throws TemplateIdInvalidException, ParameterOrdersInvalidException {
-        List<List<String>> groups = CollUtil.split(phones, 200);
+        List<List<String>> groups = CollUtil.partition(phones, 200);
         String templateId = this.getTemplateId(template);
         List<String> templateParams = this.getOrderedParams(template);
         List<List<String>> errors = groups.parallelStream().map(group -> this.send(templateId, group, templateParams)).collect(Collectors.toList());
@@ -95,8 +96,8 @@ public class TencentSmsSendHandler extends AbstractSmsSendHandler {
             request.setSmsSdkAppid(this.properties.getSmsAppId());
             request.setSign(this.properties.getSmsSign());
             request.setTemplateID(templateId);
-            request.setTemplateParamSet(ArrayUtil.toArray(templateParams, String.class));
-            request.setPhoneNumberSet(ArrayUtil.toArray(mobileGroup, String.class));
+            request.setTemplateParamSet(ListUtils.toStringArray(templateParams));
+            request.setPhoneNumberSet(ListUtils.toStringArray(mobileGroup));
 
             SendSmsResponse sendSmsResponse = sender.SendSms(request);
             if (ArrayUtil.isEmpty(sendSmsResponse.getSendStatusSet())) {

@@ -28,7 +28,7 @@ package cn.herodotus.engine.sms.all.stamp;
 import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.sms.all.properties.SmsProperties;
 import cn.herodotus.engine.sms.core.constants.SmsConstants;
-import cn.hutool.core.util.RandomUtil;
+import org.dromara.hutool.core.util.RandomUtil;
 
 /**
  * <p>Description: 手机短信验证码签章 </p>

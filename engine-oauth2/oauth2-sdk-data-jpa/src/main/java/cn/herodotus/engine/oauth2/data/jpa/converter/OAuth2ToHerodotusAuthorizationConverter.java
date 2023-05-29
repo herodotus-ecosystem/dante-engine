@@ -29,7 +29,7 @@ import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.data.jpa.definition.converter.AbstractOAuth2EntityConverter;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
-import cn.hutool.core.date.DateUtil;
+import org.dromara.hutool.core.date.DateUtil;
 import org.springframework.security.oauth2.core.*;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.core.oidc.OidcIdToken;

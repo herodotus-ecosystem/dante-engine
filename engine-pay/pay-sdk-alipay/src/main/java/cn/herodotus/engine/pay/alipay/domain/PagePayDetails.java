@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.pay.alipay.domain;
 
+import cn.herodotus.engine.assistant.core.definition.constants.RegexPool;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractDto;
-import cn.hutool.core.lang.RegexPool;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;

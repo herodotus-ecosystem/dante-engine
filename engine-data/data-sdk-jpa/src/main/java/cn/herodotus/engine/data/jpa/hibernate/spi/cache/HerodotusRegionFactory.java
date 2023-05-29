@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.data.jpa.hibernate.spi.cache;
 
-import cn.hutool.extra.spring.SpringUtil;
+import org.dromara.hutool.extra.spring.SpringUtil;
 import org.hibernate.boot.spi.SessionFactoryOptions;
 import org.hibernate.cache.cfg.spi.DomainDataRegionBuildingContext;
 import org.hibernate.cache.cfg.spi.DomainDataRegionConfig;
