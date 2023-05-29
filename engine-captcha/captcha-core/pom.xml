@@ -46,6 +46,10 @@
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>cache-sdk-jetcache</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.madgag</groupId>
+            <artifactId>animated-gif-lib</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

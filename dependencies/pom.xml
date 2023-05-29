@@ -101,6 +101,7 @@
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
 
         <!--开源通用工具包-->
+        <animated-gif-lib.version>1.4</animated-gif-lib.version>
         <antisamy.version>1.7.3</antisamy.version>
         <bcprov-jdk15to18.version>1.73</bcprov-jdk15to18.version>
         <commons-collections4.version>4.4</commons-collections4.version>
@@ -642,6 +643,11 @@
                 <groupId>org.owasp.antisamy</groupId>
                 <artifactId>antisamy</artifactId>
                 <version>${antisamy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.madgag</groupId>
+                <artifactId>animated-gif-lib</artifactId>
+                <version>${animated-gif-lib.version}</version>
             </dependency>
 
             <!-- 应用开发辅助工具组件 -->
