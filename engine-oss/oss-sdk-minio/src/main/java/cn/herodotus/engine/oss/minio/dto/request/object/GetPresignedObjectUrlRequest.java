@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.oss.minio.dto.request.object;
 
-import cn.herodotus.engine.assistant.core.annotation.EnumeratedValue;
 import cn.herodotus.engine.oss.minio.dto.request.base.ObjectVersionRequest;
+import cn.herodotus.engine.rest.core.annotation.EnumeratedValue;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
 

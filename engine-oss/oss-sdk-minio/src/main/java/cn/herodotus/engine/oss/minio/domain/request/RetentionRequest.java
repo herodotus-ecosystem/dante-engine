@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.oss.minio.domain.request;
 
-import cn.herodotus.engine.assistant.core.annotation.EnumeratedValue;
 import cn.herodotus.engine.oss.minio.definition.request.BaseRequest;
+import cn.herodotus.engine.rest.core.annotation.EnumeratedValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**

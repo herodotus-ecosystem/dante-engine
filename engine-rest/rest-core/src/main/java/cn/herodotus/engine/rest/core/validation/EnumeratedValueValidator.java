@@ -23,46 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.annotation;
+package cn.herodotus.engine.rest.core.validation;
 
-import cn.herodotus.engine.assistant.core.validation.EnumeratedValueValidator;
-import jakarta.validation.Constraint;
-import jakarta.validation.Payload;
-
-import java.lang.annotation.*;
-
+import cn.herodotus.engine.rest.core.annotation.EnumeratedValue;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 /**
- * <p>Description: 枚举值校验注解 </p>
+ * <p>Description: 枚举值校验逻辑 </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/6/13 15:58
  */
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
-@Retention(RetentionPolicy.RUNTIME)
-@Repeatable(EnumeratedValue.List.class)
-@Documented
-@Constraint(validatedBy = {EnumeratedValueValidator.class})
-public @interface EnumeratedValue {
+public class EnumeratedValueValidator implements ConstraintValidator<EnumeratedValue, Object> {
 
-    // 默认错误消息
-    String message() default "必须为指定值";
+    private String[] names;
+    private int[] ordinals;
 
-    String[] names() default {};
+    @Override
+    public void initialize(EnumeratedValue constraintAnnotation) {
+        names = constraintAnnotation.names();
+        ordinals = constraintAnnotation.ordinals();
+    }
 
-    int[] ordinals() default {};
-
-    // 分组
-    Class<?>[] groups() default {};
-
-    // 负载
-    Class<? extends Payload>[] payload() default {};
-
-    // 指定多个时使用
-    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
-    @Retention(RetentionPolicy.RUNTIME)
-    @Documented
-    @interface List {
-        EnumeratedValue[] value();
+    @Override
+    public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
+        if (value instanceof String) {
+            for (String name : names) {
+                if (name.equals(value)) {
+                    return true;
+                }
+            }
+        } else if (value instanceof Integer) {
+            for (int ordinal : ordinals) {
+                if (ordinal == (Integer) value) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

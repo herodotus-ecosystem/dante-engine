@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.*;
  * @date : 2023/4/16 21:29
  */
 @RestController
-@RequestMapping("/manage/oss/minio/object/retention")
+@RequestMapping("/oss/minio/object/retention")
 @Tags({
         @Tag(name = "对象存储管理接口"),
         @Tag(name = "Minio 对象存储管理接口"),
