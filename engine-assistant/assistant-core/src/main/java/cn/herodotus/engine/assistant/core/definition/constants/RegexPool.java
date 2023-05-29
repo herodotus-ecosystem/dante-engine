@@ -54,4 +54,9 @@ public interface RegexPool extends cn.hutool.core.lang.RegexPool {
      */
     String SINGLE_QUOTE_STRING_EQUATION = "(\\w+)\\s*=\\s*'(.*?)'";
 
+    /**
+     * Bucket DNS 兼容
+     */
+    String DNS_COMPATIBLE = "^[a-z0-9][a-z0-9\\.\\-]+[a-z0-9]$";
+
 }

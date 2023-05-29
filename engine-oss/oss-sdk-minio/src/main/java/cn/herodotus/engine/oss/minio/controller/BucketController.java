@@ -56,7 +56,7 @@ import java.util.List;
  * @date : 2022/7/2 14:45
  */
 @RestController
-@RequestMapping("/manage/oss/minio/bucket")
+@RequestMapping("/oss/minio/bucket")
 @Tags({
         @Tag(name = "对象存储管理接口"),
         @Tag(name = "Minio 对象存储管理接口"),
