@@ -25,8 +25,10 @@
 
 package cn.herodotus.engine.oss.minio.converter;
 
+import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.minio.response.BucketResponse;
 import io.minio.messages.Bucket;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.core.convert.converter.Converter;
 
 /**
@@ -38,7 +40,12 @@ import org.springframework.core.convert.converter.Converter;
 public class BucketToResponseConverter implements Converter<Bucket, BucketResponse> {
 
     @Override
-    public BucketResponse convert(Bucket source) {
-        return null;
+    public BucketResponse convert(Bucket bucket) {
+        BucketResponse response = new BucketResponse();
+        response.setName(bucket.name());
+        if (ObjectUtils.isNotEmpty(bucket.creationDate())) {
+            response.setCreationDate(DateTimeUtils.zonedDateTimeToString(bucket.creationDate()));
+        }
+        return response;
     }
 }

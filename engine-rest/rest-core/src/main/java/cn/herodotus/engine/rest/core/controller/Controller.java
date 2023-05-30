@@ -145,11 +145,11 @@ public interface Controller {
      * @param status 操作状态
      * @return {@link Result} String
      */
-    default Result<String> result(boolean status) {
+    default Result<Boolean> result(boolean status) {
         if (status) {
-            return Result.success();
+            return Result.success("操作成功!", status);
         } else {
-            return Result.failure();
+            return Result.failure("操作失败!", status);
         }
     }
 

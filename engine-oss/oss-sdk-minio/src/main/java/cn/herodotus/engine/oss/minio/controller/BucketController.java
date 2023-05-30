@@ -26,10 +26,11 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.response.BucketResponse;
-import cn.herodotus.engine.oss.minio.dto.logic.CreateBucketDto;
+import cn.herodotus.engine.oss.minio.request.bucket.BucketExistsRequest;
+import cn.herodotus.engine.oss.minio.request.bucket.ListBucketsRequest;
 import cn.herodotus.engine.oss.minio.request.bucket.MakeBucketRequest;
-import cn.herodotus.engine.oss.minio.dto.request.bucket.RemoveBucketRequest;
+import cn.herodotus.engine.oss.minio.request.bucket.RemoveBucketRequest;
+import cn.herodotus.engine.oss.minio.response.BucketResponse;
 import cn.herodotus.engine.oss.minio.service.BucketService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
@@ -37,12 +38,13 @@ import cn.herodotus.engine.rest.core.controller.Controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -72,53 +74,71 @@ public class BucketController implements Controller {
     }
 
     @AccessLimited
-    @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口")
-    @GetMapping("/list")
-    public Result<List<BucketResponse>> findAll() {
-        List<BucketResponse> bucketResponseRespons = bucketService.listBuckets();
-        return result(bucketResponseRespons);
+    @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
+            responses = {
+                    @ApiResponse(description = "所有Buckets", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))),
+                    @ApiResponse(responseCode = "200", description = "查询成功，查到数据"),
+                    @ApiResponse(responseCode = "204", description = "查询成功，未查到数据"),
+                    @ApiResponse(responseCode = "500", description = "查询失败")
+            })
+    @Parameters({
+            @Parameter(name = "request", required = true, in = ParameterIn.PATH ,description = "ListBucketsRequest请求实体", schema = @Schema(implementation = ListBucketsRequest.class))
+    })
+    @GetMapping
+    public Result<List<BucketResponse>> list(ListBucketsRequest request) {
+        List<BucketResponse> bucketResponses = bucketService.listBuckets(ObjectUtils.isNotEmpty(request) ? request.build() : null);
+        return result(bucketResponses);
+    }
+
+    @AccessLimited
+    @Operation(summary = "查询Bucket是否存在", description = "根据BucketName和Region查询Bucket是否存在",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
+            responses = {
+                    @ApiResponse(description = "是否Bucket存在", content = @Content(mediaType = "application/json")),
+                    @ApiResponse(responseCode = "200", description = "查询成功"),
+                    @ApiResponse(responseCode = "500", description = "查询失败")
+            })
+    @Parameters({
+            @Parameter(name = "request", required = true, in = ParameterIn.PATH ,description = "BucketExistsRequest请求实体", schema = @Schema(implementation = BucketExistsRequest.class))
+    })
+    @GetMapping("/exists")
+    public Result<Boolean> exists(BucketExistsRequest request) {
+        boolean isExists = bucketService.bucketExists(request.build());
+        return result(isExists);
     }
 
     @Idempotent
-    @Operation(summary = "创建Bucket接口", description = "创建Bucket接口，该接口仅是创建，不包含是否已存在检查",
+    @Operation(summary = "创建Bucket", description = "创建Bucket接口，该接口仅是创建，不包含是否已存在检查",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "是否成功", content = @Content(mediaType = "application/json"))})
+            responses = {
+                    @ApiResponse(description = "Minio API无返回值，所以返回200即表示成功，不成功会抛错", content = @Content(mediaType = "application/json")),
+                    @ApiResponse(responseCode = "200", description = "操作成功"),
+                    @ApiResponse(responseCode = "500", description = "操作失败，具体查看错误信息内容")
+            })
     @Parameters({
-            @Parameter(name = "domain", required = true, description = "Make Bucket 请求实体", schema = @Schema(implementation = MakeBucketRequest.class))
+            @Parameter(name = "request", required = true, description = "MakeBucketRequest请求实体", schema = @Schema(implementation = MakeBucketRequest.class))
     })
     @PostMapping
-    public Result<String> make(@Validated @RequestBody MakeBucketRequest domain) {
-        bucketService.makeBucket(domain.build());
+    public Result<Boolean> make(@Validated @RequestBody MakeBucketRequest request) {
+        bucketService.makeBucket(request.build());
         return result(true);
     }
 
     @Idempotent
-    @Operation(summary = "创建Bucket接口", description = "创建Bucket接口，该接口包含Bucket是否已存在检查",
+    @Operation(summary = "删除Bucket", description = "根据Bucket 名称删除数据，可指定 Region",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "是否成功", content = @Content(mediaType = "application/json"))})
+            responses = {
+                    @ApiResponse(description = "Minio API无返回值，所以返回200即表示成功，不成功会抛错", content = @Content(mediaType = "application/json")),
+                    @ApiResponse(responseCode = "200", description = "操作成功"),
+                    @ApiResponse(responseCode = "500", description = "操作失败，具体查看错误信息内容")
+            })
     @Parameters({
-            @Parameter(name = "domain", required = true, description = "Make Bucket 请求实体", schema = @Schema(implementation = CreateBucketDto.class))
-    })
-    @PostMapping("/create")
-    public Result<String> create(@Validated @RequestBody CreateBucketDto domain) {
-        if (StringUtils.isNotBlank(domain.getRegion())) {
-            bucketService.makeBucket(domain.getBucketName(), domain.getRegion());
-        } else {
-            bucketService.makeBucket(domain.getBucketName());
-        }
-        return result(true);
-    }
-
-    @Idempotent
-    @Operation(summary = "删除Bucket接口", description = "根据Bucket 名称删除数据，可指定 Region",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "操作消息", content = @Content(mediaType = "application/json"))})
-    @Parameters({
-            @Parameter(name = "domain", required = true, description = "Remote Bucket 请求实体", schema = @Schema(implementation = RemoveBucketRequest.class))
+            @Parameter(name = "request", required = true, description = "RemoveBucketRequest请求实体", schema = @Schema(implementation = RemoveBucketRequest.class))
     })
     @DeleteMapping
-    public Result<String> delete(@Validated @RequestBody RemoveBucketRequest domain) {
-        bucketService.removeBucket(domain.build());
+    public Result<Boolean> remove(@Validated @RequestBody RemoveBucketRequest request) {
+        bucketService.removeBucket(request.build());
         return result(true);
     }
 }

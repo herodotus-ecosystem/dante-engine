@@ -23,23 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.bucket;
+package cn.herodotus.engine.oss.minio.request.bucket;
 
 import cn.herodotus.engine.oss.minio.definition.request.BucketRequest;
-import io.minio.BucketExistsArgs;
+import io.minio.RemoveBucketArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: 检查桶是否存在参数实体 </p>
+ * <p>Description: 删除桶参数实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 23:46
+ * @date : 2022/7/2 14:40
  */
-@Schema(name = "检查桶是否存在参数实体", title = "检查桶是否存在参数实体")
-public class BucketExistsRequest extends BucketRequest<BucketExistsArgs.Builder, BucketExistsArgs> {
-
+@Schema(name = "删除桶参数实体", title = "删除桶参数实体")
+public class RemoveBucketRequest extends BucketRequest<RemoveBucketArgs.Builder, RemoveBucketArgs> {
     @Override
-    public BucketExistsArgs.Builder getBuilder() {
-        return BucketExistsArgs.builder();
+    public RemoveBucketArgs.Builder getBuilder() {
+        return RemoveBucketArgs.builder();
     }
 }

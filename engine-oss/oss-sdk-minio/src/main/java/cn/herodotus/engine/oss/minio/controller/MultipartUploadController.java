@@ -92,7 +92,7 @@ public class MultipartUploadController implements Controller {
             @Parameter(name = "objectName", required = true, description = "文件名称"),
     })
     @PostMapping("/complete")
-    public Result<String> completeMultipartUpload(@Validated @RequestBody CompleteMultipartUploadDto domain) {
+    public Result<Boolean> completeMultipartUpload(@Validated @RequestBody CompleteMultipartUploadDto domain) {
         ObjectWriteResponse objectWriteResponse = multipartUploadProcessor.completeMultipartUpload(domain.getBucketName(), domain.getObjectName(), domain.getUploadId());
         if (ObjectUtils.isNotEmpty(objectWriteResponse)) {
             return result(true);

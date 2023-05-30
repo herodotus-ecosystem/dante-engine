@@ -89,7 +89,7 @@ public class ObjectController implements Controller {
             @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectRequest.class))
     })
     @DeleteMapping
-    public Result<String> removeObject(@Validated @RequestBody RemoveObjectRequest request) {
+    public Result<Boolean> removeObject(@Validated @RequestBody RemoveObjectRequest request) {
         objectService.removeObject(request.build());
         return result(true);
     }

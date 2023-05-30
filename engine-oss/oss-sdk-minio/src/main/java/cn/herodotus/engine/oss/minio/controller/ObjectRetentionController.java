@@ -85,7 +85,7 @@ public class ObjectRetentionController implements Controller {
             @Parameter(name = "request", required = true, description = "设置对象保留配置请求参数实体", schema = @Schema(implementation = SetObjectRetentionRequest.class))
     })
     @PutMapping
-    public Result<String> set(@Validated @RequestBody SetObjectRetentionRequest request) {
+    public Result<Boolean> set(@Validated @RequestBody SetObjectRetentionRequest request) {
         objectRetentionService.setObjectRetention(request.build());
         return result(true);
     }

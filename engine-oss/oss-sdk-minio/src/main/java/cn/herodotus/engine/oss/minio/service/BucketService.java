@@ -25,24 +25,24 @@
 
 package cn.herodotus.engine.oss.minio.service;
 
-import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.converter.BucketToResponseConverter;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
 import cn.herodotus.engine.oss.minio.response.BucketResponse;
 import io.minio.*;
 import io.minio.errors.*;
+import io.minio.messages.Bucket;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,9 +57,60 @@ import java.util.stream.Collectors;
 public class BucketService extends BaseMinioService {
 
     private static final Logger log = LoggerFactory.getLogger(BucketService.class);
+    private final Converter<Bucket, BucketResponse> toResponse;
 
     public BucketService(MinioClientObjectPool minioClientObjectPool) {
         super(minioClientObjectPool);
+        this.toResponse = new BucketToResponseConverter();
+    }
+
+    /**
+     * 查询所有存储桶
+     * @param args {@link ListBucketsArgs}
+     * @return Bucket 列表
+     */
+    public List<BucketResponse> listBuckets(ListBucketsArgs args) {
+        String function = "listBuckets";
+        MinioClient minioClient = getMinioClient();
+
+        try {
+            List<io.minio.messages.Bucket> buckets;
+            if(ObjectUtils.isNotEmpty(args)) {
+                buckets = minioClient.listBuckets(args);
+            } else {
+                buckets = minioClient.listBuckets();
+            }
+            return toEntities(buckets);
+        } catch (ErrorResponseException e) {
+            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
+            throw new OssErrorResponseException("Minio response error.");
+        } catch (InsufficientDataException e) {
+            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
+            throw new OssInsufficientDataException("Minio insufficient data error.");
+        } catch (InternalException e) {
+            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
+            throw new OssInternalException("Minio internal error.");
+        } catch (InvalidKeyException e) {
+            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
+            throw new OssInvalidKeyException("Minio key invalid.");
+        } catch (InvalidResponseException e) {
+            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
+            throw new OssInvalidResponseException("Minio response invalid.");
+        } catch (IOException e) {
+            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
+            throw new OssIOException("Minio io error.");
+        } catch (NoSuchAlgorithmException e) {
+            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
+            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
+        } catch (ServerException e) {
+            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
+            throw new OssServerException("Minio server error.");
+        } catch (XmlParserException e) {
+            log.error("[Herodotus] |- Minio catch XmlParserException in in [{}].", function, e);
+            throw new OssXmlParserException("Minio xml parser error.");
+        } finally {
+            close(minioClient);
+        }
     }
 
     /**
@@ -105,65 +156,6 @@ public class BucketService extends BaseMinioService {
             close(minioClient);
         }
     }
-
-    /**
-     * 查询所有存储桶
-     *
-     * @return Bucket 列表
-     */
-    public List<BucketResponse> listBuckets() {
-        return listBuckets(null);
-    }
-
-    /**
-     * 查询所有存储桶
-     * @param args {@link ListBucketsArgs}
-     * @return Bucket 列表
-     */
-    public List<BucketResponse> listBuckets(ListBucketsArgs args) {
-        String function = "listBuckets";
-        MinioClient minioClient = getMinioClient();
-
-        try {
-            List<io.minio.messages.Bucket> buckets;
-            if(ObjectUtils.isNotEmpty(args)) {
-               buckets = minioClient.listBuckets(args);
-            } else {
-               buckets = minioClient.listBuckets();
-            }
-            return toEntities(buckets);
-        } catch (ErrorResponseException e) {
-            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
-            throw new OssErrorResponseException("Minio response error.");
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio key invalid.");
-        } catch (InvalidResponseException e) {
-            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
-            throw new OssInvalidResponseException("Minio response invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
-        } catch (ServerException e) {
-            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
-            throw new OssServerException("Minio server error.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio catch XmlParserException in in [{}].", function, e);
-            throw new OssXmlParserException("Minio xml parser error.");
-        } finally {
-            close(minioClient);
-        }
-    }
-
 
         /**
          * 创建存储桶
@@ -253,62 +245,11 @@ public class BucketService extends BaseMinioService {
         }
     }
 
-    /**
-     * 创建存储桶。
-     * <p>
-     * 先检查该 Bucket 是否存在，如果不存在才创建
-     *
-     * @param bucketName bucketName
-     */
-    public void makeBucket(String bucketName) {
-        makeBucket(BucketExistsArgs.builder().bucket(bucketName).build(), MakeBucketArgs.builder().bucket(bucketName).build());
-    }
-
-    /**
-     * 创建存储桶。
-     * <p>
-     * 先检查该 Bucket 是否存在，如果不存在才创建
-     *
-     * @param bucketName bucketName
-     * @param region     region
-     */
-    public void makeBucket(String bucketName, String region) {
-        makeBucket(BucketExistsArgs.builder().bucket(bucketName).region(region).build(), MakeBucketArgs.builder().bucket(bucketName).region(region).build());
-    }
-
-    /**
-     * 创建存储桶。
-     * <p>
-     * 先检查该 Bucket 是否存在，如果不存在才创建
-     *
-     * @param bucketExistsArgs {@link BucketExistsArgs}
-     * @param makeBucketArgs   {@link MakeBucketArgs}
-     */
-    public void makeBucket(BucketExistsArgs bucketExistsArgs, MakeBucketArgs makeBucketArgs) {
-        if (!bucketExists(bucketExistsArgs)) {
-            makeBucket(makeBucketArgs);
-        }
-    }
-
     private List<BucketResponse> toEntities(List<io.minio.messages.Bucket> buckets) {
         if (CollectionUtils.isNotEmpty(buckets)) {
-            return buckets.stream().map(this::toEntity).collect(Collectors.toList());
+            return buckets.stream().map(toResponse::convert).collect(Collectors.toList());
         } else {
             return new ArrayList<>();
         }
-    }
-
-    private BucketResponse toEntity(io.minio.messages.Bucket bucket) {
-        BucketResponse minioBucketResponse = new BucketResponse();
-        minioBucketResponse.setName(bucket.name());
-        if (ObjectUtils.isNotEmpty(bucket.creationDate())) {
-            minioBucketResponse.setCreationDate(format(bucket.creationDate()));
-        }
-        return minioBucketResponse;
-    }
-
-    private String format(ZonedDateTime zonedDateTime) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DefaultConstants.DATE_TIME_FORMAT);
-        return zonedDateTime.format(dateTimeFormatter);
     }
 }
