@@ -23,43 +23,26 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.base;
+package cn.herodotus.engine.oss.minio.request.dto;
 
-import cn.herodotus.engine.oss.minio.definition.request.ObjectRequest;
-import io.minio.ObjectVersionArgs;
-import org.apache.commons.lang3.StringUtils;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: ObjectVersionDto </p>
+ * <p>Description: 扩展桶操作Dto</p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 22:30
+ * @date : 2022/7/4 16:11
  */
-public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A> {
+public class BaseBucketDto extends BaseDto {
 
-    private String versionId;
+    @Schema(name = "存储区域")
+    private String region;
 
-    public String getVersionId() {
-        return versionId;
+    public String getRegion() {
+        return region;
     }
 
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
-    }
-
-    @Override
-    protected void prepare(B builder) {
-        if (StringUtils.isNotEmpty(getVersionId())) {
-            builder.versionId(getVersionId());
-        }
-
-        super.prepare(builder);
-    }
-
-    @Override
-    public A build() {
-        B builder = getBuilder();
-        prepare(builder);
-        return builder.build();
+    public void setRegion(String region) {
+        this.region = region;
     }
 }

@@ -23,10 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain.response;
+package cn.herodotus.engine.oss.minio.response;
 
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import cn.herodotus.engine.oss.minio.domain.OwnerResponse;
 import com.google.common.base.MoreObjects;
 
 import java.util.Map;
@@ -131,7 +130,6 @@ public class ItemResponse implements Entity {
                 .add("size", size)
                 .add("storageClass", storageClass)
                 .add("isLatest", isLatest)
-                .add("userMetadata", userMetadata)
                 .add("isDir", isDir)
                 .toString();
     }

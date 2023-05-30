@@ -26,9 +26,9 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.MultipartUploadCreate;
-import cn.herodotus.engine.oss.minio.dto.logic.CompleteMultipartUploadDto;
-import cn.herodotus.engine.oss.minio.dto.logic.CreateMultipartUpload;
+import cn.herodotus.engine.oss.minio.request.dto.MultipartUploadCreate;
+import cn.herodotus.engine.oss.minio.request.dto.CompleteMultipartUploadDto;
+import cn.herodotus.engine.oss.minio.request.dto.CreateMultipartUpload;
 import cn.herodotus.engine.oss.minio.processor.MultipartUploadProcessor;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.Controller;

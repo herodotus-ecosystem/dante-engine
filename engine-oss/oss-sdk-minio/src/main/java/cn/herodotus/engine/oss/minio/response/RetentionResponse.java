@@ -23,30 +23,47 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.dto;
+package cn.herodotus.engine.oss.minio.response;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-
-import java.io.Serializable;
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import com.google.common.base.MoreObjects;
+import io.minio.messages.ResponseDate;
+import io.minio.messages.RetentionMode;
+import org.simpleframework.xml.Element;
 
 /**
- * <p>Description: 扩展 Minio 应用Dto </p>
+ * <p>Description: RetentionResponse </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:08
+ * @date : 2023/4/18 16:41
  */
-public class BaseDto implements Serializable {
+public class RetentionResponse implements Entity {
 
-    @NotNull(message = "存储桶名称不能为空")
-    @Schema(name = "存储桶名称")
-    private String bucketName;
+    private String mode;
 
-    public String getBucketName() {
-        return bucketName;
+    private String retainUntilDate;
+
+    public String getMode() {
+        return mode;
     }
 
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public String getRetainUntilDate() {
+        return retainUntilDate;
+    }
+
+    public void setRetainUntilDate(String retainUntilDate) {
+        this.retainUntilDate = retainUntilDate;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("mode", mode)
+                .add("retainUntilDate", retainUntilDate)
+                .toString();
     }
 }

@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.response.RetentionResponse;
+import cn.herodotus.engine.oss.minio.response.RetentionResponse;
 import cn.herodotus.engine.oss.minio.request.object.GetObjectRetentionRequest;
 import cn.herodotus.engine.oss.minio.request.object.SetObjectRetentionRequest;
 import cn.herodotus.engine.oss.minio.service.ObjectRetentionService;

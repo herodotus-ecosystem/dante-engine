@@ -29,7 +29,7 @@ import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.domain.response.RetentionResponse;
+import cn.herodotus.engine.oss.minio.response.RetentionResponse;
 import io.minio.GetObjectRetentionArgs;
 import io.minio.MinioClient;
 import io.minio.SetObjectRetentionArgs;

@@ -23,35 +23,55 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.request.domain;
 
-import io.minio.ObjectArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import cn.herodotus.engine.rest.core.definition.dto.BaseDto;
+
+import javax.crypto.SecretKey;
+import java.util.Map;
 
 /**
- * <p>Description: Minio 基础 Object Dto </p>
+ * <p>Description: ServerSideEncryptionCustomerKeyRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 21:51
+ * @date : 2023/5/30 23:21
  */
-public abstract class ObjectRequest<B extends ObjectArgs.Builder<B, A>, A extends ObjectArgs> extends BucketRequest<B, A> {
+public class ServerSideEncryptionCustomerKeyRequest extends BaseDto {
 
-    @NotBlank(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
+    private Boolean isDestroyed = false;
+    private SecretKey secretKey;
+    private Map<String, String> headers;
+    private Map<String, String> copySourceHeaders;
 
-    public String getObjectName() {
-        return objectName;
+    public Boolean getDestroyed() {
+        return isDestroyed;
     }
 
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
+    public void setDestroyed(Boolean destroyed) {
+        isDestroyed = destroyed;
     }
 
-    @Override
-    protected void prepare(B builder) {
-        builder.object(getObjectName());
-        super.prepare(builder);
+    public SecretKey getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(SecretKey secretKey) {
+        this.secretKey = secretKey;
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
+    }
+
+    public Map<String, String> getCopySourceHeaders() {
+        return copySourceHeaders;
+    }
+
+    public void setCopySourceHeaders(Map<String, String> copySourceHeaders) {
+        this.copySourceHeaders = copySourceHeaders;
     }
 }

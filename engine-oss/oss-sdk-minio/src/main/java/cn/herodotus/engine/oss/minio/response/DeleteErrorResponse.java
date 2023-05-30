@@ -23,35 +23,15 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.response;
 
-import io.minio.ObjectArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import cn.herodotus.engine.oss.minio.response.ErrorResponse;
 
 /**
- * <p>Description: Minio 基础 Object Dto </p>
+ * <p>Description: Minio 删除操作错误信息实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 21:51
+ * @date : 2023/4/18 15:14
  */
-public abstract class ObjectRequest<B extends ObjectArgs.Builder<B, A>, A extends ObjectArgs> extends BucketRequest<B, A> {
-
-    @NotBlank(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
-    }
-
-    @Override
-    protected void prepare(B builder) {
-        builder.object(getObjectName());
-        super.prepare(builder);
-    }
+public class DeleteErrorResponse extends ErrorResponse {
 }

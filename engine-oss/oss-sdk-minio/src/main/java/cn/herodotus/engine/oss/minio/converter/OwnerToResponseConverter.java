@@ -23,52 +23,24 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.converter;
 
-import java.io.Serializable;
+import cn.herodotus.engine.oss.minio.response.OwnerResponse;
+import io.minio.messages.Owner;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: Minio Owner 转 Response 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/11/8 18:47
+ * @date : 2023/5/30 21:39
  */
-public class ObjectInfo implements Serializable {
-
-    private String bucketName;
-    private String objectName;
-    private String url;
-    private String expires;
-
-    public String getBucketName() {
-        return bucketName;
-    }
-
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
-    }
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getExpires() {
-        return expires;
-    }
-
-    public void setExpires(String expires) {
-        this.expires = expires;
+public class OwnerToResponseConverter implements Converter<Owner, OwnerResponse> {
+    @Override
+    public OwnerResponse convert(Owner owner) {
+        OwnerResponse ownerResponse = new OwnerResponse();
+        ownerResponse.setId(owner.id());
+        ownerResponse.setDisplayName(owner.displayName());
+        return ownerResponse;
     }
 }

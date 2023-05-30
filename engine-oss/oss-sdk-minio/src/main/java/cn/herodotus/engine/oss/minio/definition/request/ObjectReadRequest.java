@@ -23,44 +23,37 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.definition.request;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import com.google.common.base.MoreObjects;
+import cn.herodotus.engine.oss.minio.converter.RequestToServerSideEncryptionCustomerKeyConverter;
+import cn.herodotus.engine.oss.minio.request.domain.ServerSideEncryptionCustomerKeyRequest;
+import io.minio.ObjectReadArgs;
+import io.minio.ServerSideEncryptionCustomerKey;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: Minio Owner </p>
+ * <p>Description: ObjectReadRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/17 11:54
+ * @date : 2023/5/30 23:18
  */
-public class OwnerResponse implements Entity {
+public abstract class ObjectReadRequest<B extends ObjectReadArgs.Builder<B, A>, A extends ObjectReadArgs> extends ObjectVersionRequest<B, A> {
 
-    private String id;
+    private ServerSideEncryptionCustomerKeyRequest serverSideEncryption;
+    private Converter<ServerSideEncryptionCustomerKeyRequest, ServerSideEncryptionCustomerKey> requestTo =
+            new RequestToServerSideEncryptionCustomerKeyConverter();
 
-    private String displayName;
-
-    public String getId() {
-        return id;
+    public ServerSideEncryptionCustomerKeyRequest getServerSideEncryption() {
+        return serverSideEncryption;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setServerSideEncryption(ServerSideEncryptionCustomerKeyRequest serverSideEncryption) {
+        this.serverSideEncryption = serverSideEncryption;
     }
 
     @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("displayName", displayName)
-                .toString();
+    protected void prepare(B builder) {
+        builder.ssec(requestTo.convert(getServerSideEncryption()));
+        super.prepare(builder);
     }
 }

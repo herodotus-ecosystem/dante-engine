@@ -23,13 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.object;
+package cn.herodotus.engine.oss.minio.request.object;
+
+import cn.herodotus.engine.oss.minio.definition.request.ObjectConditionalReadRequest;
+import io.minio.GetObjectArgs;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: GetObjectRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 22:32
+ * @date : 2023/5/30 23:58
  */
-public class UploadObjectDto {
+public class GetObjectRequest extends ObjectConditionalReadRequest<GetObjectArgs.Builder, GetObjectArgs> {
+
+    public GetObjectRequest(DownloadObjectRequest request) {
+        this.setExtraHeaders(request.getExtraHeaders());
+        this.setExtraQueryParams(request.getExtraQueryParams());
+        this.setBucketName(request.getBucketName());
+        this.setRegion(request.getRegion());
+        this.setObjectName(request.getObjectName());
+        this.setVersionId(request.getVersionId());
+        this.setServerSideEncryption(request.getServerSideEncryption());
+    }
+
+    @Override
+    public GetObjectArgs.Builder getBuilder() {
+        return GetObjectArgs.builder();
+    }
 }

@@ -23,26 +23,24 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.logic;
+package cn.herodotus.engine.oss.minio.request.dto;
 
-import cn.herodotus.engine.oss.minio.definition.dto.BaseBucketDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.io.Serializable;
 
 /**
- * <p>Description: 创建桶请求参数实体 </p>
+ * <p>Description: 扩展 Minio 应用Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/2 15:17
+ * @date : 2022/7/4 16:08
  */
-@Schema(name = "创建桶请求参数实体", title = "创建桶请求参数实体")
-public class CreateBucketDto extends BaseBucketDto {
+public class BaseDto implements Serializable {
 
-    @NotBlank(message = "存储桶名称不能为空")
+    @NotNull(message = "存储桶名称不能为空")
     @Schema(name = "存储桶名称")
     private String bucketName;
-    @Schema(name = "存储区域")
-    private String region;
 
     public String getBucketName() {
         return bucketName;
@@ -50,13 +48,5 @@ public class CreateBucketDto extends BaseBucketDto {
 
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 }

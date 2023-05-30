@@ -23,9 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.object;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import cn.herodotus.engine.oss.minio.dto.request.base.ObjectVersionRequest;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectVersionRequest;
 import cn.herodotus.engine.rest.core.annotation.EnumeratedValue;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.swagger.v3.oas.annotations.media.Schema;

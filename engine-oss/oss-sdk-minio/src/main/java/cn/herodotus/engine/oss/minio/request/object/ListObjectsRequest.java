@@ -40,30 +40,68 @@ import org.apache.commons.lang3.BooleanUtils;
 public class ListObjectsRequest extends BucketRequest<ListObjectsArgs.Builder, ListObjectsArgs> {
 
     /**
+     * 分隔符
+     */
+    private String delimiter = "";
+    /**
+     * 使用 UrlEncoding
+     */
+    private Boolean useUrlEncodingType = true;
+    /**
+     * 'marker' for ListObjectsV1 and 'startAfter' for ListObjectsV2.
+     */
+    private String keyMarker;
+    private String startAfter;
+    @Min(value = 1, message = "maxKeys 值不能小于 1")
+    @Max(value = 1000, message = "maxKeys 值不能大于 1000")
+    private Integer maxKeys = 1000;
+    private String prefix;
+
+    /**
+     * only for ListObjectsV2.
+     */
+    private String continuationToken;
+    /**
+     * only for ListObjectsV2.
+     */
+    private Boolean fetchOwner;
+    /**
+     * only for GetObjectVersions.
+     */
+    private String versionIdMarker;
+    /**
+     * MinIO extension applicable to ListObjectsV2.
+     */
+    private Boolean includeUserMetadata;
+    /**
      * 是否递归
      */
     private Boolean recursive = false;
+    private Boolean useApiVersion1;
     private Boolean includeVersions = false;
-    private String startAfter;
-    private String prefix;
-    @Min(1)
-    @Max(1000)
-    private Integer maxKeys = 1000;
 
-    public Boolean getRecursive() {
-        return recursive;
+    public String getDelimiter() {
+        return delimiter;
     }
 
-    public void setRecursive(Boolean recursive) {
-        this.recursive = recursive;
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
     }
 
-    public Boolean getIncludeVersions() {
-        return includeVersions;
+    public Boolean getUseUrlEncodingType() {
+        return useUrlEncodingType;
     }
 
-    public void setIncludeVersions(Boolean includeVersions) {
-        this.includeVersions = includeVersions;
+    public void setUseUrlEncodingType(Boolean useUrlEncodingType) {
+        this.useUrlEncodingType = useUrlEncodingType;
+    }
+
+    public String getKeyMarker() {
+        return keyMarker;
+    }
+
+    public void setKeyMarker(String keyMarker) {
+        this.keyMarker = keyMarker;
     }
 
     public String getStartAfter() {
@@ -74,14 +112,6 @@ public class ListObjectsRequest extends BucketRequest<ListObjectsArgs.Builder, L
         this.startAfter = startAfter;
     }
 
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
     public Integer getMaxKeys() {
         return maxKeys;
     }
@@ -90,16 +120,95 @@ public class ListObjectsRequest extends BucketRequest<ListObjectsArgs.Builder, L
         this.maxKeys = maxKeys;
     }
 
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getContinuationToken() {
+        return continuationToken;
+    }
+
+    public void setContinuationToken(String continuationToken) {
+        this.continuationToken = continuationToken;
+    }
+
+    public Boolean getFetchOwner() {
+        return fetchOwner;
+    }
+
+    public void setFetchOwner(Boolean fetchOwner) {
+        this.fetchOwner = fetchOwner;
+    }
+
+    public String getVersionIdMarker() {
+        return versionIdMarker;
+    }
+
+    public void setVersionIdMarker(String versionIdMarker) {
+        this.versionIdMarker = versionIdMarker;
+    }
+
+    public Boolean getIncludeUserMetadata() {
+        return includeUserMetadata;
+    }
+
+    public void setIncludeUserMetadata(Boolean includeUserMetadata) {
+        this.includeUserMetadata = includeUserMetadata;
+    }
+
+    public Boolean getRecursive() {
+        return recursive;
+    }
+
+    public void setRecursive(Boolean recursive) {
+        this.recursive = recursive;
+    }
+
+    public Boolean getUseApiVersion1() {
+        return useApiVersion1;
+    }
+
+    public void setUseApiVersion1(Boolean useApiVersion1) {
+        this.useApiVersion1 = useApiVersion1;
+    }
+
+    public Boolean getIncludeVersions() {
+        return includeVersions;
+    }
+
+    public void setIncludeVersions(Boolean includeVersions) {
+        this.includeVersions = includeVersions;
+    }
+
     @Override
     protected void prepare(ListObjectsArgs.Builder builder) {
-        if (BooleanUtils.isTrue(getRecursive())) {
-            builder.recursive(getRecursive());
+
+        builder.delimiter(getDelimiter());
+        builder.useUrlEncodingType(getUseUrlEncodingType());
+        builder.maxKeys(getMaxKeys());
+        builder.prefix(getPrefix());
+        builder.recursive(getRecursive());
+
+        if (BooleanUtils.isTrue(getUseApiVersion1())) {
+            builder.keyMarker(getKeyMarker());
+            builder.includeVersions(getIncludeVersions());
+            builder.continuationToken(null);
+            builder.fetchOwner(false);
+            builder.includeUserMetadata(false);
         } else {
             builder.startAfter(getStartAfter());
-            builder.prefix(getPrefix());
-            builder.maxKeys(getMaxKeys());
-            builder.includeVersions(getIncludeVersions());
+            builder.continuationToken(getContinuationToken());
+            builder.fetchOwner(getFetchOwner());
+            builder.includeUserMetadata(getIncludeUserMetadata());
+            builder.keyMarker(null);
+            builder.includeVersions(false);
         }
+
+        builder.versionIdMarker(getVersionIdMarker());
 
         super.prepare(builder);
     }

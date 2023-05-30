@@ -23,28 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.dto;
+package cn.herodotus.engine.oss.minio.request.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
 
 /**
- * <p>Description: 扩展对象操作Dto </p>
+ * <p>Description: 创建分片上传Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:12
+ * @date : 2022/7/4 15:14
  */
-public class BaseObjectDto extends BaseBucketDto {
+@Schema(name = "创建分片上传请求参数实体", title = "创建分片上传请求参数实体")
+public class CreateMultipartUpload extends BaseObjectDto {
 
-    @NotNull(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
+    @Min(value = 1, message = "分片数量不能小于等于1")
+    @Schema(name = "分片数量")
+    private Integer size;
 
-    public String getObjectName() {
-        return objectName;
+    public Integer getSize() {
+        return size;
     }
 
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

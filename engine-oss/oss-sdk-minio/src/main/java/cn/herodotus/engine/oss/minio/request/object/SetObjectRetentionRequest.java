@@ -27,7 +27,7 @@ package cn.herodotus.engine.oss.minio.request.object;
 
 import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.minio.definition.request.ObjectVersionRequest;
-import cn.herodotus.engine.oss.minio.domain.request.RetentionRequest;
+import cn.herodotus.engine.oss.minio.request.domain.RetentionRequest;
 import io.minio.SetObjectRetentionArgs;
 import io.minio.messages.Retention;
 import io.minio.messages.RetentionMode;

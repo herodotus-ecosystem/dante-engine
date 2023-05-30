@@ -23,47 +23,49 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain.response;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import com.google.common.base.MoreObjects;
-import io.minio.messages.ResponseDate;
-import io.minio.messages.RetentionMode;
-import org.simpleframework.xml.Element;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectReadRequest;
+import io.minio.DownloadObjectArgs;
+import jakarta.validation.constraints.NotBlank;
 
 /**
- * <p>Description: RetentionResponse </p>
+ * <p>Description: DownloadObjectRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 16:41
+ * @date : 2023/5/30 23:49
  */
-public class RetentionResponse implements Entity {
+public class DownloadObjectRequest extends ObjectReadRequest<DownloadObjectArgs.Builder, DownloadObjectArgs> {
 
-    private String mode;
+    @NotBlank(message = "filename 不能为空")
+    private String filename;
+    private Boolean overwrite;
 
-    private String retainUntilDate;
-
-    public String getMode() {
-        return mode;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setMode(String mode) {
-        this.mode = mode;
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public String getRetainUntilDate() {
-        return retainUntilDate;
+    public Boolean getOverwrite() {
+        return overwrite;
     }
 
-    public void setRetainUntilDate(String retainUntilDate) {
-        this.retainUntilDate = retainUntilDate;
+    public void setOverwrite(Boolean overwrite) {
+        this.overwrite = overwrite;
     }
 
     @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mode", mode)
-                .add("retainUntilDate", retainUntilDate)
-                .toString();
+    protected void prepare(DownloadObjectArgs.Builder builder) {
+        builder.filename(getFilename());
+        builder.overwrite(getOverwrite());
+        super.prepare(builder);
+    }
+
+    @Override
+    public DownloadObjectArgs.Builder getBuilder() {
+        return DownloadObjectArgs.builder();
     }
 }

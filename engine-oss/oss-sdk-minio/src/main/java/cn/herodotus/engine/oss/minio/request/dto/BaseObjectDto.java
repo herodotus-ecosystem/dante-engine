@@ -23,47 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.domain;
+package cn.herodotus.engine.oss.minio.request.dto;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-
-import java.util.ArrayList;
-import java.util.List;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 
 /**
- * <p>Description: 创建分配上传实体 </p>
+ * <p>Description: 扩展对象操作Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 11:25
+ * @date : 2022/7/4 16:12
  */
-public class MultipartUploadCreate implements Entity {
+public class BaseObjectDto extends BaseBucketDto {
 
-    private String uploadId;
+    @NotNull(message = "对象名称不能为空")
+    @Schema(name = "对象名称")
+    private String objectName;
 
-    private List<String> chunkUploadUrls;
-
-    public MultipartUploadCreate(String uploadId) {
-        this.uploadId = uploadId;
-        this.chunkUploadUrls = new ArrayList<>();
+    public String getObjectName() {
+        return objectName;
     }
 
-    public String getUploadId() {
-        return uploadId;
-    }
-
-    public void setUploadId(String uploadId) {
-        this.uploadId = uploadId;
-    }
-
-    public List<String> getChunkUploadUrls() {
-        return chunkUploadUrls;
-    }
-
-    public void setChunkUploadUrls(List<String> chunkUploadUrls) {
-        this.chunkUploadUrls = chunkUploadUrls;
-    }
-
-    public void appendChunk(String chunk) {
-        chunkUploadUrls.add(chunkUploadUrls.size(), chunk);
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 }

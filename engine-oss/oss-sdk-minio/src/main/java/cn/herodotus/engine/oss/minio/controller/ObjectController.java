@@ -26,8 +26,8 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.response.DeleteErrorResponse;
-import cn.herodotus.engine.oss.minio.domain.response.ItemResponse;
+import cn.herodotus.engine.oss.minio.response.DeleteErrorResponse;
+import cn.herodotus.engine.oss.minio.response.ItemResponse;
 import cn.herodotus.engine.oss.minio.request.object.ListObjectsRequest;
 import cn.herodotus.engine.oss.minio.request.object.RemoveObjectRequest;
 import cn.herodotus.engine.oss.minio.request.object.RemoveObjectsRequest;
