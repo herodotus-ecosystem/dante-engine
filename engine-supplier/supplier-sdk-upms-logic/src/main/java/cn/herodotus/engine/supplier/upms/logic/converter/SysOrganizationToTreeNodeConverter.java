@@ -23,35 +23,27 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.controller;
+package cn.herodotus.engine.supplier.upms.logic.converter;
 
-import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
+import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOrganization;
+import org.dromara.hutool.core.tree.TreeNode;
+import org.springframework.core.convert.converter.Converter;
+
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: SysOrganization 转 TreeNode 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/5/30 10:37
  */
-@Controller
-public class DeviceController {
-
-    @GetMapping(DefaultConstants.DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + DefaultConstants.DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
-        }
-        return "activation";
-    }
-
-    @GetMapping(value = DefaultConstants.DEVICE_VERIFICATION_SUCCESS_URI)
-    public String activated() {
-        return "activation-allowed";
+public class SysOrganizationToTreeNodeConverter implements Converter<SysOrganization, TreeNode<String>> {
+    @Override
+    public TreeNode<String> convert(SysOrganization sysOrganization) {
+        TreeNode<String> treeNode = new TreeNode<>();
+        treeNode.setId(sysOrganization.getOrganizationId());
+        treeNode.setName(sysOrganization.getOrganizationName());
+        treeNode.setParentId(WellFormedUtils.parentId(sysOrganization.getParentId()));
+        return treeNode;
     }
 }

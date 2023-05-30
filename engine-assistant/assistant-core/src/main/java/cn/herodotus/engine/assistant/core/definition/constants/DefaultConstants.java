@@ -23,35 +23,43 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.controller;
+package cn.herodotus.engine.assistant.core.definition.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.dromara.hutool.core.date.DatePattern;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: 默认常量合集 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/5/30 10:27
  */
-@Controller
-public class DeviceController {
+public interface DefaultConstants {
 
-    @GetMapping(DefaultConstants.DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + DefaultConstants.DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
-        }
-        return "activation";
-    }
+    String AUTHORIZATION_ENDPOINT = "/oauth2/authorize";
+    String TOKEN_ENDPOINT = "/oauth2/token";
+    String TOKEN_REVOCATION_ENDPOINT = "/oauth2/revoke";
+    String TOKEN_INTROSPECTION_ENDPOINT = "/oauth2/introspect";
+    String DEVICE_AUTHORIZATION_ENDPOINT = "/oauth2/device_authorization";
+    String DEVICE_VERIFICATION_ENDPOINT = "/oauth2/device_verification";
+    String JWK_SET_ENDPOINT = "/oauth2/jwks";
+    String OIDC_CLIENT_REGISTRATION_ENDPOINT = "/connect/register";
+    String OIDC_LOGOUT_ENDPOINT = "/connect/logout";
+    String OIDC_USER_INFO_ENDPOINT = "/userinfo";
 
-    @GetMapping(value = DefaultConstants.DEVICE_VERIFICATION_SUCCESS_URI)
-    public String activated() {
-        return "activation-allowed";
-    }
+    String AUTHORIZATION_CONSENT_URI = "/oauth2/consent";
+    String DEVICE_ACTIVATION_URI = "/oauth2/device_activation";
+    String DEVICE_VERIFICATION_SUCCESS_URI = "/device_activated";
+
+    /**
+     * 默认租户ID
+     */
+    String TENANT_ID = "public";
+    /**
+     * 默认树形结构根节点
+     */
+    String TREE_ROOT_ID = "0";
+    /**
+     * 默认的时间日期格式
+     */
+    String DATE_TIME_FORMAT = DatePattern.NORM_DATETIME_PATTERN;
 }

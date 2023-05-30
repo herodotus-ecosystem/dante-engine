@@ -33,7 +33,7 @@ import io.minio.BaseArgs;
  * @author : gengwei.zheng
  * @date : 2022/7/1 23:49
  */
-public interface RequestArgumentBuilder<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> extends BaseRequest {
+public interface RequestArgumentBuilder<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> extends BaseMinioRequest {
 
     /**
      * 构建 Minio 参数对象

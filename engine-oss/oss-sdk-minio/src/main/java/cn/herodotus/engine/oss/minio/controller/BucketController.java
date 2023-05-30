@@ -26,9 +26,9 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.response.BucketResponse;
+import cn.herodotus.engine.oss.minio.response.BucketResponse;
 import cn.herodotus.engine.oss.minio.dto.logic.CreateBucketDto;
-import cn.herodotus.engine.oss.minio.dto.request.bucket.MakeBucketRequest;
+import cn.herodotus.engine.oss.minio.request.bucket.MakeBucketRequest;
 import cn.herodotus.engine.oss.minio.dto.request.bucket.RemoveBucketRequest;
 import cn.herodotus.engine.oss.minio.service.BucketService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;

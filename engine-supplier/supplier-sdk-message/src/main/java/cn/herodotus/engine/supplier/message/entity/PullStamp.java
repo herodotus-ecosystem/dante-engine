@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.supplier.message.entity;
 
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -67,7 +68,7 @@ public class PullStamp extends AbstractEntity {
 
     @Schema(title = "上次拉取时间")
     @Column(name = "latest_pull_time", updatable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT)
     private Date latestPullTime = new Date();
 
     public String getStampId() {

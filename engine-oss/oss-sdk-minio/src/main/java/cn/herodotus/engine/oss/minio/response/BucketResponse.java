@@ -23,35 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.controller;
+package cn.herodotus.engine.oss.minio.response;
 
-import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: Minio Bucket 可序列化实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2022/7/1 22:59
  */
-@Controller
-public class DeviceController {
+public class BucketResponse implements Entity {
 
-    @GetMapping(DefaultConstants.DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + DefaultConstants.DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
-        }
-        return "activation";
+    private String name;
+
+    private String creationDate;
+
+    public String getName() {
+        return name;
     }
 
-    @GetMapping(value = DefaultConstants.DEVICE_VERIFICATION_SUCCESS_URI)
-    public String activated() {
-        return "activation-allowed";
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("name", name)
+                .add("creationDate", creationDate)
+                .toString();
     }
 }

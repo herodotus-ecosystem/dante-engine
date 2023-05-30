@@ -25,10 +25,11 @@
 
 package cn.herodotus.engine.oss.minio.service;
 
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.domain.response.BucketResponse;
+import cn.herodotus.engine.oss.minio.response.BucketResponse;
 import io.minio.*;
 import io.minio.errors.*;
 import org.apache.commons.collections4.CollectionUtils;
@@ -307,7 +308,7 @@ public class BucketService extends BaseMinioService {
     }
 
     private String format(ZonedDateTime zonedDateTime) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DefaultConstants.DATE_TIME_FORMAT);
         return zonedDateTime.format(dateTimeFormatter);
     }
 }

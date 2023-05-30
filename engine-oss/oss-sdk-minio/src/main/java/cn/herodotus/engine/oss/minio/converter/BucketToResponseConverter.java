@@ -23,35 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.controller;
+package cn.herodotus.engine.oss.minio.converter;
 
-import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.herodotus.engine.oss.minio.response.BucketResponse;
+import io.minio.messages.Bucket;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: Minio Bucket 转 Response 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/5/30 10:11
  */
-@Controller
-public class DeviceController {
+public class BucketToResponseConverter implements Converter<Bucket, BucketResponse> {
 
-    @GetMapping(DefaultConstants.DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + DefaultConstants.DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
-        }
-        return "activation";
-    }
-
-    @GetMapping(value = DefaultConstants.DEVICE_VERIFICATION_SUCCESS_URI)
-    public String activated() {
-        return "activation-allowed";
+    @Override
+    public BucketResponse convert(Bucket source) {
+        return null;
     }
 }

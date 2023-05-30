@@ -25,46 +25,13 @@
 
 package cn.herodotus.engine.oss.minio.definition.request;
 
-import io.minio.BaseArgs;
-import org.apache.commons.collections4.MapUtils;
-
-import java.util.Map;
+import java.io.Serializable;
 
 /**
- * <p>Description: Minio 基础 Dto </p>
+ * <p>Description: BaseMinioRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 23:39
+ * @date : 2023/4/18 16:26
  */
-public abstract class BaseMinioRequest<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> implements RequestArgumentBuilder<B, A> {
-
-    private Map<String, String> extraHeaders;
-
-    private Map<String, String> extraQueryParams;
-
-    public Map<String, String> getExtraHeaders() {
-        return extraHeaders;
-    }
-
-    public void setExtraHeaders(Map<String, String> extraHeaders) {
-        this.extraHeaders = extraHeaders;
-    }
-
-    public Map<String, String> getExtraQueryParams() {
-        return extraQueryParams;
-    }
-
-    public void setExtraQueryParams(Map<String, String> extraQueryParams) {
-        this.extraQueryParams = extraQueryParams;
-    }
-
-    protected void prepare(B builder) {
-        if (MapUtils.isNotEmpty(getExtraHeaders())) {
-            builder.extraHeaders(getExtraHeaders());
-        }
-
-        if (MapUtils.isNotEmpty(getExtraQueryParams())) {
-            builder.extraHeaders(getExtraQueryParams());
-        }
-    }
+public interface BaseMinioRequest extends Serializable {
 }

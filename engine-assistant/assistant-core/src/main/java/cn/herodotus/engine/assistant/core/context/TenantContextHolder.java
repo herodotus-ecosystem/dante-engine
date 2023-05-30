@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.context;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import org.apache.commons.lang3.StringUtils;
 
@@ -42,14 +42,14 @@ public class TenantContextHolder {
     public static String getTenantId() {
         String tenantId = CURRENT_CONTEXT.get();
         if (StringUtils.isBlank(tenantId)) {
-            tenantId = BaseConstants.DEFAULT_TENANT_ID;
+            tenantId = DefaultConstants.TENANT_ID;
         }
         return tenantId;
     }
 
     public static void setTenantId(final String tenantId) {
         if (StringUtils.isBlank(tenantId)) {
-            CURRENT_CONTEXT.set(BaseConstants.DEFAULT_TENANT_ID);
+            CURRENT_CONTEXT.set(DefaultConstants.TENANT_ID);
         } else {
             CURRENT_CONTEXT.set(tenantId);
         }

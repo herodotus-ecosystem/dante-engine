@@ -23,35 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.controller;
+package cn.herodotus.engine.oss.minio.request.bucket;
 
-import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.herodotus.engine.oss.minio.definition.request.BaseRequest;
+import io.minio.ListBucketsArgs;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: 设备激活 </p>
+ * <p>Description: 列出所有bucket信息请求实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/24 17:09
+ * @date : 2023/5/30 9:58
  */
-@Controller
-public class DeviceController {
-
-    @GetMapping(DefaultConstants.DEVICE_ACTIVATION_URI)
-    public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
-        if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + DefaultConstants.DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
-        }
-        return "activation";
+@Schema(name = "列出所有bucket信息请求实体", title = "列出所有bucket信息请求实体")
+public class ListBucketsRequest extends BaseRequest<ListBucketsArgs.Builder, ListBucketsArgs> {
+    @Override
+    public ListBucketsArgs build() {
+        ListBucketsArgs.Builder builder = getBuilder();
+        prepare(builder);
+        return builder.build();
     }
 
-    @GetMapping(value = DefaultConstants.DEVICE_VERIFICATION_SUCCESS_URI)
-    public String activated() {
-        return "activation-allowed";
+    @Override
+    public ListBucketsArgs.Builder getBuilder() {
+        return ListBucketsArgs.builder();
     }
 }

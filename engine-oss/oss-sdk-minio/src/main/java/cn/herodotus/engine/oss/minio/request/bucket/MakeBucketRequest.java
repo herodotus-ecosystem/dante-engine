@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.dto.request.bucket;
+package cn.herodotus.engine.oss.minio.request.bucket;
 
 import cn.herodotus.engine.oss.minio.definition.request.BucketRequest;
 import io.minio.MakeBucketArgs;

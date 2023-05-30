@@ -29,7 +29,6 @@ import cn.herodotus.engine.assistant.core.definition.constants.RegexPool;
 import io.minio.BucketArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Length;
@@ -40,7 +39,7 @@ import org.hibernate.validator.constraints.Length;
  * @author : gengwei.zheng
  * @date : 2022/7/1 23:44
  */
-public abstract class BucketRequest<B extends BucketArgs.Builder<B, A>, A extends BucketArgs> extends BaseMinioRequest<B, A> {
+public abstract class BucketRequest<B extends BucketArgs.Builder<B, A>, A extends BucketArgs> extends BaseRequest<B, A> {
 
     @Schema(name = "存储桶名称")
     @NotBlank(message = "存储桶名称不能为空")

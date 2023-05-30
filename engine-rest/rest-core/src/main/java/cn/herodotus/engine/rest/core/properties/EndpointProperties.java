@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.rest.core.properties;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.exception.properties.PropertyValueIsNotSetException;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
@@ -75,7 +75,7 @@ public class EndpointProperties {
     /**
      * OAuth2 Authorization Code 模式认证端点，/oauth2/authorize端点地址，可修改为自定义地址
      */
-    private String authorizationEndpoint = BaseConstants.DEFAULT_AUTHORIZATION_ENDPOINT;
+    private String authorizationEndpoint = DefaultConstants.AUTHORIZATION_ENDPOINT;
     /**
      * OAuth2 /oauth2/token 申请 Token uri 地址，可修改为自定义地址
      */
@@ -83,7 +83,7 @@ public class EndpointProperties {
     /**
      * OAuth2 /oauth2/token 申请 Token 端点地址，可修改为自定义地址
      */
-    private String accessTokenEndpoint = BaseConstants.DEFAULT_TOKEN_ENDPOINT;
+    private String accessTokenEndpoint = DefaultConstants.TOKEN_ENDPOINT;
     /**
      * OAuth2 /oauth2/jwks uri 地址，可修改为自定义地址
      */
@@ -91,7 +91,7 @@ public class EndpointProperties {
     /**
      * OAuth2 /oauth2/jwks 端点地址，可修改为自定义地址
      */
-    private String jwkSetEndpoint = BaseConstants.DEFAULT_JWK_SET_ENDPOINT;
+    private String jwkSetEndpoint = DefaultConstants.JWK_SET_ENDPOINT;
     /**
      * OAuth2 /oauth2/revoke 撤销 Token uri 地址，可修改为自定义地址
      */
@@ -99,7 +99,7 @@ public class EndpointProperties {
     /**
      * OAuth2 /oauth2/revoke 撤销 Token 端点地址，可修改为自定义地址
      */
-    private String tokenRevocationEndpoint = BaseConstants.DEFAULT_TOKEN_REVOCATION_ENDPOINT;
+    private String tokenRevocationEndpoint = DefaultConstants.TOKEN_REVOCATION_ENDPOINT;
     /**
      * OAuth2 /oauth2/introspect 查看 Token uri地址，可修改为自定义地址
      */
@@ -107,7 +107,7 @@ public class EndpointProperties {
     /**
      * OAuth2 /oauth2/introspect 查看 Token 端点地址，可修改为自定义地址
      */
-    private String tokenIntrospectionEndpoint = BaseConstants.DEFAULT_TOKEN_INTROSPECTION_ENDPOINT;
+    private String tokenIntrospectionEndpoint = DefaultConstants.TOKEN_INTROSPECTION_ENDPOINT;
     /**
      * OAuth2 /oauth2/device_authorization 设备授权认证 uri地址，可修改为自定义地址
      */
@@ -115,7 +115,7 @@ public class EndpointProperties {
     /**
      * OAuth2 /oauth2/device_authorization 设备授权认证端点地址，可修改为自定义地址
      */
-    private String deviceAuthorizationEndpoint = BaseConstants.DEFAULT_DEVICE_AUTHORIZATION_ENDPOINT;
+    private String deviceAuthorizationEndpoint = DefaultConstants.DEVICE_AUTHORIZATION_ENDPOINT;
     /**
      * OAuth2 /oauth2/device_verification 设备授权校验 uri地址，可修改为自定义地址
      */
@@ -123,7 +123,7 @@ public class EndpointProperties {
     /**
      * OAuth2 /oauth2/device_verification 设备授权校验端点地址，可修改为自定义地址
      */
-    private String deviceVerificationEndpoint = BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT;
+    private String deviceVerificationEndpoint = DefaultConstants.DEVICE_VERIFICATION_ENDPOINT;
     /**
      * OAuth2 OIDC /connect/register uri 地址，可修改为自定义地址
      */
@@ -131,7 +131,7 @@ public class EndpointProperties {
     /**
      * OAuth2 OIDC /connect/register 端点地址，可修改为自定义地址
      */
-    private String oidcClientRegistrationEndpoint = BaseConstants.DEFAULT_OIDC_CLIENT_REGISTRATION_ENDPOINT;
+    private String oidcClientRegistrationEndpoint = DefaultConstants.OIDC_CLIENT_REGISTRATION_ENDPOINT;
     /**
      * OAuth2 OIDC /connect/logout uri 地址，可修改为自定义地址
      */
@@ -139,7 +139,7 @@ public class EndpointProperties {
     /**
      * OAuth2 OIDC /connect/logout 端点地址，可修改为自定义地址
      */
-    private String oidcLogoutEndpoint = BaseConstants.DEFAULT_OIDC_LOGOUT_ENDPOINT;
+    private String oidcLogoutEndpoint = DefaultConstants.OIDC_LOGOUT_ENDPOINT;
     /**
      * OAuth2 OIDC /userinfo uri 地址，可修改为自定义地址
      */
@@ -147,7 +147,7 @@ public class EndpointProperties {
     /**
      * OAuth2 OIDC /userinfo 端点地址，可修改为自定义地址
      */
-    private String oidcUserInfoEndpoint = BaseConstants.DEFAULT_OIDC_USER_INFO_ENDPOINT;
+    private String oidcUserInfoEndpoint = DefaultConstants.OIDC_USER_INFO_ENDPOINT;
     /**
      * Spring Authorization Server Issuer Url
      */

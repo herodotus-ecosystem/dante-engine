@@ -25,10 +25,10 @@
 
 package cn.herodotus.engine.supplier.upms.rest.controller.hr;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
+import cn.herodotus.engine.supplier.upms.logic.converter.SysDepartmentToTreeNodeConverter;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysDepartment;
 import cn.herodotus.engine.supplier.upms.logic.service.hr.SysDepartmentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,11 +39,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotNull;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.dromara.hutool.core.tree.MapTree;
-import org.dromara.hutool.core.tree.TreeNode;
-import org.dromara.hutool.core.tree.TreeUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,7 +49,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>Description: SysDepartmentController </p>
@@ -80,14 +75,6 @@ public class SysDepartmentController extends BaseWriteableRestController<SysDepa
 
     private List<SysDepartment> getSysDepartments(String organizationId) {
         return sysDepartmentService.findAll(organizationId);
-    }
-
-    private String convertParentId(String parentId) {
-        if (StringUtils.isBlank(parentId)) {
-            return BaseConstants.DEFAULT_TREE_ROOT_ID;
-        } else {
-            return parentId;
-        }
     }
 
     @Operation(summary = "条件查询部门分页数据", description = "根据输入的字段条件查询部门信息",
@@ -124,17 +111,6 @@ public class SysDepartmentController extends BaseWriteableRestController<SysDepa
     @GetMapping("/tree")
     public Result<List<MapTree<String>>> findTree(@RequestParam(value = "organizationId", required = false) String organizationId) {
         List<SysDepartment> sysDepartments = getSysDepartments(organizationId);
-        if (ObjectUtils.isNotEmpty(sysDepartments)) {
-            List<TreeNode<String>> treeNodes = sysDepartments.stream().map(sysDepartment -> {
-                TreeNode<String> treeNode = new TreeNode<>();
-                treeNode.setId(sysDepartment.getDepartmentId());
-                treeNode.setName(sysDepartment.getDepartmentName());
-                treeNode.setParentId(convertParentId(sysDepartment.getParentId()));
-                return treeNode;
-            }).collect(Collectors.toList());
-            return Result.success("查询数据成功", TreeUtil.build(treeNodes, BaseConstants.DEFAULT_TREE_ROOT_ID));
-        } else {
-            return Result.failure("查询数据失败");
-        }
+        return result(sysDepartments, new SysDepartmentToTreeNodeConverter());
     }
 }
