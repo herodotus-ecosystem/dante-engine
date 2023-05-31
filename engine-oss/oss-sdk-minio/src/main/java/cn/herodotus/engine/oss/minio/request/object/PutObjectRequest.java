@@ -25,10 +25,10 @@
 
 package cn.herodotus.engine.oss.minio.request.object;
 
-import cn.herodotus.engine.oss.minio.definition.request.ObjectWriteRequest;
+import cn.herodotus.engine.oss.minio.definition.request.PutObjectBaseRequest;
 import io.minio.PutObjectArgs;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
 
 /**
  * <p>Description: PutObjectDto </p>
@@ -36,39 +36,21 @@ import java.io.InputStream;
  * @author : gengwei.zheng
  * @date : 2022/7/2 22:31
  */
-public class PutObjectRequest extends ObjectWriteRequest<PutObjectArgs.Builder, PutObjectArgs> {
+public class PutObjectRequest extends PutObjectBaseRequest<PutObjectArgs.Builder, PutObjectArgs> {
 
-    private InputStream inputStream;
-    private Long objectSize;
-    private Long partSize;
+    private BufferedInputStream stream;
 
-    public InputStream getInputStream() {
-        return inputStream;
+    public BufferedInputStream getStream() {
+        return stream;
     }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
-    }
-
-    public Long getObjectSize() {
-        return objectSize;
-    }
-
-    public void setObjectSize(Long objectSize) {
-        this.objectSize = objectSize;
-    }
-
-    public Long getPartSize() {
-        return partSize;
-    }
-
-    public void setPartSize(Long partSize) {
-        this.partSize = partSize;
+    public void setStream(BufferedInputStream stream) {
+        this.stream = stream;
     }
 
     @Override
-    protected void prepare(PutObjectArgs.Builder builder) {
-        builder.stream(getInputStream(), getObjectSize(), getPartSize());
+    public void prepare(PutObjectArgs.Builder builder) {
+        builder.stream(getStream(), getObjectSize(), getPartSize());
         super.prepare(builder);
     }
 

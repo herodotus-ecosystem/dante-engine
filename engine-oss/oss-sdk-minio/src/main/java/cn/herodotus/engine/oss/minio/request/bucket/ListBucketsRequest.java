@@ -37,12 +37,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(name = "列出所有bucket信息请求实体", title = "列出所有bucket信息请求实体")
 public class ListBucketsRequest extends BaseRequest<ListBucketsArgs.Builder, ListBucketsArgs> {
-    @Override
-    public ListBucketsArgs build() {
-        ListBucketsArgs.Builder builder = getBuilder();
-        prepare(builder);
-        return builder.build();
-    }
 
     @Override
     public ListBucketsArgs.Builder getBuilder() {

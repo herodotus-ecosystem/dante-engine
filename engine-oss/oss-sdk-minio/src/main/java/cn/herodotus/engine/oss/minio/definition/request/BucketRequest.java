@@ -66,18 +66,12 @@ public abstract class BucketRequest<B extends BucketArgs.Builder<B, A>, A extend
     }
 
     @Override
-    protected void prepare(B builder) {
+    public void prepare(B builder) {
         builder.bucket(getBucketName());
         if (StringUtils.isNotBlank(getRegion())) {
             builder.region(getRegion());
         }
-        super.prepare(builder);
-    }
 
-    @Override
-    public A build() {
-        B builder = getBuilder();
-        prepare(builder);
-        return builder.build();
+        super.prepare(builder);
     }
 }

@@ -34,5 +34,49 @@ import io.minio.PutObjectBaseArgs;
  * @date : 2022/7/2 22:31
  */
 public abstract class PutObjectBaseRequest<B extends PutObjectBaseArgs.Builder<B, A>, A extends PutObjectBaseArgs> extends ObjectWriteRequest<B, A> {
+    protected Long objectSize;
+    protected Long partSize;
+    protected Integer partCount;
+    protected String contentType;
+    protected Boolean preloadData;
 
+    public Long getObjectSize() {
+        return objectSize;
+    }
+
+    public void setObjectSize(Long objectSize) {
+        this.objectSize = objectSize;
+    }
+
+    public Long getPartSize() {
+        return partSize;
+    }
+
+    public void setPartSize(Long partSize) {
+        this.partSize = partSize;
+    }
+
+    public Integer getPartCount() {
+        return partCount;
+    }
+
+    public void setPartCount(Integer partCount) {
+        this.partCount = partCount;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public Boolean getPreloadData() {
+        return preloadData;
+    }
+
+    public void setPreloadData(Boolean preloadData) {
+        this.preloadData = preloadData;
+    }
 }

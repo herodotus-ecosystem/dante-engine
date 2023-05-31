@@ -23,33 +23,21 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.converter;
 
-import io.minio.ObjectVersionArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
+import cn.herodotus.engine.oss.minio.request.domain.CopySourceRequest;
+import io.minio.CopySource;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: Minio 基础 Object Version Request  </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 14:16
+ * @date : 2023/5/31 14:56
  */
-public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A>{
-
-    @Schema(name = "版本ID")
-    private String versionId;
-
-    public String getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
-    }
-
+public class RequestToCopySourceConverter implements Converter<CopySourceRequest, CopySource> {
     @Override
-    public void prepare(B builder) {
-        builder.object(getVersionId());
-        super.prepare(builder);
+    public CopySource convert(CopySourceRequest source) {
+        return null;
     }
 }

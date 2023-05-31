@@ -185,7 +185,7 @@ public class ListObjectsRequest extends BucketRequest<ListObjectsArgs.Builder, L
     }
 
     @Override
-    protected void prepare(ListObjectsArgs.Builder builder) {
+    public void prepare(ListObjectsArgs.Builder builder) {
 
         builder.delimiter(getDelimiter());
         builder.useUrlEncodingType(getUseUrlEncodingType());

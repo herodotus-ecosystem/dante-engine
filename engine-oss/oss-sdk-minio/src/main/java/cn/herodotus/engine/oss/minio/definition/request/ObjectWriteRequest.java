@@ -28,6 +28,7 @@ package cn.herodotus.engine.oss.minio.definition.request;
 import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.minio.request.domain.RetentionRequest;
 import io.minio.ObjectWriteArgs;
+import io.minio.ServerSideEncryption;
 import io.minio.messages.Retention;
 import io.minio.messages.RetentionMode;
 import org.apache.commons.collections4.MapUtils;
@@ -47,6 +48,8 @@ public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>
     private Map<String, String> headers;
 
     private Map<String, String> userMetadata;
+
+    private ServerSideEncryption serverSideEncryption;
 
     private Map<String, String> tags;
 
@@ -68,6 +71,14 @@ public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>
 
     public void setUserMetadata(Map<String, String> userMetadata) {
         this.userMetadata = userMetadata;
+    }
+
+    public ServerSideEncryption getServerSideEncryption() {
+        return serverSideEncryption;
+    }
+
+    public void setServerSideEncryption(ServerSideEncryption serverSideEncryption) {
+        this.serverSideEncryption = serverSideEncryption;
     }
 
     public Map<String, String> getTags() {
@@ -95,7 +106,7 @@ public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>
     }
 
     @Override
-    protected void prepare(B builder) {
+    public void prepare(B builder) {
         if (MapUtils.isNotEmpty(getHeaders())) {
             builder.headers(getHeaders());
         }
@@ -106,6 +117,12 @@ public abstract class ObjectWriteRequest<B extends ObjectWriteArgs.Builder<B, A>
 
         if (MapUtils.isNotEmpty(getTags())) {
             builder.headers(getTags());
+        }
+
+        builder.legalHold(getLegalHold());
+
+        if (ObjectUtils.isNotEmpty(getServerSideEncryption())) {
+            builder.sse(getServerSideEncryption());
         }
 
         if (ObjectUtils.isNotEmpty(getRetention())) {

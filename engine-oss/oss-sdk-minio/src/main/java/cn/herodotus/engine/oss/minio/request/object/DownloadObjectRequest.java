@@ -58,7 +58,7 @@ public class DownloadObjectRequest extends ObjectReadRequest<DownloadObjectArgs.
     }
 
     @Override
-    protected void prepare(DownloadObjectArgs.Builder builder) {
+    public void prepare(DownloadObjectArgs.Builder builder) {
         builder.filename(getFilename());
         builder.overwrite(getOverwrite());
         super.prepare(builder);

@@ -23,29 +23,20 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import io.minio.BaseArgs;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectVersionRequest;
+import io.minio.RestoreObjectArgs;
 
 /**
- * <p>Description: Minio 参数构建器 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 23:49
+ * @date : 2023/5/31 16:12
  */
-public interface RequestArgumentBuilder<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> extends BaseMinioRequest {
-
-    /**
-     * 构建 Minio 参数对象
-     *
-     * @return Minio 参数对象
-     */
-    A build();
-
-    /**
-     * 获取Builder
-     *
-     * @return builder
-     */
-    B getBuilder();
+public class RestoreObjectRequest extends ObjectVersionRequest<RestoreObjectArgs.Builder, RestoreObjectArgs> {
+    @Override
+    public RestoreObjectArgs.Builder getBuilder() {
+        return null;
+    }
 }

@@ -37,7 +37,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
  */
 @Schema(name = "检查桶是否存在参数实体", title = "检查桶是否存在参数实体")
 public class BucketExistsRequest extends BucketRequest<BucketExistsArgs.Builder, BucketExistsArgs> {
-
     @Override
     public BucketExistsArgs.Builder getBuilder() {
         return BucketExistsArgs.builder();

@@ -62,7 +62,7 @@ public class SetObjectRetentionRequest extends ObjectVersionRequest<SetObjectRet
     }
 
     @Override
-    protected void prepare(SetObjectRetentionArgs.Builder builder) {
+    public void prepare(SetObjectRetentionArgs.Builder builder) {
         if (ObjectUtils.isNotEmpty(getRetention())) {
             Retention retention = new Retention(RetentionMode.valueOf(getRetention().getMode()), DateTimeUtils.stringToZonedDateTime(getRetention().getRetainUntilDate()));
             builder.config(retention);

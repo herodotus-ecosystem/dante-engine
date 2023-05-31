@@ -23,15 +23,45 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import java.io.Serializable;
+import cn.herodotus.engine.oss.minio.definition.request.PutObjectBaseRequest;
+import io.minio.UploadObjectArgs;
+
+import java.io.IOException;
 
 /**
- * <p>Description: BaseMinioRequest </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 16:26
+ * @date : 2023/5/31 16:14
  */
-public interface BaseMinioRequest extends Serializable {
+public class UploadObjectRequest extends PutObjectBaseRequest<UploadObjectArgs.Builder, UploadObjectArgs> {
+
+    private String filename;
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public void prepare(UploadObjectArgs.Builder builder) {
+        try {
+            builder.filename(getFilename(), getPartSize());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        builder.contentType(getContentType());
+        super.prepare(builder);
+    }
+
+    @Override
+    public UploadObjectArgs.Builder getBuilder() {
+        return UploadObjectArgs.builder();
+    }
 }

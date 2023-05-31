@@ -36,7 +36,7 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2022/7/1 23:39
  */
-public abstract class BaseRequest<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> implements RequestArgumentBuilder<B, A> {
+public abstract class BaseRequest<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> implements MinioRequestBuilder<B, A> {
 
     private Map<String, String> extraHeaders;
 
@@ -58,7 +58,8 @@ public abstract class BaseRequest<B extends BaseArgs.Builder<B, A>, A extends Ba
         this.extraQueryParams = extraQueryParams;
     }
 
-    protected void prepare(B builder) {
+    @Override
+    public void prepare(B builder) {
         if (MapUtils.isNotEmpty(getExtraHeaders())) {
             builder.extraHeaders(getExtraHeaders());
         }

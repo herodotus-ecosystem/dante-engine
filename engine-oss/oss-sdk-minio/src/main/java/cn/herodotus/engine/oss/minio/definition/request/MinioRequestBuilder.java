@@ -25,31 +25,38 @@
 
 package cn.herodotus.engine.oss.minio.definition.request;
 
-import io.minio.ObjectVersionArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
+import io.minio.BaseArgs;
+import org.apache.commons.collections4.MapUtils;
 
 /**
- * <p>Description: Minio 基础 Object Version Request  </p>
+ * <p>Description: Minio 参数构建器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 14:16
+ * @date : 2022/7/1 23:49
  */
-public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A>{
+public interface MinioRequestBuilder<B extends BaseArgs.Builder<B, A>, A extends BaseArgs> extends MinioRequest {
 
-    @Schema(name = "版本ID")
-    private String versionId;
+    /**
+     * 参数准备
+     * @param builder Minio 参数构造器
+     */
+    void prepare(B builder);
 
-    public String getVersionId() {
-        return versionId;
-    }
+    /**
+     * 获取Builder
+     *
+     * @return builder
+     */
+    B getBuilder();
 
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
-    }
-
-    @Override
-    public void prepare(B builder) {
-        builder.object(getVersionId());
-        super.prepare(builder);
+    /**
+     * 构建 Minio 参数对象
+     *
+     * @return Minio 参数对象
+     */
+    default A build() {
+        B builder = getBuilder();
+        prepare(builder);
+        return builder.build();
     }
 }

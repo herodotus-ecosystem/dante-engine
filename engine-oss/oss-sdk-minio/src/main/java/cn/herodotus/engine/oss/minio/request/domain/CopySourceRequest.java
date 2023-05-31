@@ -23,33 +23,40 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.request.domain;
 
-import io.minio.ObjectVersionArgs;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectConditionalReadRequest;
+import io.minio.ComposeSource;
+import io.minio.CopySource;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: Minio 基础 Object Version Request  </p>
+ * <p>Description: 复制对象源请求参数 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 14:16
+ * @date : 2023/5/31 14:55
  */
-public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A>{
+@Schema(name = "复制对象源请求参数")
+public class CopySourceRequest extends ObjectConditionalReadRequest<CopySource.Builder, CopySource> {
 
-    @Schema(name = "版本ID")
-    private String versionId;
-
-    public String getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
+    public CopySourceRequest(ObjectConditionalReadRequest<ComposeSource.Builder, ComposeSource> request) {
+        this.setExtraHeaders(request.getExtraHeaders());
+        this.setExtraQueryParams(request.getExtraQueryParams());
+        this.setBucketName(request.getBucketName());
+        this.setRegion(request.getRegion());
+        this.setObjectName(request.getObjectName());
+        this.setVersionId(request.getVersionId());
+        this.setServerSideEncryptionCustom(request.getServerSideEncryptionCustom());
+        this.setOffset(request.getOffset());
+        this.setLength(request.getLength());
+        this.setMatchETag(request.getMatchETag());
+        this.setNotMatchETag(request.getNotMatchETag());
+        this.setModifiedSince(request.getModifiedSince());
+        this.setUnmodifiedSince(request.getUnmodifiedSince());
     }
 
     @Override
-    public void prepare(B builder) {
-        builder.object(getVersionId());
-        super.prepare(builder);
+    public CopySource.Builder getBuilder() {
+        return CopySource.builder();
     }
 }

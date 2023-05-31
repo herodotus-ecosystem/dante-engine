@@ -355,12 +355,6 @@ public class ObjectService extends BaseMinioService {
         }
     }
 
-
-
-
-
-
-
     /**
      * 恢复对象
      *

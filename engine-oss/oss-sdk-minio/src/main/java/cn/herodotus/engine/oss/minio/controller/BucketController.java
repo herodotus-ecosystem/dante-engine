@@ -45,7 +45,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,14 +66,12 @@ import java.util.List;
 public class BucketController implements Controller {
 
     private final BucketService bucketService;
-
-    @Autowired
     public BucketController(BucketService bucketService) {
         this.bucketService = bucketService;
     }
 
     @AccessLimited
-    @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口",
+    @Operation(summary = "获取全部Bucket(存储桶)", description = "获取全部Bucket(存储桶)",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
             responses = {
                     @ApiResponse(description = "所有Buckets", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))),
@@ -83,7 +80,7 @@ public class BucketController implements Controller {
                     @ApiResponse(responseCode = "500", description = "查询失败")
             })
     @Parameters({
-            @Parameter(name = "request", required = true, in = ParameterIn.PATH ,description = "ListBucketsRequest请求实体", schema = @Schema(implementation = ListBucketsRequest.class))
+            @Parameter(name = "request", required = true, in = ParameterIn.PATH ,description = "ListBucketsRequest参数对象", schema = @Schema(implementation = ListBucketsRequest.class))
     })
     @GetMapping
     public Result<List<BucketResponse>> list(ListBucketsRequest request) {

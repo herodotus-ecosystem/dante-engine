@@ -63,7 +63,7 @@ public class RemoveObjectsRequest extends BucketRequest<RemoveObjectsArgs.Builde
     }
 
     @Override
-    protected void prepare(RemoveObjectsArgs.Builder builder) {
+    public void prepare(RemoveObjectsArgs.Builder builder) {
         List<DeleteObject> deleteObjects = getObjects().stream().map(item -> new DeleteObject(item.getName(), item.getVersionId())).toList();
         builder.objects(deleteObjects);
         super.prepare(builder);

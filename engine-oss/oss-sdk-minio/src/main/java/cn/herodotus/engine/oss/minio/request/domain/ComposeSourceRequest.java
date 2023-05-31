@@ -23,20 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.object;
+package cn.herodotus.engine.oss.minio.request.domain;
 
 import cn.herodotus.engine.oss.minio.definition.request.ObjectConditionalReadRequest;
-import io.minio.GetObjectArgs;
+import io.minio.ComposeSource;
+import io.minio.CopySource;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.util.Map;
 
 /**
- * <p>Description: GetObjectRequest </p>
+ * <p>Description: 组合对象源请求参数 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/30 23:58
+ * @date : 2023/5/31 14:37
  */
-public class GetObjectRequest extends ObjectConditionalReadRequest<GetObjectArgs.Builder, GetObjectArgs> {
+@Schema(name = "组合对象源请求参数")
+public class ComposeSourceRequest extends ObjectConditionalReadRequest<ComposeSource.Builder, ComposeSource> {
 
-    public GetObjectRequest(DownloadObjectRequest request) {
+    private Long objectSize = null;
+    private Map<String, String> headers = null;
+
+    public ComposeSourceRequest(ObjectConditionalReadRequest<CopySource.Builder, CopySource> request) {
         this.setExtraHeaders(request.getExtraHeaders());
         this.setExtraQueryParams(request.getExtraQueryParams());
         this.setBucketName(request.getBucketName());
@@ -44,10 +52,32 @@ public class GetObjectRequest extends ObjectConditionalReadRequest<GetObjectArgs
         this.setObjectName(request.getObjectName());
         this.setVersionId(request.getVersionId());
         this.setServerSideEncryptionCustom(request.getServerSideEncryptionCustom());
+        this.setOffset(request.getOffset());
+        this.setLength(request.getLength());
+        this.setMatchETag(request.getMatchETag());
+        this.setNotMatchETag(request.getNotMatchETag());
+        this.setModifiedSince(request.getModifiedSince());
+        this.setUnmodifiedSince(request.getUnmodifiedSince());
+    }
+
+    public Long getObjectSize() {
+        return objectSize;
+    }
+
+    public void setObjectSize(Long objectSize) {
+        this.objectSize = objectSize;
+    }
+
+    public Map<String, String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
     }
 
     @Override
-    public GetObjectArgs.Builder getBuilder() {
-        return GetObjectArgs.builder();
+    public ComposeSource.Builder getBuilder() {
+        return ComposeSource.builder();
     }
 }

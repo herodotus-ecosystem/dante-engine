@@ -39,21 +39,21 @@ import org.springframework.core.convert.converter.Converter;
  */
 public abstract class ObjectReadRequest<B extends ObjectReadArgs.Builder<B, A>, A extends ObjectReadArgs> extends ObjectVersionRequest<B, A> {
 
-    private ServerSideEncryptionCustomerKeyRequest serverSideEncryption;
-    private Converter<ServerSideEncryptionCustomerKeyRequest, ServerSideEncryptionCustomerKey> requestTo =
+    private ServerSideEncryptionCustomerKeyRequest serverSideEncryptionCustom;
+    private final Converter<ServerSideEncryptionCustomerKeyRequest, ServerSideEncryptionCustomerKey> requestTo =
             new RequestToServerSideEncryptionCustomerKeyConverter();
 
-    public ServerSideEncryptionCustomerKeyRequest getServerSideEncryption() {
-        return serverSideEncryption;
+    public ServerSideEncryptionCustomerKeyRequest getServerSideEncryptionCustom() {
+        return serverSideEncryptionCustom;
     }
 
-    public void setServerSideEncryption(ServerSideEncryptionCustomerKeyRequest serverSideEncryption) {
-        this.serverSideEncryption = serverSideEncryption;
+    public void setServerSideEncryptionCustom(ServerSideEncryptionCustomerKeyRequest serverSideEncryptionCustom) {
+        this.serverSideEncryptionCustom = serverSideEncryptionCustom;
     }
 
     @Override
-    protected void prepare(B builder) {
-        builder.ssec(requestTo.convert(getServerSideEncryption()));
+    public void prepare(B builder) {
+        builder.ssec(requestTo.convert(getServerSideEncryptionCustom()));
         super.prepare(builder);
     }
 }

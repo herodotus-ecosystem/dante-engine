@@ -50,7 +50,7 @@ public abstract class ObjectRequest<B extends ObjectArgs.Builder<B, A>, A extend
     }
 
     @Override
-    protected void prepare(B builder) {
+    public void prepare(B builder) {
         builder.object(getObjectName());
         super.prepare(builder);
     }

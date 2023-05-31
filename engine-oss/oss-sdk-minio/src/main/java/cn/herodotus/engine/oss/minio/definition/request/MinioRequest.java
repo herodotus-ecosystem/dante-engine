@@ -25,31 +25,13 @@
 
 package cn.herodotus.engine.oss.minio.definition.request;
 
-import io.minio.ObjectVersionArgs;
-import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
 
 /**
- * <p>Description: Minio 基础 Object Version Request  </p>
+ * <p>Description: MinioRequest </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 14:16
+ * @date : 2023/4/18 16:26
  */
-public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A>{
-
-    @Schema(name = "版本ID")
-    private String versionId;
-
-    public String getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
-    }
-
-    @Override
-    public void prepare(B builder) {
-        builder.object(getVersionId());
-        super.prepare(builder);
-    }
+public interface MinioRequest extends Serializable {
 }

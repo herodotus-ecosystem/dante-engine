@@ -105,7 +105,7 @@ public abstract class ObjectConditionalReadRequest<B extends ObjectConditionalRe
     }
 
     @Override
-    protected void prepare(B builder) {
+    public void prepare(B builder) {
         builder.length(getLength());
         builder.offset(getOffset());
         builder.matchETag(getMatchETag());

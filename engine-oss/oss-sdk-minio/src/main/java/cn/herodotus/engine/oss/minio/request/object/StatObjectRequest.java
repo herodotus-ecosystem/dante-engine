@@ -23,33 +23,34 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.definition.request;
+package cn.herodotus.engine.oss.minio.request.object;
 
-import io.minio.ObjectVersionArgs;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectConditionalReadRequest;
+import cn.herodotus.engine.oss.minio.definition.request.ObjectReadRequest;
+import io.minio.StatObjectArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: Minio 基础 Object Version Request  </p>
+ * <p>Description: 获取对象信息和元数据请求参数 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 14:16
+ * @date : 2023/5/31 16:18
  */
-public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B, A>, A extends ObjectVersionArgs> extends ObjectRequest<B, A>{
+@Schema(name = "获取对象信息和元数据请求参数")
+public class StatObjectRequest extends ObjectConditionalReadRequest<StatObjectArgs.Builder, StatObjectArgs> {
 
-    @Schema(name = "版本ID")
-    private String versionId;
-
-    public String getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
+    public StatObjectRequest(ObjectReadRequest<StatObjectArgs.Builder, StatObjectArgs> request) {
+        this.setExtraHeaders(request.getExtraHeaders());
+        this.setExtraQueryParams(request.getExtraQueryParams());
+        this.setBucketName(request.getBucketName());
+        this.setRegion(request.getRegion());
+        this.setObjectName(request.getObjectName());
+        this.setVersionId(request.getVersionId());
+        this.setServerSideEncryptionCustom(request.getServerSideEncryptionCustom());
     }
 
     @Override
-    public void prepare(B builder) {
-        builder.object(getVersionId());
-        super.prepare(builder);
+    public StatObjectArgs.Builder getBuilder() {
+        return StatObjectArgs.builder();
     }
 }

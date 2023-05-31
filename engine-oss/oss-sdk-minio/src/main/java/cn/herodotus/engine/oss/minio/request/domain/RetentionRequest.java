@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oss.minio.request.domain;
 
-import cn.herodotus.engine.oss.minio.definition.request.BaseMinioRequest;
+import cn.herodotus.engine.oss.minio.definition.request.MinioRequest;
 import cn.herodotus.engine.rest.core.annotation.EnumeratedValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -35,7 +35,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * @author : gengwei.zheng
  * @date : 2022/7/2 22:22
  */
-public class RetentionRequest implements BaseMinioRequest {
+public class RetentionRequest implements MinioRequest {
     @EnumeratedValue(names = {"GOVERNANCE", "COMPLIANCE"}, message = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
     @Schema(name = "对象保留模式", title = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
     private String mode;
