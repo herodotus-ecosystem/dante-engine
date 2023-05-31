@@ -82,7 +82,7 @@ public class ObjectController implements Controller {
     @Parameters({
             @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "ListObjectsRequest参数实体", schema = @Schema(implementation = ListObjectsRequest.class))
     })
-    @GetMapping
+    @GetMapping("/list")
     public Result<List<ItemResponse>> list(@Validated ListObjectsRequest request) {
         List<ItemResponse> items = objectService.listObjects(request.build());
         return result(items);

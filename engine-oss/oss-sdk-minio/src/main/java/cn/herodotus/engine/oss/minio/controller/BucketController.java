@@ -82,7 +82,7 @@ public class BucketController implements Controller {
     @Parameters({
             @Parameter(name = "request", required = true, in = ParameterIn.PATH ,description = "ListBucketsRequest参数对象", schema = @Schema(implementation = ListBucketsRequest.class))
     })
-    @GetMapping
+    @GetMapping("/list")
     public Result<List<BucketResponse>> list(ListBucketsRequest request) {
         List<BucketResponse> bucketResponses = bucketService.listBuckets(ObjectUtils.isNotEmpty(request) ? request.build() : null);
         return result(bucketResponses);
