@@ -48,7 +48,7 @@ public abstract class ObjectVersionRequest<B extends ObjectVersionArgs.Builder<B
     }
 
     @Override
-    protected void prepare(B builder) {
+    public void prepare(B builder) {
         builder.object(getVersionId());
         super.prepare(builder);
     }

@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.cache.jetcache.enhance;
 
-import cn.hutool.extra.spring.SpringUtil;
 import org.apache.ibatis.cache.Cache;
+import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

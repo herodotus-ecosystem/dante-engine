@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.data.core.entity;
 
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
@@ -53,13 +54,13 @@ public abstract class BaseEntity extends AbstractEntity {
     @Schema(name = "数据创建时间")
     @Column(name = "create_time", updatable = false)
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT)
     private Date createTime = new Date();
 
     @Schema(name = "数据更新时间")
     @Column(name = "update_time")
     @LastModifiedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT)
     private Date updateTime = new Date();
 
     @Schema(name = "创建人")

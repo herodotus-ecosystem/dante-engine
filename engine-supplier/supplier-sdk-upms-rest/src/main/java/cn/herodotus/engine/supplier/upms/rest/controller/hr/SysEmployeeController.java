@@ -172,7 +172,7 @@ public class SysEmployeeController extends BaseWriteableRestController<SysEmploy
             @Parameter(name = "allocatableDeploy", required = true, description = "当前页码", schema = @Schema(implementation = AllocatableDeploy.class)),
     })
     @PostMapping("/allocatable")
-    public Result<String> saveAllocatable(@RequestBody AllocatableDeploy allocatableDeploy) {
+    public Result<Boolean> saveAllocatable(@RequestBody AllocatableDeploy allocatableDeploy) {
         boolean isSuccess;
         if (ObjectUtils.isNotEmpty(allocatableDeploy)) {
             isSuccess = sysEmployeeService.deployAllocatable(allocatableDeploy.getEmployees(), allocatableDeploy.getOwnerships());
@@ -190,7 +190,7 @@ public class SysEmployeeController extends BaseWriteableRestController<SysEmploy
             @Parameter(name = "allocatableRemove", required = true, description = "增加人员归属参数BO对象", schema = @Schema(implementation = AllocatableRemove.class)),
     })
     @DeleteMapping("/allocatable")
-    public Result<String> deleteAllocatable(@RequestBody AllocatableRemove allocatableRemove) {
+    public Result<Boolean> deleteAllocatable(@RequestBody AllocatableRemove allocatableRemove) {
         boolean isSuccess;
         if (ObjectUtils.isNotEmpty(allocatableRemove)) {
             isSuccess = sysEmployeeService.removeAllocatable(allocatableRemove.getOrganizationId(), allocatableRemove.getDepartmentId(), allocatableRemove.getEmployeeId());

@@ -27,6 +27,7 @@ package cn.herodotus.engine.data.jpa.p6spy;
 
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.date.DatePattern;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +40,7 @@ import java.util.Date;
  */
 public class P6SpyMessageFormatting implements MessageFormattingStrategy {
 
-    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+    private final SimpleDateFormat format = new SimpleDateFormat(DatePattern.NORM_DATETIME_MS_PATTERN);
 
     @Override
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {

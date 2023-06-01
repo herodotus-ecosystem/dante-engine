@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.data.tenant.hibernate;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.slf4j.Logger;
@@ -76,7 +76,7 @@ public class SchemaMultiTenantConnectionProvider implements MultiTenantConnectio
 
     @Override
     public void releaseConnection(String schema, Connection connection) throws SQLException {
-        connection.setSchema(BaseConstants.DEFAULT_TENANT_ID);
+        connection.setSchema(DefaultConstants.TENANT_ID);
         releaseAnyConnection(connection);
     }
 

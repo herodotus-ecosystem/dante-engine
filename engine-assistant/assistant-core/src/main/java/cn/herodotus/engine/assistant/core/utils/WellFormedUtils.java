@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.utils;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import org.apache.commons.lang3.StringUtils;
@@ -78,7 +78,7 @@ public class WellFormedUtils {
      */
     public static String parentId(String parentId) {
         if (StringUtils.isBlank(parentId)) {
-            return BaseConstants.DEFAULT_TREE_ROOT_ID;
+            return DefaultConstants.TREE_ROOT_ID;
         } else {
             return parentId;
         }

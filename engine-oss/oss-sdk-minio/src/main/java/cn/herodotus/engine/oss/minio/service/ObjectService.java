@@ -25,22 +25,21 @@
 
 package cn.herodotus.engine.oss.minio.service;
 
-import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.core.exception.*;
+import cn.herodotus.engine.oss.minio.converter.DeleteErrorToResponseConverter;
+import cn.herodotus.engine.oss.minio.converter.ItemToResponseConverter;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.domain.response.DeleteErrorResponse;
-import cn.herodotus.engine.oss.minio.domain.response.ItemResponse;
-import cn.herodotus.engine.oss.minio.domain.OwnerResponse;
+import cn.herodotus.engine.oss.minio.response.DeleteErrorResponse;
+import cn.herodotus.engine.oss.minio.response.ItemResponse;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.DeleteError;
 import io.minio.messages.Item;
-import io.minio.messages.Owner;
 import org.apache.commons.collections4.IterableUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -62,6 +61,167 @@ public class ObjectService extends BaseMinioService {
 
     public ObjectService(MinioClientObjectPool minioClientObjectPool) {
         super(minioClientObjectPool);
+    }
+
+    /**
+     * listObjects列出桶的对象信息
+     *
+     * @param listObjectsArgs {@link ListObjectsArgs}
+     * @return Iterable<Result < Item>>
+     */
+    public List<ItemResponse> listObjects(ListObjectsArgs listObjectsArgs) {
+        MinioClient minioClient = getMinioClient();
+        Iterable<Result<Item>> results = minioClient.listObjects(listObjectsArgs);
+        return toResponses(results, new ItemToResponseConverter());
+    }
+
+    /**
+     * 懒惰地删除多个对象。它需要迭代返回的 Iterable 以执行删除
+     *
+     * @param removeObjectsArgs {@link RemoveObjectsArgs}
+     * @return Iterable<Result < DeleteError>>
+     */
+    public List<DeleteErrorResponse> removeObjects(RemoveObjectsArgs removeObjectsArgs) {
+        MinioClient minioClient = getMinioClient();
+        Iterable<Result<DeleteError>> results = minioClient.removeObjects(removeObjectsArgs);
+        return toResponses(results, new DeleteErrorToResponseConverter());
+    }
+
+    /**
+     * 移除一个对象
+     *
+     * @param removeObjectArgs {@link RemoveObjectArgs}
+     */
+    public void removeObject(RemoveObjectArgs removeObjectArgs) {
+        String function = "removeObject";
+        MinioClient minioClient = getMinioClient();
+
+        try {
+            minioClient.removeObject(removeObjectArgs);
+        } catch (ErrorResponseException e) {
+            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
+            throw new OssErrorResponseException("Minio response error.");
+        } catch (InsufficientDataException e) {
+            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
+            throw new OssInsufficientDataException("Minio insufficient data error.");
+        } catch (InternalException e) {
+            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
+            throw new OssInternalException("Minio internal error.");
+        } catch (InvalidKeyException e) {
+            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
+            throw new OssInvalidKeyException("Minio key invalid.");
+        } catch (InvalidResponseException e) {
+            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
+            throw new OssInvalidResponseException("Minio response invalid.");
+        } catch (IOException e) {
+            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
+            throw new OssIOException("Minio io error.");
+        } catch (NoSuchAlgorithmException e) {
+            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
+            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
+        } catch (ServerException e) {
+            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
+            throw new OssServerException("Minio server error.");
+        } catch (XmlParserException e) {
+            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
+            throw new OssXmlParserException("Minio xml parser error.");
+        } finally {
+            close(minioClient);
+        }
+    }
+
+    /**
+     * GetObject接口用于获取某个文件（Object）。此操作需要对此Object具有读权限。
+     * <p>
+     * 获取对象的数据。InputStream使用后返回必须关闭以释放网络资源。
+     *
+     * @param getObjectArgs {@link GetObjectArgs}
+     * @return {@link GetObjectResponse}
+     */
+    public GetObjectResponse getObject(GetObjectArgs getObjectArgs) {
+        String function = "getObject";
+        MinioClient minioClient = getMinioClient();
+
+        try {
+            return minioClient.getObject(getObjectArgs);
+        } catch (ErrorResponseException e) {
+            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
+            throw new OssErrorResponseException("Minio response error.");
+        } catch (InsufficientDataException e) {
+            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
+            throw new OssInsufficientDataException("Minio insufficient data error.");
+        } catch (InternalException e) {
+            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
+            throw new OssInternalException("Minio internal error.");
+        } catch (InvalidKeyException e) {
+            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
+            throw new OssInvalidKeyException("Minio key invalid.");
+        } catch (InvalidResponseException e) {
+            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
+            throw new OssInvalidResponseException("Minio response invalid.");
+        } catch (IOException e) {
+            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
+            throw new OssIOException("Minio io error.");
+        } catch (NoSuchAlgorithmException e) {
+            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
+            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
+        } catch (ServerException e) {
+            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
+            throw new OssServerException("Minio server error.");
+        } catch (XmlParserException e) {
+            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
+            throw new OssXmlParserException("Minio xml parser error.");
+        } finally {
+            close(minioClient);
+        }
+    }
+
+    /**
+     * 上传文件
+     * <p>
+     * · 添加的Object大小不能超过5 GB。
+     * · 默认情况下，如果已存在同名Object且对该Object有访问权限，则新添加的Object将覆盖原有的Object，并返回200 OK。
+     * · OSS没有文件夹的概念，所有资源都是以文件来存储，但您可以通过创建一个以正斜线（/）结尾，大小为0的Object来创建模拟文件夹。
+     *
+     * @param putObjectArgs {@link PutObjectArgs}
+     * @return {@link ObjectWriteResponse}
+     */
+    public ObjectWriteResponse putObject(PutObjectArgs putObjectArgs) {
+        String function = "putObject";
+        MinioClient minioClient = getMinioClient();
+
+        try {
+            return minioClient.putObject(putObjectArgs);
+        } catch (ErrorResponseException e) {
+            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
+            throw new OssErrorResponseException("Minio response error.");
+        } catch (InsufficientDataException e) {
+            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
+            throw new OssInsufficientDataException("Minio insufficient data error.");
+        } catch (InternalException e) {
+            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
+            throw new OssInternalException("Minio internal error.");
+        } catch (InvalidKeyException e) {
+            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
+            throw new OssInvalidKeyException("Minio key invalid.");
+        } catch (InvalidResponseException e) {
+            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
+            throw new OssInvalidResponseException("Minio response invalid.");
+        } catch (IOException e) {
+            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
+            throw new OssIOException("Minio io error.");
+        } catch (NoSuchAlgorithmException e) {
+            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
+            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
+        } catch (ServerException e) {
+            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
+            throw new OssServerException("Minio server error.");
+        } catch (XmlParserException e) {
+            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
+            throw new OssXmlParserException("Minio xml parser error.");
+        } finally {
+            close(minioClient);
+        }
     }
 
     /**
@@ -194,168 +354,6 @@ public class ObjectService extends BaseMinioService {
             close(minioClient);
         }
     }
-
-    /**
-     * GetObject接口用于获取某个文件（Object）。此操作需要对此Object具有读权限。
-     * <p>
-     * 获取对象的数据。InputStream使用后返回必须关闭以释放网络资源。
-     *
-     * @param getObjectArgs {@link GetObjectArgs}
-     * @return {@link GetObjectResponse}
-     */
-    public GetObjectResponse getObject(GetObjectArgs getObjectArgs) {
-        String function = "getObject";
-        MinioClient minioClient = getMinioClient();
-
-        try {
-            return minioClient.getObject(getObjectArgs);
-        } catch (ErrorResponseException e) {
-            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
-            throw new OssErrorResponseException("Minio response error.");
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio key invalid.");
-        } catch (InvalidResponseException e) {
-            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
-            throw new OssInvalidResponseException("Minio response invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
-        } catch (ServerException e) {
-            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
-            throw new OssServerException("Minio server error.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
-            throw new OssXmlParserException("Minio xml parser error.");
-        } finally {
-            close(minioClient);
-        }
-    }
-
-    /**
-     * listObjects列出桶的对象信息
-     *
-     * @param listObjectsArgs {@link ListObjectsArgs}
-     * @return Iterable<Result < Item>>
-     */
-    public List<ItemResponse> listObjects(ListObjectsArgs listObjectsArgs) {
-        MinioClient minioClient = getMinioClient();
-        Iterable<Result<Item>> results =  minioClient.listObjects(listObjectsArgs);
-        return toItemResponses(results);
-    }
-
-    /**
-     * 上传文件
-     * <p>
-     * · 添加的Object大小不能超过5 GB。
-     * · 默认情况下，如果已存在同名Object且对该Object有访问权限，则新添加的Object将覆盖原有的Object，并返回200 OK。
-     * · OSS没有文件夹的概念，所有资源都是以文件来存储，但您可以通过创建一个以正斜线（/）结尾，大小为0的Object来创建模拟文件夹。
-     *
-     * @param putObjectArgs {@link PutObjectArgs}
-     * @return {@link ObjectWriteResponse}
-     */
-    public ObjectWriteResponse putObject(PutObjectArgs putObjectArgs) {
-        String function = "putObject";
-        MinioClient minioClient = getMinioClient();
-
-        try {
-            return minioClient.putObject(putObjectArgs);
-        } catch (ErrorResponseException e) {
-            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
-            throw new OssErrorResponseException("Minio response error.");
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio key invalid.");
-        } catch (InvalidResponseException e) {
-            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
-            throw new OssInvalidResponseException("Minio response invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
-        } catch (ServerException e) {
-            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
-            throw new OssServerException("Minio server error.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
-            throw new OssXmlParserException("Minio xml parser error.");
-        } finally {
-            close(minioClient);
-        }
-    }
-
-    /**
-     * 移除一个对象
-     *
-     * @param removeObjectArgs {@link RemoveObjectArgs}
-     */
-    public void removeObject(RemoveObjectArgs removeObjectArgs) {
-        String function = "removeObject";
-        MinioClient minioClient = getMinioClient();
-
-        try {
-            minioClient.removeObject(removeObjectArgs);
-        } catch (ErrorResponseException e) {
-            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
-            throw new OssErrorResponseException("Minio response error.");
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio key invalid.");
-        } catch (InvalidResponseException e) {
-            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
-            throw new OssInvalidResponseException("Minio response invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
-        } catch (ServerException e) {
-            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
-            throw new OssServerException("Minio server error.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
-            throw new OssXmlParserException("Minio xml parser error.");
-        } finally {
-            close(minioClient);
-        }
-    }
-
-    /**
-     * 懒惰地删除多个对象。它需要迭代返回的 Iterable 以执行删除
-     *
-     * @param removeObjectsArgs {@link RemoveObjectsArgs}
-     * @return Iterable<Result < DeleteError>>
-     */
-    public List<DeleteErrorResponse> removeObjects(RemoveObjectsArgs removeObjectsArgs) {
-        MinioClient minioClient = getMinioClient();
-        Iterable<Result<DeleteError>> results = minioClient.removeObjects(removeObjectsArgs);
-        return toDeleteErrorResponses(results);
-    }
-
 
     /**
      * 恢复对象
@@ -532,125 +530,14 @@ public class ObjectService extends BaseMinioService {
         }
     }
 
-    private List<DeleteErrorResponse> toDeleteErrorResponses(Iterable<Result<DeleteError>> results) {
-        List<DeleteErrorResponse> responses = new ArrayList<>();
+    private <T, R> List<R> toResponses(Iterable<Result<T>> results, Converter<Result<T>, R> toResponse) {
+        List<R> responses = new ArrayList<>();
         if (!IterableUtils.isEmpty(results)) {
-            for(Result<DeleteError> result : results) {
-                DeleteErrorResponse response = toDeleteErrorResponse(result);
+            for (Result<T> result : results) {
+                R response = toResponse.convert(result);
                 responses.add(response);
             }
         }
         return responses;
-    }
-
-    private DeleteErrorResponse toDeleteErrorResponse(Result<DeleteError> result) {
-        String function = "toDeleteErrorResponse";
-
-        try {
-            DeleteError deleteError = result.get();
-
-            DeleteErrorResponse deleteErrorResponse = new DeleteErrorResponse();
-            if (ObjectUtils.isNotEmpty(deleteError)) {
-                deleteErrorResponse.setCode(deleteError.code());
-                deleteErrorResponse.setMessage(deleteError.message());
-                deleteErrorResponse.setBucketName(deleteError.bucketName());
-                deleteErrorResponse.setObjectName(deleteError.objectName());
-                deleteErrorResponse.setResource(deleteError.resource());
-                deleteErrorResponse.setRequestId(deleteError.requestId());
-                deleteErrorResponse.setHostId(deleteError.hostId());
-            }
-            return deleteErrorResponse;
-        } catch (ErrorResponseException e) {
-            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
-            throw new OssErrorResponseException("Minio response error.");
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio key invalid.");
-        } catch (InvalidResponseException e) {
-            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
-            throw new OssInvalidResponseException("Minio response invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
-        } catch (ServerException e) {
-            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
-            throw new OssServerException("Minio server error.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
-            throw new OssXmlParserException("Minio xml parser error.");
-        }
-    }
-
-    private List<ItemResponse> toItemResponses(Iterable<Result<Item>> results) {
-        List<ItemResponse> responses = new ArrayList<>();
-        if (!IterableUtils.isEmpty(results)) {
-            for(Result<Item> result : results) {
-                ItemResponse response = toItemResponse(result);
-                responses.add(response);
-            }
-        }
-        return responses;
-    }
-
-    private ItemResponse toItemResponse(Result<Item> result) {
-        String function = "toItemResponse";
-
-        try {
-            Item item = result.get();
-            ItemResponse itemResponse = new ItemResponse();
-            itemResponse.setEtag(item.etag());
-            itemResponse.setObjectName(item.objectName());
-            itemResponse.setLastModified(DateTimeUtils.zonedDateTimeToString(item.lastModified()));
-            itemResponse.setOwner(toOwnerResponse(item.owner()));
-            itemResponse.setSize(item.size());
-            itemResponse.setStorageClass(item.storageClass());
-            itemResponse.setLatest(item.isLatest());
-            itemResponse.setUserMetadata(item.userMetadata());
-            itemResponse.setDir(item.isDir());
-            return itemResponse;
-        } catch (ErrorResponseException e) {
-            log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
-            throw new OssErrorResponseException("Minio response error.");
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio key invalid.");
-        } catch (InvalidResponseException e) {
-            log.error("[Herodotus] |- Minio catch InvalidResponseException in [{}].", function, e);
-            throw new OssInvalidResponseException("Minio response invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio no such algorithm.");
-        } catch (ServerException e) {
-            log.error("[Herodotus] |- Minio catch ServerException in [{}].", function, e);
-            throw new OssServerException("Minio server error.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio catch XmlParserException in [{}].", function, e);
-            throw new OssXmlParserException("Minio xml parser error.");
-        }
-    }
-
-    private OwnerResponse toOwnerResponse(Owner owner) {
-        OwnerResponse ownerResponse = new OwnerResponse();
-        ownerResponse.setId(owner.id());
-        ownerResponse.setDisplayName(owner.displayName());
-        return ownerResponse;
     }
 }

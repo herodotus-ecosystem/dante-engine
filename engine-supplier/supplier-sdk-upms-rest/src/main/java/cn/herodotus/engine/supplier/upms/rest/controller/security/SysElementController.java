@@ -25,7 +25,6 @@
 
 package cn.herodotus.engine.supplier.upms.rest.controller.security;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
@@ -33,9 +32,6 @@ import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.upms.logic.converter.SysElementToTreeNodeConverter;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 import cn.herodotus.engine.supplier.upms.logic.service.security.SysElementService;
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -46,14 +42,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.constraints.NotBlank;
-import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.core.convert.converter.Converter;
+import org.dromara.hutool.core.tree.MapTree;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <p>Description: SysMenuController </p>
@@ -70,11 +64,9 @@ import java.util.stream.Collectors;
 public class SysElementController extends BaseWriteableRestController<SysElement, String> {
 
     private final SysElementService sysElementService;
-    private final Converter<SysElement, TreeNode<String>> toTreeNode;
 
     public SysElementController(SysElementService sysElementService) {
         this.sysElementService = sysElementService;
-        this.toTreeNode = new SysElementToTreeNodeConverter();
     }
 
     @Override
@@ -85,14 +77,9 @@ public class SysElementController extends BaseWriteableRestController<SysElement
     @Operation(summary = "获取菜单树", description = "获取系统菜单树",
             responses = {@ApiResponse(description = "单位列表", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class)))})
     @GetMapping("/tree")
-    public Result<List<Tree<String>>> findTree() {
+    public Result<List<MapTree<String>>> findTree() {
         List<SysElement> sysMenus = sysElementService.findAll();
-        if (ObjectUtils.isNotEmpty(sysMenus)) {
-            List<TreeNode<String>> treeNodes = sysMenus.stream().map(toTreeNode::convert).collect(Collectors.toList());
-            return Result.success("查询数据成功", TreeUtil.build(treeNodes, BaseConstants.DEFAULT_TREE_ROOT_ID));
-        } else {
-            return Result.failure("查询数据失败");
-        }
+        return result(sysMenus, new SysElementToTreeNodeConverter());
     }
 
     @Operation(summary = "模糊条件查询前端元素", description = "根据动态输入的字段模糊查询前端元素",

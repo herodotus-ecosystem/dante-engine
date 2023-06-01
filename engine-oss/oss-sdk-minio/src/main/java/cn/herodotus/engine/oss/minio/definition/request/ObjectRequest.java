@@ -27,7 +27,7 @@ package cn.herodotus.engine.oss.minio.definition.request;
 
 import io.minio.ObjectArgs;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * <p>Description: Minio 基础 Object Dto </p>
@@ -37,7 +37,7 @@ import jakarta.validation.constraints.NotNull;
  */
 public abstract class ObjectRequest<B extends ObjectArgs.Builder<B, A>, A extends ObjectArgs> extends BucketRequest<B, A> {
 
-    @NotNull(message = "对象名称不能为空")
+    @NotBlank(message = "对象名称不能为空")
     @Schema(name = "对象名称")
     private String objectName;
 
@@ -45,12 +45,12 @@ public abstract class ObjectRequest<B extends ObjectArgs.Builder<B, A>, A extend
         return objectName;
     }
 
-    public void setObjectName(String versionId) {
-        this.objectName = versionId;
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 
     @Override
-    protected void prepare(B builder) {
+    public void prepare(B builder) {
         builder.object(getObjectName());
         super.prepare(builder);
     }

@@ -32,10 +32,10 @@ import cn.herodotus.engine.assistant.core.component.router.RootMeta;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysRole;
-import cn.hutool.core.lang.tree.TreeNode;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.tree.TreeNode;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.*;

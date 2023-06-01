@@ -29,7 +29,7 @@ import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
 import cn.herodotus.engine.oauth2.data.jpa.definition.converter.AbstractOAuth2EntityConverter;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
-import cn.hutool.core.date.DateUtil;
+import org.dromara.hutool.core.date.DateUtil;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2DeviceCode;

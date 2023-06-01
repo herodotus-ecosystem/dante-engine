@@ -26,8 +26,8 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.response.DeleteErrorResponse;
-import cn.herodotus.engine.oss.minio.domain.response.ItemResponse;
+import cn.herodotus.engine.oss.minio.response.DeleteErrorResponse;
+import cn.herodotus.engine.oss.minio.response.ItemResponse;
 import cn.herodotus.engine.oss.minio.request.object.ListObjectsRequest;
 import cn.herodotus.engine.oss.minio.request.object.RemoveObjectRequest;
 import cn.herodotus.engine.oss.minio.request.object.RemoveObjectsRequest;
@@ -56,7 +56,7 @@ import java.util.List;
  * @date : 2023/4/16 21:29
  */
 @RestController
-@RequestMapping("/manage/oss/minio/object")
+@RequestMapping("/oss/minio/object")
 @Tags({
         @Tag(name = "对象存储管理接口"),
         @Tag(name = "Minio 对象存储管理接口"),
@@ -71,9 +71,16 @@ public class ObjectController implements Controller {
     }
 
     @AccessLimited
-    @Operation(summary = "获取全部Bucket接口", description = "获取全部Bucket接口")
+    @Operation(summary = "获取对象列表", description = "获取对象列表",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
+            responses = {
+                    @ApiResponse(description = "所有对象", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))),
+                    @ApiResponse(responseCode = "200", description = "查询成功，查到数据"),
+                    @ApiResponse(responseCode = "204", description = "查询成功，未查到数据"),
+                    @ApiResponse(responseCode = "500", description = "查询失败")
+            })
     @Parameters({
-            @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "对象列表请求参数对象", schema = @Schema(implementation = ListObjectsRequest.class))
+            @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "ListObjectsRequest参数实体", schema = @Schema(implementation = ListObjectsRequest.class))
     })
     @GetMapping("/list")
     public Result<List<ItemResponse>> list(@Validated ListObjectsRequest request) {
@@ -82,22 +89,31 @@ public class ObjectController implements Controller {
     }
 
     @Idempotent
-    @Operation(summary = "删除一个对象", description = "根据传入的Object名称删除对应的对象",
+    @Operation(summary = "删除一个对象", description = "根据传入的参数对指定对象进行删除",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "已保存数据", content = @Content(mediaType = "application/json"))})
+            responses = {
+                    @ApiResponse(description = "Minio API无返回值，所以返回200即表示成功，不成功会抛错", content = @Content(mediaType = "application/json")),
+                    @ApiResponse(responseCode = "200", description = "操作成功"),
+                    @ApiResponse(responseCode = "500", description = "操作失败，具体查看错误信息内容")
+            })
     @Parameters({
-            @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectRequest.class))
+            @Parameter(name = "request", required = true, description = "RemoveObjectRequest参数实体", schema = @Schema(implementation = RemoveObjectRequest.class))
     })
     @DeleteMapping
-    public Result<String> removeObject(@Validated @RequestBody RemoveObjectRequest request) {
+    public Result<Boolean> removeObject(@Validated @RequestBody RemoveObjectRequest request) {
         objectService.removeObject(request.build());
         return result(true);
     }
 
     @Idempotent
-    @Operation(summary = "删除多个对象", description = "根据传入的Object名称删除对应的对象",
+    @Operation(summary = "删除多个对象", description = "根据传入的参数对指定多个对象进行删除",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "已保存数据", content = @Content(mediaType = "application/json"))})
+            responses = {
+                    @ApiResponse(description = "返回删除操作出错对象的具体信息", content = @Content(mediaType = "application/json", schema = @Schema(implementation = List.class))),
+                    @ApiResponse(responseCode = "200", description = "查询成功，查到数据"),
+                    @ApiResponse(responseCode = "204", description = "查询成功，未查到数据"),
+                    @ApiResponse(responseCode = "500", description = "查询失败")
+            })
     @Parameters({
             @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectsRequest.class))
     })

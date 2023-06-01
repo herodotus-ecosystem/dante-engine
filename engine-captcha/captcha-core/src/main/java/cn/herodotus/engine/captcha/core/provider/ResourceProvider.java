@@ -29,17 +29,17 @@ import cn.herodotus.engine.assistant.core.utils.ResourceUtils;
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaResource;
 import cn.herodotus.engine.captcha.core.definition.enums.FontStyle;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;
-import cn.hutool.core.codec.Base64;
-import cn.hutool.core.img.FontUtil;
-import cn.hutool.core.img.ImgUtil;
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.system.SystemUtil;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.codec.binary.Base64;
+import org.dromara.hutool.core.data.id.IdUtil;
+import org.dromara.hutool.core.io.IORuntimeException;
+import org.dromara.hutool.core.io.file.FileUtil;
+import org.dromara.hutool.extra.management.ManagementUtil;
+import org.dromara.hutool.swing.img.FontUtil;
+import org.dromara.hutool.swing.img.ImgUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -89,7 +89,7 @@ public class ResourceProvider implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        String systemName = SystemUtil.getOsInfo().getName();
+        String systemName = ManagementUtil.getOsInfo().getName();
         log.debug("[Herodotus] |- Before captcha resource loading, check system. Current system is [{}]", systemName);
 
         log.debug("[Herodotus] |- Captcha resource loading is BEGIN！");
@@ -168,11 +168,11 @@ public class ResourceProvider implements InitializingBean {
     }
 
     private static Font getFontUnderDocker(String filename) {
-        if (SystemUtil.getOsInfo().isLinux()) {
+        if (ManagementUtil.getOsInfo().isLinux()) {
             String path = FONT_FOLDER + filename;
 
             File file = new File(path);
-            if (ObjectUtils.isNotEmpty(file) && FileUtil.exist(file)) {
+            if (ObjectUtils.isNotEmpty(file) && FileUtil.exists(file)) {
                 System.out.println(file.getAbsolutePath());
                 try {
                     Font font = FontUtil.createFont(file);

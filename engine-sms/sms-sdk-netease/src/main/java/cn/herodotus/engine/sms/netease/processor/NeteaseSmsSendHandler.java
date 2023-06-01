@@ -31,10 +31,10 @@ import cn.herodotus.engine.sms.core.exception.ParameterOrdersInvalidException;
 import cn.herodotus.engine.sms.core.exception.TemplateIdInvalidException;
 import cn.herodotus.engine.sms.netease.domain.NeteaseSmsResponse;
 import cn.herodotus.engine.sms.netease.properties.NeteaseSmsProperties;
-import cn.hutool.core.util.RandomUtil;
 import cn.zhxu.okhttps.HttpResult;
 import cn.zhxu.okhttps.OkHttps;
 import org.apache.commons.lang3.ObjectUtils;
+import org.dromara.hutool.core.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

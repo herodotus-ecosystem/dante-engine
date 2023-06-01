@@ -26,6 +26,7 @@
 package cn.herodotus.engine.assistant.core.domain;
 
 
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.enums.ResultErrorCodes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
@@ -67,12 +68,12 @@ public class Result<T> implements Serializable {
     @Schema(title = "链路追踪TraceId")
     private String traceId;
 
-    @Schema(title = "响应时间戳", pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date timestamp = new Date();
+    @Schema(title = "响应时间戳", pattern = DefaultConstants.DATE_TIME_FORMAT)
+    @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT)
+    private final Date timestamp = new Date();
 
     @Schema(title = "校验错误信息")
-    private Error error = new Error();
+    private final Error error = new Error();
 
     public Result() {
         super();

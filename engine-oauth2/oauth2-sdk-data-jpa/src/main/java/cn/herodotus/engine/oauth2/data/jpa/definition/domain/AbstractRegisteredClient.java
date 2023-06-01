@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.definition.domain;
 
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.CommaDelimitedStringToSetSerializer;
 import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.SetToCommaDelimitedStringDeserializer;
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
@@ -49,13 +50,13 @@ import java.time.LocalDateTime;
 public abstract class AbstractRegisteredClient extends BaseSysEntity implements RegisteredClientDetails {
 
     @Schema(name = "客户端ID发布日期", title = "客户端发布日期")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT, locale = "GMT+8", shape = JsonFormat.Shape.STRING)
     @Column(name = "client_id_issued_at", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime clientIdIssuedAt;
 
     @Schema(name = "客户端秘钥过期时间", title = "客户端秘钥过期时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "GMT+8", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT, locale = "GMT+8", shape = JsonFormat.Shape.STRING)
     @Column(name = "client_secret_expires_at")
     private LocalDateTime clientSecretExpiresAt;
 

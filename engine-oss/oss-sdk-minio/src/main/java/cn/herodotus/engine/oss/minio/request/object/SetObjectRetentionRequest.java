@@ -27,7 +27,7 @@ package cn.herodotus.engine.oss.minio.request.object;
 
 import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.minio.definition.request.ObjectVersionRequest;
-import cn.herodotus.engine.oss.minio.domain.request.RetentionRequest;
+import cn.herodotus.engine.oss.minio.request.domain.RetentionRequest;
 import io.minio.SetObjectRetentionArgs;
 import io.minio.messages.Retention;
 import io.minio.messages.RetentionMode;
@@ -62,7 +62,7 @@ public class SetObjectRetentionRequest extends ObjectVersionRequest<SetObjectRet
     }
 
     @Override
-    protected void prepare(SetObjectRetentionArgs.Builder builder) {
+    public void prepare(SetObjectRetentionArgs.Builder builder) {
         if (ObjectUtils.isNotEmpty(getRetention())) {
             Retention retention = new Retention(RetentionMode.valueOf(getRetention().getMode()), DateTimeUtils.stringToZonedDateTime(getRetention().getRetainUntilDate()));
             builder.config(retention);

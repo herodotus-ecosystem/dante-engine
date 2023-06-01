@@ -25,9 +25,8 @@
 
 package cn.herodotus.engine.oss.minio.processor;
 
-import cn.herodotus.engine.oss.minio.domain.MultipartUploadCreate;
+import cn.herodotus.engine.oss.minio.request.dto.MultipartUploadCreate;
 import cn.herodotus.engine.oss.minio.service.MultipartUploadAsyncService;
-import cn.herodotus.engine.oss.minio.service.ObjectService;
 import cn.herodotus.engine.oss.minio.service.PresignedService;
 import io.minio.CreateMultipartUploadResponse;
 import io.minio.GetPresignedObjectUrlArgs;

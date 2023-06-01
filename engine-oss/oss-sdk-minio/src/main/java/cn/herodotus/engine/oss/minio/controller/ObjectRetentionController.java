@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.response.RetentionResponse;
+import cn.herodotus.engine.oss.minio.response.RetentionResponse;
 import cn.herodotus.engine.oss.minio.request.object.GetObjectRetentionRequest;
 import cn.herodotus.engine.oss.minio.request.object.SetObjectRetentionRequest;
 import cn.herodotus.engine.oss.minio.service.ObjectRetentionService;
@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.*;
  * @date : 2023/4/16 21:29
  */
 @RestController
-@RequestMapping("/manage/oss/minio/object/retention")
+@RequestMapping("/oss/minio/object/retention")
 @Tags({
         @Tag(name = "对象存储管理接口"),
         @Tag(name = "Minio 对象存储管理接口"),
@@ -85,7 +85,7 @@ public class ObjectRetentionController implements Controller {
             @Parameter(name = "request", required = true, description = "设置对象保留配置请求参数实体", schema = @Schema(implementation = SetObjectRetentionRequest.class))
     })
     @PutMapping
-    public Result<String> set(@Validated @RequestBody SetObjectRetentionRequest request) {
+    public Result<Boolean> set(@Validated @RequestBody SetObjectRetentionRequest request) {
         objectRetentionService.setObjectRetention(request.build());
         return result(true);
     }

@@ -29,12 +29,12 @@ import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.io.IoUtil;
+import org.dromara.hutool.core.util.ByteUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -103,7 +103,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
                 data = decrypt(sessionKey, content);
             }
             log.debug("[Herodotus] |- Decrypt request body for rest method [{}] in [{}] finished.", methodName, className);
-            return new DecryptHttpInputMessage(httpInputMessage, StrUtil.utf8Bytes(data));
+            return new DecryptHttpInputMessage(httpInputMessage, ByteUtil.toUtf8Bytes(data));
         } else {
             return httpInputMessage;
         }

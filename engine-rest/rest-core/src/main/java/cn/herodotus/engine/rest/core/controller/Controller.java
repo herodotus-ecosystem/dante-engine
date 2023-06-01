@@ -25,17 +25,23 @@
 
 package cn.herodotus.engine.rest.core.controller;
 
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.dromara.hutool.core.tree.MapTree;
+import org.dromara.hutool.core.tree.TreeNode;
+import org.dromara.hutool.core.tree.TreeUtil;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p> Description : Controller基础定义 </p>
@@ -139,11 +145,20 @@ public interface Controller {
      * @param status 操作状态
      * @return {@link Result} String
      */
-    default Result<String> result(boolean status) {
+    default Result<Boolean> result(boolean status) {
         if (status) {
-            return Result.success();
+            return Result.success("操作成功!", status);
         } else {
-            return Result.failure();
+            return Result.failure("操作失败!", status);
+        }
+    }
+
+    default <E extends Entity> Result<List<MapTree<String>>> result(List<E> domains, Converter<E, TreeNode<String>> toTreeNode) {
+        if (ObjectUtils.isNotEmpty(domains)) {
+            List<TreeNode<String>> treeNodes = domains.stream().map(toTreeNode::convert).collect(Collectors.toList());
+            return Result.success("查询数据成功", TreeUtil.build(treeNodes, DefaultConstants.TREE_ROOT_ID));
+        } else {
+            return Result.empty("未查询到数据！");
         }
     }
 

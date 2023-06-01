@@ -27,16 +27,16 @@ package cn.herodotus.engine.rest.scan.processor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.rest.core.constants.RestPropertyFinder;
+import cn.herodotus.engine.rest.core.domain.RequestMapping;
 import cn.herodotus.engine.rest.scan.definition.RequestMappingScanManager;
 import cn.herodotus.engine.rest.scan.properties.RestScanProperties;
-import cn.herodotus.engine.rest.core.domain.RequestMapping;
-import cn.hutool.crypto.SecureUtil;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.crypto.SecureUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

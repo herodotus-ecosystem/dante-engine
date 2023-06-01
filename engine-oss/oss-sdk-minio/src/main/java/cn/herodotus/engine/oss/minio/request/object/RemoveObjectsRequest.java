@@ -26,6 +26,7 @@
 package cn.herodotus.engine.oss.minio.request.object;
 
 import cn.herodotus.engine.oss.minio.definition.request.BucketRequest;
+import cn.herodotus.engine.oss.minio.request.domain.DeleteObjectRequest;
 import io.minio.RemoveObjectsArgs;
 import io.minio.messages.DeleteObject;
 import jakarta.validation.constraints.Size;
@@ -40,20 +41,30 @@ import java.util.List;
  */
 public class RemoveObjectsRequest extends BucketRequest<RemoveObjectsArgs.Builder, RemoveObjectsArgs> {
 
-    @Size(min = 1, message = "至少传入一项")
-    private List<String> objects;
+    private Boolean bypassGovernanceMode;
 
-    public List<String> getObjects() {
+    @Size(min = 1, message = "至少传入一项")
+    private List<DeleteObjectRequest> objects;
+
+    public Boolean getBypassGovernanceMode() {
+        return bypassGovernanceMode;
+    }
+
+    public void setBypassGovernanceMode(Boolean bypassGovernanceMode) {
+        this.bypassGovernanceMode = bypassGovernanceMode;
+    }
+
+    public List<DeleteObjectRequest> getObjects() {
         return objects;
     }
 
-    public void setObjects(List<String> objects) {
+    public void setObjects(List<DeleteObjectRequest> objects) {
         this.objects = objects;
     }
 
     @Override
-    protected void prepare(RemoveObjectsArgs.Builder builder) {
-        List<DeleteObject> deleteObjects = getObjects().stream().map(DeleteObject::new).toList();
+    public void prepare(RemoveObjectsArgs.Builder builder) {
+        List<DeleteObject> deleteObjects = getObjects().stream().map(item -> new DeleteObject(item.getName(), item.getVersionId())).toList();
         builder.objects(deleteObjects);
         super.prepare(builder);
     }

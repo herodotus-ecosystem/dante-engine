@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.management.response;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.oauth2.management.service.OAuth2DeviceService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,7 +52,7 @@ public class OAuth2DeviceVerificationResponseHandler extends SimpleUrlAuthentica
     private final OAuth2DeviceService deviceService;
 
     public OAuth2DeviceVerificationResponseHandler(OAuth2DeviceService deviceService) {
-        super(BaseConstants.CUSTOM_DEVICE_VERIFICATION_SUCCESS_URI);
+        super(DefaultConstants.DEVICE_VERIFICATION_SUCCESS_URI);
         this.deviceService = deviceService;
     }
 

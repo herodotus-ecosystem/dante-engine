@@ -47,7 +47,7 @@ public class RemoveObjectRequest extends ObjectVersionRequest<RemoveObjectArgs.B
     }
 
     @Override
-    protected void prepare(RemoveObjectArgs.Builder builder) {
+    public void prepare(RemoveObjectArgs.Builder builder) {
         builder.bypassGovernanceMode(getBypassGovernanceMode());
         super.prepare(builder);
     }

@@ -26,9 +26,9 @@
 package cn.herodotus.engine.rest.protect.crypto.processor;
 
 import cn.herodotus.engine.rest.core.definition.crypto.SymmetricCryptoProcessor;
-import cn.hutool.core.util.HexUtil;
-import cn.hutool.crypto.SmUtil;
-import cn.hutool.crypto.symmetric.SM4;
+import org.dromara.hutool.core.codec.HexUtil;
+import org.dromara.hutool.crypto.bc.SmUtil;
+import org.dromara.hutool.crypto.symmetric.SM4;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

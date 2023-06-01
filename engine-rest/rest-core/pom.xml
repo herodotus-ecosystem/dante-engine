@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-rest</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.0.1</version>
+        <version>3.1.0.2</version>
     </parent>
 
     <artifactId>rest-core</artifactId>
-    <version>3.1.0.1</version>
+    <version>3.1.0.2</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
@@ -48,12 +48,17 @@
         </dependency>
 
         <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
         <!-- Openfeign 中 包含loadbalancer，所以直接引用该包 -->

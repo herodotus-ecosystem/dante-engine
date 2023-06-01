@@ -26,7 +26,7 @@
 package cn.herodotus.engine.captcha.core.provider;
 
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCharacter;
-import cn.hutool.core.util.RandomUtil;
+import org.dromara.hutool.core.util.RandomUtil;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -117,11 +117,11 @@ public class RandomProvider {
      * @return 随机获取指定数量的汉字
      */
     public static List<String> randomWords(int wordCount) {
-        return RandomUtil.randomEleList(WORDS, wordCount);
+        return RandomUtil.randomEles(WORDS, wordCount);
     }
 
     public static Color[] randomColors(int number) {
-        List<Color> colors = IntStream.range(0, number).mapToObj(i -> randomColor()).collect(Collectors.toList());
+        List<Color> colors = IntStream.range(0, number).mapToObj(i -> randomColor()).toList();
         Color[] result = new Color[colors.size()];
         return colors.toArray(result);
     }

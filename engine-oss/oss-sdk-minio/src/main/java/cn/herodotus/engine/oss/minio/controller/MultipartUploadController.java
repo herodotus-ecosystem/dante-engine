@@ -26,9 +26,9 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.domain.MultipartUploadCreate;
-import cn.herodotus.engine.oss.minio.dto.logic.CompleteMultipartUploadDto;
-import cn.herodotus.engine.oss.minio.dto.logic.CreateMultipartUpload;
+import cn.herodotus.engine.oss.minio.request.dto.MultipartUploadCreate;
+import cn.herodotus.engine.oss.minio.request.dto.CompleteMultipartUploadDto;
+import cn.herodotus.engine.oss.minio.request.dto.CreateMultipartUpload;
 import cn.herodotus.engine.oss.minio.processor.MultipartUploadProcessor;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.Controller;
@@ -92,7 +92,7 @@ public class MultipartUploadController implements Controller {
             @Parameter(name = "objectName", required = true, description = "文件名称"),
     })
     @PostMapping("/complete")
-    public Result<String> completeMultipartUpload(@Validated @RequestBody CompleteMultipartUploadDto domain) {
+    public Result<Boolean> completeMultipartUpload(@Validated @RequestBody CompleteMultipartUploadDto domain) {
         ObjectWriteResponse objectWriteResponse = multipartUploadProcessor.completeMultipartUpload(domain.getBucketName(), domain.getObjectName(), domain.getUploadId());
         if (ObjectUtils.isNotEmpty(objectWriteResponse)) {
             return result(true);

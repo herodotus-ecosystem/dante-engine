@@ -25,14 +25,14 @@
 
 package cn.herodotus.engine.rest.client.enhance.feign;
 
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
-import cn.hutool.extra.servlet.JakartaServletUtil;
+import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import com.google.common.net.HttpHeaders;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.http.server.servlet.JakartaServletUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

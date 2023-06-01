@@ -38,10 +38,10 @@ import cn.herodotus.engine.captcha.core.exception.CaptchaHasExpiredException;
 import cn.herodotus.engine.captcha.core.exception.CaptchaMismatchException;
 import cn.herodotus.engine.captcha.core.exception.CaptchaParameterIllegalException;
 import cn.herodotus.engine.captcha.core.provider.RandomProvider;
-import cn.hutool.core.util.IdUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.data.id.IdUtil;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;

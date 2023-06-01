@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.management.controller;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
@@ -42,15 +42,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class DeviceController {
 
-    @GetMapping(BaseConstants.CUSTOM_DEVICE_ACTIVATION_URI)
+    @GetMapping(DefaultConstants.DEVICE_ACTIVATION_URI)
     public String activate(@RequestParam(value = OAuth2ParameterNames.USER_CODE, required = false) String userCode) {
         if (StringUtils.isNotBlank(userCode)) {
-            return "redirect:" + BaseConstants.DEFAULT_DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
+            return "redirect:" + DefaultConstants.DEVICE_VERIFICATION_ENDPOINT + SymbolConstants.QUESTION + OAuth2ParameterNames.USER_CODE + SymbolConstants.EQUAL + userCode;
         }
         return "activation";
     }
 
-    @GetMapping(value = BaseConstants.CUSTOM_DEVICE_VERIFICATION_SUCCESS_URI)
+    @GetMapping(value = DefaultConstants.DEVICE_VERIFICATION_SUCCESS_URI)
     public String activated() {
         return "activation-allowed";
     }

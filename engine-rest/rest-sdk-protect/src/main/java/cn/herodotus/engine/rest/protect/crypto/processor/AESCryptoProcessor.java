@@ -26,11 +26,12 @@
 package cn.herodotus.engine.rest.protect.crypto.processor;
 
 import cn.herodotus.engine.rest.core.definition.crypto.SymmetricCryptoProcessor;
-import cn.hutool.core.codec.Base64;
-import cn.hutool.core.util.RandomUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.symmetric.AES;
+import org.dromara.hutool.core.codec.binary.Base64;
+import org.dromara.hutool.core.text.StrUtil;
+import org.dromara.hutool.core.util.ByteUtil;
+import org.dromara.hutool.core.util.RandomUtil;
+import org.dromara.hutool.crypto.SecureUtil;
+import org.dromara.hutool.crypto.symmetric.AES;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,16 +52,16 @@ public class AESCryptoProcessor implements SymmetricCryptoProcessor {
 
     @Override
     public String decrypt(String data, String key) {
-        AES aes = SecureUtil.aes(StrUtil.utf8Bytes(key));
-        byte[] result = aes.decrypt(Base64.decode(StrUtil.utf8Bytes(data)));
+        AES aes = SecureUtil.aes(ByteUtil.toUtf8Bytes(key));
+        byte[] result = aes.decrypt(Base64.decode(ByteUtil.toUtf8Bytes(data)));
         log.trace("[Herodotus] |- AES crypto decrypt data, value is : [{}]", result);
         return StrUtil.utf8Str(result);
     }
 
     @Override
     public String encrypt(String data, String key) {
-        AES aes = SecureUtil.aes(StrUtil.utf8Bytes(key));
-        byte[] result = aes.encrypt(StrUtil.utf8Bytes(data));
+        AES aes = SecureUtil.aes(ByteUtil.toUtf8Bytes(key));
+        byte[] result = aes.encrypt(ByteUtil.toUtf8Bytes(data));
         log.trace("[Herodotus] |- AES crypto encrypt data, value is : [{}]", result);
         return StrUtil.utf8Str(result);
     }
