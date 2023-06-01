@@ -23,15 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.response;
+package cn.herodotus.engine.oss.minio.entity;
 
-import cn.herodotus.engine.oss.minio.response.ErrorResponse;
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: Minio 删除操作错误信息实体 </p>
+ * <p>Description: Minio Owner </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 15:14
+ * @date : 2023/4/17 11:54
  */
-public class DeleteErrorResponse extends ErrorResponse {
+public class OwnerEntity implements Entity {
+
+    private String id;
+
+    private String displayName;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("id", id)
+                .add("displayName", displayName)
+                .toString();
+    }
 }

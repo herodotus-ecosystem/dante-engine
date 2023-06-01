@@ -30,7 +30,7 @@ import cn.herodotus.engine.oss.minio.request.bucket.BucketExistsRequest;
 import cn.herodotus.engine.oss.minio.request.bucket.ListBucketsRequest;
 import cn.herodotus.engine.oss.minio.request.bucket.MakeBucketRequest;
 import cn.herodotus.engine.oss.minio.request.bucket.RemoveBucketRequest;
-import cn.herodotus.engine.oss.minio.response.BucketResponse;
+import cn.herodotus.engine.oss.minio.entity.BucketEntity;
 import cn.herodotus.engine.oss.minio.service.BucketService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
@@ -83,9 +83,9 @@ public class BucketController implements Controller {
             @Parameter(name = "request", required = true, in = ParameterIn.PATH ,description = "ListBucketsRequest参数对象", schema = @Schema(implementation = ListBucketsRequest.class))
     })
     @GetMapping("/list")
-    public Result<List<BucketResponse>> list(ListBucketsRequest request) {
-        List<BucketResponse> bucketResponses = bucketService.listBuckets(ObjectUtils.isNotEmpty(request) ? request.build() : null);
-        return result(bucketResponses);
+    public Result<List<BucketEntity>> list(ListBucketsRequest request) {
+        List<BucketEntity> bucketRespons = bucketService.listBuckets(ObjectUtils.isNotEmpty(request) ? request.build() : null);
+        return result(bucketRespons);
     }
 
     @AccessLimited

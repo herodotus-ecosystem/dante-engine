@@ -26,12 +26,12 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
-import cn.herodotus.engine.oss.minio.converter.DeleteErrorToResponseConverter;
-import cn.herodotus.engine.oss.minio.converter.ItemToResponseConverter;
+import cn.herodotus.engine.oss.minio.converter.DeleteErrorToEntityConverter;
+import cn.herodotus.engine.oss.minio.converter.ItemToEntityConverter;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.response.DeleteErrorResponse;
-import cn.herodotus.engine.oss.minio.response.ItemResponse;
+import cn.herodotus.engine.oss.minio.entity.DeleteErrorEntity;
+import cn.herodotus.engine.oss.minio.entity.ItemEntity;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.DeleteError;
@@ -69,10 +69,10 @@ public class ObjectService extends BaseMinioService {
      * @param listObjectsArgs {@link ListObjectsArgs}
      * @return Iterable<Result < Item>>
      */
-    public List<ItemResponse> listObjects(ListObjectsArgs listObjectsArgs) {
+    public List<ItemEntity> listObjects(ListObjectsArgs listObjectsArgs) {
         MinioClient minioClient = getMinioClient();
         Iterable<Result<Item>> results = minioClient.listObjects(listObjectsArgs);
-        return toResponses(results, new ItemToResponseConverter());
+        return toResponses(results, new ItemToEntityConverter());
     }
 
     /**
@@ -81,10 +81,10 @@ public class ObjectService extends BaseMinioService {
      * @param removeObjectsArgs {@link RemoveObjectsArgs}
      * @return Iterable<Result < DeleteError>>
      */
-    public List<DeleteErrorResponse> removeObjects(RemoveObjectsArgs removeObjectsArgs) {
+    public List<DeleteErrorEntity> removeObjects(RemoveObjectsArgs removeObjectsArgs) {
         MinioClient minioClient = getMinioClient();
         Iterable<Result<DeleteError>> results = minioClient.removeObjects(removeObjectsArgs);
-        return toResponses(results, new DeleteErrorToResponseConverter());
+        return toResponses(results, new DeleteErrorToEntityConverter());
     }
 
     /**

@@ -53,48 +53,12 @@ import java.util.concurrent.ExecutionException;
  * @date : 2022/7/3 20:45
  */
 @Service
-public class MultipartUploadAsyncService extends BaseMinioAsyncService {
+public class MultipartUploadService extends BaseMinioAsyncService {
 
-    private static final Logger log = LoggerFactory.getLogger(MultipartUploadAsyncService.class);
+    private static final Logger log = LoggerFactory.getLogger(MultipartUploadService.class);
 
-    public MultipartUploadAsyncService(MinioAsyncClientObjectPool minioAsyncClientObjectPool) {
+    public MultipartUploadService(MinioAsyncClientObjectPool minioAsyncClientObjectPool) {
         super(minioAsyncClientObjectPool);
-    }
-
-    /**
-     * 创建分片上传请求
-     *
-     * @param bucketName 存储桶
-     * @param objectName 对象名
-     * @return {@link CreateMultipartUploadResponse}
-     */
-    public CreateMultipartUploadResponse createMultipartUpload(String bucketName, String objectName) {
-        return createMultipartUpload(bucketName, null, objectName);
-    }
-
-    /**
-     * 创建分片上传请求
-     *
-     * @param bucketName 存储桶
-     * @param region     区域
-     * @param objectName 对象名
-     * @return {@link CreateMultipartUploadResponse}
-     */
-    public CreateMultipartUploadResponse createMultipartUpload(String bucketName, String region, String objectName) {
-        return createMultipartUpload(bucketName, region, objectName, null);
-    }
-
-    /**
-     * 创建分片上传请求
-     *
-     * @param bucketName   存储桶
-     * @param region       区域
-     * @param objectName   对象名
-     * @param extraHeaders 消息头
-     * @return {@link CreateMultipartUploadResponse}
-     */
-    public CreateMultipartUploadResponse createMultipartUpload(String bucketName, String region, String objectName, Multimap<String, String> extraHeaders) {
-        return createMultipartUpload(bucketName, region, objectName, extraHeaders, null);
     }
 
     /**
@@ -143,58 +107,157 @@ public class MultipartUploadAsyncService extends BaseMinioAsyncService {
     }
 
     /**
-     * 完成分片上传，执行合并文件
-     *
-     * @param bucketName 存储桶
-     * @param objectName 对象名
-     * @param uploadId   上传ID
-     * @param parts      {@link Part}
-     * @return {@link ObjectWriteResponse}
-     */
-    public ObjectWriteResponse completeMultipartUpload(String bucketName, String objectName, String uploadId, Part[] parts) {
-        return completeMultipartUpload(bucketName, null, objectName, uploadId, parts);
-    }
-
-    /**
-     * 完成分片上传，执行合并文件
-     *
-     * @param bucketName 存储桶
-     * @param region     区域
-     * @param objectName 对象名
-     * @param uploadId   上传ID
-     * @return {@link ObjectWriteResponse}
-     */
-    public ObjectWriteResponse completeMultipartUpload(String bucketName, String region, String objectName, String uploadId) {
-        return completeMultipartUpload(bucketName, region, objectName, uploadId, null);
-    }
-
-    /**
-     * 完成分片上传，执行合并文件
-     *
-     * @param bucketName 存储桶
-     * @param region     区域
-     * @param objectName 对象名
-     * @param uploadId   上传ID
-     * @param parts      {@link Part}
-     * @return {@link ObjectWriteResponse}
-     */
-    public ObjectWriteResponse completeMultipartUpload(String bucketName, String region, String objectName, String uploadId, Part[] parts) {
-        return completeMultipartUpload(bucketName, region, objectName, uploadId, parts, null);
-    }
-
-    /**
-     * 完成分片上传，执行合并文件
+     * 创建分片上传请求
      *
      * @param bucketName   存储桶
      * @param region       区域
      * @param objectName   对象名
-     * @param uploadId     上传ID
-     * @param parts        {@link Part}
-     * @param extraHeaders 额外消息头
-     * @return {@link ObjectWriteResponse}
+     * @param extraHeaders 消息头
+     * @return {@link CreateMultipartUploadResponse}
      */
-    public ObjectWriteResponse completeMultipartUpload(String bucketName, String region, String objectName, String uploadId, Part[] parts, Multimap<String, String> extraHeaders) {
-        return completeMultipartUpload(bucketName, region, objectName, uploadId, parts, extraHeaders, null);
+    public CreateMultipartUploadResponse createMultipartUpload(String bucketName, String region, String objectName, Multimap<String, String> extraHeaders) {
+        return createMultipartUpload(bucketName, region, objectName, extraHeaders, null);
+    }
+
+    /**
+     * 创建分片上传请求
+     *
+     * @param bucketName 存储桶
+     * @param region     区域
+     * @param objectName 对象名
+     * @return {@link CreateMultipartUploadResponse}
+     */
+    public CreateMultipartUploadResponse createMultipartUpload(String bucketName, String region, String objectName) {
+        return createMultipartUpload(bucketName, region, objectName, null);
+    }
+
+    /**
+     * 创建分片上传请求
+     *
+     * @param bucketName 存储桶
+     * @param objectName 对象名
+     * @return {@link CreateMultipartUploadResponse}
+     */
+    public CreateMultipartUploadResponse createMultipartUpload(String bucketName, String objectName) {
+        return createMultipartUpload(bucketName, null, objectName);
+    }
+
+    /**
+     * 查询分片数据
+     *
+     * @param bucketName       存储桶
+     * @param region           区域
+     * @param objectName       对象名
+     * @param maxParts         抓取的最大分片数量.
+     * @param partNumberMarker 分片数量创建器.
+     * @param uploadId         上传ID
+     * @param extraHeaders     额外消息头
+     * @param extraQueryParams 额外查询参数
+     * @return {@link ListPartsResponse}
+     */
+    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, Integer partNumberMarker, String uploadId, Multimap<String, String> extraHeaders, Multimap<String, String> extraQueryParams) {
+        String function = "listParts";
+        MinioAsyncClient minioAsyncClient = getMinioClient();
+
+        try {
+            return minioAsyncClient.listPartsAsync(bucketName, region, objectName, maxParts, partNumberMarker, uploadId, extraHeaders, extraQueryParams).get();
+        } catch (InsufficientDataException e) {
+            log.error("[Herodotus] |- Minio async catch InsufficientDataException in [{}].", function, e);
+            throw new OssInsufficientDataException("Minio async insufficient data error.");
+        } catch (InternalException e) {
+            log.error("[Herodotus] |- Minio async catch InternalException in [{}].", function, e);
+            throw new OssInternalException("Minio async internal error.");
+        } catch (InvalidKeyException e) {
+            log.error("[Herodotus] |- Minio async catch InvalidKeyException in [{}].", function, e);
+            throw new OssInvalidKeyException("Minio async key invalid.");
+        } catch (IOException e) {
+            log.error("[Herodotus] |- Minio async catch IOException in [{}].", function, e);
+            throw new OssIOException("Minio async io error.");
+        } catch (NoSuchAlgorithmException e) {
+            log.error("[Herodotus] |- Minio async catch NoSuchAlgorithmException in [{}].", function, e);
+            throw new OssNoSuchAlgorithmException("Minio async no such algorithm.");
+        } catch (XmlParserException e) {
+            log.error("[Herodotus] |- Minio async catch XmlParserException in [{}].", function, e);
+            throw new OssXmlParserException("Minio async xml parser error.");
+        } catch (ExecutionException e) {
+            log.error("[Herodotus] |- Minio async catch ExecutionException in [{}].", function, e);
+            throw new OssExecutionException("Minio async execution error.");
+        } catch (InterruptedException e) {
+            log.error("[Herodotus] |- Minio async catch InterruptedException in [{}].", function, e);
+            throw new OssInterruptedException("Minio async interrupted error.");
+        } finally {
+            close(minioAsyncClient);
+        }
+    }
+
+    /**
+     * 查询分片数据
+     *
+     * @param bucketName       存储桶
+     * @param region           区域
+     * @param objectName       对象名
+     * @param maxParts         抓取的最大分片数量.
+     * @param partNumberMarker 分片数量创建器.
+     * @param uploadId         上传ID
+     * @param extraHeaders     额外消息头
+     * @return {@link ListPartsResponse}
+     */
+    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, Integer partNumberMarker, String uploadId, Multimap<String, String> extraHeaders) {
+        return listParts(bucketName, region, objectName, maxParts, partNumberMarker, uploadId, extraHeaders, null);
+    }
+
+    /**
+     * 查询分片数据
+     *
+     * @param bucketName       存储桶
+     * @param region           区域
+     * @param objectName       对象名
+     * @param maxParts         抓取的最大分片数量.
+     * @param partNumberMarker 分片数量创建器.
+     * @param uploadId         上传ID
+     * @return {@link ListPartsResponse}
+     */
+    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, Integer partNumberMarker, String uploadId) {
+        return listParts(bucketName, region, objectName, maxParts, partNumberMarker, uploadId, null);
+    }
+
+    /**
+     * 查询分片数据
+     *
+     * @param bucketName 存储桶
+     * @param region     区域
+     * @param objectName 对象名
+     * @param maxParts   抓取的最大分片数量.
+     * @param uploadId   上传ID
+     * @return {@link ListPartsResponse}
+     */
+    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, String uploadId) {
+        return listParts(bucketName, region, objectName, maxParts, null, uploadId);
+    }
+
+    /**
+     * 查询分片数据
+     *
+     * @param bucketName 存储桶
+     * @param region     区域
+     * @param objectName 对象名
+     * @param uploadId   上传ID
+     * @return {@link ListPartsResponse}
+     */
+    public ListPartsResponse listParts(String bucketName, String region, String objectName, String uploadId) {
+        return listParts(bucketName, region, objectName, null, uploadId);
+    }
+
+    /**
+     * 查询分片数据
+     *
+     * @param bucketName 存储桶
+     * @param objectName 对象名
+     * @param uploadId   上传ID
+     * @return {@link ListPartsResponse}
+     */
+    public ListPartsResponse listParts(String bucketName, String objectName, String uploadId) {
+        return listParts(bucketName, null, objectName, uploadId);
     }
 
     /**
@@ -245,120 +308,57 @@ public class MultipartUploadAsyncService extends BaseMinioAsyncService {
     }
 
     /**
-     * 查询分片数据
+     * 完成分片上传，执行合并文件
      *
-     * @param bucketName 存储桶
-     * @param objectName 对象名
-     * @param uploadId   上传ID
-     * @return {@link ListPartsResponse}
+     * @param bucketName   存储桶
+     * @param region       区域
+     * @param objectName   对象名
+     * @param uploadId     上传ID
+     * @param parts        {@link Part}
+     * @param extraHeaders 额外消息头
+     * @return {@link ObjectWriteResponse}
      */
-    public ListPartsResponse listParts(String bucketName, String objectName, String uploadId) {
-        return listParts(bucketName, null, objectName, uploadId);
+    public ObjectWriteResponse completeMultipartUpload(String bucketName, String region, String objectName, String uploadId, Part[] parts, Multimap<String, String> extraHeaders) {
+        return completeMultipartUpload(bucketName, region, objectName, uploadId, parts, extraHeaders, null);
     }
 
     /**
-     * 查询分片数据
+     * 完成分片上传，执行合并文件
+     *
+     * @param bucketName 存储桶
+     * @param region     区域
+     * @param objectName 对象名
+     * @param uploadId   上传ID
+     * @param parts      {@link Part}
+     * @return {@link ObjectWriteResponse}
+     */
+    public ObjectWriteResponse completeMultipartUpload(String bucketName, String region, String objectName, String uploadId, Part[] parts) {
+        return completeMultipartUpload(bucketName, region, objectName, uploadId, parts, null);
+    }
+
+    /**
+     * 完成分片上传，执行合并文件
      *
      * @param bucketName 存储桶
      * @param region     区域
      * @param objectName 对象名
      * @param uploadId   上传ID
-     * @return {@link ListPartsResponse}
+     * @return {@link ObjectWriteResponse}
      */
-    public ListPartsResponse listParts(String bucketName, String region, String objectName, String uploadId) {
-        return listParts(bucketName, region, objectName, null, uploadId);
+    public ObjectWriteResponse completeMultipartUpload(String bucketName, String region, String objectName, String uploadId) {
+        return completeMultipartUpload(bucketName, region, objectName, uploadId, null);
     }
 
     /**
-     * 查询分片数据
+     * 完成分片上传，执行合并文件
      *
      * @param bucketName 存储桶
-     * @param region     区域
      * @param objectName 对象名
-     * @param maxParts   抓取的最大分片数量.
      * @param uploadId   上传ID
-     * @return {@link ListPartsResponse}
+     * @param parts      {@link Part}
+     * @return {@link ObjectWriteResponse}
      */
-    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, String uploadId) {
-        return listParts(bucketName, region, objectName, maxParts, null, uploadId);
-    }
-
-    /**
-     * 查询分片数据
-     *
-     * @param bucketName       存储桶
-     * @param region           区域
-     * @param objectName       对象名
-     * @param maxParts         抓取的最大分片数量.
-     * @param partNumberMarker 分片数量创建器.
-     * @param uploadId         上传ID
-     * @return {@link ListPartsResponse}
-     */
-    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, Integer partNumberMarker, String uploadId) {
-        return listParts(bucketName, region, objectName, maxParts, partNumberMarker, uploadId, null);
-    }
-
-    /**
-     * 查询分片数据
-     *
-     * @param bucketName       存储桶
-     * @param region           区域
-     * @param objectName       对象名
-     * @param maxParts         抓取的最大分片数量.
-     * @param partNumberMarker 分片数量创建器.
-     * @param uploadId         上传ID
-     * @param extraHeaders     额外消息头
-     * @return {@link ListPartsResponse}
-     */
-    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, Integer partNumberMarker, String uploadId, Multimap<String, String> extraHeaders) {
-        return listParts(bucketName, region, objectName, maxParts, partNumberMarker, uploadId, extraHeaders, null);
-    }
-
-    /**
-     * 查询分片数据
-     *
-     * @param bucketName       存储桶
-     * @param region           区域
-     * @param objectName       对象名
-     * @param maxParts         抓取的最大分片数量.
-     * @param partNumberMarker 分片数量创建器.
-     * @param uploadId         上传ID
-     * @param extraHeaders     额外消息头
-     * @param extraQueryParams 额外查询参数
-     * @return {@link ListPartsResponse}
-     */
-    public ListPartsResponse listParts(String bucketName, String region, String objectName, Integer maxParts, Integer partNumberMarker, String uploadId, Multimap<String, String> extraHeaders, Multimap<String, String> extraQueryParams) {
-        String function = "listParts";
-        MinioAsyncClient minioAsyncClient = getMinioClient();
-
-        try {
-            return minioAsyncClient.listPartsAsync(bucketName, region, objectName, maxParts, partNumberMarker, uploadId, extraHeaders, extraQueryParams).get();
-        } catch (InsufficientDataException e) {
-            log.error("[Herodotus] |- Minio async catch InsufficientDataException in [{}].", function, e);
-            throw new OssInsufficientDataException("Minio async insufficient data error.");
-        } catch (InternalException e) {
-            log.error("[Herodotus] |- Minio async catch InternalException in [{}].", function, e);
-            throw new OssInternalException("Minio async internal error.");
-        } catch (InvalidKeyException e) {
-            log.error("[Herodotus] |- Minio async catch InvalidKeyException in [{}].", function, e);
-            throw new OssInvalidKeyException("Minio async key invalid.");
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Minio async catch IOException in [{}].", function, e);
-            throw new OssIOException("Minio async io error.");
-        } catch (NoSuchAlgorithmException e) {
-            log.error("[Herodotus] |- Minio async catch NoSuchAlgorithmException in [{}].", function, e);
-            throw new OssNoSuchAlgorithmException("Minio async no such algorithm.");
-        } catch (XmlParserException e) {
-            log.error("[Herodotus] |- Minio async catch XmlParserException in [{}].", function, e);
-            throw new OssXmlParserException("Minio async xml parser error.");
-        } catch (ExecutionException e) {
-            log.error("[Herodotus] |- Minio async catch ExecutionException in [{}].", function, e);
-            throw new OssExecutionException("Minio async execution error.");
-        } catch (InterruptedException e) {
-            log.error("[Herodotus] |- Minio async catch InterruptedException in [{}].", function, e);
-            throw new OssInterruptedException("Minio async interrupted error.");
-        } finally {
-            close(minioAsyncClient);
-        }
+    public ObjectWriteResponse completeMultipartUpload(String bucketName, String objectName, String uploadId, Part[] parts) {
+        return completeMultipartUpload(bucketName, null, objectName, uploadId, parts);
     }
 }

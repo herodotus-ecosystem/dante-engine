@@ -23,47 +23,43 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.dto;
+package cn.herodotus.engine.oss.minio.entity;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-
-import java.util.ArrayList;
-import java.util.List;
+import cn.herodotus.engine.oss.minio.definition.entity.GenericEntity;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: 创建分配上传实体 </p>
+ * <p>Description: ObjectWriteEntity </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 11:25
+ * @date : 2023/6/1 21:50
  */
-public class MultipartUploadCreate implements Entity {
+public class ObjectWriteEntity extends GenericEntity {
 
-    private String uploadId;
+    private String etag;
+    private String versionId;
 
-    private List<String> chunkUploadUrls;
-
-    public MultipartUploadCreate(String uploadId) {
-        this.uploadId = uploadId;
-        this.chunkUploadUrls = new ArrayList<>();
+    public String getEtag() {
+        return etag;
     }
 
-    public String getUploadId() {
-        return uploadId;
+    public void setEtag(String etag) {
+        this.etag = etag;
     }
 
-    public void setUploadId(String uploadId) {
-        this.uploadId = uploadId;
+    public String getVersionId() {
+        return versionId;
     }
 
-    public List<String> getChunkUploadUrls() {
-        return chunkUploadUrls;
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
     }
 
-    public void setChunkUploadUrls(List<String> chunkUploadUrls) {
-        this.chunkUploadUrls = chunkUploadUrls;
-    }
-
-    public void appendChunk(String chunk) {
-        chunkUploadUrls.add(chunkUploadUrls.size(), chunk);
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("etag", etag)
+                .add("versionId", versionId)
+                .toString();
     }
 }

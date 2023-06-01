@@ -23,44 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.domain;
+package cn.herodotus.engine.oss.minio.entity;
 
-import cn.herodotus.engine.oss.minio.request.multipart.BaseMultipartUpdatedRequest;
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
 import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: 删除对象参数 </p>
+ * <p>Description: RetentionEntity </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/30 22:54
+ * @date : 2023/4/18 16:41
  */
-public class DeleteObjectRequest extends BaseMultipartUpdatedRequest {
+public class RetentionEntity implements Entity {
 
-    private String name;
+    private String mode;
 
-    private String versionId;
+    private String retainUntilDate;
 
-    public String getName() {
-        return name;
+    public String getMode() {
+        return mode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
-    public String getVersionId() {
-        return versionId;
+    public String getRetainUntilDate() {
+        return retainUntilDate;
     }
 
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
+    public void setRetainUntilDate(String retainUntilDate) {
+        this.retainUntilDate = retainUntilDate;
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("name", name)
-                .add("versionId", versionId)
+                .add("mode", mode)
+                .add("retainUntilDate", retainUntilDate)
                 .toString();
     }
 }

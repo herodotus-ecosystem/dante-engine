@@ -25,14 +25,12 @@
 
 package cn.herodotus.engine.oss.minio.converter;
 
-import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.core.exception.*;
-import cn.herodotus.engine.oss.minio.response.ItemResponse;
-import cn.herodotus.engine.oss.minio.response.OwnerResponse;
+import cn.herodotus.engine.oss.minio.entity.DeleteErrorEntity;
 import io.minio.Result;
 import io.minio.errors.*;
-import io.minio.messages.Item;
-import io.minio.messages.Owner;
+import io.minio.messages.DeleteError;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
@@ -42,38 +40,33 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * <p>Description: Minio Result<Item> 转 Response 转换器 </p>
+ * <p>Description: Result<DeleteError> 转 DeleteErrorEntity 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/30 21:33
+ * @date : 2023/5/30 22:34
  */
-public class ItemToResponseConverter implements Converter<Result<Item>, ItemResponse> {
+public class DeleteErrorToEntityConverter implements Converter<Result<DeleteError>, DeleteErrorEntity> {
 
-    private static final Logger log = LoggerFactory.getLogger(ItemToResponseConverter.class);
-    private final Converter<Owner, OwnerResponse> toOwnerResponse;
-
-    public ItemToResponseConverter() {
-        this.toOwnerResponse = new OwnerToResponseConverter();
-    }
+    private static final Logger log = LoggerFactory.getLogger(DeleteErrorToEntityConverter.class);
 
     @Override
-    public ItemResponse convert(Result<Item> result) {
-
-        String function = "convert";
+    public DeleteErrorEntity convert(Result<DeleteError> result) {
+        String function = "converter";
 
         try {
-            Item item = result.get();
-            ItemResponse itemResponse = new ItemResponse();
-            itemResponse.setEtag(item.etag());
-            itemResponse.setObjectName(item.objectName());
-            itemResponse.setLastModified(DateTimeUtils.zonedDateTimeToString(item.lastModified()));
-            itemResponse.setOwner(toOwnerResponse.convert(item.owner()));
-            itemResponse.setSize(item.size());
-            itemResponse.setStorageClass(item.storageClass());
-            itemResponse.setLatest(item.isLatest());
-            itemResponse.setUserMetadata(item.userMetadata());
-            itemResponse.setDir(item.isDir());
-            return itemResponse;
+            DeleteError deleteError = result.get();
+
+            DeleteErrorEntity entity = new DeleteErrorEntity();
+            if (ObjectUtils.isNotEmpty(deleteError)) {
+                entity.setCode(deleteError.code());
+                entity.setMessage(deleteError.message());
+                entity.setBucketName(deleteError.bucketName());
+                entity.setObjectName(deleteError.objectName());
+                entity.setResource(deleteError.resource());
+                entity.setRequestId(deleteError.requestId());
+                entity.setHostId(deleteError.hostId());
+            }
+            return entity;
         } catch (ErrorResponseException e) {
             log.error("[Herodotus] |- Minio catch ErrorResponseException in [{}].", function, e);
             throw new OssErrorResponseException("Minio response error.");

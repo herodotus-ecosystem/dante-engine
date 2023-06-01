@@ -23,26 +23,13 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.dto;
-
-import io.swagger.v3.oas.annotations.media.Schema;
+package cn.herodotus.engine.oss.minio.entity;
 
 /**
- * <p>Description: 扩展桶操作Dto</p>
+ * <p>Description: Minio 删除操作错误信息实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:11
+ * @date : 2023/4/18 15:14
  */
-public class BaseBucketDto extends BaseDto {
-
-    @Schema(name = "存储区域")
-    private String region;
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
+public class DeleteErrorEntity extends ErrorEntity {
 }

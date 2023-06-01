@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.response;
+package cn.herodotus.engine.oss.minio.entity;
 
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
 import com.google.common.base.MoreObjects;
@@ -34,7 +34,7 @@ import com.google.common.base.MoreObjects;
  * @author : gengwei.zheng
  * @date : 2023/4/18 15:11
  */
-public class ErrorResponse implements Entity {
+public class ErrorEntity implements Entity {
 
     private String code;
 

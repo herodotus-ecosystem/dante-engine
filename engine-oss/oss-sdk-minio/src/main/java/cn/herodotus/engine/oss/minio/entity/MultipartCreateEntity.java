@@ -23,47 +23,47 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.response;
+package cn.herodotus.engine.oss.minio.entity;
 
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import com.google.common.base.MoreObjects;
-import io.minio.messages.ResponseDate;
-import io.minio.messages.RetentionMode;
-import org.simpleframework.xml.Element;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * <p>Description: RetentionResponse </p>
+ * <p>Description: 创建分配上传实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/18 16:41
+ * @date : 2022/7/4 11:25
  */
-public class RetentionResponse implements Entity {
+public class MultipartCreateEntity implements Entity {
 
-    private String mode;
+    private String uploadId;
 
-    private String retainUntilDate;
+    private List<String> chunkUploadUrls;
 
-    public String getMode() {
-        return mode;
+    public MultipartCreateEntity(String uploadId) {
+        this.uploadId = uploadId;
+        this.chunkUploadUrls = new ArrayList<>();
     }
 
-    public void setMode(String mode) {
-        this.mode = mode;
+    public String getUploadId() {
+        return uploadId;
     }
 
-    public String getRetainUntilDate() {
-        return retainUntilDate;
+    public void setUploadId(String uploadId) {
+        this.uploadId = uploadId;
     }
 
-    public void setRetainUntilDate(String retainUntilDate) {
-        this.retainUntilDate = retainUntilDate;
+    public List<String> getChunkUploadUrls() {
+        return chunkUploadUrls;
     }
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mode", mode)
-                .add("retainUntilDate", retainUntilDate)
-                .toString();
+    public void setChunkUploadUrls(List<String> chunkUploadUrls) {
+        this.chunkUploadUrls = chunkUploadUrls;
+    }
+
+    public void appendChunk(String chunk) {
+        chunkUploadUrls.add(chunkUploadUrls.size(), chunk);
     }
 }

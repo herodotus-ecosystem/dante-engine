@@ -29,7 +29,7 @@ import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
 import cn.herodotus.engine.oss.core.exception.*;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.response.RetentionResponse;
+import cn.herodotus.engine.oss.minio.entity.RetentionEntity;
 import io.minio.GetObjectRetentionArgs;
 import io.minio.MinioClient;
 import io.minio.SetObjectRetentionArgs;
@@ -106,9 +106,9 @@ public class ObjectRetentionService extends BaseMinioService {
      * 获取对象的保留配置
      *
      * @param getObjectRetentionArgs {@link GetObjectRetentionArgs}
-     * @return {@link RetentionResponse}
+     * @return {@link RetentionEntity}
      */
-    public RetentionResponse getObjectRetention(GetObjectRetentionArgs getObjectRetentionArgs) {
+    public RetentionEntity getObjectRetention(GetObjectRetentionArgs getObjectRetentionArgs) {
         String function = "getObjectRetention";
         MinioClient minioClient = getMinioClient();
 
@@ -147,15 +147,15 @@ public class ObjectRetentionService extends BaseMinioService {
         }
     }
 
-    private RetentionResponse toRetentionResponse(Retention retention) {
-        RetentionResponse retentionResponse = new RetentionResponse();
+    private RetentionEntity toRetentionResponse(Retention retention) {
+        RetentionEntity retentionEntity = new RetentionEntity();
         if (ObjectUtils.isNotEmpty(retention)) {
-            retentionResponse.setMode(retention.mode().name());
+            retentionEntity.setMode(retention.mode().name());
             if (ObjectUtils.isNotEmpty(retention.retainUntilDate())) {
-                retentionResponse.setRetainUntilDate(DateTimeUtils.zonedDateTimeToString(retention.retainUntilDate()));
+                retentionEntity.setRetainUntilDate(DateTimeUtils.zonedDateTimeToString(retention.retainUntilDate()));
             }
         }
-        return retentionResponse;
+        return retentionEntity;
     }
 
 

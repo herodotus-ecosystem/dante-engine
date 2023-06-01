@@ -26,13 +26,13 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.request.dto.MultipartUploadCreate;
-import cn.herodotus.engine.oss.minio.request.dto.CompleteMultipartUploadDto;
-import cn.herodotus.engine.oss.minio.request.dto.CreateMultipartUpload;
-import cn.herodotus.engine.oss.minio.processor.MultipartUploadProcessor;
+import cn.herodotus.engine.oss.minio.entity.MultipartCreateEntity;
+import cn.herodotus.engine.oss.minio.entity.ObjectWriteEntity;
+import cn.herodotus.engine.oss.minio.multipart.MultipartUploadHandler;
+import cn.herodotus.engine.oss.minio.request.multipart.MultipartUploadCompleteRequest;
+import cn.herodotus.engine.oss.minio.request.multipart.MultipartUploadCreateRequest;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.Controller;
-import io.minio.ObjectWriteResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -41,7 +41,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,42 +62,45 @@ import org.springframework.web.bind.annotation.RestController;
 })
 public class MultipartUploadController implements Controller {
 
-    private final MultipartUploadProcessor multipartUploadProcessor;
+    private final MultipartUploadHandler multipartUploadHandler;
 
-    public MultipartUploadController(MultipartUploadProcessor multipartUploadProcessor) {
-        this.multipartUploadProcessor = multipartUploadProcessor;
+    public MultipartUploadController(MultipartUploadHandler multipartUploadHandler) {
+        this.multipartUploadHandler = multipartUploadHandler;
     }
 
     @Idempotent
     @Operation(summary = "创建分片上传信息", description = "创建分片上传信息",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "是否成功", content = @Content(mediaType = "application/json"))})
+            responses = {
+                    @ApiResponse(description = "uploadId 和 预下载地址", content = @Content(mediaType = "application/json", schema = @Schema(implementation = MultipartCreateEntity.class))),
+                    @ApiResponse(responseCode = "200", description = "操作成功"),
+                    @ApiResponse(responseCode = "204", description = "无结果"),
+                    @ApiResponse(responseCode = "500", description = "操作失败")
+            })
     @Parameters({
-            @Parameter(name = "domain", required = true, description = "Create Multipart Upload 请求实体", schema = @Schema(implementation = CreateMultipartUpload.class))
+            @Parameter(name = "request", required = true, description = "MultipartUploadCreateRequest参数实体", schema = @Schema(implementation = MultipartUploadCreateRequest.class))
     })
     @PostMapping("/create")
-    public Result<MultipartUploadCreate> createMultipartUpload(@Validated @RequestBody CreateMultipartUpload domain) {
-        MultipartUploadCreate result = multipartUploadProcessor.createMultipartUpload(domain.getBucketName(), domain.getObjectName(), domain.getSize());
+    public Result<MultipartCreateEntity> createMultipartUpload(@Validated @RequestBody MultipartUploadCreateRequest request) {
+        MultipartCreateEntity result = multipartUploadHandler.createMultipartUpload(request.getBucketName(), request.getObjectName(), request.getSize());
         return result(result);
     }
 
     @Idempotent
     @Operation(summary = "完成分片上传", description = "完成分片上传，Minio将上传完成的分片信息进行合并",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
-            responses = {@ApiResponse(description = "是否成功", content = @Content(mediaType = "application/json"))})
+            responses = {
+                    @ApiResponse(description = "操作结果", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ObjectWriteEntity.class))),
+                    @ApiResponse(responseCode = "200", description = "操作成功"),
+                    @ApiResponse(responseCode = "204", description = "无结果"),
+                    @ApiResponse(responseCode = "500", description = "操作失败")
+            })
     @Parameters({
-            @Parameter(name = "bucketName", required = true, description = "存储桶名称"),
-            @Parameter(name = "objectName", required = true, description = "文件名称"),
-            @Parameter(name = "objectName", required = true, description = "文件名称"),
+            @Parameter(name = "request", required = true, description = "MultipartUploadCompleteRequest参数实体", schema = @Schema(implementation = MultipartUploadCompleteRequest.class))
     })
     @PostMapping("/complete")
-    public Result<Boolean> completeMultipartUpload(@Validated @RequestBody CompleteMultipartUploadDto domain) {
-        ObjectWriteResponse objectWriteResponse = multipartUploadProcessor.completeMultipartUpload(domain.getBucketName(), domain.getObjectName(), domain.getUploadId());
-        if (ObjectUtils.isNotEmpty(objectWriteResponse)) {
-            return result(true);
-        } else {
-            return result(false);
-        }
+    public Result<ObjectWriteEntity> completeMultipartUpload(@Validated @RequestBody MultipartUploadCompleteRequest request) {
+        ObjectWriteEntity entity = multipartUploadHandler.completeMultipartUpload(request.getBucketName(), request.getObjectName(), request.getUploadId());
+        return result(entity);
     }
-
 }

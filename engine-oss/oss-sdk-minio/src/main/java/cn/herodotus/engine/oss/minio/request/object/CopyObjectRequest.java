@@ -36,7 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: 拷贝对象 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/5/31 14:53

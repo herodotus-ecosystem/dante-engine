@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.response;
+package cn.herodotus.engine.oss.minio.entity;
 
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
 import com.google.common.base.MoreObjects;
@@ -36,12 +36,12 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2021/11/8 15:18
  */
-public class ItemResponse implements Entity {
+public class ItemEntity implements Entity {
 
     private String etag;
     private String objectName;
     private String lastModified;
-    private OwnerResponse owner;
+    private OwnerEntity owner;
     private Long size;
     private String storageClass;
     private Boolean isLatest;
@@ -72,11 +72,11 @@ public class ItemResponse implements Entity {
         this.lastModified = lastModified;
     }
 
-    public OwnerResponse getOwner() {
+    public OwnerEntity getOwner() {
         return owner;
     }
 
-    public void setOwner(OwnerResponse owner) {
+    public void setOwner(OwnerEntity owner) {
         this.owner = owner;
     }
 

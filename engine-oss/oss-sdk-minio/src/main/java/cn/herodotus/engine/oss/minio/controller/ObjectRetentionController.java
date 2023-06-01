@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.response.RetentionResponse;
+import cn.herodotus.engine.oss.minio.entity.RetentionEntity;
 import cn.herodotus.engine.oss.minio.request.object.GetObjectRetentionRequest;
 import cn.herodotus.engine.oss.minio.request.object.SetObjectRetentionRequest;
 import cn.herodotus.engine.oss.minio.service.ObjectRetentionService;
@@ -72,8 +72,8 @@ public class ObjectRetentionController implements Controller {
             @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "获取对象保留配置请求参数实体", schema = @Schema(implementation = GetObjectRetentionRequest.class))
     })
     @GetMapping
-    public Result<RetentionResponse> get(@Validated GetObjectRetentionRequest request) {
-        RetentionResponse response = objectRetentionService.getObjectRetention(request.build());
+    public Result<RetentionEntity> get(@Validated GetObjectRetentionRequest request) {
+        RetentionEntity response = objectRetentionService.getObjectRetention(request.build());
         return result(response);
     }
 

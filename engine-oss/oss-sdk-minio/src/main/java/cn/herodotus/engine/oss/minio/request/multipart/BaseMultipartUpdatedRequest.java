@@ -23,24 +23,53 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.converter;
+package cn.herodotus.engine.oss.minio.request.multipart;
 
-import cn.herodotus.engine.oss.minio.response.OwnerResponse;
-import io.minio.messages.Owner;
-import org.springframework.core.convert.converter.Converter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+
+import java.io.Serializable;
 
 /**
- * <p>Description: Minio Owner 转 Response 转换器 </p>
+ * <p>Description: 扩展 Minio 应用Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/30 21:39
+ * @date : 2022/7/4 16:08
  */
-public class OwnerToResponseConverter implements Converter<Owner, OwnerResponse> {
-    @Override
-    public OwnerResponse convert(Owner owner) {
-        OwnerResponse ownerResponse = new OwnerResponse();
-        ownerResponse.setId(owner.id());
-        ownerResponse.setDisplayName(owner.displayName());
-        return ownerResponse;
+public class BaseMultipartUpdatedRequest implements Serializable {
+
+    @NotNull(message = "存储桶名称不能为空")
+    @Schema(name = "存储桶名称")
+    private String bucketName;
+
+    @Schema(name = "存储区域")
+    private String region;
+
+    @NotNull(message = "对象名称不能为空")
+    @Schema(name = "对象名称")
+    private String objectName;
+
+    public String getBucketName() {
+        return bucketName;
+    }
+
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getObjectName() {
+        return objectName;
+    }
+
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
     }
 }

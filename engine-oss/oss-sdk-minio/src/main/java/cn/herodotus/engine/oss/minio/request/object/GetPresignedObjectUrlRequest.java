@@ -28,6 +28,7 @@ package cn.herodotus.engine.oss.minio.request.object;
 import cn.herodotus.engine.oss.minio.definition.request.ObjectVersionRequest;
 import cn.herodotus.engine.rest.core.annotation.EnumeratedValue;
 import io.minio.GetPresignedObjectUrlArgs;
+import io.minio.http.Method;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -41,9 +42,32 @@ public class GetPresignedObjectUrlRequest extends ObjectVersionRequest<GetPresig
 
     @EnumeratedValue(names = {"GET", "HEAD", "POST", "PUT", "DELETE"}, message = "预请求对象URL的值只能是大写   GET、HEAD、POST、PUT 和 DELETE")
     @Schema(name = "对象保留模式", title = "存储模式的值只能是大写 GOVERNANCE 或者 COMPLIANCE")
-    private String method;
+    private String method = "PUT";
     @Schema(name = "过期时间", type = "integer", title = "单位为秒，默认值为 7 天")
     private Integer expiry = GetPresignedObjectUrlArgs.DEFAULT_EXPIRY_TIME;
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public Integer getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(Integer expiry) {
+        this.expiry = expiry;
+    }
+
+    @Override
+    public void prepare(GetPresignedObjectUrlArgs.Builder builder) {
+        builder.method(Method.valueOf(getMethod()));
+        builder.expiry(getExpiry());
+        super.prepare(builder);
+    }
 
     @Override
     public GetPresignedObjectUrlArgs.Builder getBuilder() {

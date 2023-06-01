@@ -23,29 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.dto;
+package cn.herodotus.engine.oss.minio.converter;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import cn.herodotus.engine.oss.minio.entity.ObjectWriteEntity;
+import io.minio.ObjectWriteResponse;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: 完成分片上传 Dto </p>
+ * <p>Description: ObjectWriteResponse 转 Entity 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 15:14
+ * @date : 2023/6/1 22:04
  */
-@Schema(name = "完成分片上传请求参数实体", title = "完成分片上传请求参数实体")
-public class CompleteMultipartUploadDto extends BaseObjectDto {
-
-    @NotBlank(message = "分片上传ID不能为空")
-    @Schema(name = "上传ID", title = "该ID通过CreateMultipartUpload获取")
-    private String uploadId;
-
-    public String getUploadId() {
-        return uploadId;
-    }
-
-    public void setUploadId(String uploadId) {
-        this.uploadId = uploadId;
+public class ObjectWriteResponseToEntityConverter implements Converter<ObjectWriteResponse, ObjectWriteEntity> {
+    @Override
+    public ObjectWriteEntity convert(ObjectWriteResponse response) {
+        ObjectWriteEntity entity = new ObjectWriteEntity();
+        entity.setEtag(response.etag());
+        entity.setVersionId(response.versionId());
+        entity.setHeaders(GenericResponseToEntityConverter.toMap(response.headers().toMultimap()));
+        entity.setBucket(response.bucket());
+        entity.setRegion(response.region());
+        entity.setObject(response.object());
+        return entity;
     }
 }

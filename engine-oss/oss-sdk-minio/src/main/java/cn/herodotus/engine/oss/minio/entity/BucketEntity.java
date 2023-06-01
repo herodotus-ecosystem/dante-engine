@@ -23,29 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.dto;
+package cn.herodotus.engine.oss.minio.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.Min;
+import cn.herodotus.engine.assistant.core.definition.domain.Entity;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: 创建分片上传Dto </p>
+ * <p>Description: Minio Bucket 可序列化实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 15:14
+ * @date : 2022/7/1 22:59
  */
-@Schema(name = "创建分片上传请求参数实体", title = "创建分片上传请求参数实体")
-public class CreateMultipartUpload extends BaseObjectDto {
+public class BucketEntity implements Entity {
 
-    @Min(value = 1, message = "分片数量不能小于等于1")
-    @Schema(name = "分片数量")
-    private Integer size;
+    private String name;
 
-    public Integer getSize() {
-        return size;
+    private String creationDate;
+
+    public String getName() {
+        return name;
     }
 
-    public void setSize(Integer size) {
-        this.size = size;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("name", name)
+                .add("creationDate", creationDate)
+                .toString();
     }
 }

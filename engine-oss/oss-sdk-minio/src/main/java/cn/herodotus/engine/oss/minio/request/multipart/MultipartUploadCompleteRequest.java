@@ -23,30 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.dto;
+package cn.herodotus.engine.oss.minio.request.multipart;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-
-import java.io.Serializable;
+import jakarta.validation.constraints.NotBlank;
 
 /**
- * <p>Description: 扩展 Minio 应用Dto </p>
+ * <p>Description: 完成分片上传 Dto </p>
+ *
+ *
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:08
+ * @date : 2022/7/4 15:14
  */
-public class BaseDto implements Serializable {
+@Schema(name = "完成分片上传请求参数实体", title = "完成分片上传请求参数实体")
+public class MultipartUploadCompleteRequest extends BaseMultipartUpdatedRequest {
 
-    @NotNull(message = "存储桶名称不能为空")
-    @Schema(name = "存储桶名称")
-    private String bucketName;
+    @NotBlank(message = "分片上传ID不能为空")
+    @Schema(name = "上传ID", title = "该ID通过CreateMultipartUpload获取")
+    private String uploadId;
 
-    public String getBucketName() {
-        return bucketName;
+    public String getUploadId() {
+        return uploadId;
     }
 
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
+    public void setUploadId(String uploadId) {
+        this.uploadId = uploadId;
     }
 }
