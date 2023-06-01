@@ -32,12 +32,12 @@
     <parent>
         <artifactId>engine-nosql</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.0.1</version>
+        <version>3.1.0.2</version>
     </parent>
 
     <artifactId>nosql-core</artifactId>
     <packaging>jar</packaging>
-    <version>3.1.0.1</version>
+    <version>3.1.0.2</version>
 
     <dependencies>
         <dependency>
