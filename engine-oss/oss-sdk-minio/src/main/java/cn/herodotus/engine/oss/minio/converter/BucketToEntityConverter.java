@@ -23,28 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.dto;
+package cn.herodotus.engine.oss.minio.converter;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
+import cn.herodotus.engine.oss.minio.entity.BucketEntity;
+import io.minio.messages.Bucket;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: 扩展对象操作Dto </p>
+ * <p>Description: Bucket 转 BucketEntity 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:12
+ * @date : 2023/5/30 10:11
  */
-public class BaseObjectDto extends BaseBucketDto {
+public class BucketToEntityConverter implements Converter<Bucket, BucketEntity> {
 
-    @NotNull(message = "对象名称不能为空")
-    @Schema(name = "对象名称")
-    private String objectName;
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
+    @Override
+    public BucketEntity convert(Bucket bucket) {
+        BucketEntity entity = new BucketEntity();
+        entity.setName(bucket.name());
+        if (ObjectUtils.isNotEmpty(bucket.creationDate())) {
+            entity.setCreationDate(DateTimeUtils.zonedDateTimeToString(bucket.creationDate()));
+        }
+        return entity;
     }
 }

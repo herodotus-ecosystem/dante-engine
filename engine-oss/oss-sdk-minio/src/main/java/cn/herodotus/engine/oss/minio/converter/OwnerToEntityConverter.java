@@ -23,44 +23,24 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.response;
+package cn.herodotus.engine.oss.minio.converter;
 
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import com.google.common.base.MoreObjects;
+import cn.herodotus.engine.oss.minio.entity.OwnerEntity;
+import io.minio.messages.Owner;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: Minio Bucket 可序列化实体 </p>
+ * <p>Description: Owner 转 OwnerEntity 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/1 22:59
+ * @date : 2023/5/30 21:39
  */
-public class BucketResponse implements Entity {
-
-    private String name;
-
-    private String creationDate;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
-    }
-
+public class OwnerToEntityConverter implements Converter<Owner, OwnerEntity> {
     @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("name", name)
-                .add("creationDate", creationDate)
-                .toString();
+    public OwnerEntity convert(Owner owner) {
+        OwnerEntity entity = new OwnerEntity();
+        entity.setId(owner.id());
+        entity.setDisplayName(owner.displayName());
+        return entity;
     }
 }

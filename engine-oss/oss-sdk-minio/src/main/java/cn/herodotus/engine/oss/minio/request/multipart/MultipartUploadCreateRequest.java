@@ -23,29 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.converter;
+package cn.herodotus.engine.oss.minio.request.multipart;
 
-import cn.herodotus.engine.assistant.core.utils.DateTimeUtils;
-import cn.herodotus.engine.oss.minio.response.BucketResponse;
-import io.minio.messages.Bucket;
-import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.core.convert.converter.Converter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 
 /**
- * <p>Description: Minio Bucket 转 Response 转换器 </p>
+ * <p>Description: 创建分片上传Dto </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/30 10:11
+ * @date : 2022/7/4 15:14
  */
-public class BucketToResponseConverter implements Converter<Bucket, BucketResponse> {
+@Schema(name = "创建分片上传请求参数实体", title = "创建分片上传请求参数实体")
+public class MultipartUploadCreateRequest extends BaseMultipartUpdatedRequest {
 
-    @Override
-    public BucketResponse convert(Bucket bucket) {
-        BucketResponse response = new BucketResponse();
-        response.setName(bucket.name());
-        if (ObjectUtils.isNotEmpty(bucket.creationDate())) {
-            response.setCreationDate(DateTimeUtils.zonedDateTimeToString(bucket.creationDate()));
-        }
-        return response;
+    @Min(value = 1, message = "分片数量不能小于等于1")
+    @Schema(name = "分片数量")
+    private Integer size;
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.0.2</version>
+    <version>3.1.0.3</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,14 +84,14 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.0.2</dante-bom.version>
+        <dante-bom.version>3.1.0.3</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.1.0</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.3</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC2</spring-cloud-alibaba-dependencies.version>
-        <spring-cloud-tencent-dependencies.version>1.11.4-2022.0.1</spring-cloud-tencent-dependencies.version>
+        <spring-cloud-tencent-dependencies.version>1.11.7-2022.0.1</spring-cloud-tencent-dependencies.version>
         <spring-security-oauth2-authorization-server.version>1.1.0</spring-security-oauth2-authorization-server.version>
 
         <!--Maven Plugin 相关组件-->
@@ -154,10 +154,10 @@
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.766</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.767</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.13.1</qiniu-java-sdk.version>
-        <alipay-sdk-java.version>4.35.139.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.35.150.ALL</alipay-sdk-java.version>
         <com.baidu.aip.version>4.16.16</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.16.3</aliyun-sdk-oss.version>

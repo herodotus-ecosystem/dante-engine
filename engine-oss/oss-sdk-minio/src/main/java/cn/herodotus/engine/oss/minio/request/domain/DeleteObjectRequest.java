@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oss.minio.request.domain;
 
-import cn.herodotus.engine.oss.minio.request.dto.BaseDto;
+import cn.herodotus.engine.oss.minio.request.multipart.BaseMultipartUpdatedRequest;
 import com.google.common.base.MoreObjects;
 
 /**
@@ -34,7 +34,7 @@ import com.google.common.base.MoreObjects;
  * @author : gengwei.zheng
  * @date : 2023/5/30 22:54
  */
-public class DeleteObjectRequest extends BaseDto {
+public class DeleteObjectRequest extends BaseMultipartUpdatedRequest {
 
     private String name;
 

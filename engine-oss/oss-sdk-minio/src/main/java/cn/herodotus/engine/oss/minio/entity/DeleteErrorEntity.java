@@ -23,24 +23,13 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.converter;
-
-import cn.herodotus.engine.oss.minio.response.OwnerResponse;
-import io.minio.messages.Owner;
-import org.springframework.core.convert.converter.Converter;
+package cn.herodotus.engine.oss.minio.entity;
 
 /**
- * <p>Description: Minio Owner 转 Response 转换器 </p>
+ * <p>Description: Minio 删除操作错误信息实体 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/30 21:39
+ * @date : 2023/4/18 15:14
  */
-public class OwnerToResponseConverter implements Converter<Owner, OwnerResponse> {
-    @Override
-    public OwnerResponse convert(Owner owner) {
-        OwnerResponse ownerResponse = new OwnerResponse();
-        ownerResponse.setId(owner.id());
-        ownerResponse.setDisplayName(owner.displayName());
-        return ownerResponse;
-    }
+public class DeleteErrorEntity extends ErrorEntity {
 }

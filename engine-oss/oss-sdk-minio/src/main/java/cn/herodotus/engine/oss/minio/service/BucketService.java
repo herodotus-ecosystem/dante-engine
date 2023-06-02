@@ -26,10 +26,10 @@
 package cn.herodotus.engine.oss.minio.service;
 
 import cn.herodotus.engine.oss.core.exception.*;
-import cn.herodotus.engine.oss.minio.converter.BucketToResponseConverter;
+import cn.herodotus.engine.oss.minio.converter.BucketToEntityConverter;
 import cn.herodotus.engine.oss.minio.definition.pool.MinioClientObjectPool;
 import cn.herodotus.engine.oss.minio.definition.service.BaseMinioService;
-import cn.herodotus.engine.oss.minio.response.BucketResponse;
+import cn.herodotus.engine.oss.minio.entity.BucketEntity;
 import io.minio.*;
 import io.minio.errors.*;
 import io.minio.messages.Bucket;
@@ -57,11 +57,11 @@ import java.util.stream.Collectors;
 public class BucketService extends BaseMinioService {
 
     private static final Logger log = LoggerFactory.getLogger(BucketService.class);
-    private final Converter<Bucket, BucketResponse> toResponse;
+    private final Converter<Bucket, BucketEntity> toResult;
 
     public BucketService(MinioClientObjectPool minioClientObjectPool) {
         super(minioClientObjectPool);
-        this.toResponse = new BucketToResponseConverter();
+        this.toResult = new BucketToEntityConverter();
     }
 
     /**
@@ -69,7 +69,7 @@ public class BucketService extends BaseMinioService {
      * @param args {@link ListBucketsArgs}
      * @return Bucket 列表
      */
-    public List<BucketResponse> listBuckets(ListBucketsArgs args) {
+    public List<BucketEntity> listBuckets(ListBucketsArgs args) {
         String function = "listBuckets";
         MinioClient minioClient = getMinioClient();
 
@@ -245,9 +245,9 @@ public class BucketService extends BaseMinioService {
         }
     }
 
-    private List<BucketResponse> toEntities(List<io.minio.messages.Bucket> buckets) {
+    private List<BucketEntity> toEntities(List<io.minio.messages.Bucket> buckets) {
         if (CollectionUtils.isNotEmpty(buckets)) {
-            return buckets.stream().map(toResponse::convert).collect(Collectors.toList());
+            return buckets.stream().map(toResult::convert).collect(Collectors.toList());
         } else {
             return new ArrayList<>();
         }

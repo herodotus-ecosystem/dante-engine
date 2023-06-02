@@ -23,26 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.request.dto;
+package cn.herodotus.engine.oss.minio.converter;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import cn.herodotus.engine.oss.minio.entity.ObjectWriteEntity;
+import io.minio.ObjectWriteResponse;
+import org.springframework.core.convert.converter.Converter;
 
 /**
- * <p>Description: 扩展桶操作Dto</p>
+ * <p>Description: ObjectWriteResponse 转 Entity 转换器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/4 16:11
+ * @date : 2023/6/1 22:04
  */
-public class BaseBucketDto extends BaseDto {
-
-    @Schema(name = "存储区域")
-    private String region;
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
+public class ObjectWriteResponseToEntityConverter implements Converter<ObjectWriteResponse, ObjectWriteEntity> {
+    @Override
+    public ObjectWriteEntity convert(ObjectWriteResponse response) {
+        ObjectWriteEntity entity = new ObjectWriteEntity();
+        entity.setEtag(response.etag());
+        entity.setVersionId(response.versionId());
+        entity.setHeaders(GenericResponseToEntityConverter.toMap(response.headers().toMultimap()));
+        entity.setBucket(response.bucket());
+        entity.setRegion(response.region());
+        entity.setObject(response.object());
+        return entity;
     }
 }

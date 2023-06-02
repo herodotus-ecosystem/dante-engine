@@ -26,8 +26,8 @@
 package cn.herodotus.engine.oss.minio.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.oss.minio.response.DeleteErrorResponse;
-import cn.herodotus.engine.oss.minio.response.ItemResponse;
+import cn.herodotus.engine.oss.minio.entity.DeleteErrorEntity;
+import cn.herodotus.engine.oss.minio.entity.ItemEntity;
 import cn.herodotus.engine.oss.minio.request.object.ListObjectsRequest;
 import cn.herodotus.engine.oss.minio.request.object.RemoveObjectRequest;
 import cn.herodotus.engine.oss.minio.request.object.RemoveObjectsRequest;
@@ -83,8 +83,8 @@ public class ObjectController implements Controller {
             @Parameter(name = "request", required = true, in = ParameterIn.PATH, description = "ListObjectsRequest参数实体", schema = @Schema(implementation = ListObjectsRequest.class))
     })
     @GetMapping("/list")
-    public Result<List<ItemResponse>> list(@Validated ListObjectsRequest request) {
-        List<ItemResponse> items = objectService.listObjects(request.build());
+    public Result<List<ItemEntity>> list(@Validated ListObjectsRequest request) {
+        List<ItemEntity> items = objectService.listObjects(request.build());
         return result(items);
     }
 
@@ -118,8 +118,8 @@ public class ObjectController implements Controller {
             @Parameter(name = "request", required = true, description = "删除对象请求参数实体", schema = @Schema(implementation = RemoveObjectsRequest.class))
     })
     @DeleteMapping("/multi")
-    public Result<List<DeleteErrorResponse>> removeObjects(@Validated @RequestBody RemoveObjectsRequest request) {
-        List<DeleteErrorResponse> items = objectService.removeObjects(request.build());
+    public Result<List<DeleteErrorEntity>> removeObjects(@Validated @RequestBody RemoveObjectsRequest request) {
+        List<DeleteErrorEntity> items = objectService.removeObjects(request.build());
         return result(items);
     }
 }

@@ -23,44 +23,66 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.response;
+package cn.herodotus.engine.oss.minio.definition.entity;
 
 import cn.herodotus.engine.assistant.core.definition.domain.Entity;
 import com.google.common.base.MoreObjects;
 
+import java.util.Map;
+
 /**
- * <p>Description: Minio Owner </p>
+ * <p>Description: Minio GenericResponse 转换后实体 </p>
+ *
+ * 没有命名为 GenericResponse 而改用 GenericEntity，主要是避免冲突
  *
  * @author : gengwei.zheng
- * @date : 2023/4/17 11:54
+ * @date : 2023/6/1 21:47
  */
-public class OwnerResponse implements Entity {
+public class GenericEntity implements Entity {
 
-    private String id;
+    private Map<String, String> headers;
+    private String bucket;
+    private String region;
+    private String object;
 
-    private String displayName;
-
-    public String getId() {
-        return id;
+    public Map<String, String> getHeaders() {
+        return headers;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setHeaders(Map<String, String> headers) {
+        this.headers = headers;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getBucket() {
+        return bucket;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("id", id)
-                .add("displayName", displayName)
+                .add("bucket", bucket)
+                .add("region", region)
+                .add("object", object)
                 .toString();
     }
 }
