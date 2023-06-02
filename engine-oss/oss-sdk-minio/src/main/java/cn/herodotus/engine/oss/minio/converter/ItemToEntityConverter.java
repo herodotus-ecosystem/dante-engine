@@ -50,10 +50,10 @@ import java.security.NoSuchAlgorithmException;
 public class ItemToEntityConverter implements Converter<Result<Item>, ItemEntity> {
 
     private static final Logger log = LoggerFactory.getLogger(ItemToEntityConverter.class);
-    private final Converter<Owner, OwnerEntity> toOwnerResponse;
+    private final Converter<Owner, OwnerEntity> toEntity;
 
     public ItemToEntityConverter() {
-        this.toOwnerResponse = new OwnerToEntityConverter();
+        this.toEntity = new OwnerToEntityConverter();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ItemToEntityConverter implements Converter<Result<Item>, ItemEntity
             entity.setEtag(item.etag());
             entity.setObjectName(item.objectName());
             entity.setLastModified(DateTimeUtils.zonedDateTimeToString(item.lastModified()));
-            entity.setOwner(toOwnerResponse.convert(item.owner()));
+            entity.setOwner(toEntity.convert(item.owner()));
             entity.setSize(item.size());
             entity.setStorageClass(item.storageClass());
             entity.setLatest(item.isLatest());

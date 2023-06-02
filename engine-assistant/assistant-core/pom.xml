@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-assistant</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.0.2</version>
+        <version>3.1.0.3</version>
     </parent>
 
     <artifactId>assistant-core</artifactId>
-    <version>3.1.0.2</version>
+    <version>3.1.0.3</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 核心通用代码组件</description>

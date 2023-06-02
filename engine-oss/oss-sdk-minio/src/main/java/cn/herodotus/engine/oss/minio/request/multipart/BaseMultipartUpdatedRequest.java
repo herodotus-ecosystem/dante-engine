@@ -26,7 +26,7 @@
 package cn.herodotus.engine.oss.minio.request.multipart;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 
@@ -38,14 +38,14 @@ import java.io.Serializable;
  */
 public class BaseMultipartUpdatedRequest implements Serializable {
 
-    @NotNull(message = "存储桶名称不能为空")
+    @NotBlank(message = "存储桶名称不能为空")
     @Schema(name = "存储桶名称")
     private String bucketName;
 
     @Schema(name = "存储区域")
     private String region;
 
-    @NotNull(message = "对象名称不能为空")
+    @NotBlank(message = "对象名称不能为空")
     @Schema(name = "对象名称")
     private String objectName;
 
