@@ -30,10 +30,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
@@ -47,7 +49,6 @@ import java.io.IOException;
  * @date : 2020/5/29 17:32
  */
 @AutoConfiguration
-@ConditionalOnBean(ClientHttpRequestFactory.class)
 public class RestTemplateConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RestTemplateConfiguration.class);
@@ -57,9 +58,16 @@ public class RestTemplateConfiguration {
         log.debug("[Herodotus] |- SDK [Web Rest Template] Auto Configure.");
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public ClientHttpRequestFactory clientHttpRequestFactory() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        log.trace("[Herodotus] |- Bean [Client Http Request Factory] Auto Configure.");
+        return factory;
+    }
 
     /**
-     * '@LoadBalanced'注解表示使用Ribbon实现客户端负载均衡
+     * 使用 @LoadBalanced 注解表示使用 loadbalancer 实现客户端负载均衡
      *
      * @return RestTemplate
      */

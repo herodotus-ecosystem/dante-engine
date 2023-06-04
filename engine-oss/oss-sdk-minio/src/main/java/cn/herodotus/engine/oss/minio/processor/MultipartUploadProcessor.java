@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oss.minio.multipart;
+package cn.herodotus.engine.oss.minio.processor;
 
 import cn.herodotus.engine.oss.minio.converter.ObjectWriteResponseToEntityConverter;
 import cn.herodotus.engine.oss.minio.entity.ObjectWriteEntity;
@@ -54,13 +54,13 @@ import java.util.concurrent.TimeUnit;
  * @date : 2022/7/3 22:39
  */
 @Component
-public class MultipartUploadHandler {
+public class MultipartUploadProcessor {
 
     private final MultipartUploadService multipartUploadService;
     private final PresignedService presignedService;
 
     @Autowired
-    public MultipartUploadHandler(MultipartUploadService multipartUploadService, PresignedService presignedService) {
+    public MultipartUploadProcessor(MultipartUploadService multipartUploadService, PresignedService presignedService) {
         this.multipartUploadService = multipartUploadService;
         this.presignedService = presignedService;
     }

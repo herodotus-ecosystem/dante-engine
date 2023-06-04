@@ -75,7 +75,7 @@ public class MinioConfiguration {
     @Configuration(proxyBeanMethods = false)
     @ComponentScan(basePackages = {
             "cn.herodotus.engine.oss.minio.service",
-            "cn.herodotus.engine.oss.minio.multipart",
+            "cn.herodotus.engine.oss.minio.processor",
             "cn.herodotus.engine.oss.minio.controller",
     })
     static class MinioLogicConfiguration {

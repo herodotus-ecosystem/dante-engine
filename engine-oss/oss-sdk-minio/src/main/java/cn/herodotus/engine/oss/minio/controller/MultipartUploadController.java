@@ -28,7 +28,7 @@ package cn.herodotus.engine.oss.minio.controller;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.oss.minio.entity.MultipartCreateEntity;
 import cn.herodotus.engine.oss.minio.entity.ObjectWriteEntity;
-import cn.herodotus.engine.oss.minio.multipart.MultipartUploadHandler;
+import cn.herodotus.engine.oss.minio.processor.MultipartUploadProcessor;
 import cn.herodotus.engine.oss.minio.request.multipart.MultipartUploadCompleteRequest;
 import cn.herodotus.engine.oss.minio.request.multipart.MultipartUploadCreateRequest;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
@@ -62,10 +62,10 @@ import org.springframework.web.bind.annotation.RestController;
 })
 public class MultipartUploadController implements Controller {
 
-    private final MultipartUploadHandler multipartUploadHandler;
+    private final MultipartUploadProcessor multipartUploadProcessor;
 
-    public MultipartUploadController(MultipartUploadHandler multipartUploadHandler) {
-        this.multipartUploadHandler = multipartUploadHandler;
+    public MultipartUploadController(MultipartUploadProcessor multipartUploadProcessor) {
+        this.multipartUploadProcessor = multipartUploadProcessor;
     }
 
     @Idempotent
@@ -82,7 +82,7 @@ public class MultipartUploadController implements Controller {
     })
     @PostMapping("/create")
     public Result<MultipartCreateEntity> createMultipartUpload(@Validated @RequestBody MultipartUploadCreateRequest request) {
-        MultipartCreateEntity result = multipartUploadHandler.createMultipartUpload(request.getBucketName(), request.getObjectName(), request.getSize());
+        MultipartCreateEntity result = multipartUploadProcessor.createMultipartUpload(request.getBucketName(), request.getObjectName(), request.getSize());
         return result(result);
     }
 
@@ -100,7 +100,7 @@ public class MultipartUploadController implements Controller {
     })
     @PostMapping("/complete")
     public Result<ObjectWriteEntity> completeMultipartUpload(@Validated @RequestBody MultipartUploadCompleteRequest request) {
-        ObjectWriteEntity entity = multipartUploadHandler.completeMultipartUpload(request.getBucketName(), request.getObjectName(), request.getUploadId());
+        ObjectWriteEntity entity = multipartUploadProcessor.completeMultipartUpload(request.getBucketName(), request.getObjectName(), request.getUploadId());
         return result(entity);
     }
 }

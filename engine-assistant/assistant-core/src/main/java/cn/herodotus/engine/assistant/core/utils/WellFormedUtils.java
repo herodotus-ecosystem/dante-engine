@@ -28,6 +28,7 @@ package cn.herodotus.engine.assistant.core.utils;
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
+import cn.herodotus.engine.assistant.core.exception.properties.PropertyValueIsNotSetException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,6 +143,19 @@ public class WellFormedUtils {
         } catch (UnknownHostException e) {
             log.error("[Herodotus] |- Get host address error: {}", e.getLocalizedMessage());
             return null;
+        }
+    }
+
+    public static String serviceUri(String gatewayServiceUri, String serviceUri, String serviceName, String abbreviation) {
+        if (StringUtils.isNotBlank(serviceUri)) {
+            return serviceUri;
+        } else {
+            if (StringUtils.isBlank(serviceName)) {
+                log.error("[Herodotus] |- Property [{} Service Name] is not set or property format is incorrect!", abbreviation);
+                throw new PropertyValueIsNotSetException();
+            } else {
+                return WellFormedUtils.url(gatewayServiceUri) + serviceName;
+            }
         }
     }
 

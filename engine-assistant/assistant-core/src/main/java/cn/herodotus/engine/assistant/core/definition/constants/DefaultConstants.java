@@ -62,4 +62,6 @@ public interface DefaultConstants {
      * 默认的时间日期格式
      */
     String DATE_TIME_FORMAT = DatePattern.NORM_DATETIME_PATTERN;
+
+    String PRESIGNED_OBJECT_URL_DELEGATE = "/presigned";
 }
