@@ -28,7 +28,6 @@ package cn.herodotus.engine.oss.minio.processor;
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oss.minio.properties.MinioProperties;
-import cn.herodotus.engine.oss.minio.service.PresignedService;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -43,27 +42,38 @@ import org.springframework.stereotype.Component;
  * @date : 2023/6/3 15:19
  */
 @Component
-public class MinioDelegateUrlConverter {
+public class MinioProxyAddressConverter {
 
-    private static final Logger log = LoggerFactory.getLogger(MinioDelegateUrlConverter.class);
+    private static final Logger log = LoggerFactory.getLogger(MinioProxyAddressConverter.class);
 
     private final MinioProperties minioProperties;
     private final EndpointProperties endpointProperties;
 
-    public MinioDelegateUrlConverter(MinioProperties minioProperties, EndpointProperties endpointProperties) {
+    public MinioProxyAddressConverter(MinioProperties minioProperties, EndpointProperties endpointProperties) {
         this.minioProperties = minioProperties;
         this.endpointProperties = endpointProperties;
     }
 
     public String toServiceUrl(String presignedObjectUrl) {
-        String endpoint = endpointProperties.getOssServiceUri() + DefaultConstants.PRESIGNED_OBJECT_URL_DELEGATE;
-        return StringUtils.replace(presignedObjectUrl, minioProperties.getEndpoint(), endpoint);
+        if (minioProperties.getOpenProxy()) {
+            String endpoint = endpointProperties.getOssServiceUri() + DefaultConstants.PRESIGNED_OBJECT_URL_PROXY;
+            String target = StringUtils.replace(presignedObjectUrl, minioProperties.getEndpoint(), endpoint);
+            log.debug("[Herodotus] |- Convert presignedObjectUrl [{}] to [{}].", endpoint, target);
+            return target;
+        }
+
+        return presignedObjectUrl;
     }
 
     public String toPresignedObjectUrl(HttpServletRequest request) {
+        String uri = request.getRequestURI();
+        String path = uri.replace(DefaultConstants.PRESIGNED_OBJECT_URL_PROXY, SymbolConstants.BLANK);
+
         String queryString = request.getQueryString();
-        return minioProperties.getEndpoint()
-                + request.getRequestURI().replace(DefaultConstants.PRESIGNED_OBJECT_URL_DELEGATE, SymbolConstants.BLANK)
-                + (queryString != null ? SymbolConstants.QUESTION + queryString : SymbolConstants.BLANK);
+        String params = queryString != null ? SymbolConstants.QUESTION + queryString : SymbolConstants.BLANK;
+
+        String target = minioProperties.getEndpoint() + path + params;
+        log.debug("[Herodotus] |- Convert request [{}] to [{}].", uri, target);
+        return target;
     }
 }

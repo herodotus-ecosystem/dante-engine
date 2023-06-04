@@ -25,9 +25,11 @@
 
 package cn.herodotus.engine.oss.minio.controller;
 
+import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.oss.minio.entity.MultipartCreateEntity;
 import cn.herodotus.engine.oss.minio.entity.ObjectWriteEntity;
+import cn.herodotus.engine.oss.minio.processor.MinioPresignedObjectUrlProxy;
 import cn.herodotus.engine.oss.minio.processor.MultipartUploadProcessor;
 import cn.herodotus.engine.oss.minio.request.multipart.MultipartUploadCompleteRequest;
 import cn.herodotus.engine.oss.minio.request.multipart.MultipartUploadCreateRequest;
@@ -41,11 +43,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>Description: Minio 分片上传接口 </p>
@@ -54,7 +55,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date : 2022/7/4 15:02
  */
 @RestController
-@RequestMapping("/oss/minio/multipart")
+@RequestMapping(DefaultConstants.MINIO_MULTIPART_REQUEST_MAPPING)
 @Tags({
         @Tag(name = "对象存储管理接口"),
         @Tag(name = "Minio 对象存储管理接口"),
@@ -63,9 +64,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MultipartUploadController implements Controller {
 
     private final MultipartUploadProcessor multipartUploadProcessor;
+    private final MinioPresignedObjectUrlProxy presignedObjectUrlDelegate;
 
-    public MultipartUploadController(MultipartUploadProcessor multipartUploadProcessor) {
+    public MultipartUploadController(MultipartUploadProcessor multipartUploadProcessor, MinioPresignedObjectUrlProxy presignedObjectUrlDelegate) {
         this.multipartUploadProcessor = multipartUploadProcessor;
+        this.presignedObjectUrlDelegate = presignedObjectUrlDelegate;
     }
 
     @Idempotent
@@ -102,5 +105,15 @@ public class MultipartUploadController implements Controller {
     public Result<ObjectWriteEntity> completeMultipartUpload(@Validated @RequestBody MultipartUploadCompleteRequest request) {
         ObjectWriteEntity entity = multipartUploadProcessor.completeMultipartUpload(request.getBucketName(), request.getObjectName(), request.getUploadId());
         return result(entity);
+    }
+
+    @Operation(summary = "预下载代理地址", description = "预下载代理地址，避免前端直接访问OSS，同时导致微服务寻址错误",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
+            responses = {
+                    @ApiResponse(description = "操作结果", content = @Content(mediaType = "application/json")),
+            })
+    @PutMapping(value = DefaultConstants.MINIO_PRESIGNED_OBJECT_PROXY)
+    public ResponseEntity<String> presignedObjectProxy(HttpServletRequest request) {
+        return presignedObjectUrlDelegate.delegate(request);
     }
 }

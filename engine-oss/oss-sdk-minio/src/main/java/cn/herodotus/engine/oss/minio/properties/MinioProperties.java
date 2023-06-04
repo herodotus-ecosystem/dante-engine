@@ -64,6 +64,11 @@ public class MinioProperties {
      */
     private String timestampFormat = "yyyy-MM-dd";
 
+    /**
+     * 是否启用代理，防止前端直接访问
+     */
+    private Boolean openProxy = true;
+
     private Pool pool = new Pool();
 
     public String getEndpoint() {
@@ -104,6 +109,14 @@ public class MinioProperties {
 
     public void setTimestampFormat(String timestampFormat) {
         this.timestampFormat = timestampFormat;
+    }
+
+    public Boolean getOpenProxy() {
+        return openProxy;
+    }
+
+    public void setOpenProxy(Boolean openProxy) {
+        this.openProxy = openProxy;
     }
 
     public Pool getPool() {

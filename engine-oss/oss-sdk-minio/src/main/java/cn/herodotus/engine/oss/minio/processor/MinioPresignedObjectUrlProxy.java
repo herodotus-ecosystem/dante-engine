@@ -48,23 +48,23 @@ import java.util.List;
  * @date : 2023/6/3 9:48
  */
 @Component
-public class MinioPresignedObjectUrlDelegate {
+public class MinioPresignedObjectUrlProxy {
 
-    private final MinioDelegateUrlConverter converter;
+    private final MinioProxyAddressConverter converter;
     private final RestTemplate restTemplate;
 
-    public MinioPresignedObjectUrlDelegate(MinioDelegateUrlConverter converter, RestTemplate restTemplate) {
+    public MinioPresignedObjectUrlProxy(MinioProxyAddressConverter converter, RestTemplate restTemplate) {
         this.converter = converter;
         this.restTemplate = restTemplate;
     }
 
-    public ResponseEntity<String> route(HttpServletRequest request) {
+    public ResponseEntity<String> delegate(HttpServletRequest request) {
         try {
-            String delegate = converter.toPresignedObjectUrl(request);
-            RequestEntity<byte[]> requestEntity = createRequestEntity(request, delegate);
+            String target = converter.toPresignedObjectUrl(request);
+            RequestEntity<byte[]> requestEntity = createRequestEntity(request, target);
             return restTemplate.exchange(requestEntity, String.class);
         } catch (Exception e) {
-            return new ResponseEntity<>("ROUTING ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Delegate ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -80,8 +80,8 @@ public class MinioPresignedObjectUrlDelegate {
     private RequestEntity<byte[]> createRequestEntity(HttpServletRequest request, String url) throws URISyntaxException, IOException {
         String method = request.getMethod();
         HttpMethod httpMethod = method != null ? HttpMethod.valueOf(method) : null;
-        MultiValueMap<String, String> headers = parseRequestHeader(request);
-        byte[] body = parseRequestBody(request);
+        MultiValueMap<String, String> headers = readRequestHeader(request);
+        byte[] body = readRequestBody(request);
         return new RequestEntity<>(body, headers, httpMethod, new URI(url));
     }
 
@@ -92,7 +92,7 @@ public class MinioPresignedObjectUrlDelegate {
      * @return request body
      * @throws IOException io错误
      */
-    private byte[] parseRequestBody(HttpServletRequest request) throws IOException {
+    private byte[] readRequestBody(HttpServletRequest request) throws IOException {
         InputStream inputStream = request.getInputStream();
         return StreamUtils.copyToByteArray(inputStream);
     }
@@ -103,7 +103,7 @@ public class MinioPresignedObjectUrlDelegate {
      * @param request 请求 {@link HttpServletRequest}
      * @return 请求头
      */
-    private MultiValueMap<String, String> parseRequestHeader(HttpServletRequest request) {
+    private MultiValueMap<String, String> readRequestHeader(HttpServletRequest request) {
         HttpHeaders headers = new HttpHeaders();
         List<String> headerNames = Collections.list(request.getHeaderNames());
         for (String headerName : headerNames) {

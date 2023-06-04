@@ -58,11 +58,13 @@ public class MultipartUploadProcessor {
 
     private final MultipartUploadService multipartUploadService;
     private final PresignedService presignedService;
+    private final MinioProxyAddressConverter converter;
 
     @Autowired
-    public MultipartUploadProcessor(MultipartUploadService multipartUploadService, PresignedService presignedService) {
+    public MultipartUploadProcessor(MultipartUploadService multipartUploadService, PresignedService presignedService, MinioProxyAddressConverter converter) {
         this.multipartUploadService = multipartUploadService;
         this.presignedService = presignedService;
+        this.converter = converter;
     }
 
     /**
@@ -136,7 +138,7 @@ public class MultipartUploadProcessor {
 
         for (int i = 0; i < totalParts; i++) {
             String uploadUrl = createPresignedObjectUrl(bucketName, region, objectName, uploadId, i);
-            entity.appendChunk(uploadUrl);
+            entity.appendChunk(converter.toServiceUrl(uploadUrl));
         }
         return entity;
     }
