@@ -54,6 +54,10 @@ public class EndpointProperties {
      * 用户中心服务名称
      */
     private String upmsServiceName;
+    /**
+     * 对象存储服务名称
+     */
+    private String ossServiceName;
 
     /**
      * 统一网关服务地址。可以是IP+端口，可以是域名
@@ -68,6 +72,10 @@ public class EndpointProperties {
      * 统一权限管理服务地址
      */
     private String upmsServiceUri;
+    /**
+     * 对象存储服务地址
+     */
+    private String ossServiceUri;
     /**
      * OAuth2 Authorization Code 模式认证端点，/oauth2/authorize uri 地址，可修改为自定义地址
      */
@@ -153,6 +161,18 @@ public class EndpointProperties {
      */
     private String issuerUri;
 
+    private String getDefaultEndpoint(String endpoint, String pathAuthorizationEndpoint) {
+        if (StringUtils.isNotBlank(endpoint)) {
+            return endpoint;
+        } else {
+            if (StringUtils.isNotBlank(pathAuthorizationEndpoint)) {
+                return getUaaServiceUri() + pathAuthorizationEndpoint;
+            } else {
+                return getUaaServiceUri();
+            }
+        }
+    }
+
     public String getUaaServiceName() {
         return uaaServiceName;
     }
@@ -163,6 +183,14 @@ public class EndpointProperties {
 
     public String getUpmsServiceName() {
         return upmsServiceName;
+    }
+
+    public String getOssServiceName() {
+        return ossServiceName;
+    }
+
+    public void setOssServiceName(String ossServiceName) {
+        this.ossServiceName = ossServiceName;
     }
 
     public void setUpmsServiceName(String upmsServiceName) {
@@ -178,45 +206,23 @@ public class EndpointProperties {
     }
 
     public String getUaaServiceUri() {
-        if (StringUtils.isNotBlank(uaaServiceUri)) {
-            return uaaServiceUri;
-        } else {
-            if (StringUtils.isBlank(uaaServiceName)) {
-                log.error("[Herodotus] |- Property [Uaa Service Name] is not set or property format is incorrect!");
-                throw new PropertyValueIsNotSetException();
-            } else {
-                return WellFormedUtils.url(getGatewayServiceUri()) + uaaServiceName;
-            }
-        }
+        return WellFormedUtils.serviceUri(getGatewayServiceUri(), uaaServiceUri, uaaServiceName, "UAA");
     }
 
     public void setUaaServiceUri(String uaaServiceUri) {
         this.uaaServiceUri = uaaServiceUri;
     }
 
-    private String getDefaultEndpoint(String endpoint, String pathAuthorizationEndpoint) {
-        if (StringUtils.isNotBlank(endpoint)) {
-            return endpoint;
-        } else {
-            if (StringUtils.isNotBlank(pathAuthorizationEndpoint)) {
-                return getUaaServiceUri() + pathAuthorizationEndpoint;
-            } else {
-                return getUaaServiceUri();
-            }
-        }
+    public String getOssServiceUri() {
+        return WellFormedUtils.serviceUri(getGatewayServiceUri(), ossServiceUri, ossServiceName, "OSS");
+    }
+
+    public void setOssServiceUri(String ossServiceUri) {
+        this.ossServiceUri = ossServiceUri;
     }
 
     public String getUpmsServiceUri() {
-        if (StringUtils.isNotBlank(upmsServiceUri)) {
-            return upmsServiceUri;
-        } else {
-            if (StringUtils.isBlank(upmsServiceName)) {
-                log.error("[Herodotus] |- Property [Upms Service Name] is not set or property format is incorrect!");
-                throw new PropertyValueIsNotSetException();
-            } else {
-                return WellFormedUtils.url(getGatewayServiceUri()) + upmsServiceName;
-            }
-        }
+        return WellFormedUtils.serviceUri(getGatewayServiceUri(), upmsServiceUri, upmsServiceName, "UPMS");
     }
 
     public void setUpmsServiceUri(String upmsServiceUri) {

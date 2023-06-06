@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.0.3</version>
+    <version>3.1.0.4</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,7 +84,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.0.3</dante-bom.version>
+        <dante-bom.version>3.1.0.4</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
@@ -112,7 +112,7 @@
         <zxing.version>3.5.1</zxing.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.21.3</redisson.version>
+        <redisson.version>3.22.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.1.0</springdoc.version>
         <logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
@@ -154,7 +154,7 @@
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.767</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.769</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.13.1</qiniu-java-sdk.version>
         <alipay-sdk-java.version>4.35.150.ALL</alipay-sdk-java.version>
@@ -437,22 +437,7 @@
                 <artifactId>oauth2-sdk-management</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-            <!-- oss -->
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>oss-core</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>oss-sdk-minio</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>oss-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
+
             <!-- pay -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>

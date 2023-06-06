@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/system/constants")
+@RequestMapping("/system/constant")
 @Tag(name = "系统常量接口")
 public class ConstantsController {
 
