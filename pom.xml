@@ -33,12 +33,12 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.1.0.3</version>
+        <version>3.1.0.4</version>
         <relativePath>dependencies/pom.xml</relativePath>
     </parent>
 
     <artifactId>dante-engine</artifactId>
-    <version>3.1.0.3</version>
+    <version>3.1.0.4</version>
     <packaging>pom</packaging>
 
     <description>Dante Engine</description>
@@ -150,7 +150,6 @@
         <module>engine-data</module>
         <module>engine-rest</module>
         <module>engine-captcha</module>
-        <module>engine-oss</module>
         <module>engine-pay</module>
         <module>engine-message</module>
         <module>engine-facility</module>

@@ -31,11 +31,11 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-supplier</artifactId>
-        <version>3.1.0.3</version>
+        <version>3.1.0.4</version>
     </parent>
 
     <artifactId>supplier-sdk-message</artifactId>
-    <version>3.1.0.3</version>
+    <version>3.1.0.4</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 消息应用支持模块</description>
