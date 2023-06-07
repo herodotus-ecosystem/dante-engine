@@ -32,11 +32,11 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.0.4</version>
+        <version>3.1.0.5</version>
     </parent>
 
     <artifactId>engine-message</artifactId>
-    <version>3.1.0.4</version>
+    <version>3.1.0.5</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -45,7 +45,7 @@
         <module>message-spring-boot-starter</module>
         <module>message-kafka-spring-boot-starter</module>
         <module>message-security-spring-boot-starter</module>
-        <module>message-pay-spring-boot-starter</module>
+        <module>message-rabbitmq-spring-boot-starter</module>
     </modules>
 
 </project>

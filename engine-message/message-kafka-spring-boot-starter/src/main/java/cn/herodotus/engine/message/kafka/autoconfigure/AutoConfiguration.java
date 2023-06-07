@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: Pay Event 自动注入配置 </p>
+ * <p>Description: Kafka Message 模块自动注入配置 </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/1/20 19:07
