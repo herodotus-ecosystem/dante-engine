@@ -117,7 +117,7 @@ public enum ResultErrorCodes {
     ACCOUNT_LOCKED(ErrorCodes.ACCOUNT_LOCKED, "该账户已经被锁定"),
     BAD_CREDENTIALS(ErrorCodes.BAD_CREDENTIALS, "用户名或密码错误"),
     CREDENTIALS_EXPIRED(ErrorCodes.CREDENTIALS_EXPIRED, "该账户密码凭证已过期"),
-    INVALID_CLIENT(ErrorCodes.INVALID_CLIENT, "客户端身份验证失败"),
+    INVALID_CLIENT(ErrorCodes.INVALID_CLIENT, "客户端身份验证失败或数据库未初始化"),
     INVALID_TOKEN(ErrorCodes.INVALID_TOKEN, "提供的访问令牌已过期、吊销、格式错误或无效"),
     INVALID_GRANT(ErrorCodes.INVALID_GRANT, "提供的授权授予或刷新令牌无效、已过期或已撤销"),
     UNAUTHORIZED_CLIENT(ErrorCodes.UNAUTHORIZED_CLIENT, "客户端无权使用此方法请求授权码或访问令牌"),

@@ -13,7 +13,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.3-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.3"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.0.4-red.svg?logo=spring" alt="Version 3.1.0.4"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.0.5-red.svg?logo=spring" alt="Version 3.1.0.5"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue.svg?logo=apache" alt="License Apache 2.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -105,27 +105,16 @@ dante-engine
 ├── engine-message -- 消息模块
 ├    ├── message-core -- 消息共性通用代码
 ├    ├── message-kafka-spring-boot-starter -- 基础 Kafka 配置 Starter
-├    ├── message-pay-spring-boot-starter -- 支付事件统一 Starter
-├    ├── message-sdk-mailing -- 站内消息、私信通用代码模块
+├    ├── message-rabbitmaq-spring-boot-starter -- 基础 RabbitMQ 配置 Starter
 ├    ├── message-sdk-websocket -- 基于 WebSocket 的消息代码模块
 ├    ├── message-security-spring-boot-starter -- 安全相关事件统一 Starter
 ├    └── message-spring-boot-starter -- Message  模块统一 Starter
-├── engine-nosql -- Nosql 数据库接入管理模块
-├    ├── nosql-core -- nosql基础共性通用代码
-├    ├── nosql-sdk-couchdb -- Couchdb Nosql 数据库接入管理模块
-├    └── nosql-sdk-influxdb -- Influxdb 时序数据库接入管理模块
 ├── engine-oauth2 -- OAuth2 认证模块
 ├    ├── oauth2-core -- OAuth2 共性通用代码模块
 ├    ├── oauth2-sdk-authentication -- Spring Authorization Server 认证逻辑处理模块
 ├    ├── oauth2-sdk-authorization -- Spring Authorization Server 授权逻辑处理模块
 ├    ├── oauth2-sdk-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块
 ├    └── oauth2-sdk-management -- Spring Authorization Server 应用管理模块
-├── engine-pay -- 支付模块
-├    ├── pay-core -- 支付共性通用代码
-├    ├── pay-sdk-alipay -- 支付宝支付模块
-├    ├── pay-sdk-all -- 支付方式整合模块
-├    ├── pay-sdk-wxpay -- 微信支付模块
-├    └── pay-spring-boot-starter -- Pay 模块统一 Starter
 ├── engine-rest -- 服务Rest接口模块
 ├    ├── rest-core -- 服务Rest接口共性通用代码
 ├    ├── rest-sdk-client -- 各类 HttpClient 及 OpenAPI 集成模块
@@ -172,8 +161,6 @@ dante-engine
 
 * engine-access
 * engine-captcha
-* engine-pay
-* engine-nosql
 * engine-supplier
 
 ## 参与贡献

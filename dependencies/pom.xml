@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.0.4</version>
+    <version>3.1.0.5</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,7 +84,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.0.4</dante-bom.version>
+        <dante-bom.version>3.1.0.5</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
@@ -387,30 +387,15 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-rabbitmq-spring-boot-starter</artifactId>
+                <version>${dante-bom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>message-security-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-pay-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <!-- nosql -->
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>nosql-core</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>nosql-sdk-couchdb</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>nosql-sdk-influxdb</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
+
             <!-- oauth2 -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
@@ -438,32 +423,6 @@
                 <version>${dante-bom.version}</version>
             </dependency>
 
-            <!-- pay -->
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>pay-core</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>pay-sdk-alipay</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>pay-sdk-wxpay</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>pay-sdk-all</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>pay-spring-boot-starter</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
             <!-- rest -->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>

@@ -194,6 +194,8 @@ public interface ErrorCodes {
 
     int REST_MODULE_503_BEGIN = TEMPORARILY_UNAVAILABLE;
     int REST_MODULE_503_END = REST_MODULE_503_BEGIN + 1;
+    int OSS_MODULE_503_BEGIN = REST_MODULE_503_END;
+    int OSS_MODULE_503_END = OSS_MODULE_503_BEGIN + 1;
 
     /* ---------- 600 ---------- */
     int DATABASE = 60000;
