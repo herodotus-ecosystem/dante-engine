@@ -50,6 +50,11 @@ public class OAuth2AuthorizationProperties {
     private Target validate = Target.REMOTE;
 
     /**
+     * 是否使用严格模式。严格模式一定要求有权限，非严格模式没有权限管控的接口，只要认证通过也可以使用。
+     */
+    private Boolean strict = true;
+
+    /**
      * JWT的密钥或者密钥对(JSON Web Key) 配置
      */
     private Jwk jwk = new Jwk();
@@ -64,6 +69,14 @@ public class OAuth2AuthorizationProperties {
 
     public void setValidate(Target validate) {
         this.validate = validate;
+    }
+
+    public Boolean getStrict() {
+        return strict;
+    }
+
+    public void setStrict(Boolean strict) {
+        this.strict = strict;
     }
 
     public Jwk getJwk() {

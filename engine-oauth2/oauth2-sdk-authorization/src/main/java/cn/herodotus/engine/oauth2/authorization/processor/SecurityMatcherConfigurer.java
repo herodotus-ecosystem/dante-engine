@@ -87,4 +87,8 @@ public class SecurityMatcherConfigurer {
     public String[] getPermitAllArray() {
         return ListUtils.toStringArray(getPermitAllList());
     }
+
+    public OAuth2AuthorizationProperties getAuthorizationProperties() {
+        return authorizationProperties;
+    }
 }

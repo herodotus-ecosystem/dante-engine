@@ -29,6 +29,7 @@ import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
+import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.rest.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.collections4.CollectionUtils;
@@ -103,9 +104,11 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
         if (CollectionUtils.isEmpty(configAttributes)) {
             log.warn("[Herodotus] |- NO PRIVILEGES : [{}].", url);
 
-            if (authentication.get().isAuthenticated()) {
-                log.debug("[Herodotus] |- Request is authenticated: [{}].", url);
-                return new AuthorizationDecision(true);
+            if (!securityMatcherConfigurer.getAuthorizationProperties().getStrict()) {
+                if (authentication.get().isAuthenticated()) {
+                    log.debug("[Herodotus] |- Request is authenticated: [{}].", url);
+                    return new AuthorizationDecision(true);
+                }
             }
 
             return new AuthorizationDecision(false);
