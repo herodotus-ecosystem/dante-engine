@@ -76,14 +76,15 @@ public interface Controller {
      * @return {@link Result} List
      */
     default <E extends Entity> Result<List<E>> result(List<E> domains) {
-        if (ObjectUtils.isNotEmpty(domains)) {
-            if (CollectionUtils.isNotEmpty(domains)) {
-                return Result.success("查询数据成功！", domains);
-            } else {
-                return Result.empty("未查询到数据！");
-            }
-        } else {
+
+        if (null == domains) {
             return Result.failure("查询数据失败！");
+        }
+
+        if (CollectionUtils.isNotEmpty(domains)) {
+            return Result.success("查询数据成功！", domains);
+        } else {
+            return Result.empty("未查询到数据！");
         }
     }
 
@@ -95,14 +96,14 @@ public interface Controller {
      * @return {@link Result} Map
      */
     default <E extends Entity> Result<Map<String, Object>> result(Page<E> pages) {
-        if (ObjectUtils.isNotEmpty(pages)) {
-            if (CollectionUtils.isNotEmpty(pages.getContent())) {
-                return Result.success("查询数据成功！", getPageInfoMap(pages));
-            } else {
-                return Result.empty("未查询到数据！");
-            }
-        } else {
+        if (null == pages) {
             return Result.failure("查询数据失败！");
+        }
+
+        if (CollectionUtils.isNotEmpty(pages.getContent())) {
+            return Result.success("查询数据成功！", getPageInfoMap(pages));
+        } else {
+            return Result.empty("未查询到数据！");
         }
     }
 
@@ -113,14 +114,15 @@ public interface Controller {
      * @return {@link Result} Map
      */
     default Result<Map<String, Object>> result(Map<String, Object> map) {
-        if (ObjectUtils.isNotEmpty(map)) {
-            if (MapUtils.isNotEmpty(map)) {
-                return Result.success("查询数据成功！", map);
-            } else {
-                return Result.empty("未查询到数据！");
-            }
+
+        if (null == map) {
+            return Result.failure("查询数据失败！");
+        }
+
+        if (MapUtils.isNotEmpty(map)) {
+            return Result.success("查询数据成功！", map);
         } else {
-            return Result.failure("数据数据失败！");
+            return Result.empty("未查询到数据！");
         }
     }
 
