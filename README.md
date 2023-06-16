@@ -24,6 +24,9 @@
     <a href="https://gitee.com/dromara/dante-cloud"><img src="https://gitee.com/dromara/dante-cloud/badge/fork.svg?theme=dark" alt="Gitee fork"></a>
 </p>
 <p align="center">
+<a href="https://www.murphysec.com/console/report/1669567051127144448/1669567051164893184" alt="Security Status"><img src=" https://www.murphysec.com/platform3/v31/badge/1669567051164893184.svg" /></a>
+</p>
+<p align="center">
     <a href="https://github.com/herodotus-cloud/dante-cloud">Github 仓库</a> &nbsp; | &nbsp;
     <a href="https://gitee.com/dromara/dante-cloud">Gitee 仓库</a> &nbsp; | &nbsp;
     <a href="https://www.herodotus.cn">文档</a>
