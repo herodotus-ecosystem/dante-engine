@@ -25,12 +25,11 @@
 
 package cn.herodotus.engine.rest.client.configuration;
 
-import cn.herodotus.engine.assistant.core.annotation.ConditionalOnSwaggerEnabled;
-import cn.herodotus.engine.rest.core.context.HerodotusApplicationContext;
 import cn.herodotus.engine.rest.client.definition.OpenApiServerResolver;
+import cn.herodotus.engine.rest.client.processor.DefaultOpenApiServerResolver;
+import cn.herodotus.engine.rest.core.context.HerodotusApplicationContext;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import cn.herodotus.engine.rest.core.properties.PlatformProperties;
-import cn.herodotus.engine.rest.client.processor.DefaultOpenApiServerResolver;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +39,6 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
  * <p>Description: 服务信息配置类 </p>
@@ -74,15 +71,5 @@ public class RestClientConfiguration {
         DefaultOpenApiServerResolver defaultOpenApiServerResolver = new DefaultOpenApiServerResolver(herodotusApplicationContext);
         log.trace("[Herodotus] |- Bean [Open Api Server Resolver] Auto Configure.");
         return defaultOpenApiServerResolver;
-    }
-
-    /**
-     * 为了方便控制注入的顺序
-     */
-    @Configuration(proxyBeanMethods = false)
-    @ConditionalOnSwaggerEnabled
-    @Import(OpenApiConfiguration.class)
-    static class OpenApiInit {
-
     }
 }

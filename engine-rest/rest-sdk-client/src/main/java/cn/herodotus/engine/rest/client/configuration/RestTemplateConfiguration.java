@@ -29,18 +29,17 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * <p>Description: Rest Template Configuration </p>
@@ -48,7 +47,7 @@ import java.io.IOException;
  * @author : gengwei.zheng
  * @date : 2020/5/29 17:32
  */
-@AutoConfiguration
+@AutoConfiguration(after = ClientFactoryConfiguration.class)
 public class RestTemplateConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RestTemplateConfiguration.class);
@@ -56,14 +55,6 @@ public class RestTemplateConfiguration {
     @PostConstruct
     public void postConstruct() {
         log.debug("[Herodotus] |- SDK [Web Rest Template] Auto Configure.");
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public ClientHttpRequestFactory clientHttpRequestFactory() {
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        log.trace("[Herodotus] |- Bean [Client Http Request Factory] Auto Configure.");
-        return factory;
     }
 
     /**
@@ -97,7 +88,11 @@ public class RestTemplateConfiguration {
         restTemplate.setErrorHandler(responseErrorHandler);
 
         restTemplate.getMessageConverters().clear();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON, MediaType.APPLICATION_OCTET_STREAM));
+
+        restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
 
         log.trace("[Herodotus] |- Bean [Rest Template] Auto Configure.");
         return restTemplate;

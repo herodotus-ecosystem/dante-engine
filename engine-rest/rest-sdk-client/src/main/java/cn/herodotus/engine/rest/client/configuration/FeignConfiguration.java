@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.rest.client.configuration;
 
-import cn.herodotus.engine.rest.client.enhance.feign.FeignErrorDecoder;
-import cn.herodotus.engine.rest.client.enhance.feign.FeignInnerContract;
-import cn.herodotus.engine.rest.client.enhance.feign.FeignRequestInterceptor;
+import cn.herodotus.engine.rest.client.feign.FeignErrorDecoder;
+import cn.herodotus.engine.rest.client.feign.FeignInnerContract;
+import cn.herodotus.engine.rest.client.feign.FeignRequestInterceptor;
 import feign.Contract;
 import feign.Request;
 import feign.RequestInterceptor;

@@ -23,29 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.constants;
+package cn.herodotus.engine.rest.client.annotation;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.rest.client.condition.UseSimpleRestClientCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: Rest 模块常量 </p>
+ * <p>Description: 使用 默认 客户端 条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/19 23:13
+ * @date : 2023/6/15 21:29
  */
-public interface RestConstants extends BaseConstants {
-
-
-    String PROPERTY_OPENFEIGN_OKHTTP = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".okhttp";
-    String PROPERTY_OPENFEIGN_HTTPCLIENT = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".httpclient";
-    String PROPERTY_REST_SCAN = PROPERTY_PREFIX_REST + ".scan";
-
-    String ITEM_SCAN_ENABLED = PROPERTY_REST_SCAN + PROPERTY_ENABLED;
-    String ITEM_OPENFEIGN_OKHTTP_ENABLED = PROPERTY_OPENFEIGN_OKHTTP + PROPERTY_ENABLED;
-    String ITEM_OPENFEIGN_HTTPCLIENT_ENABLED = PROPERTY_OPENFEIGN_HTTPCLIENT + ".hc5" + PROPERTY_ENABLED;
-    String ITEM_PROTECT_CRYPTO_STRATEGY = PROPERTY_PREFIX_CRYPTO + ".crypto-strategy";
-
-    String CACHE_NAME_TOKEN_IDEMPOTENT = CACHE_TOKEN_BASE_PREFIX + "idempotent:";
-    String CACHE_NAME_TOKEN_ACCESS_LIMITED = CACHE_TOKEN_BASE_PREFIX + "access_limited:";
-    String CACHE_NAME_TOKEN_SECURE_KEY = CACHE_TOKEN_BASE_PREFIX + "secure_key:";
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(UseSimpleRestClientCondition.class)
+public @interface ConditionalOnUseSimpleRestClient {
 }

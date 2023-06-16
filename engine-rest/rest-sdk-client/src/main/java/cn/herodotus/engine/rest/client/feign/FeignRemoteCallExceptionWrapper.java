@@ -23,29 +23,47 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.constants;
+package cn.herodotus.engine.rest.client.feign;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.core.exception.PlatformException;
 
 /**
- * <p>Description: Rest 模块常量 </p>
+ * <p>Description: Feign Fallback 错误统一封装器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/19 23:13
+ * @date : 2022/5/30 11:31
  */
-public interface RestConstants extends BaseConstants {
+public class FeignRemoteCallExceptionWrapper extends PlatformException {
 
+    private Result<String> result;
 
-    String PROPERTY_OPENFEIGN_OKHTTP = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".okhttp";
-    String PROPERTY_OPENFEIGN_HTTPCLIENT = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".httpclient";
-    String PROPERTY_REST_SCAN = PROPERTY_PREFIX_REST + ".scan";
+    public FeignRemoteCallExceptionWrapper(Result<String> result) {
+        this.result = result;
+    }
 
-    String ITEM_SCAN_ENABLED = PROPERTY_REST_SCAN + PROPERTY_ENABLED;
-    String ITEM_OPENFEIGN_OKHTTP_ENABLED = PROPERTY_OPENFEIGN_OKHTTP + PROPERTY_ENABLED;
-    String ITEM_OPENFEIGN_HTTPCLIENT_ENABLED = PROPERTY_OPENFEIGN_HTTPCLIENT + ".hc5" + PROPERTY_ENABLED;
-    String ITEM_PROTECT_CRYPTO_STRATEGY = PROPERTY_PREFIX_CRYPTO + ".crypto-strategy";
+    public FeignRemoteCallExceptionWrapper(String message, Result<String> result) {
+        super(message);
+        this.result = result;
+    }
 
-    String CACHE_NAME_TOKEN_IDEMPOTENT = CACHE_TOKEN_BASE_PREFIX + "idempotent:";
-    String CACHE_NAME_TOKEN_ACCESS_LIMITED = CACHE_TOKEN_BASE_PREFIX + "access_limited:";
-    String CACHE_NAME_TOKEN_SECURE_KEY = CACHE_TOKEN_BASE_PREFIX + "secure_key:";
+    public FeignRemoteCallExceptionWrapper(String message, Throwable cause, Result<String> result) {
+        super(message, cause);
+        this.result = result;
+    }
+
+    public FeignRemoteCallExceptionWrapper(Throwable cause, Result<String> result) {
+        super(cause);
+        this.result = result;
+    }
+
+    public FeignRemoteCallExceptionWrapper(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Result<String> result) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        this.result = result;
+    }
+
+    @Override
+    public Result<String> getResult() {
+        return result;
+    }
 }
