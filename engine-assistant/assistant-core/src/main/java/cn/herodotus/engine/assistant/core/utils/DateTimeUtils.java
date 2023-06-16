@@ -25,6 +25,12 @@
 
 package cn.herodotus.engine.assistant.core.utils;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.date.DateUtil;
+import org.dromara.hutool.core.date.TimeUtil;
+import org.dromara.hutool.core.date.ZoneUtil;
+
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,8 +51,11 @@ public class DateTimeUtils {
     }
 
     public static String zonedDateTimeToString(ZonedDateTime zonedDateTime, String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format).withZone(ZoneId.of(DEFAULT_TIME_ZONE_NAME));
-        return zonedDateTime.format(formatter);
+        if(ObjectUtils.isNotEmpty(zonedDateTime) && StringUtils.isNotBlank(format)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format).withZone(ZoneId.of(DEFAULT_TIME_ZONE_NAME));
+            return zonedDateTime.format(formatter);
+        }
+        return null;
     }
 
     public static ZonedDateTime stringToZonedDateTime(String dateString) {
@@ -54,7 +63,10 @@ public class DateTimeUtils {
     }
 
     public static ZonedDateTime stringToZonedDateTime(String dateString, String format) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format).withZone(ZoneId.of(DEFAULT_TIME_ZONE_NAME));
-        return ZonedDateTime.parse(dateString, formatter);
+        if (StringUtils.isNotBlank(dateString) && StringUtils.isNotBlank(format)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format).withZone(ZoneId.of(DEFAULT_TIME_ZONE_NAME));
+            return ZonedDateTime.parse(dateString, formatter);
+        }
+        return null;
     }
 }

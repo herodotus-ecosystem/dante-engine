@@ -23,29 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.constants;
+package cn.herodotus.engine.rest.client.condition;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.rest.core.constants.RestPropertyFinder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * <p>Description: Rest 模块常量 </p>
+ * <p>Description: 使用 HttpClient 客户端条件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/19 23:13
+ * @date : 2023/6/15 21:27
  */
-public interface RestConstants extends BaseConstants {
+public class UseHttpClient5RestClientCondition implements Condition {
 
+    private static final Logger log = LoggerFactory.getLogger(UseHttpClient5RestClientCondition.class);
 
-    String PROPERTY_OPENFEIGN_OKHTTP = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".okhttp";
-    String PROPERTY_OPENFEIGN_HTTPCLIENT = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".httpclient";
-    String PROPERTY_REST_SCAN = PROPERTY_PREFIX_REST + ".scan";
-
-    String ITEM_SCAN_ENABLED = PROPERTY_REST_SCAN + PROPERTY_ENABLED;
-    String ITEM_OPENFEIGN_OKHTTP_ENABLED = PROPERTY_OPENFEIGN_OKHTTP + PROPERTY_ENABLED;
-    String ITEM_OPENFEIGN_HTTPCLIENT_ENABLED = PROPERTY_OPENFEIGN_HTTPCLIENT + ".hc5" + PROPERTY_ENABLED;
-    String ITEM_PROTECT_CRYPTO_STRATEGY = PROPERTY_PREFIX_CRYPTO + ".crypto-strategy";
-
-    String CACHE_NAME_TOKEN_IDEMPOTENT = CACHE_TOKEN_BASE_PREFIX + "idempotent:";
-    String CACHE_NAME_TOKEN_ACCESS_LIMITED = CACHE_TOKEN_BASE_PREFIX + "access_limited:";
-    String CACHE_NAME_TOKEN_SECURE_KEY = CACHE_TOKEN_BASE_PREFIX + "secure_key:";
+    @Override
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+        boolean result = RestPropertyFinder.isOpenFeignHttpClientEnabled(context.getEnvironment());
+        log.debug("[Herodotus] |- Condition [Use HttpClient AS Rest Client] value is [{}]", result);
+        return result;
+    }
 }

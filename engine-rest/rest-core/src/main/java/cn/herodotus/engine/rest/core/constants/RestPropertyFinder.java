@@ -50,11 +50,11 @@ public class RestPropertyFinder extends PropertyFinder {
         return PropertyResolver.getBoolean(environment, RestConstants.ITEM_SCAN_ENABLED);
     }
 
-    public static boolean isFeignOkHttpEnabled(Environment environment) {
-        return PropertyResolver.getBoolean(environment, RestConstants.ITEM_FEIGN_OKHTTP_ENABLED);
+    public static boolean isOpenFeignOkHttpEnabled(Environment environment) {
+        return PropertyResolver.getBoolean(environment, RestConstants.ITEM_OPENFEIGN_OKHTTP_ENABLED);
     }
 
-    public static boolean isFeignHttpClientEnabled(Environment environment) {
-        return PropertyResolver.getBoolean(environment, RestConstants.ITEM_FEIGN_HTTPCLIENT_ENABLED);
+    public static boolean isOpenFeignHttpClientEnabled(Environment environment) {
+        return PropertyResolver.getBoolean(environment, RestConstants.ITEM_OPENFEIGN_HTTPCLIENT_ENABLED);
     }
 }

@@ -261,6 +261,7 @@ public class SecurityMetadataSourceAnalyzer {
         LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> wildcards = grouping.get(Category.WILDCARD);
         if (MapUtils.isNotEmpty(wildcards)) {
             matchers.putAll(wildcards);
+            securityMetadataSourceStorage.addToStorage(wildcards, false);
         }
 
         // 拿到带有占位符的分组数据，并检测是否存在冲突的匹配规则，然后将结果存入本地存储

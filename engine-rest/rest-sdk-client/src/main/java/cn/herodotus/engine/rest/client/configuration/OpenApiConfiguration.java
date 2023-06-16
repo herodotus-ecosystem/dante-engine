@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.rest.client.configuration;
 
+import cn.herodotus.engine.assistant.core.annotation.ConditionalOnSwaggerEnabled;
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.rest.client.definition.OpenApiServerResolver;
 import cn.herodotus.engine.rest.client.properties.SwaggerProperties;
@@ -38,6 +39,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -51,7 +53,8 @@ import org.springframework.context.annotation.Configuration;
  * @author : gengwei.zheng
  * @date : 2020/3/31 11:54
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration(after = RestClientConfiguration.class)
+@ConditionalOnSwaggerEnabled
 @EnableConfigurationProperties(SwaggerProperties.class)
 @SecuritySchemes({
         @SecurityScheme(name = BaseConstants.OPEN_API_SECURITY_SCHEME_BEARER_NAME, type = SecuritySchemeType.OAUTH2, bearerFormat = "JWT", scheme = "bearer",

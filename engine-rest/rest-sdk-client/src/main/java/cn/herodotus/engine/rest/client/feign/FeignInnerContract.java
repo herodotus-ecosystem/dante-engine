@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.client.enhance.feign;
+package cn.herodotus.engine.rest.client.feign;
 
 import cn.herodotus.engine.assistant.core.annotation.Inner;
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;

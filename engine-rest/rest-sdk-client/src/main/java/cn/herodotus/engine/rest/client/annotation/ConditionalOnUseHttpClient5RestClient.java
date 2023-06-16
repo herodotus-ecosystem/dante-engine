@@ -23,47 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.client.enhance.feign;
+package cn.herodotus.engine.rest.client.annotation;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.rest.client.condition.UseHttpClient5RestClientCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: Feign Fallback 错误统一封装器 </p>
+ * <p>Description: 使用 HttpClient 客户端 条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/5/30 11:31
+ * @date : 2023/6/15 21:29
  */
-public class FeignRemoteCallExceptionWrapper extends PlatformException {
-
-    private Result<String> result;
-
-    public FeignRemoteCallExceptionWrapper(Result<String> result) {
-        this.result = result;
-    }
-
-    public FeignRemoteCallExceptionWrapper(String message, Result<String> result) {
-        super(message);
-        this.result = result;
-    }
-
-    public FeignRemoteCallExceptionWrapper(String message, Throwable cause, Result<String> result) {
-        super(message, cause);
-        this.result = result;
-    }
-
-    public FeignRemoteCallExceptionWrapper(Throwable cause, Result<String> result) {
-        super(cause);
-        this.result = result;
-    }
-
-    public FeignRemoteCallExceptionWrapper(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Result<String> result) {
-        super(message, cause, enableSuppression, writableStackTrace);
-        this.result = result;
-    }
-
-    @Override
-    public Result<String> getResult() {
-        return result;
-    }
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(UseHttpClient5RestClientCondition.class)
+public @interface ConditionalOnUseHttpClient5RestClient {
 }
