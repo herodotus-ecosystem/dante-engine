@@ -35,6 +35,6 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface CacheConstants extends BaseConstants {
 
-    String PROPERTY_REDIS_REDISSON = PROPERTY_SPRING_REDIS + ".redisson";
+    String PROPERTY_REDIS_REDISSON = PROPERTY_SPRING_DATA_REDIS + ".redisson";
     String ITEM_REDISSON_ENABLED = PROPERTY_REDIS_REDISSON + PROPERTY_ENABLED;
 }

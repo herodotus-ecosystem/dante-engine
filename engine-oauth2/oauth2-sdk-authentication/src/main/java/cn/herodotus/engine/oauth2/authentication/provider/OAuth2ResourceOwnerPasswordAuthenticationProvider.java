@@ -25,10 +25,10 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
+import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
-import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -178,7 +178,7 @@ public class OAuth2ResourceOwnerPasswordAuthenticationProvider extends AbstractU
      * Sets the {@link SessionRegistry} used to track OpenID Connect sessions.
      *
      * @param sessionRegistry the {@link SessionRegistry} used to track OpenID Connect sessions
-     * @since 1.1.0
+     * @since 1.1.1
      */
     public void setSessionRegistry(SessionRegistry sessionRegistry) {
         Assert.notNull(sessionRegistry, "sessionRegistry cannot be null");
