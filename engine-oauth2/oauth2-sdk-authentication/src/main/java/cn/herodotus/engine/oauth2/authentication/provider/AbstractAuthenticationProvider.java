@@ -49,6 +49,9 @@ import org.springframework.security.oauth2.server.authorization.token.OAuth2Toke
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.util.CollectionUtils;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -98,7 +101,6 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
 
             OAuth2TokenContext tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType.REFRESH_TOKEN).build();
             OAuth2Token generatedRefreshToken = tokenGenerator.generate(tokenContext);
-
             if (!(generatedRefreshToken instanceof OAuth2RefreshToken)) {
                 OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR,
                         "The token generator failed to generate the refresh token.", errorUri);
@@ -120,6 +122,15 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
 
             SessionInformation sessionInformation = getSessionInformation(principal, sessionRegistry);
             if (sessionInformation != null) {
+                try {
+                    // Compute (and use) hash for Session ID
+                    sessionInformation = new SessionInformation(sessionInformation.getPrincipal(),
+                            createHash(sessionInformation.getSessionId()), sessionInformation.getLastRequest());
+                } catch (NoSuchAlgorithmException ex) {
+                    OAuth2Error error = new OAuth2Error(OAuth2ErrorCodes.SERVER_ERROR,
+                            "Failed to compute hash for Session ID.", errorUri);
+                    throw new OAuth2AuthenticationException(error);
+                }
                 tokenContextBuilder.put(SessionInformation.class, sessionInformation);
             }
 
@@ -165,6 +176,12 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
         return sessionInformation;
     }
 
+    private static String createHash(String value) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] digest = md.digest(value.getBytes(StandardCharsets.US_ASCII));
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
+    }
+
 
     protected Map<String, Object> idTokenAdditionalParameters(OidcIdToken idToken) {
         Map<String, Object> additionalParameters = Collections.emptyMap();
@@ -176,7 +193,7 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
     }
 
     protected Set<String> validateScopes(Set<String> requestedScopes, RegisteredClient registeredClient) {
-        Set<String> authorizedScopes = registeredClient.getScopes();
+        Set<String> authorizedScopes = Collections.emptySet();
         if (!CollectionUtils.isEmpty(requestedScopes)) {
             for (String requestedScope : requestedScopes) {
                 if (!registeredClient.getScopes().contains(requestedScope)) {

@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.0.7</version>
+    <version>3.1.0.8</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,7 +84,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.0.7</dante-bom.version>
+        <dante-bom.version>3.1.0.8</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.0.4</spring-boot-admin.version>
@@ -92,7 +92,7 @@
         <spring-cloud-dependencies.version>2022.0.3</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC2</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-tencent-dependencies.version>1.11.7-2022.0.1</spring-cloud-tencent-dependencies.version>
-        <spring-security-oauth2-authorization-server.version>1.1.0</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>1.1.1</spring-security-oauth2-authorization-server.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
@@ -112,22 +112,22 @@
         <zxing.version>3.5.1</zxing.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.22.0</redisson.version>
+        <redisson.version>3.22.1</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.1.0</springdoc.version>
-        <logstash-logback-encoder.version>7.3</logstash-logback-encoder.version>
+        <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>8.16.0</skywalking.version>
         <minio.version>8.5.3</minio.version>
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.33</fastjson2.version>
+        <fastjson2.version>2.0.34</fastjson2.version>
         <jetcache.version>2.7.3</jetcache.version>
-        <nacos.version>2.2.3</nacos.version>
+        <nacos.version>2.2.4</nacos.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
 
         <!-- 国内开源通用组件 -->
-        <hutool.version>6.0.0.M3</hutool.version>
+        <hutool.version>6.0.0-M4</hutool.version>
         <okhttps.version>4.0.1</okhttps.version>
         <weixin-java-sdk.version>4.5.1.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>

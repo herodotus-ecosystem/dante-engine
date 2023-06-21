@@ -27,25 +27,17 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
-import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
-import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * <p>Description: 自定义密码模式认证转换器 </p>
@@ -56,12 +48,10 @@ import java.util.stream.Collectors;
  * @author : gengwei.zheng
  * @date : 2022/2/22 17:03
  */
-public final class OAuth2ResourceOwnerPasswordAuthenticationConverter implements AuthenticationConverter {
-
-    private final HttpCryptoProcessor httpCryptoProcessor;
+public final class OAuth2ResourceOwnerPasswordAuthenticationConverter extends AbstractAuthenticationConverter {
 
     public OAuth2ResourceOwnerPasswordAuthenticationConverter(HttpCryptoProcessor httpCryptoProcessor) {
-        this.httpCryptoProcessor = httpCryptoProcessor;
+        super(httpCryptoProcessor);
     }
 
     @Nullable
@@ -72,6 +62,8 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter implements
         if (!HerodotusGrantType.PASSWORD.getValue().equals(grantType)) {
             return null;
         }
+
+        Authentication clientPrincipal = SecurityContextHolder.getContext().getAuthentication();
 
         MultiValueMap<String, String> parameters = OAuth2EndpointUtils.getParameters(request);
 
@@ -90,40 +82,17 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter implements
         // password (REQUIRED)
         OAuth2EndpointUtils.checkRequiredParameter(parameters, OAuth2ParameterNames.PASSWORD);
 
-        Authentication clientPrincipal = SecurityContextHolder.getContext().getAuthentication();
-        if (clientPrincipal == null) {
-            OAuth2EndpointUtils.throwError(
-                    OAuth2ErrorKeys.INVALID_REQUEST,
-                    OAuth2ErrorKeys.INVALID_CLIENT,
-                    OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
-        }
-
         String sessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
 
-        Map<String, Object> additionalParameters = parameters
-                .entrySet()
-                .stream()
-                .filter(e -> !e.getKey().equals(OAuth2ParameterNames.GRANT_TYPE) &&
-                        !e.getKey().equals(OAuth2ParameterNames.SCOPE))
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> parameterDecrypt(e.getValue().get(0), sessionId)));
+        Map<String, Object> additionalParameters = new HashMap<>();
+        parameters.forEach((key, value) -> {
+            if (!key.equals(OAuth2ParameterNames.GRANT_TYPE) &&
+                    !key.equals(OAuth2ParameterNames.SCOPE)) {
+                additionalParameters.put(key, (value.size() == 1) ? decrypt(sessionId, value.get(0)) : decrypt(sessionId, value));
+            }
+        });
 
         return new OAuth2ResourceOwnerPasswordAuthenticationToken(clientPrincipal, requestedScopes, additionalParameters);
 
-    }
-
-    private Object parameterDecrypt(Object object, String sessionId) {
-        if (org.apache.commons.lang3.StringUtils.isNotBlank(sessionId)) {
-            if (ObjectUtils.isNotEmpty(object) && object instanceof String) {
-                try {
-                    return httpCryptoProcessor.decrypt(sessionId, object.toString());
-                } catch (SessionInvalidException e) {
-                    OAuth2EndpointUtils.throwError(
-                            OAuth2ErrorKeys.SESSION_EXPIRED,
-                            e.getMessage(),
-                            OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
-                }
-            }
-        }
-        return object;
     }
 }

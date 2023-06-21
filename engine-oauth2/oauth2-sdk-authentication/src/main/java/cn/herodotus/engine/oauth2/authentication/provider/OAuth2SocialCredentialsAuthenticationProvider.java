@@ -70,7 +70,6 @@ import java.util.Set;
 public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2SocialCredentialsAuthenticationProvider.class);
-
     private static final String ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
 
     private final OAuth2AuthorizationService authorizationService;
@@ -179,7 +178,7 @@ public class OAuth2SocialCredentialsAuthenticationProvider extends AbstractUserD
      * Sets the {@link SessionRegistry} used to track OpenID Connect sessions.
      *
      * @param sessionRegistry the {@link SessionRegistry} used to track OpenID Connect sessions
-     * @since 1.1.0
+     * @since 1.1.1
      */
     public void setSessionRegistry(SessionRegistry sessionRegistry) {
         Assert.notNull(sessionRegistry, "sessionRegistry cannot be null");

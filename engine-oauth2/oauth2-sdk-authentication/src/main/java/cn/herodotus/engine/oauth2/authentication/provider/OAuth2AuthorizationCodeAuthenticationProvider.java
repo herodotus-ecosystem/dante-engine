@@ -27,7 +27,6 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.log.LogMessage;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -72,6 +71,7 @@ import java.util.Map;
 public final class OAuth2AuthorizationCodeAuthenticationProvider extends AbstractAuthenticationProvider {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2AuthorizationCodeAuthenticationProvider.class);
+
     private static final String ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
     private static final OAuth2TokenType AUTHORIZATION_CODE_TOKEN_TYPE =
             new OAuth2TokenType(OAuth2ParameterNames.CODE);
@@ -136,6 +136,17 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
         }
 
         if (!authorizationCode.isActive()) {
+            if (authorizationCode.isInvalidated()) {
+                OAuth2Authorization.Token<? extends OAuth2Token> token = authorization.getRefreshToken() != null ?
+                        authorization.getRefreshToken() :
+                        authorization.getAccessToken();
+                if (token != null) {
+                    // Invalidate the access (and refresh) token as the client is attempting to use the authorization code more than once
+                    authorization = OAuth2AuthenticationProviderUtils.invalidate(authorization, token.getToken());
+                    this.authorizationService.save(authorization);
+                         log.warn("Invalidated authorization token(s) previously issued to registered client '{}'", registeredClient.getId());
+                }
+            }
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);
         }
 
@@ -185,7 +196,7 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
      * Sets the {@link SessionRegistry} used to track OpenID Connect sessions.
      *
      * @param sessionRegistry the {@link SessionRegistry} used to track OpenID Connect sessions
-     * @since 1.1.0
+     * @since 1.1.1
      */
     public void setSessionRegistry(SessionRegistry sessionRegistry) {
         Assert.notNull(sessionRegistry, "sessionRegistry cannot be null");
