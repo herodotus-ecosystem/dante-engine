@@ -87,7 +87,7 @@
         <dante-bom.version>3.1.1.1</dante-bom.version>
 
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.1.0</spring-boot-admin.version>
+        <spring-boot-admin.version>3.1.1</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.1.1</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.3</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC2</spring-cloud-alibaba-dependencies.version>
@@ -124,7 +124,7 @@
         <fastjson2.version>2.0.34</fastjson2.version>
         <jetcache.version>2.7.3</jetcache.version>
         <nacos.version>2.2.4</nacos.version>
-        <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
+        <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
 
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M4</hutool.version>
@@ -153,14 +153,14 @@
 
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
-        <dysmsapi20170525.version>2.0.23</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.789</tencentcloud-sdk-java.version>
+        <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
+        <tencentcloud-sdk-java.version>3.1.794</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.13.1</qiniu-java-sdk.version>
         <alipay-sdk-java.version>4.38.4.ALL</alipay-sdk-java.version>
         <com.baidu.aip.version>4.16.16</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
-        <aliyun-sdk-oss.version>3.16.3</aliyun-sdk-oss.version>
+        <aliyun-sdk-oss.version>3.17.0</aliyun-sdk-oss.version>
 
         <!--以下为 JDK 17 兼容性处理-->
         <xnio.version>3.8.9.Final</xnio.version>
