@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.1.2</version>
+    <version>3.1.1.3</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,10 +84,10 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.1.2</dante-bom.version>
+        <dante-bom.version>3.1.1.3</dante-bom.version>
 
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.1.1</spring-boot-admin.version>
+        <spring-boot-admin.version>3.1.2</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.1.1</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.3</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0-RC2</spring-cloud-alibaba-dependencies.version>
@@ -112,16 +112,17 @@
         <zxing.version>3.5.1</zxing.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.23.0</redisson.version>
+        <redisson.version>3.23.1</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.1.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>8.16.0</skywalking.version>
         <minio.version>8.5.4</minio.version>
+        <aws-java-sdk-s3.version>1.12.506</aws-java-sdk-s3.version>
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.35</fastjson2.version>
+        <fastjson2.version>2.0.36</fastjson2.version>
         <jetcache.version>2.7.3</jetcache.version>
         <nacos.version>2.2.4</nacos.version>
         <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
@@ -129,7 +130,7 @@
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M4</hutool.version>
         <okhttps.version>4.0.1</okhttps.version>
-        <weixin-java-sdk.version>4.5.1.B</weixin-java-sdk.version>
+        <weixin-java-sdk.version>4.5.2.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
 
         <!--第三方starter-->
@@ -154,10 +155,10 @@
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.794</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.800</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.13.1</qiniu-java-sdk.version>
-        <alipay-sdk-java.version>4.38.4.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.38.10.ALL</alipay-sdk-java.version>
         <com.baidu.aip.version>4.16.16</com.baidu.aip.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.0</aliyun-sdk-oss.version>
@@ -175,7 +176,7 @@
         <dom4j.version>2.1.4</dom4j.version>
 <!--        <snakeyaml.version>2.0</snakeyaml.version>-->
         <sqlite-jdbc.version>3.42.0.0</sqlite-jdbc.version>
-        <snappy-java.version>1.1.10.1</snappy-java.version>
+        <snappy-java.version>1.1.10.2</snappy-java.version>
 
     </properties>
 
@@ -630,6 +631,11 @@
                 <groupId>io.minio</groupId>
                 <artifactId>minio-admin</artifactId>
                 <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-s3</artifactId>
+                <version>${aws-java-sdk-s3.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.nacos</groupId>
