@@ -29,6 +29,8 @@ import cn.herodotus.engine.assistant.core.utils.ListUtils;
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.rest.core.constants.WebResources;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -80,12 +82,22 @@ public class SecurityMatcherConfigurer {
         return this.hasAuthenticatedResources;
     }
 
-    public String[] getStaticResourceArray() {
-        return ListUtils.toStringArray(getStaticResourceList());
+    private RequestMatcher[] toRequestMatchers(List<String> paths) {
+        if (CollectionUtils.isNotEmpty(paths)) {
+            List<AntPathRequestMatcher> matchers = paths.stream().map(AntPathRequestMatcher::new).toList();
+            RequestMatcher[] result = new RequestMatcher[matchers.size()];
+            return matchers.toArray(result);
+        } else {
+            return new RequestMatcher[]{};
+        }
     }
 
-    public String[] getPermitAllArray() {
-        return ListUtils.toStringArray(getPermitAllList());
+    public RequestMatcher[] getStaticResourceArray() {
+        return toRequestMatchers(getStaticResourceList());
+    }
+
+    public RequestMatcher[] getPermitAllArray() {
+        return toRequestMatchers(getStaticResourceList());
     }
 
     public OAuth2AuthorizationProperties getAuthorizationProperties() {

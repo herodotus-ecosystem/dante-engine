@@ -31,11 +31,11 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-data</artifactId>
-        <version>3.1.1.3</version>
+        <version>3.1.2.0</version>
     </parent>
 
     <artifactId>data-sdk-tenant</artifactId>
-    <version>3.1.1.3</version>
+    <version>3.1.2.0</version>
     <packaging>jar</packaging>
 
     <description>Dante Cloud 基于 JPA 的多租户核心组件模块</description>
