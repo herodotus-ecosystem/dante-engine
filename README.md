@@ -6,13 +6,13 @@
 
 <p align="center">
     <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-0.4.2-blue.svg?logo=Spring" alt="Spring Authorization Server 0.4.2"></a>
-    <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-2.7.13-blue.svg?logo=Spring" alt="Spring Boot 2.7.13"></a>
+    <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-2.7.14-blue.svg?logo=Spring" alt="Spring Boot 2.7.14"></a>
     <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2021.0.8-blue.svg?logo=Spring" alt="Spring Cloud 2021.0.8"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2021.0.5.0-blue.svg?logo=alibabadotcom" alt="Spring Cloud Alibaba 2021.0.5.0"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.2-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.2"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-2.7.13.0-red.svg?logo=Spring" alt="Version 2.7.13.0"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-2.7.14.0-red.svg?logo=Spring" alt="Version 2.7.14.0"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-8%2C11%2C17-green.svg?logo=openjdk" alt="Java 8,11,17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue.svg?logo=apache" alt="License Apache 2.0"></a>
     <a href="https://gitee.com/dromara/dante-cloud"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="License Apache 2.0"></a>
@@ -190,3 +190,10 @@ dante-engine
   单体版示例工程地址：[https://gitee.com/herodotus/dante-cloud-athena](https://gitee.com/herodotus/dante-cloud-athena)
 - Dante 前端工程地址：[https://gitee.com/herodotus/dante-cloud-ui](https://gitee.com/herodotus/dante-cloud-ui)
 
+## 免责声明
+
+- 本软件会不断更新，以便及时为用户提供新功能和修正软件中的 BUG。同时软件作者保证本软件在升级过程中也不含有任何旨在破坏用户计算机数据的恶意代码。
+- 本软件经过详细的测试，由于用户计算机软硬件环境的差异性和复杂性，本软件所提供的各项功能并不能保证在任何情况下都能正常执行或达到用户所期望的结果。如果出现不兼容及软件错误的情况，用户可登录软件代码托管平台将情况报告作者，获得技术支持。如果无法解决问题，用户可以删除本软件。
+- 使用本软件产品风险有用户自行承担，在适用法律允许的最大范围内，对因使用或不能使用本软件所产生的损害及风险，包括但不限于直接或间接的个人损害、商业盈利的丧失、贸易中断、商业信息的丢失或任何其它经济损失，作者不承担任何责任。
+- 您承诺秉着合法、合理的原则使用 Dante Cloud 开源微服务架构及其核心组件，不利用 Dante Cloud 开源微服务架构及其核心组件进行任何违法、侵害他人合法利益等恶意的行为，亦不将 Dante Cloud 开源微服务架构及其核心组件运用于任何违反我国法律法规的 Web 平台
+- 如果用户自行下载运行本软件，即表明用户信任软件作者，自愿选择安装本软件，并接受本协议所有条款。如果用户不接受本协议，请立即删除。
