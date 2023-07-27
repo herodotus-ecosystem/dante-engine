@@ -42,15 +42,15 @@ import java.lang.reflect.Method;
  * @author : gengwei.zheng
  * @date : 2022/5/30 15:12
  */
-public class HerodotusFallback<T> implements MethodInterceptor {
+public class HerodotusFeignFallback<T> implements MethodInterceptor {
 
-    private static final Logger log = LoggerFactory.getLogger(HerodotusFallback.class);
+    private static final Logger log = LoggerFactory.getLogger(HerodotusFeignFallback.class);
 
     private final Class<T> targetType;
     private final String targetName;
     private final Throwable cause;
 
-    public HerodotusFallback(Class<T> targetType, String targetName, Throwable cause) {
+    public HerodotusFeignFallback(Class<T> targetType, String targetName, Throwable cause) {
         this.targetType = targetType;
         this.targetName = targetName;
         this.cause = cause;
@@ -75,7 +75,7 @@ public class HerodotusFallback<T> implements MethodInterceptor {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        HerodotusFallback<?> that = (HerodotusFallback<?>) o;
+        HerodotusFeignFallback<?> that = (HerodotusFeignFallback<?>) o;
         return Objects.equal(targetType, that.targetType);
     }
 
