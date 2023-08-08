@@ -31,13 +31,13 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-facility</artifactId>
-        <version>3.1.2.1</version>
+        <version>3.1.2.2</version>
     </parent>
 
     <description>Dante Cloud 在 Alibaba 环境下 Sentinel Gateway 配置模块</description>
 
     <artifactId>facility-gateway-spring-boot-starter</artifactId>
-    <version>3.1.2.1</version>
+    <version>3.1.2.2</version>
     <packaging>jar</packaging>
 
     <dependencies>
