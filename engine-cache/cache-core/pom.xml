@@ -32,11 +32,11 @@
     <parent>
         <artifactId>engine-cache</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.2.1</version>
+        <version>3.1.2.2</version>
     </parent>
 
     <artifactId>cache-core</artifactId>
-    <version>3.1.2.1</version>
+    <version>3.1.2.2</version>
     <packaging>jar</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 缓存通用代码组件</description>

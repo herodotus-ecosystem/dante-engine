@@ -32,11 +32,11 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.2.1</version>
+        <version>3.1.2.2</version>
     </parent>
 
     <artifactId>engine-assistant</artifactId>
-    <version>3.1.2.1</version>
+    <version>3.1.2.2</version>
     <packaging>pom</packaging>
 
     <modules>

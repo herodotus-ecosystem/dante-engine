@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.2.1</version>
+    <version>3.1.2.2</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,7 +84,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.2.1</dante-bom.version>
+        <dante-bom.version>3.1.2.2</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.1.4</spring-boot-admin.version>
@@ -114,11 +114,11 @@
         <!-- 应用开发辅助工具组件 -->
         <redisson.version>3.23.2</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <springdoc.version>2.1.0</springdoc.version>
+        <springdoc.version>2.2.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>8.16.0</skywalking.version>
         <minio.version>8.5.4</minio.version>
-        <aws-java-sdk-s3.version>1.12.522</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.523</aws-java-sdk-s3.version>
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
@@ -135,7 +135,7 @@
 
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
-        <camunda-bpm-spring-boot-starter-rest.version>7.20.0-alpha3</camunda-bpm-spring-boot-starter-rest.version>
+        <camunda-bpm-spring-boot-starter-rest.version>7.20.0-alpha4</camunda-bpm-spring-boot-starter-rest.version>
         <mybatis-plus-boot-starter.version>3.5.3.1</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.3.1</mybatis-plus-generator.version>
         <mybatis.version>3.5.13</mybatis.version>
