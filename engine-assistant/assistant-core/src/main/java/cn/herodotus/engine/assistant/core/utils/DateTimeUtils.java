@@ -34,6 +34,7 @@ import org.dromara.hutool.core.date.ZoneUtil;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * <p>Description: 特殊日期处理 </p>
@@ -66,6 +67,18 @@ public class DateTimeUtils {
         if (StringUtils.isNotBlank(dateString) && StringUtils.isNotBlank(format)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format).withZone(ZoneId.of(DEFAULT_TIME_ZONE_NAME));
             return ZonedDateTime.parse(dateString, formatter);
+        }
+        return null;
+    }
+
+    /**
+     * ZonedDateTime 转换成 Date
+     * @param zonedDateTime {@link ZonedDateTime}
+     * @return 如果 ZonedDateTime 则返回对应的 Date，如果为空则返回 Null
+     */
+    public static Date zonedDateTimeToDate(ZonedDateTime zonedDateTime) {
+        if(ObjectUtils.isNotEmpty(zonedDateTime)) {
+            return Date.from(zonedDateTime.toInstant());
         }
         return null;
     }

@@ -7,4 +7,5 @@ ${AnsiColor.BLUE}
  ╚██╗╚██╗    ██║  ██║███████╗██║  ██║╚██████╔╝██████╔╝╚██████╔╝   ██║   ╚██████╔╝███████║    ██╔╝██╔╝
   ╚═╝ ╚═╝    ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝    ╚═╝    ╚═════╝ ╚══════╝    ╚═╝ ╚═╝
 
-${AnsiColor.BRIGHT_YELLOW} :: Herodotus ::  ${application.formatted-version}  based on  ${AnsiColor.RED}:: Spring Boot :: ${spring-boot.formatted-version} ${AnsiColor.BRIGHT_BLACK}
+${AnsiColor.BRIGHT_YELLOW} :: Herodotus Platform :: ${application.formatted-version}  based on  ${AnsiColor.RED}:: Spring Boot :: ${spring-boot.formatted-version} ${AnsiColor.BLUE}:: Website ::  https://www.herodotus.cn
+
