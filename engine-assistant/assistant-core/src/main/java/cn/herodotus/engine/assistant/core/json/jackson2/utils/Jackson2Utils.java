@@ -60,15 +60,6 @@ public class Jackson2Utils {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @PostConstruct
-    public void init() {
-        if (ObjectUtils.isNotEmpty(this.objectMapper)) {
-            OBJECT_MAPPER = this.objectMapper;
-        } else {
-            OBJECT_MAPPER = new ObjectMapper();
-        }
-    }
-
     public static ObjectMapper getObjectMapper() {
         return OBJECT_MAPPER;
     }
@@ -192,6 +183,15 @@ public class Jackson2Utils {
             return function.apply(jsonNode);
         } else {
             return null;
+        }
+    }
+
+    @PostConstruct
+    public void init() {
+        if (ObjectUtils.isNotEmpty(this.objectMapper)) {
+            OBJECT_MAPPER = this.objectMapper;
+        } else {
+            OBJECT_MAPPER = new ObjectMapper();
         }
     }
 }

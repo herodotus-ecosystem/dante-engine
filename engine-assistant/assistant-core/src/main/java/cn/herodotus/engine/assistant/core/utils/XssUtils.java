@@ -68,6 +68,17 @@ public class XssUtils {
         return INSTANCE;
     }
 
+    public static String cleaning(String taintedHTML) {
+        // 对转义的HTML特殊字符（<、>、"等）进行反转义，因为AntiSamy调用scan方法时会将特殊字符转义
+        String cleanHtml = StringEscapeUtils.unescapeHtml4(getInstance().cleanHtml(taintedHTML));
+        //AntiSamy会把“&nbsp;”转换成乱码，把双引号转换成"&quot;" 先将&nbsp;的乱码替换为空，双引号的乱码替换为双引号
+        String temp = cleanHtml.replaceAll(getInstance().nbsp, "");
+        temp = temp.replaceAll(getInstance().quot, "\"");
+        String result = temp.replaceAll("\n", "");
+        log.trace("[Herodotus] |- Antisamy process value from [{}] to [{}]", taintedHTML, result);
+        return result;
+    }
+
     private Policy createPolicy() {
         try {
             URL url = ResourceUtils.getURL("classpath:antisamy/antisamy-anythinggoes.xml");
@@ -91,16 +102,5 @@ public class XssUtils {
             log.error("[Herodotus] |- Antisamy scan catch error! {}", e.getMessage());
             return taintedHtml;
         }
-    }
-
-    public static String cleaning(String taintedHTML) {
-        // 对转义的HTML特殊字符（<、>、"等）进行反转义，因为AntiSamy调用scan方法时会将特殊字符转义
-        String cleanHtml = StringEscapeUtils.unescapeHtml4(getInstance().cleanHtml(taintedHTML));
-        //AntiSamy会把“&nbsp;”转换成乱码，把双引号转换成"&quot;" 先将&nbsp;的乱码替换为空，双引号的乱码替换为双引号
-        String temp = cleanHtml.replaceAll(getInstance().nbsp, "");
-        temp = temp.replaceAll(getInstance().quot, "\"");
-        String result = temp.replaceAll("\n", "");
-        log.trace("[Herodotus] |- Antisamy process value from [{}] to [{}]", taintedHTML, result);
-        return result;
     }
 }

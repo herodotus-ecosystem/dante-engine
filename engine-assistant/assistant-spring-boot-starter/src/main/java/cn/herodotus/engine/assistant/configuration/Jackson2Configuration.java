@@ -26,7 +26,6 @@
 package cn.herodotus.engine.assistant.configuration;
 
 import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2DefaultObjectMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -36,7 +35,6 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 /**

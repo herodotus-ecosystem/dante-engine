@@ -1,7 +1,8 @@
-# Created by .ignore support plugin (hsz.mobi)
+# IntelliJ project files
 out/
 target/
 .idea/
+!.idea/icon.png
 *.log
 *.gz
 *.iml

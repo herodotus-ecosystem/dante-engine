@@ -27,7 +27,7 @@ package cn.herodotus.engine.assistant.core.json.jackson2;
 
 /**
  * <p>Description: Jackson2 ObjectMapper builder Customizer 顺序控制 </p>
- *
+ * <p>
  * 值越小越先执行
  *
  * @author : gengwei.zheng

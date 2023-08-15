@@ -27,9 +27,6 @@ package cn.herodotus.engine.assistant.core.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.dromara.hutool.core.date.DateUtil;
-import org.dromara.hutool.core.date.TimeUtil;
-import org.dromara.hutool.core.date.ZoneUtil;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -52,7 +49,7 @@ public class DateTimeUtils {
     }
 
     public static String zonedDateTimeToString(ZonedDateTime zonedDateTime, String format) {
-        if(ObjectUtils.isNotEmpty(zonedDateTime) && StringUtils.isNotBlank(format)) {
+        if (ObjectUtils.isNotEmpty(zonedDateTime) && StringUtils.isNotBlank(format)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format).withZone(ZoneId.of(DEFAULT_TIME_ZONE_NAME));
             return zonedDateTime.format(formatter);
         }
@@ -73,13 +70,27 @@ public class DateTimeUtils {
 
     /**
      * ZonedDateTime 转换成 Date
+     *
      * @param zonedDateTime {@link ZonedDateTime}
-     * @return 如果 ZonedDateTime 则返回对应的 Date，如果为空则返回 Null
+     * @return 如果 ZonedDateTime 有值则返回对应的 Date，如果为空则返回 当前日期
      */
     public static Date zonedDateTimeToDate(ZonedDateTime zonedDateTime) {
-        if(ObjectUtils.isNotEmpty(zonedDateTime)) {
+        if (ObjectUtils.isNotEmpty(zonedDateTime)) {
             return Date.from(zonedDateTime.toInstant());
         }
-        return null;
+        return new Date();
+    }
+
+    /**
+     * Date 转换成  ZonedDateTime
+     *
+     * @param date {@link Date}
+     * @return 如果 Date 有值则返回对应的 ZonedDateTime，如果为空则返回 当前日期
+     */
+    public static ZonedDateTime dateToZonedDateTime(Date date) {
+        if (ObjectUtils.isNotEmpty(date)) {
+            return ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        }
+        return ZonedDateTime.now();
     }
 }

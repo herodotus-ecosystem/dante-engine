@@ -48,10 +48,9 @@ import java.util.Map;
  */
 public class WellFormedUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(WellFormedUtils.class);
-
     public static final ParameterizedTypeReference<Map<String, Object>> MAP_TYPE_REFERENCE = new ParameterizedTypeReference<>() {
     };
+    private static final Logger log = LoggerFactory.getLogger(WellFormedUtils.class);
 
     /**
      * 符合语法规则的 URL

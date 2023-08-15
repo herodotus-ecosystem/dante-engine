@@ -50,118 +50,26 @@ import java.util.Map;
 @Schema(title = "统一响应返回实体", description = "所有Rest接口统一返回的实体定义", example = "new Result<T>().ok().message(\"XXX\")")
 public class Result<T> implements Serializable {
 
-    @Schema(title = "自定义响应编码")
-    private int code = 0;
-
-    @Schema(title = "响应返回信息")
-    private String message;
-
-    @Schema(title = "请求路径")
-    private String path;
-
-    @Schema(title = "响应返回数据")
-    private T data;
-
-    @Schema(title = "http状态码")
-    private int status;
-
-    @Schema(title = "链路追踪TraceId")
-    private String traceId;
-
     @Schema(title = "响应时间戳", pattern = DefaultConstants.DATE_TIME_FORMAT)
     @JsonFormat(pattern = DefaultConstants.DATE_TIME_FORMAT)
     private final Date timestamp = new Date();
-
     @Schema(title = "校验错误信息")
     private final Error error = new Error();
+    @Schema(title = "自定义响应编码")
+    private int code = 0;
+    @Schema(title = "响应返回信息")
+    private String message;
+    @Schema(title = "请求路径")
+    private String path;
+    @Schema(title = "响应返回数据")
+    private T data;
+    @Schema(title = "http状态码")
+    private int status;
+    @Schema(title = "链路追踪TraceId")
+    private String traceId;
 
     public Result() {
         super();
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public String getTraceId() {
-        return traceId;
-    }
-
-    public Date getTimestamp() {
-        return timestamp;
-    }
-
-    public Error getError() {
-        return error;
-    }
-
-    public Result<T> code(int code) {
-        this.code = code;
-        return this;
-    }
-
-    public Result<T> message(String message) {
-        this.message = message;
-        return this;
-    }
-
-    public Result<T> data(T data) {
-        this.data = data;
-        return this;
-    }
-
-    public Result<T> path(String path) {
-        this.path = path;
-        return this;
-    }
-
-    public Result<T> type(ResultErrorCodes resultErrorCodes) {
-        this.code = resultErrorCodes.getCode();
-        this.message = resultErrorCodes.getMessage();
-        return this;
-    }
-
-    public Result<T> status(int httpStatus) {
-        this.status = httpStatus;
-        return this;
-    }
-
-    public Result<T> traceId(String traceId) {
-        this.traceId = traceId;
-        return this;
-    }
-
-    public Result<T> stackTrace(StackTraceElement[] stackTrace) {
-        this.error.setStackTrace(stackTrace);
-        return this;
-    }
-
-    public Result<T> detail(String detail) {
-        this.error.setDetail(detail);
-        return this;
-    }
-
-    public Result<T> validation(String message, String code, String field) {
-        this.error.setMessage(message);
-        this.error.setCode(code);
-        this.error.setField(field);
-        return this;
     }
 
     private static <T> Result<T> create(String message, String detail, int code, int status, T data, StackTraceElement[] stackTrace) {
@@ -282,6 +190,91 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> empty() {
         return empty("未查询到相关内容！");
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public String getTraceId() {
+        return traceId;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public Error getError() {
+        return error;
+    }
+
+    public Result<T> code(int code) {
+        this.code = code;
+        return this;
+    }
+
+    public Result<T> message(String message) {
+        this.message = message;
+        return this;
+    }
+
+    public Result<T> data(T data) {
+        this.data = data;
+        return this;
+    }
+
+    public Result<T> path(String path) {
+        this.path = path;
+        return this;
+    }
+
+    public Result<T> type(ResultErrorCodes resultErrorCodes) {
+        this.code = resultErrorCodes.getCode();
+        this.message = resultErrorCodes.getMessage();
+        return this;
+    }
+
+    public Result<T> status(int httpStatus) {
+        this.status = httpStatus;
+        return this;
+    }
+
+    public Result<T> traceId(String traceId) {
+        this.traceId = traceId;
+        return this;
+    }
+
+    public Result<T> stackTrace(StackTraceElement[] stackTrace) {
+        this.error.setStackTrace(stackTrace);
+        return this;
+    }
+
+    public Result<T> detail(String detail) {
+        this.error.setDetail(detail);
+        return this;
+    }
+
+    public Result<T> validation(String message, String code, String field) {
+        this.error.setMessage(message);
+        this.error.setCode(code);
+        this.error.setField(field);
+        return this;
     }
 
     @Override

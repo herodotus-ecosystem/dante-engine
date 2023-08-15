@@ -27,7 +27,7 @@ package cn.herodotus.engine.assistant.core.definition.constants;
 
 /**
  * <p>Description: Jackson2 Object Mapper Customer 顺序控制 </p>
- *
+ * <p>
  * 方便控制 Jackson2 Customer 设置的覆盖顺序
  *
  * @author : gengwei.zheng
