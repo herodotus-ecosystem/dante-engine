@@ -92,13 +92,18 @@ public enum AccountType {
     OKTA(AuthDefaultSource.OKTA.name(), AccountType.JUST_AUTH_HANDLER, "Okta"),
     PINTEREST(AuthDefaultSource.PINTEREST.name(), AccountType.JUST_AUTH_HANDLER, "Pinterest");
 
-    @Schema(title = "枚举值")
-    private final String key;
-    @Schema(title = "处理器")
-    private final String handler;
-    @Schema(title = "文字")
-    private final String description;
-
+    /**
+     * Just Auth 第三方社交登录
+     */
+    public static final String JUST_AUTH_HANDLER = "JUST_AUTH";
+    /**
+     * 手机号验证码登录
+     */
+    public static final String PHONE_NUMBER_HANDLER = "PHONE_NUMBER";
+    /**
+     * 手机号验证码登录
+     */
+    public static final String WECHAT_MINI_APP_HANDLER = "WECHAT_MINI_APP";
     private static final Map<String, AccountType> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCT = new ArrayList<>();
 
@@ -114,25 +119,25 @@ public enum AccountType {
         }
     }
 
-    /**
-     * Just Auth 第三方社交登录
-     */
-    public static final String JUST_AUTH_HANDLER = "JUST_AUTH";
-
-    /**
-     * 手机号验证码登录
-     */
-    public static final String PHONE_NUMBER_HANDLER = "PHONE_NUMBER";
-
-    /**
-     * 手机号验证码登录
-     */
-    public static final String WECHAT_MINI_APP_HANDLER = "WECHAT_MINI_APP";
+    @Schema(title = "枚举值")
+    private final String key;
+    @Schema(title = "处理器")
+    private final String handler;
+    @Schema(title = "文字")
+    private final String description;
 
     AccountType(String key, String handler, String description) {
         this.key = key;
         this.handler = handler;
         this.description = description;
+    }
+
+    public static AccountType getAccountType(String key) {
+        return INDEX_MAP.get(key);
+    }
+
+    public static List<Map<String, Object>> getJsonStruct() {
+        return JSON_STRUCT;
     }
 
     /**
@@ -154,13 +159,5 @@ public enum AccountType {
 
     public String getHandler() {
         return handler;
-    }
-
-    public static AccountType getAccountType(String key) {
-        return INDEX_MAP.get(key);
-    }
-
-    public static List<Map<String, Object>> getJsonStruct() {
-        return JSON_STRUCT;
     }
 }

@@ -36,7 +36,9 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * <p>Description: 数组转字符串序列化 </p>

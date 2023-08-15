@@ -45,7 +45,7 @@ public interface BaseObjectMapperBuilderCustomizer extends Jackson2ObjectMapperB
             Module[] temps = new Module[modules.size()];
             return modules.toArray(temps);
         } else {
-            return new Module[] {};
+            return new Module[]{};
         }
     }
 }

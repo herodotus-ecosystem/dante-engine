@@ -64,7 +64,7 @@ public class CommaDelimitedStringToSetSerializer extends StdSerializer<String> {
         gen.writeEndArray();
     }
 
-    private void serializeContents(Set<String> value, JsonGenerator g, SerializerProvider provider)             throws IOException {
+    private void serializeContents(Set<String> value, JsonGenerator g, SerializerProvider provider) throws IOException {
         int i = 0;
 
         try {

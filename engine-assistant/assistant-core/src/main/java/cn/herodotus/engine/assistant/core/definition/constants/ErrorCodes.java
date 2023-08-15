@@ -180,8 +180,8 @@ public interface ErrorCodes {
     /* ---------- 501 ---------- */
     int NOT_IMPLEMENTED = HttpStatus.SC_NOT_IMPLEMENTED * 100;
 
-    int PROPERTY_VALUE_IS_NOT  = NOT_IMPLEMENTED + 1;
-    int URL_FORMAT_INCORRECT  = NOT_IMPLEMENTED + 1;
+    int PROPERTY_VALUE_IS_NOT = NOT_IMPLEMENTED + 1;
+    int URL_FORMAT_INCORRECT = NOT_IMPLEMENTED + 1;
     int ILLEGAL_SYMMETRIC_KEY = URL_FORMAT_INCORRECT + 1;
 
     /* ---------- 503 ---------- */

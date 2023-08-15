@@ -53,11 +53,6 @@ public enum AuthorityType {
     PAGE(2, "Web Page"),
     MINI_PAGE(3, "小程序页面");
 
-    @Schema(title = "枚举值")
-    private final Integer index;
-    @Schema(title = "文字")
-    private final String text;
-
     private static final Map<Integer, AuthorityType> indexMap = new HashMap<>();
     private static final List<Map<String, Object>> toJsonStruct = new ArrayList<>();
 
@@ -73,9 +68,22 @@ public enum AuthorityType {
         }
     }
 
+    @Schema(title = "枚举值")
+    private final Integer index;
+    @Schema(title = "文字")
+    private final String text;
+
     AuthorityType(Integer index, String text) {
         this.index = index;
         this.text = text;
+    }
+
+    public static AuthorityType getAuthorityType(Integer index) {
+        return indexMap.get(index);
+    }
+
+    public static List<Map<String, Object>> getToJsonStruct() {
+        return toJsonStruct;
     }
 
     /**
@@ -93,13 +101,5 @@ public enum AuthorityType {
 
     public String getText() {
         return this.text;
-    }
-
-    public static AuthorityType getAuthorityType(Integer index) {
-        return indexMap.get(index);
-    }
-
-    public static List<Map<String, Object>> getToJsonStruct() {
-        return toJsonStruct;
     }
 }

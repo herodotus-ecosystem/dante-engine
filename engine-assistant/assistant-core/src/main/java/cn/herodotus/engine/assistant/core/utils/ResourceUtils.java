@@ -70,10 +70,6 @@ public class ResourceUtils {
         return INSTANCE;
     }
 
-    private PathMatchingResourcePatternResolver getPathMatchingResourcePatternResolver() {
-        return this.pathMatchingResourcePatternResolver;
-    }
-
     private static PathMatchingResourcePatternResolver getResolver() {
         return getInstance().getPathMatchingResourcePatternResolver();
     }
@@ -148,5 +144,9 @@ public class ResourceUtils {
 
     public static boolean isFileUrl(URL url) {
         return org.springframework.util.ResourceUtils.isFileURL(url);
+    }
+
+    private PathMatchingResourcePatternResolver getPathMatchingResourcePatternResolver() {
+        return this.pathMatchingResourcePatternResolver;
     }
 }

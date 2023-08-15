@@ -59,11 +59,6 @@ public enum Database implements BaseUiEnum<Integer> {
     H2(8, "H2"),
     REDIS(9, "Redis");
 
-    @Schema(title = "枚举值")
-    private final Integer value;
-    @Schema(name = "文字")
-    private final String description;
-
     private static final Map<Integer, Database> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
@@ -80,9 +75,22 @@ public enum Database implements BaseUiEnum<Integer> {
         }
     }
 
+    @Schema(title = "枚举值")
+    private final Integer value;
+    @Schema(name = "文字")
+    private final String description;
+
     Database(Integer value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static Database get(Integer index) {
+        return INDEX_MAP.get(index);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCTURE;
     }
 
     /**
@@ -102,13 +110,5 @@ public enum Database implements BaseUiEnum<Integer> {
     @Override
     public String getDescription() {
         return description;
-    }
-
-    public static Database get(Integer index) {
-        return INDEX_MAP.get(index);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCTURE;
     }
 }

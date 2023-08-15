@@ -42,8 +42,8 @@ import java.util.Map;
  */
 public class GsonUtils {
 
-    private static volatile Gson instance;
     private static final GsonBuilder GSON_BUILDER = new GsonBuilder();
+    private static volatile Gson instance;
 
     static {
         GSON_BUILDER.enableComplexMapKeySerialization();
