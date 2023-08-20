@@ -47,14 +47,6 @@ public class JetCacheUtils {
 
     }
 
-    private void init(JetCacheCreateCacheFactory jetCacheCreateCacheFactory) {
-        this.jetCacheCreateCacheFactory = jetCacheCreateCacheFactory;
-    }
-
-    private JetCacheCreateCacheFactory getJetCacheCreateCacheFactory() {
-        return jetCacheCreateCacheFactory;
-    }
-
     public static JetCacheUtils getInstance() {
         if (ObjectUtils.isEmpty(instance)) {
             synchronized (JetCacheUtils.class) {
@@ -64,10 +56,6 @@ public class JetCacheUtils {
             }
         }
         return instance;
-    }
-
-    public static void setJetCacheCreateCacheFactory(JetCacheCreateCacheFactory jetCacheCreateCacheFactory) {
-        getInstance().init(jetCacheCreateCacheFactory);
     }
 
     public static <K, V> Cache<K, V> create(String name, Duration expire) {
@@ -96,5 +84,17 @@ public class JetCacheUtils {
 
     public static <K, V> Cache<K, V> create(String name, CacheType cacheType, Duration expire, Boolean cacheNullValue, Boolean syncLocal) {
         return getInstance().getJetCacheCreateCacheFactory().create(name, cacheType, expire, cacheNullValue, syncLocal);
+    }
+
+    private void init(JetCacheCreateCacheFactory jetCacheCreateCacheFactory) {
+        this.jetCacheCreateCacheFactory = jetCacheCreateCacheFactory;
+    }
+
+    private JetCacheCreateCacheFactory getJetCacheCreateCacheFactory() {
+        return jetCacheCreateCacheFactory;
+    }
+
+    public static void setJetCacheCreateCacheFactory(JetCacheCreateCacheFactory jetCacheCreateCacheFactory) {
+        getInstance().init(jetCacheCreateCacheFactory);
     }
 }

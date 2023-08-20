@@ -50,13 +50,12 @@ import java.util.List;
 public class SecurityMetadataSourceStorage {
 
     private static final Logger log = LoggerFactory.getLogger(SecurityMetadataSourceStorage.class);
-
+    private static final String KEY_COMPATIBLE = "COMPATIBLE";
     /**
      * 模式匹配权限缓存。主要存储 包含 "*"、"?" 和 "{"、"}" 等特殊字符的路径权限。
      * 该种权限，需要通过遍历，利用 AntPathRequestMatcher 机制进行匹配
      */
     private final Cache<String, LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>>> compatible;
-
     /**
      * 直接索引权限缓存，主要存储全路径权限
      * 该种权限，直接通过 Map Key 进行获取
@@ -67,8 +66,6 @@ public class SecurityMetadataSourceStorage {
         this.compatible = JetCacheUtils.create(OAuth2Constants.CACHE_NAME_SECURITY_METADATA_COMPATIBLE, CacheType.BOTH, null, true, true);
         this.indexable = JetCacheUtils.create(OAuth2Constants.CACHE_NAME_SECURITY_METADATA_INDEXABLE, CacheType.BOTH, null, true, true);
     }
-
-    private static final String KEY_COMPATIBLE = "COMPATIBLE";
 
     /**
      * 从 compatible 缓存中读取数据。

@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.rest.core.controller;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
+import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 
 import java.io.Serializable;

@@ -69,6 +69,16 @@ public class HerodotusOidcUserInfoMapper implements Function<OidcUserInfoAuthent
             StandardClaimNames.UPDATED_AT
     );
 
+    private static Map<String, Object> getClaims(Map<String, Object> claims) {
+        Set<String> needRemovedClaims = new HashSet<>(32);
+        needRemovedClaims.add(BaseConstants.AUTHORITIES);
+
+        Map<String, Object> requestedClaims = new HashMap<>(claims);
+        requestedClaims.keySet().removeIf(needRemovedClaims::contains);
+
+        return requestedClaims;
+    }
+
     @Override
     public OidcUserInfo apply(OidcUserInfoAuthenticationContext authenticationContext) {
         OidcUserInfoAuthenticationToken authentication = authenticationContext.getAuthentication();
@@ -79,15 +89,5 @@ public class HerodotusOidcUserInfoMapper implements Function<OidcUserInfoAuthent
             JwtAuthenticationToken principal = (JwtAuthenticationToken) authentication.getPrincipal();
             return new OidcUserInfo(getClaims(principal.getToken().getClaims()));
         }
-    }
-
-    private static Map<String, Object> getClaims(Map<String, Object> claims) {
-        Set<String> needRemovedClaims = new HashSet<>(32);
-        needRemovedClaims.add(BaseConstants.AUTHORITIES);
-
-        Map<String, Object> requestedClaims = new HashMap<>(claims);
-        requestedClaims.keySet().removeIf(needRemovedClaims::contains);
-
-        return requestedClaims;
     }
 }

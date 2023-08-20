@@ -26,7 +26,6 @@
 package cn.herodotus.engine.oauth2.core.exception;
 
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
 import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;

@@ -31,8 +31,6 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.core.Ordered;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.util.ArrayList;
@@ -47,6 +45,7 @@ import java.util.List;
 public class Jackson2XssObjectMapperBuilderCustomizer implements BaseObjectMapperBuilderCustomizer {
 
     private static final Logger log = LoggerFactory.getLogger(Jackson2XssObjectMapperBuilderCustomizer.class);
+
     @Override
     public void customize(Jackson2ObjectMapperBuilder builder) {
         SimpleModule simpleModule = new SimpleModule();

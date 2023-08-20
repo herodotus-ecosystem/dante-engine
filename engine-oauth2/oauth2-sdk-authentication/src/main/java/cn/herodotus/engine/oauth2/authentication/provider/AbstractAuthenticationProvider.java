@@ -68,6 +68,12 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
 
     private static final OAuth2TokenType ID_TOKEN_TOKEN_TYPE = new OAuth2TokenType(OidcParameterNames.ID_TOKEN);
 
+    private static String createHash(String value) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] digest = md.digest(value.getBytes(StandardCharsets.US_ASCII));
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
+    }
+
     protected OAuth2AccessToken createOAuth2AccessToken(DefaultOAuth2TokenContext.Builder tokenContextBuilder, OAuth2Authorization.Builder authorizationBuilder, OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator, String errorUri) {
         OAuth2TokenContext tokenContext = tokenContextBuilder.tokenType(OAuth2TokenType.ACCESS_TOKEN).build();
         OAuth2Token generatedAccessToken = tokenGenerator.generate(tokenContext);
@@ -175,13 +181,6 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
         }
         return sessionInformation;
     }
-
-    private static String createHash(String value) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] digest = md.digest(value.getBytes(StandardCharsets.US_ASCII));
-        return Base64.getUrlEncoder().withoutPadding().encodeToString(digest);
-    }
-
 
     protected Map<String, Object> idTokenAdditionalParameters(OidcIdToken idToken) {
         Map<String, Object> additionalParameters = Collections.emptyMap();

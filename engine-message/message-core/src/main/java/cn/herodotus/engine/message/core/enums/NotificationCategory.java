@@ -30,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.collect.ImmutableMap;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.apache.commons.collections4.MapUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,11 +52,6 @@ public enum NotificationCategory implements BaseUiEnum<Integer> {
     ANNOUNCEMENT(0, "系统公告"),
     DIALOGUE(1, "私信");
 
-    @Schema(title = "枚举值")
-    private final Integer value;
-    @Schema(title = "说明")
-    private final String description;
-
     private static final Map<Integer, NotificationCategory> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
@@ -74,9 +68,22 @@ public enum NotificationCategory implements BaseUiEnum<Integer> {
         }
     }
 
+    @Schema(title = "枚举值")
+    private final Integer value;
+    @Schema(title = "说明")
+    private final String description;
+
     NotificationCategory(Integer value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static NotificationCategory get(Integer index) {
+        return INDEX_MAP.getOrDefault(index, null);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCTURE;
     }
 
     /**
@@ -96,13 +103,5 @@ public enum NotificationCategory implements BaseUiEnum<Integer> {
     @Override
     public String getDescription() {
         return description;
-    }
-
-    public static NotificationCategory get(Integer index) {
-        return INDEX_MAP.getOrDefault(index, null);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCTURE;
     }
 }

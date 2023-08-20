@@ -28,9 +28,6 @@ package cn.herodotus.engine.message.core.domain;
 import cn.herodotus.engine.data.core.entity.BaseEntity;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import org.hibernate.annotations.UuidGenerator;
 
 /**
  * <p>Description: 对话消息传递对象 </p>

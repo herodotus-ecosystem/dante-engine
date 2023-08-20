@@ -53,11 +53,6 @@ public enum OrganizationCategory implements BaseUiEnum<Integer> {
     PARTY(1, "党组机构"),
     LEAGUE(2, "团青机构");
 
-    @Schema(title = "枚举值")
-    private final Integer value;
-    @Schema(title = "文字")
-    private final String description;
-
     private static final Map<Integer, OrganizationCategory> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
@@ -74,9 +69,22 @@ public enum OrganizationCategory implements BaseUiEnum<Integer> {
         }
     }
 
+    @Schema(title = "枚举值")
+    private final Integer value;
+    @Schema(title = "文字")
+    private final String description;
+
     OrganizationCategory(Integer value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static OrganizationCategory get(Integer index) {
+        return INDEX_MAP.get(index);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCTURE;
     }
 
     /**
@@ -96,13 +104,5 @@ public enum OrganizationCategory implements BaseUiEnum<Integer> {
     @Override
     public String getDescription() {
         return this.description;
-    }
-
-    public static OrganizationCategory get(Integer index) {
-        return INDEX_MAP.get(index);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCTURE;
     }
 }

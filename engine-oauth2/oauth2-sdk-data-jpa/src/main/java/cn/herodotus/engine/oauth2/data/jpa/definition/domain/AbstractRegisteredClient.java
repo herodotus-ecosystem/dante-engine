@@ -97,6 +97,7 @@ public abstract class AbstractRegisteredClient extends BaseSysEntity implements 
     public void setClientSecretExpiresAt(LocalDateTime clientSecretExpiresAt) {
         this.clientSecretExpiresAt = clientSecretExpiresAt;
     }
+
     @Override
     public String getClientAuthenticationMethods() {
         return clientAuthenticationMethods;

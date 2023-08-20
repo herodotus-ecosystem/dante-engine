@@ -244,6 +244,10 @@ public class SysEmployee extends BaseSysEntity implements SocialUserDetails {
         return this.avatar;
     }
 
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public String getUserName() {
         return this.getEmployeeName();
@@ -252,10 +256,6 @@ public class SysEmployee extends BaseSysEntity implements SocialUserDetails {
     @Override
     public String getNickName() {
         return this.getEmail();
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public Date getBirthday() {

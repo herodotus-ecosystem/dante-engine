@@ -285,16 +285,16 @@ public final class HerodotusRequestMatcher implements RequestMatcher, Serializab
             this.antMatcher = createMatcher(caseSensitive);
         }
 
-        @Override
-        public boolean matches(String path) {
-            return this.antMatcher.match(this.pattern, path);
-        }
-
         private static AntPathMatcher createMatcher(boolean caseSensitive) {
             AntPathMatcher matcher = new AntPathMatcher();
             matcher.setTrimTokens(false);
             matcher.setCaseSensitive(caseSensitive);
             return matcher;
+        }
+
+        @Override
+        public boolean matches(String path) {
+            return this.antMatcher.match(this.pattern, path);
         }
 
     }

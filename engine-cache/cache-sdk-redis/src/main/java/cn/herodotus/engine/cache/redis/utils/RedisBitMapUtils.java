@@ -65,12 +65,6 @@ public class RedisBitMapUtils {
 
     private static StringRedisTemplate stringRedisTemplate;
 
-    @Autowired
-    @Qualifier(value = "stringRedisTemplate")
-    public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
-        RedisBitMapUtils.stringRedisTemplate = stringRedisTemplate;
-    }
-
     /**
      * 计算 Hash 值
      *
@@ -80,7 +74,6 @@ public class RedisBitMapUtils {
     private static long hash(String key) {
         return Math.abs(Hashing.murmur3_128().hashObject(key, Funnels.stringFunnel(StandardCharsets.UTF_8)).asInt());
     }
-
 
     /**
      * 设置与 param 对应的二进制位的值，{@param param}会经过hash计算进行存储。
@@ -183,5 +176,11 @@ public class RedisBitMapUtils {
     public static Long bitOpResult(RedisStringCommands.BitOperation op, String saveKey, String... destKey) {
         bitOp(op, saveKey, destKey);
         return bitCount(saveKey);
+    }
+
+    @Autowired
+    @Qualifier(value = "stringRedisTemplate")
+    public void setStringRedisTemplate(StringRedisTemplate stringRedisTemplate) {
+        RedisBitMapUtils.stringRedisTemplate = stringRedisTemplate;
     }
 }

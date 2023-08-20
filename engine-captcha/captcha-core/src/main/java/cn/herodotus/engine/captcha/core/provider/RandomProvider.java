@@ -42,8 +42,6 @@ import java.util.stream.IntStream;
  */
 public class RandomProvider {
 
-    private static final String[] CHARACTERS = {"2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-
     /**
      * 数字的最大枚举值，不包括最大值
      */
@@ -57,10 +55,6 @@ public class RandomProvider {
      */
     public static final int CHAR_MIN_INDEX = NUM_MAX_INDEX;
     /**
-     * 字符的最大枚举值，不包括最大值
-     */
-    public static final int CHAR_MAX_INDEX = CHARACTERS.length;
-    /**
      * 大写字符最小枚举值
      */
     public static final int UPPER_MIN_INDEX = CHAR_MIN_INDEX;
@@ -72,6 +66,11 @@ public class RandomProvider {
      * 小写字母最小枚举值
      */
     public static final int LOWER_MIN_INDEX = UPPER_MAX_INDEX;
+    private static final String[] CHARACTERS = {"2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+    /**
+     * 字符的最大枚举值，不包括最大值
+     */
+    public static final int CHAR_MAX_INDEX = CHARACTERS.length;
     /**
      * 小写字母最大枚举值
      */

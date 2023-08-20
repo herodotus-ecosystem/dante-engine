@@ -93,6 +93,15 @@ public class OAuth2AuthenticationProperties {
         this.formLogin = formLogin;
     }
 
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("signInEndpointLimited", signInEndpointLimited)
+                .add("signInFailureLimited", signInFailureLimited)
+                .add("signInKickOutLimited", signInKickOutLimited)
+                .toString();
+    }
+
     public static class SignInFailureLimited {
         /**
          * 是否开启登录失败检测，默认开启
@@ -339,14 +348,5 @@ public class OAuth2AuthenticationProperties {
                     .add("category", category)
                     .toString();
         }
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("signInEndpointLimited", signInEndpointLimited)
-                .add("signInFailureLimited", signInFailureLimited)
-                .add("signInKickOutLimited", signInKickOutLimited)
-                .toString();
     }
 }

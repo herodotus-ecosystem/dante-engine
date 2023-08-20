@@ -85,6 +85,20 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
         this.clientDetailsService = clientDetailsService;
     }
 
+    @NotNull
+    private static Set<String> getStrings(OAuth2ClientCredentialsAuthenticationToken clientCredentialsAuthentication, RegisteredClient registeredClient) {
+        Set<String> authorizedScopes = Collections.emptySet();
+        if (!CollectionUtils.isEmpty(clientCredentialsAuthentication.getScopes())) {
+            for (String requestedScope : clientCredentialsAuthentication.getScopes()) {
+                if (!registeredClient.getScopes().contains(requestedScope)) {
+                    throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_SCOPE);
+                }
+            }
+            authorizedScopes = new LinkedHashSet<>(clientCredentialsAuthentication.getScopes());
+        }
+        return authorizedScopes;
+    }
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         OAuth2ClientCredentialsAuthenticationToken clientCredentialsAuthentication =
@@ -135,20 +149,6 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
         log.debug("[Herodotus] |- Client Credentials returning OAuth2AccessTokenAuthenticationToken.");
 
         return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken);
-    }
-
-    @NotNull
-    private static Set<String> getStrings(OAuth2ClientCredentialsAuthenticationToken clientCredentialsAuthentication, RegisteredClient registeredClient) {
-        Set<String> authorizedScopes = Collections.emptySet();
-        if (!CollectionUtils.isEmpty(clientCredentialsAuthentication.getScopes())) {
-            for (String requestedScope : clientCredentialsAuthentication.getScopes()) {
-                if (!registeredClient.getScopes().contains(requestedScope)) {
-                    throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_SCOPE);
-                }
-            }
-            authorizedScopes = new LinkedHashSet<>(clientCredentialsAuthentication.getScopes());
-        }
-        return authorizedScopes;
     }
 
     @Override

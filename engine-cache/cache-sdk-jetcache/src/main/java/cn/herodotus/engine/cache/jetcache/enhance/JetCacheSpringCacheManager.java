@@ -49,13 +49,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class JetCacheSpringCacheManager implements CacheManager {
 
     private static final Logger log = LoggerFactory.getLogger(JetCacheSpringCacheManager.class);
-
+    private final Map<String, Cache> cacheMap = new ConcurrentHashMap<>(16);
+    private final JetCacheCreateCacheFactory jetCacheCreateCacheFactory;
     private boolean dynamic = true;
     private boolean allowNullValues = true;
-
-    private final Map<String, Cache> cacheMap = new ConcurrentHashMap<>(16);
-
-    private final JetCacheCreateCacheFactory jetCacheCreateCacheFactory;
 
     public JetCacheSpringCacheManager(JetCacheCreateCacheFactory jetCacheCreateCacheFactory) {
         this.jetCacheCreateCacheFactory = jetCacheCreateCacheFactory;
@@ -66,23 +63,12 @@ public class JetCacheSpringCacheManager implements CacheManager {
         setCacheNames(Arrays.asList(cacheNames));
     }
 
-    public void setAllowNullValues(boolean allowNullValues) {
-        this.allowNullValues = allowNullValues;
-    }
-
     public boolean isAllowNullValues() {
         return allowNullValues;
     }
 
-    private void setCacheNames(@Nullable Collection<String> cacheNames) {
-        if (cacheNames != null) {
-            for (String name : cacheNames) {
-                this.cacheMap.put(name, createJetCache(name));
-            }
-            this.dynamic = false;
-        } else {
-            this.dynamic = true;
-        }
+    public void setAllowNullValues(boolean allowNullValues) {
+        this.allowNullValues = allowNullValues;
     }
 
     protected Cache createJetCache(String name) {
@@ -105,7 +91,6 @@ public class JetCacheSpringCacheManager implements CacheManager {
         }
     }
 
-
     @Override
     @Nullable
     public Cache getCache(String name) {
@@ -117,5 +102,16 @@ public class JetCacheSpringCacheManager implements CacheManager {
     @Override
     public Collection<String> getCacheNames() {
         return Collections.unmodifiableSet(this.cacheMap.keySet());
+    }
+
+    private void setCacheNames(@Nullable Collection<String> cacheNames) {
+        if (cacheNames != null) {
+            for (String name : cacheNames) {
+                this.cacheMap.put(name, createJetCache(name));
+            }
+            this.dynamic = false;
+        } else {
+            this.dynamic = true;
+        }
     }
 }

@@ -57,9 +57,6 @@ public enum SmsSupplier {
     RECLUSE(SmsConstants.CHANNEL_RECLUSE, "内部短信");
 
 
-    private final String channel;
-    private final String description;
-
     private static final Map<Integer, SmsSupplier> indexMap = new HashMap<>();
     private static final List<Map<String, Object>> toJsonStruct = new ArrayList<>();
 
@@ -75,9 +72,20 @@ public enum SmsSupplier {
         }
     }
 
+    private final String channel;
+    private final String description;
+
     SmsSupplier(String channel, String description) {
         this.channel = channel;
         this.description = description;
+    }
+
+    public static SmsSupplier getSmsSupplier(Integer index) {
+        return indexMap.get(index);
+    }
+
+    public static List<Map<String, Object>> getToJsonStruct() {
+        return toJsonStruct;
     }
 
     /**
@@ -95,13 +103,5 @@ public enum SmsSupplier {
 
     public String getDescription() {
         return this.description;
-    }
-
-    public static SmsSupplier getSmsSupplier(Integer index) {
-        return indexMap.get(index);
-    }
-
-    public static List<Map<String, Object>> getToJsonStruct() {
-        return toJsonStruct;
     }
 }

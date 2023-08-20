@@ -48,12 +48,9 @@ import java.util.Collections;
  */
 public class HerodotusJwtGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 
-    private final Log logger = LogFactory.getLog(getClass());
-
     private static final String DEFAULT_AUTHORITY_PREFIX = "SCOPE_";
-
     private static final Collection<String> WELL_KNOWN_AUTHORITIES_CLAIM_NAMES = Arrays.asList("scope", "scp");
-
+    private final Log logger = LogFactory.getLog(getClass());
     private String authorityPrefix = DEFAULT_AUTHORITY_PREFIX;
 
     private String authoritiesClaimName;

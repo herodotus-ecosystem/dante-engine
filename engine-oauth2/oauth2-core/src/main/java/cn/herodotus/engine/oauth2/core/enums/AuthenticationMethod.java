@@ -55,11 +55,6 @@ public enum AuthenticationMethod implements BaseUiEnum<String> {
     PRIVATE_KEY_JWT(ClientAuthenticationMethod.PRIVATE_KEY_JWT.getValue(), "基于私钥的JWT验证模式"),
     NONE(ClientAuthenticationMethod.NONE.getValue(), "不设置任何模式");
 
-    @Schema(title = "认证方法")
-    private final String value;
-    @Schema(title = "文字")
-    private final String description;
-
     private static final Map<Integer, AuthenticationMethod> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
@@ -76,9 +71,22 @@ public enum AuthenticationMethod implements BaseUiEnum<String> {
         }
     }
 
+    @Schema(title = "认证方法")
+    private final String value;
+    @Schema(title = "文字")
+    private final String description;
+
     AuthenticationMethod(String value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static AuthenticationMethod get(Integer index) {
+        return INDEX_MAP.get(index);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCTURE;
     }
 
     @Override
@@ -89,13 +97,5 @@ public enum AuthenticationMethod implements BaseUiEnum<String> {
     @Override
     public String getValue() {
         return value;
-    }
-
-    public static AuthenticationMethod get(Integer index) {
-        return INDEX_MAP.get(index);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCTURE;
     }
 }

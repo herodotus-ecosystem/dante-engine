@@ -48,7 +48,7 @@ public class CacheSetting {
     private CacheMethod method = CacheMethod.BOTH;
     /**
      * 缓存过期时间，默认两小时
-     *
+     * <p>
      * 使用Duration类型，配置参数形式如下：
      * "?ns" //纳秒
      * "?us" //微秒

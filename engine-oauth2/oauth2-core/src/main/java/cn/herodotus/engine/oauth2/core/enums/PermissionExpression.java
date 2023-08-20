@@ -58,11 +58,6 @@ public enum PermissionExpression implements BaseUiEnum<String> {
     private static final Map<String, PermissionExpression> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
-    @Schema(title = "索引")
-    private final String value;
-    @Schema(title = "说明")
-    private final String description;
-
     static {
         for (PermissionExpression permissionExpression : PermissionExpression.values()) {
             INDEX_MAP.put(permissionExpression.getValue(), permissionExpression);
@@ -76,9 +71,22 @@ public enum PermissionExpression implements BaseUiEnum<String> {
         }
     }
 
+    @Schema(title = "索引")
+    private final String value;
+    @Schema(title = "说明")
+    private final String description;
+
     PermissionExpression(String value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static PermissionExpression get(String value) {
+        return INDEX_MAP.get(value);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCTURE;
     }
 
     @JsonValue
@@ -90,13 +98,5 @@ public enum PermissionExpression implements BaseUiEnum<String> {
     @Override
     public String getDescription() {
         return description;
-    }
-
-    public static PermissionExpression get(String value) {
-        return INDEX_MAP.get(value);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCTURE;
     }
 }

@@ -74,35 +74,11 @@ public class ResourceProvider implements InitializingBean {
     private final Map<String, String> jigsawOriginalImages = new ConcurrentHashMap<>();
     private final Map<String, String> jigsawTemplateImages = new ConcurrentHashMap<>();
     private final Map<String, String> wordClickImages = new ConcurrentHashMap<>();
-    private Map<String, Font> fonts = new ConcurrentHashMap<>();
-
     private final CaptchaProperties captchaProperties;
+    private Map<String, Font> fonts = new ConcurrentHashMap<>();
 
     public ResourceProvider(CaptchaProperties captchaProperties) {
         this.captchaProperties = captchaProperties;
-    }
-
-    public CaptchaProperties getCaptchaProperties() {
-        return captchaProperties;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-
-        String systemName = ManagementUtil.getOsInfo().getName();
-        log.debug("[Herodotus] |- Before captcha resource loading, check system. Current system is [{}]", systemName);
-
-        log.debug("[Herodotus] |- Captcha resource loading is BEGIN！");
-
-        loadImages(jigsawOriginalImages, getCaptchaProperties().getJigsaw().getOriginalResource(), CaptchaResource.JIGSAW_ORIGINAL);
-
-        loadImages(jigsawTemplateImages, getCaptchaProperties().getJigsaw().getTemplateResource(), CaptchaResource.JIGSAW_TEMPLATE);
-
-        loadImages(wordClickImages, getCaptchaProperties().getWordClick().getImageResource(), CaptchaResource.WORD_CLICK);
-
-        loadFonts();
-
-        log.debug("[Herodotus] |- Jigsaw captcha resource loading is END！");
     }
 
     private static String getBase64Image(Resource resource) {
@@ -136,16 +112,6 @@ public class ResourceProvider implements InitializingBean {
         }
 
         return new ConcurrentHashMap<>(8);
-    }
-
-    private void loadImages(Map<String, String> container, String location, CaptchaResource captchaResource) {
-        Map<String, String> resource = getImages(location);
-
-        if (MapUtils.isNotEmpty(resource)) {
-            container.putAll(resource);
-            log.debug("[Herodotus] |- {} load complete, total number is [{}]", captchaResource.getContent(), resource.size());
-            imageIndexes.put(captchaResource.name(), resource.keySet().toArray(new String[0]));
-        }
     }
 
     private static Font getFont(Resource resource) {
@@ -209,6 +175,39 @@ public class ResourceProvider implements InitializingBean {
         }
 
         return new ConcurrentHashMap<>(8);
+    }
+
+    public CaptchaProperties getCaptchaProperties() {
+        return captchaProperties;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
+        String systemName = ManagementUtil.getOsInfo().getName();
+        log.debug("[Herodotus] |- Before captcha resource loading, check system. Current system is [{}]", systemName);
+
+        log.debug("[Herodotus] |- Captcha resource loading is BEGIN！");
+
+        loadImages(jigsawOriginalImages, getCaptchaProperties().getJigsaw().getOriginalResource(), CaptchaResource.JIGSAW_ORIGINAL);
+
+        loadImages(jigsawTemplateImages, getCaptchaProperties().getJigsaw().getTemplateResource(), CaptchaResource.JIGSAW_TEMPLATE);
+
+        loadImages(wordClickImages, getCaptchaProperties().getWordClick().getImageResource(), CaptchaResource.WORD_CLICK);
+
+        loadFonts();
+
+        log.debug("[Herodotus] |- Jigsaw captcha resource loading is END！");
+    }
+
+    private void loadImages(Map<String, String> container, String location, CaptchaResource captchaResource) {
+        Map<String, String> resource = getImages(location);
+
+        if (MapUtils.isNotEmpty(resource)) {
+            container.putAll(resource);
+            log.debug("[Herodotus] |- {} load complete, total number is [{}]", captchaResource.getContent(), resource.size());
+            imageIndexes.put(captchaResource.name(), resource.keySet().toArray(new String[0]));
+        }
     }
 
     private void loadFonts() {

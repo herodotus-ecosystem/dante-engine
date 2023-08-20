@@ -50,15 +50,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SmsSendStrategyFactory {
 
     private static final Logger log = LoggerFactory.getLogger(SmsSendStrategyFactory.class);
-
+    @Autowired
+    private final Map<String, SmsSendHandler> handlers = new ConcurrentHashMap<>();
     private SmsProperties smsProperties;
 
     public void setSmsProperties(SmsProperties smsProperties) {
         this.smsProperties = smsProperties;
     }
-
-    @Autowired
-    private final Map<String, SmsSendHandler> handlers = new ConcurrentHashMap<>();
 
     public boolean send(Template template, String phone) {
         SmsSupplier smsSupplier = smsProperties.getDefaultChannel();

@@ -59,12 +59,12 @@ public abstract class AbstractRenderer<K, V> extends AbstractStampManager<K, V> 
         super(cacheName, cacheType, expire);
     }
 
-    public void setResourceProvider(ResourceProvider resourceProvider) {
-        this.resourceProvider = resourceProvider;
-    }
-
     public ResourceProvider getResourceProvider() {
         return resourceProvider;
+    }
+
+    public void setResourceProvider(ResourceProvider resourceProvider) {
+        this.resourceProvider = resourceProvider;
     }
 
     protected CaptchaProperties getCaptchaProperties() {

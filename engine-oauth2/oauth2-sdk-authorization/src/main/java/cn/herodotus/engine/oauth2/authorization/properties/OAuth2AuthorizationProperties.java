@@ -97,15 +97,10 @@ public class OAuth2AuthorizationProperties {
 
     public static class Jwk {
 
-        private enum Strategy {
-            STANDARD, CUSTOM
-        }
-
         /**
          * 证书策略：standard OAuth2 标准证书模式；custom 自定义证书模式
          */
         private Certificate certificate = Certificate.CUSTOM;
-
         /**
          * jks证书文件路径
          */
@@ -172,6 +167,10 @@ public class OAuth2AuthorizationProperties {
                     .add("jksStorePassword", jksStorePassword)
                     .add("jksKeyAlias", jksKeyAlias)
                     .toString();
+        }
+
+        private enum Strategy {
+            STANDARD, CUSTOM
         }
     }
 

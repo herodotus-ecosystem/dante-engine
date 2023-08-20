@@ -73,6 +73,7 @@ public class MybatisPlusConfiguration {
 
     /**
      * 防止 修改与删除时对全表进行操作
+     *
      * @return {@link MybatisPlusInterceptor}
      */
     @Bean

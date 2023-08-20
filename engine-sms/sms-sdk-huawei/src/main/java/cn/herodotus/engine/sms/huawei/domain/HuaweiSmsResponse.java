@@ -58,6 +58,39 @@ public class HuaweiSmsResponse {
      */
     private Collection<SmsID> result;
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Collection<SmsID> getResult() {
+        return result;
+    }
+
+    public void setResult(Collection<SmsID> result) {
+        this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("code", code)
+                .add("description", description)
+                .add("result", result)
+                .toString();
+    }
+
     /**
      * 短信ID
      */
@@ -141,38 +174,5 @@ public class HuaweiSmsResponse {
                     .add("createTime", createTime)
                     .toString();
         }
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Collection<SmsID> getResult() {
-        return result;
-    }
-
-    public void setResult(Collection<SmsID> result) {
-        this.result = result;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("code", code)
-                .add("description", description)
-                .add("result", result)
-                .toString();
     }
 }

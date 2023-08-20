@@ -48,6 +48,7 @@ public interface OAuth2ScopeRepository extends BaseRepository<OAuth2Scope, Strin
 
     /**
      * 根据 scope codes 查询对应的对象列表
+     *
      * @param scopeCodes 范围代码
      * @return 对象列表
      */

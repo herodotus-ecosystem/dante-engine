@@ -25,10 +25,7 @@
 
 package cn.herodotus.engine.oauth2.management.definition;
 
-import cn.herodotus.engine.oauth2.data.jpa.definition.converter.AbstractOAuth2EntityConverter;
-import cn.herodotus.engine.oauth2.data.jpa.definition.converter.AbstractRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.data.jpa.definition.converter.RegisteredClientConverter;
-import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;

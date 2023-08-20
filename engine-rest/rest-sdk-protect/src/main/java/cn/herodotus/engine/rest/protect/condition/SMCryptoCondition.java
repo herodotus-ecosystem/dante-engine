@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.rest.protect.condition;
 
-import cn.herodotus.engine.rest.core.enums.CryptoStrategy;
 import cn.herodotus.engine.rest.core.constants.RestPropertyFinder;
+import cn.herodotus.engine.rest.core.enums.CryptoStrategy;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -58,11 +58,6 @@ public enum GrantType implements BaseUiEnum<String> {
     PASSWORD(BaseConstants.PASSWORD, "Password 模式"),
     SOCIAL_CREDENTIALS(BaseConstants.SOCIAL_CREDENTIALS, "Social Credentials 模式");
 
-    @Schema(title = "认证模式")
-    private final String value;
-    @Schema(title = "文字")
-    private final String description;
-
     private static final Map<Integer, GrantType> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
@@ -79,9 +74,22 @@ public enum GrantType implements BaseUiEnum<String> {
         }
     }
 
+    @Schema(title = "认证模式")
+    private final String value;
+    @Schema(title = "文字")
+    private final String description;
+
     GrantType(String value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static GrantType get(Integer index) {
+        return INDEX_MAP.get(index);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCTURE;
     }
 
     @Override
@@ -92,13 +100,5 @@ public enum GrantType implements BaseUiEnum<String> {
     @Override
     public String getDescription() {
         return description;
-    }
-
-    public static GrantType get(Integer index) {
-        return INDEX_MAP.get(index);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCTURE;
     }
 }
