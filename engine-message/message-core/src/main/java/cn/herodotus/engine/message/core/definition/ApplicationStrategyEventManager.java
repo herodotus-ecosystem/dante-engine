@@ -23,28 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.compliance.event;
-
-import cn.herodotus.engine.rest.core.definition.event.ApplicationStrategyEvent;
-import cn.herodotus.engine.rest.core.domain.UserStatus;
+package cn.herodotus.engine.message.core.definition;
 
 /**
- * <p>Description: 用户状态变更服务 </p>
+ * <p>Description: 应用策略事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:23
+ * @date : 2022/3/29 7:26
  */
-public interface AccountStatusChanger extends ApplicationStrategyEvent<UserStatus> {
+public interface ApplicationStrategyEventManager<T> extends StrategyEventManager<T> {
 
     /**
-     * Request Mapping 收集汇总的服务名称
+     * 目的服务名称
      *
      * @return 服务名称
      */
     String getDestinationServiceName();
 
-    default void process(UserStatus status) {
-        postProcess(getDestinationServiceName(), status);
+    /**
+     * 发送事件
+     *
+     * @param data 事件携带数据
+     */
+    default void postProcess(T data) {
+        postProcess(getDestinationServiceName(), data);
     }
-
 }

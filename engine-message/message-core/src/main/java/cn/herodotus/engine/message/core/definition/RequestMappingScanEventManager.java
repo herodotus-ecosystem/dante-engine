@@ -23,11 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.scan.definition;
+package cn.herodotus.engine.message.core.definition;
 
-import cn.herodotus.engine.rest.core.context.ServiceContext;
-import cn.herodotus.engine.rest.core.definition.event.ApplicationStrategyEvent;
-import cn.herodotus.engine.rest.core.domain.RequestMapping;
+import cn.herodotus.engine.assistant.core.context.ServiceContext;
+import cn.herodotus.engine.message.core.domain.RequestMapping;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -41,7 +40,7 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2022/1/16 18:42
  */
-public interface RequestMappingScanManager extends ApplicationStrategyEvent<List<RequestMapping>> {
+public interface RequestMappingScanEventManager extends ApplicationStrategyEventManager<List<RequestMapping>> {
 
     /**
      * 获取是否执行扫描的标记注解。
@@ -49,13 +48,6 @@ public interface RequestMappingScanManager extends ApplicationStrategyEvent<List
      * @return 标记注解
      */
     Class<? extends Annotation> getScanAnnotationClass();
-
-    /**
-     * Request Mapping 收集汇总的服务名称
-     *
-     * @return 服务名称
-     */
-    String getDestinationServiceName();
 
     /**
      * 执行本地数据存储
@@ -69,9 +61,10 @@ public interface RequestMappingScanManager extends ApplicationStrategyEvent<List
      *
      * @param requestMappings 扫描到的RequestMapping
      */
-    default void process(List<RequestMapping> requestMappings) {
+    @Override
+    default void postProcess(List<RequestMapping> requestMappings) {
         postLocalStorage(requestMappings);
-        postProcess(getDestinationServiceName(), requestMappings);
+        ApplicationStrategyEventManager.super.postProcess(requestMappings);
     }
 
     /**

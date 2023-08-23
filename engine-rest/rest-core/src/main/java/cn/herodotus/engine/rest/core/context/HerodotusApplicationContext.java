@@ -26,6 +26,7 @@
 package cn.herodotus.engine.rest.core.context;
 
 import cn.herodotus.engine.assistant.core.context.PropertyFinder;
+import cn.herodotus.engine.assistant.core.context.ServiceContext;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import cn.herodotus.engine.rest.core.properties.PlatformProperties;

@@ -23,9 +23,11 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition;
+package cn.herodotus.engine.message.core.definition;
 
+import cn.herodotus.engine.assistant.core.context.ServiceContext;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>Description: 策略 Event 定义 </p>
@@ -36,7 +38,7 @@ import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
  * @author : gengwei.zheng
  * @date : 2022/2/5 15:32
  */
-public interface StrategyEvent<T> {
+public interface StrategyEventManager<T> {
 
     /**
      * 创建本地事件
@@ -60,7 +62,19 @@ public interface StrategyEvent<T> {
      * @param destinationService 接收远程事件目的地
      * @return false 远程事件，local 本地事件
      */
-    boolean isLocal(String destinationService);
+    default boolean isLocal(String destinationService) {
+        return !ServiceContext.getInstance().isDistributedArchitecture() || StringUtils.equals(ServiceContext.getInstance().getApplicationName(), destinationService);
+    }
+
+    /**
+     * 发送事件
+     *
+     * @param data               事件携带数据
+     * @param destinationService 接收远程事件目的地
+     */
+    default void postProcess(String destinationService, T data) {
+        postProcess(ServiceContext.getInstance().getOriginService(), destinationService, data);
+    }
 
     /**
      * 发送事件

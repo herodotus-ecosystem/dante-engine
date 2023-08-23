@@ -29,7 +29,7 @@ import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampMan
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import cn.herodotus.engine.oauth2.management.compliance.annotation.ConditionalOnAutoUnlockUserAccount;
-import cn.herodotus.engine.oauth2.management.compliance.event.AccountStatusChanger;
+import cn.herodotus.engine.message.core.definition.AccountStatusEventManager;
 import cn.herodotus.engine.oauth2.management.compliance.listener.AccountAutoEnableListener;
 import cn.herodotus.engine.oauth2.management.compliance.listener.AuthenticationFailureListener;
 import jakarta.annotation.PostConstruct;
@@ -49,7 +49,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @date : 2022/7/11 10:20
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnBean(AccountStatusChanger.class)
+@ConditionalOnBean(AccountStatusEventManager.class)
 public class OAuth2ComplianceConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(OAuth2ComplianceConfiguration.class);
@@ -60,7 +60,7 @@ public class OAuth2ComplianceConfiguration {
     }
 
     @Bean
-    public OAuth2AccountStatusManager accountStatusManager(UserDetailsService userDetailsService, AccountStatusChanger accountStatusChanger, LockedUserDetailsStampManager lockedUserDetailsStampManager) {
+    public OAuth2AccountStatusManager accountStatusManager(UserDetailsService userDetailsService, AccountStatusEventManager accountStatusChanger, LockedUserDetailsStampManager lockedUserDetailsStampManager) {
         OAuth2AccountStatusManager manager = new OAuth2AccountStatusManager(userDetailsService, accountStatusChanger, lockedUserDetailsStampManager);
         log.trace("[Herodotus] |- Bean [OAuth2 Account Status Manager] Auto Configure.");
         return manager;

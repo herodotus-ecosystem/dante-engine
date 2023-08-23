@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.enums;
+package cn.herodotus.engine.assistant.core.enums;
 
 /**
  * <p> Description : 用于区分是单体应用还是微服务应用 </p>

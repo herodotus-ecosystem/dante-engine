@@ -23,32 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.definition.event;
+package cn.herodotus.engine.message.core.event;
 
-import cn.herodotus.engine.assistant.core.definition.StrategyEvent;
-import cn.herodotus.engine.rest.core.context.ServiceContext;
-import org.apache.commons.lang3.StringUtils;
+import cn.herodotus.engine.message.core.definition.LocalApplicationEvent;
+
+import java.time.Clock;
 
 /**
- * <p>Description: 应用策略事件 </p>
+ * <p>Description: 从账户状态缓存中释放账号事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/29 7:26
+ * @date : 2023/5/14 14:26
  */
-public interface ApplicationStrategyEvent<T> extends StrategyEvent<T> {
+public class AccountReleaseFromCacheEvent extends LocalApplicationEvent<String> {
 
-    @Override
-    default boolean isLocal(String destinationService) {
-        return !ServiceContext.getInstance().isDistributedArchitecture() || StringUtils.equals(ServiceContext.getInstance().getApplicationName(), destinationService);
+    public AccountReleaseFromCacheEvent(String data) {
+        super(data);
     }
 
-    /**
-     * 发送事件
-     *
-     * @param data               事件携带数据
-     * @param destinationService 接收远程事件目的地
-     */
-    default void postProcess(String destinationService, T data) {
-        postProcess(ServiceContext.getInstance().getOriginService(), destinationService, data);
+    public AccountReleaseFromCacheEvent(String data, Clock clock) {
+        super(data, clock);
     }
 }

@@ -41,7 +41,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>message-core</artifactId>
+            <artifactId>rest-core</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>

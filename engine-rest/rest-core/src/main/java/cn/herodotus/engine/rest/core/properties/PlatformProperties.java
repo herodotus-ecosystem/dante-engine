@@ -28,7 +28,7 @@ package cn.herodotus.engine.rest.core.properties;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
-import cn.herodotus.engine.rest.core.enums.Architecture;
+import cn.herodotus.engine.assistant.core.enums.Architecture;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

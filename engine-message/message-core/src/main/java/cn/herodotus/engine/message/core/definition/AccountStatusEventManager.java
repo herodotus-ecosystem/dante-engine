@@ -23,25 +23,16 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.compliance.event;
+package cn.herodotus.engine.message.core.definition;
 
-import cn.herodotus.engine.message.core.definition.LocalApplicationEvent;
-
-import java.time.Clock;
+import cn.herodotus.engine.message.core.domain.UserStatus;
 
 /**
- * <p>Description: 从账户状态缓存中释放账号事件 </p>
+ * <p>Description: 用户状态变更服务 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/14 14:26
+ * @date : 2022/7/10 16:23
  */
-public class AccountReleaseFromCacheEvent extends LocalApplicationEvent<String> {
+public interface AccountStatusEventManager extends ApplicationStrategyEventManager<UserStatus> {
 
-    public AccountReleaseFromCacheEvent(String data) {
-        super(data);
-    }
-
-    public AccountReleaseFromCacheEvent(String data, Clock clock) {
-        super(data, clock);
-    }
 }
