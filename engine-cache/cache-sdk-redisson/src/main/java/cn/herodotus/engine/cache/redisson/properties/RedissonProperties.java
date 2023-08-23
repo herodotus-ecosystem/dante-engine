@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.cache.redisson.properties;
 
-import cn.herodotus.engine.cache.core.constants.CacheConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.cache.core.constants.CacheConstants;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.config.ClusterServersConfig;
@@ -44,38 +44,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class RedissonProperties {
 
     /**
-     * Redisson 使用模式
-     */
-    public enum Mode {
-        /**
-         * 单机
-         */
-        SINGLE,
-        /**
-         * 哨兵
-         */
-        SENTINEL,
-        /**
-         * 集群
-         */
-        CLUSTER
-    }
-
-    /**
      * 是否开启 Redisson
      */
     private Boolean enabled = false;
-
     /**
      * Redis 模式
      */
     private Mode mode = Mode.SINGLE;
-
     /**
      * 配置文件路径
      */
     private String config;
-
     /**
      * 单体配置
      */
@@ -84,7 +63,6 @@ public class RedissonProperties {
      * 集群配置
      */
     private ClusterServersConfig clusterServersConfig;
-
     /**
      * 哨兵配置
      */
@@ -165,5 +143,23 @@ public class RedissonProperties {
                 .add("mode", mode)
                 .add("config", config)
                 .toString();
+    }
+
+    /**
+     * Redisson 使用模式
+     */
+    public enum Mode {
+        /**
+         * 单机
+         */
+        SINGLE,
+        /**
+         * 哨兵
+         */
+        SENTINEL,
+        /**
+         * 集群
+         */
+        CLUSTER
     }
 }

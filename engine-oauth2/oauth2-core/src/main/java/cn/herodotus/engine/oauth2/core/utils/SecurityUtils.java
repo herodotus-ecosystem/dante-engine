@@ -52,12 +52,10 @@ import java.util.Map;
  **/
 public class SecurityUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(SecurityUtils.class);
-
-    private static final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
     public static final String PREFIX_ROLE = "ROLE_";
     public static final String PREFIX_SCOPE = "SCOPE_";
+    private static final Logger log = LoggerFactory.getLogger(SecurityUtils.class);
+    private static final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     /**
      * 密码加密

@@ -26,9 +26,9 @@
 package cn.herodotus.engine.rest.scan.configuration;
 
 import cn.herodotus.engine.rest.scan.annotation.ConditionalOnScanEnabled;
+import cn.herodotus.engine.rest.scan.definition.RequestMappingScanManager;
 import cn.herodotus.engine.rest.scan.processor.RequestMappingScanner;
 import cn.herodotus.engine.rest.scan.properties.RestScanProperties;
-import cn.herodotus.engine.rest.scan.definition.RequestMappingScanManager;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

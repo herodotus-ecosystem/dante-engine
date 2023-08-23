@@ -49,9 +49,8 @@ import java.io.IOException;
  */
 public class OAuth2FormLoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private boolean postOnly = true;
-
     private static final Logger log = LoggerFactory.getLogger(OAuth2FormLoginAuthenticationFilter.class);
+    private boolean postOnly = true;
 
     public OAuth2FormLoginAuthenticationFilter() {
         super();

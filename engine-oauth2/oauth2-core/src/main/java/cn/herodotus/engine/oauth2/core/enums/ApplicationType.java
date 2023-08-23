@@ -56,11 +56,6 @@ public enum ApplicationType implements BaseUiEnum<Integer> {
     MINI(4, "小程序应用"),
     IOT(5, "物联网应用");
 
-    @Schema(title = "枚举值")
-    private final Integer value;
-    @Schema(title = "文字")
-    private final String description;
-
     private static final Map<Integer, ApplicationType> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCT = new ArrayList<>();
 
@@ -77,9 +72,22 @@ public enum ApplicationType implements BaseUiEnum<Integer> {
         }
     }
 
+    @Schema(title = "枚举值")
+    private final Integer value;
+    @Schema(title = "文字")
+    private final String description;
+
     ApplicationType(Integer value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static ApplicationType get(Integer index) {
+        return INDEX_MAP.get(index);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCT;
     }
 
     @Override
@@ -99,13 +107,5 @@ public enum ApplicationType implements BaseUiEnum<Integer> {
     @Override
     public Integer getValue() {
         return value;
-    }
-
-    public static ApplicationType get(Integer index) {
-        return INDEX_MAP.get(index);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCT;
     }
 }

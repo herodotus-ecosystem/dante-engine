@@ -26,9 +26,9 @@
 package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Product;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ProductService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
-import cn.herodotus.engine.oauth2.management.entity.OAuth2Product;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.web.bind.annotation.RequestMapping;

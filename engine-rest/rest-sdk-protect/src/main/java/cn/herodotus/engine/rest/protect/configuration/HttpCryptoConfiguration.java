@@ -27,12 +27,13 @@ package cn.herodotus.engine.rest.protect.configuration;
 
 import cn.herodotus.engine.rest.core.definition.crypto.AsymmetricCryptoProcessor;
 import cn.herodotus.engine.rest.core.definition.crypto.SymmetricCryptoProcessor;
-import cn.herodotus.engine.rest.protect.properties.CryptoProperties;
 import cn.herodotus.engine.rest.protect.crypto.enhance.DecryptRequestBodyAdvice;
 import cn.herodotus.engine.rest.protect.crypto.enhance.DecryptRequestParamMapResolver;
 import cn.herodotus.engine.rest.protect.crypto.enhance.DecryptRequestParamResolver;
 import cn.herodotus.engine.rest.protect.crypto.enhance.EncryptResponseBodyAdvice;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
+import cn.herodotus.engine.rest.protect.properties.CryptoProperties;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -41,8 +42,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import jakarta.annotation.PostConstruct;
 
 /**
  * <p>Description: Rest 加密配置 </p>
@@ -66,7 +65,7 @@ public class HttpCryptoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public HttpCryptoProcessor interfaceCryptoProcessor(AsymmetricCryptoProcessor asymmetricCryptoProcessor, SymmetricCryptoProcessor symmetricCryptoProcessor) {
+    public HttpCryptoProcessor httpCryptoProcessor(AsymmetricCryptoProcessor asymmetricCryptoProcessor, SymmetricCryptoProcessor symmetricCryptoProcessor) {
         HttpCryptoProcessor httpCryptoProcessor = new HttpCryptoProcessor(asymmetricCryptoProcessor, symmetricCryptoProcessor);
         log.trace("[Herodotus] |- Bean [Interface Crypto Processor] Auto Configure.");
         return httpCryptoProcessor;

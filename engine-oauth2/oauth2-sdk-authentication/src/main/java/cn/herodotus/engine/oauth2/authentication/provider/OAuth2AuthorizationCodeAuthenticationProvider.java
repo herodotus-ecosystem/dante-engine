@@ -144,7 +144,7 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
                     // Invalidate the access (and refresh) token as the client is attempting to use the authorization code more than once
                     authorization = OAuth2AuthenticationProviderUtils.invalidate(authorization, token.getToken());
                     this.authorizationService.save(authorization);
-                         log.warn("Invalidated authorization token(s) previously issued to registered client '{}'", registeredClient.getId());
+                    log.warn("Invalidated authorization token(s) previously issued to registered client '{}'", registeredClient.getId());
                 }
             }
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);

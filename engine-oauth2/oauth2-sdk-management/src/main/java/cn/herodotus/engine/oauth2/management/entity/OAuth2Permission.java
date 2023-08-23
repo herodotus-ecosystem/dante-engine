@@ -26,8 +26,8 @@
 package cn.herodotus.engine.oauth2.management.entity;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
-import cn.herodotus.engine.oauth2.management.generator.OAuth2PermissionUuid;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.engine.oauth2.management.generator.OAuth2PermissionUuid;
 import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;

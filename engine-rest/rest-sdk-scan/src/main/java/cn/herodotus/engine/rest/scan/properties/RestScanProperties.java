@@ -66,10 +66,6 @@ public class RestScanProperties {
         this.enabled = enabled;
     }
 
-    public void setScanGroupIds(List<String> scanGroupIds) {
-        this.scanGroupIds = scanGroupIds;
-    }
-
     public List<String> getScanGroupIds() {
         List<String> defaultGroupIds = Stream.of("cn.herodotus").collect(Collectors.toList());
 
@@ -79,6 +75,10 @@ public class RestScanProperties {
 
         this.scanGroupIds.addAll(defaultGroupIds);
         return scanGroupIds;
+    }
+
+    public void setScanGroupIds(List<String> scanGroupIds) {
+        this.scanGroupIds = scanGroupIds;
     }
 
     public boolean isJustScanRestController() {

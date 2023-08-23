@@ -23,19 +23,41 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.protect.jackson2;
+package cn.herodotus.engine.rest.autoconfigure.protect.jackson2;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import cn.herodotus.engine.assistant.core.utils.XssUtils;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
- * <p>Description: XssJackson2Module </p>
+ * <p>Description: Xss Json 处理 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/29 17:04
+ * @date : 2021/8/30 23:58
  */
-public class XssJackson2Module extends SimpleModule {
+public class XssStringJsonDeserializer extends JsonDeserializer<String> {
 
-    public XssJackson2Module() {
-        this.addDeserializer(String.class, new XssStringJsonDeserializer());
+    private static final Logger log = LoggerFactory.getLogger(XssStringJsonDeserializer.class);
+
+    @Override
+    public Class<String> handledType() {
+        return String.class;
+    }
+
+    @Override
+    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        String value = jsonParser.getValueAsString();
+        if (StringUtils.isNotBlank(value)) {
+            return XssUtils.cleaning(value);
+        }
+
+        return value;
     }
 }

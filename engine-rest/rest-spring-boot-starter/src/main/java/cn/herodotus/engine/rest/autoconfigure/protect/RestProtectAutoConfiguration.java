@@ -23,46 +23,45 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.protect.jackson2;
+package cn.herodotus.engine.rest.autoconfigure.protect;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.BaseObjectMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2CustomizerOrder;
-import com.fasterxml.jackson.databind.Module;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import cn.herodotus.engine.rest.autoconfigure.protect.jackson2.Jackson2XssObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.rest.protect.configuration.HttpCryptoConfiguration;
+import cn.herodotus.engine.rest.protect.configuration.SecureConfiguration;
+import cn.herodotus.engine.rest.protect.configuration.TenantConfiguration;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.core.Ordered;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: Jackson Xss Customizer </p>
+ * <p>Description: Rest 保护模块配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/29 16:30
+ * @date : 2022/12/23 21:28
  */
-public class Jackson2XssObjectMapperBuilderCustomizer implements BaseObjectMapperBuilderCustomizer {
+@AutoConfiguration
+@Import({
+        HttpCryptoConfiguration.class,
+        SecureConfiguration.class,
+        TenantConfiguration.class
+})
+public class RestProtectAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(Jackson2XssObjectMapperBuilderCustomizer.class);
-    @Override
-    public void customize(Jackson2ObjectMapperBuilder builder) {
-        SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addDeserializer(String.class, new XssStringJsonDeserializer());
+    private static final Logger log = LoggerFactory.getLogger(RestProtectAutoConfiguration.class);
 
-        builder.modulesToInstall(modules -> {
-            List<Module> install = new ArrayList<>(modules);
-            install.add(simpleModule);
-            builder.modulesToInstall(toArray(install));
-        });
-
-        log.debug("[Herodotus] |- XSS ObjectMapper custom configuration execution is completed.");
+    @PostConstruct
+    public void postConstruct() {
+        log.debug("[Herodotus] |- SDK [Rest Protect] Auto Configure.");
     }
 
-    @Override
-    public int getOrder() {
-        return Jackson2CustomizerOrder.CUSTOMIZER_XSS;
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer xssObjectMapperBuilderCustomizer() {
+        Jackson2XssObjectMapperBuilderCustomizer customizer = new Jackson2XssObjectMapperBuilderCustomizer();
+        log.trace("[Herodotus] |- Strategy [Jackson2 Xss ObjectMapper Builder Customizer] Auto Configure.");
+        return customizer;
     }
 }

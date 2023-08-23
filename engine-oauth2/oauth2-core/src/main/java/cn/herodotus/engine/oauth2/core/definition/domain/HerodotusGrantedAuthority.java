@@ -37,14 +37,14 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class HerodotusGrantedAuthority implements GrantedAuthority {
 
+    private String authority;
+
     public HerodotusGrantedAuthority() {
     }
 
     public HerodotusGrantedAuthority(String authority) {
         this.authority = authority;
     }
-
-    private String authority;
 
     @Override
     public String getAuthority() {

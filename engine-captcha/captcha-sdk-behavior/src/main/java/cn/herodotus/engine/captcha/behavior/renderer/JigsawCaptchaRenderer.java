@@ -65,6 +65,7 @@ public class JigsawCaptchaRenderer extends AbstractBehaviorRenderer<String, Coor
     private static final int AREA_ARRAY_SIZE = AREA_SIZE * AREA_SIZE;
     private static final int BOLD = 5;
     private static final int OFFSET = 100;
+    private JigsawCaptcha jigsawCaptcha;
 
     public JigsawCaptchaRenderer() {
         super(CaptchaConstants.CACHE_NAME_CAPTCHA_JIGSAW);
@@ -74,8 +75,6 @@ public class JigsawCaptchaRenderer extends AbstractBehaviorRenderer<String, Coor
     public String getCategory() {
         return CaptchaCategory.JIGSAW.getConstant();
     }
-
-    private JigsawCaptcha jigsawCaptcha;
 
     @Override
     public Captcha getCapcha(String key) {

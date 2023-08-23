@@ -156,7 +156,7 @@ public interface ReadableService<E extends Entity, ID extends Serializable> {
      *
      * @param pageNumber 当前页码, 起始页码 0
      * @param pageSize   每页显示的数据条数
-     * @param sort 排序
+     * @param sort       排序
      * @return 分页数据
      */
     default Page<E> findByPage(int pageNumber, int pageSize, Sort sort) {

@@ -1,5 +1,5 @@
-cn.herodotus.engine.rest.autoconfigure.AutoConfiguration
-cn.herodotus.engine.rest.protect.configuration.RestProtectConfiguration
-cn.herodotus.engine.rest.configuration.RestWebMvcConfiguration
-cn.herodotus.engine.rest.configuration.RestCryptoConfiguration
+cn.herodotus.engine.rest.autoconfigure.RestAutoConfiguration
+cn.herodotus.engine.rest.autoconfigure.protect.RestProtectAutoConfiguration
+cn.herodotus.engine.rest.autoconfigure.RestWebMvcAutoConfiguration
+cn.herodotus.engine.rest.autoconfigure.RestCryptoAutoConfiguration
 cn.herodotus.engine.rest.scan.configuration.RestScanConfiguration

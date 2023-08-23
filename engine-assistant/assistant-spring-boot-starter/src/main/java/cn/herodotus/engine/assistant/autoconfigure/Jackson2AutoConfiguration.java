@@ -23,9 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.configuration;
+package cn.herodotus.engine.assistant.autoconfigure;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2DefaultObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.autoconfigure.jackson2.Jackson2DefaultObjectMapperBuilderCustomizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -44,13 +44,13 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  * @date : 2022/6/1 0:09
  */
 @AutoConfiguration
-public class Jackson2Configuration {
+public class Jackson2AutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(Jackson2Configuration.class);
+    private static final Logger log = LoggerFactory.getLogger(Jackson2AutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Assistant Jackson2] Auto Configure.");
+        log.info("[Herodotus] |- Module [Jackson2] Auto Configure.");
     }
 
     @Bean

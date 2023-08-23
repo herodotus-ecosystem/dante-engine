@@ -96,19 +96,19 @@ public enum CaptchaCategory {
         this.description = description;
     }
 
-    public String getConstant() {
-        return constant;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public static CaptchaCategory getCaptchaCategory(String name) {
         return INDEX_MAP.get(name);
     }
 
     public static List<Map<String, Object>> getJsonStruct() {
         return JSON_STRUCT;
+    }
+
+    public String getConstant() {
+        return constant;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

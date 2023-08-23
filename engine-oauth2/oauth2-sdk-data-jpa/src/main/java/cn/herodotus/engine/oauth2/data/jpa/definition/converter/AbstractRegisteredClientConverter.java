@@ -35,7 +35,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  * @author : gengwei.zheng
  * @date : 2023/5/12 23:07
  */
-public abstract class AbstractRegisteredClientConverter<S extends RegisteredClientDetails> extends AbstractOAuth2EntityConverter<S, RegisteredClient> implements RegisteredClientConverter<S>{
+public abstract class AbstractRegisteredClientConverter<S extends RegisteredClientDetails> extends AbstractOAuth2EntityConverter<S, RegisteredClient> implements RegisteredClientConverter<S> {
 
     public AbstractRegisteredClientConverter(OAuth2JacksonProcessor jacksonProcessor) {
         super(jacksonProcessor);

@@ -36,7 +36,7 @@ import java.io.Serializable;
  * @author : gengwei.zheng
  * @date : 2021/7/14 14:32
  */
-public abstract class BaseService< E extends Entity, ID extends Serializable> implements WriteableService<E, ID> {
+public abstract class BaseService<E extends Entity, ID extends Serializable> implements WriteableService<E, ID> {
 
     protected String like(String property) {
         return SymbolConstants.PERCENT + property + SymbolConstants.PERCENT;

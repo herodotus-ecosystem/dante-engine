@@ -25,7 +25,6 @@
 
 package cn.herodotus.engine.oauth2.authentication.response;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
 import cn.herodotus.engine.rest.core.utils.WebUtils;
@@ -138,15 +137,15 @@ public class OAuth2FormLoginAuthenticationFailureHandler extends SimpleUrlAuthen
         this.forwardToDestination = forwardToDestination;
     }
 
+    protected RedirectStrategy getRedirectStrategy() {
+        return this.redirectStrategy;
+    }
+
     /**
      * Allows overriding of the behaviour when redirecting to a target URL.
      */
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
-    }
-
-    protected RedirectStrategy getRedirectStrategy() {
-        return this.redirectStrategy;
     }
 
     protected boolean isAllowSessionCreation() {

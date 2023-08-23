@@ -31,10 +31,11 @@ import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2Registered
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.HashSet;
 import java.util.Objects;

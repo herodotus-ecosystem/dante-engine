@@ -62,10 +62,8 @@ import java.util.Map;
  */
 public class WebUtils extends org.springframework.web.util.WebUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
-
     public static final String XML_HTTP_REQUEST = "XMLHttpRequest";
-
+    private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
     private static final PathMatcher pathMatcher = new AntPathMatcher();
 
     public static PathMatcher getPathMatcher() {

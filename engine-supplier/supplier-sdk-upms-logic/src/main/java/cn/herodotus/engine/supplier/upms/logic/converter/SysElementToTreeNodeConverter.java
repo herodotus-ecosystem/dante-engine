@@ -50,13 +50,13 @@ import java.util.stream.Collectors;
 public class SysElementToTreeNodeConverter implements Converter<SysElement, TreeNode<String>> {
     @Override
     public TreeNode<String> convert(SysElement sysMenu) {
-            TreeNode<String> treeNode = new TreeNode<>();
-            treeNode.setId(sysMenu.getElementId());
-            treeNode.setName(sysMenu.getPath());
-            treeNode.setWeight(sysMenu.getRanking());
-            treeNode.setParentId(WellFormedUtils.parentId(sysMenu.getParentId()));
-            treeNode.setExtra(getExtra(sysMenu));
-            return treeNode;
+        TreeNode<String> treeNode = new TreeNode<>();
+        treeNode.setId(sysMenu.getElementId());
+        treeNode.setName(sysMenu.getPath());
+        treeNode.setWeight(sysMenu.getRanking());
+        treeNode.setParentId(WellFormedUtils.parentId(sysMenu.getParentId()));
+        treeNode.setExtra(getExtra(sysMenu));
+        return treeNode;
     }
 
     private Map<String, Object> getExtra(SysElement sysMenu) {

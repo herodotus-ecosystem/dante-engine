@@ -27,10 +27,10 @@ package cn.herodotus.engine.supplier.message.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
-import cn.herodotus.engine.supplier.message.entity.DialogueDetail;
-import cn.herodotus.engine.supplier.message.service.DialogueDetailService;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
+import cn.herodotus.engine.supplier.message.entity.DialogueDetail;
+import cn.herodotus.engine.supplier.message.service.DialogueDetailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

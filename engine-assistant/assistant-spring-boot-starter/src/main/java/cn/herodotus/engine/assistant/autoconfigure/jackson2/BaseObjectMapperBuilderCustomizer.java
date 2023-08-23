@@ -23,26 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.autoconfigure;
+package cn.herodotus.engine.assistant.autoconfigure.jackson2;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
+import com.fasterxml.jackson.databind.Module;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.core.Ordered;
+
+import java.util.List;
 
 /**
- * <p>Description: Rest 自动注入 </p>
+ * <p>Description: 提取公共操作 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/19 23:16
+ * @date : 2023/4/29 17:09
  */
-@Configuration(proxyBeanMethods = false)
-public class AutoConfiguration {
+public interface BaseObjectMapperBuilderCustomizer extends Jackson2ObjectMapperBuilderCustomizer, Ordered {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
-
-    @PostConstruct
-    public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Rest Starter] Auto Configure.");
+    default Module[] toArray(List<Module> modules) {
+        if (CollectionUtils.isNotEmpty(modules)) {
+            Module[] temps = new Module[modules.size()];
+            return modules.toArray(temps);
+        } else {
+            return new Module[]{};
+        }
     }
 }

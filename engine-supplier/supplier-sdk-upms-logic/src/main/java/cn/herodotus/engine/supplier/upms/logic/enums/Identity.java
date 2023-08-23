@@ -52,11 +52,6 @@ public enum Identity implements BaseUiEnum<Integer> {
     SECTION_LEADER(1, "部门负责人"),
     LEADERSHIP(2, "领导");
 
-    @Schema(title = "索引")
-    private final Integer value;
-    @Schema(title = "文字")
-    private String description;
-
     private static final Map<Integer, Identity> INDEX_MAP = new HashMap<>();
     private static final List<Map<String, Object>> JSON_STRUCTURE = new ArrayList<>();
 
@@ -73,9 +68,22 @@ public enum Identity implements BaseUiEnum<Integer> {
         }
     }
 
+    @Schema(title = "索引")
+    private final Integer value;
+    @Schema(title = "文字")
+    private String description;
+
     Identity(Integer value, String description) {
         this.value = value;
         this.description = description;
+    }
+
+    public static Identity get(Integer index) {
+        return INDEX_MAP.get(index);
+    }
+
+    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
+        return JSON_STRUCTURE;
     }
 
     /**
@@ -95,13 +103,5 @@ public enum Identity implements BaseUiEnum<Integer> {
     @Override
     public String getDescription() {
         return description;
-    }
-
-    public static Identity get(Integer index) {
-        return INDEX_MAP.get(index);
-    }
-
-    public static List<Map<String, Object>> getPreprocessedJsonStructure() {
-        return JSON_STRUCTURE;
     }
 }

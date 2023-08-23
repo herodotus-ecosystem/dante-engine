@@ -28,14 +28,13 @@ package cn.herodotus.engine.captcha.autoconfigure;
 import cn.herodotus.engine.captcha.core.processor.CaptchaRendererFactory;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import jakarta.annotation.PostConstruct;
 
 /**
  * <p>Description: 验证码自动注入 </p>

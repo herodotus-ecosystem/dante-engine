@@ -23,41 +23,45 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.protect.jackson2;
+package cn.herodotus.engine.rest.autoconfigure.protect.jackson2;
 
-import cn.herodotus.engine.assistant.core.utils.XssUtils;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.apache.commons.lang3.StringUtils;
+import cn.herodotus.engine.assistant.autoconfigure.jackson2.BaseObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2CustomizerOrder;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * <p>Description: Xss Json 处理 </p>
+ * <p>Description: Jackson Xss Customizer </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/30 23:58
+ * @date : 2023/4/29 16:30
  */
-public class XssStringJsonDeserializer extends JsonDeserializer<String> {
+public class Jackson2XssObjectMapperBuilderCustomizer implements BaseObjectMapperBuilderCustomizer {
 
-    private static final Logger log = LoggerFactory.getLogger(XssStringJsonDeserializer.class);
+    private static final Logger log = LoggerFactory.getLogger(Jackson2XssObjectMapperBuilderCustomizer.class);
 
     @Override
-    public Class<String> handledType() {
-        return String.class;
+    public void customize(Jackson2ObjectMapperBuilder builder) {
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addDeserializer(String.class, new XssStringJsonDeserializer());
+
+        builder.modulesToInstall(modules -> {
+            List<Module> install = new ArrayList<>(modules);
+            install.add(simpleModule);
+            builder.modulesToInstall(toArray(install));
+        });
+
+        log.debug("[Herodotus] |- XSS ObjectMapper custom configuration execution is completed.");
     }
 
     @Override
-    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        String value = jsonParser.getValueAsString();
-        if (StringUtils.isNotBlank(value)) {
-            return XssUtils.cleaning(value);
-        }
-
-        return value;
+    public int getOrder() {
+        return Jackson2CustomizerOrder.CUSTOMIZER_XSS;
     }
 }

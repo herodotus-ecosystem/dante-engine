@@ -26,7 +26,6 @@
 package cn.herodotus.engine.rest.core.properties;
 
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.exception.properties.PropertyValueIsNotSetException;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
 import com.google.common.base.MoreObjects;
@@ -185,16 +184,16 @@ public class EndpointProperties {
         return upmsServiceName;
     }
 
+    public void setUpmsServiceName(String upmsServiceName) {
+        this.upmsServiceName = upmsServiceName;
+    }
+
     public String getOssServiceName() {
         return ossServiceName;
     }
 
     public void setOssServiceName(String ossServiceName) {
         this.ossServiceName = ossServiceName;
-    }
-
-    public void setUpmsServiceName(String upmsServiceName) {
-        this.upmsServiceName = upmsServiceName;
     }
 
     public String getGatewayServiceUri() {

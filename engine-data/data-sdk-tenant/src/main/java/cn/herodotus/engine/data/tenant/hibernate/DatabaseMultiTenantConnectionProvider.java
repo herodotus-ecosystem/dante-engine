@@ -50,11 +50,9 @@ import java.util.Map;
 public class DatabaseMultiTenantConnectionProvider extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl implements HibernatePropertiesCustomizer {
 
     private static final Logger log = LoggerFactory.getLogger(DatabaseMultiTenantConnectionProvider.class);
-
-    private boolean isDataSourceInit = false;
     private final Map<String, DataSource> dataSources = new HashMap<>();
-
     private final DataSource defaultDataSource;
+    private boolean isDataSourceInit = false;
 
     public DatabaseMultiTenantConnectionProvider(DataSource dataSource) {
         this.defaultDataSource = dataSource;

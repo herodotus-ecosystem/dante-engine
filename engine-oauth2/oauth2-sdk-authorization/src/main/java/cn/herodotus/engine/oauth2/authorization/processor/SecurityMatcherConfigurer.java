@@ -47,11 +47,10 @@ import java.util.List;
 @Component
 public class SecurityMatcherConfigurer {
 
+    private final OAuth2AuthorizationProperties authorizationProperties;
     private List<String> staticResources;
     private List<String> permitAllResources;
     private List<String> hasAuthenticatedResources;
-
-    private final OAuth2AuthorizationProperties authorizationProperties;
 
     public SecurityMatcherConfigurer(OAuth2AuthorizationProperties authorizationProperties) {
         this.authorizationProperties = authorizationProperties;

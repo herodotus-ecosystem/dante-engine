@@ -38,12 +38,10 @@ import io.swagger.v3.oas.models.info.License;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * <p> Description : SwaggerConfiguration </p>
@@ -68,13 +66,6 @@ public class OpenApiConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(OpenApiConfiguration.class);
 
-    private final OpenApiServerResolver openApiServerResolver;
-
-    @Autowired
-    public OpenApiConfiguration(OpenApiServerResolver openApiServerResolver) {
-        this.openApiServerResolver = openApiServerResolver;
-    }
-
     @PostConstruct
     public void postConstruct() {
         log.debug("[Herodotus] |- SDK [Web Rest Swagger] Auto Configure.");
@@ -82,7 +73,7 @@ public class OpenApiConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public OpenAPI createOpenApi() {
+    public OpenAPI createOpenApi(OpenApiServerResolver openApiServerResolver) {
         return new OpenAPI()
                 .servers(openApiServerResolver.getServers())
                 .info(new Info().title("Herodotus Cloud")

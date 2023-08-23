@@ -31,6 +31,7 @@ import cn.herodotus.engine.rest.protect.secure.interceptor.IdempotentInterceptor
 import cn.herodotus.engine.rest.protect.secure.interceptor.XssHttpServletFilter;
 import cn.herodotus.engine.rest.protect.secure.stamp.AccessLimitedStampManager;
 import cn.herodotus.engine.rest.protect.secure.stamp.IdempotentStampManager;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -38,8 +39,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import jakarta.annotation.PostConstruct;
 
 /**
  * <p>Description: 接口安全配置 </p>

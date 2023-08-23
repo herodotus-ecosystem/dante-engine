@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.storage;
 
-import cn.herodotus.engine.oauth2.data.jpa.converter.OAuth2ToHerodotusRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.data.jpa.converter.HerodotusToOAuth2RegisteredClientConverter;
+import cn.herodotus.engine.oauth2.data.jpa.converter.OAuth2ToHerodotusRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusRegisteredClientService;

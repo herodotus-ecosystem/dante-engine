@@ -26,13 +26,12 @@
 package cn.herodotus.engine.rest.protect.configuration;
 
 import cn.herodotus.engine.rest.protect.tenant.MultiTenantInterceptor;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import jakarta.annotation.PostConstruct;
 
 /**
  * <p>Description: 租户请求拦截配置 </p>

@@ -54,134 +54,124 @@ import static feign.Util.checkNotNull;
  */
 public class HerodotusSentinelInvocationHandler implements InvocationHandler {
 
-	private final Target<?> target;
+    private final Target<?> target;
 
-	private final Map<Method, MethodHandler> dispatch;
+    private final Map<Method, MethodHandler> dispatch;
 
-	private FallbackFactory fallbackFactory;
+    private FallbackFactory fallbackFactory;
 
-	private Map<Method, Method> fallbackMethodMap;
+    private Map<Method, Method> fallbackMethodMap;
 
-	HerodotusSentinelInvocationHandler(Target<?> target, Map<Method, MethodHandler> dispatch,
+    HerodotusSentinelInvocationHandler(Target<?> target, Map<Method, MethodHandler> dispatch,
                                        FallbackFactory fallbackFactory) {
-		this.target = checkNotNull(target, "target");
-		this.dispatch = checkNotNull(dispatch, "dispatch");
-		this.fallbackFactory = fallbackFactory;
-		this.fallbackMethodMap = toFallbackMethod(dispatch);
-	}
+        this.target = checkNotNull(target, "target");
+        this.dispatch = checkNotNull(dispatch, "dispatch");
+        this.fallbackFactory = fallbackFactory;
+        this.fallbackMethodMap = toFallbackMethod(dispatch);
+    }
 
-	HerodotusSentinelInvocationHandler(Target<?> target, Map<Method, MethodHandler> dispatch) {
-		this.target = checkNotNull(target, "target");
-		this.dispatch = checkNotNull(dispatch, "dispatch");
-	}
+    HerodotusSentinelInvocationHandler(Target<?> target, Map<Method, MethodHandler> dispatch) {
+        this.target = checkNotNull(target, "target");
+        this.dispatch = checkNotNull(dispatch, "dispatch");
+    }
 
-	@Override
-	public Object invoke(final Object proxy, final Method method, final Object[] args)
-			throws Throwable {
-		if ("equals".equals(method.getName())) {
-			try {
-				Object otherHandler = args.length > 0 && args[0] != null
-						? Proxy.getInvocationHandler(args[0])
-						: null;
-				return equals(otherHandler);
-			}
-			catch (IllegalArgumentException e) {
-				return false;
-			}
-		}
-		else if ("hashCode".equals(method.getName())) {
-			return hashCode();
-		}
-		else if ("toString".equals(method.getName())) {
-			return toString();
-		}
+    static Map<Method, Method> toFallbackMethod(Map<Method, MethodHandler> dispatch) {
+        Map<Method, Method> result = new LinkedHashMap<>();
+        for (Method method : dispatch.keySet()) {
+            method.setAccessible(true);
+            result.put(method, method);
+        }
+        return result;
+    }
 
-		Object result;
-		MethodHandler methodHandler = this.dispatch.get(method);
-		// only handle by HardCodedTarget
-		if (target instanceof Target.HardCodedTarget hardCodedTarget) {
-			MethodMetadata methodMetadata = SentinelContractHolder.METADATA_MAP
-					.get(hardCodedTarget.type().getName()
-							+ Feign.configKey(hardCodedTarget.type(), method));
-			// resource default is HttpMethod:protocol://url
-			if (methodMetadata == null) {
-				result = methodHandler.invoke(args);
-			}
-			else {
-				String resourceName = methodMetadata.template().method().toUpperCase()
-						+ ":" + hardCodedTarget.url() + methodMetadata.template().path();
-				Entry entry = null;
-				try {
-					ContextUtil.enter(resourceName);
-					entry = SphU.entry(resourceName, EntryType.OUT, 1, args);
-					result = methodHandler.invoke(args);
-				}
-				catch (Throwable ex) {
-					// fallback handle
-					if (!BlockException.isBlockException(ex)) {
-						Tracer.traceEntry(ex, entry);
-					}
-					if (fallbackFactory != null) {
-						try {
-							Object fallbackResult = fallbackMethodMap.get(method)
-									.invoke(fallbackFactory.create(ex), args);
-							return fallbackResult;
-						}
-						catch (IllegalAccessException e) {
-							// shouldn't happen as method is public due to being an
-							// interface
-							throw new AssertionError(e);
-						}
-						catch (InvocationTargetException e) {
-							throw new AssertionError(e.getCause());
-						}
-					}
-					else {
-						// throw exception if fallbackFactory is null
-						throw ex;
-					}
-				}
-				finally {
-					if (entry != null) {
-						entry.exit(1, args);
-					}
-					ContextUtil.exit();
-				}
-			}
-		}
-		else {
-			// other target type using default strategy
-			result = methodHandler.invoke(args);
-		}
+    @Override
+    public Object invoke(final Object proxy, final Method method, final Object[] args)
+            throws Throwable {
+        if ("equals".equals(method.getName())) {
+            try {
+                Object otherHandler = args.length > 0 && args[0] != null
+                        ? Proxy.getInvocationHandler(args[0])
+                        : null;
+                return equals(otherHandler);
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
+        } else if ("hashCode".equals(method.getName())) {
+            return hashCode();
+        } else if ("toString".equals(method.getName())) {
+            return toString();
+        }
 
-		return result;
-	}
+        Object result;
+        MethodHandler methodHandler = this.dispatch.get(method);
+        // only handle by HardCodedTarget
+        if (target instanceof Target.HardCodedTarget hardCodedTarget) {
+            MethodMetadata methodMetadata = SentinelContractHolder.METADATA_MAP
+                    .get(hardCodedTarget.type().getName()
+                            + Feign.configKey(hardCodedTarget.type(), method));
+            // resource default is HttpMethod:protocol://url
+            if (methodMetadata == null) {
+                result = methodHandler.invoke(args);
+            } else {
+                String resourceName = methodMetadata.template().method().toUpperCase()
+                        + ":" + hardCodedTarget.url() + methodMetadata.template().path();
+                Entry entry = null;
+                try {
+                    ContextUtil.enter(resourceName);
+                    entry = SphU.entry(resourceName, EntryType.OUT, 1, args);
+                    result = methodHandler.invoke(args);
+                } catch (Throwable ex) {
+                    // fallback handle
+                    if (!BlockException.isBlockException(ex)) {
+                        Tracer.traceEntry(ex, entry);
+                    }
+                    if (fallbackFactory != null) {
+                        try {
+                            Object fallbackResult = fallbackMethodMap.get(method)
+                                    .invoke(fallbackFactory.create(ex), args);
+                            return fallbackResult;
+                        } catch (IllegalAccessException e) {
+                            // shouldn't happen as method is public due to being an
+                            // interface
+                            throw new AssertionError(e);
+                        } catch (InvocationTargetException e) {
+                            throw new AssertionError(e.getCause());
+                        }
+                    } else {
+                        // throw exception if fallbackFactory is null
+                        throw ex;
+                    }
+                } finally {
+                    if (entry != null) {
+                        entry.exit(1, args);
+                    }
+                    ContextUtil.exit();
+                }
+            }
+        } else {
+            // other target type using default strategy
+            result = methodHandler.invoke(args);
+        }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof HerodotusSentinelInvocationHandler sentinelInvocationHandler) {
-			return target.equals(sentinelInvocationHandler.target);
-		}
-		return false;
-	}
+        return result;
+    }
 
-	@Override
-	public int hashCode() {
-		return target.hashCode();
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof HerodotusSentinelInvocationHandler sentinelInvocationHandler) {
+            return target.equals(sentinelInvocationHandler.target);
+        }
+        return false;
+    }
 
-	@Override
-	public String toString() {
-		return target.toString();
-	}
+    @Override
+    public int hashCode() {
+        return target.hashCode();
+    }
 
-	static Map<Method, Method> toFallbackMethod(Map<Method, MethodHandler> dispatch) {
-		Map<Method, Method> result = new LinkedHashMap<>();
-		for (Method method : dispatch.keySet()) {
-			method.setAccessible(true);
-			result.put(method, method);
-		}
-		return result;
-	}
+    @Override
+    public String toString() {
+        return target.toString();
+    }
 
 }

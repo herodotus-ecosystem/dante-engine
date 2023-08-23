@@ -40,12 +40,12 @@ public class VerificationCodeStampManager extends AbstractStampManager<String, S
 
     private SmsProperties smsProperties;
 
-    public void setSmsProperties(SmsProperties smsProperties) {
-        this.smsProperties = smsProperties;
-    }
-
     public VerificationCodeStampManager() {
         super(SmsConstants.CACHE_NAME_TOKEN_VERIFICATION_CODE);
+    }
+
+    public void setSmsProperties(SmsProperties smsProperties) {
+        this.smsProperties = smsProperties;
     }
 
     @Override

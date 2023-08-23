@@ -85,13 +85,13 @@ public abstract class AbstractUserDetailsAuthenticationProvider extends Abstract
         return (EnhanceUserDetailsService) userDetailsService;
     }
 
+    protected PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
         Assert.notNull(passwordEncoder, "passwordEncoder cannot be null");
         this.passwordEncoder = passwordEncoder;
-    }
-
-    protected PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
     }
 
     protected abstract void additionalAuthenticationChecks(UserDetails userDetails, Map<String, Object> additionalParameters) throws AuthenticationException;

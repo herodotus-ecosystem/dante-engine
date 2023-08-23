@@ -26,8 +26,8 @@
 package cn.herodotus.engine.oauth2.management.compliance.listener;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
