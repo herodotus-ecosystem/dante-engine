@@ -103,7 +103,6 @@
         <!--开源通用工具包-->
         <animated-gif-lib.version>1.4</animated-gif-lib.version>
         <antisamy.version>1.7.3</antisamy.version>
-        <bcprov-jdk15to18.version>1.76</bcprov-jdk15to18.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-fileupload.version>1.5</commons-fileupload.version>
         <commons-text.version>1.10.0</commons-text.version>
@@ -163,18 +162,16 @@
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.1</aliyun-sdk-oss.version>
 
-        <!--以下为 JDK 17 兼容性处理-->
-        <xnio.version>3.8.9.Final</xnio.version>
-        <!--okio 最新版本在 JDK 17 下会出错误-->
-        <okio.version>2.10.0</okio.version>
-
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <git-commit-id-maven-plugin.version>6.0.0</git-commit-id-maven-plugin.version>
+        <bcprov-jdk15to18.version>1.76</bcprov-jdk15to18.version>
+        <bcprov-jdk18on.version>1.76</bcprov-jdk18on.version>
+        <bcpkix-jdk18on.version>1.76</bcpkix-jdk18on.version>
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
         <dom4j.version>2.1.4</dom4j.version>
-<!--        <snakeyaml.version>2.0</snakeyaml.version>-->
+        <snakeyaml.version>2.1</snakeyaml.version>
         <sqlite-jdbc.version>3.42.0.0</sqlite-jdbc.version>
         <snappy-java.version>1.1.10.3</snappy-java.version>
 
@@ -853,21 +850,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.jboss.xnio</groupId>
-                <artifactId>xnio-nio</artifactId>
-                <version>${xnio.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.xnio</groupId>
-                <artifactId>xnio-api</artifactId>
-                <version>${xnio.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okio</groupId>
-                <artifactId>okio</artifactId>
-                <version>${okio.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.xerial.snappy</groupId>
                 <artifactId>snappy-java</artifactId>
                 <version>${snappy-java.version}</version>
@@ -881,6 +863,16 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>${bcpkix-jdk15on.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>${bcprov-jdk18on.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk18on</artifactId>
+                <version>${bcpkix-jdk18on.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.dom4j</groupId>

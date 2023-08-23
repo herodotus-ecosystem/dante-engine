@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.client.configuration;
+package cn.herodotus.engine.rest.server.autoconfigure.client;
 
 import cn.herodotus.engine.rest.client.feign.FeignErrorDecoder;
 import cn.herodotus.engine.rest.client.feign.FeignInnerContract;
@@ -50,9 +50,9 @@ import java.util.concurrent.TimeUnit;
  * @see <a href="https://blog.csdn.net/ttzommed/article/details/90669320">参考文档</a>
  */
 @AutoConfiguration
-public class FeignConfiguration {
+public class FeignAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(FeignConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(FeignAutoConfiguration.class);
 
     @Bean
     @ConditionalOnMissingBean

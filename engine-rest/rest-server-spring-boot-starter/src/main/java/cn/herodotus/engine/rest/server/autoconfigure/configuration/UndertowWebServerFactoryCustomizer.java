@@ -23,31 +23,40 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.server.autoconfigure;
+package cn.herodotus.engine.rest.server.autoconfigure.configuration;
 
-import cn.herodotus.engine.rest.server.configuration.UndertowWebServerFactoryCustomizer;
+import io.undertow.server.DefaultByteBufferPool;
+import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: Web 自动配置 </p>
+ * <p>Description: Undertow 配置解决 启动的一个WARN问题 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/14 15:43
+ * @date : 2019/11/17 16:07
  */
 @Configuration(proxyBeanMethods = false)
-@Import({
-        UndertowWebServerFactoryCustomizer.class,
-})
-public class AutoConfiguration {
+public class UndertowWebServerFactoryCustomizer implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(UndertowWebServerFactoryCustomizer.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Rest Server Starter] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Undertow WebServer Factory Customizer] Auto Configure.");
+    }
+
+    @Override
+    public void customize(UndertowServletWebServerFactory factory) {
+
+        factory.addDeploymentInfoCustomizers(deploymentInfo -> {
+            WebSocketDeploymentInfo webSocketDeploymentInfo = new WebSocketDeploymentInfo();
+            webSocketDeploymentInfo.setBuffers(new DefaultByteBufferPool(false, 1024));
+            deploymentInfo.addServletContextAttribute(WebSocketDeploymentInfo.ATTRIBUTE_NAME, webSocketDeploymentInfo);
+        });
     }
 }

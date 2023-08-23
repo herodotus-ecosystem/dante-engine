@@ -23,45 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.autoconfigure.protect;
+package cn.herodotus.engine.rest.server.autoconfigure;
 
-import cn.herodotus.engine.rest.autoconfigure.protect.jackson2.Jackson2XssObjectMapperBuilderCustomizer;
-import cn.herodotus.engine.rest.protect.configuration.HttpCryptoConfiguration;
-import cn.herodotus.engine.rest.protect.configuration.SecureConfiguration;
-import cn.herodotus.engine.rest.protect.configuration.TenantConfiguration;
+import cn.herodotus.engine.rest.server.autoconfigure.configuration.UndertowWebServerFactoryCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: Rest 保护模块配置 </p>
+ * <p>Description: Web 自动配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/12/23 21:28
+ * @date : 2022/1/14 15:43
  */
 @AutoConfiguration
 @Import({
-        HttpCryptoConfiguration.class,
-        SecureConfiguration.class,
-        TenantConfiguration.class
+        UndertowWebServerFactoryCustomizer.class,
 })
-public class RestProtectAutoConfiguration {
+public class RestServerAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(RestProtectAutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(RestServerAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Rest Protect] Auto Configure.");
-    }
-
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer xssObjectMapperBuilderCustomizer() {
-        Jackson2XssObjectMapperBuilderCustomizer customizer = new Jackson2XssObjectMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Strategy [Jackson2 Xss ObjectMapper Builder Customizer] Auto Configure.");
-        return customizer;
+        log.info("[Herodotus] |- Module [Rest Server Starter] Auto Configure.");
     }
 }

@@ -25,10 +25,13 @@
 
 package cn.herodotus.engine.rest.autoconfigure;
 
+import cn.herodotus.engine.rest.autoconfigure.jackson2.Jackson2XssObjectMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
 
 /**
  * <p>Description: Rest 自动注入 </p>
@@ -43,6 +46,13 @@ public class RestAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Rest Starter] Auto Configure.");
+        log.info("[Herodotus] |- Module [Rest Starter] Auto Configure.");
+    }
+
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer xssObjectMapperBuilderCustomizer() {
+        Jackson2XssObjectMapperBuilderCustomizer customizer = new Jackson2XssObjectMapperBuilderCustomizer();
+        log.trace("[Herodotus] |- Strategy [Jackson2 Xss ObjectMapper Builder Customizer] Auto Configure.");
+        return customizer;
     }
 }

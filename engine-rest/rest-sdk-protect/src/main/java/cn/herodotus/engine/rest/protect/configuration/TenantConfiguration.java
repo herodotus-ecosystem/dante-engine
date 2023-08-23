@@ -29,9 +29,9 @@ import cn.herodotus.engine.rest.protect.tenant.MultiTenantInterceptor;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * <p>Description: 租户请求拦截配置 </p>
@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Configuration;
  * @author : gengwei.zheng
  * @date : 2022/9/6 11:48
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class TenantConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(TenantConfiguration.class);

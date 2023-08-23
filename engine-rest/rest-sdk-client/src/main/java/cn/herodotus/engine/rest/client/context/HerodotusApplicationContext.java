@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.context;
+package cn.herodotus.engine.rest.client.context;
 
 import cn.herodotus.engine.assistant.core.context.PropertyFinder;
 import cn.herodotus.engine.assistant.core.context.ServiceContext;

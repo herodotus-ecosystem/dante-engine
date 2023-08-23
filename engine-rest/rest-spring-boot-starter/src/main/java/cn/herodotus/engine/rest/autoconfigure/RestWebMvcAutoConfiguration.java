@@ -25,14 +25,17 @@
 
 package cn.herodotus.engine.rest.autoconfigure;
 
+import cn.herodotus.engine.rest.protect.configuration.SecureConfiguration;
+import cn.herodotus.engine.rest.protect.configuration.TenantConfiguration;
 import cn.herodotus.engine.rest.protect.secure.interceptor.AccessLimitedInterceptor;
 import cn.herodotus.engine.rest.protect.secure.interceptor.IdempotentInterceptor;
 import cn.herodotus.engine.rest.protect.tenant.MultiTenantInterceptor;
+import cn.herodotus.engine.rest.scan.annotation.EnableHerodotusRestScan;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -46,6 +49,11 @@ import org.springframework.web.servlet.resource.WebJarsResourceResolver;
  * @date : 2020/3/4 11:00
  */
 @AutoConfiguration
+@Import({
+        SecureConfiguration.class,
+        TenantConfiguration.class
+})
+@EnableHerodotusRestScan
 @EnableWebMvc
 public class RestWebMvcAutoConfiguration implements WebMvcConfigurer {
 
@@ -55,7 +63,6 @@ public class RestWebMvcAutoConfiguration implements WebMvcConfigurer {
     private final AccessLimitedInterceptor accessLimitedInterceptor;
     private final MultiTenantInterceptor multiTenantInterceptor;
 
-    @Autowired
     public RestWebMvcAutoConfiguration(IdempotentInterceptor idempotentInterceptor, AccessLimitedInterceptor accessLimitedInterceptor, MultiTenantInterceptor multiTenantInterceptor) {
         this.idempotentInterceptor = idempotentInterceptor;
         this.accessLimitedInterceptor = accessLimitedInterceptor;
@@ -64,7 +71,7 @@ public class RestWebMvcAutoConfiguration implements WebMvcConfigurer {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- SDK [Rest Web] Auto Configure.");
+        log.info("[Herodotus] |- Module [Rest WebMvc] Auto Configure.");
     }
 
     @Override

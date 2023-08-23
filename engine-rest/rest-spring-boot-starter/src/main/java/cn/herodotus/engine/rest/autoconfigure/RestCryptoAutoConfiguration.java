@@ -25,14 +25,15 @@
 
 package cn.herodotus.engine.rest.autoconfigure;
 
+import cn.herodotus.engine.rest.protect.configuration.HttpCryptoConfiguration;
 import cn.herodotus.engine.rest.protect.crypto.enhance.DecryptRequestParamMapResolver;
 import cn.herodotus.engine.rest.protect.crypto.enhance.DecryptRequestParamResolver;
 import com.google.common.collect.Lists;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.web.method.annotation.RequestParamMapMethodArgumentResolver;
 import org.springframework.web.method.annotation.RequestParamMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -47,6 +48,9 @@ import java.util.List;
  * @date : 2022/5/31 9:48
  */
 @AutoConfiguration
+@Import({
+        HttpCryptoConfiguration.class
+})
 public class RestCryptoAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(RestWebMvcAutoConfiguration.class);
@@ -54,7 +58,6 @@ public class RestCryptoAutoConfiguration {
     private final DecryptRequestParamResolver decryptRequestParamResolver;
     private final DecryptRequestParamMapResolver decryptRequestParamMapResolver;
 
-    @Autowired
     public RestCryptoAutoConfiguration(RequestMappingHandlerAdapter requestMappingHandlerAdapter, DecryptRequestParamResolver decryptRequestParamResolver, DecryptRequestParamMapResolver decryptRequestParamMapResolver) {
         this.requestMappingHandlerAdapter = requestMappingHandlerAdapter;
         this.decryptRequestParamResolver = decryptRequestParamResolver;
@@ -63,7 +66,7 @@ public class RestCryptoAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- SDK [Rest Crypto] Auto Configure.");
+        log.info("[Herodotus] |- Module [Rest Crypto] Auto Configure.");
 
         List<HandlerMethodArgumentResolver> unmodifiableList = requestMappingHandlerAdapter.getArgumentResolvers();
         List<HandlerMethodArgumentResolver> list = Lists.newArrayList();

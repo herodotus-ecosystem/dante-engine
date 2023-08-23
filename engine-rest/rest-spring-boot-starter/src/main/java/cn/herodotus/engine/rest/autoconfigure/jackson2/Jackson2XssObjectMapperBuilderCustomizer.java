@@ -23,40 +23,45 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.server.configuration;
+package cn.herodotus.engine.rest.autoconfigure.jackson2;
 
-import io.undertow.server.DefaultByteBufferPool;
-import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
-import jakarta.annotation.PostConstruct;
+import cn.herodotus.engine.assistant.autoconfigure.jackson2.BaseObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2CustomizerOrder;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.stereotype.Component;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * <p>Description: Undertow 配置解决 启动的一个WARN问题 </p>
+ * <p>Description: Jackson Xss Customizer </p>
  *
  * @author : gengwei.zheng
- * @date : 2019/11/17 16:07
+ * @date : 2023/4/29 16:30
  */
-@Component
-public class UndertowWebServerFactoryCustomizer implements WebServerFactoryCustomizer<UndertowServletWebServerFactory> {
+public class Jackson2XssObjectMapperBuilderCustomizer implements BaseObjectMapperBuilderCustomizer {
 
-    private static final Logger log = LoggerFactory.getLogger(UndertowWebServerFactoryCustomizer.class);
+    private static final Logger log = LoggerFactory.getLogger(Jackson2XssObjectMapperBuilderCustomizer.class);
 
-    @PostConstruct
-    public void postConstruct() {
-        log.debug("[Herodotus] |- Plugin [Undertow WebServer Factory Customizer] Auto Configure.");
+    @Override
+    public void customize(Jackson2ObjectMapperBuilder builder) {
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addDeserializer(String.class, new XssStringJsonDeserializer());
+
+        builder.modulesToInstall(modules -> {
+            List<Module> install = new ArrayList<>(modules);
+            install.add(simpleModule);
+            builder.modulesToInstall(toArray(install));
+        });
+
+        log.debug("[Herodotus] |- XSS ObjectMapper custom configuration execution is completed.");
     }
 
     @Override
-    public void customize(UndertowServletWebServerFactory factory) {
-
-        factory.addDeploymentInfoCustomizers(deploymentInfo -> {
-            WebSocketDeploymentInfo webSocketDeploymentInfo = new WebSocketDeploymentInfo();
-            webSocketDeploymentInfo.setBuffers(new DefaultByteBufferPool(false, 1024));
-            deploymentInfo.addServletContextAttribute(WebSocketDeploymentInfo.ATTRIBUTE_NAME, webSocketDeploymentInfo);
-        });
+    public int getOrder() {
+        return Jackson2CustomizerOrder.CUSTOMIZER_XSS;
     }
 }

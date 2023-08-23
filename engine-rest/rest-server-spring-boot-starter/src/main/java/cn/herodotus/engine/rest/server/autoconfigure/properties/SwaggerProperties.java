@@ -23,41 +23,38 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.autoconfigure.protect.jackson2;
+package cn.herodotus.engine.rest.server.autoconfigure.properties;
 
-import cn.herodotus.engine.assistant.core.utils.XssUtils;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
+import cn.herodotus.engine.rest.core.constants.RestConstants;
+import com.google.common.base.MoreObjects;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * <p>Description: Xss Json 处理 </p>
+ * <p>Description: Swagger 自定义配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/30 23:58
+ * @date : 2023/5/9 18:45
  */
-public class XssStringJsonDeserializer extends JsonDeserializer<String> {
+@ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_SWAGGER)
+public class SwaggerProperties {
 
-    private static final Logger log = LoggerFactory.getLogger(XssStringJsonDeserializer.class);
+    /**
+     * 是否开启Swagger
+     */
+    private Boolean enabled;
 
-    @Override
-    public Class<String> handledType() {
-        return String.class;
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
-    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        String value = jsonParser.getValueAsString();
-        if (StringUtils.isNotBlank(value)) {
-            return XssUtils.cleaning(value);
-        }
-
-        return value;
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("enabled", enabled)
+                .toString();
     }
 }

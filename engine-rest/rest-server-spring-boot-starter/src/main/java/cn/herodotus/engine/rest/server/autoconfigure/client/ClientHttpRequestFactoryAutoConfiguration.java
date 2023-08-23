@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.client.configuration;
+package cn.herodotus.engine.rest.server.autoconfigure.client;
 
 import cn.herodotus.engine.rest.client.annotation.ConditionalOnUseHttpClient5RestClient;
 import cn.herodotus.engine.rest.client.annotation.ConditionalOnUseOkHttp3RestClient;
@@ -50,9 +50,9 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
  * @date : 2023/6/15 22:43
  */
 @AutoConfiguration(after = {FeignAutoConfiguration.class})
-public class ClientFactoryConfiguration {
+public class ClientHttpRequestFactoryAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientFactoryConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(ClientHttpRequestFactoryAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {

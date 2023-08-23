@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.rest.client.processor;
 
+import cn.herodotus.engine.rest.client.context.HerodotusApplicationContext;
 import cn.herodotus.engine.rest.client.definition.OpenApiServerResolver;
-import cn.herodotus.engine.rest.core.context.HerodotusApplicationContext;
 import com.google.common.collect.ImmutableList;
 import io.swagger.v3.oas.models.servers.Server;
 

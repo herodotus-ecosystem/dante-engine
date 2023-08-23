@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.client.configuration;
+package cn.herodotus.engine.rest.server.autoconfigure.client;
 
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -44,10 +44,10 @@ import java.io.IOException;
  * @author : gengwei.zheng
  * @date : 2020/5/29 17:32
  */
-@AutoConfiguration(after = ClientFactoryConfiguration.class)
-public class RestTemplateConfiguration {
+@AutoConfiguration(after = ClientHttpRequestFactoryAutoConfiguration.class)
+public class RestTemplateAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(RestTemplateConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(RestTemplateAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {

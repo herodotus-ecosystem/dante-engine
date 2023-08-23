@@ -23,38 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.client.properties;
+package cn.herodotus.engine.rest.scan.annotation;
 
-import cn.herodotus.engine.rest.core.constants.RestConstants;
-import com.google.common.base.MoreObjects;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import cn.herodotus.engine.rest.scan.configuration.RestScanConfiguration;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: Swagger 自定义配置 </p>
+ * <p>Description: 手动开启 Rest Secure </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/9 18:45
+ * @date : 2022/1/19 23:41
  */
-@ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_SWAGGER)
-public class SwaggerProperties {
-
-    /**
-     * 是否开启Swagger
-     */
-    private Boolean enabled;
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("enabled", enabled)
-                .toString();
-    }
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Import(RestScanConfiguration.class)
+public @interface EnableHerodotusRestScan {
 }
