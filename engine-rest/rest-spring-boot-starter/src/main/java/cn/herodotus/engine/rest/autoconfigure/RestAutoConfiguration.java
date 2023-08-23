@@ -23,31 +23,26 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.autoconfigure;
+package cn.herodotus.engine.rest.autoconfigure;
 
 import jakarta.annotation.PostConstruct;
-import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 /**
- * <p>Description: Definition 自动配置 </p>
+ * <p>Description: Rest 自动注入 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/13 20:00
+ * @date : 2022/1/19 23:16
  */
-@Configuration(proxyBeanMethods = false)
-@Import({
-        SpringUtil.class
-})
-public class AutoConfiguration {
+@AutoConfiguration
+public class RestAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(AutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(RestAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Starter [Assistant Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Rest Starter] Auto Configure.");
     }
 }

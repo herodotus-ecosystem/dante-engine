@@ -59,9 +59,9 @@ import java.io.IOException;
 @AutoConfiguration
 @ConditionalOnRedissonEnabled
 @EnableConfigurationProperties(RedissonProperties.class)
-public class RedissonConfiguration {
+public class CacheRedissonAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(RedissonConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheRedissonAutoConfiguration.class);
 
     @Autowired
     private RedissonProperties redissonProperties;

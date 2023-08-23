@@ -23,22 +23,20 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.configuration;
+package cn.herodotus.engine.rest.autoconfigure;
 
 import cn.herodotus.engine.rest.protect.secure.interceptor.AccessLimitedInterceptor;
 import cn.herodotus.engine.rest.protect.secure.interceptor.IdempotentInterceptor;
 import cn.herodotus.engine.rest.protect.tenant.MultiTenantInterceptor;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import jakarta.annotation.PostConstruct;
-import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.resource.WebJarsResourceResolver;
 
 /**
@@ -47,18 +45,18 @@ import org.springframework.web.servlet.resource.WebJarsResourceResolver;
  * @author : gengwei.zheng
  * @date : 2020/3/4 11:00
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableWebMvc
-public class RestWebMvcConfiguration implements WebMvcConfigurer {
+public class RestWebMvcAutoConfiguration implements WebMvcConfigurer {
 
-    private static final Logger log = LoggerFactory.getLogger(RestWebMvcConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(RestWebMvcAutoConfiguration.class);
 
     private final IdempotentInterceptor idempotentInterceptor;
     private final AccessLimitedInterceptor accessLimitedInterceptor;
     private final MultiTenantInterceptor multiTenantInterceptor;
 
     @Autowired
-    public RestWebMvcConfiguration(IdempotentInterceptor idempotentInterceptor, AccessLimitedInterceptor accessLimitedInterceptor, MultiTenantInterceptor multiTenantInterceptor) {
+    public RestWebMvcAutoConfiguration(IdempotentInterceptor idempotentInterceptor, AccessLimitedInterceptor accessLimitedInterceptor, MultiTenantInterceptor multiTenantInterceptor) {
         this.idempotentInterceptor = idempotentInterceptor;
         this.accessLimitedInterceptor = accessLimitedInterceptor;
         this.multiTenantInterceptor = multiTenantInterceptor;

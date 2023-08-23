@@ -23,29 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.json.jackson2;
+package cn.herodotus.engine.assistant.autoconfigure;
 
-import com.fasterxml.jackson.databind.Module;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.core.Ordered;
-
-import java.util.List;
+import jakarta.annotation.PostConstruct;
+import org.dromara.hutool.extra.spring.SpringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: 提取公共操作 </p>
+ * <p>Description: Definition 自动配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/29 17:09
+ * @date : 2022/1/13 20:00
  */
-public interface BaseObjectMapperBuilderCustomizer extends Jackson2ObjectMapperBuilderCustomizer, Ordered {
+@AutoConfiguration
+@Import({
+        SpringUtil.class
+})
+public class AssistantAutoConfiguration {
 
-    default Module[] toArray(List<Module> modules) {
-        if (CollectionUtils.isNotEmpty(modules)) {
-            Module[] temps = new Module[modules.size()];
-            return modules.toArray(temps);
-        } else {
-            return new Module[]{};
-        }
+    private static final Logger log = LoggerFactory.getLogger(AssistantAutoConfiguration.class);
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("[Herodotus] |- Module [Assistant] Auto Configure.");
     }
 }

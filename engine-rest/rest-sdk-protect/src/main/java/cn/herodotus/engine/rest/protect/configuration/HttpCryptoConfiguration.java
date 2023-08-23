@@ -65,7 +65,7 @@ public class HttpCryptoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public HttpCryptoProcessor interfaceCryptoProcessor(AsymmetricCryptoProcessor asymmetricCryptoProcessor, SymmetricCryptoProcessor symmetricCryptoProcessor) {
+    public HttpCryptoProcessor httpCryptoProcessor(AsymmetricCryptoProcessor asymmetricCryptoProcessor, SymmetricCryptoProcessor symmetricCryptoProcessor) {
         HttpCryptoProcessor httpCryptoProcessor = new HttpCryptoProcessor(asymmetricCryptoProcessor, symmetricCryptoProcessor);
         log.trace("[Herodotus] |- Bean [Interface Crypto Processor] Auto Configure.");
         return httpCryptoProcessor;
