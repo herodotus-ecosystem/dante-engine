@@ -1,1 +1,1 @@
-cn.herodotus.engine.message.security.autoconfigure.AutoConfiguration
+cn.herodotus.engine.message.security.autoconfigure.MessageSecurityAutoConfiguration

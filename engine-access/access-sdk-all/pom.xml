@@ -56,7 +56,7 @@
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>sms-sdk-all</artifactId>
+            <artifactId>sms-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

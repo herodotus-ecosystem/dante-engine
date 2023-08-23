@@ -1,2 +1,2 @@
-cn.herodotus.engine.facility.tencent.autoconfigure.AutoConfiguration
-cn.herodotus.engine.facility.core.configuration.FacilityLogConfiguration
+cn.herodotus.engine.facility.tencent.autoconfigure.FacilityTencentAutoConfiguration
+cn.herodotus.engine.facility.core.configuration.FacilityLogAutoConfiguration

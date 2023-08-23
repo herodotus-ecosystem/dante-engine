@@ -1,2 +1,2 @@
-cn.herodotus.engine.facility.original.autoconfigure.AutoConfiguration
-cn.herodotus.engine.facility.core.configuration.FacilityLogConfiguration
+cn.herodotus.engine.facility.original.autoconfigure.OriginalAutoConfiguration
+cn.herodotus.engine.facility.core.configuration.FacilityLogAutoConfiguration
