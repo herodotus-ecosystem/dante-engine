@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.converter;
 
-import cn.herodotus.engine.rest.core.domain.RequestMapping;
+import cn.herodotus.engine.message.core.domain.RequestMapping;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysInterface;
 import org.springframework.core.convert.converter.Converter;
 

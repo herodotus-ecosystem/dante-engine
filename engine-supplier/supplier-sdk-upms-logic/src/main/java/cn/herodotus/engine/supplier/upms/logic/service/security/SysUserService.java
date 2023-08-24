@@ -32,10 +32,10 @@ import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.domain.SocialUserDetails;
 import cn.herodotus.engine.oauth2.core.utils.SecurityUtils;
+import cn.herodotus.engine.supplier.upms.logic.converter.SysUserToHerodotusUserConverter;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysDefaultRole;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysRole;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysUser;
-import cn.herodotus.engine.supplier.upms.logic.helper.UpmsHelper;
 import cn.herodotus.engine.supplier.upms.logic.repository.security.SysUserRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -43,6 +43,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -59,12 +60,15 @@ public class SysUserService extends BaseService<SysUser, String> {
 
     private static final Logger log = LoggerFactory.getLogger(SysUserService.class);
 
+    private final Converter<SysUser, HerodotusUser> toUser;
+
     private final SysUserRepository sysUserRepository;
     private final SysDefaultRoleService sysDefaultRoleService;
 
     public SysUserService(SysUserRepository sysUserRepository, SysDefaultRoleService sysDefaultRoleService) {
         this.sysUserRepository = sysUserRepository;
         this.sysDefaultRoleService = sysDefaultRoleService;
+        this.toUser = new SysUserToHerodotusUserConverter();
     }
 
     @Override
@@ -167,7 +171,7 @@ public class SysUserService extends BaseService<SysUser, String> {
 
     public HerodotusUser registerUserDetails(SocialUserDetails socialUserDetails) {
         SysUser newSysUser = register(socialUserDetails);
-        return UpmsHelper.convertSysUserToHerodotusUser(newSysUser);
+        return toUser.convert(newSysUser);
     }
 
     public void changeStatus(String userId, DataItemStatus status) {

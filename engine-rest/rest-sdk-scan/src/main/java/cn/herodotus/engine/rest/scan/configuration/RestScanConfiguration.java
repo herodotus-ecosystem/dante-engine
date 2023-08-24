@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.rest.scan.configuration;
 
+import cn.herodotus.engine.message.core.definition.RequestMappingScanEventManager;
 import cn.herodotus.engine.rest.scan.annotation.ConditionalOnScanEnabled;
-import cn.herodotus.engine.rest.scan.definition.RequestMappingScanManager;
 import cn.herodotus.engine.rest.scan.processor.RequestMappingScanner;
 import cn.herodotus.engine.rest.scan.properties.RestScanProperties;
 import jakarta.annotation.PostConstruct;
@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Bean;
  * @author : gengwei.zheng
  * @date : 2022/1/16 18:40
  */
-@AutoConfiguration(after = {RequestMappingScanManager.class})
+@AutoConfiguration(after = {RequestMappingScanEventManager.class})
 @ConditionalOnScanEnabled
 @EnableConfigurationProperties(RestScanProperties.class)
 public class RestScanConfiguration {
@@ -57,7 +57,7 @@ public class RestScanConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public RequestMappingScanner requestMappingScanner(RestScanProperties restScanProperties, RequestMappingScanManager requestMappingScanManager) {
+    public RequestMappingScanner requestMappingScanner(RestScanProperties restScanProperties, RequestMappingScanEventManager requestMappingScanManager) {
         RequestMappingScanner requestMappingScanner = new RequestMappingScanner(restScanProperties, requestMappingScanManager);
         log.trace("[Herodotus] |- Bean [Request Mapping Scanner] Auto Configure.");
         return requestMappingScanner;

@@ -27,7 +27,7 @@ package cn.herodotus.engine.supplier.upms.logic.service.security;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.engine.rest.core.domain.RequestMapping;
+import cn.herodotus.engine.message.core.domain.RequestMapping;
 import cn.herodotus.engine.supplier.upms.logic.converter.RequestMappingToSysInterfaceConverter;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysAttribute;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysInterface;

@@ -1,3 +1,3 @@
-cn.herodotus.engine.cache.autoconfigure.AutoConfiguration
+cn.herodotus.engine.cache.autoconfigure.CacheAutoConfiguration
 cn.herodotus.engine.cache.jetcache.configuration.CacheJetCacheConfiguration
 cn.herodotus.engine.cache.redisson.configuration.CacheRedissonAutoConfiguration

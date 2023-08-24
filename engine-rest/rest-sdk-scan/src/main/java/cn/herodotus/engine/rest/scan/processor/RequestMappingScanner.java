@@ -26,9 +26,9 @@
 package cn.herodotus.engine.rest.scan.processor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.message.core.definition.RequestMappingScanEventManager;
+import cn.herodotus.engine.message.core.domain.RequestMapping;
 import cn.herodotus.engine.rest.core.constants.RestPropertyFinder;
-import cn.herodotus.engine.rest.core.domain.RequestMapping;
-import cn.herodotus.engine.rest.scan.definition.RequestMappingScanManager;
 import cn.herodotus.engine.rest.scan.properties.RestScanProperties;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,11 +66,11 @@ public class RequestMappingScanner implements ApplicationListener<ApplicationRea
     private static final Logger log = LoggerFactory.getLogger(RequestMappingScanner.class);
 
     private final RestScanProperties restProperties;
-    private final RequestMappingScanManager requestMappingScanManager;
+    private final RequestMappingScanEventManager requestMappingScanStrategyEvent;
 
-    public RequestMappingScanner(RestScanProperties restProperties, RequestMappingScanManager requestMappingScanManager) {
+    public RequestMappingScanner(RestScanProperties restProperties, RequestMappingScanEventManager requestMappingScanStrategyEvent) {
         this.restProperties = restProperties;
-        this.requestMappingScanManager = requestMappingScanManager;
+        this.requestMappingScanStrategyEvent = requestMappingScanStrategyEvent;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class RequestMappingScanner implements ApplicationListener<ApplicationRea
         String serviceId = RestPropertyFinder.getApplicationName(applicationContext.getEnvironment());
 
         // 2、只针对有EnableResourceServer注解的微服务进行扫描。如果变为单体架构目前不会用到EnableResourceServer所以增加的了一个Architecture判断
-        if (!requestMappingScanManager.isPerformScan()) {
+        if (!requestMappingScanStrategyEvent.isPerformScan()) {
             // 只扫描资源服务器
             log.warn("[Herodotus] |- Can not found scan annotation in Service [{}], Skip!", serviceId);
             return;
@@ -123,7 +123,7 @@ public class RequestMappingScanner implements ApplicationListener<ApplicationRea
 
         if (CollectionUtils.isNotEmpty(resources)) {
             log.debug("[Herodotus] |- [2] Request mapping scan found [{}] resources in service [{}], go to next stage!", serviceId, resources.size());
-            requestMappingScanManager.process(resources);
+            requestMappingScanStrategyEvent.postProcess(resources);
         } else {
             log.debug("[Herodotus] |- [2] Request mapping scan can not find any resources in service [{}]!", serviceId);
         }

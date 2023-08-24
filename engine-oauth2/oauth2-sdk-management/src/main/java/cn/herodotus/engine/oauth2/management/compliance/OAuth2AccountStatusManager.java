@@ -29,8 +29,8 @@ import cn.herodotus.engine.data.core.enums.DataItemStatus;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
-import cn.herodotus.engine.oauth2.management.compliance.event.AccountStatusChanger;
-import cn.herodotus.engine.rest.core.domain.UserStatus;
+import cn.herodotus.engine.message.core.definition.AccountStatusEventManager;
+import cn.herodotus.engine.message.core.domain.UserStatus;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -50,13 +50,13 @@ public class OAuth2AccountStatusManager {
     private static final Logger log = LoggerFactory.getLogger(OAuth2AccountStatusManager.class);
 
     private final UserDetailsService userDetailsService;
-    private final AccountStatusChanger accountStatusChanger;
+    private final AccountStatusEventManager accountStatusEventManager;
     private final LockedUserDetailsStampManager lockedUserDetailsStampManager;
 
-    public OAuth2AccountStatusManager(UserDetailsService userDetailsService, AccountStatusChanger accountStatusChanger, LockedUserDetailsStampManager lockedUserDetailsStampManager) {
+    public OAuth2AccountStatusManager(UserDetailsService userDetailsService, AccountStatusEventManager accountStatusEventManager, LockedUserDetailsStampManager lockedUserDetailsStampManager) {
         this.userDetailsService = userDetailsService;
         this.lockedUserDetailsStampManager = lockedUserDetailsStampManager;
-        this.accountStatusChanger = accountStatusChanger;
+        this.accountStatusEventManager = accountStatusEventManager;
     }
 
     private EnhanceUserDetailsService getUserDetailsService() {
@@ -77,7 +77,7 @@ public class OAuth2AccountStatusManager {
     public void lock(String username) {
         String userId = getUserId(username);
         if (ObjectUtils.isNotEmpty(userId)) {
-            accountStatusChanger.process(new UserStatus(userId, DataItemStatus.LOCKING.name()));
+            accountStatusEventManager.postProcess(new UserStatus(userId, DataItemStatus.LOCKING.name()));
             lockedUserDetailsStampManager.put(userId, username);
             log.info("[Herodotus] |- User count [{}] has been locked, and record into cache!", username);
         }
@@ -85,7 +85,7 @@ public class OAuth2AccountStatusManager {
 
     public void enable(String userId) {
         if (ObjectUtils.isNotEmpty(userId)) {
-            accountStatusChanger.process(new UserStatus(userId, DataItemStatus.ENABLE.name()));
+            accountStatusEventManager.postProcess(new UserStatus(userId, DataItemStatus.ENABLE.name()));
         }
     }
 

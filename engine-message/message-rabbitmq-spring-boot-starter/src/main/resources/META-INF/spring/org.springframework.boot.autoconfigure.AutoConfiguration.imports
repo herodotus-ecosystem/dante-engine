@@ -1,1 +1,1 @@
-cn.herodotus.engine.message.rabbitmq.autoconfigure.AutoConfiguration
+cn.herodotus.engine.message.rabbitmq.autoconfigure.MessageRabbitmqAutoConfiguration
