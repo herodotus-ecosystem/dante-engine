@@ -29,8 +29,6 @@ import cn.herodotus.engine.oauth2.data.jpa.converter.HerodotusToOAuth2Authorizat
 import cn.herodotus.engine.oauth2.data.jpa.converter.OAuth2ToHerodotusAuthorizationConsentConverter;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationConsentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
@@ -44,8 +42,6 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  */
 public class JpaOAuth2AuthorizationConsentService implements OAuth2AuthorizationConsentService {
 
-    private static final Logger log = LoggerFactory.getLogger(JpaOAuth2AuthorizationConsentService.class);
-
     private final HerodotusAuthorizationConsentService herodotusAuthorizationConsentService;
     private final Converter<HerodotusAuthorizationConsent, OAuth2AuthorizationConsent> herodotusToOAuth2Converter;
     private final Converter<OAuth2AuthorizationConsent, HerodotusAuthorizationConsent> oauth2ToherodotusConverter;
@@ -58,20 +54,17 @@ public class JpaOAuth2AuthorizationConsentService implements OAuth2Authorization
 
     @Override
     public void save(OAuth2AuthorizationConsent authorizationConsent) {
-        log.debug("[Herodotus] |- Jpa OAuth2 Authorization Consent Service save entity.");
         this.herodotusAuthorizationConsentService.save(toEntity(authorizationConsent));
     }
 
     @Override
     public void remove(OAuth2AuthorizationConsent authorizationConsent) {
-        log.debug("[Herodotus] |- Jpa OAuth2 Authorization Consent Service remove entity.");
         this.herodotusAuthorizationConsentService.deleteByRegisteredClientIdAndPrincipalName(
                 authorizationConsent.getRegisteredClientId(), authorizationConsent.getPrincipalName());
     }
 
     @Override
     public OAuth2AuthorizationConsent findById(String registeredClientId, String principalName) {
-        log.debug("[Herodotus] |- Jpa OAuth2 Authorization Consent Service findById.");
         return this.herodotusAuthorizationConsentService.findByRegisteredClientIdAndPrincipalName(
                 registeredClientId, principalName).map(this::toObject).orElse(null);
     }

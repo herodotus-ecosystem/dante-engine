@@ -49,7 +49,6 @@
         <module>sms-sdk-qiniu</module>
         <module>sms-sdk-tencent</module>
         <module>sms-sdk-upyun</module>
-        <module>sms-autoconfigure</module>
         <module>sms-spring-boot-starter</module>
     </modules>
 

@@ -31,8 +31,6 @@ import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
 import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusRegisteredClientService;
 import org.apache.commons.lang3.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -45,8 +43,6 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  * @date : 2022/2/25 21:27
  */
 public class JpaRegisteredClientRepository implements RegisteredClientRepository {
-
-    private static final Logger log = LoggerFactory.getLogger(JpaRegisteredClientRepository.class);
 
     private final HerodotusRegisteredClientService herodotusRegisteredClientService;
     private final Converter<HerodotusRegisteredClient, RegisteredClient> herodotusToOAuth2Converter;
@@ -61,13 +57,11 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
 
     @Override
     public void save(RegisteredClient registeredClient) {
-        log.debug("[Herodotus] |- Jpa Registered Client Repository save entity.");
         this.herodotusRegisteredClientService.save(toEntity(registeredClient));
     }
 
     @Override
     public RegisteredClient findById(String id) {
-        log.debug("[Herodotus] |- Jpa Registered Client Repository findById.");
         HerodotusRegisteredClient herodotusRegisteredClient = this.herodotusRegisteredClientService.findById(id);
         if (ObjectUtils.isNotEmpty(herodotusRegisteredClient)) {
             return toObject(herodotusRegisteredClient);
@@ -77,12 +71,10 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
 
     @Override
     public RegisteredClient findByClientId(String clientId) {
-        log.debug("[Herodotus] |- Jpa Registered Client Repository findByClientId.");
         return this.herodotusRegisteredClientService.findByClientId(clientId).map(this::toObject).orElse(null);
     }
 
     public void remove(String id) {
-        log.debug("[Herodotus] |- Jpa Registered Client Repository remove.");
         this.herodotusRegisteredClientService.deleteById(id);
     }
 

@@ -497,11 +497,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-autoconfigure</artifactId>
-                <version>${dante-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>sms-spring-boot-starter</artifactId>
                 <version>${dante-bom.version}</version>
             </dependency>

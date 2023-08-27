@@ -125,7 +125,6 @@ dante-engine
 ├    ├── rest-server-spring-boot-starter -- 基础 Web Server 配置模块
 ├    └── rest-spring-boot-starter -- Rest 模块统一 Starter(包括通用CRUD代码)
 ├── engine-sms -- 短信接入模块
-├    ├── sms-autoconfigure -- 短信整合自动配置模块
 ├    ├── sms-core -- 短信共性通用代码模块
 ├    ├── sms-sdk-aliyun -- 阿里云短信发送模块
 ├    ├── sms-sdk-chinamobile -- 移动短信发送模块

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * <http://www.apache.org/licenses/LICENSE-2.0>
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,29 +18,27 @@
  * 1.请不要删除和修改根目录下的LICENSE文件。
  * 2.请不要删除和修改 Dante Cloud 源码头部的版权声明。
  * 3.请保留源码和相关描述文件的项目出处，作者声明等。
- * 4.分发源码时候，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
- * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 <https://gitee.com/herodotus/dante-engine>
+ * 4.分发源码时候，请注明软件出处 https://gitee.com/herodotus/dante-engine
+ * 5.在修改包名，模块名称，项目代码等时，请注明软件出处 https://gitee.com/herodotus/dante-engine
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.context;
+package cn.herodotus.engine.cache.redis.annotation;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import org.springframework.core.env.Environment;
+import cn.herodotus.engine.cache.redis.condition.RedisSessionSharingCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: 通用属性读取器 </p>
+ * <p>Description: 基于 Redis Session 共享条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/2/1 18:10
+ * @date : 2022/5/23 22:34
  */
-public class PropertyFinder {
-
-    public static String getApplicationName(Environment environment) {
-        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_APPLICATION_NAME);
-    }
-
-    public static String getSessionStoreType(Environment environment) {
-        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_SESSION_REDIS);
-    }
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(RedisSessionSharingCondition.class)
+public @interface ConditionalOnRedisSessionSharing {
 }
