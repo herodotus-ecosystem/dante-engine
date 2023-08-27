@@ -34,7 +34,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -53,9 +52,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @date : 2022/5/23 17:00
  */
 @Configuration(proxyBeanMethods = false)
-@Import({
-        RedisSessionSharingConfiguration.class
-})
 public class CacheRedisConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(CacheRedisConfiguration.class);

@@ -42,7 +42,6 @@ import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -63,8 +62,11 @@ public class CacheRedissonAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(CacheRedissonAutoConfiguration.class);
 
-    @Autowired
-    private RedissonProperties redissonProperties;
+    private final RedissonProperties redissonProperties;
+
+    public CacheRedissonAutoConfiguration(RedissonProperties redissonProperties) {
+        this.redissonProperties = redissonProperties;
+    }
 
     @PostConstruct
     public void postConstruct() {
@@ -91,10 +93,6 @@ public class CacheRedissonAutoConfiguration {
                 if (StringUtils.endsWithIgnoreCase(configFile.getName(), SymbolConstants.SUFFIX_YAML)) {
                     return Config.fromYAML(configFile);
                 }
-
-                if (StringUtils.endsWithIgnoreCase(configFile.getName(), SymbolConstants.SUFFIX_JSON)) {
-                    return Config.fromJSON(configFile);
-                }
             }
         } catch (IOException e) {
             log.error("[Herodotus] |- Redisson loading the config file error!");
@@ -107,20 +105,20 @@ public class CacheRedissonAutoConfiguration {
         Config config = new Config();
 
         switch (redissonProperties.getMode()) {
-            case CLUSTER:
+            case CLUSTER -> {
                 ClusterServersConfig clusterServersConfig = config.useClusterServers();
                 BeanUtils.copyProperties(redissonProperties.getClusterServersConfig(), clusterServersConfig, ClusterServersConfig.class);
                 redissonProperties.getClusterServersConfig().getNodeAddresses().parallelStream().forEach(clusterServersConfig::addNodeAddress);
-                break;
-            case SENTINEL:
+            }
+            case SENTINEL -> {
                 SentinelServersConfig sentinelServersConfig = config.useSentinelServers();
                 BeanUtils.copyProperties(redissonProperties.getSentinelServersConfig(), sentinelServersConfig, SentinelServersConfig.class);
                 redissonProperties.getSentinelServersConfig().getSentinelAddresses().parallelStream().forEach(sentinelServersConfig::addSentinelAddress);
-                break;
-            default:
+            }
+            default -> {
                 SingleServerConfig singleServerConfig = config.useSingleServer();
                 BeanUtils.copyProperties(redissonProperties.getSingleServerConfig(), singleServerConfig, SingleServerConfig.class);
-                break;
+            }
         }
 
         config.setCodec(new JsonJacksonCodec());
