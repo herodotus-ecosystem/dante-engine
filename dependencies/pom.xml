@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.3.0</version>
+    <version>3.1.3.1</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,7 +84,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.3.0</dante-bom.version>
+        <dante-bom.version>3.1.3.1</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.1.5</spring-boot-admin.version>
@@ -117,7 +117,7 @@
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>8.16.0</skywalking.version>
         <minio.version>8.5.5</minio.version>
-        <aws-java-sdk-s3.version>1.12.533</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.538</aws-java-sdk-s3.version>
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
@@ -129,7 +129,7 @@
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M5</hutool.version>
         <okhttps.version>4.0.1</okhttps.version>
-        <weixin-java-sdk.version>4.5.4.B</weixin-java-sdk.version>
+        <weixin-java-sdk.version>4.5.5.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
 
         <!--第三方starter-->
@@ -154,7 +154,7 @@
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.835</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.838</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
         <alipay-sdk-java.version>4.38.61.ALL</alipay-sdk-java.version>
@@ -171,8 +171,8 @@
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
         <dom4j.version>2.1.4</dom4j.version>
-        <snakeyaml.version>2.1</snakeyaml.version>
-        <sqlite-jdbc.version>3.42.0.0</sqlite-jdbc.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
+        <sqlite-jdbc.version>3.42.0.1</sqlite-jdbc.version>
         <snappy-java.version>1.1.10.3</snappy-java.version>
 
     </properties>
