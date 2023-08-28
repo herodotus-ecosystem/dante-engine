@@ -36,6 +36,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,6 +52,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author : gengwei.zheng
  * @date : 2021/4/4 17:40
  */
+@Component
 public class AccessHandlerStrategyFactory {
 
     private static final Logger log = LoggerFactory.getLogger(AccessHandlerStrategyFactory.class);

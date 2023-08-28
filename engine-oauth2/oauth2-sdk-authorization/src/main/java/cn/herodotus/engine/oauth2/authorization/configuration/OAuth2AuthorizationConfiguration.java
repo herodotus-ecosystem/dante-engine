@@ -61,7 +61,8 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 @EnableConfigurationProperties({OAuth2AuthorizationProperties.class})
 @EnableMethodSecurity(proxyTargetClass = true)
 @Import({
-        SecurityGlobalExceptionHandler.class
+        SecurityGlobalExceptionHandler.class,
+        OAuth2SessionSharingConfiguration.class,
 })
 public class OAuth2AuthorizationConfiguration {
 

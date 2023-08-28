@@ -62,9 +62,9 @@ import org.springframework.context.annotation.Primary;
 @ConditionalOnClass({CacheManager.class})
 @EnableConfigurationProperties(CacheProperties.class)
 @Import({CacheCaffeineConfiguration.class, CacheRedisConfiguration.class})
-public class CacheJetCacheConfiguration {
+public class CacheJetCacheAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(CacheJetCacheConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(CacheJetCacheAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {

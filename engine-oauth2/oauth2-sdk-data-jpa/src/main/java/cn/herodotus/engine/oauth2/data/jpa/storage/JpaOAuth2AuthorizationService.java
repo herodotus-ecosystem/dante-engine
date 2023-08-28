@@ -75,7 +75,6 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     @Override
     public void save(OAuth2Authorization authorization) {
         this.herodotusAuthorizationService.saveAndFlush(toEntity(authorization));
-        log.debug("[Herodotus] |- Jpa OAuth2 Authorization Service save entity.");
     }
 
     @Transactional
@@ -93,7 +92,6 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     public OAuth2Authorization findById(String id) {
         HerodotusAuthorization herodotusAuthorization = this.herodotusAuthorizationService.findById(id);
         if (ObjectUtils.isNotEmpty(herodotusAuthorization)) {
-            log.debug("[Herodotus] |- Jpa OAuth2 Authorization Service findById.");
             return toObject(herodotusAuthorization);
         } else {
             return null;
@@ -140,7 +138,6 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
             result = Optional.empty();
         }
 
-        log.debug("[Herodotus] |- Jpa OAuth2 Authorization Service findByToken.");
         return result.map(this::toObject).orElse(null);
     }
 

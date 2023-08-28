@@ -67,6 +67,14 @@ public class RestClientAutoConfiguration {
         log.debug("[Herodotus] |- Module [Rest Client] Auto Configure.");
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public HerodotusApplicationContext herodotusApplicationContext(ApplicationContext applicationContext, PlatformProperties platformProperties, EndpointProperties endpointProperties, ServerProperties serverProperties) {
+        HerodotusApplicationContext contextHolder = new HerodotusApplicationContext(applicationContext, platformProperties, endpointProperties, serverProperties);
+        log.trace("[Herodotus] |- Bean [Herodotus Context Holder] Auto Configure.");
+        return contextHolder;
+    }
+
     @Configuration(proxyBeanMethods = false)
     @ConditionalOnSwaggerEnabled
     @EnableConfigurationProperties(SwaggerProperties.class)
@@ -79,14 +87,6 @@ public class RestClientAutoConfiguration {
                     )),
     })
     static class OpenApiAutoConfiguration {
-
-        @Bean
-        @ConditionalOnMissingBean
-        public HerodotusApplicationContext herodotusApplicationContext(ApplicationContext applicationContext, PlatformProperties platformProperties, EndpointProperties endpointProperties, ServerProperties serverProperties) {
-            HerodotusApplicationContext contextHolder = new HerodotusApplicationContext(applicationContext, platformProperties, endpointProperties, serverProperties);
-            log.trace("[Herodotus] |- Bean [Herodotus Context Holder] Auto Configure.");
-            return contextHolder;
-        }
 
         @Bean
         @ConditionalOnMissingBean
