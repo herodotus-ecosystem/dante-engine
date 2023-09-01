@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.form;
+package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.captcha.core.dto.Verification;
 import cn.herodotus.engine.captcha.core.exception.CaptchaHasExpiredException;

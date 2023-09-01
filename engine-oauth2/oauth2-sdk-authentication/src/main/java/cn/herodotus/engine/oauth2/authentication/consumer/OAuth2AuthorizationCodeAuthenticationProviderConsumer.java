@@ -23,15 +23,15 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.customizer;
+package cn.herodotus.engine.oauth2.authentication.consumer;
 
-import cn.herodotus.engine.oauth2.authentication.provider.OAuth2ClientCredentialsAuthenticationProvider;
+import cn.herodotus.engine.oauth2.authentication.provider.OAuth2AuthorizationCodeAuthenticationProvider;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2ConfigurerUtils;
-import cn.herodotus.engine.oauth2.core.definition.service.ClientDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.oauth2.core.OAuth2Token;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
@@ -40,34 +40,35 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /**
- * <p>Description: OAuth2ClientCredentialsAuthenticationProvider 扩展 </p>
+ * <p>Description: OAuth2AuthorizationCodeAuthenticationProvider 扩展 </p>
  * <p>
- * 用于替换 SAS 默认配置的 OAuth2ClientCredentialsAuthenticationProvider，以实现功能的扩展
+ * 用于替换 SAS 默认配置的 OAuth2AuthorizationCodeAuthenticationProvider，以实现功能的扩展
  *
  * @author : gengwei.zheng
- * @date : 2023/9/1 14:29
+ * @date : 2023/9/1 11:33
  */
-public class OAuth2ClientCredentialsAuthenticationProviderCustomizer implements Consumer<List<AuthenticationProvider>> {
+public class OAuth2AuthorizationCodeAuthenticationProviderConsumer implements Consumer<List<AuthenticationProvider>> {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2ClientCredentialsAuthenticationProviderCustomizer.class);
+    private static final Logger log = LoggerFactory.getLogger(OAuth2AuthorizationCodeAuthenticationProviderConsumer.class);
 
     private final HttpSecurity httpSecurity;
-    private final ClientDetailsService clientDetailsService;
+    private final SessionRegistry sessionRegistry;
 
-    public OAuth2ClientCredentialsAuthenticationProviderCustomizer(HttpSecurity httpSecurity, ClientDetailsService clientDetailsService) {
+    public OAuth2AuthorizationCodeAuthenticationProviderConsumer(HttpSecurity httpSecurity, SessionRegistry sessionRegistry) {
         this.httpSecurity = httpSecurity;
-        this.clientDetailsService = clientDetailsService;
+        this.sessionRegistry = sessionRegistry;
     }
 
     @Override
     public void accept(List<AuthenticationProvider> authenticationProviders) {
         authenticationProviders.removeIf(authenticationProvider ->
-                authenticationProvider instanceof org.springframework.security.oauth2.server.authorization.authentication.OAuth2ClientCredentialsAuthenticationProvider);
+                authenticationProvider instanceof org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeAuthenticationProvider);
 
         OAuth2AuthorizationService authorizationService = OAuth2ConfigurerUtils.getAuthorizationService(httpSecurity);
         OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator = OAuth2ConfigurerUtils.getTokenGenerator(httpSecurity);
-        OAuth2ClientCredentialsAuthenticationProvider provider = new OAuth2ClientCredentialsAuthenticationProvider(authorizationService, tokenGenerator, clientDetailsService);
-        log.debug("[Herodotus] |- Custom OAuth2ClientCredentialsAuthenticationProvider is in effect!");
+        OAuth2AuthorizationCodeAuthenticationProvider provider = new OAuth2AuthorizationCodeAuthenticationProvider(authorizationService, tokenGenerator);
+        provider.setSessionRegistry(sessionRegistry);
+        log.debug("[Herodotus] |- Custom OAuth2AuthorizationCodeAuthenticationProvider is in effect!");
         authenticationProviders.add(provider);
     }
 }
