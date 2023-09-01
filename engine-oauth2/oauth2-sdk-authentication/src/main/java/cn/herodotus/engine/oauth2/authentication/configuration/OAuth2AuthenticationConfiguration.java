@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.configuration;
 
 import cn.herodotus.engine.oauth2.authentication.customizer.HerodotusJwtTokenCustomizer;
 import cn.herodotus.engine.oauth2.authentication.customizer.HerodotusOpaqueTokenCustomizer;
-import cn.herodotus.engine.oauth2.authentication.form.OAuth2FormLoginConfigurerCustomer;
+import cn.herodotus.engine.oauth2.authentication.customizer.OAuth2FormLoginConfigurerCustomizer;
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
@@ -75,8 +75,8 @@ public class OAuth2AuthenticationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public OAuth2FormLoginConfigurerCustomer oauth2FormLoginConfigurerCustomer(OAuth2AuthenticationProperties authenticationProperties) {
-        OAuth2FormLoginConfigurerCustomer configurer = new OAuth2FormLoginConfigurerCustomer(authenticationProperties);
+    public OAuth2FormLoginConfigurerCustomizer oauth2FormLoginConfigurerCustomer(OAuth2AuthenticationProperties authenticationProperties) {
+        OAuth2FormLoginConfigurerCustomizer configurer = new OAuth2FormLoginConfigurerCustomizer(authenticationProperties);
         log.trace("[Herodotus] |- Bean [OAuth2 FormLogin Configurer Customer] Auto Configure.");
         return configurer;
     }

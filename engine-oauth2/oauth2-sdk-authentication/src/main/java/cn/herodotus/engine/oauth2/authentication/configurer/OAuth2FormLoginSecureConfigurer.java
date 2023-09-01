@@ -23,10 +23,11 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.form;
+package cn.herodotus.engine.oauth2.authentication.configurer;
 
 import cn.herodotus.engine.captcha.core.processor.CaptchaRendererFactory;
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
+import cn.herodotus.engine.oauth2.authentication.provider.OAuth2FormLoginAuthenticationProvider;
 import cn.herodotus.engine.oauth2.authentication.response.OAuth2FormLoginAuthenticationFailureHandler;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.AuthenticationManager;

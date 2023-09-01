@@ -23,8 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.form;
+package cn.herodotus.engine.oauth2.authentication.configurer;
 
+import cn.herodotus.engine.oauth2.authentication.provider.OAuth2FormLoginAuthenticationToken;
 import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

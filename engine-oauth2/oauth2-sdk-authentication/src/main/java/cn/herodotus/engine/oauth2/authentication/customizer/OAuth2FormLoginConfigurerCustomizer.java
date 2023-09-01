@@ -23,29 +23,44 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.authentication.form;
+package cn.herodotus.engine.oauth2.authentication.customizer;
 
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
-import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 
 /**
- * <p>Description: 表单登录 Details 定义 </p>
+ * <p>Description: FormLoginConfigurer 扩展配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/4/12 10:41
+ * @date : 2023/9/1 8:45
  */
-public class OAuth2FormLoginWebAuthenticationDetailSource implements AuthenticationDetailsSource<HttpServletRequest, FormLoginWebAuthenticationDetails> {
+public class OAuth2FormLoginConfigurerCustomizer implements Customizer<FormLoginConfigurer<HttpSecurity>> {
 
     private final OAuth2AuthenticationProperties authenticationProperties;
 
-    public OAuth2FormLoginWebAuthenticationDetailSource(OAuth2AuthenticationProperties authenticationProperties) {
+    public OAuth2FormLoginConfigurerCustomizer(OAuth2AuthenticationProperties authenticationProperties) {
         this.authenticationProperties = authenticationProperties;
     }
 
     @Override
-    public FormLoginWebAuthenticationDetails buildDetails(HttpServletRequest context) {
-        return new FormLoginWebAuthenticationDetails(context, authenticationProperties.getFormLogin().getCloseCaptcha(), authenticationProperties.getFormLogin().getCaptchaParameter(), authenticationProperties.getFormLogin().getCategory());
+    public void customize(FormLoginConfigurer<HttpSecurity> configurer) {
+        configurer
+                .loginPage(getFormLogin().getLoginPageUrl())
+                .usernameParameter(getFormLogin().getUsernameParameter())
+                .passwordParameter(getFormLogin().getPasswordParameter());
+
+        if (StringUtils.isNotBlank(getFormLogin().getFailureForwardUrl())) {
+            configurer.failureForwardUrl(getFormLogin().getFailureForwardUrl());
+        }
+        if (StringUtils.isNotBlank(getFormLogin().getSuccessForwardUrl())) {
+            configurer.successForwardUrl(getFormLogin().getSuccessForwardUrl());
+        }
+    }
+
+    private OAuth2AuthenticationProperties.FormLogin getFormLogin() {
+        return authenticationProperties.getFormLogin();
     }
 }
