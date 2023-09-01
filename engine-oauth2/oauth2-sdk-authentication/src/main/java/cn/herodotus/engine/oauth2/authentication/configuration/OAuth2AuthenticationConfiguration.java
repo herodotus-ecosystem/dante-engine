@@ -25,16 +25,22 @@
 
 package cn.herodotus.engine.oauth2.authentication.configuration;
 
-import cn.herodotus.engine.oauth2.authentication.form.OAuth2FormLoginUrlConfigurer;
+import cn.herodotus.engine.oauth2.authentication.customizer.HerodotusJwtTokenCustomizer;
+import cn.herodotus.engine.oauth2.authentication.customizer.HerodotusOpaqueTokenCustomizer;
+import cn.herodotus.engine.oauth2.authentication.form.OAuth2FormLoginConfigurerCustomer;
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenClaimsContext;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 
 /**
  * <p>Description: OAuth2 认证基础模块配置 </p>
@@ -68,9 +74,24 @@ public class OAuth2AuthenticationConfiguration {
     }
 
     @Bean
-    public OAuth2FormLoginUrlConfigurer auth2FormLoginParameterConfigurer(OAuth2AuthenticationProperties authenticationProperties) {
-        OAuth2FormLoginUrlConfigurer configurer = new OAuth2FormLoginUrlConfigurer(authenticationProperties);
-        log.trace("[Herodotus] |- Bean [OAuth2 FormLogin Parameter Configurer] Auto Configure.");
+    @ConditionalOnMissingBean
+    public OAuth2FormLoginConfigurerCustomer oauth2FormLoginConfigurerCustomer(OAuth2AuthenticationProperties authenticationProperties) {
+        OAuth2FormLoginConfigurerCustomer configurer = new OAuth2FormLoginConfigurerCustomer(authenticationProperties);
+        log.trace("[Herodotus] |- Bean [OAuth2 FormLogin Configurer Customer] Auto Configure.");
         return configurer;
+    }
+
+    @Bean
+    public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
+        HerodotusJwtTokenCustomizer herodotusJwtTokenCustomizer = new HerodotusJwtTokenCustomizer();
+        log.trace("[Herodotus] |- Bean [OAuth2 Jwt Token Customizer] Auto Configure.");
+        return herodotusJwtTokenCustomizer;
+    }
+
+    @Bean
+    public OAuth2TokenCustomizer<OAuth2TokenClaimsContext> opaqueTokenCustomizer() {
+        HerodotusOpaqueTokenCustomizer herodotusOpaqueTokenCustomizer = new HerodotusOpaqueTokenCustomizer();
+        log.trace("[Herodotus] |- Bean [OAuth2 Opaque Token Customizer] Auto Configure.");
+        return herodotusOpaqueTokenCustomizer;
     }
 }

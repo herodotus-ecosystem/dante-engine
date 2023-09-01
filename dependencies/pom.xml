@@ -111,7 +111,7 @@
         <zxing.version>3.5.2</zxing.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.23.3</redisson.version>
+        <redisson.version>3.23.4</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.2.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>

@@ -1,4 +1,4 @@
-<p align="center"><img src="./documents/readme/images/new-logo.png" height="300" width="400" alt="logo"/></p>
+<p align="center"><img src="./readme/images/new-logo.png" height="300" width="400" alt="logo"/></p>
 <h2 align="center">简洁优雅 · 稳定高效 | 宁静致远 · 精益求精 </h2>
 <p align="center">Dante Engine 基于 Spring Boot 3.X， 是 Dante Cloud 微服务架构内核核心组件库，可用于任何 Spring Boot 工程</p>
 
@@ -168,11 +168,12 @@ dante-engine
 
 **Dante Cloud 技术解析高级文档（Cookbook） 专栏（试行）**
 
-| 序号 | 文章标题                          | 付费 | 说明                                                                        | 扫码阅读                                                                   |
-|:--:|-------------------------------|:--:|---------------------------------------------------------------------------|------------------------------------------------------------------------|
-| 1  | Dante Cloud 及相关知识学习方法和学习路径的建议 | 免费 |                                                                           | ![Dante Cloud 及相关知识学习方法和学习路径的建议](./documents/readme/cookbook/0001.png) |
-| 2  | OAuth 2 中的 Scope 与 Role 深度解析  | 付费 | 全网独家，深度解析 OAuth2 协议中和 Spring Security 生态各组件中 Scope 和 Role 概念与原理，以及在实战中的应用 | ![OAuth 2 中的 Scope 与 Role 深度解析](./documents/readme/cookbook/0002.png)  |
-| 3  | Spring Boot 3 之自动配置与注入顺序控制    | 付费 | Spring 生态重要知识点，掌握步入微服务的关键开关                                               | ![Spring Boot 3 之自动配置与注入顺序控制](./documents/readme/cookbook/0003.png)    |
+| 序号 | 文章标题                                                                                |    付费    | 说明                                                                        | 扫码阅读                                                           |
+|:--:|-------------------------------------------------------------------------------------|:--------:|---------------------------------------------------------------------------|----------------------------------------------------------------|
+| 1  | [Dante Cloud 及相关知识学习方法和学习路径的建议](https://www.foxitsoftware.cn/bhds/read/qwcqbq)      |    免费    |                                                                           | ![Dante Cloud 及相关知识学习方法和学习路径的建议](./readme/cookbook/0001.png)   |
+| 2  | [OAuth 2 中的 Scope 与 Role 深度解析](https://www.foxitsoftware.cn/bhds/payRead/3nxj3r/)   | 付费，有试读章节 | 全网独家，深度解析 OAuth2 协议中和 Spring Security 生态各组件中 Scope 和 Role 概念与原理，以及在实战中的应用 | ![OAuth 2 中的 Scope 与 Role 深度解析](./readme/cookbook/0002.png)    |
+| 3  | [Spring Boot 3 之自动配置与注入顺序控制](https://www.foxitsoftware.cn/bhds/payRead/1vzfy1/)     | 付费，有试读章节 | Spring 生态重要知识点，掌握步入微服务的关键开关                                               | ![Spring Boot 3 之自动配置与注入顺序控制](./readme/cookbook/0003.png)      |
+| 4  | [Spring Cloud 之 Session 共享及一致性处理](https://www.foxitsoftware.cn/bhds/payRead/pmq4wy) | 付费，有试读章节 | 深入浅出剖析微服务架构 Session 共享技术难点                                                | ![Spring Cloud 之 Session 共享及一致性处理](./readme/cookbook/0004.png) |
 
 ## 参与贡献
 
