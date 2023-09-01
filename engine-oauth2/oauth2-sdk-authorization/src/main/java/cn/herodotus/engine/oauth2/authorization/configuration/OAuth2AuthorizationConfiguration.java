@@ -27,7 +27,8 @@ package cn.herodotus.engine.oauth2.authorization.configuration;
 
 import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
 import cn.herodotus.engine.oauth2.authorization.auditing.SecurityAuditorAware;
-import cn.herodotus.engine.oauth2.authorization.customizer.HerodotusTokenStrategyConfigurer;
+import cn.herodotus.engine.oauth2.authorization.customizer.OAuth2AuthorizeHttpRequestsConfigurerCustomer;
+import cn.herodotus.engine.oauth2.authorization.customizer.OAuth2ResourceServerConfigurerCustomer;
 import cn.herodotus.engine.oauth2.authorization.listener.RemoteSecurityMetadataSyncListener;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
@@ -62,7 +63,7 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 @EnableMethodSecurity(proxyTargetClass = true)
 @Import({
         SecurityGlobalExceptionHandler.class,
-        OAuth2SessionSharingConfiguration.class,
+        OAuth2SessionConfiguration.class,
 })
 public class OAuth2AuthorizationConfiguration {
 
@@ -99,6 +100,14 @@ public class OAuth2AuthorizationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    public OAuth2AuthorizeHttpRequestsConfigurerCustomer authorizeHttpRequestsConfigurerCustomer(SecurityMatcherConfigurer securityMatcherConfigurer, SecurityAuthorizationManager securityAuthorizationManager) {
+        OAuth2AuthorizeHttpRequestsConfigurerCustomer OAuth2AuthorizeHttpRequestsConfigurerCustomer = new OAuth2AuthorizeHttpRequestsConfigurerCustomer(securityMatcherConfigurer, securityAuthorizationManager);
+        log.trace("[Herodotus] |- Bean [Authorize Http Requests Configurer Customer] Auto Configure.");
+        return OAuth2AuthorizeHttpRequestsConfigurerCustomer;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public SecurityMetadataSourceAnalyzer securityMetadataSourceAnalyzer(SecurityMetadataSourceStorage securityMetadataSourceStorage, SecurityMatcherConfigurer securityMatcherConfigurer) {
         SecurityMetadataSourceAnalyzer securityMetadataSourceAnalyzer = new SecurityMetadataSourceAnalyzer(securityMetadataSourceStorage, securityMatcherConfigurer);
         log.trace("[Herodotus] |- Bean [Security Metadata Source Analyzer] Auto Configure.");
@@ -115,16 +124,17 @@ public class OAuth2AuthorizationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
-        HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer = new HerodotusTokenStrategyConfigurer(authorizationProperties, jwtDecoder, endpointProperties, resourceServerProperties);
-        log.trace("[Herodotus] |- Bean [Token Strategy Configurer] Auto Configure.");
-        return herodotusTokenStrategyConfigurer;
+    public OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
+        OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer = new OAuth2ResourceServerConfigurerCustomer(authorizationProperties, jwtDecoder, endpointProperties, resourceServerProperties);
+        log.trace("[Herodotus] |- Bean [OAuth2 Resource Server Configurer Customer] Auto Configure.");
+        return oauth2ResourceServerConfigurerCustomer;
     }
 
     @Bean
-    @ConditionalOnBean(HerodotusTokenStrategyConfigurer.class)
-    public BearerTokenResolver bearerTokenResolver(HerodotusTokenStrategyConfigurer herodotusTokenStrategyConfigurer) {
-        BearerTokenResolver bearerTokenResolver = herodotusTokenStrategyConfigurer.createBearerTokenResolver();
+    @ConditionalOnMissingBean
+    @ConditionalOnBean(OAuth2ResourceServerConfigurerCustomer.class)
+    public BearerTokenResolver bearerTokenResolver(OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer) {
+        BearerTokenResolver bearerTokenResolver = oauth2ResourceServerConfigurerCustomer.createBearerTokenResolver();
         log.trace("[Herodotus] |- Bean [Bearer Token Resolver] Auto Configure.");
         return bearerTokenResolver;
     }

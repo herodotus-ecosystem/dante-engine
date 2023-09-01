@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.configuration;
 
+import cn.herodotus.engine.oauth2.authorization.customizer.OAuth2SessionManagementConfigurerCustomer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +33,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.session.SessionRegistry;
-import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
-import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
@@ -48,9 +47,9 @@ import org.springframework.session.security.SpringSessionBackedSessionRegistry;
  */
 @Configuration(proxyBeanMethods = false)
 @EnableRedisIndexedHttpSession
-public class OAuth2SessionSharingConfiguration {
+public class OAuth2SessionConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2SessionSharingConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(OAuth2SessionConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
@@ -60,17 +59,17 @@ public class OAuth2SessionSharingConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public <S extends Session> SessionRegistry sessionRegistry(FindByIndexNameSessionRepository<S> sessionRepository) {
-        SpringSessionBackedSessionRegistry<S> springSessionBackedSessionRegistry =  new SpringSessionBackedSessionRegistry<>(sessionRepository);
+        SpringSessionBackedSessionRegistry<S> springSessionBackedSessionRegistry = new SpringSessionBackedSessionRegistry<>(sessionRepository);
         log.trace("[Herodotus] |- Bean [Spring Session Backed Session Registry] Auto Configure.");
         return springSessionBackedSessionRegistry;
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public SessionAuthenticationStrategy sessionAuthenticationStrategy (SessionRegistry sessionRegistry) {
-        RegisterSessionAuthenticationStrategy registerSessionAuthenticationStrategy =  new RegisterSessionAuthenticationStrategy(sessionRegistry);
-        log.trace("[Herodotus] |- Bean [Register Session Authentication Strategy] Auto Configure.");
-        return registerSessionAuthenticationStrategy;
+    public OAuth2SessionManagementConfigurerCustomer sessionManagementConfigurerCustomer(SessionRegistry sessionRegistry) {
+        OAuth2SessionManagementConfigurerCustomer OAuth2SessionManagementConfigurerCustomer = new OAuth2SessionManagementConfigurerCustomer(sessionRegistry);
+        log.trace("[Herodotus] |- Bean [Session Management Configurer Customer] Auto Configure.");
+        return OAuth2SessionManagementConfigurerCustomer;
     }
 
     /**

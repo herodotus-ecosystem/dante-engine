@@ -34,6 +34,7 @@ import cn.herodotus.engine.oauth2.core.response.HerodotusAccessDeniedHandler;
 import cn.herodotus.engine.oauth2.core.response.HerodotusAuthenticationEntryPoint;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -41,41 +42,42 @@ import org.springframework.security.oauth2.server.resource.introspection.OpaqueT
 import org.springframework.security.oauth2.server.resource.web.DefaultBearerTokenResolver;
 
 /**
- * <p>Description: Token 配置 通用代码 </p>
+ * <p>Description: OAuth2ResourceServerConfigurer 扩展配置</p>
  *
  * @author : gengwei.zheng
- * @date : 2022/10/14 17:29
+ * @date : 2023/8/31 23:27
  */
-public class HerodotusTokenStrategyConfigurer {
+public class OAuth2ResourceServerConfigurerCustomer implements Customizer<OAuth2ResourceServerConfigurer<HttpSecurity>> {
 
     private final JwtDecoder jwtDecoder;
     private final OAuth2AuthorizationProperties authorizationProperties;
     private final OpaqueTokenIntrospector opaqueTokenIntrospector;
 
-    public HerodotusTokenStrategyConfigurer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
+    public OAuth2ResourceServerConfigurerCustomer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
         this.jwtDecoder = jwtDecoder;
         this.authorizationProperties = authorizationProperties;
         this.opaqueTokenIntrospector = new HerodotusOpaqueTokenIntrospector(endpointProperties, resourceServerProperties);
+        ;
     }
 
     private boolean isRemoteValidate() {
         return this.authorizationProperties.getValidate() == Target.REMOTE;
     }
 
-    public OAuth2ResourceServerConfigurer<HttpSecurity> from(OAuth2ResourceServerConfigurer<HttpSecurity> configurer) {
+    @Override
+    public void customize(OAuth2ResourceServerConfigurer<HttpSecurity> configurer) {
         if (isRemoteValidate()) {
             configurer
-                    .opaqueToken(opaque -> opaque.introspector(opaqueTokenIntrospector))
-                    .accessDeniedHandler(new HerodotusAccessDeniedHandler())
-                    .authenticationEntryPoint(new HerodotusAuthenticationEntryPoint());
+                    .opaqueToken(opaque -> opaque.introspector(opaqueTokenIntrospector));
         } else {
             configurer
                     .jwt(jwt -> jwt.decoder(this.jwtDecoder).jwtAuthenticationConverter(new HerodotusJwtAuthenticationConverter()))
-                    .bearerTokenResolver(new DefaultBearerTokenResolver())
-                    .accessDeniedHandler(new HerodotusAccessDeniedHandler())
-                    .authenticationEntryPoint(new HerodotusAuthenticationEntryPoint());
+                    .bearerTokenResolver(new DefaultBearerTokenResolver());
         }
-        return configurer;
+
+        configurer
+                .accessDeniedHandler(new HerodotusAccessDeniedHandler())
+                .authenticationEntryPoint(new HerodotusAuthenticationEntryPoint());
     }
 
     public BearerTokenResolver createBearerTokenResolver() {
