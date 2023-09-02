@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.processor;
 
-import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
@@ -88,7 +88,7 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
             return new AuthorizationDecision(true);
         }
 
-        String feignInnerFlag = request.getHeader(HttpHeaders.X_HERODOTUS_FROM_IN);
+        String feignInnerFlag = HeadersUtils.getHerodotusFromIn(request);
         if (StringUtils.isNotBlank(feignInnerFlag)) {
             log.trace("[Herodotus] |- Is feign inner invoke : [{}], Passed!", url);
             return new AuthorizationDecision(true);

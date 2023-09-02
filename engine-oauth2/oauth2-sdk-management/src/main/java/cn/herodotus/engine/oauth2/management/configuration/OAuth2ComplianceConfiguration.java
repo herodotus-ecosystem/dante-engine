@@ -25,11 +25,11 @@
 
 package cn.herodotus.engine.oauth2.management.configuration;
 
+import cn.herodotus.engine.message.core.definition.AccountStatusEventManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import cn.herodotus.engine.oauth2.management.compliance.annotation.ConditionalOnAutoUnlockUserAccount;
-import cn.herodotus.engine.message.core.definition.AccountStatusEventManager;
 import cn.herodotus.engine.oauth2.management.compliance.listener.AccountAutoEnableListener;
 import cn.herodotus.engine.oauth2.management.compliance.listener.AuthenticationFailureListener;
 import jakarta.annotation.PostConstruct;

@@ -25,7 +25,6 @@
 
 package cn.herodotus.engine.oauth2.management.dto;
 
-import cn.herodotus.engine.assistant.core.definition.domain.AbstractDto;
 import com.google.common.base.MoreObjects;
 
 /**
@@ -34,38 +33,12 @@ import com.google.common.base.MoreObjects;
  * @author : gengwei.zheng
  * @date : 2021/10/2 11:42
  */
-public class Session extends AbstractDto {
-
-    /**
-     * 前端未登录时，唯一身份标识。如果由前端生成，则直接返回；如果由后端生成，则返回后端生成值
-     */
-    private String sessionId;
-
-    /**
-     * 后台RSA公钥
-     */
-    private String publicKey;
+public class Session extends SessionExchange {
 
     /**
      * 本系统授权码模式校验参数
      */
     private String state;
-
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
 
     public String getState() {
         return state;
@@ -78,8 +51,6 @@ public class Session extends AbstractDto {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("sessionId", sessionId)
-                .add("publicKey", publicKey)
                 .add("state", state)
                 .toString();
     }

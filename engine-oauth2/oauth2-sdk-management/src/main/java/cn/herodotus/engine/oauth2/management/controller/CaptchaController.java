@@ -45,7 +45,6 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,8 +66,11 @@ import java.util.Map;
 })
 public class CaptchaController implements Controller {
 
-    @Autowired
-    private CaptchaRendererFactory captchaRendererFactory;
+    private final CaptchaRendererFactory captchaRendererFactory;
+
+    public CaptchaController(CaptchaRendererFactory captchaRendererFactory) {
+        this.captchaRendererFactory = captchaRendererFactory;
+    }
 
     @AccessLimited
     @Operation(summary = "获取验证码", description = "通过传递身份信息（类似于Session标识）",

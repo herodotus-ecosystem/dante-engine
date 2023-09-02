@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.rest.protect.crypto.enhance;
 
-import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -119,7 +119,7 @@ public class DecryptRequestParamResolver implements HandlerMethodArgumentResolve
         if (isRegularRequest(webRequest)) {
 
             HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-            String sessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
+            String sessionId = request.getHeader(HeadersUtils.X_HERODOTUS_SESSION_ID);
 
             if (StringUtils.isNotBlank(sessionId)) {
                 String[] paramValues = request.getParameterValues(methodParameter.getParameterName());

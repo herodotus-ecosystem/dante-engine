@@ -30,7 +30,7 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
-import cn.herodotus.engine.rest.core.utils.WebUtils;
+import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ObjectUtils;
@@ -84,7 +84,7 @@ public class WebSocketSessionHandshakeInterceptor extends HttpSessionHandshakeIn
                 PrincipalDetails details = bearerTokenResolver.resolve(token);
                 if (ObjectUtils.isNotEmpty(details)) {
                     attributes.put(BaseConstants.PRINCIPAL, details);
-                    attributes.put(HttpSessionHandshakeInterceptor.HTTP_SESSION_ID_ATTR_NAME, WebUtils.getSession(httpServletRequest));
+                    attributes.put(HttpSessionHandshakeInterceptor.HTTP_SESSION_ID_ATTR_NAME, SessionUtils.getSession(httpServletRequest));
                 } else {
                     response.setStatusCode(HttpStatus.UNAUTHORIZED);
                     log.info("[Herodotus] |- Token is invalid for WebSocket, stop handshake.");

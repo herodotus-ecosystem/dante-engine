@@ -43,10 +43,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,8 +64,6 @@ import org.springframework.web.bind.annotation.RestController;
 })
 public class IdentityController {
 
-    private final Logger log = LoggerFactory.getLogger(IdentityController.class);
-
     private final InterfaceSecurityService interfaceSecurityService;
     private final SignInFailureLimitedStampManager signInFailureLimitedStampManager;
 
@@ -74,16 +72,22 @@ public class IdentityController {
         this.signInFailureLimitedStampManager = signInFailureLimitedStampManager;
     }
 
-    @Operation(summary = "获取后台加密公钥", description = "根据未登录时的身份标识，在后台创建RSA公钥和私钥。身份标识为前端的唯一标识，如果为空，则在后台创建一个",
+    @Operation(summary = "获取后台加密公钥", description = "根据未登录时的身份标识，在后台创建RSA/SM2公钥和私钥。身份标识为前端的唯一标识，如果为空，则在后台创建一个",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(content = @Content(mediaType = "application/json")),
             responses = {@ApiResponse(description = "自定义Session", content = @Content(mediaType = "application/json"))})
     @Parameters({
             @Parameter(name = "sessionCreate", required = true, description = "Session创建请求参数", schema = @Schema(implementation = SessionCreate.class)),
     })
     @PostMapping("/open/identity/session")
-    public Result<Session> codeToSession(@Validated @RequestBody SessionCreate sessionCreate) {
+    public Result<Session> create(@Validated @RequestBody SessionCreate sessionCreate, HttpServletRequest request) {
 
-        SecretKey secretKey = interfaceSecurityService.createSecretKey(sessionCreate.getClientId(), sessionCreate.getClientSecret(), sessionCreate.getSessionId());
+        String sessionId = sessionCreate.getSessionId();
+        if (StringUtils.isEmpty(sessionId)) {
+            HttpSession session = request.getSession();
+            sessionId = session.getId();
+        }
+
+        SecretKey secretKey = interfaceSecurityService.createSecretKey(sessionCreate.getClientId(), sessionCreate.getClientSecret(), sessionId);
         if (ObjectUtils.isNotEmpty(secretKey)) {
             Session session = new Session();
             session.setSessionId(secretKey.getIdentity());
@@ -105,7 +109,7 @@ public class IdentityController {
     @PostMapping("/open/identity/exchange")
     public Result<String> exchange(@Validated @RequestBody SessionExchange sessionExchange) {
 
-        String encryptedAesKey = interfaceSecurityService.exchange(sessionExchange.getSessionId(), sessionExchange.getConfidential());
+        String encryptedAesKey = interfaceSecurityService.exchange(sessionExchange.getSessionId(), sessionExchange.getPublicKey());
         if (StringUtils.isNotEmpty(encryptedAesKey)) {
             return Result.content(encryptedAesKey);
         }

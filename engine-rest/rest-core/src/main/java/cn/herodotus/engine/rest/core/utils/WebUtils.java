@@ -25,24 +25,18 @@
 
 package cn.herodotus.engine.rest.core.utils;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.Settings;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import com.google.common.net.HttpHeaders;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.Assert;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -62,86 +56,13 @@ import java.util.Map;
  */
 public class WebUtils extends org.springframework.web.util.WebUtils {
 
-    public static final String XML_HTTP_REQUEST = "XMLHttpRequest";
     private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
+
+    private static final String XML_HTTP_REQUEST = "XMLHttpRequest";
     private static final PathMatcher pathMatcher = new AntPathMatcher();
 
     public static PathMatcher getPathMatcher() {
         return pathMatcher;
-    }
-
-    /**
-     * 将 getSession 统一封装为一个方法，方便统一修改
-     *
-     * @param request request {@link HttpServletRequest}
-     * @param create  是否创建新的 Session
-     * @return {@link HttpSession}
-     */
-    public static HttpSession getSession(HttpServletRequest request, boolean create) {
-        return request.getSession(create);
-    }
-
-    /**
-     * 将 getSession 统一封装为一个方法，方便统一修改
-     * <p>
-     * 该方法默认不创建新的 getSession
-     *
-     * @param request {@link HttpServletRequest}
-     * @return {@link HttpSession} or null
-     */
-    public static HttpSession getSession(HttpServletRequest request) {
-        return getSession(request, Settings.CREATE_NEW_SESSION);
-    }
-
-    /**
-     * 获取 Session Id。
-     *
-     * @param request {@link HttpServletRequest}
-     * @param create  create 是否创建新的 Session
-     * @return id 或者 null
-     */
-    public static String getSessionId(HttpServletRequest request, boolean create) {
-        HttpSession httpSession = getSession(request, create);
-        if (ObjectUtils.isNotEmpty(httpSession)) {
-            return httpSession.getId();
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * 获取 Session Id。
-     *
-     * @param request {@link HttpServletRequest}
-     * @return id 或者 null
-     */
-    public static String getSessionId(HttpServletRequest request) {
-        return getSessionId(request, Settings.CREATE_NEW_SESSION);
-    }
-
-    /**
-     * 获取 AUTHORIZATION 请求头内容
-     *
-     * @param request {@link HttpServletRequest}
-     * @return AUTHORIZATION 请求头或者为空
-     */
-    public static String getAuthorizationHeader(HttpServletRequest request) {
-        return request.getHeader(HttpHeaders.AUTHORIZATION);
-    }
-
-    /**
-     * 获取 Bearer Token 的值
-     *
-     * @param request {@link HttpServletRequest}
-     * @return 如果 AUTHORIZATION 不存在，或者 Token 不是以 “Bearer ” 开头，则返回 null。如果 AUTHORIZATION 存在，而且是以 “Bearer ” 开头，那么返回 “Bearer ” 后面的值。
-     */
-    public static String getBearerTokenValue(HttpServletRequest request) {
-        String header = getAuthorizationHeader(request);
-        if (StringUtils.isNotBlank(header) && StringUtils.startsWith(header, BaseConstants.BEARER_TOKEN)) {
-            return StringUtils.remove(header, BaseConstants.BEARER_TOKEN);
-        } else {
-            return null;
-        }
     }
 
     /**
@@ -183,56 +104,6 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
     public static boolean isRequestMatched(List<String> patterns, HttpServletRequest request) {
         String url = request.getRequestURI();
         return isPathMatch(patterns, url);
-    }
-
-    /**
-     * 读取cookie
-     *
-     * @param name cookie name
-     * @return cookie value
-     */
-    public static String getCookieValue(String name) {
-        HttpServletRequest request = WebUtils.getRequest();
-        Assert.notNull(request, "request from RequestContextHolder is null");
-        return getCookieValue(request, name);
-    }
-
-    /**
-     * 读取cookie
-     *
-     * @param request HttpServletRequest
-     * @param name    cookie name
-     * @return cookie value
-     */
-    public static String getCookieValue(HttpServletRequest request, String name) {
-        Cookie cookie = getCookie(request, name);
-        return cookie != null ? cookie.getValue() : null;
-    }
-
-    /**
-     * 清除 某个指定的cookie
-     *
-     * @param response HttpServletResponse
-     * @param key      cookie key
-     */
-    public static void removeCookie(HttpServletResponse response, String key) {
-        setCookie(response, key, null, 0);
-    }
-
-    /**
-     * 设置cookie
-     *
-     * @param response        HttpServletResponse
-     * @param name            cookie name
-     * @param value           cookie value
-     * @param maxAgeInSeconds maxage
-     */
-    public static void setCookie(HttpServletResponse response, String name, String value, int maxAgeInSeconds) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setPath("/");
-        cookie.setMaxAge(maxAgeInSeconds);
-        cookie.setHttpOnly(true);
-        response.addCookie(cookie);
     }
 
     /**
