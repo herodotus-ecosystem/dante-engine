@@ -84,7 +84,7 @@ public class WebSocketSessionHandshakeInterceptor extends HttpSessionHandshakeIn
                 PrincipalDetails details = bearerTokenResolver.resolve(token);
                 if (ObjectUtils.isNotEmpty(details)) {
                     attributes.put(BaseConstants.PRINCIPAL, details);
-                    attributes.put(HttpSessionHandshakeInterceptor.HTTP_SESSION_ID_ATTR_NAME, SessionUtils.getSession(httpServletRequest));
+                    attributes.put(HttpSessionHandshakeInterceptor.HTTP_SESSION_ID_ATTR_NAME, SessionUtils.analyseSessionId(httpServletRequest));
                 } else {
                     response.setStatusCode(HttpStatus.UNAUTHORIZED);
                     log.info("[Herodotus] |- Token is invalid for WebSocket, stop handshake.");

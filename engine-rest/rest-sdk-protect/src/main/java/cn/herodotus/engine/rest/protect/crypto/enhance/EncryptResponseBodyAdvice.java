@@ -26,7 +26,7 @@
 package cn.herodotus.engine.rest.protect.crypto.enhance;
 
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
-import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
+import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -75,10 +75,10 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
-        String sessionKey = request.getHeaders().get(HeadersUtils.X_HERODOTUS_SESSION_ID).get(0);
+        String sessionId = SessionUtils.analyseSessionId(request);
 
-        if (StringUtils.isBlank(sessionKey)) {
-            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto function need add X_HERODOTUS_SESSION to request header.");
+        if (StringUtils.isBlank(sessionId)) {
+            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto function need add X_HERODOTUS_SESSION_ID to request header.");
             return body;
         }
 
@@ -89,7 +89,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
         try {
             String bodyString = Jackson2Utils.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(body);
-            String result = httpCryptoProcessor.encrypt(sessionKey, bodyString);
+            String result = httpCryptoProcessor.encrypt(sessionId, bodyString);
             if (StringUtils.isNotBlank(result)) {
                 log.debug("[Herodotus] |- Encrypt response body for rest method [{}] in [{}] finished.", methodName, className);
                 return result;

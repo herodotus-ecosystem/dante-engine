@@ -27,6 +27,7 @@ package cn.herodotus.engine.rest.protect.crypto.enhance;
 
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
+import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -85,7 +86,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
     public HttpInputMessage beforeBodyRead(HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
 
 
-        String sessionKey = httpInputMessage.getHeaders().get(HeadersUtils.X_HERODOTUS_SESSION_ID).get(0);
+        String sessionKey = SessionUtils.analyseSessionId(httpInputMessage);
 
         if (StringUtils.isBlank(sessionKey)) {
             log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION to request header.");

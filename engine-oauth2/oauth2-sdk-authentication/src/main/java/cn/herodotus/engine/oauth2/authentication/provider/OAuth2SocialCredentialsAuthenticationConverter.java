@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
-import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
+import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -98,7 +98,7 @@ public class OAuth2SocialCredentialsAuthenticationConverter extends AbstractAuth
             }
         }
 
-        String sessionId = request.getHeader(HeadersUtils.X_HERODOTUS_SESSION_ID);
+        String sessionId = SessionUtils.analyseSessionId(request);
 
         Map<String, Object> additionalParameters = new HashMap<>();
         parameters.forEach((key, value) -> {
