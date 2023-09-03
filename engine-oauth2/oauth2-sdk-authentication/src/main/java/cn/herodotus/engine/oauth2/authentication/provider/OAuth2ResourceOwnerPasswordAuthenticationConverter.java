@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
-import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
+import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -82,7 +82,7 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter extends Ab
         // password (REQUIRED)
         OAuth2EndpointUtils.checkRequiredParameter(parameters, OAuth2ParameterNames.PASSWORD);
 
-        String sessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
+        String sessionId = SessionUtils.analyseSessionId(request);
 
         Map<String, Object> additionalParameters = new HashMap<>();
         parameters.forEach((key, value) -> {

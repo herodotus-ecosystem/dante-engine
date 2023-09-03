@@ -27,8 +27,8 @@ package cn.herodotus.engine.rest.protect.tenant;
 
 import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.definition.constants.HttpHeaders;
-import cn.herodotus.engine.rest.core.utils.WebUtils;
+import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
+import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -49,22 +49,19 @@ public class MultiTenantInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String path = request.getRequestURI();
-        log.debug("[Herodotus] |- Current REQUEST is : [{}].", path);
-
-        String tenantId = request.getHeader(HttpHeaders.X_HERODOTUS_TENANT_ID);
+        String tenantId = HeadersUtils.getHerodotusTenantId(request);
         if (StringUtils.isBlank(tenantId)) {
             tenantId = DefaultConstants.TENANT_ID;
         }
-
-        log.debug("[Herodotus] |- Current TENANT ID is : [{}].", tenantId);
         TenantContextHolder.setTenantId(tenantId);
+        log.debug("[Herodotus] |- TENANT ID is : [{}].", tenantId);
 
-        String sessionId = WebUtils.getSessionId(request);
-        String herodotusSessionId = request.getHeader(HttpHeaders.X_HERODOTUS_SESSION);
+        String path = request.getRequestURI();
+        String sessionId = SessionUtils.getSessionId(request);
+        String herodotusSessionId = HeadersUtils.getHerodotusSession(request);
 
-        log.debug("[Herodotus] |- SESSION ID is : [{}].", sessionId);
-        log.debug("[Herodotus] |- SESSION ID of Herodotus custom is : [{}].", herodotusSessionId);
+        log.debug("[Herodotus] |- SESSION ID for [{}] is : [{}].", path, sessionId);
+        log.debug("[Herodotus] |- SESSION ID of HERODOTUS for [{}] is : [{}].", path, herodotusSessionId);
 
         return true;
     }

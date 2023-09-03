@@ -40,19 +40,19 @@ import jakarta.validation.constraints.NotBlank;
 public class SessionExchange extends AbstractDto {
 
     @NotBlank(message = "confidential参数不能为空")
-    @Schema(title = "用后端RSA PublicKey加密的前端RSA PublicKey")
-    private String confidential;
+    @Schema(title = "用后端RSA/SM2 PublicKey加密的前端RSA/SM2 PublicKey")
+    private String publicKey;
 
     @NotBlank(message = "Session Key不能为空")
     @Schema(title = "未登录前端身份标识")
     private String sessionId;
 
-    public String getConfidential() {
-        return confidential;
+    public String getPublicKey() {
+        return publicKey;
     }
 
-    public void setConfidential(String confidential) {
-        this.confidential = confidential;
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 
     public String getSessionId() {
@@ -66,7 +66,7 @@ public class SessionExchange extends AbstractDto {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("confidential", confidential)
+                .add("confidential", publicKey)
                 .add("sessionId", sessionId)
                 .toString();
     }

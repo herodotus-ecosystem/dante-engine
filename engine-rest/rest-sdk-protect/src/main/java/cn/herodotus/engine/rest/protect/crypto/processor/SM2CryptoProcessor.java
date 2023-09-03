@@ -50,8 +50,6 @@ public class SM2CryptoProcessor implements AsymmetricCryptoProcessor {
 
     private static final Logger log = LoggerFactory.getLogger(SM2CryptoProcessor.class);
 
-    private static final String FLAG = "04";
-
     @Override
     public SecretKey createSecretKey() {
         // 随机生成秘钥

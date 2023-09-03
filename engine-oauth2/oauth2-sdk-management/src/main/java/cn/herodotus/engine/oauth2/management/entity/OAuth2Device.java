@@ -53,7 +53,7 @@ import java.util.Set;
                 @Index(name = "oauth2_device_pid_idx", columnList = "product_id")
         })
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_IOT_DEVICE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION_OAUTH2_DEVICE)
 public class OAuth2Device extends AbstractOAuth2RegisteredClient {
 
     @Schema(name = "设备ID")

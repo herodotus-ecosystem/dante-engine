@@ -29,9 +29,6 @@ import cn.herodotus.engine.assistant.core.domain.SecretKey;
 import cn.herodotus.engine.oauth2.core.utils.SecurityUtils;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import org.apache.commons.lang3.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -47,17 +44,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class InterfaceSecurityService {
 
-    private static final Logger log = LoggerFactory.getLogger(InterfaceSecurityService.class);
-
-    private static final String PKCS1_BEGIN = "-----BEGIN RSA PUBLIC KEY-----";
-    private static final String PKCS1_END = "-----END RSA PUBLIC KEY-----";
-    private static final String PKCS8_BEGIN = "-----BEGIN PUBLIC KEY-----";
-    private static final String PKCS8_END = "-----END PUBLIC KEY-----";
-
     private final HttpCryptoProcessor httpCryptoProcessor;
     private final RegisteredClientRepository registeredClientRepository;
 
-    @Autowired
     public InterfaceSecurityService(HttpCryptoProcessor httpCryptoProcessor, RegisteredClientRepository registeredClientRepository) {
         this.httpCryptoProcessor = httpCryptoProcessor;
         this.registeredClientRepository = registeredClientRepository;

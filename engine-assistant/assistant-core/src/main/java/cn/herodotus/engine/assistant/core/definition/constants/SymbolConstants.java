@@ -65,6 +65,7 @@ public interface SymbolConstants {
     String COMMA_AND_APOSTROPHE = ",'";
 
     String COMMA_AND_SPACE = ", ";
+    String SEMICOLON_AND_SPACE = "; ";
 
     String DASH = "-";
 

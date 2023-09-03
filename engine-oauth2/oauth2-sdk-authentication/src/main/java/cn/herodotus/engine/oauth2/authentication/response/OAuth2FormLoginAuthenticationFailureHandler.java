@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.authentication.response;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
-import cn.herodotus.engine.rest.core.utils.WebUtils;
+import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -108,7 +108,7 @@ public class OAuth2FormLoginAuthenticationFailureHandler extends SimpleUrlAuthen
             request.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, message);
             return;
         }
-        HttpSession session = WebUtils.getSession(request);
+        HttpSession session = SessionUtils.getSession(request);
         if (session != null || this.isAllowSessionCreation()) {
             request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, message);
         }
