@@ -38,7 +38,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.3.2</version>
+    <version>3.1.3.3</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -84,7 +84,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <dante-bom.version>3.1.3.2</dante-bom.version>
+        <dante-bom.version>3.1.3.3</dante-bom.version>
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.1.6</spring-boot-admin.version>
@@ -117,7 +117,7 @@
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>8.16.0</skywalking.version>
         <minio.version>8.5.5</minio.version>
-        <aws-java-sdk-s3.version>1.12.541</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.543</aws-java-sdk-s3.version>
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
@@ -154,7 +154,7 @@
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.3</aliyun-java-sdk-core.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.846</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.847</tencentcloud-sdk-java.version>
         <com.jdcloud.sdk.version>1.3.3</com.jdcloud.sdk.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
         <alipay-sdk-java.version>4.38.61.ALL</alipay-sdk-java.version>
