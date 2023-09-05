@@ -71,25 +71,23 @@ public abstract class AbstractTokenCustomizer {
         }
 
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
-            HerodotusUser principal = (HerodotusUser) authentication.getPrincipal();
-            putUserInfo(attributes, principal);
+            putUserInfo(attributes, authentication.getPrincipal());
         }
 
         if (authentication instanceof OAuth2AccessTokenAuthenticationToken) {
             Object details = authentication.getDetails();
-            if (ObjectUtils.isNotEmpty(details) && details instanceof HerodotusUser) {
-                HerodotusUser principal = (HerodotusUser) details;
-                putUserInfo(attributes, principal);
-            }
+            putUserInfo(attributes, details);
         }
 
         attributes.put("license", "Apache-2.0 Licensed | Copyright © 2020-2023 码 匠 君");
     }
 
-    private void putUserInfo(Map<String, Object> attributes, HerodotusUser principal) {
-        attributes.put(BaseConstants.OPEN_ID, principal.getUserId());
-        attributes.put(BaseConstants.ROLES, principal.getRoles());
-        attributes.put(BaseConstants.AVATAR, principal.getAvatar());
-        attributes.put(BaseConstants.EMPLOYEE_ID, principal.getEmployeeId());
+    private void putUserInfo(Map<String, Object> attributes, Object object) {
+        if (ObjectUtils.isNotEmpty(object) && object instanceof HerodotusUser principal) {
+            attributes.put(BaseConstants.OPEN_ID, principal.getUserId());
+            attributes.put(BaseConstants.ROLES, principal.getRoles());
+            attributes.put(BaseConstants.AVATAR, principal.getAvatar());
+            attributes.put(BaseConstants.EMPLOYEE_ID, principal.getEmployeeId());
+        }
     }
 }

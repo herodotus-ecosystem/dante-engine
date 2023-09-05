@@ -25,10 +25,12 @@
 
 package cn.herodotus.engine.message.autoconfigure;
 
+import cn.herodotus.engine.message.websocket.configuration.MessageWebSocketConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Import;
 
 /**
  * <p>Description: Message 模块自动注入配置 </p>
@@ -37,6 +39,9 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
  * @date : 2022/2/4 17:08
  */
 @AutoConfiguration
+@Import({
+        MessageWebSocketConfiguration.class
+})
 public class MessageAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(MessageAutoConfiguration.class);

@@ -27,7 +27,7 @@ package cn.herodotus.engine.message.websocket.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.message.websocket.processor.WebSocketMessageSender;
-import cn.herodotus.engine.message.websocket.service.WebSocketDisplayService;
+import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -35,12 +35,10 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
-import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -57,14 +55,10 @@ import java.util.Map;
 })
 public class WebSocketMessageController {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketMessageController.class);
-
     private final WebSocketMessageSender webSocketMessageSender;
-    private final WebSocketDisplayService webSocketDisplayService;
 
-    public WebSocketMessageController(WebSocketMessageSender webSocketMessageSender, WebSocketDisplayService webSocketDisplayService) {
+    public WebSocketMessageController(WebSocketMessageSender webSocketMessageSender) {
         this.webSocketMessageSender = webSocketMessageSender;
-        this.webSocketDisplayService = webSocketDisplayService;
     }
 
     @Operation(summary = "后端发送通知", description = "后端发送 WebSocket 广播通知接口",
@@ -86,12 +80,8 @@ public class WebSocketMessageController {
     @Operation(summary = "获取统计信息", description = "获取WebSocket相关的统计信息")
     @GetMapping(value = "/stat")
     public Result<Map<String, Object>> findAllStat() {
-        Result<Map<String, Object>> result = new Result<>();
-        Map<String, Object> stat = webSocketDisplayService.findAllStat();
-        if (MapUtils.isNotEmpty(stat)) {
-            return Result.success("获取统计信息成功", stat);
-        } else {
-            return Result.failure("获取统计信息失败");
-        }
+        Map<String, Object> stat = new HashMap<>();
+        stat.put("onlineCount", WebSocketUtils.getOnlineCount());
+        return Result.success("获取统计信息成功", stat);
     }
 }

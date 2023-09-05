@@ -25,26 +25,33 @@
 
 package cn.herodotus.engine.message.websocket.configuration;
 
+import cn.herodotus.engine.message.websocket.interceptor.WebSocketPrincipalHandshakeHandler;
 import cn.herodotus.engine.message.websocket.properties.WebSocketProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.session.Session;
+import org.springframework.session.SessionRepository;
 
 /**
- * <p>Description: Web Socket 核心配置 </p>
+ * <p>Description: WebSocket 处理器相关配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/10/24 18:54
+ * @date : 2022/12/29 15:52
  */
-@AutoConfiguration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({WebSocketProperties.class})
-@Import({
-        WebSocketProcessorConfiguration.class,
-        WebSocketMessageBrokerConfiguration.class,
-        WebSocketLogicConfiguration.class
+@ComponentScan(basePackages = {
+        "cn.herodotus.engine.message.websocket.processor",
+        "cn.herodotus.engine.message.websocket.controller",
+        "cn.herodotus.engine.message.websocket.listener",
 })
 public class MessageWebSocketConfiguration {
 
@@ -52,7 +59,22 @@ public class MessageWebSocketConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Message WebSocket] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [WebSocket Processor] Auto Configure.");
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public <S extends Session> WebSocketPrincipalHandshakeHandler<S> webSocketPrincipalHandshakeHandler(UserDetailsService userDetailsService, SessionRepository<S> sessionRepository) {
+        WebSocketPrincipalHandshakeHandler<S> webSocketPrincipalHandshakeHandler = new WebSocketPrincipalHandshakeHandler<>(userDetailsService, sessionRepository);
+        log.trace("[Herodotus] |- Bean [WebSocket Principal Handshake Handler] Auto Configure.");
+        return webSocketPrincipalHandshakeHandler;
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    @Import({
+            WebSocketMessageBrokerConfiguration.class
+    })
+    static class WebSocketMessageBrokerConfigurer {
+
+    }
 }
