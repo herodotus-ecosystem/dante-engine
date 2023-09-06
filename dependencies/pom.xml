@@ -121,7 +121,7 @@
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.39</fastjson2.version>
+        <fastjson2.version>2.0.40</fastjson2.version>
         <jetcache.version>2.7.3</jetcache.version>
         <nacos.version>2.2.4</nacos.version>
         <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
@@ -163,6 +163,10 @@
         <aliyun-sdk-oss.version>3.17.1</aliyun-sdk-oss.version>
 
         <!--以下为特殊处理, 统一版本处理漏洞等-->
+        <okio.version>3.5.0</okio.version>
+        <xnio.version>3.8.10.Final</xnio.version>
+        <httpclient.version>4.5.14</httpclient.version>
+        <checker-qual.version>3.38.0</checker-qual.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <git-commit-id-maven-plugin.version>6.0.0</git-commit-id-maven-plugin.version>
         <bcprov-jdk15to18.version>1.76</bcprov-jdk15to18.version>
@@ -845,6 +849,22 @@
             </dependency>
 
             <dependency>
+                <groupId>com.squareup.okio</groupId>
+                <artifactId>okio</artifactId>
+                <version>${okio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okio</groupId>
+                <artifactId>okio-jvm</artifactId>
+                <version>${okio.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.xnio</groupId>
+                <artifactId>xnio-api</artifactId>
+                <version>${xnio.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.xerial.snappy</groupId>
                 <artifactId>snappy-java</artifactId>
                 <version>${snappy-java.version}</version>
@@ -853,11 +873,6 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
                 <version>${bcprov-jdk15on.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcpkix-jdk15on</artifactId>
-                <version>${bcpkix-jdk15on.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
@@ -874,6 +889,20 @@
                 <artifactId>dom4j</artifactId>
                 <version>${dom4j.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.checkerframework/checker-qual -->
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>checker-qual</artifactId>
+                <version>${checker-qual.version}</version>
+            </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 

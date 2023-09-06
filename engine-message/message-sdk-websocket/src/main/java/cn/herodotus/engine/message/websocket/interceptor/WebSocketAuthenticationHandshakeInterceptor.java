@@ -70,7 +70,7 @@ public class WebSocketAuthenticationHandshakeInterceptor implements HandshakeInt
 
             if (StringUtils.isNotBlank(token)) {
                 log.debug("[Herodotus] |- WebSocket fetch the token is [{}].", token);
-            }else {
+            } else {
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 log.info("[Herodotus] |- Token is invalid for WebSocket, stop handshake.");
                 return false;

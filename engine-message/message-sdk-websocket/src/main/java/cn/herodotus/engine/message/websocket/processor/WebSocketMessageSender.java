@@ -48,16 +48,14 @@ public class WebSocketMessageSender {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketMessageSender.class);
 
-    private SimpMessagingTemplate simpMessagingTemplate;
-    private SimpUserRegistry simpUserRegistry;
+    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final SimpUserRegistry simpUserRegistry;
 
-    public void setSimpMessagingTemplate(SimpMessagingTemplate simpMessagingTemplate) {
+    public WebSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
         this.simpMessagingTemplate = simpMessagingTemplate;
-    }
-
-    public void setSimpUserRegistry(SimpUserRegistry simpUserRegistry) {
         this.simpUserRegistry = simpUserRegistry;
     }
+
 
     /**
      * 发送给指定用户信息。
