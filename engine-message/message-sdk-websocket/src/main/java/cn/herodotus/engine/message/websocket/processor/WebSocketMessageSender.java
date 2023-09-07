@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
+import org.springframework.stereotype.Component;
 
 /**
  * <p>Description: Web Socket 服务端消息发送 </p>
@@ -42,20 +43,19 @@ import org.springframework.messaging.simp.user.SimpUserRegistry;
  * @author : gengwei.zheng
  * @date : 2021/10/24 18:47
  */
+@Component
 public class WebSocketMessageSender {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketMessageSender.class);
 
-    private SimpMessagingTemplate simpMessagingTemplate;
-    private SimpUserRegistry simpUserRegistry;
+    private final SimpMessagingTemplate simpMessagingTemplate;
+    private final SimpUserRegistry simpUserRegistry;
 
-    public void setSimpMessagingTemplate(SimpMessagingTemplate simpMessagingTemplate) {
+    public WebSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
         this.simpMessagingTemplate = simpMessagingTemplate;
-    }
-
-    public void setSimpUserRegistry(SimpUserRegistry simpUserRegistry) {
         this.simpUserRegistry = simpUserRegistry;
     }
+
 
     /**
      * 发送给指定用户信息。

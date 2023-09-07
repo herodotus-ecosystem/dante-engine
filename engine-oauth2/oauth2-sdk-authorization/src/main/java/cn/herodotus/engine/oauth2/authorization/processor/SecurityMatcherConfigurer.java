@@ -96,7 +96,7 @@ public class SecurityMatcherConfigurer {
     }
 
     public RequestMatcher[] getPermitAllArray() {
-        return toRequestMatchers(getStaticResourceList());
+        return toRequestMatchers(getPermitAllList());
     }
 
     public OAuth2AuthorizationProperties getAuthorizationProperties() {

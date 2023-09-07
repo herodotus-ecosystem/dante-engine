@@ -26,16 +26,17 @@
 package cn.herodotus.engine.message.websocket.configuration;
 
 import cn.herodotus.engine.message.core.constants.MessageConstants;
+import cn.herodotus.engine.message.websocket.interceptor.WebSocketAuthenticationHandshakeInterceptor;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketChannelInterceptor;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketPrincipalHandshakeHandler;
-import cn.herodotus.engine.message.websocket.interceptor.WebSocketSessionHandshakeInterceptor;
 import cn.herodotus.engine.message.websocket.properties.WebSocketProperties;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -52,7 +53,8 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
  * @author : gengwei.zheng
  * @date : 2022/12/4 19:19
  */
-@AutoConfiguration(after = {WebSocketSessionHandshakeInterceptor.class})
+@Configuration(proxyBeanMethods = false)
+@EnableConfigurationProperties({WebSocketProperties.class})
 @EnableScheduling
 @EnableWebSocketMessageBroker
 public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocketMessageBrokerConfigurer<Session> {
@@ -61,12 +63,14 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
 
     private final WebSocketProperties webSocketProperties;
     private final WebSocketChannelInterceptor webSocketChannelInterceptor;
-    private final WebSocketSessionHandshakeInterceptor webSocketSessionHandshakeInterceptor;
+    private final WebSocketPrincipalHandshakeHandler<? extends Session> webSocketPrincipalHandshakeHandler;
+    private final WebSocketAuthenticationHandshakeInterceptor webSocketAuthenticationHandshakeInterceptor;
 
-    public WebSocketMessageBrokerConfiguration(WebSocketProperties webSocketProperties, WebSocketChannelInterceptor webSocketChannelInterceptor, WebSocketSessionHandshakeInterceptor webSocketSessionHandshakeInterceptor) {
+    public WebSocketMessageBrokerConfiguration(WebSocketProperties webSocketProperties, WebSocketPrincipalHandshakeHandler<? extends Session> webSocketPrincipalHandshakeHandler) {
         this.webSocketProperties = webSocketProperties;
-        this.webSocketChannelInterceptor = webSocketChannelInterceptor;
-        this.webSocketSessionHandshakeInterceptor = webSocketSessionHandshakeInterceptor;
+        this.webSocketChannelInterceptor = new WebSocketChannelInterceptor();
+        this.webSocketPrincipalHandshakeHandler = webSocketPrincipalHandshakeHandler;
+        this.webSocketAuthenticationHandshakeInterceptor = new WebSocketAuthenticationHandshakeInterceptor();
     }
 
     @PostConstruct
@@ -81,8 +85,6 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
      */
     @Override
     protected void configureStompEndpoints(StompEndpointRegistry registry) {
-        WebSocketPrincipalHandshakeHandler principalHandshakeHandler = new WebSocketPrincipalHandshakeHandler();
-
         /*
          * 1. 将 /serviceName/stomp路径注册为Stomp的端点，
          *    用户连接了这个端点后就可以进行websocket通讯，支持socketJs
@@ -92,14 +94,14 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
          */
         registry.addEndpoint(webSocketProperties.getEndpoint())
                 .setAllowedOrigins("*")
-                .addInterceptors(webSocketSessionHandshakeInterceptor)
-                .setHandshakeHandler(principalHandshakeHandler)
+                .addInterceptors(webSocketAuthenticationHandshakeInterceptor)
+                .setHandshakeHandler(webSocketPrincipalHandshakeHandler)
                 .withSockJS();
 
         registry.addEndpoint(webSocketProperties.getEndpoint())
                 .setAllowedOrigins("*")
-                .addInterceptors(webSocketSessionHandshakeInterceptor)
-                .setHandshakeHandler(principalHandshakeHandler);
+                .addInterceptors(webSocketAuthenticationHandshakeInterceptor)
+                .setHandshakeHandler(webSocketPrincipalHandshakeHandler);
     }
 
     /**

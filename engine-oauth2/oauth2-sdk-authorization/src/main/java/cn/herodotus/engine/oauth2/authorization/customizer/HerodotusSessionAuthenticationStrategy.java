@@ -25,28 +25,36 @@
 
 package cn.herodotus.engine.oauth2.authorization.customizer;
 
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.SessionManagementConfigurer;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication;
+import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
+import org.springframework.session.FindByIndexNameSessionRepository;
 
 /**
- * <p>Description: SessionManagementConfigurer 扩展配置 </p>
+ * <p>Description: 自定义扩展 SessionAuthenticationStrategy </p>
+ *
+ * 扩展 SessionAuthenticationStrategy 以支持 {@link FindByIndexNameSessionRepository#PRINCIPAL_NAME_INDEX_NAME} 的设置。
  *
  * @author : gengwei.zheng
- * @date : 2023/8/31 21:32
+ * @date : 2023/9/5 14:01
  */
-public class OAuth2SessionManagementConfigurerCustomer implements Customizer<SessionManagementConfigurer<HttpSecurity>> {
+public class HerodotusSessionAuthenticationStrategy extends RegisterSessionAuthenticationStrategy {
 
-    private final SessionRegistry sessionRegistry;
-
-    public OAuth2SessionManagementConfigurerCustomer(SessionRegistry sessionRegistry) {
-        this.sessionRegistry = sessionRegistry;
+    public HerodotusSessionAuthenticationStrategy(SessionRegistry sessionRegistry) {
+        super(sessionRegistry);
     }
 
-
     @Override
-    public void customize(SessionManagementConfigurer<HttpSecurity> configurer) {
-        configurer.sessionAuthenticationStrategy(new HerodotusSessionAuthenticationStrategy(sessionRegistry));
+    public void onAuthentication(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
+        if (ObjectUtils.isNotEmpty(authentication) && authentication.isAuthenticated()) {
+            if (authentication instanceof BearerTokenAuthentication) {
+                request.getSession().setAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME, authentication.getName());
+            }
+        }
+        super.onAuthentication(authentication, request, response);
     }
 }

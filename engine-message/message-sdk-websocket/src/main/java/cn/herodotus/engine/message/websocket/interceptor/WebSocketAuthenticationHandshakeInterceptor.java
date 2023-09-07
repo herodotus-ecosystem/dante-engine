@@ -25,12 +25,8 @@
 
 package cn.herodotus.engine.message.websocket.interceptor;
 
-import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
-import cn.herodotus.engine.assistant.core.utils.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ObjectUtils;
@@ -41,7 +37,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.util.Map;
 
@@ -55,17 +51,11 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2022/12/4 21:34
  */
-public class WebSocketSessionHandshakeInterceptor extends HttpSessionHandshakeInterceptor {
+public class WebSocketAuthenticationHandshakeInterceptor implements HandshakeInterceptor {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketSessionHandshakeInterceptor.class);
+    private static final Logger log = LoggerFactory.getLogger(WebSocketAuthenticationHandshakeInterceptor.class);
 
     private static final String SEC_WEBSOCKET_PROTOCOL = com.google.common.net.HttpHeaders.SEC_WEBSOCKET_PROTOCOL;
-
-    private final BearerTokenResolver bearerTokenResolver;
-
-    public WebSocketSessionHandshakeInterceptor(BearerTokenResolver bearerTokenResolver) {
-        this.bearerTokenResolver = bearerTokenResolver;
-    }
 
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
@@ -80,21 +70,14 @@ public class WebSocketSessionHandshakeInterceptor extends HttpSessionHandshakeIn
 
             if (StringUtils.isNotBlank(token)) {
                 log.debug("[Herodotus] |- WebSocket fetch the token is [{}].", token);
-
-                PrincipalDetails details = bearerTokenResolver.resolve(token);
-                if (ObjectUtils.isNotEmpty(details)) {
-                    attributes.put(BaseConstants.PRINCIPAL, details);
-                    attributes.put(HttpSessionHandshakeInterceptor.HTTP_SESSION_ID_ATTR_NAME, SessionUtils.analyseSessionId(httpServletRequest));
-                } else {
-                    response.setStatusCode(HttpStatus.UNAUTHORIZED);
-                    log.info("[Herodotus] |- Token is invalid for WebSocket, stop handshake.");
-                    return false;
-                }
+            } else {
+                response.setStatusCode(HttpStatus.UNAUTHORIZED);
+                log.info("[Herodotus] |- Token is invalid for WebSocket, stop handshake.");
+                return false;
             }
         }
 
-        // 调用父类方法
-        return super.beforeHandshake(request, response, wsHandler, attributes);
+        return true;
     }
 
     private String determineToken(String protocol) {

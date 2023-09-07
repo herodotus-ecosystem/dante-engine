@@ -31,17 +31,17 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-message</artifactId>
-        <version>3.1.3.3</version>
+        <version>3.1.3.4</version>
     </parent>
 
     <artifactId>message-sdk-websocket</artifactId>
-    <version>3.1.3.3</version>
+    <version>3.1.3.4</version>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>rest-core</artifactId>
+            <artifactId>oauth2-core</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
@@ -62,12 +62,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-undertow</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
-
 
     </dependencies>
 

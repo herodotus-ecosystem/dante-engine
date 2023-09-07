@@ -25,8 +25,8 @@
 
 package cn.herodotus.engine.oauth2.core.definition.details;
 
-import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
 import cn.herodotus.engine.assistant.core.utils.SessionUtils;
+import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;

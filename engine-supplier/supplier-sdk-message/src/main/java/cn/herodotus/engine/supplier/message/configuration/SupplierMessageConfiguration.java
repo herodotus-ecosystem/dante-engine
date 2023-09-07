@@ -49,6 +49,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {
         "cn.herodotus.engine.supplier.message.service",
         "cn.herodotus.engine.supplier.message.controller",
+        "cn.herodotus.engine.supplier.message.listener",
 })
 public class SupplierMessageConfiguration {
 

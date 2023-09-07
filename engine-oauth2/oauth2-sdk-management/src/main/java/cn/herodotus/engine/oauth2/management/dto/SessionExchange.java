@@ -66,7 +66,7 @@ public class SessionExchange extends AbstractDto {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("confidential", publicKey)
+                .add("publicKey", publicKey)
                 .add("sessionId", sessionId)
                 .toString();
     }

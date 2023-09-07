@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.JsonNodeUtils;
 import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -32,7 +33,6 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.MissingNode;
 
 import java.io.IOException;
 
@@ -48,18 +48,14 @@ public class FormLoginWebAuthenticationDetailsDeserializer extends JsonDeseriali
         ObjectMapper mapper = (ObjectMapper) jp.getCodec();
         JsonNode jsonNode = mapper.readTree(jp);
 
-        String remoteAddress = readJsonNode(jsonNode, "remoteAddress").asText();
-        String sessionId = readJsonNode(jsonNode, "sessionId").asText();
-        String parameterName = readJsonNode(jsonNode, "parameterName").asText();
-        String category = readJsonNode(jsonNode, "category").asText();
-        String code = readJsonNode(jsonNode, "code").asText();
-        String identity = readJsonNode(jsonNode, "identity").asText();
-        boolean closed = readJsonNode(jsonNode, "closed").asBoolean();
+        String remoteAddress = JsonNodeUtils.findStringValue(jsonNode, "remoteAddress");
+        String sessionId = JsonNodeUtils.findStringValue(jsonNode, "sessionId");
+        String parameterName = JsonNodeUtils.findStringValue(jsonNode, "parameterName");
+        String category = JsonNodeUtils.findStringValue(jsonNode, "category");
+        String code = JsonNodeUtils.findStringValue(jsonNode, "code");
+        String identity = JsonNodeUtils.findStringValue(jsonNode, "identity");
+        boolean closed = JsonNodeUtils.findBooleanValue(jsonNode, "closed");
 
         return new FormLoginWebAuthenticationDetails(remoteAddress, sessionId, closed, parameterName, category, code, identity);
-    }
-
-    private JsonNode readJsonNode(JsonNode jsonNode, String field) {
-        return jsonNode.has(field) ? jsonNode.get(field) : MissingNode.getInstance();
     }
 }
