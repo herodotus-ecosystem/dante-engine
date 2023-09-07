@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.JsonNodeUtils;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -32,7 +33,6 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.MissingNode;
 
 import java.io.IOException;
 
@@ -47,11 +47,7 @@ public class HerodotusGrantedAuthorityDeserializer extends JsonDeserializer<Hero
     public HerodotusGrantedAuthority deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JacksonException {
         ObjectMapper mapper = (ObjectMapper) jp.getCodec();
         JsonNode jsonNode = mapper.readTree(jp);
-        String authority = readJsonNode(jsonNode, "authority").asText();
+        String authority = JsonNodeUtils.findStringValue(jsonNode, "authority");
         return new HerodotusGrantedAuthority(authority);
-    }
-
-    private JsonNode readJsonNode(JsonNode jsonNode, String field) {
-        return jsonNode.has(field) ? jsonNode.get(field) : MissingNode.getInstance();
     }
 }

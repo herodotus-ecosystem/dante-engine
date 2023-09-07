@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.core.jackson2;
 
+import cn.herodotus.engine.assistant.core.json.jackson2.utils.JsonNodeUtils;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import com.fasterxml.jackson.core.JsonParser;
@@ -34,7 +35,6 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.MissingNode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -72,24 +72,20 @@ public class HerodotusUserDeserializer extends JsonDeserializer<HerodotusUser> {
         JsonNode jsonNode = mapper.readTree(jp);
         Set<? extends GrantedAuthority> authorities = mapper.convertValue(jsonNode.get("authorities"), HERODOTUS_GRANTED_AUTHORITY_SET);
         Set<String> roles = mapper.convertValue(jsonNode.get("roles"), HERODOTUS_ROLE_SET);
-        JsonNode passwordNode = readJsonNode(jsonNode, "password");
-        String userId = readJsonNode(jsonNode, "userId").asText();
-        String username = readJsonNode(jsonNode, "username").asText();
+        JsonNode passwordNode = JsonNodeUtils.readJsonNode(jsonNode, "password");
+        String userId = JsonNodeUtils.findStringValue(jsonNode, "userId");
+        String username = JsonNodeUtils.findStringValue(jsonNode, "username");
         String password = passwordNode.asText("");
-        boolean enabled = readJsonNode(jsonNode, "enabled").asBoolean();
-        boolean accountNonExpired = readJsonNode(jsonNode, "accountNonExpired").asBoolean();
-        boolean credentialsNonExpired = readJsonNode(jsonNode, "credentialsNonExpired").asBoolean();
-        boolean accountNonLocked = readJsonNode(jsonNode, "accountNonLocked").asBoolean();
-        String employeeId = readJsonNode(jsonNode, "employeeId").asText();
-        String avatar = readJsonNode(jsonNode, "avatar").asText();
+        boolean enabled = JsonNodeUtils.findBooleanValue(jsonNode, "enabled");
+        boolean accountNonExpired = JsonNodeUtils.findBooleanValue(jsonNode, "accountNonExpired");
+        boolean credentialsNonExpired = JsonNodeUtils.findBooleanValue(jsonNode, "credentialsNonExpired");
+        boolean accountNonLocked = JsonNodeUtils.findBooleanValue(jsonNode, "accountNonLocked");
+        String employeeId = JsonNodeUtils.findStringValue(jsonNode, "employeeId");
+        String avatar = JsonNodeUtils.findStringValue(jsonNode, "avatar");
         HerodotusUser result = new HerodotusUser(userId, username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities, roles, employeeId, avatar);
         if (passwordNode.asText(null) == null) {
             result.eraseCredentials();
         }
         return result;
-    }
-
-    private JsonNode readJsonNode(JsonNode jsonNode, String field) {
-        return jsonNode.has(field) ? jsonNode.get(field) : MissingNode.getInstance();
     }
 }
