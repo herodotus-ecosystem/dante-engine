@@ -25,19 +25,13 @@
 
 package cn.herodotus.engine.message.websocket.interceptor;
 
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.session.FindByIndexNameSessionRepository;
-import org.springframework.session.Session;
-import org.springframework.session.SessionRepository;
-import org.springframework.session.web.socket.server.SessionRepositoryMessageInterceptor;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
@@ -50,39 +44,18 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2021/10/24 18:52
  */
-public class WebSocketPrincipalHandshakeHandler<S extends Session> extends DefaultHandshakeHandler {
+public class WebSocketPrincipalHandshakeHandler extends DefaultHandshakeHandler {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketPrincipalHandshakeHandler.class);
-
-    private final UserDetailsService userDetailsService;
-    private final SessionRepository<S> sessionRepository;
-
-    public WebSocketPrincipalHandshakeHandler(UserDetailsService userDetailsService, SessionRepository<S> sessionRepository) {
-        this.userDetailsService = userDetailsService;
-        this.sessionRepository = sessionRepository;
-    }
-
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
 
-        String sessionId = SessionRepositoryMessageInterceptor.getSessionId(attributes);
+        Object object = attributes.get(BaseConstants.PRINCIPAL);
 
-
-        if (StringUtils.isNotBlank(sessionId)) {
-            S session = sessionRepository.findById(sessionId);
-            String principalName = session.getAttribute(FindByIndexNameSessionRepository.PRINCIPAL_NAME_INDEX_NAME);
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(principalName);
-            if (userDetails instanceof HerodotusUser user) {
-                WebSocketPrincipal webSocketPrincipal = new WebSocketPrincipal();
-                webSocketPrincipal.setUserName(user.getUsername());
-                webSocketPrincipal.setUserId(user.getUserId());
-                webSocketPrincipal.setEmployeeId(user.getEmployeeId());
-                webSocketPrincipal.setAvatar(user.getAvatar());
-                webSocketPrincipal.setRoles(user.getRoles());
-                log.debug("[Herodotus] |- Determine user by request parameter, userId is  [{}].", webSocketPrincipal.getUserId());
-                return webSocketPrincipal;
-            }
+        if (ObjectUtils.isNotEmpty(object) && object instanceof PrincipalDetails details) {
+            WebSocketPrincipal webSocketPrincipal = new WebSocketPrincipal(details);
+            log.debug("[Herodotus] |- Determine user by request parameter, userId is  [{}].", webSocketPrincipal.getUserId());
+            return webSocketPrincipal;
         }
 
         Principal principal = request.getPrincipal();

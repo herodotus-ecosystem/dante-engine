@@ -25,9 +25,10 @@
 
 package cn.herodotus.engine.message.websocket.autoconfigre;
 
+import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
 import cn.herodotus.engine.message.websocket.configuration.WebSocketMessageBrokerConfiguration;
 import cn.herodotus.engine.message.websocket.configuration.WebSocketProcessorConfiguration;
-import cn.herodotus.engine.message.websocket.interceptor.WebSocketPrincipalHandshakeHandler;
+import cn.herodotus.engine.message.websocket.interceptor.WebSocketAuthenticationHandshakeInterceptor;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +37,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.session.Session;
-import org.springframework.session.SessionRepository;
 
 /**
  * <p>Description: WebSocket 处理器相关配置 </p>
@@ -58,12 +56,11 @@ public class MessageWebSocketAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public <S extends Session> WebSocketPrincipalHandshakeHandler<S> webSocketPrincipalHandshakeHandler(UserDetailsService userDetailsService, SessionRepository<S> sessionRepository) {
-        WebSocketPrincipalHandshakeHandler<S> webSocketPrincipalHandshakeHandler = new WebSocketPrincipalHandshakeHandler<>(userDetailsService, sessionRepository);
-        log.trace("[Herodotus] |- Bean [WebSocket Principal Handshake Handler] Auto Configure.");
-        return webSocketPrincipalHandshakeHandler;
+    public WebSocketAuthenticationHandshakeInterceptor webSocketPrincipalHandshakeHandler(BearerTokenResolver bearerTokenResolver) {
+        WebSocketAuthenticationHandshakeInterceptor webSocketAuthenticationHandshakeInterceptor = new WebSocketAuthenticationHandshakeInterceptor(bearerTokenResolver);
+        log.trace("[Herodotus] |- Bean [WebSocket Authentication Handshake Interceptor] Auto Configure.");
+        return webSocketAuthenticationHandshakeInterceptor;
     }
-
     @Configuration(proxyBeanMethods = false)
     @Import({
             WebSocketMessageBrokerConfiguration.class,
