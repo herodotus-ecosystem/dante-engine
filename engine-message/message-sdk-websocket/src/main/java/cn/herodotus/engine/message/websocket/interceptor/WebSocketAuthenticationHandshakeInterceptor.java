@@ -25,7 +25,10 @@
 
 package cn.herodotus.engine.message.websocket.interceptor;
 
+import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -57,6 +60,12 @@ public class WebSocketAuthenticationHandshakeInterceptor implements HandshakeInt
 
     private static final String SEC_WEBSOCKET_PROTOCOL = com.google.common.net.HttpHeaders.SEC_WEBSOCKET_PROTOCOL;
 
+    private final BearerTokenResolver bearerTokenResolver;
+
+    public WebSocketAuthenticationHandshakeInterceptor(BearerTokenResolver bearerTokenResolver) {
+        this.bearerTokenResolver = bearerTokenResolver;
+    }
+
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
 
@@ -69,6 +78,8 @@ public class WebSocketAuthenticationHandshakeInterceptor implements HandshakeInt
             String token = determineToken(protocol);
 
             if (StringUtils.isNotBlank(token)) {
+                PrincipalDetails details = bearerTokenResolver.resolve(token);
+                attributes.put(BaseConstants.PRINCIPAL, details);
                 log.debug("[Herodotus] |- WebSocket fetch the token is [{}].", token);
             } else {
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);

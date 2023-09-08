@@ -63,14 +63,14 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
 
     private final WebSocketProperties webSocketProperties;
     private final WebSocketChannelInterceptor webSocketChannelInterceptor;
-    private final WebSocketPrincipalHandshakeHandler<? extends Session> webSocketPrincipalHandshakeHandler;
+    private final WebSocketPrincipalHandshakeHandler webSocketPrincipalHandshakeHandler;
     private final WebSocketAuthenticationHandshakeInterceptor webSocketAuthenticationHandshakeInterceptor;
 
-    public WebSocketMessageBrokerConfiguration(WebSocketProperties webSocketProperties, WebSocketPrincipalHandshakeHandler<? extends Session> webSocketPrincipalHandshakeHandler) {
+    public WebSocketMessageBrokerConfiguration(WebSocketProperties webSocketProperties, WebSocketAuthenticationHandshakeInterceptor webSocketAuthenticationHandshakeInterceptor) {
         this.webSocketProperties = webSocketProperties;
         this.webSocketChannelInterceptor = new WebSocketChannelInterceptor();
-        this.webSocketPrincipalHandshakeHandler = webSocketPrincipalHandshakeHandler;
-        this.webSocketAuthenticationHandshakeInterceptor = new WebSocketAuthenticationHandshakeInterceptor();
+        this.webSocketPrincipalHandshakeHandler = new WebSocketPrincipalHandshakeHandler();
+        this.webSocketAuthenticationHandshakeInterceptor = webSocketAuthenticationHandshakeInterceptor;
     }
 
     @PostConstruct
