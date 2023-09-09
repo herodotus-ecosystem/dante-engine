@@ -36,8 +36,7 @@
     </parent>
 
     <artifactId>rest-sdk-client</artifactId>
-    <version>3.1.3.5</version>
-    <packaging>jar</packaging>
+
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 各类HttpClient集成配置模块</description>
 
