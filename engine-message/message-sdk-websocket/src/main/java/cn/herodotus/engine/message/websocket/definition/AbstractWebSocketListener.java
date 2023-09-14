@@ -25,9 +25,6 @@
 
 package cn.herodotus.engine.message.websocket.definition;
 
-import cn.herodotus.engine.cache.redis.utils.RedisBitMapUtils;
-import cn.herodotus.engine.message.core.constants.MessageConstants;
-import cn.herodotus.engine.message.websocket.processor.WebSocketMessageSender;
 import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -44,11 +41,6 @@ public abstract class AbstractWebSocketListener<E extends ApplicationEvent> impl
 
     public AbstractWebSocketListener(WebSocketMessageSender webSocketMessageSender) {
         this.webSocketMessageSender = webSocketMessageSender;
-    }
-
-    private int getOnlineCount() {
-        Long count = RedisBitMapUtils.bitCount(MessageConstants.REDIS_CURRENT_ONLINE_USER);
-        return count.intValue();
     }
 
     protected void syncUserCountToAll() {

@@ -23,32 +23,21 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.websocket.configuration;
+package cn.herodotus.engine.message.websocket.processor;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import cn.herodotus.engine.message.websocket.definition.AbstractWebSocketMessageSender;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 
 /**
- * <p>Description: Web Socket 基础支撑配置 </p>
+ * <p>Description: Web Socket 单一实例服务端消息发送 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/9/5 21:08
+ * @date : 2021/10/24 18:47
  */
-@Configuration(proxyBeanMethods = false)
-@ComponentScan(basePackages = {
-        "cn.herodotus.engine.message.websocket.processor",
-        "cn.herodotus.engine.message.websocket.controller",
-        "cn.herodotus.engine.message.websocket.listener",
-})
-public class WebSocketProcessorConfiguration {
+public class SingleInstanceMessageSender extends AbstractWebSocketMessageSender {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketProcessorConfiguration.class);
-
-    @PostConstruct
-    public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [WebSocket Processor] Auto Configure.");
+    public SingleInstanceMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
+        super(simpMessagingTemplate, simpUserRegistry);
     }
 }

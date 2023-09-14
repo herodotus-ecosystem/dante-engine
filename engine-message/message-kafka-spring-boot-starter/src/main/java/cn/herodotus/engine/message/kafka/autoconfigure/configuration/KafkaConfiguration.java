@@ -40,6 +40,8 @@ import org.springframework.kafka.core.ConsumerFactory;
 /**
  * <p>Description: Kafka 配置 </p>
  *
+ * Spring Cloud Bus 默认配置参数 {@link org.springframework.cloud.bus.BusEnvironmentPostProcessor}
+ *
  * @author : gengwei.zheng
  * @date : 2021/10/23 17:34
  */
