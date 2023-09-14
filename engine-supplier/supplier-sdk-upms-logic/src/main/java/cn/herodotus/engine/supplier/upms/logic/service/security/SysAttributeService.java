@@ -71,6 +71,10 @@ public class SysAttributeService extends BaseService<SysAttribute, String> {
         return saveAndFlush(sysAttribute);
     }
 
+    public List<SysAttribute> findAllByServiceId(String serviceId) {
+        return sysAttributeRepository.findAllByServiceId(serviceId);
+    }
+
     public List<SysAttribute> findByAttributeIdIn(List<String> ids) {
         return sysAttributeRepository.findByAttributeIdIn(ids);
     }

@@ -25,13 +25,9 @@
 
 package cn.herodotus.engine.message.websocket.processor;
 
-import cn.herodotus.engine.message.core.exception.IllegalChannelException;
-import cn.herodotus.engine.message.core.exception.PrincipalNotFoundException;
 import cn.herodotus.engine.message.websocket.definition.AbstractWebSocketMessageSender;
-import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 
 /**
  * <p>Description: Web Socket 单一实例服务端消息发送 </p>
@@ -41,25 +37,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
  */
 public class SingleInstanceMessageSender extends AbstractWebSocketMessageSender {
 
-    private static final Logger log = LoggerFactory.getLogger(SingleInstanceMessageSender.class);
-
-    private final SimpMessagingTemplate simpMessagingTemplate;
-
-    public SingleInstanceMessageSender(SimpMessagingTemplate simpMessagingTemplate) {
-        super(simpMessagingTemplate);
-        this.simpMessagingTemplate = simpMessagingTemplate;
-    }
-
-    /**
-     * 发送给指定用户信息。
-     *
-     * @param webSocketMessage 发送内容参数实体 {@link WebSocketMessage}
-     * @param <T>              指定 payload 类型
-     * @throws IllegalChannelException    Web Socket 通道设置错误
-     * @throws PrincipalNotFoundException 该服务中无法找到与 identity 对应的用户 Principal
-     */
-    public <T> void toUser(WebSocketMessage<T> webSocketMessage) throws IllegalChannelException, PrincipalNotFoundException {
-        log.debug("[Herodotus] |- Web socket send message to user [{}].", webSocketMessage.getTo());
-        simpMessagingTemplate.convertAndSendToUser(webSocketMessage.getTo(), webSocketMessage.getChannel(), webSocketMessage.getPayload());
+    public SingleInstanceMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
+        super(simpMessagingTemplate, simpUserRegistry);
     }
 }

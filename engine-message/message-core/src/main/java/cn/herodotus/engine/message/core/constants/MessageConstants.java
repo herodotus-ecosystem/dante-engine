@@ -44,6 +44,10 @@ public interface MessageConstants extends BaseConstants {
     String MULTIPLE_INSTANCE_INPUT = "webSocketMultipleInstanceSyncInput";
     String MULTIPLE_INSTANCE_OUTPUT = "webSocketMultipleInstanceSyncOutput";
 
+    /**
+     * 消息类型判断值。
+     */
+    String MESSAGE_TO_ALL = "message_to_all";
 
     String ITEM_KAFKA_ENABLED = PROPERTY_PREFIX_KAFKA + PROPERTY_ENABLED;
     String ITEM_WEBSOCKET_MULTIPLE_INSTANCE = PROPERTY_PREFIX_WEBSOCKET + ".multiple-instance";

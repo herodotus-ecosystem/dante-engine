@@ -43,4 +43,7 @@ public interface SysAttributeRepository extends BaseRepository<SysAttribute, Str
 
     @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
     List<SysAttribute> findByAttributeIdIn(List<String> ids);
+
+    @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
+    List<SysAttribute> findAllByServiceId(String serviceId);
 }

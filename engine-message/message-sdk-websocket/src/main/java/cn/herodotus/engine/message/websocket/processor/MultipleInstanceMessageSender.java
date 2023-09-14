@@ -29,12 +29,10 @@ import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.core.exception.IllegalChannelException;
 import cn.herodotus.engine.message.core.exception.PrincipalNotFoundException;
 import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 
 /**
@@ -47,15 +45,12 @@ public class MultipleInstanceMessageSender extends SingleInstanceMessageSender {
 
     private static final Logger log = LoggerFactory.getLogger(MultipleInstanceMessageSender.class);
 
-    private final SimpUserRegistry simpUserRegistry;
     private final StreamBridge streamBridge;
 
     public MultipleInstanceMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, StreamBridge streamBridge) {
-        super(simpMessagingTemplate);
-        this.simpUserRegistry = simpUserRegistry;
+        super(simpMessagingTemplate, simpUserRegistry);
         this.streamBridge = streamBridge;
     }
-
 
     /**
      * 发送给指定用户信息。
@@ -67,12 +62,37 @@ public class MultipleInstanceMessageSender extends SingleInstanceMessageSender {
      */
     @Override
     public <T> void toUser(WebSocketMessage<T> webSocketMessage) throws IllegalChannelException, PrincipalNotFoundException {
-        SimpUser simpUser = simpUserRegistry.getUser(webSocketMessage.getTo());
-        if (ObjectUtils.isEmpty(simpUser)) {
-            log.debug("[Herodotus] |- Sync message to other web socket instance.");
-            streamBridge.send(MessageConstants.MULTIPLE_INSTANCE_OUTPUT, webSocketMessage);
-        } else {
+        // 用户在当前实例中
+        if (isUserExist(webSocketMessage.getTo())) {
             super.toUser(webSocketMessage);
+        } else {
+            syncMessageToOtherInstances(webSocketMessage);
         }
+    }
+
+    @Override
+    public <T> void sendNoticeToAll(T payload) {
+        syncBroadcastMessageToOtherInstances(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_NOTICE, payload);
+        super.sendNoticeToAll(payload);
+    }
+
+    @Override
+    public <T> void sendOnlineToAll(T payload) {
+        syncBroadcastMessageToOtherInstances(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_ONLINE, payload);
+        super.sendOnlineToAll(payload);
+    }
+
+    private <T> void syncMessageToOtherInstances(WebSocketMessage<T> webSocketMessage) {
+        log.debug("[Herodotus] |- Sync MESSAGE to other web socket instance.");
+        streamBridge.send(MessageConstants.MULTIPLE_INSTANCE_OUTPUT, webSocketMessage);
+    }
+
+    private <T> void syncBroadcastMessageToOtherInstances(String channel, T payload) {
+        WebSocketMessage<T> webSocketMessage = new WebSocketMessage<>();
+        webSocketMessage.setTo(MessageConstants.MESSAGE_TO_ALL);
+        webSocketMessage.setChannel(channel);
+        webSocketMessage.setPayload(payload);
+
+        syncMessageToOtherInstances(webSocketMessage);
     }
 }
