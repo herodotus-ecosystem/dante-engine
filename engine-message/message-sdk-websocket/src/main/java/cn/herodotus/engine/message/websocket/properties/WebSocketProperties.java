@@ -28,6 +28,7 @@ package cn.herodotus.engine.message.websocket.properties;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
+import cn.herodotus.engine.message.websocket.enums.InstanceMode;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -44,6 +45,10 @@ import java.util.List;
 @ConfigurationProperties(prefix = MessageConstants.PROPERTY_PREFIX_WEBSOCKET)
 public class WebSocketProperties {
 
+    /**
+     * WebSocket 实例模式，单实例还是多实例。默认为单实例
+     */
+    private InstanceMode mode = InstanceMode.SINGLE;
     /**
      * 客户端尝试连接端点
      */
@@ -68,6 +73,14 @@ public class WebSocketProperties {
      * 请求中传递的用户身份标识属性名
      */
     private String principalHeader = HeadersUtils.X_HERODOTUS_OPEN_ID;
+
+    public InstanceMode getMode() {
+        return mode;
+    }
+
+    public void setMode(InstanceMode mode) {
+        this.mode = mode;
+    }
 
     private String format(String endpoint) {
         if (StringUtils.isNotBlank(endpoint) && !StringUtils.startsWith(endpoint, SymbolConstants.FORWARD_SLASH)) {

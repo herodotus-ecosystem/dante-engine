@@ -47,6 +47,7 @@ import java.util.Map;
 public class WebSocketPrincipalHandshakeHandler extends DefaultHandshakeHandler {
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketPrincipalHandshakeHandler.class);
+
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler, Map<String, Object> attributes) {
 

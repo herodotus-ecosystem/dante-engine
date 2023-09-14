@@ -26,17 +26,29 @@
 package cn.herodotus.engine.message.websocket.autoconfigre;
 
 import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
+import cn.herodotus.engine.message.websocket.annotation.ConditionalOnMultipleWebSocketInstance;
+import cn.herodotus.engine.message.websocket.annotation.ConditionalOnSingleWebSocketInstance;
 import cn.herodotus.engine.message.websocket.configuration.WebSocketMessageBrokerConfiguration;
-import cn.herodotus.engine.message.websocket.configuration.WebSocketProcessorConfiguration;
+import cn.herodotus.engine.message.websocket.definition.WebSocketMessageSender;
+import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketAuthenticationHandshakeInterceptor;
+import cn.herodotus.engine.message.websocket.processor.MultipleInstanceMessageReceiver;
+import cn.herodotus.engine.message.websocket.processor.MultipleInstanceMessageSender;
+import cn.herodotus.engine.message.websocket.processor.SingleInstanceMessageSender;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
+
+import java.util.function.Consumer;
 
 /**
  * <p>Description: WebSocket 处理器相关配置 </p>
@@ -61,10 +73,44 @@ public class MessageWebSocketAutoConfiguration {
         log.trace("[Herodotus] |- Bean [WebSocket Authentication Handshake Interceptor] Auto Configure.");
         return webSocketAuthenticationHandshakeInterceptor;
     }
+
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnSingleWebSocketInstance
+    static class SingleInstanceConfiguration {
+        @Bean
+        public WebSocketMessageSender webSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate) {
+            SingleInstanceMessageSender singleInstanceMessageSender = new SingleInstanceMessageSender(simpMessagingTemplate);
+            log.debug("[Herodotus] |- Strategy [Single Instance Web Socket Message Sender] Auto Configure.");
+            return singleInstanceMessageSender;
+        }
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    @ConditionalOnMultipleWebSocketInstance
+    static class MultipleInstanceConfiguration {
+
+        @Bean
+        public WebSocketMessageSender webSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, StreamBridge streamBridge) {
+            MultipleInstanceMessageSender multipleInstanceMessageSender = new MultipleInstanceMessageSender(simpMessagingTemplate, simpUserRegistry, streamBridge);
+            log.debug("[Herodotus] |- Strategy [Single Instance Web Socket Message Sender] Auto Configure.");
+            return multipleInstanceMessageSender;
+        }
+
+        @Bean
+        public <T> Consumer<WebSocketMessage<T>> webSocketConsumer(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
+            MultipleInstanceMessageReceiver<T> multipleInstanceMessageReceiver = new MultipleInstanceMessageReceiver<>(simpMessagingTemplate, simpUserRegistry);
+            log.trace("[Herodotus] |- Bean [Multiple Instance Message Receiver] Auto Configure.");
+            return multipleInstanceMessageReceiver;
+        }
+    }
+
     @Configuration(proxyBeanMethods = false)
     @Import({
             WebSocketMessageBrokerConfiguration.class,
-            WebSocketProcessorConfiguration.class
+    })
+    @ComponentScan(basePackages = {
+            "cn.herodotus.engine.message.websocket.controller",
+            "cn.herodotus.engine.message.websocket.listener",
     })
     static class WebSocketConfiguration {
 

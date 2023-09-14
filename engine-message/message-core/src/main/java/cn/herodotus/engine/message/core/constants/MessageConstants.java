@@ -35,31 +35,29 @@ import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
  */
 public interface MessageConstants extends BaseConstants {
 
-    String MSG_AREA_PREFIX = AREA_PREFIX + "msg:";
+    String MESSAGE_AREA_PREFIX = AREA_PREFIX + "message:";
 
     String PROPERTY_PREFIX_KAFKA = PROPERTY_PREFIX_EVENT + ".kafka";
+    String PROPERTY_PREFIX_WEBSOCKET = PROPERTY_PREFIX_MESSAGE + ".websocket";
+    String PROPERTY_PREFIX_MQTT = PROPERTY_PREFIX_MESSAGE + ".mqtt";
+
+    String MULTIPLE_INSTANCE_INPUT = "webSocketMultipleInstanceSyncInput";
+    String MULTIPLE_INSTANCE_OUTPUT = "webSocketMultipleInstanceSyncOutput";
+
 
     String ITEM_KAFKA_ENABLED = PROPERTY_PREFIX_KAFKA + PROPERTY_ENABLED;
+    String ITEM_WEBSOCKET_MULTIPLE_INSTANCE = PROPERTY_PREFIX_WEBSOCKET + ".multiple-instance";
 
-    String REDIS_CURRENT_ONLINE_USER = MSG_AREA_PREFIX + "online:user";
-    String REGION_MESSAGE_ANNOUNCEMENT = MSG_AREA_PREFIX + "system_announcement";
-    String REGION_MESSAGE_DIALOGUE_CONTACT = MSG_AREA_PREFIX + "personal:contact";
-    String REGION_MESSAGE_DIALOGUE = MSG_AREA_PREFIX + "personal:dialogue";
-    String REGION_MESSAGE_DIALOGUE_DETAIL = MSG_AREA_PREFIX + "personal:dialogue:detail";
-    String REGION_MESSAGE_NOTIFICATION = MSG_AREA_PREFIX + "notification_queue";
-    String REGION_MESSAGE_PULL_STAMP = MSG_AREA_PREFIX + "pull_stamp";
-
-    String PROPERTY_PREFIX_ENGINE_IO = PROPERTY_PREFIX_MESSAGE + ".engineio";
-    String PROPERTY_PREFIX_WEBSOCKET = PROPERTY_PREFIX_MESSAGE + ".websocket";
-
+    String REDIS_CURRENT_ONLINE_USER = MESSAGE_AREA_PREFIX + "online:user";
+    String REGION_MESSAGE_ANNOUNCEMENT = MESSAGE_AREA_PREFIX + "system_announcement";
+    String REGION_MESSAGE_DIALOGUE_CONTACT = MESSAGE_AREA_PREFIX + "personal:contact";
+    String REGION_MESSAGE_DIALOGUE = MESSAGE_AREA_PREFIX + "personal:dialogue";
+    String REGION_MESSAGE_DIALOGUE_DETAIL = MESSAGE_AREA_PREFIX + "personal:dialogue:detail";
+    String REGION_MESSAGE_NOTIFICATION = MESSAGE_AREA_PREFIX + "notification_queue";
+    String REGION_MESSAGE_PULL_STAMP = MESSAGE_AREA_PREFIX + "pull_stamp";
     String WEBSOCKET_CHANNEL_PROXY_BROADCAST = "/broadcast";
     String WEBSOCKET_CHANNEL_PROXY_PERSONAL = "/personal";
     String WEBSOCKET_DESTINATION_BROADCAST_NOTICE = WEBSOCKET_CHANNEL_PROXY_BROADCAST + "/notice";
     String WEBSOCKET_DESTINATION_BROADCAST_ONLINE = WEBSOCKET_CHANNEL_PROXY_BROADCAST + "/online";
     String WEBSOCKET_DESTINATION_PERSONAL_MESSAGE = WEBSOCKET_CHANNEL_PROXY_PERSONAL + "/message";
-
-    String ENGINE_IO_INTERCEPTOR_PATH = "/engine.io/";
-    String ENGINE_IO_ATTRIBUTE_BRIDGE = "engineIo.bridge";
-    String ENGINE_IO_ATTRIBUTE_QUERY = "engineIo.query";
-    String ENGINE_IO_ATTRIBUTE_HEADERS = "engineIo.headers";
 }

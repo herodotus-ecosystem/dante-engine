@@ -23,36 +23,35 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.websocket.definition;
+package cn.herodotus.engine.message.websocket.condition;
 
-import cn.herodotus.engine.cache.redis.utils.RedisBitMapUtils;
+import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
-import cn.herodotus.engine.message.websocket.processor.SingleInstanceMessageSender;
-import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
+import cn.herodotus.engine.message.websocket.enums.InstanceMode;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * <p>Description: 公共 WebSocketUserListener </p>
+ * <p>Description: WebSocket 多实例环境判断条件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/12/29 22:20
+ * @date : 2023/9/14 13:50
  */
-public abstract class AbstractWebSocketListener<E extends ApplicationEvent> implements ApplicationListener<E> {
+public class MultipleWebSocketInstanceCondition implements Condition {
 
-    private final SingleInstanceMessageSender singleInstanceMessageSender;
+    private static final Logger log = LoggerFactory.getLogger(MultipleWebSocketInstanceCondition.class);
 
-    public AbstractWebSocketListener(SingleInstanceMessageSender singleInstanceMessageSender) {
-        this.singleInstanceMessageSender = singleInstanceMessageSender;
-    }
+    @SuppressWarnings("NullableProblems")
+    @Override
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
+        String property = PropertyResolver.getProperty(conditionContext.getEnvironment(), MessageConstants.ITEM_WEBSOCKET_MULTIPLE_INSTANCE);
+        boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, InstanceMode.MULTIPLE.name());
+        log.debug("[Herodotus] |- Condition [Multiple Web Socket Instance] value is [{}]", result);
+        return result;
 
-    private int getOnlineCount() {
-        Long count = RedisBitMapUtils.bitCount(MessageConstants.REDIS_CURRENT_ONLINE_USER);
-        return count.intValue();
-    }
-
-    protected void syncUserCountToAll() {
-        int count = WebSocketUtils.getOnlineCount();
-        singleInstanceMessageSender.sendOnlineToAll(count);
     }
 }

@@ -29,7 +29,7 @@ import cn.herodotus.engine.cache.redis.utils.RedisBitMapUtils;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.websocket.definition.AbstractWebSocketListener;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
-import cn.herodotus.engine.message.websocket.processor.WebSocketMessageSender;
+import cn.herodotus.engine.message.websocket.processor.SingleInstanceMessageSender;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,8 +49,8 @@ public class WebSocketConnectedListener extends AbstractWebSocketListener<Sessio
 
     private static final Logger log = LoggerFactory.getLogger(WebSocketConnectedListener.class);
 
-    public WebSocketConnectedListener(WebSocketMessageSender webSocketMessageSender) {
-        super(webSocketMessageSender);
+    public WebSocketConnectedListener(SingleInstanceMessageSender singleInstanceMessageSender) {
+        super(singleInstanceMessageSender);
     }
 
     @Override

@@ -45,6 +45,7 @@
         <module>message-kafka-spring-boot-starter</module>
         <module>message-security-spring-boot-starter</module>
         <module>message-rabbitmq-spring-boot-starter</module>
+        <module>message-sdk-mqtt</module>
     </modules>
 
 </project>

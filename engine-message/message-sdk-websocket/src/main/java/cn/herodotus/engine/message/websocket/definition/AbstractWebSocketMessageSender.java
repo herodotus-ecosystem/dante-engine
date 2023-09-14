@@ -23,32 +23,26 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.websocket.configuration;
+package cn.herodotus.engine.message.websocket.definition;
 
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 /**
- * <p>Description: Web Socket 基础支撑配置 </p>
+ * <p>Description: WebSocketMessageSender 抽象实现 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/9/5 21:08
+ * @date : 2023/9/14 17:22
  */
-@Configuration(proxyBeanMethods = false)
-@ComponentScan(basePackages = {
-        "cn.herodotus.engine.message.websocket.processor",
-        "cn.herodotus.engine.message.websocket.controller",
-        "cn.herodotus.engine.message.websocket.listener",
-})
-public class WebSocketProcessorConfiguration {
+public abstract class AbstractWebSocketMessageSender implements WebSocketMessageSender {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketProcessorConfiguration.class);
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    @PostConstruct
-    public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [WebSocket Processor] Auto Configure.");
+    protected AbstractWebSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate) {
+        this.simpMessagingTemplate = simpMessagingTemplate;
+    }
+
+    @Override
+    public <T> void toAll(String channel, T payload) {
+        simpMessagingTemplate.convertAndSend(channel, payload);
     }
 }

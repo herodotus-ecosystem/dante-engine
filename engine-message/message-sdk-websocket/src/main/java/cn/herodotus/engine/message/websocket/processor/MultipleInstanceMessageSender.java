@@ -32,28 +32,28 @@ import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.user.SimpUser;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
-import org.springframework.stereotype.Component;
 
 /**
- * <p>Description: Web Socket 服务端消息发送 </p>
+ * <p>Description: Web Socket 多实例服务端消息发送 </p>
  *
  * @author : gengwei.zheng
  * @date : 2021/10/24 18:47
  */
-@Component
-public class WebSocketMessageSender {
+public class MultipleInstanceMessageSender extends SingleInstanceMessageSender {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketMessageSender.class);
+    private static final Logger log = LoggerFactory.getLogger(MultipleInstanceMessageSender.class);
 
-    private final SimpMessagingTemplate simpMessagingTemplate;
     private final SimpUserRegistry simpUserRegistry;
+    private final StreamBridge streamBridge;
 
-    public WebSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
-        this.simpMessagingTemplate = simpMessagingTemplate;
+    public MultipleInstanceMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, StreamBridge streamBridge) {
+        super(simpMessagingTemplate);
         this.simpUserRegistry = simpUserRegistry;
+        this.streamBridge = streamBridge;
     }
 
 
@@ -65,37 +65,14 @@ public class WebSocketMessageSender {
      * @throws IllegalChannelException    Web Socket 通道设置错误
      * @throws PrincipalNotFoundException 该服务中无法找到与 identity 对应的用户 Principal
      */
+    @Override
     public <T> void toUser(WebSocketMessage<T> webSocketMessage) throws IllegalChannelException, PrincipalNotFoundException {
         SimpUser simpUser = simpUserRegistry.getUser(webSocketMessage.getTo());
         if (ObjectUtils.isEmpty(simpUser)) {
-            throw new PrincipalNotFoundException("Web socket user principal is not found!");
+            log.debug("[Herodotus] |- Sync message to other web socket instance.");
+            streamBridge.send(MessageConstants.MULTIPLE_INSTANCE_OUTPUT, webSocketMessage);
+        } else {
+            super.toUser(webSocketMessage);
         }
-
-        log.debug("[Herodotus] |- Web socket send message to user [{}].", webSocketMessage.getTo());
-        simpMessagingTemplate.convertAndSendToUser(webSocketMessage.getTo(), webSocketMessage.getChannel(), webSocketMessage.getPayload());
-    }
-
-    public <T> void toAll(String channel, T payload) {
-        simpMessagingTemplate.convertAndSend(channel, payload);
-    }
-
-    /**
-     * 广播 WebSocket 信息
-     *
-     * @param payload 发送的内容
-     * @param <T>     payload 类型
-     */
-    public <T> void sendNoticeToAll(T payload) {
-        toAll(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_NOTICE, payload);
-    }
-
-    /**
-     * 广播 WebSocket 信息
-     *
-     * @param payload 发送的内容
-     * @param <T>     payload 类型
-     */
-    public <T> void sendOnlineToAll(T payload) {
-        toAll(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_ONLINE, payload);
     }
 }

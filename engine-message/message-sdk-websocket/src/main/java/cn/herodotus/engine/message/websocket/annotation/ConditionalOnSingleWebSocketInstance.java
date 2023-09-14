@@ -23,36 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.message.websocket.definition;
+package cn.herodotus.engine.message.websocket.annotation;
 
-import cn.herodotus.engine.cache.redis.utils.RedisBitMapUtils;
-import cn.herodotus.engine.message.core.constants.MessageConstants;
-import cn.herodotus.engine.message.websocket.processor.SingleInstanceMessageSender;
-import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
+import cn.herodotus.engine.message.websocket.condition.SingleWebSocketInstanceCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: 公共 WebSocketUserListener </p>
+ * <p>Description: WebSocket 单实例环境条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/12/29 22:20
+ * @date : 2023/9/14 13:51
  */
-public abstract class AbstractWebSocketListener<E extends ApplicationEvent> implements ApplicationListener<E> {
-
-    private final SingleInstanceMessageSender singleInstanceMessageSender;
-
-    public AbstractWebSocketListener(SingleInstanceMessageSender singleInstanceMessageSender) {
-        this.singleInstanceMessageSender = singleInstanceMessageSender;
-    }
-
-    private int getOnlineCount() {
-        Long count = RedisBitMapUtils.bitCount(MessageConstants.REDIS_CURRENT_ONLINE_USER);
-        return count.intValue();
-    }
-
-    protected void syncUserCountToAll() {
-        int count = WebSocketUtils.getOnlineCount();
-        singleInstanceMessageSender.sendOnlineToAll(count);
-    }
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(SingleWebSocketInstanceCondition.class)
+public @interface ConditionalOnSingleWebSocketInstance {
 }
