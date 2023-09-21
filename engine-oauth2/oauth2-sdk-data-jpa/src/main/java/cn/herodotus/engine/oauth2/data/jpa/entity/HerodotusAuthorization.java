@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.data.jpa.entity;
 
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
-import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusAuthorizationUuid;
+import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusAuthorizationUuidGenerator;
 import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -51,7 +51,7 @@ import java.time.LocalDateTime;
 public class HerodotusAuthorization extends AbstractEntity {
 
     @Id
-    @HerodotusAuthorizationUuid
+    @HerodotusAuthorizationUuidGenerator
     @Column(name = "id", nullable = false, length = 100)
     private String id;
 
