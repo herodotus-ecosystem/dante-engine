@@ -25,42 +25,23 @@
 
 package cn.herodotus.engine.supplier.upms.logic.domain.generator;
 
-import cn.herodotus.engine.data.jpa.hibernate.identifier.AbstractUuidGenerator;
-import cn.herodotus.engine.supplier.upms.logic.entity.security.SysAttribute;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SharedSessionContractImplementor;
-import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
+import org.hibernate.annotations.IdGeneratorType;
 
-import java.lang.reflect.Member;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
 
 /**
- * <p>Description: 自定义UUID生成器 </p>
- * <p>
- * 使得保存实体类时可以在保留主键生成策略的情况下自定义表的主键
+ * <p>Description: SysAttributeUuid </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/4 3:20
+ * @date : 2022/11/7 17:42
  */
-public class SysAttributeUuidGenerator extends AbstractUuidGenerator {
-
-    public SysAttributeUuidGenerator(SysAttributeUuid config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
-        super(idMember);
-    }
-
-    @Override
-    public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-        if (ObjectUtils.isEmpty(object)) {
-            throw new HibernateException(new NullPointerException());
-        }
-
-        SysAttribute sysAttribute = (SysAttribute) object;
-
-        if (StringUtils.isEmpty(sysAttribute.getAttributeId())) {
-            return super.generate(session, object);
-        } else {
-            return sysAttribute.getAttributeId();
-        }
-    }
+@IdGeneratorType(SysAttributeUuidGeneratorType.class)
+@Retention(RetentionPolicy.RUNTIME)
+@Target({FIELD, METHOD})
+public @interface SysAttributeUuidGenerator {
 }

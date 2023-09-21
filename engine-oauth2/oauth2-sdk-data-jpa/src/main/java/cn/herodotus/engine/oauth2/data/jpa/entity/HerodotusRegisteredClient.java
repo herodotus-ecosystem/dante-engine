@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.data.jpa.entity;
 
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.data.jpa.definition.domain.AbstractRegisteredClient;
-import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusRegisteredClientUuid;
+import cn.herodotus.engine.oauth2.data.jpa.generator.HerodotusRegisteredClientUuidGenerator;
 import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -49,7 +49,7 @@ import java.util.Objects;
 public class HerodotusRegisteredClient extends AbstractRegisteredClient {
 
     @Id
-    @HerodotusRegisteredClientUuid
+    @HerodotusRegisteredClientUuidGenerator
     @Column(name = "id", nullable = false, length = 100)
     private String id;
 

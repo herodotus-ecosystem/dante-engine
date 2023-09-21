@@ -26,7 +26,7 @@
 package cn.herodotus.engine.supplier.upms.logic.entity.security;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
-import cn.herodotus.engine.supplier.upms.logic.domain.generator.SysAttributeUuid;
+import cn.herodotus.engine.supplier.upms.logic.domain.generator.SysAttributeUuidGenerator;
 import cn.herodotus.engine.supplier.upms.logic.domain.listener.SysAttributeEntityListener;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -52,7 +52,7 @@ public class SysAttribute extends BaseSysEntity {
 
     @Schema(title = "元数据ID")
     @Id
-    @SysAttributeUuid
+    @SysAttributeUuidGenerator
     @Column(name = "attribute_id", length = 64)
     private String attributeId;
 
