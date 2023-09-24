@@ -135,13 +135,11 @@ public class HerodotusDomainDataStorageAccess implements DomainDataStorageAccess
 
     @Override
     public void evictData() {
-        log.trace("[Herodotus] |- SPI - clear all cache data.");
         cache.clear();
     }
 
     @Override
     public void release() {
-        log.trace("[Herodotus] |- SPI - cache release.");
         cache.invalidate();
     }
 }

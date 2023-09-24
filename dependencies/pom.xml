@@ -58,7 +58,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.1.6</spring-boot-admin.version>
+        <spring-boot-admin.version>3.1.7</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.1.4</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
@@ -87,7 +87,7 @@
         <springdoc.version>2.2.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>8.16.0</skywalking.version>
-        <minio.version>8.5.5</minio.version>
+        <minio.version>8.5.6</minio.version>
         <aws-java-sdk-s3.version>1.12.554</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
 

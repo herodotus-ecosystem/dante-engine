@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.generator;
 
-import cn.herodotus.engine.data.jpa.hibernate.identifier.AbstractUuidGenerator;
+import cn.herodotus.engine.data.core.identifier.AbstractUuidGenerator;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;

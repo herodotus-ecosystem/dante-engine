@@ -41,11 +41,6 @@
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>data-sdk-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
             <artifactId>oauth2-core</artifactId>
         </dependency>
 

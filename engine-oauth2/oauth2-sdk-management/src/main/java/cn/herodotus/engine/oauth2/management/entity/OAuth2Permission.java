@@ -27,7 +27,7 @@ package cn.herodotus.engine.oauth2.management.entity;
 
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
-import cn.herodotus.engine.oauth2.management.generator.OAuth2PermissionUuid;
+import cn.herodotus.engine.oauth2.management.generator.OAuth2PermissionUuidGenerator;
 import com.google.common.base.MoreObjects;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -45,7 +45,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class OAuth2Permission extends BaseSysEntity {
 
     @Id
-    @OAuth2PermissionUuid
+    @OAuth2PermissionUuidGenerator
     @Column(name = "permission_id", length = 64)
     private String permissionId;
 
