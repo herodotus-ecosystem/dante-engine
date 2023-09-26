@@ -23,19 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.constants;
+package cn.herodotus.engine.assistant.core.definition.exception;
+
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 
 /**
- * <p>Description: Jackson2 Object Mapper Customer 顺序控制 </p>
+ * <p>Description: ErrorCodeMapperBuilder 回调接口</p>
  * <p>
- * 方便控制 Jackson2 Customer 设置的覆盖顺序
+ * 实现了该接口的Bean，可以在自动配置阶段，通过ErrorCodeMapperBuilder进一步扩展错误码
  *
  * @author : gengwei.zheng
- * @date : 2023/4/27 23:18
+ * @date : 2023/9/24 23:06
  */
-public interface JacksonObjectMapperBuilderCustomizerOrder {
+@FunctionalInterface
+public interface ErrorCodeMapperBuilderCustomizer {
 
-    int UNIFIED_CORE = 1;
-
-    int OAUTH2_MODULE = UNIFIED_CORE + 1;
+    /**
+     * 自定义 ErrorCodeMapperBuilder
+     *
+     * @param builder 被扩展的 {@link ErrorCodeMapperBuilder}
+     */
+    void customize(ErrorCodeMapperBuilder builder);
 }

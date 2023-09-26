@@ -23,48 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.exception;
+package cn.herodotus.engine.assistant.core.exception.feedback;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.core.echo.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: 自定义错误基础类 </p>
+ * <p>Description: 405 类型错误反馈 </p>
+ * <p>
+ * 405	Method Not Allowed	客户端请求中的方法被禁止
  *
  * @author : gengwei.zheng
- * @date : 2022/3/4 18:31
+ * @date : 2023/9/26 8:52
  */
-public abstract class AbstractHerodotusException extends RuntimeException implements HerodotusException {
-
-    public AbstractHerodotusException() {
-        super();
+public class MethodNotAllowedFeedback extends Feedback {
+    public MethodNotAllowedFeedback(String value) {
+        super(value, HttpStatus.SC_METHOD_NOT_ALLOWED);
     }
 
-    public AbstractHerodotusException(String message) {
-        super(message);
-    }
-
-    public AbstractHerodotusException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AbstractHerodotusException(Throwable cause) {
-        super(cause);
-    }
-
-    protected AbstractHerodotusException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    @Override
-    public Result<String> getResult() {
-
-
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
-        result.stackTrace(super.getStackTrace());
-        result.detail(super.getMessage());
-        return result;
+    public MethodNotAllowedFeedback(String value, int custom) {
+        super(value, HttpStatus.SC_METHOD_NOT_ALLOWED, custom);
     }
 }

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.autoconfigure;
 
-import cn.herodotus.engine.assistant.autoconfigure.jackson2.Jackson2DefaultObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.autoconfigure.customizer.Jackson2DefaultObjectMapperBuilderCustomizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;

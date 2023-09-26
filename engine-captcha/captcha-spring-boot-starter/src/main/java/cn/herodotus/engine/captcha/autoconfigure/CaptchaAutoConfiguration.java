@@ -25,6 +25,8 @@
 
 package cn.herodotus.engine.captcha.autoconfigure;
 
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.captcha.autoconfigure.customizer.CaptchaErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.captcha.core.processor.CaptchaRendererFactory;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
@@ -67,5 +69,12 @@ public class CaptchaAutoConfiguration {
         CaptchaRendererFactory captchaRendererFactory = new CaptchaRendererFactory();
         log.trace("[Herodotus] |- Bean [Captcha Renderer Factory] Auto Configure.");
         return captchaRendererFactory;
+    }
+
+    @Bean
+    public ErrorCodeMapperBuilderCustomizer captchaErrorCodeMapperBuilderCustomizer() {
+        CaptchaErrorCodeMapperBuilderCustomizer customizer = new CaptchaErrorCodeMapperBuilderCustomizer();
+        log.trace("[Herodotus] |- Bean [Captcha Error Code Mapper Builder Customizer] Auto Configure.");
+        return customizer;
     }
 }

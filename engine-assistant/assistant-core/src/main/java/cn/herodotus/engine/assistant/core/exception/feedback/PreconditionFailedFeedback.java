@@ -23,48 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.exception;
+package cn.herodotus.engine.assistant.core.exception.feedback;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.core.echo.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: 自定义错误基础类 </p>
+ * <p>Description: 412 类型错误反馈 </p>
+ * <p>
+ * 412	Precondition Failed	客户端请求信息的先决条件错误
  *
  * @author : gengwei.zheng
- * @date : 2022/3/4 18:31
+ * @date : 2023/9/26 8:53
  */
-public abstract class AbstractHerodotusException extends RuntimeException implements HerodotusException {
-
-    public AbstractHerodotusException() {
-        super();
+public class PreconditionFailedFeedback extends Feedback {
+    public PreconditionFailedFeedback(String value) {
+        super(value, HttpStatus.SC_PRECONDITION_FAILED);
     }
 
-    public AbstractHerodotusException(String message) {
-        super(message);
-    }
-
-    public AbstractHerodotusException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AbstractHerodotusException(Throwable cause) {
-        super(cause);
-    }
-
-    protected AbstractHerodotusException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    @Override
-    public Result<String> getResult() {
-
-
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
-        result.stackTrace(super.getStackTrace());
-        result.detail(super.getMessage());
-        return result;
+    public PreconditionFailedFeedback(String value, int custom) {
+        super(value, HttpStatus.SC_PRECONDITION_FAILED, custom);
     }
 }

@@ -23,48 +23,29 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.exception;
+package cn.herodotus.engine.assistant.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import com.fasterxml.jackson.databind.Module;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.core.Ordered;
+
+import java.util.List;
 
 /**
- * <p>Description: 自定义错误基础类 </p>
+ * <p>Description: 提取公共操作 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/4 18:31
+ * @date : 2023/4/29 17:09
  */
-public abstract class AbstractHerodotusException extends RuntimeException implements HerodotusException {
+public interface BaseObjectMapperBuilderCustomizer extends Jackson2ObjectMapperBuilderCustomizer, Ordered {
 
-    public AbstractHerodotusException() {
-        super();
-    }
-
-    public AbstractHerodotusException(String message) {
-        super(message);
-    }
-
-    public AbstractHerodotusException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AbstractHerodotusException(Throwable cause) {
-        super(cause);
-    }
-
-    protected AbstractHerodotusException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    @Override
-    public Result<String> getResult() {
-
-
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
-        result.stackTrace(super.getStackTrace());
-        result.detail(super.getMessage());
-        return result;
+    default Module[] toArray(List<Module> modules) {
+        if (CollectionUtils.isNotEmpty(modules)) {
+            Module[] temps = new Module[modules.size()];
+            return modules.toArray(temps);
+        } else {
+            return new Module[]{};
+        }
     }
 }

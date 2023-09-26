@@ -23,48 +23,34 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.exception;
+package cn.herodotus.engine.captcha.core.definition.enums;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * <p>Description: 自定义错误基础类 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/4 18:31
+ * @date : 2023/9/25 15:32
  */
-public abstract class AbstractHerodotusException extends RuntimeException implements HerodotusException {
+public enum CaptchaErrorCodes {
 
-    public AbstractHerodotusException() {
-        super();
+    CAPTCHA_CATEGORY_IS_INCORRECT("验证码分类错误"),
+    CAPTCHA_HANDLER_NOT_EXIST("验证码处理器不存在"),
+    CAPTCHA_HAS_EXPIRED("验证码已过期"),
+    CAPTCHA_IS_EMPTY("验证码不能为空"),
+    CAPTCHA_MISMATCH("验证码不匹配"),
+    CAPTCHA_PARAMETER_ILLEGAL("验证码参数格式错误");
+
+    @Schema(title = "错误信息")
+    private final String message;
+
+
+    CaptchaErrorCodes(String message) {
+        this.message = message;
     }
 
-    public AbstractHerodotusException(String message) {
-        super(message);
-    }
-
-    public AbstractHerodotusException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AbstractHerodotusException(Throwable cause) {
-        super(cause);
-    }
-
-    protected AbstractHerodotusException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    @Override
-    public Result<String> getResult() {
-
-
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
-        result.stackTrace(super.getStackTrace());
-        result.detail(super.getMessage());
-        return result;
+    public String getMessage() {
+        return message;
     }
 }

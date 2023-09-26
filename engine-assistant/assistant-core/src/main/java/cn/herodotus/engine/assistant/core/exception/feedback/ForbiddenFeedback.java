@@ -23,13 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.enums;
+package cn.herodotus.engine.assistant.core.exception.feedback;
+
+import cn.herodotus.engine.assistant.core.echo.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: 基础工厂枚举 </p>
+ * <p>Description: 403 类型错误反馈 </p>
+ * <p>
+ * 403	Forbidden	服务器理解请求客户端的请求，但是拒绝执行此请求
  *
  * @author : gengwei.zheng
- * @date : 2022/5/1 19:48
+ * @date : 2023/9/26 8:51
  */
-public interface BaseFactoryEnum extends EnumValue<String>, EnumDescription {
+public class ForbiddenFeedback extends Feedback {
+    public ForbiddenFeedback(String value) {
+        super(value, HttpStatus.SC_FORBIDDEN);
+    }
+
+    public ForbiddenFeedback(String value, int custom) {
+        super(value, HttpStatus.SC_FORBIDDEN, custom);
+    }
 }

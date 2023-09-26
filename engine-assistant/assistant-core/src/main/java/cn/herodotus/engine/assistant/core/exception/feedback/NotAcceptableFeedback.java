@@ -23,29 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.autoconfigure.jackson2;
+package cn.herodotus.engine.assistant.core.exception.feedback;
 
-import com.fasterxml.jackson.databind.Module;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.core.Ordered;
-
-import java.util.List;
+import cn.herodotus.engine.assistant.core.echo.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: 提取公共操作 </p>
+ * <p>Description: 406 类型错误反馈 </p>
+ * <p>
+ * 406	Not Acceptable	服务器无法根据客户端请求的内容特性完成请求
  *
  * @author : gengwei.zheng
- * @date : 2023/4/29 17:09
+ * @date : 2023/9/26 8:52
  */
-public interface BaseObjectMapperBuilderCustomizer extends Jackson2ObjectMapperBuilderCustomizer, Ordered {
+public class NotAcceptableFeedback extends Feedback {
+    public NotAcceptableFeedback(String value) {
+        super(value, HttpStatus.SC_NOT_ACCEPTABLE);
+    }
 
-    default Module[] toArray(List<Module> modules) {
-        if (CollectionUtils.isNotEmpty(modules)) {
-            Module[] temps = new Module[modules.size()];
-            return modules.toArray(temps);
-        } else {
-            return new Module[]{};
-        }
+    public NotAcceptableFeedback(String value, int custom) {
+        super(value, HttpStatus.SC_NOT_ACCEPTABLE, custom);
     }
 }

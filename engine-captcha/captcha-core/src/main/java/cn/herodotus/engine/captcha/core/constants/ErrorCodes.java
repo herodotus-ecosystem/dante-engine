@@ -23,48 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.exception;
+package cn.herodotus.engine.captcha.core.constants;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.core.exception.feedback.NotAcceptableFeedback;
 
 /**
- * <p>Description: 自定义错误基础类 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/4 18:31
+ * @date : 2023/9/26 16:31
  */
-public abstract class AbstractHerodotusException extends RuntimeException implements HerodotusException {
+public interface ErrorCodes {
 
-    public AbstractHerodotusException() {
-        super();
-    }
-
-    public AbstractHerodotusException(String message) {
-        super(message);
-    }
-
-    public AbstractHerodotusException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AbstractHerodotusException(Throwable cause) {
-        super(cause);
-    }
-
-    protected AbstractHerodotusException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    @Override
-    public Result<String> getResult() {
-
-
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
-        result.stackTrace(super.getStackTrace());
-        result.detail(super.getMessage());
-        return result;
-    }
+    NotAcceptableFeedback CAPTCHA_CATEGORY_IS_INCORRECT = new NotAcceptableFeedback("验证码分类错误");
+    NotAcceptableFeedback CAPTCHA_HANDLER_NOT_EXIST = new NotAcceptableFeedback("验证码处理器不存在");
+    NotAcceptableFeedback CAPTCHA_HAS_EXPIRED = new NotAcceptableFeedback("验证码已过期");
+    NotAcceptableFeedback CAPTCHA_IS_EMPTY = new NotAcceptableFeedback("验证码不能为空");
+    NotAcceptableFeedback CAPTCHA_MISMATCH = new NotAcceptableFeedback("验证码不匹配");
+    NotAcceptableFeedback CAPTCHA_PARAMETER_ILLEGAL = new NotAcceptableFeedback("验证码参数格式错误");
 }

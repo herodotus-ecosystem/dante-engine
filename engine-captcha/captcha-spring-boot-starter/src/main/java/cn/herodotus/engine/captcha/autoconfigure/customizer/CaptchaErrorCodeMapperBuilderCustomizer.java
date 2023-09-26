@@ -23,48 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.exception;
+package cn.herodotus.engine.captcha.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import cn.herodotus.engine.captcha.core.constants.ErrorCodes;
+import cn.herodotus.engine.captcha.core.definition.enums.CaptchaErrorCodes;
 
 /**
- * <p>Description: 自定义错误基础类 </p>
+ * <p>Description: Captcha 错误代码映射定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/4 18:31
+ * @date : 2023/9/25 15:31
  */
-public abstract class AbstractHerodotusException extends RuntimeException implements HerodotusException {
-
-    public AbstractHerodotusException() {
-        super();
-    }
-
-    public AbstractHerodotusException(String message) {
-        super(message);
-    }
-
-    public AbstractHerodotusException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AbstractHerodotusException(Throwable cause) {
-        super(cause);
-    }
-
-    protected AbstractHerodotusException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
-
+public class CaptchaErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer {
     @Override
-    public Result<String> getResult() {
-
-
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
-        result.stackTrace(super.getStackTrace());
-        result.detail(super.getMessage());
-        return result;
+    public void customize(ErrorCodeMapperBuilder builder) {
+        builder.notAcceptable(
+                ErrorCodes.CAPTCHA_CATEGORY_IS_INCORRECT,
+                ErrorCodes.CAPTCHA_HANDLER_NOT_EXIST,
+                ErrorCodes.CAPTCHA_HAS_EXPIRED,
+                ErrorCodes.CAPTCHA_IS_EMPTY,
+                ErrorCodes.CAPTCHA_MISMATCH,
+                ErrorCodes.CAPTCHA_PARAMETER_ILLEGAL);
     }
 }
