@@ -25,10 +25,13 @@
 
 package cn.herodotus.engine.message.autoconfigure;
 
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.message.autoconfigure.customizer.MessageErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Bean;
 
 /**
  * <p>Description: Message 模块自动注入配置 </p>
@@ -44,5 +47,12 @@ public class MessageAutoConfiguration {
     @PostConstruct
     public void postConstruct() {
         log.info("[Herodotus] |- Module [Message Starter] Auto Configure.");
+    }
+
+    @Bean
+    public ErrorCodeMapperBuilderCustomizer restErrorCodeMapperBuilderCustomizer() {
+        MessageErrorCodeMapperBuilderCustomizer customizer = new MessageErrorCodeMapperBuilderCustomizer();
+        log.trace("[Herodotus] |- Strategy [Message ErrorCodeMapper Builder Customizer] Auto Configure.");
+        return customizer;
     }
 }

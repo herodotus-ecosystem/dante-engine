@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.captcha.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.feedback.NotAcceptableFeedback;
 
 /**
  * <p>Description: Captcha 错误代码 </p>
@@ -33,12 +33,13 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
  * @author : gengwei.zheng
  * @date : 2023/5/1 11:32
  */
-public interface CaptchaErrorCodes extends ErrorCodes {
+public interface CaptchaErrorCodes {
 
-    int CAPTCHA_CATEGORY_IS_INCORRECT = CAPTCHA_MODULE_406_BEGIN + 1;
-    int CAPTCHA_HANDLER_NOT_EXIST = CAPTCHA_CATEGORY_IS_INCORRECT + 1;
-    int CAPTCHA_HAS_EXPIRED = CAPTCHA_HANDLER_NOT_EXIST + 1;
-    int CAPTCHA_IS_EMPTY = CAPTCHA_HAS_EXPIRED + 1;
-    int CAPTCHA_MISMATCH = CAPTCHA_IS_EMPTY + 1;
-    int CAPTCHA_PARAMETER_ILLEGAL = CAPTCHA_MISMATCH + 1;
+    NotAcceptableFeedback CAPTCHA_CATEGORY_IS_INCORRECT = new NotAcceptableFeedback("验证码分类错误");
+    NotAcceptableFeedback CAPTCHA_HANDLER_NOT_EXIST = new NotAcceptableFeedback("验证码处理器不存在");
+    NotAcceptableFeedback CAPTCHA_HAS_EXPIRED = new NotAcceptableFeedback("验证码已过期");
+    NotAcceptableFeedback CAPTCHA_IS_EMPTY = new NotAcceptableFeedback("验证码不能为空");
+    NotAcceptableFeedback CAPTCHA_MISMATCH = new NotAcceptableFeedback("验证码不匹配");
+    NotAcceptableFeedback CAPTCHA_PARAMETER_ILLEGAL = new NotAcceptableFeedback("验证码参数格式错误");
+
 }

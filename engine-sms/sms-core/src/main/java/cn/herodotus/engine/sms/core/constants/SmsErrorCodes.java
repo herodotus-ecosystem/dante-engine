@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.sms.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.feedback.InternalServerErrorFeedback;
 
 /**
  * <p>Description: Recluse 错误代码 </p>
@@ -33,7 +33,7 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
  * @author : gengwei.zheng
  * @date : 2022/7/25 20:31
  */
-public interface SmsErrorCodes extends ErrorCodes {
+public interface SmsErrorCodes {
 
-    int SMS_RECLUSE_EXECUTE_ERROR = SMS_MODULE_500_BEGIN + 1;
+    InternalServerErrorFeedback SMS_RECLUSE_EXECUTE_ERROR = new InternalServerErrorFeedback("短信平台操作错误");
 }

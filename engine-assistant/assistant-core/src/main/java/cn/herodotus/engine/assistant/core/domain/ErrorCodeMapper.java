@@ -23,9 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.echo.domain;
+package cn.herodotus.engine.assistant.core.domain;
 
-import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodes;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -66,8 +66,8 @@ public class ErrorCodeMapper {
         return instance;
     }
 
-    private Integer getErrorCode(String key) {
-        return dictionary.get(key);
+    private Integer getErrorCode(Feedback feedback) {
+        return dictionary.get(feedback);
     }
 
     public void append(Map<Feedback, Integer> indexes) {
@@ -76,7 +76,7 @@ public class ErrorCodeMapper {
         }
     }
 
-    public static Integer get(String key) {
-        return getInstance().getErrorCode(key);
+    public static Integer get(Feedback feedback) {
+        return getInstance().getErrorCode(feedback);
     }
 }

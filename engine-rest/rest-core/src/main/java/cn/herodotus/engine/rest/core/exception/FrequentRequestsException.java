@@ -26,7 +26,6 @@
 package cn.herodotus.engine.rest.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 
 /**
@@ -58,6 +57,6 @@ public class FrequentRequestsException extends IllegalOperationException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(RestErrorCodes.FREQUENT_REQUESTS, "请求频繁，请稍后再试");
+        return RestErrorCodes.FREQUENT_REQUESTS;
     }
 }

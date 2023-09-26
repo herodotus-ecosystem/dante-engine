@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.exception.feedback;
 
-import cn.herodotus.engine.assistant.core.echo.domain.Feedback;
+import cn.herodotus.engine.assistant.core.domain.Feedback;
 import org.apache.hc.core5.http.HttpStatus;
 
 /**

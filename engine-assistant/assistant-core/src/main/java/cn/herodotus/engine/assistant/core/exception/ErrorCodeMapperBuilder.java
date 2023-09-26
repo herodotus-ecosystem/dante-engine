@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.assistant.core.exception;
 
-import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodes;
-import cn.herodotus.engine.assistant.core.echo.domain.ErrorCodeMapper;
-import cn.herodotus.engine.assistant.core.echo.domain.Feedback;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.domain.ErrorCodeMapper;
+import cn.herodotus.engine.assistant.core.domain.Feedback;
 import cn.herodotus.engine.assistant.core.exception.feedback.*;
 import org.apache.commons.collections4.MapUtils;
 
@@ -278,6 +278,8 @@ public class ErrorCodeMapperBuilder {
         errorCodeMapper.append(internalServerErrorConfigs);
         errorCodeMapper.append(notImplementedConfigs);
         errorCodeMapper.append(serviceUnavailableConfigs);
+
+        customizeConfigs.forEach((key, feedbacks) -> errorCodeMapper.append(feedbacks));
         return errorCodeMapper;
     }
 }

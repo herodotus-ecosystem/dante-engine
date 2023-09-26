@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.cache.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.feedback.NotAcceptableFeedback;
 
 /**
  * <p>Description: Cache 相关错误代码 </p>
@@ -33,10 +33,10 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
  * @author : gengwei.zheng
  * @date : 2022/5/2 13:25
  */
-public interface CacheErrorCodes extends ErrorCodes {
+public interface CacheErrorCodes {
 
-    int STAMP_DELETE_FAILED = CACHE_MODULE_406_BEGIN + 1;
-    int STAMP_HAS_EXPIRED = STAMP_DELETE_FAILED + 1;
-    int STAMP_MISMATCH = STAMP_HAS_EXPIRED + 1;
-    int STAMP_PARAMETER_ILLEGAL = STAMP_MISMATCH + 1;
+    NotAcceptableFeedback STAMP_DELETE_FAILED = new NotAcceptableFeedback("从缓存中删除签章失败");
+    NotAcceptableFeedback STAMP_HAS_EXPIRED = new NotAcceptableFeedback("签章已过期");
+    NotAcceptableFeedback STAMP_MISMATCH = new NotAcceptableFeedback("签章信息无法匹配");
+    NotAcceptableFeedback STAMP_PARAMETER_ILLEGAL = new NotAcceptableFeedback("缺少签章身份标记参数");
 }

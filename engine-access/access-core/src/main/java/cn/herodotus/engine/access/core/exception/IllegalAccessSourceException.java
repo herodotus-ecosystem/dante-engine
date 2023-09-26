@@ -27,7 +27,6 @@ package cn.herodotus.engine.access.core.exception;
 
 import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 
 /**
@@ -60,6 +59,6 @@ public class IllegalAccessSourceException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.preconditionFailed(AccessErrorCodes.ILLEGAL_ACCESS_SOURCE, "社交登录Source参数错误");
+        return AccessErrorCodes.ILLEGAL_ACCESS_SOURCE;
     }
 }

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.feedback.NotAcceptableFeedback;
 
 /**
  * <p>Description: OAuth2 错误代码 </p>
@@ -33,7 +33,7 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
  * @author : gengwei.zheng
  * @date : 2023/5/1 11:51
  */
-public interface OAuth2ErrorCodes extends ErrorCodes {
+public interface OAuth2ErrorCodes {
 
-    int USERNAME_ALREADY_EXISTS = OAUTH2_MODULE_406_BEGIN + 1;
+    NotAcceptableFeedback USERNAME_ALREADY_EXISTS = new NotAcceptableFeedback("用户名已经存在");
 }

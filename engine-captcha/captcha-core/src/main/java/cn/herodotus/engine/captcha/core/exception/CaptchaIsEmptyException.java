@@ -26,7 +26,6 @@
 package cn.herodotus.engine.captcha.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 
@@ -60,6 +59,6 @@ public class CaptchaIsEmptyException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(CaptchaErrorCodes.CAPTCHA_IS_EMPTY, "验证码不能为空");
+        return CaptchaErrorCodes.CAPTCHA_IS_EMPTY;
     }
 }

@@ -25,9 +25,8 @@
 
 package cn.herodotus.engine.oauth2.core.exception;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.assistant.core.enums.ResultErrorCodes;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.GlobalExceptionHandler;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
@@ -67,28 +66,28 @@ public class SecurityGlobalExceptionHandler {
     private static final Map<String, Result<String>> EXCEPTION_DICTIONARY = new HashMap<>();
 
     static {
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCESS_DENIED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCESS_DENIED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INSUFFICIENT_SCOPE, FeedbackFactory.getForbiddenResult(ResultErrorCodes.INSUFFICIENT_SCOPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_CLIENT, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.INVALID_CLIENT));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_GRANT, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.INVALID_GRANT));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_REDIRECT_URI, FeedbackFactory.getPreconditionFailedResult(ResultErrorCodes.INVALID_REDIRECT_URI));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_REQUEST, FeedbackFactory.getPreconditionFailedResult(ResultErrorCodes.INVALID_REQUEST));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_SCOPE, FeedbackFactory.getPreconditionFailedResult(ResultErrorCodes.INVALID_SCOPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_TOKEN, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.INVALID_TOKEN));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.SERVER_ERROR, FeedbackFactory.getInternalServerErrorResult(ResultErrorCodes.SERVER_ERROR));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.TEMPORARILY_UNAVAILABLE, FeedbackFactory.getServiceUnavailableResult(ResultErrorCodes.TEMPORARILY_UNAVAILABLE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNAUTHORIZED_CLIENT, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.UNAUTHORIZED_CLIENT));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_GRANT_TYPE, FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_GRANT_TYPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_RESPONSE_TYPE, FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_RESPONSE_TYPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_TOKEN_TYPE, FeedbackFactory.getNotAcceptableResult(ResultErrorCodes.UNSUPPORTED_TOKEN_TYPE));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_EXPIRED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_EXPIRED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.BAD_CREDENTIALS, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.BAD_CREDENTIALS));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.CREDENTIALS_EXPIRED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.CREDENTIALS_EXPIRED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_DISABLED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_DISABLED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_LOCKED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_LOCKED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_ENDPOINT_LIMITED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.ACCOUNT_ENDPOINT_LIMITED));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.USERNAME_NOT_FOUND, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.USERNAME_NOT_FOUND));
-        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.SESSION_EXPIRED, FeedbackFactory.getUnauthorizedResult(ResultErrorCodes.SESSION_EXPIRED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCESS_DENIED, Result.failure(ErrorCodes.ACCESS_DENIED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INSUFFICIENT_SCOPE, Result.failure(ErrorCodes.INSUFFICIENT_SCOPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_CLIENT, Result.failure(ErrorCodes.INVALID_CLIENT));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_GRANT, Result.failure(ErrorCodes.INVALID_GRANT));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_REDIRECT_URI, Result.failure(ErrorCodes.INVALID_REDIRECT_URI));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_REQUEST, Result.failure(ErrorCodes.INVALID_REQUEST));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_SCOPE, Result.failure(ErrorCodes.INVALID_SCOPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.INVALID_TOKEN, Result.failure(ErrorCodes.INVALID_TOKEN));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.SERVER_ERROR, Result.failure(ErrorCodes.SERVER_ERROR));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.TEMPORARILY_UNAVAILABLE, Result.failure(ErrorCodes.TEMPORARILY_UNAVAILABLE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNAUTHORIZED_CLIENT, Result.failure(ErrorCodes.UNAUTHORIZED_CLIENT));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_GRANT_TYPE, Result.failure(ErrorCodes.UNSUPPORTED_GRANT_TYPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_RESPONSE_TYPE, Result.failure(ErrorCodes.UNSUPPORTED_RESPONSE_TYPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.UNSUPPORTED_TOKEN_TYPE, Result.failure(ErrorCodes.UNSUPPORTED_TOKEN_TYPE));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_EXPIRED, Result.failure(ErrorCodes.ACCOUNT_EXPIRED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.BAD_CREDENTIALS, Result.failure(ErrorCodes.BAD_CREDENTIALS));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.CREDENTIALS_EXPIRED, Result.failure(ErrorCodes.CREDENTIALS_EXPIRED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_DISABLED, Result.failure(ErrorCodes.ACCOUNT_DISABLED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_LOCKED, Result.failure(ErrorCodes.ACCOUNT_LOCKED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.ACCOUNT_ENDPOINT_LIMITED, Result.failure(ErrorCodes.ACCOUNT_ENDPOINT_LIMITED));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.USERNAME_NOT_FOUND, Result.failure(ErrorCodes.USERNAME_NOT_FOUND));
+        EXCEPTION_DICTIONARY.put(OAuth2ErrorKeys.SESSION_EXPIRED, Result.failure(ErrorCodes.SESSION_EXPIRED));
     }
 
     /**

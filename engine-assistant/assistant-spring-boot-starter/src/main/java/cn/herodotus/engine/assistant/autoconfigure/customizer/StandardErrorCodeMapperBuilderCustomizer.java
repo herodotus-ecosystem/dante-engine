@@ -25,9 +25,11 @@
 
 package cn.herodotus.engine.assistant.autoconfigure.customizer;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodes;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import org.springframework.core.Ordered;
 
 /**
  * <p>Description: 标准内置错误代码 </p>
@@ -35,7 +37,7 @@ import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
  * @author : gengwei.zheng
  * @date : 2023/9/25 0:00
  */
-public class StandardErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer {
+public class StandardErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer, Ordered {
     @Override
     public void customize(ErrorCodeMapperBuilder builder) {
         builder
@@ -65,6 +67,12 @@ public class StandardErrorCodeMapperBuilderCustomizer implements ErrorCodeMapper
                         ErrorCodes.NULL_POINTER_EXCEPTION,
                         ErrorCodes.TYPE_MISMATCH_EXCEPTION)
                 .notImplemented(ErrorCodes.PROPERTY_VALUE_IS_NOT_SET, ErrorCodes.URL_FORMAT_INCORRECT, ErrorCodes.ILLEGAL_SYMMETRIC_KEY)
-                .serviceUnavailable(ErrorCodes.COOKIE_THEFT, ErrorCodes.INVALID_COOKIE, ErrorCodes.PROVIDER_NOT_FOUND, ErrorCodes.TEMPORARILY_UNAVAILABLE);
+                .serviceUnavailable(ErrorCodes.COOKIE_THEFT, ErrorCodes.INVALID_COOKIE, ErrorCodes.PROVIDER_NOT_FOUND, ErrorCodes.TEMPORARILY_UNAVAILABLE)
+                .customize(ErrorCodes.TRANSACTION_ROLLBACK);
+    }
+
+    @Override
+    public int getOrder() {
+        return ErrorCodeMapperBuilderOrdered.STANDARD;
     }
 }

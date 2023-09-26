@@ -23,21 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.exception.feedback;
+package cn.herodotus.engine.message.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import org.apache.hc.core5.http.HttpStatus;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import cn.herodotus.engine.message.core.constants.MessageErrorCodes;
+import org.springframework.core.Ordered;
 
 /**
- * <p>Description: 自定义类型错误反馈 </p>
- * <p>
- * 自定义错误码超过 HttpStatus 范围的自定义错误代码类型
+ * <p>Description: Message 错误代码映射定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/9/26 15:41
+ * @date : 2023/9/26 23:27
  */
-public class CustomizeFeedback extends Feedback {
-    public CustomizeFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_INTERNAL_SERVER_ERROR, custom);
+public class MessageErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer, Ordered {
+    @Override
+    public void customize(ErrorCodeMapperBuilder builder) {
+        builder.notAcceptable(MessageErrorCodes.ILLEGAL_CHANNEL, MessageErrorCodes.PRINCIPAL_NOT_FOUND);
+    }
+
+    @Override
+    public int getOrder() {
+        return ErrorCodeMapperBuilderOrdered.MESSAGE;
     }
 }

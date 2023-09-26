@@ -23,22 +23,35 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.captcha.core.constants;
+package cn.herodotus.engine.access.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.exception.feedback.NotAcceptableFeedback;
+import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import org.springframework.core.Ordered;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: Access 错误代码映射定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/9/26 16:31
+ * @date : 2023/9/26 23:35
  */
-public interface ErrorCodes {
+public class AccessErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer, Ordered {
+    @Override
+    public void customize(ErrorCodeMapperBuilder builder) {
+        builder.preconditionFailed(
+                AccessErrorCodes.ACCESS_CONFIG_ERROR,
+                AccessErrorCodes.ACCESS_HANDLER_NOT_FOUND,
+                AccessErrorCodes.ACCESS_IDENTITY_VERIFICATION_FAILED,
+                AccessErrorCodes.ACCESS_PRE_PROCESS_FAILED_EXCEPTION,
+                AccessErrorCodes.ILLEGAL_ACCESS_ARGUMENT,
+                AccessErrorCodes.ILLEGAL_ACCESS_SOURCE
+        );
+    }
 
-    NotAcceptableFeedback CAPTCHA_CATEGORY_IS_INCORRECT = new NotAcceptableFeedback("验证码分类错误");
-    NotAcceptableFeedback CAPTCHA_HANDLER_NOT_EXIST = new NotAcceptableFeedback("验证码处理器不存在");
-    NotAcceptableFeedback CAPTCHA_HAS_EXPIRED = new NotAcceptableFeedback("验证码已过期");
-    NotAcceptableFeedback CAPTCHA_IS_EMPTY = new NotAcceptableFeedback("验证码不能为空");
-    NotAcceptableFeedback CAPTCHA_MISMATCH = new NotAcceptableFeedback("验证码不匹配");
-    NotAcceptableFeedback CAPTCHA_PARAMETER_ILLEGAL = new NotAcceptableFeedback("验证码参数格式错误");
+    @Override
+    public int getOrder() {
+        return ErrorCodeMapperBuilderOrdered.ACCESS;
+    }
 }

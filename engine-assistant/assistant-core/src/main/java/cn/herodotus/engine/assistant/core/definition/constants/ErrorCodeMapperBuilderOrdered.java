@@ -23,21 +23,27 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.exception.feedback;
+package cn.herodotus.engine.assistant.core.definition.constants;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import org.apache.hc.core5.http.HttpStatus;
+import org.springframework.core.Ordered;
 
 /**
- * <p>Description: 自定义类型错误反馈 </p>
+ * <p>Description: 错误码构建顺序 </p>
  * <p>
- * 自定义错误码超过 HttpStatus 范围的自定义错误代码类型
+ * 注解@Order或者接口Ordered的作用是定义Spring IOC容器中Bean的执行顺序的优先级，而不是定义Bean的加载顺序，Bean的加载顺序不受@Order或Ordered接口的影响
  *
  * @author : gengwei.zheng
- * @date : 2023/9/26 15:41
+ * @date : 2023/9/26 21:20
  */
-public class CustomizeFeedback extends Feedback {
-    public CustomizeFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_INTERNAL_SERVER_ERROR, custom);
-    }
+public interface ErrorCodeMapperBuilderOrdered {
+
+    int STEP = 10;
+
+    int STANDARD = Ordered.HIGHEST_PRECEDENCE;
+    int CACHE = STANDARD + STEP;
+    int CAPTCHA = CACHE + STEP;
+    int OAUTH2 = CAPTCHA + STEP;
+    int REST = OAUTH2 + STEP;
+    int MESSAGE = REST + STEP;
+    int ACCESS = MESSAGE + STEP;
 }

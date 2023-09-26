@@ -23,41 +23,33 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.autoconfigure.jackson2;
+package cn.herodotus.engine.rest.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.utils.XssUtils;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
+import org.springframework.core.Ordered;
 
 /**
- * <p>Description: Xss Json 处理 </p>
+ * <p>Description: Rest 错误代码映射定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/30 23:58
+ * @date : 2023/9/26 23:20
  */
-public class XssStringJsonDeserializer extends JsonDeserializer<String> {
-
-    private static final Logger log = LoggerFactory.getLogger(XssStringJsonDeserializer.class);
-
+public class RestErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer, Ordered {
     @Override
-    public Class<String> handledType() {
-        return String.class;
+    public void customize(ErrorCodeMapperBuilder builder) {
+        builder.notAcceptable(
+                RestErrorCodes.SESSION_INVALID,
+                RestErrorCodes.REPEAT_SUBMISSION,
+                RestErrorCodes.FREQUENT_REQUESTS,
+                RestErrorCodes.FEIGN_DECODER_IO_EXCEPTION
+        );
     }
 
     @Override
-    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        String value = jsonParser.getValueAsString();
-        if (StringUtils.isNotBlank(value)) {
-            return XssUtils.cleaning(value);
-        }
-
-        return value;
+    public int getOrder() {
+        return ErrorCodeMapperBuilderOrdered.REST;
     }
 }

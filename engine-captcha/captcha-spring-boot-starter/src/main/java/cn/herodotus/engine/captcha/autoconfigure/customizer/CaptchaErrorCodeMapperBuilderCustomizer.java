@@ -25,10 +25,11 @@
 
 package cn.herodotus.engine.captcha.autoconfigure.customizer;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
 import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
-import cn.herodotus.engine.captcha.core.constants.ErrorCodes;
-import cn.herodotus.engine.captcha.core.definition.enums.CaptchaErrorCodes;
+import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
+import org.springframework.core.Ordered;
 
 /**
  * <p>Description: Captcha 错误代码映射定义 </p>
@@ -36,15 +37,21 @@ import cn.herodotus.engine.captcha.core.definition.enums.CaptchaErrorCodes;
  * @author : gengwei.zheng
  * @date : 2023/9/25 15:31
  */
-public class CaptchaErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer {
+public class CaptchaErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer, Ordered {
     @Override
     public void customize(ErrorCodeMapperBuilder builder) {
         builder.notAcceptable(
-                ErrorCodes.CAPTCHA_CATEGORY_IS_INCORRECT,
-                ErrorCodes.CAPTCHA_HANDLER_NOT_EXIST,
-                ErrorCodes.CAPTCHA_HAS_EXPIRED,
-                ErrorCodes.CAPTCHA_IS_EMPTY,
-                ErrorCodes.CAPTCHA_MISMATCH,
-                ErrorCodes.CAPTCHA_PARAMETER_ILLEGAL);
+                CaptchaErrorCodes.CAPTCHA_CATEGORY_IS_INCORRECT,
+                CaptchaErrorCodes.CAPTCHA_HANDLER_NOT_EXIST,
+                CaptchaErrorCodes.CAPTCHA_HAS_EXPIRED,
+                CaptchaErrorCodes.CAPTCHA_IS_EMPTY,
+                CaptchaErrorCodes.CAPTCHA_MISMATCH,
+                CaptchaErrorCodes.CAPTCHA_PARAMETER_ILLEGAL
+        );
+    }
+
+    @Override
+    public int getOrder() {
+        return ErrorCodeMapperBuilderOrdered.CAPTCHA;
     }
 }

@@ -26,7 +26,6 @@
 package cn.herodotus.engine.oauth2.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
 
 /**
@@ -47,6 +46,6 @@ public class UsernameAlreadyExistsException extends PlatformAuthenticationExcept
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(OAuth2ErrorCodes.USERNAME_ALREADY_EXISTS, "用户名已经存在");
+        return OAuth2ErrorCodes.USERNAME_ALREADY_EXISTS;
     }
 }

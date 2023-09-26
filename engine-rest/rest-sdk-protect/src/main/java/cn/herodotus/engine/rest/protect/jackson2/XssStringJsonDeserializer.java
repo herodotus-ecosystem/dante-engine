@@ -23,34 +23,41 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.captcha.core.definition.enums;
+package cn.herodotus.engine.rest.protect.jackson2;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import cn.herodotus.engine.assistant.core.utils.XssUtils;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: Xss Json 处理 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/9/25 15:32
+ * @date : 2021/8/30 23:58
  */
-public enum CaptchaErrorCodes {
+public class XssStringJsonDeserializer extends JsonDeserializer<String> {
 
-    CAPTCHA_CATEGORY_IS_INCORRECT("验证码分类错误"),
-    CAPTCHA_HANDLER_NOT_EXIST("验证码处理器不存在"),
-    CAPTCHA_HAS_EXPIRED("验证码已过期"),
-    CAPTCHA_IS_EMPTY("验证码不能为空"),
-    CAPTCHA_MISMATCH("验证码不匹配"),
-    CAPTCHA_PARAMETER_ILLEGAL("验证码参数格式错误");
+    private static final Logger log = LoggerFactory.getLogger(XssStringJsonDeserializer.class);
 
-    @Schema(title = "错误信息")
-    private final String message;
-
-
-    CaptchaErrorCodes(String message) {
-        this.message = message;
+    @Override
+    public Class<String> handledType() {
+        return String.class;
     }
 
-    public String getMessage() {
-        return message;
+    @Override
+    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        String value = jsonParser.getValueAsString();
+        if (StringUtils.isNotBlank(value)) {
+            return XssUtils.cleaning(value);
+        }
+
+        return value;
     }
 }

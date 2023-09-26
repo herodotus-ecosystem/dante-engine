@@ -26,9 +26,8 @@
 package cn.herodotus.engine.oauth2.core.exception;
 
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
 
 /**
  * <p> Description : 非法加密Key HerodotusException </p>
@@ -48,6 +47,6 @@ public class IllegalSymmetricKeyException extends PlatformAuthenticationExceptio
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notImplemented(OAuth2ErrorCodes.ILLEGAL_SYMMETRIC_KEY, "静态AES加密算法KEY非法");
+        return ErrorCodes.ILLEGAL_SYMMETRIC_KEY;
     }
 }

@@ -26,7 +26,6 @@
 package cn.herodotus.engine.cache.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
 
@@ -60,6 +59,6 @@ public class StampParameterIllegalException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(CacheErrorCodes.STAMP_PARAMETER_ILLEGAL, "缺少签章身份标记参数");
+        return CacheErrorCodes.STAMP_PARAMETER_ILLEGAL;
     }
 }

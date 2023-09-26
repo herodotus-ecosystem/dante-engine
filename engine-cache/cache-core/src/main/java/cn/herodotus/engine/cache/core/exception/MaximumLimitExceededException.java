@@ -31,7 +31,7 @@ package cn.herodotus.engine.cache.core.exception;
  * @author : gengwei.zheng
  * @date : 2022/7/6 23:03
  */
-public class MaximumLimitExceededException extends RuntimeException {
+public class MaximumLimitExceededException extends Exception {
 
     public MaximumLimitExceededException() {
         super();

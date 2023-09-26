@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.rest.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.feedback.NotAcceptableFeedback;
 
 /**
  * <p>Description: Cache 相关错误代码 </p>
@@ -33,10 +33,11 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
  * @author : gengwei.zheng
  * @date : 2022/5/2 13:25
  */
-public interface RestErrorCodes extends ErrorCodes {
+public interface RestErrorCodes {
 
-    int SESSION_INVALID = REST_MODULE_406_BEGIN + 1;
-    int REPEAT_SUBMISSION = SESSION_INVALID + 1;
-    int FREQUENT_REQUESTS = REPEAT_SUBMISSION + 1;
-    int FEIGN_DECODER_IO_EXCEPTION = REST_MODULE_503_BEGIN + 1;
+    NotAcceptableFeedback SESSION_INVALID = new NotAcceptableFeedback("Session已过期，请刷新再试");
+    NotAcceptableFeedback REPEAT_SUBMISSION = new NotAcceptableFeedback("提交进行中，请不要重复提交");
+    NotAcceptableFeedback FREQUENT_REQUESTS = new NotAcceptableFeedback("请求频繁，请稍后再试");
+    NotAcceptableFeedback FEIGN_DECODER_IO_EXCEPTION = new NotAcceptableFeedback("Feign 解析 Fallback 错误信息出错");
+
 }

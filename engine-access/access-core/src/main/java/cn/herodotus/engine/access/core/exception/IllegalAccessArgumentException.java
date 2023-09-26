@@ -25,6 +25,8 @@
 
 package cn.herodotus.engine.access.core.exception;
 
+import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
+import cn.herodotus.engine.assistant.core.domain.Feedback;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 
 /**
@@ -53,5 +55,10 @@ public class IllegalAccessArgumentException extends PlatformException {
 
     public IllegalAccessArgumentException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    @Override
+    public Feedback getFeedback() {
+        return AccessErrorCodes.ILLEGAL_ACCESS_ARGUMENT;
     }
 }
