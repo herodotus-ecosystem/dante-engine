@@ -39,11 +39,12 @@ public interface ErrorCodeMapperBuilderOrdered {
 
     int STEP = 10;
 
-    int STANDARD = Ordered.HIGHEST_PRECEDENCE;
+    int STANDARD = 0;
     int CACHE = STANDARD + STEP;
     int CAPTCHA = CACHE + STEP;
     int OAUTH2 = CAPTCHA + STEP;
     int REST = OAUTH2 + STEP;
     int MESSAGE = REST + STEP;
     int ACCESS = MESSAGE + STEP;
+    int OSS = ACCESS + STEP;
 }

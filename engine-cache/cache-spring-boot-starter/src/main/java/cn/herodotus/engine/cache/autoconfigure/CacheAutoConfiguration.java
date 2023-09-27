@@ -52,7 +52,7 @@ public class CacheAutoConfiguration {
     @Bean
     public ErrorCodeMapperBuilderCustomizer cacheErrorCodeMapperBuilderCustomizer() {
         CacheErrorCodeMapperBuilderCustomizer customizer = new CacheErrorCodeMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Strategy [Cache ErrorCodeMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [Cache ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 }

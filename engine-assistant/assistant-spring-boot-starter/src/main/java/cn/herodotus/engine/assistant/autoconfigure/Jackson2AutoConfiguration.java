@@ -56,7 +56,7 @@ public class Jackson2AutoConfiguration {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer defaultObjectMapperBuilderCustomizer() {
         Jackson2DefaultObjectMapperBuilderCustomizer customizer = new Jackson2DefaultObjectMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Bean [Jackson2 Default ObjectMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [Jackson2 Default ObjectMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 

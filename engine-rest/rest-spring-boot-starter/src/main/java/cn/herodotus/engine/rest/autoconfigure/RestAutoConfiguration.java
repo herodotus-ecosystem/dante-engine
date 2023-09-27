@@ -61,7 +61,7 @@ public class RestAutoConfiguration {
     @Bean
     public ErrorCodeMapperBuilderCustomizer restErrorCodeMapperBuilderCustomizer() {
         RestErrorCodeMapperBuilderCustomizer customizer = new RestErrorCodeMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Strategy [Rest ErrorCodeMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [Rest ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 }

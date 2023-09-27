@@ -56,9 +56,9 @@ public class AccessAutoConfiguration {
     }
 
     @Bean
-    public ErrorCodeMapperBuilderCustomizer restErrorCodeMapperBuilderCustomizer() {
+    public ErrorCodeMapperBuilderCustomizer accessErrorCodeMapperBuilderCustomizer() {
         AccessErrorCodeMapperBuilderCustomizer customizer = new AccessErrorCodeMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Strategy [Access ErrorCodeMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [Access ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 }

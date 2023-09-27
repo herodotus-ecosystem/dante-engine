@@ -26,7 +26,7 @@
 package cn.herodotus.engine.assistant.autoconfigure.initializer;
 
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
@@ -35,16 +35,16 @@ import org.springframework.context.ApplicationListener;
  * @author : gengwei.zheng
  * @date : 2023/9/25 15:22
  */
-public class AssistantPreparedInitializer implements ApplicationListener<ApplicationReadyEvent> {
+public class AssistantPreparedInitializer implements ApplicationListener<ApplicationStartedEvent> {
 
-    private final ErrorCodeMapperBuilder errorCodeMapperBuilder;
+    private final ErrorCodeMapperBuilder builder;
 
-    public AssistantPreparedInitializer(ErrorCodeMapperBuilder errorCodeMapperBuilder) {
-        this.errorCodeMapperBuilder = errorCodeMapperBuilder;
+    public AssistantPreparedInitializer(ErrorCodeMapperBuilder builder) {
+        this.builder = builder;
     }
 
     @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
-        errorCodeMapperBuilder.build();
+    public void onApplicationEvent(ApplicationStartedEvent event) {
+        builder.build();
     }
 }

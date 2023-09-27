@@ -27,6 +27,7 @@ package cn.herodotus.engine.assistant.core.exception;
 
 import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.definition.exception.HerodotusException;
+import cn.herodotus.engine.assistant.core.domain.Feedback;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -44,28 +45,28 @@ public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    private static final Map<String, Result<String>> EXCEPTION_DICTIONARY = new HashMap<>();
+    private static final Map<String, Feedback> EXCEPTION_DICTIONARY = new HashMap<>();
 
     static {
-        EXCEPTION_DICTIONARY.put("AccessDeniedException", Result.failure(ErrorCodes.ACCESS_DENIED));
-        EXCEPTION_DICTIONARY.put("InsufficientAuthenticationException", Result.failure(ErrorCodes.ACCESS_DENIED));
-        EXCEPTION_DICTIONARY.put("HttpRequestMethodNotSupportedException", Result.failure(ErrorCodes.HTTP_REQUEST_METHOD_NOT_SUPPORTED));
-        EXCEPTION_DICTIONARY.put("HttpMediaTypeNotAcceptableException", Result.failure(ErrorCodes.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE));
-        EXCEPTION_DICTIONARY.put("IllegalArgumentException", Result.failure(ErrorCodes.ILLEGAL_ARGUMENT_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("NullPointerException", Result.failure(ErrorCodes.NULL_POINTER_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("IOException", Result.failure(ErrorCodes.IO_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("HttpMessageNotReadableException", Result.failure(ErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("TypeMismatchException", Result.failure(ErrorCodes.TYPE_MISMATCH_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("MissingServletRequestParameterException", Result.failure(ErrorCodes.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION));
-        EXCEPTION_DICTIONARY.put("ProviderNotFoundException", Result.failure(ErrorCodes.PROVIDER_NOT_FOUND));
-        EXCEPTION_DICTIONARY.put("CookieTheftException", Result.failure(ErrorCodes.COOKIE_THEFT));
-        EXCEPTION_DICTIONARY.put("InvalidCookieException", Result.failure(ErrorCodes.INVALID_COOKIE));
-        EXCEPTION_DICTIONARY.put("BadSqlGrammarException", Result.failure(ErrorCodes.BAD_SQL_GRAMMAR));
-        EXCEPTION_DICTIONARY.put("DataIntegrityViolationException", Result.failure(ErrorCodes.DATA_INTEGRITY_VIOLATION));
-        EXCEPTION_DICTIONARY.put("TransactionRollbackException", Result.failure(ErrorCodes.TRANSACTION_ROLLBACK));
-        EXCEPTION_DICTIONARY.put("BindException", Result.failure(ErrorCodes.METHOD_ARGUMENT_NOT_VALID));
-        EXCEPTION_DICTIONARY.put("MethodArgumentNotValidException", Result.failure(ErrorCodes.METHOD_ARGUMENT_NOT_VALID));
-        EXCEPTION_DICTIONARY.put("RedisPipelineException", Result.failure(ErrorCodes.PIPELINE_INVALID_COMMANDS));
+        EXCEPTION_DICTIONARY.put("AccessDeniedException", ErrorCodes.ACCESS_DENIED);
+        EXCEPTION_DICTIONARY.put("InsufficientAuthenticationException", ErrorCodes.ACCESS_DENIED);
+        EXCEPTION_DICTIONARY.put("HttpRequestMethodNotSupportedException", ErrorCodes.HTTP_REQUEST_METHOD_NOT_SUPPORTED);
+        EXCEPTION_DICTIONARY.put("HttpMediaTypeNotAcceptableException", ErrorCodes.HTTP_MEDIA_TYPE_NOT_ACCEPTABLE);
+        EXCEPTION_DICTIONARY.put("IllegalArgumentException", ErrorCodes.ILLEGAL_ARGUMENT_EXCEPTION);
+        EXCEPTION_DICTIONARY.put("NullPointerException", ErrorCodes.NULL_POINTER_EXCEPTION);
+        EXCEPTION_DICTIONARY.put("IOException", ErrorCodes.IO_EXCEPTION);
+        EXCEPTION_DICTIONARY.put("HttpMessageNotReadableException", ErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION);
+        EXCEPTION_DICTIONARY.put("TypeMismatchException", ErrorCodes.TYPE_MISMATCH_EXCEPTION);
+        EXCEPTION_DICTIONARY.put("MissingServletRequestParameterException", ErrorCodes.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION);
+        EXCEPTION_DICTIONARY.put("ProviderNotFoundException", ErrorCodes.PROVIDER_NOT_FOUND);
+        EXCEPTION_DICTIONARY.put("CookieTheftException", ErrorCodes.COOKIE_THEFT);
+        EXCEPTION_DICTIONARY.put("InvalidCookieException", ErrorCodes.INVALID_COOKIE);
+        EXCEPTION_DICTIONARY.put("BadSqlGrammarException", ErrorCodes.BAD_SQL_GRAMMAR);
+        EXCEPTION_DICTIONARY.put("DataIntegrityViolationException", ErrorCodes.DATA_INTEGRITY_VIOLATION);
+        EXCEPTION_DICTIONARY.put("TransactionRollbackException", ErrorCodes.TRANSACTION_ROLLBACK);
+        EXCEPTION_DICTIONARY.put("BindException", ErrorCodes.METHOD_ARGUMENT_NOT_VALID);
+        EXCEPTION_DICTIONARY.put("MethodArgumentNotValidException", ErrorCodes.METHOD_ARGUMENT_NOT_VALID);
+        EXCEPTION_DICTIONARY.put("RedisPipelineException", ErrorCodes.PIPELINE_INVALID_COMMANDS);
     }
 
     public static Result<String> resolveException(Exception ex, String path) {
@@ -81,7 +82,8 @@ public class GlobalExceptionHandler {
             Result<String> result = Result.failure();
             String exceptionName = ex.getClass().getSimpleName();
             if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
-                result = EXCEPTION_DICTIONARY.get(exceptionName);
+                Feedback feedback = EXCEPTION_DICTIONARY.get(exceptionName);
+                result = Result.failure(feedback);
             } else {
                 log.warn("[Herodotus] |- Global Exception Handler,  Can not find the exception name [{}] in dictionary, please do optimize ", exceptionName);
             }

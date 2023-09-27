@@ -100,7 +100,7 @@ public class OAuth2AuthenticationConfiguration {
     @Bean
     public ErrorCodeMapperBuilderCustomizer oauth2ErrorCodeMapperBuilderCustomizer() {
         OAuth2ErrorCodeMapperBuilderCustomizer customizer = new OAuth2ErrorCodeMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Strategy [OAuth2 ErrorCodeMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [OAuth2 ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 }

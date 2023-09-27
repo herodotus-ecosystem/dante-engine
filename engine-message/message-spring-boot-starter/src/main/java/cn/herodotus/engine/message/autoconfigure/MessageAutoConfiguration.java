@@ -50,9 +50,9 @@ public class MessageAutoConfiguration {
     }
 
     @Bean
-    public ErrorCodeMapperBuilderCustomizer restErrorCodeMapperBuilderCustomizer() {
+    public ErrorCodeMapperBuilderCustomizer messageErrorCodeMapperBuilderCustomizer() {
         MessageErrorCodeMapperBuilderCustomizer customizer = new MessageErrorCodeMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Strategy [Message ErrorCodeMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [Message ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 }

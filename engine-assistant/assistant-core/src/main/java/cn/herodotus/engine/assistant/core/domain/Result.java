@@ -174,12 +174,6 @@ public class Result<T> implements Serializable {
         return empty(feedback.getMessage(), code, feedback.getStatus());
     }
 
-    public static Result<String> from(Feedback feedback) {
-        int code = ErrorCodeMapper.get(feedback);
-
-        return Result.failure(feedback.getMessage(), code, feedback.getStatus(), null);
-    }
-
     public static <T> Result<T> empty(String message) {
         return empty(message, ErrorCodes.NO_CONTENT.getSequence());
     }
@@ -237,6 +231,13 @@ public class Result<T> implements Serializable {
 
     public Result<T> path(String path) {
         this.path = path;
+        return this;
+    }
+
+    public Result<T> type(Feedback feedback) {
+        this.code = ErrorCodeMapper.get(feedback);;
+        this.message = feedback.getMessage();
+        this.status = feedback.getStatus();
         return this;
     }
 

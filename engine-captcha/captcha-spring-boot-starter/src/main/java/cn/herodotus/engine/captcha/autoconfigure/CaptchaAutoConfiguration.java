@@ -74,7 +74,7 @@ public class CaptchaAutoConfiguration {
     @Bean
     public ErrorCodeMapperBuilderCustomizer captchaErrorCodeMapperBuilderCustomizer() {
         CaptchaErrorCodeMapperBuilderCustomizer customizer = new CaptchaErrorCodeMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Strategy [Captcha ErrorCodeMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [Captcha ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 }
