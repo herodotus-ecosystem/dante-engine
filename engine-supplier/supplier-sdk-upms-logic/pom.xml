@@ -31,7 +31,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-supplier</artifactId>
-        <version>3.1.4.0</version>
+        <version>3.1.4.1</version>
     </parent>
 
     <artifactId>supplier-sdk-upms-logic</artifactId>
@@ -39,11 +39,6 @@
     <description>基于 Spring Authorization Server 的 Dante Cloud UPMS 应用支持模块</description>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>data-sdk-jpa</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>oauth2-core</artifactId>

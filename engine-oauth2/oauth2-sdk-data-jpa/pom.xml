@@ -32,7 +32,7 @@
     <parent>
         <artifactId>engine-oauth2</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.4.0</version>
+        <version>3.1.4.1</version>
     </parent>
 
     <artifactId>oauth2-sdk-data-jpa</artifactId>
@@ -41,11 +41,6 @@
     <description>基于 JPA 的 Spring Authorization Server 数据存储核心组件模块</description>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>data-sdk-jpa</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>oauth2-core</artifactId>

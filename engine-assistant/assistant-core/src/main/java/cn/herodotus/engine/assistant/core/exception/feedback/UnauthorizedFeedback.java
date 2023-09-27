@@ -23,19 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.constants;
+package cn.herodotus.engine.assistant.core.exception.feedback;
+
+import cn.herodotus.engine.assistant.core.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: Jackson2 Object Mapper Customer 顺序控制 </p>
+ * <p>Description: 401 类型错误反馈 </p>
  * <p>
- * 方便控制 Jackson2 Customer 设置的覆盖顺序
+ * 401	Unauthorized	请求要求用户的身份认证
  *
  * @author : gengwei.zheng
- * @date : 2023/4/27 23:18
+ * @date : 2023/9/26 8:48
  */
-public interface JacksonObjectMapperBuilderCustomizerOrder {
+public class UnauthorizedFeedback extends Feedback {
+    public UnauthorizedFeedback(String value) {
+        super(value, HttpStatus.SC_UNAUTHORIZED);
+    }
 
-    int UNIFIED_CORE = 1;
-
-    int OAUTH2_MODULE = UNIFIED_CORE + 1;
+    public UnauthorizedFeedback(String value, int custom) {
+        super(value, HttpStatus.SC_UNAUTHORIZED, custom);
+    }
 }

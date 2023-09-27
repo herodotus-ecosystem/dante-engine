@@ -25,12 +25,19 @@
 
 package cn.herodotus.engine.assistant.autoconfigure;
 
+import cn.herodotus.engine.assistant.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.autoconfigure.initializer.AssistantPreparedInitializer;
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+
+import java.util.List;
 
 /**
  * <p>Description: Definition 自动配置 </p>
@@ -49,5 +56,33 @@ public class AssistantAutoConfiguration {
     @PostConstruct
     public void postConstruct() {
         log.info("[Herodotus] |- Module [Assistant] Auto Configure.");
+    }
+
+    @Bean
+    public ErrorCodeMapperBuilderCustomizer standardErrorCodeMapperBuilderCustomizer() {
+        StandardErrorCodeMapperBuilderCustomizer customizer = new StandardErrorCodeMapperBuilderCustomizer();
+        log.debug("[Herodotus] |- Strategy [Standard ErrorCodeMapper Builder Customizer] Auto Configure.");
+        return customizer;
+    }
+
+    @Bean
+    public ErrorCodeMapperBuilder errorCodeMapperBuilder(List<ErrorCodeMapperBuilderCustomizer> customizers) {
+        ErrorCodeMapperBuilder builder = new ErrorCodeMapperBuilder();
+        customize(builder, customizers);
+        log.debug("[Herodotus] |- Bean [ErrorCodeMapper Builder] Auto Configure.");
+        return builder;
+    }
+
+    private void customize(ErrorCodeMapperBuilder builder, List<ErrorCodeMapperBuilderCustomizer> customizers) {
+        for (ErrorCodeMapperBuilderCustomizer customizer : customizers) {
+            customizer.customize(builder);
+        }
+    }
+
+    @Bean
+    public AssistantPreparedInitializer assistantPreparedInitializer(ErrorCodeMapperBuilder builder) {
+        AssistantPreparedInitializer initializer = new AssistantPreparedInitializer(builder);
+        log.trace("[Herodotus] |- Bean [Assistant Prepared Initializer] Auto Configure.");
+        return initializer;
     }
 }

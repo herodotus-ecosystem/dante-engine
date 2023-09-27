@@ -25,7 +25,9 @@
 
 package cn.herodotus.engine.rest.autoconfigure;
 
-import cn.herodotus.engine.rest.autoconfigure.jackson2.Jackson2XssObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.rest.autoconfigure.customizer.Jackson2XssObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.rest.autoconfigure.customizer.RestErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +55,13 @@ public class RestAutoConfiguration {
     public Jackson2ObjectMapperBuilderCustomizer xssObjectMapperBuilderCustomizer() {
         Jackson2XssObjectMapperBuilderCustomizer customizer = new Jackson2XssObjectMapperBuilderCustomizer();
         log.trace("[Herodotus] |- Strategy [Jackson2 Xss ObjectMapper Builder Customizer] Auto Configure.");
+        return customizer;
+    }
+
+    @Bean
+    public ErrorCodeMapperBuilderCustomizer restErrorCodeMapperBuilderCustomizer() {
+        RestErrorCodeMapperBuilderCustomizer customizer = new RestErrorCodeMapperBuilderCustomizer();
+        log.debug("[Herodotus] |- Strategy [Rest ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 }

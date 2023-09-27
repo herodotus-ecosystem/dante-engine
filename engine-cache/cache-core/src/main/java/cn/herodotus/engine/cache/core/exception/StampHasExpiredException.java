@@ -26,7 +26,6 @@
 package cn.herodotus.engine.cache.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
 
@@ -60,6 +59,6 @@ public class StampHasExpiredException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(CacheErrorCodes.STAMP_HAS_EXPIRED, "签章已过期");
+        return CacheErrorCodes.STAMP_HAS_EXPIRED;
     }
 }

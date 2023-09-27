@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.assistant.core.exception;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.definition.exception.AbstractHerodotusException;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
 
@@ -58,6 +59,6 @@ public class PlatformException extends AbstractHerodotusException {
 
     @Override
     public Feedback getFeedback() {
-        return Feedback.ERROR;
+        return ErrorCodes.INTERNAL_SERVER_ERROR;
     }
 }

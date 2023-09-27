@@ -32,7 +32,7 @@
     <parent>
         <artifactId>engine-access</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.4.0</version>
+        <version>3.1.4.1</version>
     </parent>
 
     <artifactId>access-spring-boot-starter</artifactId>

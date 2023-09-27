@@ -27,7 +27,6 @@ package cn.herodotus.engine.assistant.core.exception.properties;
 
 import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 
 /**
@@ -60,6 +59,6 @@ public class PropertyValueIsNotSetException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notImplemented(ErrorCodes.PROPERTY_VALUE_IS_NOT, "必要的Property配置属性值没有设置");
+        return ErrorCodes.PROPERTY_VALUE_IS_NOT_SET;
     }
 }

@@ -26,7 +26,6 @@
 package cn.herodotus.engine.cache.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
 
@@ -60,6 +59,6 @@ public class StampMismatchException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(CacheErrorCodes.STAMP_MISMATCH, "签章信息无法匹配");
+        return CacheErrorCodes.STAMP_MISMATCH;
     }
 }

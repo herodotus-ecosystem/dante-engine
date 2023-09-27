@@ -25,14 +25,15 @@
 
 package org.hibernate.cache.spi;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Objects;
-import java.util.Set;
-
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.query.spi.Limit;
 import org.hibernate.query.spi.QueryParameterBindings;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * <p>Description: 分页缓存 </p>
@@ -76,7 +77,7 @@ public class QueryKey implements Serializable {
     private final Integer firstRow;
     private final Integer maxRows;
     private final String tenantIdentifier;
-    private final Set<String> enabledFilterNames;
+    private final String[] enabledFilterNames;
 
     /**
      * For performance reasons, the hashCode is cached; however, it is marked transient so that it can be
@@ -96,7 +97,7 @@ public class QueryKey implements Serializable {
         this.firstRow = firstRow;
         this.maxRows = maxRows;
         this.tenantIdentifier = tenantIdentifier;
-        this.enabledFilterNames = enabledFilterNames;
+        this.enabledFilterNames = enabledFilterNames.toArray( String[]::new );
         this.hashCode = generateHashCode();
     }
 
@@ -121,7 +122,7 @@ public class QueryKey implements Serializable {
 		result = 37 * result + ( maxRows==null ? 0 : maxRows );
         result = 37 * result + ( tenantIdentifier==null ? 0 : tenantIdentifier.hashCode() );
         result = 37 * result + parameterBindingsMemento.hashCode();
-        result = 37 * result + ( enabledFilterNames == null ? 0 : enabledFilterNames.hashCode() );
+        result = 37 * result + Arrays.hashCode( enabledFilterNames );
         return result;
     }
 
@@ -157,12 +158,14 @@ public class QueryKey implements Serializable {
             return false;
         }
 
-        if ( ! Objects.equals( enabledFilterNames, that.enabledFilterNames ) ) {
+        if ( ! Arrays.equals( enabledFilterNames, that.enabledFilterNames ) ) {
             return false;
         }
 
         return true;
     }
+
+
 
     @Override
     public int hashCode() {

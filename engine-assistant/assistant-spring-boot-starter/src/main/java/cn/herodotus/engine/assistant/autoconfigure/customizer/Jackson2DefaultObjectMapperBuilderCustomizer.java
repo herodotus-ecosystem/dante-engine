@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.autoconfigure.jackson2;
+package cn.herodotus.engine.assistant.autoconfigure.customizer;
 
 import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2CustomizerOrder;
 import cn.herodotus.engine.assistant.core.json.jackson2.modules.EncapsulationClassJackson2Module;

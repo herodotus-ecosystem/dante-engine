@@ -23,41 +23,43 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.autoconfigure.jackson2;
+package cn.herodotus.engine.oauth2.management.generator;
 
-import cn.herodotus.engine.assistant.core.utils.XssUtils;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
+import cn.herodotus.engine.data.core.identifier.AbstractUuidGenerator;
+import cn.herodotus.engine.oauth2.management.entity.OAuth2Permission;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.factory.spi.CustomIdGeneratorCreationContext;
 
-import java.io.IOException;
+import java.lang.reflect.Member;
 
 /**
- * <p>Description: Xss Json 处理 </p>
+ * <p>Description: 使得保存实体类时可以在保留主键生成策略的情况下自定义表的主键 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/30 23:58
+ * @date : 2022/3/31 21:11
  */
-public class XssStringJsonDeserializer extends JsonDeserializer<String> {
+public class OAuth2PermissionUuidGeneratorType extends AbstractUuidGenerator {
 
-    private static final Logger log = LoggerFactory.getLogger(XssStringJsonDeserializer.class);
-
-    @Override
-    public Class<String> handledType() {
-        return String.class;
+    public OAuth2PermissionUuidGeneratorType(OAuth2PermissionUuidGenerator config, Member idMember, CustomIdGeneratorCreationContext creationContext) {
+        super(idMember);
     }
 
     @Override
-    public String deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        String value = jsonParser.getValueAsString();
-        if (StringUtils.isNotBlank(value)) {
-            return XssUtils.cleaning(value);
+    public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+        if (ObjectUtils.isEmpty(object)) {
+            throw new HibernateException(new NullPointerException());
         }
 
-        return value;
+        OAuth2Permission permission = (OAuth2Permission) object;
+
+        if (StringUtils.isEmpty(permission.getPermissionId())) {
+            return super.generate(session, object);
+        } else {
+            return permission.getPermissionId();
+        }
     }
 }
+

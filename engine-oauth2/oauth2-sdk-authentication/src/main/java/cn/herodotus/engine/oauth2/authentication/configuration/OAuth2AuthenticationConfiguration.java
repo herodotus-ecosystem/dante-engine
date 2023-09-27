@@ -25,8 +25,10 @@
 
 package cn.herodotus.engine.oauth2.authentication.configuration;
 
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.oauth2.authentication.customizer.HerodotusJwtTokenCustomizer;
 import cn.herodotus.engine.oauth2.authentication.customizer.HerodotusOpaqueTokenCustomizer;
+import cn.herodotus.engine.oauth2.authentication.customizer.OAuth2ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.oauth2.authentication.customizer.OAuth2FormLoginConfigurerCustomizer;
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
@@ -83,15 +85,22 @@ public class OAuth2AuthenticationConfiguration {
 
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
-        HerodotusJwtTokenCustomizer herodotusJwtTokenCustomizer = new HerodotusJwtTokenCustomizer();
+        HerodotusJwtTokenCustomizer customizer = new HerodotusJwtTokenCustomizer();
         log.trace("[Herodotus] |- Bean [OAuth2 Jwt Token Customizer] Auto Configure.");
-        return herodotusJwtTokenCustomizer;
+        return customizer;
     }
 
     @Bean
     public OAuth2TokenCustomizer<OAuth2TokenClaimsContext> opaqueTokenCustomizer() {
-        HerodotusOpaqueTokenCustomizer herodotusOpaqueTokenCustomizer = new HerodotusOpaqueTokenCustomizer();
+        HerodotusOpaqueTokenCustomizer customizer = new HerodotusOpaqueTokenCustomizer();
         log.trace("[Herodotus] |- Bean [OAuth2 Opaque Token Customizer] Auto Configure.");
-        return herodotusOpaqueTokenCustomizer;
+        return customizer;
+    }
+
+    @Bean
+    public ErrorCodeMapperBuilderCustomizer oauth2ErrorCodeMapperBuilderCustomizer() {
+        OAuth2ErrorCodeMapperBuilderCustomizer customizer = new OAuth2ErrorCodeMapperBuilderCustomizer();
+        log.debug("[Herodotus] |- Strategy [OAuth2 ErrorCodeMapper Builder Customizer] Auto Configure.");
+        return customizer;
     }
 }

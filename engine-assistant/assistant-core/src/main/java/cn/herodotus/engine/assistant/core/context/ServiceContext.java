@@ -26,10 +26,10 @@
 package cn.herodotus.engine.assistant.core.context;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.enums.Architecture;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
-import cn.herodotus.engine.assistant.core.enums.Architecture;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;

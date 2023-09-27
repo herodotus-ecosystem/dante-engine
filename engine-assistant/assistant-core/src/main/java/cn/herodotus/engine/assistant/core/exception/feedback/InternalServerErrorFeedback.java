@@ -23,25 +23,25 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.oauth2.management.generator;
+package cn.herodotus.engine.assistant.core.exception.feedback;
 
-import org.hibernate.annotations.IdGeneratorType;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
+import cn.herodotus.engine.assistant.core.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: OAuth2AuthorityUuid </p>
+ * <p>Description: 500 类型错误反馈 </p>
+ * <p>
+ * 500	Internal Server Error	服务器内部错误，无法完成请求
  *
  * @author : gengwei.zheng
- * @date : 2022/11/7 17:11
+ * @date : 2023/9/26 8:54
  */
-@IdGeneratorType(OAuth2PermissionUuidGenerator.class)
-@Retention(RetentionPolicy.RUNTIME)
-@Target({FIELD, METHOD})
-public @interface OAuth2PermissionUuid {
+public class InternalServerErrorFeedback extends Feedback {
+    public InternalServerErrorFeedback(String value) {
+        super(value, HttpStatus.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    public InternalServerErrorFeedback(String value, int custom) {
+        super(value, HttpStatus.SC_INTERNAL_SERVER_ERROR, custom);
+    }
 }

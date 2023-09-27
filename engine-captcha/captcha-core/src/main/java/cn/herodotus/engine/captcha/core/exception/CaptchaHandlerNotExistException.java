@@ -26,7 +26,6 @@
 package cn.herodotus.engine.captcha.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 
@@ -60,6 +59,6 @@ public class CaptchaHandlerNotExistException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(CaptchaErrorCodes.CAPTCHA_HANDLER_NOT_EXIST, "验证码处理器不存在");
+        return CaptchaErrorCodes.CAPTCHA_HANDLER_NOT_EXIST;
     }
 }

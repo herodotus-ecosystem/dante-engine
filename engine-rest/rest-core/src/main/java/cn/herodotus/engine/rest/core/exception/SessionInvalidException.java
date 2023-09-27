@@ -26,7 +26,6 @@
 package cn.herodotus.engine.rest.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 
@@ -60,6 +59,6 @@ public class SessionInvalidException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notAcceptable(RestErrorCodes.SESSION_INVALID, "Session已过期，请刷新再试");
+        return RestErrorCodes.SESSION_INVALID;
     }
 }

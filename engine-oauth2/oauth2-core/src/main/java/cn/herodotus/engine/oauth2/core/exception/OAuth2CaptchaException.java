@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.core.exception;
 
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.definition.exception.HerodotusException;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
 import cn.herodotus.engine.assistant.core.domain.Result;
@@ -53,15 +54,12 @@ public class OAuth2CaptchaException extends AccountStatusException implements He
 
     @Override
     public Feedback getFeedback() {
-        return Feedback.ERROR;
+        return ErrorCodes.INTERNAL_SERVER_ERROR;
     }
 
     @Override
     public Result<String> getResult() {
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
+        Result<String> result = Result.failure(getFeedback());
         result.stackTrace(super.getStackTrace());
         result.detail(super.getMessage());
         return result;

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.assistant.autoconfigure;
 
-import cn.herodotus.engine.assistant.autoconfigure.jackson2.Jackson2DefaultObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.autoconfigure.customizer.Jackson2DefaultObjectMapperBuilderCustomizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -56,7 +56,7 @@ public class Jackson2AutoConfiguration {
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer defaultObjectMapperBuilderCustomizer() {
         Jackson2DefaultObjectMapperBuilderCustomizer customizer = new Jackson2DefaultObjectMapperBuilderCustomizer();
-        log.trace("[Herodotus] |- Bean [Jackson2 Default ObjectMapper Builder Customizer] Auto Configure.");
+        log.debug("[Herodotus] |- Strategy [Jackson2 Default ObjectMapper Builder Customizer] Auto Configure.");
         return customizer;
     }
 

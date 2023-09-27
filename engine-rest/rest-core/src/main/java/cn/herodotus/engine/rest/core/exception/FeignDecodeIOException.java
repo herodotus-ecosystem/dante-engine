@@ -26,7 +26,6 @@
 package cn.herodotus.engine.rest.core.exception;
 
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 
@@ -60,6 +59,6 @@ public class FeignDecodeIOException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.serviceUnavailable(RestErrorCodes.FEIGN_DECODER_IO_EXCEPTION, "Feign 解析 Fallback 错误信息出错");
+        return RestErrorCodes.FEIGN_DECODER_IO_EXCEPTION;
     }
 }

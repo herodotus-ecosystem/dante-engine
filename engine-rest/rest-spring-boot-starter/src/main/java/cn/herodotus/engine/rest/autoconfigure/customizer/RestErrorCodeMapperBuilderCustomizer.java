@@ -23,29 +23,33 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.autoconfigure.jackson2;
+package cn.herodotus.engine.rest.autoconfigure.customizer;
 
-import com.fasterxml.jackson.databind.Module;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 import org.springframework.core.Ordered;
 
-import java.util.List;
-
 /**
- * <p>Description: 提取公共操作 </p>
+ * <p>Description: Rest 错误代码映射定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/4/29 17:09
+ * @date : 2023/9/26 23:20
  */
-public interface BaseObjectMapperBuilderCustomizer extends Jackson2ObjectMapperBuilderCustomizer, Ordered {
+public class RestErrorCodeMapperBuilderCustomizer implements ErrorCodeMapperBuilderCustomizer, Ordered {
+    @Override
+    public void customize(ErrorCodeMapperBuilder builder) {
+        builder.notAcceptable(
+                RestErrorCodes.SESSION_INVALID,
+                RestErrorCodes.REPEAT_SUBMISSION,
+                RestErrorCodes.FREQUENT_REQUESTS,
+                RestErrorCodes.FEIGN_DECODER_IO_EXCEPTION
+        );
+    }
 
-    default Module[] toArray(List<Module> modules) {
-        if (CollectionUtils.isNotEmpty(modules)) {
-            Module[] temps = new Module[modules.size()];
-            return modules.toArray(temps);
-        } else {
-            return new Module[]{};
-        }
+    @Override
+    public int getOrder() {
+        return ErrorCodeMapperBuilderOrdered.REST;
     }
 }

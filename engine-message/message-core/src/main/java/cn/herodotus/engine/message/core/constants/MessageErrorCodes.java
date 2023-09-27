@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.message.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.feedback.NotAcceptableFeedback;
 
 /**
  * <p>Description: WebSocket 统一错误代码定义 </p>
@@ -33,8 +33,8 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
  * @author : gengwei.zheng
  * @date : 2022/12/29 15:57
  */
-public interface MessageErrorCodes extends ErrorCodes {
+public interface MessageErrorCodes {
 
-    int ILLEGAL_CHANNEL = MESSAGE_MODULE_406_BEGIN + 1;
-    int PRINCIPAL_NOT_FOUND = ILLEGAL_CHANNEL + 1;
+    NotAcceptableFeedback ILLEGAL_CHANNEL = new NotAcceptableFeedback("WebSocket Channel 设置错误");
+    NotAcceptableFeedback PRINCIPAL_NOT_FOUND = new NotAcceptableFeedback("WebSocket 无法获取用户身份信息");
 }

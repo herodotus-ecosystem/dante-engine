@@ -27,7 +27,6 @@ package cn.herodotus.engine.assistant.core.exception.properties;
 
 import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.FeedbackFactory;
 import cn.herodotus.engine.assistant.core.exception.PlatformException;
 
 /**
@@ -60,6 +59,6 @@ public class UrlFormatIncorrectException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return FeedbackFactory.notImplemented(ErrorCodes.URL_FORMAT_INCORRECT, "URL格式错误或者缺少Http协议头");
+        return ErrorCodes.URL_FORMAT_INCORRECT;
     }
 }

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.access.core.constants;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.exception.feedback.PreconditionFailedFeedback;
 
 /**
  * <p>Description: Access 模块错误代码 </p>
@@ -33,8 +33,13 @@ import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
  * @author : gengwei.zheng
  * @date : 2022/9/2 17:50
  */
-public interface AccessErrorCodes extends ErrorCodes {
+public interface AccessErrorCodes {
 
-    int ILLEGAL_ACCESS_SOURCE = ACCESS_MODULE_406_BEGIN + 1;
-    int ACCESS_CONFIG_ERROR = ILLEGAL_ACCESS_SOURCE + 1;
+    PreconditionFailedFeedback ACCESS_CONFIG_ERROR = new PreconditionFailedFeedback("Access 模块配置错误");
+    PreconditionFailedFeedback ACCESS_HANDLER_NOT_FOUND = new PreconditionFailedFeedback("Access 模块接入处理器未找到错误");
+    PreconditionFailedFeedback ACCESS_IDENTITY_VERIFICATION_FAILED = new PreconditionFailedFeedback("接入身份认证错误");
+    PreconditionFailedFeedback ACCESS_PRE_PROCESS_FAILED_EXCEPTION = new PreconditionFailedFeedback("接入预操作失败错误");
+
+    PreconditionFailedFeedback ILLEGAL_ACCESS_ARGUMENT = new PreconditionFailedFeedback("社交登录参数错误");
+    PreconditionFailedFeedback ILLEGAL_ACCESS_SOURCE = new PreconditionFailedFeedback("社交登录Source参数错误");
 }

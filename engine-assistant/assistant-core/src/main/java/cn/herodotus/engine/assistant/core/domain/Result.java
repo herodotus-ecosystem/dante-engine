@@ -27,7 +27,7 @@ package cn.herodotus.engine.assistant.core.domain;
 
 
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.enums.ResultErrorCodes;
+import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -104,16 +104,8 @@ public class Result<T> implements Serializable {
         return success(message, code, HttpStatus.SC_OK, data);
     }
 
-    public static <T> Result<T> success(ResultErrorCodes resultErrorCodes, T data) {
-        return success(resultErrorCodes.getMessage(), resultErrorCodes.getCode(), data);
-    }
-
-    public static <T> Result<T> success(Feedback feedback, T data) {
-        return success(feedback.getMessage(), feedback.getCode(), feedback.getStatus(), data);
-    }
-
     public static <T> Result<T> success(String message, T data) {
-        return success(message, Feedback.OK.getCode(), data);
+        return success(message, ErrorCodes.OK.getSequence(), data);
     }
 
     public static <T> Result<T> success(String message) {
@@ -148,16 +140,17 @@ public class Result<T> implements Serializable {
         return failure(message, message, code, data);
     }
 
-    public static <T> Result<T> failure(ResultErrorCodes resultErrorCodes, T data) {
-        return failure(resultErrorCodes.getMessage(), resultErrorCodes.getCode(), data);
+    public static <T> Result<T> failure(Feedback feedback) {
+        return failure(feedback, null);
     }
 
     public static <T> Result<T> failure(Feedback feedback, T data) {
-        return failure(feedback.getMessage(), feedback.getCode(), feedback.getStatus(), data);
+        int code = ErrorCodeMapper.get(feedback);
+        return failure(feedback.getMessage(), code, feedback.getStatus(), data);
     }
 
     public static <T> Result<T> failure(String message, T data) {
-        return failure(message, Feedback.ERROR.getCode(), data);
+        return failure(message, ErrorCodes.INTERNAL_SERVER_ERROR.getSequence(), data);
     }
 
     public static <T> Result<T> failure(String message) {
@@ -173,19 +166,16 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> empty(String message, int code) {
-        return empty(message, code, Feedback.NO_CONTENT.getStatus());
+        return empty(message, code, ErrorCodes.NO_CONTENT.getStatus());
     }
 
     public static <T> Result<T> empty(Feedback feedback) {
-        return empty(feedback.getMessage(), feedback.getCode(), feedback.getStatus());
-    }
-
-    public static <T> Result<T> empty(ResultErrorCodes resultErrorCodes) {
-        return empty(resultErrorCodes.getMessage(), resultErrorCodes.getCode());
+        int code = ErrorCodeMapper.get(feedback);
+        return empty(feedback.getMessage(), code, feedback.getStatus());
     }
 
     public static <T> Result<T> empty(String message) {
-        return empty(message, Feedback.NO_CONTENT.getCode());
+        return empty(message, ErrorCodes.NO_CONTENT.getSequence());
     }
 
     public static <T> Result<T> empty() {
@@ -244,9 +234,10 @@ public class Result<T> implements Serializable {
         return this;
     }
 
-    public Result<T> type(ResultErrorCodes resultErrorCodes) {
-        this.code = resultErrorCodes.getCode();
-        this.message = resultErrorCodes.getMessage();
+    public Result<T> type(Feedback feedback) {
+        this.code = ErrorCodeMapper.get(feedback);;
+        this.message = feedback.getMessage();
+        this.status = feedback.getStatus();
         return this;
     }
 

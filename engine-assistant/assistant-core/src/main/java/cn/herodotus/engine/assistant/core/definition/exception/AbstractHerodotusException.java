@@ -57,10 +57,7 @@ public abstract class AbstractHerodotusException extends RuntimeException implem
 
     @Override
     public Result<String> getResult() {
-        Result<String> result = Result.failure();
-        result.code(getFeedback().getCode());
-        result.message(getFeedback().getMessage());
-        result.status(getFeedback().getStatus());
+        Result<String> result = Result.failure(getFeedback());
         result.stackTrace(super.getStackTrace());
         result.detail(super.getMessage());
         return result;

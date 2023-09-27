@@ -23,13 +23,21 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.definition.enums;
+package cn.herodotus.engine.assistant.core.exception.feedback;
+
+import cn.herodotus.engine.assistant.core.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: 基础工厂枚举 </p>
+ * <p>Description: 自定义类型错误反馈 </p>
+ * <p>
+ * 自定义错误码超过 HttpStatus 范围的自定义错误代码类型
  *
  * @author : gengwei.zheng
- * @date : 2022/5/1 19:48
+ * @date : 2023/9/26 15:41
  */
-public interface BaseFactoryEnum extends EnumValue<String>, EnumDescription {
+public class CustomizeFeedback extends Feedback {
+    public CustomizeFeedback(String value, int custom) {
+        super(value, HttpStatus.SC_INTERNAL_SERVER_ERROR, custom);
+    }
 }

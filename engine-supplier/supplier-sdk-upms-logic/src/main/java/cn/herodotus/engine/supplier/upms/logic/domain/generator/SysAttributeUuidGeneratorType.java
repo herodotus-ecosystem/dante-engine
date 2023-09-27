@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.domain.generator;
 
-import cn.herodotus.engine.data.jpa.hibernate.identifier.AbstractUuidGenerator;
+import cn.herodotus.engine.data.core.identifier.AbstractUuidGenerator;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysAttribute;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
