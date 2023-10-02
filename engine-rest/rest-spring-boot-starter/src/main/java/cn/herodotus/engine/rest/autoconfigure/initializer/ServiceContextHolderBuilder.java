@@ -71,7 +71,7 @@ public class ServiceContextHolderBuilder{
     public ServiceContextHolder build() {
         ServiceContextHolder holder = ServiceContextHolder.getInstance();
         toServiceContextHolder(platformProperties, holder);
-        toServiceContextHolder(endpointProperties, holder);
+        toServiceContextHolder(endpointProperties, holder, holder.isDistributedArchitecture());
         holder.setPort(String.valueOf(this.getPort()));
         holder.setIp(getHostAddress());
         return holder;
@@ -106,16 +106,26 @@ public class ServiceContextHolderBuilder{
         serviceContextHolder.setProtocol(platformProperties.getProtocol());
     }
 
-    private void toServiceContextHolder(EndpointProperties endpointProperties, ServiceContextHolder serviceContextHolder) {
-        serviceContextHolder.setUaaServiceName(endpointProperties.getUaaServiceName());
-        serviceContextHolder.setUpmsServiceName(endpointProperties.getUpmsServiceName());
-        serviceContextHolder.setMessageServiceName(endpointProperties.getMessageServiceName());
-        serviceContextHolder.setOssServiceName(endpointProperties.getOssServiceName());
-        serviceContextHolder.setGatewayServiceUri(endpointProperties.getGatewayServiceUri());
-        serviceContextHolder.setUaaServiceUri(endpointProperties.getUaaServiceUri());
-        serviceContextHolder.setUpmsServiceUri(endpointProperties.getUpmsServiceUri());
-        serviceContextHolder.setMessageServiceUri(endpointProperties.getMessageServiceUri());
-        serviceContextHolder.setOssServiceUri(endpointProperties.getOssServiceUri());
+    private void toServiceContextHolder(EndpointProperties endpointProperties, ServiceContextHolder serviceContextHolder, boolean isDistributedArchitecture) {
+        if (!isDistributedArchitecture) {
+            String issuerUri = endpointProperties.getIssuerUri();
+            serviceContextHolder.setGatewayServiceUri(issuerUri);
+            serviceContextHolder.setUaaServiceUri(issuerUri);
+            serviceContextHolder.setUpmsServiceUri(issuerUri);
+            serviceContextHolder.setMessageServiceUri(issuerUri);
+            serviceContextHolder.setOssServiceUri(issuerUri);
+        } else {
+            serviceContextHolder.setUaaServiceName(endpointProperties.getUaaServiceName());
+            serviceContextHolder.setUpmsServiceName(endpointProperties.getUpmsServiceName());
+            serviceContextHolder.setMessageServiceName(endpointProperties.getMessageServiceName());
+            serviceContextHolder.setOssServiceName(endpointProperties.getOssServiceName());
+            serviceContextHolder.setGatewayServiceUri(endpointProperties.getGatewayServiceUri());
+            serviceContextHolder.setUaaServiceUri(endpointProperties.getUaaServiceUri());
+            serviceContextHolder.setUpmsServiceUri(endpointProperties.getUpmsServiceUri());
+            serviceContextHolder.setMessageServiceUri(endpointProperties.getMessageServiceUri());
+            serviceContextHolder.setOssServiceUri(endpointProperties.getOssServiceUri());
+        }
+
         serviceContextHolder.setAuthorizationUri(endpointProperties.getAuthorizationUri());
         serviceContextHolder.setAuthorizationEndpoint(endpointProperties.getAuthorizationEndpoint());
         serviceContextHolder.setAccessTokenUri(endpointProperties.getAccessTokenUri());

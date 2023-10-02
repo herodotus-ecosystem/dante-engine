@@ -244,24 +244,20 @@ public class ServiceContextHolder {
         this.dataAccessStrategy = dataAccessStrategy;
     }
 
+    public Protocol getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(Protocol protocol) {
+        this.protocol = protocol;
+    }
+
     public DataSource getDataSource() {
         return dataSource;
     }
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
-    }
-
-    public boolean isDistributedArchitecture() {
-        return this.getArchitecture() == Architecture.DISTRIBUTED;
-    }
-
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
-    }
-
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
     }
 
     public String getPort() {
@@ -280,14 +276,6 @@ public class ServiceContextHolder {
         this.ip = ip;
     }
 
-    public Protocol getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(Protocol protocol) {
-        this.protocol = protocol;
-    }
-
     public String getAddress() {
         if (isDistributedArchitecture()) {
             this.address = this.getGatewayServiceUri() + SymbolConstants.FORWARD_SLASH + this.getApplicationName();
@@ -297,6 +285,10 @@ public class ServiceContextHolder {
             }
         }
         return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getUrl() {
@@ -321,16 +313,12 @@ public class ServiceContextHolder {
         this.applicationName = applicationName;
     }
 
-    public String getOriginService() {
-        return getApplicationName() + SymbolConstants.COLON + getPort();
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 
-    public static void setInstance(ServiceContextHolder instance) {
-        ServiceContextHolder.instance = instance;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
     }
 
     public String getUaaServiceName() {
@@ -571,6 +559,14 @@ public class ServiceContextHolder {
 
     public void setIssuerUri(String issuerUri) {
         this.issuerUri = issuerUri;
+    }
+
+    public boolean isDistributedArchitecture() {
+        return this.getArchitecture() == Architecture.DISTRIBUTED;
+    }
+
+    public String getOriginService() {
+        return getApplicationName() + SymbolConstants.COLON + getPort();
     }
 
     public void publishEvent(ApplicationEvent applicationEvent) {

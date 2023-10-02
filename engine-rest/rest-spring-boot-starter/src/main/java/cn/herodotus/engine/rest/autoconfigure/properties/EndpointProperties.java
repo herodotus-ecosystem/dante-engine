@@ -29,7 +29,6 @@ import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
 import com.google.common.base.MoreObjects;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -164,18 +163,6 @@ public class EndpointProperties {
      */
     private String issuerUri;
 
-    private String getDefaultEndpoint(String endpoint, String pathAuthorizationEndpoint) {
-        if (StringUtils.isNotBlank(endpoint)) {
-            return endpoint;
-        } else {
-            if (StringUtils.isNotBlank(pathAuthorizationEndpoint)) {
-                return getUaaServiceUri() + pathAuthorizationEndpoint;
-            } else {
-                return getUaaServiceUri();
-            }
-        }
-    }
-
     public String getUaaServiceName() {
         return uaaServiceName;
     }
@@ -208,7 +195,6 @@ public class EndpointProperties {
         this.ossServiceName = ossServiceName;
     }
 
-
     public String getGatewayServiceUri() {
         return gatewayServiceUri;
     }
@@ -218,48 +204,47 @@ public class EndpointProperties {
     }
 
     public String getUaaServiceUri() {
-        return WellFormedUtils.serviceUri(getGatewayServiceUri(), uaaServiceUri, uaaServiceName, "UAA");
+        return WellFormedUtils.serviceUri(uaaServiceUri, getUaaServiceName(), getGatewayServiceUri(), "UAA");
     }
 
     public void setUaaServiceUri(String uaaServiceUri) {
         this.uaaServiceUri = uaaServiceUri;
     }
 
-    public String getOssServiceUri() {
-        return WellFormedUtils.serviceUri(getGatewayServiceUri(), ossServiceUri, ossServiceName, "OSS");
-    }
-
-    public String getMessageServiceUri() {
-        return WellFormedUtils.serviceUri(getGatewayServiceUri(), messageServiceUri, messageServiceName, "MESSAGE");
-    }
-
-    public void setMessageServiceUri(String messageServiceUri) {
-        this.messageServiceUri = messageServiceUri;
-    }
-
-    public void setOssServiceUri(String ossServiceUri) {
-        this.ossServiceUri = ossServiceUri;
-    }
-
     public String getUpmsServiceUri() {
-        return WellFormedUtils.serviceUri(getGatewayServiceUri(), upmsServiceUri, upmsServiceName, "UPMS");
+        return WellFormedUtils.serviceUri(upmsServiceUri, getUpmsServiceName(), getGatewayServiceUri(), "UPMS");
     }
 
     public void setUpmsServiceUri(String upmsServiceUri) {
         this.upmsServiceUri = upmsServiceUri;
     }
 
-    public String getAuthorizationUri() {
-        return getDefaultEndpoint(authorizationUri, getAuthorizationEndpoint());
+    public String getMessageServiceUri() {
+        return WellFormedUtils.serviceUri(messageServiceUri, getMessageServiceName(), getGatewayServiceUri(), "MESSAGE");
     }
 
+    public void setMessageServiceUri(String messageServiceUri) {
+        this.messageServiceUri = messageServiceUri;
+    }
+
+    public String getOssServiceUri() {
+        return WellFormedUtils.serviceUri(ossServiceUri, getOssServiceName(), getGatewayServiceUri(), "OSS");
+    }
+
+    public void setOssServiceUri(String ossServiceUri) {
+        this.ossServiceUri = ossServiceUri;
+    }
+
+    public String getAuthorizationUri() {
+        return WellFormedUtils.sasUri(authorizationUri, getAuthorizationEndpoint(), getIssuerUri());
+    }
 
     public void setAuthorizationUri(String authorizationUri) {
         this.authorizationUri = authorizationUri;
     }
 
     public String getAccessTokenUri() {
-        return getDefaultEndpoint(accessTokenUri, getAccessTokenEndpoint());
+        return WellFormedUtils.sasUri(accessTokenUri, getAccessTokenEndpoint(), getIssuerUri());
     }
 
     public void setAccessTokenUri(String accessTokenUri) {
@@ -267,7 +252,7 @@ public class EndpointProperties {
     }
 
     public String getJwkSetUri() {
-        return getDefaultEndpoint(jwkSetUri, getJwkSetEndpoint());
+        return WellFormedUtils.sasUri(jwkSetUri, getJwkSetEndpoint(), getIssuerUri());
     }
 
     public void setJwkSetUri(String jwkSetUri) {
@@ -275,7 +260,7 @@ public class EndpointProperties {
     }
 
     public String getTokenRevocationUri() {
-        return getDefaultEndpoint(tokenRevocationUri, getTokenRevocationEndpoint());
+        return WellFormedUtils.sasUri(tokenRevocationUri, getTokenRevocationEndpoint(), getIssuerUri());
     }
 
     public void setTokenRevocationUri(String tokenRevocationUri) {
@@ -283,7 +268,7 @@ public class EndpointProperties {
     }
 
     public String getTokenIntrospectionUri() {
-        return getDefaultEndpoint(tokenIntrospectionUri, getTokenIntrospectionEndpoint());
+        return WellFormedUtils.sasUri(tokenIntrospectionUri, getTokenIntrospectionEndpoint(), getIssuerUri());
     }
 
     public void setTokenIntrospectionUri(String tokenIntrospectionUri) {
@@ -291,7 +276,7 @@ public class EndpointProperties {
     }
 
     public String getDeviceAuthorizationUri() {
-        return getDefaultEndpoint(deviceAuthorizationUri, getDeviceAuthorizationEndpoint());
+        return WellFormedUtils.sasUri(deviceAuthorizationUri, getDeviceAuthorizationEndpoint(), getIssuerUri());
     }
 
     public void setDeviceAuthorizationUri(String deviceAuthorizationUri) {
@@ -299,7 +284,7 @@ public class EndpointProperties {
     }
 
     public String getDeviceVerificationUri() {
-        return getDefaultEndpoint(deviceVerificationUri, getDeviceVerificationEndpoint());
+        return WellFormedUtils.sasUri(deviceVerificationUri, getDeviceVerificationEndpoint(), getIssuerUri());
     }
 
     public void setDeviceVerificationUri(String deviceVerificationUri) {
@@ -307,7 +292,7 @@ public class EndpointProperties {
     }
 
     public String getOidcClientRegistrationUri() {
-        return getDefaultEndpoint(oidcClientRegistrationUri, getOidcClientRegistrationEndpoint());
+        return WellFormedUtils.sasUri(oidcClientRegistrationUri, getOidcClientRegistrationEndpoint(), getIssuerUri());
     }
 
     public void setOidcClientRegistrationUri(String oidcClientRegistrationUri) {
@@ -315,7 +300,7 @@ public class EndpointProperties {
     }
 
     public String getOidcLogoutUri() {
-        return getDefaultEndpoint(oidcLogoutUri, getOidcLogoutEndpoint());
+        return WellFormedUtils.sasUri(oidcLogoutUri, getOidcLogoutEndpoint(), getIssuerUri());
     }
 
     public void setOidcLogoutUri(String oidcLogoutUri) {
@@ -323,7 +308,7 @@ public class EndpointProperties {
     }
 
     public String getOidcUserInfoUri() {
-        return getDefaultEndpoint(oidcUserInfoUri, getOidcUserInfoEndpoint());
+        return WellFormedUtils.sasUri(oidcUserInfoUri, getOidcUserInfoEndpoint(), getIssuerUri());
     }
 
     public void setOidcUserInfoUri(String oidcUserInfoUri) {
