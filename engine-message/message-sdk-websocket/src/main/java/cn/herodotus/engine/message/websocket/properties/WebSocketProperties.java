@@ -26,7 +26,7 @@
 package cn.herodotus.engine.message.websocket.properties;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
+import cn.herodotus.engine.assistant.core.utils.http.HeaderUtils;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.websocket.enums.InstanceMode;
 import org.apache.commons.collections4.CollectionUtils;
@@ -72,7 +72,7 @@ public class WebSocketProperties {
     /**
      * 请求中传递的用户身份标识属性名
      */
-    private String principalHeader = HeadersUtils.X_HERODOTUS_OPEN_ID;
+    private String principalHeader = HeaderUtils.X_HERODOTUS_OPEN_ID;
 
     public InstanceMode getMode() {
         return mode;

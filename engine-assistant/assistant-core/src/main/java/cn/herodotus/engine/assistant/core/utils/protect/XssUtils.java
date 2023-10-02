@@ -23,8 +23,9 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.utils;
+package cn.herodotus.engine.assistant.core.utils.protect;
 
+import cn.herodotus.engine.assistant.core.utils.ResourceUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.owasp.validator.html.*;

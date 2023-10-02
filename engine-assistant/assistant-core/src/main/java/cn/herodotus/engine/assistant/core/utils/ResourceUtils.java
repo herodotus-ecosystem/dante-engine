@@ -27,8 +27,6 @@ package cn.herodotus.engine.assistant.core.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -47,8 +45,6 @@ import java.net.URL;
  * @date : 2021/8/29 21:39
  */
 public class ResourceUtils {
-
-    private static final Logger log = LoggerFactory.getLogger(ResourceUtils.class);
 
     private static volatile ResourceUtils INSTANCE;
 

@@ -114,8 +114,8 @@
         <module>engine-rest</module>
         <module>engine-captcha</module>
         <module>engine-message</module>
-        <module>engine-facility</module>
         <module>engine-oauth2</module>
+        <module>engine-facility</module>
         <module>engine-access</module>
         <module>engine-sms</module>
         <module>engine-supplier</module>

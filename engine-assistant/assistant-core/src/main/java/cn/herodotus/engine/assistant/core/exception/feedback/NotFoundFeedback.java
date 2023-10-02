@@ -23,24 +23,26 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.context;
+package cn.herodotus.engine.assistant.core.exception.feedback;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import org.springframework.core.env.Environment;
+import cn.herodotus.engine.assistant.core.domain.Feedback;
+import org.apache.hc.core5.http.HttpStatus;
 
 /**
- * <p>Description: 通用属性读取器 </p>
+ * <p>Description: 406 类型错误反馈 </p>
+ * <p>
+ * 404	Not Found	服务器无法根据客户端的请求找到资源（网页）。通过此代码，网站设计人员可设置"您所请求的资源无法找到"的个性页面
  *
  * @author : gengwei.zheng
- * @date : 2022/2/1 18:10
+ * @date : 2023/9/27 20:07
  */
-public class PropertyFinder {
+public class NotFoundFeedback extends Feedback {
 
-    public static String getApplicationName(Environment environment) {
-        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_APPLICATION_NAME);
+    public NotFoundFeedback(String message) {
+        super(message, HttpStatus.SC_NOT_FOUND);
     }
 
-    public static String getSessionStoreType(Environment environment) {
-        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_SESSION_REDIS);
+    public NotFoundFeedback(String message, int custom) {
+        super(message, HttpStatus.SC_NOT_FOUND, custom);
     }
 }

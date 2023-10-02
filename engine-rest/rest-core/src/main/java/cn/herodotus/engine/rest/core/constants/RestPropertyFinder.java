@@ -26,8 +26,8 @@
 package cn.herodotus.engine.rest.core.constants;
 
 
-import cn.herodotus.engine.assistant.core.context.PropertyFinder;
 import cn.herodotus.engine.assistant.core.context.PropertyResolver;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import org.springframework.core.env.Environment;
 
 /**
@@ -36,7 +36,11 @@ import org.springframework.core.env.Environment;
  * @author : gengwei.zheng
  * @date : 2022/2/1 19:23
  */
-public class RestPropertyFinder extends PropertyFinder {
+public class RestPropertyFinder{
+
+    public static String getApplicationName(Environment environment) {
+        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_APPLICATION_NAME);
+    }
 
     public static String getCryptoStrategy(Environment environment, String defaultValue) {
         return PropertyResolver.getProperty(environment, RestConstants.ITEM_PROTECT_CRYPTO_STRATEGY, defaultValue);

@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.utils;
+package cn.herodotus.engine.assistant.core.utils.http;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -116,7 +116,7 @@ public class SessionUtils {
     public static String analyseSessionId(HttpServletRequest httpServletRequest) {
         String sessionId = getSessionId(httpServletRequest);
         if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeadersUtils.getHerodotusSession(httpServletRequest);
+            sessionId = HeaderUtils.getHerodotusSession(httpServletRequest);
         }
         return sessionId;
     }
@@ -130,7 +130,7 @@ public class SessionUtils {
     public static String analyseSessionId(ServerHttpRequest serverHttpRequest) {
         String sessionId = getSessionIdFromHeader(serverHttpRequest);
         if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeadersUtils.getHerodotusSession(serverHttpRequest);
+            sessionId = HeaderUtils.getHerodotusSession(serverHttpRequest);
         }
         return sessionId;
     }
@@ -144,7 +144,7 @@ public class SessionUtils {
     public static String analyseSessionId(HttpInputMessage httpInputMessage) {
         String sessionId = getSessionIdFromHeader(httpInputMessage);
         if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeadersUtils.getHerodotusSession(httpInputMessage);
+            sessionId = HeaderUtils.getHerodotusSession(httpInputMessage);
         }
         return sessionId;
     }

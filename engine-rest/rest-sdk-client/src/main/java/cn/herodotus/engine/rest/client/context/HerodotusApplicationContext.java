@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.rest.client.context;
 
-import cn.herodotus.engine.assistant.core.context.PropertyFinder;
 import cn.herodotus.engine.assistant.core.context.ServiceContext;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
+import cn.herodotus.engine.rest.core.constants.RestPropertyFinder;
 import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import cn.herodotus.engine.rest.core.properties.PlatformProperties;
 import org.apache.commons.lang3.ObjectUtils;
@@ -65,7 +65,7 @@ public class HerodotusApplicationContext {
         this.serviceContext.setPort(String.valueOf(this.getPort()));
         this.serviceContext.setIp(getHostAddress());
         this.serviceContext.setApplicationContext(applicationContext);
-        this.serviceContext.setApplicationName(PropertyFinder.getApplicationName(applicationContext.getEnvironment()));
+        this.serviceContext.setApplicationName(RestPropertyFinder.getApplicationName(applicationContext.getEnvironment()));
     }
 
     private String getHostAddress() {

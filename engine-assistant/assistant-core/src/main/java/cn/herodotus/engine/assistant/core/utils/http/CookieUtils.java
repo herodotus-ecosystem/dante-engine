@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.utils;
+package cn.herodotus.engine.assistant.core.utils.http;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import jakarta.servlet.http.Cookie;
@@ -133,7 +133,7 @@ public class CookieUtils {
      * @return 如果 Cookie 存在属性名就返回对应的值，如果不存在则返回null
      */
     public static String getFromHeader(HttpServletRequest httpServletRequest, String name) {
-        String cookie = HeadersUtils.getCookie(httpServletRequest);
+        String cookie = HeaderUtils.getCookie(httpServletRequest);
         return get(cookie, name);
     }
 
@@ -145,7 +145,7 @@ public class CookieUtils {
      * @return 如果 Cookie 存在属性名就返回对应的值，如果不存在则返回null
      */
     public static String getFromHeader(ServerHttpRequest serverHttpRequest, String name) {
-        String cookie = HeadersUtils.getCookie(serverHttpRequest);
+        String cookie = HeaderUtils.getCookie(serverHttpRequest);
         return get(cookie, name);
     }
 
@@ -157,7 +157,7 @@ public class CookieUtils {
      * @return 如果 Cookie 存在属性名就返回对应的值，如果不存在则返回null
      */
     public static String getFromHeader(HttpInputMessage httpInputMessage, String name) {
-        String cookie = HeadersUtils.getCookie(httpInputMessage);
+        String cookie = HeaderUtils.getCookie(httpInputMessage);
         return get(cookie, name);
     }
 
@@ -169,7 +169,7 @@ public class CookieUtils {
      * @return 如果 Cookie 存在属性名就返回对应的值，如果不存在则返回null
      */
     public static String getAnyFromHeader(HttpServletRequest httpServletRequest, String... name) {
-        String cookie = HeadersUtils.getCookie(httpServletRequest);
+        String cookie = HeaderUtils.getCookie(httpServletRequest);
         return getAny(cookie, name);
     }
 
@@ -181,7 +181,7 @@ public class CookieUtils {
      * @return 如果 Cookie 存在属性名就返回对应的值，如果不存在则返回null
      */
     public static String getAnyFromHeader(ServerHttpRequest serverHttpRequest, String... name) {
-        String cookie = HeadersUtils.getCookie(serverHttpRequest);
+        String cookie = HeaderUtils.getCookie(serverHttpRequest);
         return getAny(cookie, name);
     }
 
@@ -193,7 +193,7 @@ public class CookieUtils {
      * @return 如果 Cookie 存在属性名就返回对应的值，如果不存在则返回null
      */
     public static String getAnyFromHeader(HttpInputMessage httpInputMessage, String... name) {
-        String cookie = HeadersUtils.getCookie(httpInputMessage);
+        String cookie = HeaderUtils.getCookie(httpInputMessage);
         return getAny(cookie, name);
     }
 

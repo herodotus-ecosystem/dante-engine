@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.utils;
+package cn.herodotus.engine.assistant.core.utils.http;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,7 +41,7 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2023/9/2 16:39
  */
-public class HeadersUtils {
+public class HeaderUtils {
 
     public static final String X_HERODOTUS_SESSION_ID = "X-Herodotus-Session-id";
     public static final String X_HERODOTUS_FROM_IN = "X-Herodotus-From-In";

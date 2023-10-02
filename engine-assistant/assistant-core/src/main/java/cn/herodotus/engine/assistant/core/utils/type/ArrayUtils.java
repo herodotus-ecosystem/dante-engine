@@ -23,20 +23,33 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.core.constants;
+package cn.herodotus.engine.assistant.core.utils.type;
 
-import cn.herodotus.engine.assistant.core.context.PropertyResolver;
-import org.springframework.core.env.Environment;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * <p>Description: 数据模块配置获取器 </p>
+ * <p>Description: 数组工具类 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/28 23:49
+ * @date : 2023/5/3 23:12
  */
-public class DataPropertyFinder {
+public class ArrayUtils {
 
-    public static String getMultiTenantApproach(Environment environment) {
-        return PropertyResolver.getProperty(environment, DataConstants.ITEM_MULTI_TENANT_APPROACH);
+    /**
+     * 将字符串数组转换成字符串List
+     *
+     * @param array 字符串数组
+     * @return 字符串List
+     */
+    public static List<String> toStringList(String[] array) {
+        if (org.apache.commons.lang3.ArrayUtils.isNotEmpty(array)) {
+            List<String> list = new ArrayList<>(array.length);
+            Collections.addAll(list, array);
+            return list;
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

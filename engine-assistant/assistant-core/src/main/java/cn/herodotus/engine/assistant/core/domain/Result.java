@@ -235,7 +235,8 @@ public class Result<T> implements Serializable {
     }
 
     public Result<T> type(Feedback feedback) {
-        this.code = ErrorCodeMapper.get(feedback);;
+        this.code = ErrorCodeMapper.get(feedback);
+        ;
         this.message = feedback.getMessage();
         this.status = feedback.getStatus();
         return this;

@@ -26,7 +26,7 @@
 package cn.herodotus.engine.rest.protect.crypto.enhance;
 
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
-import cn.herodotus.engine.assistant.core.utils.SessionUtils;
+import cn.herodotus.engine.assistant.core.utils.http.SessionUtils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
