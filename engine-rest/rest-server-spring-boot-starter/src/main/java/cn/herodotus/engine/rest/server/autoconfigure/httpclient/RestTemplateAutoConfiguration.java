@@ -23,7 +23,7 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.server.autoconfigure.client;
+package cn.herodotus.engine.rest.server.autoconfigure.httpclient;
 
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;

@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.message.core.definition;
 
-import cn.herodotus.engine.assistant.core.context.ServiceContext;
+import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -63,7 +63,7 @@ public interface StrategyEventManager<T> {
      * @return false 远程事件，local 本地事件
      */
     default boolean isLocal(String destinationService) {
-        return !ServiceContext.getInstance().isDistributedArchitecture() || StringUtils.equals(ServiceContext.getInstance().getApplicationName(), destinationService);
+        return !ServiceContextHolder.getInstance().isDistributedArchitecture() || StringUtils.equals(ServiceContextHolder.getInstance().getApplicationName(), destinationService);
     }
 
     /**
@@ -73,7 +73,7 @@ public interface StrategyEventManager<T> {
      * @param destinationService 接收远程事件目的地
      */
     default void postProcess(String destinationService, T data) {
-        postProcess(ServiceContext.getInstance().getOriginService(), destinationService, data);
+        postProcess(ServiceContextHolder.getInstance().getOriginService(), destinationService, data);
     }
 
     /**

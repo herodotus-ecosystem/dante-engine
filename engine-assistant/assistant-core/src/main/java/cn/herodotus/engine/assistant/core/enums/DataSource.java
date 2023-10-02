@@ -23,33 +23,16 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.client.processor;
-
-import cn.herodotus.engine.rest.client.context.HerodotusApplicationContext;
-import cn.herodotus.engine.rest.client.definition.OpenApiServerResolver;
-import com.google.common.collect.ImmutableList;
-import io.swagger.v3.oas.models.servers.Server;
-
-import java.util.List;
+package cn.herodotus.engine.assistant.core.enums;
 
 /**
- * <p>Description: 默认的OpenApi Serv处理器。 </p>
+ * <p>Description: 数据源 </p>
+ *
+ * 越来越多的模块会涉及到多种数据源的切换，定义一个数据源类型的枚举方便以配置的方式实现数据源的切换
  *
  * @author : gengwei.zheng
- * @date : 2022/1/16 22:15
+ * @date : 2023/10/2 16:34
  */
-public class DefaultOpenApiServerResolver implements OpenApiServerResolver {
-
-    private final HerodotusApplicationContext herodotusApplicationContext;
-
-    public DefaultOpenApiServerResolver(HerodotusApplicationContext herodotusApplicationContext) {
-        this.herodotusApplicationContext = herodotusApplicationContext;
-    }
-
-    @Override
-    public List<Server> getServers() {
-        Server server = new Server();
-        server.setUrl(herodotusApplicationContext.getServiceContext().getUrl());
-        return ImmutableList.of(server);
-    }
+public enum DataSource {
+    JPA, MONGODB
 }

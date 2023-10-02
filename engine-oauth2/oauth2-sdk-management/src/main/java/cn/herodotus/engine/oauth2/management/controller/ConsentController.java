@@ -25,6 +25,7 @@
 
 package cn.herodotus.engine.oauth2.management.controller;
 
+import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.domain.Option;
@@ -32,7 +33,6 @@ import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ApplicationService;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ScopeService;
-import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
@@ -62,15 +62,13 @@ public class ConsentController {
     private final OAuth2ApplicationService applicationService;
     private final OAuth2AuthorizationConsentService authorizationConsentService;
     private final OAuth2ScopeService scopeService;
-    private final EndpointProperties endpointProperties;
 
     private Map<String, OAuth2Scope> dictionaries;
 
-    public ConsentController(OAuth2ApplicationService applicationService, OAuth2AuthorizationConsentService authorizationConsentService, OAuth2ScopeService scopeService, EndpointProperties endpointProperties) {
+    public ConsentController(OAuth2ApplicationService applicationService, OAuth2AuthorizationConsentService authorizationConsentService, OAuth2ScopeService scopeService) {
         this.applicationService = applicationService;
         this.authorizationConsentService = authorizationConsentService;
         this.scopeService = scopeService;
-        this.endpointProperties = endpointProperties;
         initDictionaries();
     }
 
@@ -129,9 +127,9 @@ public class ConsentController {
         model.addAttribute("logo", application.getLogo());
         model.addAttribute("redirectUri", redirectUris.iterator().next());
         model.addAttribute("userCode", userCode);
-        String action = endpointProperties.getAuthorizationEndpoint();
+        String action = ServiceContextHolder.getInstance().getAuthorizationEndpoint();
         if (StringUtils.hasText(userCode)) {
-            action = endpointProperties.getDeviceVerificationEndpoint();
+            action = ServiceContextHolder.getInstance().getDeviceVerificationEndpoint();
         }
         model.addAttribute("action", action);
         return "consent";

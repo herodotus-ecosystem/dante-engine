@@ -23,15 +23,13 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.properties;
+package cn.herodotus.engine.rest.autoconfigure.properties;
 
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -43,8 +41,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_ENDPOINT)
 public class EndpointProperties {
 
-    private static final Logger log = LoggerFactory.getLogger(EndpointProperties.class);
-
     /**
      * 认证中心服务名称
      */
@@ -53,6 +49,10 @@ public class EndpointProperties {
      * 用户中心服务名称
      */
     private String upmsServiceName;
+    /**
+     * 消息服务名称
+     */
+    private String messageServiceName;
     /**
      * 对象存储服务名称
      */
@@ -71,6 +71,10 @@ public class EndpointProperties {
      * 统一权限管理服务地址
      */
     private String upmsServiceUri;
+    /**
+     * 统一消息服务地址
+     */
+    private String messageServiceUri;
     /**
      * 对象存储服务地址
      */
@@ -188,6 +192,14 @@ public class EndpointProperties {
         this.upmsServiceName = upmsServiceName;
     }
 
+    public String getMessageServiceName() {
+        return messageServiceName;
+    }
+
+    public void setMessageServiceName(String messageServiceName) {
+        this.messageServiceName = messageServiceName;
+    }
+
     public String getOssServiceName() {
         return ossServiceName;
     }
@@ -195,6 +207,7 @@ public class EndpointProperties {
     public void setOssServiceName(String ossServiceName) {
         this.ossServiceName = ossServiceName;
     }
+
 
     public String getGatewayServiceUri() {
         return gatewayServiceUri;
@@ -214,6 +227,14 @@ public class EndpointProperties {
 
     public String getOssServiceUri() {
         return WellFormedUtils.serviceUri(getGatewayServiceUri(), ossServiceUri, ossServiceName, "OSS");
+    }
+
+    public String getMessageServiceUri() {
+        return WellFormedUtils.serviceUri(getGatewayServiceUri(), messageServiceUri, messageServiceName, "MESSAGE");
+    }
+
+    public void setMessageServiceUri(String messageServiceUri) {
+        this.messageServiceUri = messageServiceUri;
     }
 
     public void setOssServiceUri(String ossServiceUri) {

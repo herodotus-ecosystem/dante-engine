@@ -36,7 +36,6 @@ import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSource
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceStorage;
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
-import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,8 +123,8 @@ public class OAuth2AuthorizationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
-        OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer = new OAuth2ResourceServerConfigurerCustomer(authorizationProperties, jwtDecoder, endpointProperties, resourceServerProperties);
+    public OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer(OAuth2AuthorizationProperties authorizationProperties, JwtDecoder jwtDecoder, OAuth2ResourceServerProperties resourceServerProperties) {
+        OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer = new OAuth2ResourceServerConfigurerCustomer(authorizationProperties, jwtDecoder, resourceServerProperties);
         log.trace("[Herodotus] |- Bean [OAuth2 Resource Server Configurer Customer] Auto Configure.");
         return oauth2ResourceServerConfigurerCustomer;
     }

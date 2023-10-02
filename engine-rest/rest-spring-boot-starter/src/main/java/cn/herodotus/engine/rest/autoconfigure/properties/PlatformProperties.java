@@ -23,9 +23,10 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.core.properties;
+package cn.herodotus.engine.rest.autoconfigure.properties;
 
 import cn.herodotus.engine.assistant.core.enums.Architecture;
+import cn.herodotus.engine.assistant.core.enums.DataSource;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.rest.core.constants.RestConstants;
@@ -53,6 +54,10 @@ public class PlatformProperties {
      * 接口地址默认采用的Http协议类型
      */
     private Protocol protocol = Protocol.HTTP;
+    /**
+     * 系统数据源类型，默认为 JPA
+     */
+    private DataSource dataSource = DataSource.JPA;
 
     public Architecture getArchitecture() {
         return architecture;
@@ -76,5 +81,13 @@ public class PlatformProperties {
 
     public void setProtocol(Protocol protocol) {
         this.protocol = protocol;
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

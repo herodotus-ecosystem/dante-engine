@@ -34,8 +34,6 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.util.ArrayList;
@@ -48,8 +46,6 @@ import java.util.List;
  * @date : 2023/4/29 11:04
  */
 public class Jackson2DefaultObjectMapperBuilderCustomizer implements BaseObjectMapperBuilderCustomizer {
-
-    private static final Logger log = LoggerFactory.getLogger(Jackson2DefaultObjectMapperBuilderCustomizer.class);
 
     @Override
     public void customize(Jackson2ObjectMapperBuilder builder) {
@@ -77,8 +73,6 @@ public class Jackson2DefaultObjectMapperBuilderCustomizer implements BaseObjectM
         );
 
         builder.findModulesViaServiceLoader(true);
-
-        log.debug("[Herodotus] |- DEFAULT ObjectMapper custom configuration execution is completed.");
     }
 
     @Override

@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.oauth2.authorization.introspector;
 
+import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
-import cn.herodotus.engine.rest.core.properties.EndpointProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,8 +72,8 @@ public class HerodotusOpaqueTokenIntrospector implements OpaqueTokenIntrospector
 
     private Converter<String, RequestEntity<?>> requestEntityConverter;
 
-    public HerodotusOpaqueTokenIntrospector(EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
-        this(getIntrospectionUri(endpointProperties, resourceServerProperties),
+    public HerodotusOpaqueTokenIntrospector(OAuth2ResourceServerProperties resourceServerProperties) {
+        this(getIntrospectionUri(resourceServerProperties),
                 resourceServerProperties.getOpaquetoken().getClientId(),
                 resourceServerProperties.getOpaquetoken().getClientSecret());
     }
@@ -111,8 +111,8 @@ public class HerodotusOpaqueTokenIntrospector implements OpaqueTokenIntrospector
         this.restOperations = restOperations;
     }
 
-    private static String getIntrospectionUri(EndpointProperties endpointProperties, OAuth2ResourceServerProperties resourceServerProperties) {
-        String introspectionUri = endpointProperties.getTokenIntrospectionUri();
+    private static String getIntrospectionUri(OAuth2ResourceServerProperties resourceServerProperties) {
+        String introspectionUri = ServiceContextHolder.getInstance().getTokenIntrospectionUri();
         String configIntrospectionUri = resourceServerProperties.getOpaquetoken().getIntrospectionUri();
         if (StringUtils.isNotBlank(configIntrospectionUri)) {
             introspectionUri = configIntrospectionUri;

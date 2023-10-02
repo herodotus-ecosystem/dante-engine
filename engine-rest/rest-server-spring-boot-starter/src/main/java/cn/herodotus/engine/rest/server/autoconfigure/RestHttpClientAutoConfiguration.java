@@ -26,27 +26,24 @@
 package cn.herodotus.engine.rest.server.autoconfigure;
 
 import cn.herodotus.engine.assistant.core.annotation.ConditionalOnSwaggerEnabled;
+import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.rest.client.context.HerodotusApplicationContext;
 import cn.herodotus.engine.rest.client.definition.OpenApiServerResolver;
-import cn.herodotus.engine.rest.client.processor.DefaultOpenApiServerResolver;
-import cn.herodotus.engine.rest.core.properties.EndpointProperties;
-import cn.herodotus.engine.rest.core.properties.PlatformProperties;
 import cn.herodotus.engine.rest.server.autoconfigure.properties.SwaggerProperties;
+import com.google.common.collect.ImmutableList;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.*;
 import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -57,22 +54,13 @@ import org.springframework.context.annotation.Configuration;
  * @date : 2021/6/13 13:40
  */
 @AutoConfiguration
-@EnableConfigurationProperties({PlatformProperties.class, EndpointProperties.class})
-public class RestClientAutoConfiguration {
+public class RestHttpClientAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(RestClientAutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(RestHttpClientAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Module [Rest Client] Auto Configure.");
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public HerodotusApplicationContext herodotusApplicationContext(ApplicationContext applicationContext, PlatformProperties platformProperties, EndpointProperties endpointProperties, ServerProperties serverProperties) {
-        HerodotusApplicationContext contextHolder = new HerodotusApplicationContext(applicationContext, platformProperties, endpointProperties, serverProperties);
-        log.trace("[Herodotus] |- Bean [Herodotus Context Holder] Auto Configure.");
-        return contextHolder;
+        log.debug("[Herodotus] |- Module [Rest HttpClient] Auto Configure.");
     }
 
     @Configuration(proxyBeanMethods = false)
@@ -90,10 +78,14 @@ public class RestClientAutoConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public OpenApiServerResolver openApiServerResolver(HerodotusApplicationContext herodotusApplicationContext) {
-            DefaultOpenApiServerResolver defaultOpenApiServerResolver = new DefaultOpenApiServerResolver(herodotusApplicationContext);
+        public OpenApiServerResolver openApiServerResolver() {
+            OpenApiServerResolver resolver = () -> {
+                Server server = new Server();
+                server.setUrl(ServiceContextHolder.getInstance().getUrl());
+                return ImmutableList.of(server);
+            };
             log.trace("[Herodotus] |- Bean [Open Api Server Resolver] Auto Configure.");
-            return defaultOpenApiServerResolver;
+            return resolver;
         }
 
         @Bean
