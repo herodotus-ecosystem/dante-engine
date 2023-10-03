@@ -40,11 +40,10 @@
 
     <modules>
         <module>rest-core</module>
-        <module>rest-spring-boot-starter</module>
         <module>rest-sdk-protect</module>
-        <module>rest-sdk-scan</module>
-        <module>rest-sdk-client</module>
-        <module>rest-server-spring-boot-starter</module>
+        <module>rest-sdk-service</module>
+        <module>rest-spring-boot-starter</module>
+        <module>web-server-spring-boot-starter</module>
     </modules>
 
 </project>

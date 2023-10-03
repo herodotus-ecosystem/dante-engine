@@ -403,12 +403,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>rest-sdk-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>rest-sdk-scan</artifactId>
+                <artifactId>rest-sdk-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -418,7 +413,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>rest-server-spring-boot-starter</artifactId>
+                <artifactId>web-server-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

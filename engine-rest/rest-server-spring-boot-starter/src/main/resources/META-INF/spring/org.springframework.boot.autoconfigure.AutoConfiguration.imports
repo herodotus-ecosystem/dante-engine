@@ -1,5 +1,0 @@
-cn.herodotus.engine.rest.server.autoconfigure.RestServerAutoConfiguration
-cn.herodotus.engine.rest.server.autoconfigure.RestHttpClientAutoConfiguration
-cn.herodotus.engine.rest.server.autoconfigure.httpclient.FeignAutoConfiguration
-cn.herodotus.engine.rest.server.autoconfigure.httpclient.ClientHttpRequestFactoryAutoConfiguration
-cn.herodotus.engine.rest.server.autoconfigure.httpclient.RestTemplateAutoConfiguration

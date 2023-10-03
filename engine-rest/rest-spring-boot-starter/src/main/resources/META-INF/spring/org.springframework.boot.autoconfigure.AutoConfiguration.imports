@@ -1,3 +1,5 @@
 cn.herodotus.engine.rest.autoconfigure.RestAutoConfiguration
 cn.herodotus.engine.rest.autoconfigure.RestWebMvcAutoConfiguration
 cn.herodotus.engine.rest.autoconfigure.RestCryptoAutoConfiguration
+cn.herodotus.engine.rest.autoconfigure.RestTemplateAutoConfiguration
+cn.herodotus.engine.rest.autoconfigure.RestServiceAutoConfiguration

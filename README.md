@@ -119,12 +119,12 @@ dante-engine
 ├    ├── oauth2-sdk-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块
 ├    └── oauth2-sdk-management -- Spring Authorization Server 应用管理模块
 ├── engine-rest -- 服务Rest接口模块
-├    ├── rest-core -- 服务Rest接口共性通用代码
+├    ├── rest-core -- 服务 Rest 接口共性通用代码
 ├    ├── rest-sdk-client -- 各类 HttpClient 及 OpenAPI 集成模块
-├    ├── rest-sdk-protect -- 前后端数据加密、接口幂等、防刷、Xss和SQL注入Rest API 防护模块
-├    ├── rest-sdk-scan -- 接口权限扫描模块
-├    ├── rest-server-spring-boot-starter -- 基础 Web Server 配置模块
-├    └── rest-spring-boot-starter -- Rest 模块统一 Starter(包括通用CRUD代码)
+├    ├── rest-sdk-protect -- 前后端数据加密、接口幂等、防刷、Xss 和 SQL 注入 Rest API 防护模块
+├    ├── rest-sdk-service -- 基于 REST 的服务基础内容配置代码模块
+├    ├── rest-spring-boot-starter -- Rest 模块统一 Starter(包括通用CRUD代码)
+├    └── web-server-spring-boot-starter -- 基础 Web Server 配置模块
 ├── engine-sms -- 短信接入模块
 ├    ├── sms-core -- 短信共性通用代码模块
 ├    ├── sms-sdk-aliyun -- 阿里云短信发送模块
