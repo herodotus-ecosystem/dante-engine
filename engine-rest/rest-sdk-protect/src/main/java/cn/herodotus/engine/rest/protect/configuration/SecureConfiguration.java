@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.rest.protect.configuration;
 
-import cn.herodotus.engine.rest.protect.properties.SecureProperties;
+import cn.herodotus.engine.rest.condition.properties.SecureProperties;
 import cn.herodotus.engine.rest.protect.secure.interceptor.AccessLimitedInterceptor;
 import cn.herodotus.engine.rest.protect.secure.interceptor.IdempotentInterceptor;
 import cn.herodotus.engine.rest.protect.secure.interceptor.XssHttpServletFilter;

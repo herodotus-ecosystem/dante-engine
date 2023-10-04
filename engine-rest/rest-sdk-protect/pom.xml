@@ -36,11 +36,10 @@
 
     <artifactId>rest-sdk-protect</artifactId>
 
-
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>rest-core</artifactId>
+            <artifactId>rest-sdk-condition</artifactId>
         </dependency>
 
         <dependency>

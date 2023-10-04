@@ -23,40 +23,39 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.protect.secure.stamp;
+package cn.herodotus.engine.rest.condition.properties;
 
-import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.rest.condition.constants.RestConstants;
-import cn.herodotus.engine.rest.condition.properties.SecureProperties;
+import cn.herodotus.engine.rest.core.enums.CryptoStrategy;
+import com.google.common.base.MoreObjects;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * <p>Description: 防刷签章管理器 </p>
- * <p>
- * 这里使用Long类型作为值的存储类型，是为了解决该Cache 同时可以存储Duration相关的数据
+ * <p>Description: 加密算法配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/25 21:43
+ * @date : 2022/5/1 21:13
  */
-public class AccessLimitedStampManager extends AbstractStampManager<String, Long> {
+@ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_CRYPTO)
+public class CryptoProperties {
 
-    private final SecureProperties secureProperties;
+    /**
+     * 加密算法策略，默认：国密算法
+     */
+    private CryptoStrategy cryptoStrategy = CryptoStrategy.SM;
 
-    public AccessLimitedStampManager(SecureProperties secureProperties) {
-        super(RestConstants.CACHE_NAME_TOKEN_ACCESS_LIMITED);
-        this.secureProperties = secureProperties;
+    public CryptoStrategy getCryptoStrategy() {
+        return cryptoStrategy;
     }
 
-    public SecureProperties getSecureProperties() {
-        return secureProperties;
+    public void setCryptoStrategy(CryptoStrategy cryptoStrategy) {
+        this.cryptoStrategy = cryptoStrategy;
     }
 
     @Override
-    public Long nextStamp(String key) {
-        return 1L;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        super.setExpire(secureProperties.getAccessLimited().getExpire());
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("strategy", cryptoStrategy)
+                .toString();
     }
 }

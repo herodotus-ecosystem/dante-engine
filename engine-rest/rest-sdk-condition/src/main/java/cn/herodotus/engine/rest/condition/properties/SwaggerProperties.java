@@ -23,40 +23,38 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.protect.secure.stamp;
+package cn.herodotus.engine.rest.condition.properties;
 
-import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.rest.condition.constants.RestConstants;
-import cn.herodotus.engine.rest.condition.properties.SecureProperties;
+import com.google.common.base.MoreObjects;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * <p>Description: 防刷签章管理器 </p>
- * <p>
- * 这里使用Long类型作为值的存储类型，是为了解决该Cache 同时可以存储Duration相关的数据
+ * <p>Description: Swagger 自定义配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/25 21:43
+ * @date : 2023/5/9 18:45
  */
-public class AccessLimitedStampManager extends AbstractStampManager<String, Long> {
+@ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_SWAGGER)
+public class SwaggerProperties {
 
-    private final SecureProperties secureProperties;
+    /**
+     * 是否开启Swagger
+     */
+    private Boolean enabled;
 
-    public AccessLimitedStampManager(SecureProperties secureProperties) {
-        super(RestConstants.CACHE_NAME_TOKEN_ACCESS_LIMITED);
-        this.secureProperties = secureProperties;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public SecureProperties getSecureProperties() {
-        return secureProperties;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
-    public Long nextStamp(String key) {
-        return 1L;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        super.setExpire(secureProperties.getAccessLimited().getExpire());
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("enabled", enabled)
+                .toString();
     }
 }

@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.rest.autoconfigure;
 
-import cn.herodotus.engine.rest.service.annotation.ConditionalOnUseHttpClient5RestClient;
-import cn.herodotus.engine.rest.service.annotation.ConditionalOnUseOkHttp3RestClient;
-import cn.herodotus.engine.rest.service.annotation.ConditionalOnUseSimpleRestClient;
+import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseHttpClient5RestClient;
+import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseOkHttp3RestClient;
+import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseSimpleRestClient;
 import feign.hc5.ApacheHttp5Client;
 import jakarta.annotation.PostConstruct;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;

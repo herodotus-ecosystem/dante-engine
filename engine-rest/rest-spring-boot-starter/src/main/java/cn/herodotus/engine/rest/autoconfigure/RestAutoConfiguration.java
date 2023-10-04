@@ -30,9 +30,9 @@ import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBu
 import cn.herodotus.engine.rest.autoconfigure.customizer.Jackson2XssObjectMapperBuilderCustomizer;
 import cn.herodotus.engine.rest.autoconfigure.customizer.RestErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.rest.service.initializer.ServiceContextHolderBuilder;
-import cn.herodotus.engine.rest.service.properties.EndpointProperties;
-import cn.herodotus.engine.rest.service.properties.PlatformProperties;
-import cn.herodotus.engine.rest.core.constants.RestPropertyFinder;
+import cn.herodotus.engine.rest.condition.properties.EndpointProperties;
+import cn.herodotus.engine.rest.condition.properties.PlatformProperties;
+import cn.herodotus.engine.rest.condition.constants.RestPropertyFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

@@ -23,40 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.protect.secure.stamp;
+package cn.herodotus.engine.rest.condition.constants;
 
-import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
-import cn.herodotus.engine.rest.condition.constants.RestConstants;
-import cn.herodotus.engine.rest.condition.properties.SecureProperties;
+import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 
 /**
- * <p>Description: 防刷签章管理器 </p>
- * <p>
- * 这里使用Long类型作为值的存储类型，是为了解决该Cache 同时可以存储Duration相关的数据
+ * <p>Description: Rest 模块常量 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/25 21:43
+ * @date : 2022/1/19 23:13
  */
-public class AccessLimitedStampManager extends AbstractStampManager<String, Long> {
+public interface RestConstants extends BaseConstants {
 
-    private final SecureProperties secureProperties;
 
-    public AccessLimitedStampManager(SecureProperties secureProperties) {
-        super(RestConstants.CACHE_NAME_TOKEN_ACCESS_LIMITED);
-        this.secureProperties = secureProperties;
-    }
+    String PROPERTY_OPENFEIGN_OKHTTP = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".okhttp";
+    String PROPERTY_OPENFEIGN_HTTPCLIENT = PROPERTY_SPRING_CLOUD_OPENFEIGN + ".httpclient";
+    String PROPERTY_REST_SCAN = PROPERTY_PREFIX_REST + ".scan";
+    String ITEM_PLATFORM_DATA_ACCESS_STRATEGY = PROPERTY_PREFIX_PLATFORM + ".data-access-strategy";
+    String ITEM_PLATFORM_ARCHITECTURE = PROPERTY_PREFIX_PLATFORM + ".architecture";
 
-    public SecureProperties getSecureProperties() {
-        return secureProperties;
-    }
+    String ITEM_SCAN_ENABLED = PROPERTY_REST_SCAN + PROPERTY_ENABLED;
+    String ITEM_OPENFEIGN_OKHTTP_ENABLED = PROPERTY_OPENFEIGN_OKHTTP + PROPERTY_ENABLED;
+    String ITEM_OPENFEIGN_HTTPCLIENT_ENABLED = PROPERTY_OPENFEIGN_HTTPCLIENT + ".hc5" + PROPERTY_ENABLED;
+    String ITEM_PROTECT_CRYPTO_STRATEGY = PROPERTY_PREFIX_CRYPTO + ".crypto-strategy";
 
-    @Override
-    public Long nextStamp(String key) {
-        return 1L;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        super.setExpire(secureProperties.getAccessLimited().getExpire());
-    }
+    String CACHE_NAME_TOKEN_IDEMPOTENT = CACHE_TOKEN_BASE_PREFIX + "idempotent:";
+    String CACHE_NAME_TOKEN_ACCESS_LIMITED = CACHE_TOKEN_BASE_PREFIX + "access_limited:";
+    String CACHE_NAME_TOKEN_SECURE_KEY = CACHE_TOKEN_BASE_PREFIX + "secure_key:";
 }
