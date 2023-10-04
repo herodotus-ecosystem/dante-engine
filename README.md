@@ -13,7 +13,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.4-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.4"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.4.1-red.svg?logo=spring" alt="Version 3.1.4.1"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.4.2-red.svg?logo=spring" alt="Version 3.1.4.2"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue.svg?logo=apache" alt="License Apache 2.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -68,8 +68,6 @@
 ```
 dante-engine
 ├── dependencies -- 工程Maven顶级依赖，统一控制版本和依赖
-├── documents -- 需要放置的文档位置
-├    └── readme -- README 相关素材放置目录
 ├── engine-access -- 外部登录接入模块
 ├    ├── access-core -- 外部登录通用代码
 ├    ├── access-sdk-all -- 外部登录集成
@@ -120,7 +118,7 @@ dante-engine
 ├    └── oauth2-sdk-management -- Spring Authorization Server 应用管理模块
 ├── engine-rest -- 服务Rest接口模块
 ├    ├── rest-core -- 服务 Rest 接口共性通用代码
-├    ├── rest-sdk-client -- 各类 HttpClient 及 OpenAPI 集成模块
+├    ├── rest-sdk-condition -- 服务级 REST 相关自定义条件注解模块
 ├    ├── rest-sdk-protect -- 前后端数据加密、接口幂等、防刷、Xss 和 SQL 注入 Rest API 防护模块
 ├    ├── rest-sdk-service -- 基于 REST 的服务基础内容配置代码模块
 ├    ├── rest-spring-boot-starter -- Rest 模块统一 Starter(包括通用CRUD代码)
@@ -140,7 +138,8 @@ dante-engine
 ├    ├── supplier-sdk-message -- 消息功能支持模块
 ├    ├── supplier-sdk-tenant -- 多租户功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
-└──  └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
+├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
+└──  readme -- README 相关素材放置目录
 ```
 
 ## 阅读顺序
