@@ -28,7 +28,6 @@ package cn.herodotus.engine.assistant.core.context;
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Architecture;
-import cn.herodotus.engine.assistant.core.enums.DataSource;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.enums.Target;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
@@ -60,10 +59,6 @@ public class ServiceContextHolder {
      * 协议头类型
      */
     private Protocol protocol = Protocol.HTTP;
-    /**
-     * 系统数据源类型，默认为 JPA
-     */
-    private DataSource dataSource = DataSource.JPA;
     /**
      * 服务端口号
      */
@@ -250,14 +245,6 @@ public class ServiceContextHolder {
 
     public void setProtocol(Protocol protocol) {
         this.protocol = protocol;
-    }
-
-    public DataSource getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
     }
 
     public String getPort() {

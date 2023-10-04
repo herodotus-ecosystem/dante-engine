@@ -23,57 +23,31 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.rest.service.properties;
+package cn.herodotus.engine.data.core.properties;
 
-import cn.herodotus.engine.assistant.core.enums.Architecture;
-import cn.herodotus.engine.assistant.core.enums.Protocol;
-import cn.herodotus.engine.assistant.core.enums.Target;
-import cn.herodotus.engine.rest.core.constants.RestConstants;
+import cn.herodotus.engine.data.core.constants.DataConstants;
+import cn.herodotus.engine.data.core.enums.DataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * <p>Description: 平台服务相关配置 </p>
+ * <p>Description: Data 相关模块配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2019/11/17 15:22
+ * @date : 2023/10/4 12:02
  */
-@ConfigurationProperties(prefix = RestConstants.PROPERTY_PREFIX_PLATFORM)
-public class PlatformProperties {
+@ConfigurationProperties(DataConstants.PROPERTY_PREFIX_DATA)
+public class DataProperties {
 
     /**
-     * 平台架构类型，默认：DISTRIBUTED（分布式架构）
+     * 基础数据源切换。用于某些基础核心应用底层存储切换的配置。默认，JPA
      */
-    private Architecture architecture = Architecture.DISTRIBUTED;
-    /**
-     * 数据访问策略，默认：远程
-     */
-    private Target dataAccessStrategy = Target.REMOTE;
+    private DataSource dataSource = DataSource.JPA;
 
-    /**
-     * 接口地址默认采用的Http协议类型
-     */
-    private Protocol protocol = Protocol.HTTP;
-    public Architecture getArchitecture() {
-        return architecture;
+    public DataSource getDataSource() {
+        return dataSource;
     }
 
-    public void setArchitecture(Architecture architecture) {
-        this.architecture = architecture;
-    }
-
-    public Target getDataAccessStrategy() {
-        return dataAccessStrategy;
-    }
-
-    public void setDataAccessStrategy(Target dataAccessStrategy) {
-        this.dataAccessStrategy = dataAccessStrategy;
-    }
-
-    public Protocol getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(Protocol protocol) {
-        this.protocol = protocol;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 }

@@ -23,25 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.core.constants;
+package cn.herodotus.engine.data.core.annotation;
 
-import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
+import cn.herodotus.engine.data.core.condition.JpaDataSourceCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: 数据常量 </p>
+ * <p>Description: 以JPA作为基础核心应用数据存储条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/19 18:10
+ * @date : 2022/5/3 23:03
  */
-public interface DataConstants extends BaseConstants {
-
-    String ITEM_SPRING_SQL_INIT_PLATFORM = "spring.sql.init.platform";
-    String PROPERTY_PREFIX_MULTI_TENANT = PROPERTY_PREFIX_DATA + ".multi-tenant";
-    String ITEM_DATA_DATA_SOURCE = PROPERTY_PREFIX_DATA + ".data-source";
-    String ITEM_MULTI_TENANT_APPROACH = PROPERTY_PREFIX_MULTI_TENANT + ".approach";
-
-    String ANNOTATION_SQL_INIT_PLATFORM = ANNOTATION_PREFIX + ITEM_SPRING_SQL_INIT_PLATFORM + ANNOTATION_SUFFIX;
-
-    String CORE_AREA_PREFIX = AREA_PREFIX + "core:";
-    String REGION_SYS_TENANT_DATASOURCE = CORE_AREA_PREFIX + "sys:tenant:datasource";
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Documented
+@Conditional(JpaDataSourceCondition.class)
+public @interface ConditionalOnJpaDataSource {
 }

@@ -23,16 +23,28 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.assistant.core.enums;
+package cn.herodotus.engine.data.jpa.autoconfigure;
+
+import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
- * <p>Description: 数据源 </p>
- *
- * 越来越多的模块会涉及到多种数据源的切换，定义一个数据源类型的枚举方便以配置的方式实现数据源的切换
+ * <p>Description: Data JPA 模块可配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/10/2 16:34
+ * @date : 2022/9/8 18:12
  */
-public enum DataSource {
-    JPA, MONGODB
+@AutoConfiguration
+@EnableJpaAuditing
+public class DataJpaAutoConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(DataJpaAutoConfiguration.class);
+
+    @PostConstruct
+    public void postConstruct() {
+        log.info("[Herodotus] |- Module [Data JPA] Auto Configure.");
+    }
 }

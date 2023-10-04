@@ -23,28 +23,38 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.jpa.configuration;
+package cn.herodotus.engine.data.tenant.autoconfigure;
 
+import cn.herodotus.engine.data.tenant.configuration.DatabaseApproachConfiguration;
+import cn.herodotus.engine.data.tenant.configuration.DiscriminatorApproachConfiguration;
+import cn.herodotus.engine.data.tenant.configuration.SchemaApproachConfiguration;
+import cn.herodotus.engine.data.tenant.properties.MultiTenantProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: Data JPA 模块可配置 </p>
+ * <p>Description: 多租户模块统一配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/9/8 18:12
+ * @date : 2023/3/28 23:12
  */
 @AutoConfiguration
-@EnableJpaAuditing
-public class DataJpaConfiguration {
+@EnableConfigurationProperties(MultiTenantProperties.class)
+@Import({
+        DiscriminatorApproachConfiguration.class,
+        SchemaApproachConfiguration.class,
+        DatabaseApproachConfiguration.class,
+})
+public class DataTenantAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(DataJpaConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(SchemaApproachConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Module [Data JPA] Auto Configure.");
+        log.info("[Herodotus] |- Module [Data Tenant] Auto Configure.");
     }
 }

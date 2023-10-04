@@ -102,7 +102,6 @@ public class ServiceContextHolderBuilder{
     private void toServiceContextHolder(PlatformProperties platformProperties, ServiceContextHolder serviceContextHolder) {
         serviceContextHolder.setArchitecture(platformProperties.getArchitecture());
         serviceContextHolder.setDataAccessStrategy(platformProperties.getDataAccessStrategy());
-        serviceContextHolder.setDataSource(platformProperties.getDataSource());
         serviceContextHolder.setProtocol(platformProperties.getProtocol());
     }
 

@@ -23,35 +23,22 @@
  * 6.若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.engine.data.tenant.configuration;
+package cn.herodotus.engine.data.core.annotation;
 
-import cn.herodotus.engine.data.tenant.properties.MultiTenantProperties;
-import jakarta.annotation.PostConstruct;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Import;
+import cn.herodotus.engine.data.core.condition.MongoDBDataSourceCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: 多租户模块统一配置 </p>
+ * <p>Description: 以 MongoDB 作为基础核心应用数据存储条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/28 23:12
+ * @date : 2022/5/3 23:03
  */
-@AutoConfiguration
-@EnableConfigurationProperties(MultiTenantProperties.class)
-@Import({
-        DiscriminatorApproachConfiguration.class,
-        SchemaApproachConfiguration.class,
-        DatabaseApproachConfiguration.class,
-})
-public class DataTenantConfiguration {
-
-    private static final Logger log = LoggerFactory.getLogger(SchemaApproachConfiguration.class);
-
-    @PostConstruct
-    public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Data Tenant] Auto Configure.");
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Documented
+@Conditional(MongoDBDataSourceCondition.class)
+public @interface ConditionalOnMongoDBDataSource {
 }
