@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.message.core.definition;
 
-import cn.herodotus.engine.assistant.core.context.ServiceContext;
+import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.message.core.domain.RequestMapping;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -76,12 +76,12 @@ public interface RequestMappingScanEventManager extends ApplicationStrategyEvent
      * @return true 执行， false 不执行
      */
     default boolean isPerformScan() {
-        if (ServiceContext.getInstance().isDistributedArchitecture()) {
+        if (ServiceContextHolder.getInstance().isDistributedArchitecture()) {
             if (ObjectUtils.isEmpty(getScanAnnotationClass())) {
                 return false;
             }
 
-            Map<String, Object> content = ServiceContext.getInstance().getApplicationContext().getBeansWithAnnotation(getScanAnnotationClass());
+            Map<String, Object> content = ServiceContextHolder.getInstance().getApplicationContext().getBeansWithAnnotation(getScanAnnotationClass());
             return !MapUtils.isEmpty(content);
         }
 

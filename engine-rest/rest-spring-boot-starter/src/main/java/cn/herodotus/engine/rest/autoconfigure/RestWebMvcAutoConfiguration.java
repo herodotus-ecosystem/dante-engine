@@ -30,7 +30,6 @@ import cn.herodotus.engine.rest.protect.configuration.TenantConfiguration;
 import cn.herodotus.engine.rest.protect.secure.interceptor.AccessLimitedInterceptor;
 import cn.herodotus.engine.rest.protect.secure.interceptor.IdempotentInterceptor;
 import cn.herodotus.engine.rest.protect.tenant.MultiTenantInterceptor;
-import cn.herodotus.engine.rest.scan.annotation.EnableHerodotusRestScan;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,6 @@ import org.springframework.web.servlet.resource.WebJarsResourceResolver;
         SecureConfiguration.class,
         TenantConfiguration.class
 })
-@EnableHerodotusRestScan
 @EnableWebMvc
 public class RestWebMvcAutoConfiguration implements WebMvcConfigurer {
 

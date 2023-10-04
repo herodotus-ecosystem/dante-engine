@@ -32,7 +32,7 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.4.1</version>
+        <version>3.1.4.2</version>
     </parent>
 
     <artifactId>engine-rest</artifactId>
@@ -40,11 +40,11 @@
 
     <modules>
         <module>rest-core</module>
-        <module>rest-spring-boot-starter</module>
         <module>rest-sdk-protect</module>
-        <module>rest-sdk-scan</module>
-        <module>rest-sdk-client</module>
-        <module>rest-server-spring-boot-starter</module>
+        <module>rest-sdk-service</module>
+        <module>rest-spring-boot-starter</module>
+        <module>web-server-spring-boot-starter</module>
+        <module>rest-sdk-condition</module>
     </modules>
 
 </project>

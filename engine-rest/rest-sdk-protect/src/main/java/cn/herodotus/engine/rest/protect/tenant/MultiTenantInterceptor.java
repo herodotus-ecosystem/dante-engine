@@ -27,8 +27,8 @@ package cn.herodotus.engine.rest.protect.tenant;
 
 import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
-import cn.herodotus.engine.assistant.core.utils.SessionUtils;
+import cn.herodotus.engine.assistant.core.utils.http.HeaderUtils;
+import cn.herodotus.engine.assistant.core.utils.http.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
@@ -49,7 +49,7 @@ public class MultiTenantInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        String tenantId = HeadersUtils.getHerodotusTenantId(request);
+        String tenantId = HeaderUtils.getHerodotusTenantId(request);
         if (StringUtils.isBlank(tenantId)) {
             tenantId = DefaultConstants.TENANT_ID;
         }
@@ -58,7 +58,7 @@ public class MultiTenantInterceptor implements HandlerInterceptor {
 
         String path = request.getRequestURI();
         String sessionId = SessionUtils.getSessionId(request);
-        String herodotusSessionId = HeadersUtils.getHerodotusSession(request);
+        String herodotusSessionId = HeaderUtils.getHerodotusSession(request);
 
         log.debug("[Herodotus] |- SESSION ID for [{}] is : [{}].", path, sessionId);
         log.debug("[Herodotus] |- SESSION ID of HERODOTUS for [{}] is : [{}].", path, herodotusSessionId);

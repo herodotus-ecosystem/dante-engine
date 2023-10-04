@@ -26,8 +26,7 @@
 package cn.herodotus.engine.rest.protect.crypto.enhance;
 
 import cn.herodotus.engine.assistant.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.utils.HeadersUtils;
-import cn.herodotus.engine.assistant.core.utils.SessionUtils;
+import cn.herodotus.engine.assistant.core.utils.http.SessionUtils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import jakarta.servlet.http.HttpServletRequest;

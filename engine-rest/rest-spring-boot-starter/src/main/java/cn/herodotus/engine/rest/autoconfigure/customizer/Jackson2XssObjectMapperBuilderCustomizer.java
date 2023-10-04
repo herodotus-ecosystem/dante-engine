@@ -30,8 +30,6 @@ import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2CustomizerOrder;
 import cn.herodotus.engine.rest.protect.jackson2.XssStringJsonDeserializer;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.util.ArrayList;
@@ -45,8 +43,6 @@ import java.util.List;
  */
 public class Jackson2XssObjectMapperBuilderCustomizer implements BaseObjectMapperBuilderCustomizer {
 
-    private static final Logger log = LoggerFactory.getLogger(Jackson2XssObjectMapperBuilderCustomizer.class);
-
     @Override
     public void customize(Jackson2ObjectMapperBuilder builder) {
         SimpleModule simpleModule = new SimpleModule();
@@ -57,8 +53,6 @@ public class Jackson2XssObjectMapperBuilderCustomizer implements BaseObjectMappe
             install.add(simpleModule);
             builder.modulesToInstall(toArray(install));
         });
-
-        log.debug("[Herodotus] |- XSS ObjectMapper custom configuration execution is completed.");
     }
 
     @Override

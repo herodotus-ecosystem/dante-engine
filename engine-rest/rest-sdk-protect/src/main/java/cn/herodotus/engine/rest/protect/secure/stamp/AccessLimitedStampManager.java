@@ -26,8 +26,8 @@
 package cn.herodotus.engine.rest.protect.secure.stamp;
 
 import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
-import cn.herodotus.engine.rest.core.constants.RestConstants;
-import cn.herodotus.engine.rest.protect.properties.SecureProperties;
+import cn.herodotus.engine.rest.condition.constants.RestConstants;
+import cn.herodotus.engine.rest.condition.properties.SecureProperties;
 
 /**
  * <p>Description: 防刷签章管理器 </p>

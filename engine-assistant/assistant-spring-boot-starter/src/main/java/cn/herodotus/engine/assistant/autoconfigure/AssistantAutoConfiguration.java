@@ -26,8 +26,8 @@
 package cn.herodotus.engine.assistant.autoconfigure;
 
 import cn.herodotus.engine.assistant.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.autoconfigure.initializer.AssistantPreparedInitializer;
 import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.domain.ErrorCodeMapper;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.extra.spring.SpringUtil;
@@ -80,9 +80,9 @@ public class AssistantAutoConfiguration {
     }
 
     @Bean
-    public AssistantPreparedInitializer assistantPreparedInitializer(ErrorCodeMapperBuilder builder) {
-        AssistantPreparedInitializer initializer = new AssistantPreparedInitializer(builder);
-        log.trace("[Herodotus] |- Bean [Assistant Prepared Initializer] Auto Configure.");
-        return initializer;
+    public ErrorCodeMapper errorCodeMapper(ErrorCodeMapperBuilder builder) {
+        ErrorCodeMapper mapper = builder.build();
+        log.debug("[Herodotus] |- Bean [ErrorCodeMapper] Auto Configure.");
+        return mapper;
     }
 }

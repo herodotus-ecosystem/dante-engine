@@ -25,8 +25,6 @@
 
 package cn.herodotus.engine.assistant.core.definition.constants;
 
-import org.springframework.core.Ordered;
-
 /**
  * <p>Description: 错误码构建顺序 </p>
  * <p>

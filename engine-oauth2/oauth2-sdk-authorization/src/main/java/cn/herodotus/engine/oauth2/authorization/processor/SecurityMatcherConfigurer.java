@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.processor;
 
-import cn.herodotus.engine.assistant.core.utils.ListUtils;
+import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.rest.core.constants.WebResources;
 import org.apache.commons.collections4.CollectionUtils;

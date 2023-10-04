@@ -145,7 +145,7 @@ public class WellFormedUtils {
         }
     }
 
-    public static String serviceUri(String gatewayServiceUri, String serviceUri, String serviceName, String abbreviation) {
+    public static String serviceUri(String serviceUri, String serviceName, String gatewayServiceUri, String abbreviation) {
         if (StringUtils.isNotBlank(serviceUri)) {
             return serviceUri;
         } else {
@@ -153,9 +153,26 @@ public class WellFormedUtils {
                 log.error("[Herodotus] |- Property [{} Service Name] is not set or property format is incorrect!", abbreviation);
                 throw new PropertyValueIsNotSetException();
             } else {
-                return WellFormedUtils.url(gatewayServiceUri) + serviceName;
+                if (StringUtils.isBlank(gatewayServiceUri)) {
+                    log.error("[Herodotus] |- Property [gateway-service-uri] is not set or property format is incorrect!");
+                    throw new PropertyValueIsNotSetException();
+                } else {
+                    return WellFormedUtils.url(gatewayServiceUri) + serviceName;
+                }
             }
         }
     }
 
+    public static String sasUri(String uri, String endpoint, String issuerUri) {
+        if (StringUtils.isNotBlank(uri)) {
+            return uri;
+        } else {
+            if (StringUtils.isBlank(issuerUri)) {
+                log.error("[Herodotus] |- Property [issuer-uri] is not set or property format is incorrect!");
+                throw new PropertyValueIsNotSetException();
+            } else {
+                return issuerUri + endpoint;
+            }
+        }
+    }
 }

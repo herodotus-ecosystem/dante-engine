@@ -25,7 +25,8 @@
 
 package cn.herodotus.engine.data.tenant.condition;
 
-import cn.herodotus.engine.data.core.constants.DataPropertyFinder;
+import cn.herodotus.engine.assistant.core.context.PropertyResolver;
+import cn.herodotus.engine.data.core.constants.DataConstants;
 import cn.herodotus.engine.data.core.enums.MultiTenantApproach;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -47,7 +48,7 @@ public class DatabaseApproachCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = DataPropertyFinder.getMultiTenantApproach(conditionContext.getEnvironment());
+        String property = PropertyResolver.getProperty(conditionContext, DataConstants.ITEM_MULTI_TENANT_APPROACH);
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, MultiTenantApproach.DATABASE.name());
         log.debug("[Herodotus] |- Condition [Database Approach] value is [{}]", result);
         return result;

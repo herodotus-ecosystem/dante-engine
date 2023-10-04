@@ -25,11 +25,9 @@
 
 package cn.herodotus.engine.message.mqtt.configuration;
 
-import cn.herodotus.engine.assistant.core.utils.ListUtils;
+import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
 import cn.herodotus.engine.message.mqtt.properties.MqttProperties;
 import jakarta.annotation.PostConstruct;
-import org.apache.commons.lang3.time.DurationUtils;
-import org.dromara.hutool.core.date.DateUtil;
 import org.dromara.hutool.core.util.ByteUtil;
 import org.eclipse.paho.mqttv5.client.IMqttAsyncClient;
 import org.eclipse.paho.mqttv5.client.MqttConnectionOptions;

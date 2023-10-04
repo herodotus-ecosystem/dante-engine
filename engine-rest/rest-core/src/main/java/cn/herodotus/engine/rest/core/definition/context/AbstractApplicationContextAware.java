@@ -25,7 +25,7 @@
 
 package cn.herodotus.engine.rest.core.definition.context;
 
-import cn.herodotus.engine.assistant.core.context.ServiceContext;
+import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -44,7 +44,7 @@ public abstract class AbstractApplicationContextAware implements ApplicationCont
 
     protected ApplicationContext getApplicationContext() {
         if (ObjectUtils.isEmpty(applicationContext)) {
-            return ServiceContext.getInstance().getApplicationContext();
+            return ServiceContextHolder.getInstance().getApplicationContext();
         }
         return applicationContext;
     }
