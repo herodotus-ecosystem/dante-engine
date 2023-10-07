@@ -73,7 +73,7 @@
 
         <!--开源通用工具包-->
         <animated-gif-lib.version>1.4</animated-gif-lib.version>
-        <antisamy.version>1.7.3</antisamy.version>
+        <antisamy.version>1.7.4</antisamy.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-fileupload.version>1.5</commons-fileupload.version>
         <commons-text.version>1.10.0</commons-text.version>
@@ -93,7 +93,7 @@
 
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.40</fastjson2.version>
+        <fastjson2.version>2.0.41</fastjson2.version>
         <jetcache.version>2.7.4</jetcache.version>
         <nacos.version>2.2.4</nacos.version>
         <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
