@@ -90,6 +90,15 @@ public class Jackson2Utils {
         }
     }
 
+    public static <T> T toObject(Map<String, Object> content, Class<T> valueType) {
+        try {
+            return getObjectMapper().convertValue(content, valueType);
+        } catch (IllegalArgumentException e) {
+            logger.error("[Herodotus] |- Jackson2 json processing error, when to object with value type! {}", e.getMessage());
+            return null;
+        }
+    }
+
     public static <T> T toObject(String content, TypeReference<T> typeReference) {
         try {
             return getObjectMapper().readValue(content, typeReference);

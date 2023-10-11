@@ -30,30 +30,28 @@ import cn.zhxu.okhttps.MsgConvertor;
 import cn.zhxu.okhttps.jackson.JacksonMsgConvertor;
 
 /**
- * <p>File: AbstractRestApiService </p>
- *
- * <p>Description: 外部Rest API抽象服务 </p>
+ * <p>Description: 外部 Rest API 集成抽象服务 </p>
  *
  * @author : gengwei.zheng
  * @date : 2021/4/10 15:33
  */
-public abstract class AbstractRest {
+public interface RestApiTemplate {
 
     /**
      * 获取外部Rest API基础地址
      *
      * @return 访问接口的统一BaseURL
      */
-    protected abstract String getBaseUrl();
+    String getBaseUrl();
 
-    protected HTTP http() {
+    default HTTP http() {
         return HTTP.builder()
                 .baseUrl(getBaseUrl())
                 .addMsgConvertor(getMsgConvertor())
                 .build();
     }
 
-    protected MsgConvertor getMsgConvertor() {
+    default MsgConvertor getMsgConvertor() {
         return new JacksonMsgConvertor();
     }
 }
