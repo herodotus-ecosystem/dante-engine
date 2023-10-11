@@ -63,7 +63,7 @@ public abstract class BaseReadableRestController<E extends AbstractEntity, ID ex
                     @ApiResponse(responseCode = "500", description = "查询失败")
             })
     @Parameters({
-            @Parameter(name = "pager", required = true, in = ParameterIn.PATH, description = "分页Bo对象", schema = @Schema(implementation = Pager.class))
+            @Parameter(name = "pager", required = true, in = ParameterIn.QUERY, description = "分页Bo对象", schema = @Schema(implementation = Pager.class))
     })
     @GetMapping
     public Result<Map<String, Object>> findByPage(@Validated Pager pager) {
