@@ -27,8 +27,8 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.utils.PrincipalUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -64,8 +64,7 @@ import java.util.*;
  */
 public abstract class AbstractAuthenticationProvider implements AuthenticationProvider {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractAuthenticationProvider.class);
-
+    private final Log logger = LogFactory.getLog(getClass());
     private static final OAuth2TokenType ID_TOKEN_TOKEN_TYPE = new OAuth2TokenType(OidcParameterNames.ID_TOKEN);
 
     private static String createHash(String value) throws NoSuchAlgorithmException {
@@ -83,7 +82,9 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
             throw new OAuth2AuthenticationException(error);
         }
 
-        log.trace("Generated access token");
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Generated access token");
+        }
 
         OAuth2AccessToken accessToken = new OAuth2AccessToken(OAuth2AccessToken.TokenType.BEARER,
                 generatedAccessToken.getTokenValue(), generatedAccessToken.getIssuedAt(),
@@ -113,7 +114,9 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
                 throw new OAuth2AuthenticationException(error);
             }
 
-            log.trace("Generated refresh token");
+            if (this.logger.isTraceEnabled()) {
+                this.logger.trace("Generated refresh token");
+            }
 
             refreshToken = (OAuth2RefreshToken) generatedRefreshToken;
             authorizationBuilder.refreshToken(refreshToken);
@@ -125,7 +128,6 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
     protected OidcIdToken createOidcIdToken(Authentication principal, SessionRegistry sessionRegistry, DefaultOAuth2TokenContext.Builder tokenContextBuilder, OAuth2Authorization.Builder authorizationBuilder, OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator, String errorUri, Set<String> requestedScopes) {
         OidcIdToken idToken;
         if (requestedScopes.contains(OidcScopes.OPENID)) {
-
             SessionInformation sessionInformation = getSessionInformation(principal, sessionRegistry);
             if (sessionInformation != null) {
                 try {
@@ -152,7 +154,9 @@ public abstract class AbstractAuthenticationProvider implements AuthenticationPr
                 throw new OAuth2AuthenticationException(error);
             }
 
-            log.trace("Generated id token");
+            if (this.logger.isTraceEnabled()) {
+                this.logger.trace("Generated id token");
+            }
 
             idToken = new OidcIdToken(generatedIdToken.getTokenValue(), generatedIdToken.getIssuedAt(),
                     generatedIdToken.getExpiresAt(), ((Jwt) generatedIdToken).getClaims());

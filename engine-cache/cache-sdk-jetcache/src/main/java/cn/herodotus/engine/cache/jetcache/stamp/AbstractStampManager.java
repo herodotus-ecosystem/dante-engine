@@ -50,10 +50,8 @@ public abstract class AbstractStampManager<K, V> implements StampManager<K, V> {
 
     private static final Duration DEFAULT_EXPIRE = Duration.ofMinutes(30);
 
-    private String cacheName;
-    private CacheType cacheType;
     private Duration expire;
-    private Cache<K, V> cache;
+    private final Cache<K, V> cache;
 
     public AbstractStampManager(String cacheName) {
         this(cacheName, CacheType.BOTH);
@@ -64,10 +62,8 @@ public abstract class AbstractStampManager<K, V> implements StampManager<K, V> {
     }
 
     public AbstractStampManager(String cacheName, CacheType cacheType, Duration expire) {
-        this.cacheName = cacheName;
-        this.cacheType = cacheType;
         this.expire = expire;
-        this.cache = JetCacheUtils.create(this.cacheName, this.cacheType, this.expire);
+        this.cache = JetCacheUtils.create(cacheName, cacheType, this.expire);
     }
 
     /**

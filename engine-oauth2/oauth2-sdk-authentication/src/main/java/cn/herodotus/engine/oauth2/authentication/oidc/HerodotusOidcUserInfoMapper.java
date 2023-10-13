@@ -37,7 +37,7 @@ import java.util.*;
 import java.util.function.Function;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: 自定义 SAS Oidc UserInfoMapper </p>
  *
  * @author : gengwei.zheng
  * @date : 2022/10/15 11:58
