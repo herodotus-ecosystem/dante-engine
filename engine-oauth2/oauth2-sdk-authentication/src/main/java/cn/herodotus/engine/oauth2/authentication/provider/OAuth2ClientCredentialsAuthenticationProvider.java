@@ -28,10 +28,10 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.service.ClientDetailsService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dromara.hutool.core.reflect.FieldUtil;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.core.*;
@@ -62,9 +62,8 @@ import java.util.Set;
  */
 public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthenticationProvider {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2ClientCredentialsAuthenticationProvider.class);
-
     private static final String ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
+    private final Log logger = LogFactory.getLog(getClass());
     private final OAuth2AuthorizationService authorizationService;
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
     private final ClientDetailsService clientDetailsService;
@@ -108,19 +107,27 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
                 .getAuthenticatedClientElseThrowInvalidClient(clientCredentialsAuthentication);
         RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Retrieved registered client");
+        }
+
         if (!registeredClient.getAuthorizationGrantTypes().contains(AuthorizationGrantType.CLIENT_CREDENTIALS)) {
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.UNAUTHORIZED_CLIENT);
         }
 
-        log.trace("Retrieved registered client");
-
         // Default to configured scopes
         Set<String> authorizedScopes = getStrings(clientCredentialsAuthentication, registeredClient);
+
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Validated token request parameters");
+        }
 
         Set<HerodotusGrantedAuthority> authorities = clientDetailsService.findAuthoritiesById(registeredClient.getClientId());
         if (org.apache.commons.collections4.CollectionUtils.isNotEmpty(authorities)) {
             FieldUtil.setFieldValue(clientPrincipal, "authorities", authorities);
-            log.debug("[Herodotus] |- Assign authorities to OAuth2ClientAuthenticationToken.");
+            if (this.logger.isDebugEnabled()) {
+                this.logger.debug("[Herodotus] |- Assign authorities to OAuth2ClientAuthenticationToken.");
+            }
         }
 
         OAuth2Authorization.Builder authorizationBuilder = OAuth2Authorization.withRegisteredClient(registeredClient)
@@ -146,7 +153,11 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
 
         this.authorizationService.save(authorization);
 
-        log.debug("[Herodotus] |- Client Credentials returning OAuth2AccessTokenAuthenticationToken.");
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Saved authorization");
+            // This log is kept separate for consistency with other providers
+            this.logger.trace("Authenticated token request");
+        }
 
         return new OAuth2AccessTokenAuthenticationToken(registeredClient, clientPrincipal, accessToken);
     }
