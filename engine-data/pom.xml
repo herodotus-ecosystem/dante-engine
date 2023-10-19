@@ -27,22 +27,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.4.3</version>
+        <version>3.1.5.0</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>engine-data</artifactId>
     <packaging>pom</packaging>
-    <version>3.1.4.3</version>
 
     <modules>
         <module>data-core</module>
         <module>data-sdk-jpa</module>
         <module>data-sdk-mybatis-plus</module>
-        <module>data-spring-boot-starter</module>
         <module>data-sdk-tenant</module>
+        <module>data-spring-boot-starter</module>
     </modules>
 </project>

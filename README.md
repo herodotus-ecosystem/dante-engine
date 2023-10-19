@@ -6,14 +6,14 @@
 
 <p align="center">
     <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-1.1.2-blue.svg?logo=spring" alt="Spring Authorization Server 1.1.2"></a>
-    <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.1.4-blue.svg?logo=spring" alt="Spring Boot 3.1.4"></a>
+    <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.1.5-blue.svg?logo=spring" alt="Spring Boot 3.1.5"></a>
     <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2022.0.4-blue.svg?logo=spring" alt="Spring Cloud 2022.0.4"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2022.0.0.0-blue.svg?logo=alibabadotcom" alt="Spring Cloud Alibaba 2022.0.0.0"></a>
     <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.12.2--2022.0.4-blue.svg?logo=tencentqq" alt="Spring Cloud Tencent 1.12.2-2022.0.4"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.4-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.4"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.4.3-red.svg?logo=spring" alt="Version 3.1.4.3"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.5.0-red.svg?logo=spring" alt="Version 3.1.5.0"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue.svg?logo=apache" alt="License Apache 2.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -128,7 +128,6 @@ dante-engine
 ├    ├── sms-sdk-aliyun -- 阿里云短信发送模块
 ├    ├── sms-sdk-chinamobile -- 移动短信发送模块
 ├    ├── sms-sdk-huawei -- 华为短信发送模块
-├    ├── sms-sdk-jd -- 京东短信发送模块
 ├    ├── sms-sdk-netease -- 网易短信发送模块
 ├    ├── sms-sdk-qiniu -- 七牛短信发送模块
 ├    ├── sms-sdk-tencent -- 腾讯短信发送模块

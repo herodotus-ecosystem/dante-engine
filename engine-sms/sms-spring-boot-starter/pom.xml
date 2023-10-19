@@ -32,7 +32,7 @@
     <parent>
         <artifactId>engine-sms</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.4.3</version>
+        <version>3.1.5.0</version>
     </parent>
 
     <artifactId>sms-spring-boot-starter</artifactId>
@@ -56,10 +56,6 @@
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>sms-sdk-huawei</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>sms-sdk-jd</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
