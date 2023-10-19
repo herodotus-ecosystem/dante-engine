@@ -33,7 +33,6 @@ import cn.herodotus.engine.sms.autoconfigure.stamp.VerificationCodeStampManager;
 import cn.herodotus.engine.sms.chinamobile.configuration.ChinaMobileSmsConfiguration;
 import cn.herodotus.engine.sms.core.definition.SmsSendHandler;
 import cn.herodotus.engine.sms.huawei.configuration.HuaweiSmsConfiguration;
-import cn.herodotus.engine.sms.jd.configuration.JdSmsConfiguration;
 import cn.herodotus.engine.sms.netease.configuration.NeteaseSmsConfiguration;
 import cn.herodotus.engine.sms.qiniu.configuration.QiniuSmsConfiguration;
 import cn.herodotus.engine.sms.tencent.configuration.TencentSmsConfiguration;
@@ -61,7 +60,6 @@ import org.springframework.context.annotation.Import;
         AliyunSmsConfiguration.class,
         ChinaMobileSmsConfiguration.class,
         HuaweiSmsConfiguration.class,
-        JdSmsConfiguration.class,
         NeteaseSmsConfiguration.class,
         QiniuSmsConfiguration.class,
         TencentSmsConfiguration.class,

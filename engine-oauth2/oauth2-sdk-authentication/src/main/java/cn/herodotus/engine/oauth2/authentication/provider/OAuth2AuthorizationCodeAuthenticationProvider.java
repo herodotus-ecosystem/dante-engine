@@ -25,8 +25,9 @@
 package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.core.log.LogMessage;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -64,18 +65,13 @@ import java.util.Map;
  * @see OAuth2AuthorizationCodeRequestAuthenticationProvider
  * @see OAuth2AuthorizationService
  * @see OAuth2TokenGenerator
- * @see <a target="_blank" href="https://datatracker.ietf.org/doc/html/rfc6749#section-4.1">Section 4.1 Authorization Code Grant</a>
- * @see <a target="_blank" href="https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.3">Section 4.1.3 Access Token Request</a>
- * @since 0.0.1
  */
 public final class OAuth2AuthorizationCodeAuthenticationProvider extends AbstractAuthenticationProvider {
 
-    private static final Logger log = LoggerFactory.getLogger(OAuth2AuthorizationCodeAuthenticationProvider.class);
+    private final Log logger = LogFactory.getLog(getClass());
 
     private static final String ERROR_URI = "https://datatracker.ietf.org/doc/html/rfc6749#section-5.2";
-    private static final OAuth2TokenType AUTHORIZATION_CODE_TOKEN_TYPE =
-            new OAuth2TokenType(OAuth2ParameterNames.CODE);
-
+    private static final OAuth2TokenType AUTHORIZATION_CODE_TOKEN_TYPE = new OAuth2TokenType(OAuth2ParameterNames.CODE);
     private final OAuth2AuthorizationService authorizationService;
     private final OAuth2TokenGenerator<? extends OAuth2Token> tokenGenerator;
     private SessionRegistry sessionRegistry;
@@ -103,7 +99,9 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
                 OAuth2AuthenticationProviderUtils.getAuthenticatedClientElseThrowInvalidClient(authorizationCodeAuthentication);
         RegisteredClient registeredClient = clientPrincipal.getRegisteredClient();
 
-        log.trace("Retrieved registered client");
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Retrieved registered client");
+        }
 
         OAuth2Authorization authorization = this.authorizationService.findByToken(
                 authorizationCodeAuthentication.getCode(), AUTHORIZATION_CODE_TOKEN_TYPE);
@@ -111,7 +109,9 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);
         }
 
-        log.trace("Retrieved authorization with authorization code");
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Retrieved authorization with authorization code");
+        }
 
         OAuth2Authorization.Token<OAuth2AuthorizationCode> authorizationCode =
                 authorization.getToken(OAuth2AuthorizationCode.class);
@@ -124,8 +124,9 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
                 // Invalidate the authorization code given that a different client is attempting to use it
                 authorization = OAuth2AuthenticationProviderUtils.invalidate(authorization, authorizationCode.getToken());
                 this.authorizationService.save(authorization);
-
-                log.warn("Invalidated authorization code used by registered client '{}'", registeredClient.getId());
+                if (this.logger.isWarnEnabled()) {
+                    this.logger.warn(LogMessage.format("Invalidated authorization code used by registered client '%s'", registeredClient.getId()));
+                }
             }
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);
         }
@@ -144,13 +145,17 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
                     // Invalidate the access (and refresh) token as the client is attempting to use the authorization code more than once
                     authorization = OAuth2AuthenticationProviderUtils.invalidate(authorization, token.getToken());
                     this.authorizationService.save(authorization);
-                    log.warn("Invalidated authorization token(s) previously issued to registered client '{}'", registeredClient.getId());
+                    if (this.logger.isWarnEnabled()) {
+                        this.logger.warn(LogMessage.format("Invalidated authorization token(s) previously issued to registered client '%s'", registeredClient.getId()));
+                    }
                 }
             }
             throw new OAuth2AuthenticationException(OAuth2ErrorCodes.INVALID_GRANT);
         }
 
-        log.trace("Validated token request parameters");
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Validated token request parameters");
+        }
 
         Authentication principal = authorization.getAttribute(Principal.class.getName());
 
@@ -183,9 +188,15 @@ public final class OAuth2AuthorizationCodeAuthenticationProvider extends Abstrac
 
         this.authorizationService.save(authorization);
 
-        log.debug("[Herodotus] |- Authorization Code returning OAuth2AccessTokenAuthenticationToken.");
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Saved authorization");
+        }
 
         Map<String, Object> additionalParameters = idTokenAdditionalParameters(idToken);
+
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace("Authenticated token request");
+        }
 
         OAuth2AccessTokenAuthenticationToken accessTokenAuthenticationToken = new OAuth2AccessTokenAuthenticationToken(
                 registeredClient, clientPrincipal, accessToken, refreshToken, additionalParameters);

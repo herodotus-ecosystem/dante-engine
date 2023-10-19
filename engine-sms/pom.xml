@@ -32,7 +32,7 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.4.3</version>
+        <version>3.1.5.0</version>
     </parent>
 
     <artifactId>engine-sms</artifactId>
@@ -43,7 +43,6 @@
         <module>sms-sdk-aliyun</module>
         <module>sms-sdk-chinamobile</module>
         <module>sms-sdk-huawei</module>
-        <module>sms-sdk-jd</module>
         <module>sms-sdk-netease</module>
         <module>sms-sdk-qiniu</module>
         <module>sms-sdk-tencent</module>
