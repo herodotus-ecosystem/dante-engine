@@ -141,6 +141,16 @@ dante-engine
 └──  readme -- README 相关素材放置目录
 ```
 
+## 授权协议
+
+本项目基于 GNU Lesser General Public License 开源协议，协议说明如下：
+
+LGPL [(GNU Lesser General Public License)](http://www.gnu.org/licenses/lgpl.html)
+
+LGPL 是 GPL 的一个为主要为类库使用设计的开源协议。和 GPL 要求任何使用/修改/衍生之 GPL 类库的的软件必须采用 GPL 协议不同。LGPL 允许商业软件通过类库引用(link)方式使用 LGPL 类库而不需要开源商业软件的代码。这使得采用 LGPL 协议的开源代码可以被商业软件作为类库引用并发布和销售。
+
+但是如果修改 LGPL 协议的代码或者衍生，则所有修改的代码，涉及修改部分的额外代码和衍生的代码都必须采用 LGPL 协议。因此 LGPL 协议的开源代码很适合作为第三方类库被商业软件引用，但不适合希望以 LGPL 协议代码为基础，通过修改和衍生的方式做二次开发的商业软件采用。
+
 ## 阅读顺序
 
 ### 一、关联性阅读
@@ -194,14 +204,3 @@ dante-engine
 - Dante 主工程地址：[https://gitee.com/dromara/dante-cloud](https://gitee.com/dromara/dante-cloud)
 - Dante 单体版示例工程地址：[https://gitee.com/herodotus/dante-cloud-athena](https://gitee.com/herodotus/dante-cloud-athena)
 - Dante 前端工程地址：[https://gitee.com/herodotus/dante-cloud-ui](https://gitee.com/herodotus/dante-cloud-ui)
-
-## 授权协议
-
-本项目基于 Apache License Version 2.0 开源协议，可用于商业项目，但必须遵守以下补充条款。
-
-- 不得将本软件应用于危害国家安全、荣誉和利益的行为，不能以任何形式用于非法为目的的行为。
-- 在延伸的代码中（修改现有源代码衍生的代码中）需要带有原来代码中的协议、版权声明和其他原作者 规定需要包含的说明（请尊重原作者的著作权，不要删除或修改文件中的Copyright和@author信息） 更不要，全局替换源代码中的 Dante Cloud、Dante Engine、Herodotus 或 码匠君 等字样，否则你将违反本协议条款承担责任。
-- 您若套用本软件的一些代码或功能参考，请保留源文件中的版权和作者，需要在您的软件介绍明显位置 说明出处，举例：本软件基于 Dante Cloud 微服务架构，并附带链接：https://www.herodotus.cn
-- 任何基于本软件而产生的一切法律纠纷和责任，均于我司无关。
-- 如果你对本软件有改进，希望可以贡献给我们，双向奔赴互相成就才是王道。
-- 本项目已申请软件著作权，请尊重开源。
