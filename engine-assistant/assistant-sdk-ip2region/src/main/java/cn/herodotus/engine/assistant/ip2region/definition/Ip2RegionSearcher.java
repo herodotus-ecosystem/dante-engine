@@ -22,7 +22,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import java.util.function.Function;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: IP 定位离线搜索定义 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/10/23 12:40
@@ -55,7 +55,7 @@ public interface Ip2RegionSearcher {
     IpLocation memorySearch(String ip);
 
     /**
-     * 读取 IpInformation 中的信息
+     * 搜索并读取IP信息
      *
      * @param ip       ip
      * @param function {@link Function}
@@ -66,7 +66,7 @@ public interface Ip2RegionSearcher {
     }
 
     /**
-     * 读取 IpInformation 中的信息
+     * 搜索并读取IP信息
      *
      * @param ip       ip
      * @param function {@link Function}
@@ -82,7 +82,7 @@ public interface Ip2RegionSearcher {
      * @param ip ip
      * @return 地址
      */
-    default String getAddress(long ip) {
+    default String getLocation(long ip) {
         return get(ip, IpLocation::getLocation);
     }
 
@@ -92,7 +92,7 @@ public interface Ip2RegionSearcher {
      * @param ip ip
      * @return 地址
      */
-    default String getAddress(String ip) {
+    default String getLocation(String ip) {
         return get(ip, IpLocation::getLocation);
     }
 
@@ -102,7 +102,7 @@ public interface Ip2RegionSearcher {
      * @param ip ip
      * @return 地址信息
      */
-    default String getAddressWithIsp(long ip) {
+    default String getLocationWithIsp(long ip) {
         return get(ip, IpLocation::getLocationWithIsp);
     }
 
@@ -112,7 +112,7 @@ public interface Ip2RegionSearcher {
      * @param ip ip
      * @return 地址信息
      */
-    default String getAddressWithIsp(String ip) {
+    default String getLocationWithIsp(String ip) {
         return get(ip, IpLocation::getLocationWithIsp);
     }
 }

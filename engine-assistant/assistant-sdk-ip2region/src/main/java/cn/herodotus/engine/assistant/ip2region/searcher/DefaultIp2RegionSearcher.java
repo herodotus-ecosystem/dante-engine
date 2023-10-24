@@ -103,7 +103,7 @@ public class DefaultIp2RegionSearcher implements Ip2RegionSearcher, Initializing
     @Override
     public void destroy() throws Exception {
         if (ObjectUtils.isNotEmpty(ipV4Searcher)) {
-            this.ipV4Searcher.close();;
+            this.ipV4Searcher.close();
         }
     }
 }
