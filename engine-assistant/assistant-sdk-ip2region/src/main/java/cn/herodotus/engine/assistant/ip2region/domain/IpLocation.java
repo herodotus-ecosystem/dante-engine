@@ -17,6 +17,7 @@
 package cn.herodotus.engine.assistant.ip2region.domain;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -112,5 +113,16 @@ public class IpLocation implements Serializable {
         }
         result.removeIf(Objects::isNull);
         return StringUtils.join(result, separator);
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("country", country)
+                .add("region", region)
+                .add("province", province)
+                .add("city", city)
+                .add("isp", isp)
+                .toString();
     }
 }

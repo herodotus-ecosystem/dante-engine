@@ -32,9 +32,9 @@ public class Ip2RegionProperties {
     /**
      * Ip V4 地址数据库位置，默认值：classpath*:/db/ip2region.db
      */
-    private String ipV4Resource = "classpath*:/db/ip2region.db";
+    private String ipV4Resource = "classpath*:db/ip2region.xdb";
     /**
-     * Ip V6 地址数据库位置，默认值：classpath*:/db/ipv6wry.db
+     * Ip V6 地址数据库位置，默认值：classpath:db/ipv6wry.db
      */
     private String ipV6Resource = "classpath*:/db/ipv6wry.db";
 

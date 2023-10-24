@@ -38,7 +38,7 @@ import java.util.List;
  */
 @AutoConfiguration
 @Import({
-        SpringUtil.class
+        SpringUtil.class,
 })
 public class AssistantAutoConfiguration {
 
