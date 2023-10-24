@@ -15,7 +15,7 @@
 <p align="center">
     <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.5.1-red.svg?logo=spring" alt="Version 3.1.5.1"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
-    <a href="./LICENSE"><img src="https://shields.io/badge/License-Apache--2.0-blue.svg?logo=apache" alt="License Apache 2.0"></a>
+    <a href="./LICENSE"><img src="https://shields.io/badge/License-LGPL--3.0-blue.svg" alt="License LGPL-3.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
     <a href="https://blog.csdn.net/Pointer_v" target="_blank"><img src="https://shields.io/badge/Author-%E7%A0%81%E5%8C%A0%E5%90%9B-orange" alt="码匠君"></a>
     <a href="https://gitee.com/dromara/dante-cloud"><img src="https://img.shields.io/github/stars/herodotus-cloud/dante-cloud?style=flat&logo=github" alt="Github star"></a>
@@ -190,7 +190,7 @@ LGPL 是 GPL 的一个为主要为类库使用设计的开源协议。和 GPL �
 
 **Dante Cloud 技术内幕高阶文档专栏（Cookbook）**
 
-> 因目前所使用的阅读产品支持度有限，想要购买阅读全文请点击对应文章链接，在电脑浏览器中打开后进行购买。购买后即可在小程序阅读全文，否则小程序端仅能阅读试读章节
+> 因目前所使用的阅读产品支持度有限，想要购买阅读全文请点击对应文章链接，在电脑浏览器中打开后进行购买。购买后即可在小程序阅读全文，否则小程序端仅能阅读试读章节。
 
 | 序号 | 文章标题                                                                                |    付费    | 说明                                                                        | 扫码阅读                                                           |
 |:--:|-------------------------------------------------------------------------------------|:--------:|---------------------------------------------------------------------------|----------------------------------------------------------------|
