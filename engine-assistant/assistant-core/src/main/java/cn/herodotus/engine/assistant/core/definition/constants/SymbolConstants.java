@@ -152,6 +152,8 @@ public interface SymbolConstants {
 
     String UNDERLINE = "_";
 
+    String ZERO = "0";
+
     String SUFFIX_EXCEL_2003 = ".xls";
 
     String SUFFIX_EXCEL_2007 = ".xlsx";

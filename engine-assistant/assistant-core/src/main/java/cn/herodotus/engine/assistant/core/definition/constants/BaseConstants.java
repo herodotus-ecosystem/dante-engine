@@ -62,6 +62,7 @@ public interface BaseConstants {
     String PROPERTY_PREFIX_SECURE = PROPERTY_PREFIX_HERODOTUS + ".secure";
     String PROPERTY_PREFIX_SMS = PROPERTY_PREFIX_HERODOTUS + ".sms";
     String PROPERTY_PREFIX_SWAGGER = PROPERTY_PREFIX_HERODOTUS + ".swagger";
+    String PROPERTY_PREFIX_IP2REGION = PROPERTY_PREFIX_HERODOTUS + ".ip2region";
 
     /* ---------- Spring 家族配置属性 ---------- */
 
