@@ -18,10 +18,14 @@ package cn.herodotus.engine.assistant.core.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dromara.hutool.core.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +40,8 @@ import java.net.URL;
  * @date : 2021/8/29 21:39
  */
 public class ResourceUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(ResourceUtils.class);
 
     private static volatile ResourceUtils INSTANCE;
 
@@ -57,6 +63,10 @@ public class ResourceUtils {
         return INSTANCE;
     }
 
+    private PathMatchingResourcePatternResolver getPathMatchingResourcePatternResolver() {
+        return this.pathMatchingResourcePatternResolver;
+    }
+
     private static PathMatchingResourcePatternResolver getResolver() {
         return getInstance().getPathMatchingResourcePatternResolver();
     }
@@ -74,7 +84,7 @@ public class ResourceUtils {
     }
 
     public static String getFilename(String location) {
-        return ResourceUtils.getResource(location).getFilename();
+        return getResource(location).getFilename();
     }
 
     public static URI getURI(String location) throws IOException {
@@ -133,7 +143,31 @@ public class ResourceUtils {
         return org.springframework.util.ResourceUtils.isFileURL(url);
     }
 
-    private PathMatchingResourcePatternResolver getPathMatchingResourcePatternResolver() {
-        return this.pathMatchingResourcePatternResolver;
+    /**
+     * 将 {@link Resource} 转换为 byte
+     * @param resource 资源 {@link Resource}
+     * @return byte 数组
+     */
+    public static byte[] toBytes(Resource resource) {
+        try {
+            InputStream inputStream = resource.getInputStream();
+            return FileCopyUtils.copyToByteArray(inputStream);
+        } catch (IOException e) {
+            log.error("[Herodotus] |- Converter resource to byte[] error!", e);
+            return null;
+        }
+    }
+
+    /**
+     * 将 {@link Resource} 转换为 Base64 数据。
+     *
+     * 例如：将图片类型的 Resource 转换为可以直接在前端展现的 Base64 数据
+     *
+     * @param resource 资源 {@link Resource}
+     * @return Base64 类型的字符串
+     */
+    public static String toBase64(Resource resource) {
+        byte[] bytes = toBytes(resource);
+        return Base64.encode(bytes);
     }
 }

@@ -24,7 +24,6 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.dromara.hutool.core.codec.binary.Base64;
 import org.dromara.hutool.core.data.id.IdUtil;
 import org.dromara.hutool.core.io.IORuntimeException;
 import org.dromara.hutool.core.io.file.FileUtil;
@@ -36,13 +35,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.FileCopyUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -72,17 +69,6 @@ public class ResourceProvider implements InitializingBean {
         this.captchaProperties = captchaProperties;
     }
 
-    private static String getBase64Image(Resource resource) {
-        try {
-            InputStream inputStream = resource.getInputStream();
-            byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
-            return Base64.encode(bytes);
-        } catch (IOException e) {
-            log.error("[Herodotus] |- Captcha get image catch io error!", e);
-        }
-        return null;
-    }
-
     private static Map<String, String> getImages(String location) {
         if (ResourceUtils.isClasspathAllUrl(location)) {
             try {
@@ -90,7 +76,7 @@ public class ResourceProvider implements InitializingBean {
                 Map<String, String> images = new ConcurrentHashMap<>();
                 if (ArrayUtils.isNotEmpty(resources)) {
                     Arrays.stream(resources).forEach(resource -> {
-                        String data = getBase64Image(resource);
+                        String data = ResourceUtils.toBase64(resource);
                         if (StringUtils.isNotBlank(data)) {
                             images.put(IdUtil.fastSimpleUUID(), data);
                         }

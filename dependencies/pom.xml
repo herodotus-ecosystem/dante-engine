@@ -53,7 +53,7 @@
         <spring-boot.version>3.1.5</spring-boot.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
-        <spring-cloud-tencent-dependencies.version>1.12.2-2022.0.4</spring-cloud-tencent-dependencies.version>
+        <spring-cloud-tencent-dependencies.version>1.12.3-2022.0.4</spring-cloud-tencent-dependencies.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
@@ -72,7 +72,7 @@
         <zxing.version>3.5.2</zxing.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.24.1</redisson.version>
+        <redisson.version>3.24.2</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.2.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
@@ -97,8 +97,8 @@
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <camunda-bpm-spring-boot-starter-rest.version>7.20.0</camunda-bpm-spring-boot-starter-rest.version>
-        <mybatis-plus-boot-starter.version>3.5.3.2</mybatis-plus-boot-starter.version>
-        <mybatis-plus-generator.version>3.5.3.2</mybatis-plus-generator.version>
+        <mybatis-plus-boot-starter.version>3.5.4</mybatis-plus-boot-starter.version>
+        <mybatis-plus-generator.version>3.5.4</mybatis-plus-generator.version>
         <mybatis.version>3.5.13</mybatis.version>
         <velocity.version>2.3</velocity.version>
 
@@ -237,7 +237,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--Spring 生态-->
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
@@ -277,6 +276,11 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>assistant-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>assistant-sdk-ip2region</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

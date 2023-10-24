@@ -33,7 +33,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-core</artifactId>
+            <artifactId>assistant-sdk-ip2region</artifactId>
         </dependency>
     </dependencies>
 

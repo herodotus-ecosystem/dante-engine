@@ -48,7 +48,7 @@ public interface DefaultConstants {
     /**
      * 默认树形结构根节点
      */
-    String TREE_ROOT_ID = "0";
+    String TREE_ROOT_ID = SymbolConstants.ZERO;
     /**
      * 默认的时间日期格式
      */

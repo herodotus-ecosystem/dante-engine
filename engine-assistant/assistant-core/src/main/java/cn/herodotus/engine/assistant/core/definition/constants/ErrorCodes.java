@@ -185,6 +185,7 @@ public interface ErrorCodes {
     ServiceUnavailableFeedback INVALID_COOKIE = new ServiceUnavailableFeedback("不可用的 Cookie 信息");
     ServiceUnavailableFeedback PROVIDER_NOT_FOUND = new ServiceUnavailableFeedback("授权服务器代码逻辑配置错误");
     ServiceUnavailableFeedback TEMPORARILY_UNAVAILABLE = new ServiceUnavailableFeedback("由于服务器临时超载或维护，授权服务器当前无法处理该请求");
+    ServiceUnavailableFeedback SEARCH_IP_LOCATION = new ServiceUnavailableFeedback("搜索 IP 定位出现读取错误，服务器当前无法处理该请求");
 
     /**
      * 6*.* 为数据操作相关错误
