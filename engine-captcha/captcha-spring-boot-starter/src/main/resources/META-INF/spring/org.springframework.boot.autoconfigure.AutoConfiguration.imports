@@ -1,4 +1,4 @@
 cn.herodotus.engine.captcha.autoconfigure.CaptchaAutoConfiguration
-cn.herodotus.engine.captcha.behavior.configuration.BehaviorCaptchaConfiguration
-cn.herodotus.engine.captcha.graphic.configuration.GraphicCaptchaConfiguration
-cn.herodotus.engine.captcha.hutool.configuration.HutoolCaptchaConfiguration
+cn.herodotus.engine.captcha.autoconfigure.BehaviorCaptchaAutoConfiguration
+cn.herodotus.engine.captcha.autoconfigure.GraphicCaptchaAutoConfiguration
+cn.herodotus.engine.captcha.autoconfigure.HutoolCaptchaAutoConfiguration

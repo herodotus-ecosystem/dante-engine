@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.behavior.configuration;
+package cn.herodotus.engine.captcha.autoconfigure;
 
 import cn.herodotus.engine.captcha.behavior.renderer.JigsawCaptchaRenderer;
 import cn.herodotus.engine.captcha.behavior.renderer.WordClickCaptchaRenderer;
@@ -34,13 +34,13 @@ import org.springframework.context.annotation.Bean;
  * @date : 2022/1/18 20:57
  */
 @AutoConfiguration
-public class BehaviorCaptchaConfiguration {
+public class BehaviorCaptchaAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(BehaviorCaptchaConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(BehaviorCaptchaAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Captcha Behavior] Auto Configure.");
+        log.info("[Herodotus] |- Module [Captcha Behavior] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.JIGSAW_CAPTCHA)

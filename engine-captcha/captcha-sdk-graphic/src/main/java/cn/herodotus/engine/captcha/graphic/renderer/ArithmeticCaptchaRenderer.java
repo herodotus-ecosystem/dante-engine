@@ -53,11 +53,6 @@ public class ArithmeticCaptchaRenderer extends AbstractBaseGraphicRenderer {
     }
 
     @Override
-    protected String getBase64ImagePrefix() {
-        return BASE64_PNG_IMAGE_PREFIX;
-    }
-
-    @Override
     protected String[] getDrawCharacters() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < complexity; i++) {
