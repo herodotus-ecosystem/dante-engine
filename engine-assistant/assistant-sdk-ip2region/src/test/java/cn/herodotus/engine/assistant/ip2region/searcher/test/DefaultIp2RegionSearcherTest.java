@@ -33,9 +33,6 @@ import org.junit.jupiter.api.Test;
  */
 class DefaultIp2RegionSearcherTest {
 
-    private static final String ipV4Resource = "classpath:db/ip2region.xdb";
-    private static final  String ipV6Resource = "classpath:db/ipv6wry.db";
-
     private Ip2RegionSearcher searcher;
 
     @BeforeEach
