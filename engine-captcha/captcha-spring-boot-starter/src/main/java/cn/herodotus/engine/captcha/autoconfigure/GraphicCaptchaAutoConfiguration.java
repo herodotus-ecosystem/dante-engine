@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.graphic.configuration;
+package cn.herodotus.engine.captcha.autoconfigure;
 
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCategory;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
@@ -33,13 +33,13 @@ import org.springframework.context.annotation.Bean;
  * @date : 2022/1/18 20:56
  */
 @AutoConfiguration
-public class GraphicCaptchaConfiguration {
+public class GraphicCaptchaAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(GraphicCaptchaConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(GraphicCaptchaAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Captcha Graphic] Auto Configure.");
+        log.info("[Herodotus] |- Module [Captcha Graphic] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.ARITHMETIC_CAPTCHA)

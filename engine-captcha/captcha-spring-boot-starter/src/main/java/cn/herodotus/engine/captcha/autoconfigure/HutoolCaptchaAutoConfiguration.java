@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.hutool.configuration;
+package cn.herodotus.engine.captcha.autoconfigure;
 
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCategory;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
@@ -36,13 +36,13 @@ import org.springframework.context.annotation.Bean;
  * @date : 2022/1/18 20:57
  */
 @AutoConfiguration
-public class HutoolCaptchaConfiguration {
+public class HutoolCaptchaAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(HutoolCaptchaConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(HutoolCaptchaAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Captcha Hutool] Auto Configure.");
+        log.info("[Herodotus] |- Module [Captcha Hutool] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.HUTOOL_LINE_CAPTCHA)
