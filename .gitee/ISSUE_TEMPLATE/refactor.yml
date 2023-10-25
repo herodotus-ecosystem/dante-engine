@@ -1,4 +1,4 @@
-name: 咨询探讨
+name: 重构优化
 description: 对本项目功能设计和实现的咨询或探讨
 title: "[重构优化]: "
 labels: ["enhancement"]
@@ -6,11 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        感谢提出咨询或探讨话题，我们将认真分析、坦诚探讨，在相互交流中探寻更优的解决思路和方式！
+        已有代码可以采用更合理、更优雅、更便捷的思路和方式重新实现！
   - type: textarea
     id: related-problem
     attributes:
-      label: 你想咨询或探讨的问题是否和某个问题相关？
+      label: 你想重构或优化哪个方面相关问题？
       description: 清晰并简洁地描述问题是什么，例如，当我...时，我总是感到困扰。
     validations:
       required: true
