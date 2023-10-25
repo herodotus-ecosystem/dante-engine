@@ -1,3 +1,2 @@
 cn.herodotus.engine.assistant.autoconfigure.AssistantAutoConfiguration
 cn.herodotus.engine.assistant.autoconfigure.Jackson2AutoConfiguration
-cn.herodotus.engine.assistant.autoconfigure.Ip2RegionAutoConfiguration
