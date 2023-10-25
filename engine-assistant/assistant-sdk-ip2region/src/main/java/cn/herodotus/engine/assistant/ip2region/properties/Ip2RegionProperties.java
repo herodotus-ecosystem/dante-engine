@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.autoconfigure.properties;
+package cn.herodotus.engine.assistant.ip2region.properties;
 
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
 import com.google.common.base.MoreObjects;
@@ -32,11 +32,11 @@ public class Ip2RegionProperties {
     /**
      * Ip V4 地址数据库位置，默认值：classpath*:/db/ip2region.db
      */
-    private String ipV4Resource = "classpath*:db/ip2region.xdb";
+    private String ipV4Resource = "classpath:/db/ip2region.xdb";
     /**
      * Ip V6 地址数据库位置，默认值：classpath:db/ipv6wry.db
      */
-    private String ipV6Resource = "classpath*:/db/ipv6wry.db";
+    private String ipV6Resource = "classpath:/db/ipv6wry.db";
 
     public String getIpV4Resource() {
         return ipV4Resource;

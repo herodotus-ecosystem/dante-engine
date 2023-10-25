@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.autoconfigure;
+package cn.herodotus.engine.assistant.ip2region.configuration;
 
-import cn.herodotus.engine.assistant.autoconfigure.properties.Ip2RegionProperties;
 import cn.herodotus.engine.assistant.ip2region.definition.Ip2RegionSearcher;
+import cn.herodotus.engine.assistant.ip2region.properties.Ip2RegionProperties;
 import cn.herodotus.engine.assistant.ip2region.searcher.DefaultIp2RegionSearcher;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -34,13 +34,13 @@ import org.springframework.context.annotation.Bean;
  */
 @AutoConfiguration
 @EnableConfigurationProperties(Ip2RegionProperties.class)
-public class Ip2RegionAutoConfiguration {
+public class Ip2RegionConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(Ip2RegionAutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(Ip2RegionConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Ip2Region] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Ip2Region] Auto Configure.");
     }
 
     @Bean

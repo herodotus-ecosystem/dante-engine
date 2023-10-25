@@ -16,7 +16,10 @@
 
 package cn.herodotus.engine.assistant.ip2region.searcher.test;
 
+import cn.herodotus.engine.assistant.ip2region.configuration.Ip2RegionConfiguration;
+import cn.herodotus.engine.assistant.ip2region.definition.Ip2RegionSearcher;
 import cn.herodotus.engine.assistant.ip2region.domain.IpLocation;
+import cn.herodotus.engine.assistant.ip2region.properties.Ip2RegionProperties;
 import cn.herodotus.engine.assistant.ip2region.searcher.DefaultIp2RegionSearcher;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,12 +36,13 @@ class DefaultIp2RegionSearcherTest {
     private static final String ipV4Resource = "classpath:db/ip2region.xdb";
     private static final  String ipV6Resource = "classpath:db/ipv6wry.db";
 
-    private DefaultIp2RegionSearcher searcher;
+    private Ip2RegionSearcher searcher;
 
     @BeforeEach
     public void setup() throws Exception {
-        searcher = new DefaultIp2RegionSearcher(ipV4Resource, ipV6Resource);
-        searcher.afterPropertiesSet();
+        Ip2RegionConfiguration configuration = new Ip2RegionConfiguration();
+        searcher = configuration.defaultIp2RegionSearcher(new Ip2RegionProperties());
+        ((DefaultIp2RegionSearcher) searcher).afterPropertiesSet();
     }
 
     @Test
