@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.core.event;
 
-import cn.herodotus.engine.message.core.definition.LocalApplicationEvent;
+import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
 import cn.herodotus.engine.message.core.domain.DialogueMessage;
 
 import java.time.Clock;
@@ -27,7 +27,7 @@ import java.time.Clock;
  * @author : gengwei.zheng
  * @date : 2023/3/11 18:40
  */
-public class LocalSendDialogueMessageEvent extends LocalApplicationEvent<DialogueMessage> {
+public class LocalSendDialogueMessageEvent extends HerodotusApplicationEvent<DialogueMessage> {
 
     public LocalSendDialogueMessageEvent(DialogueMessage data) {
         super(data);

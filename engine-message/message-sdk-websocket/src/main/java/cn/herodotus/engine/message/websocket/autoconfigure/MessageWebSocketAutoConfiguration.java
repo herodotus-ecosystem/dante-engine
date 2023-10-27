@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.websocket.autoconfigre;
+package cn.herodotus.engine.message.websocket.autoconfigure;
 
 import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
+import cn.herodotus.engine.message.core.definition.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.annotation.ConditionalOnMultipleWebSocketInstance;
 import cn.herodotus.engine.message.websocket.annotation.ConditionalOnSingleWebSocketInstance;
 import cn.herodotus.engine.message.websocket.configuration.WebSocketMessageBrokerConfiguration;
 import cn.herodotus.engine.message.websocket.definition.WebSocketMessageSender;
-import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketAuthenticationHandshakeInterceptor;
-import cn.herodotus.engine.message.websocket.processor.MultipleInstanceMessageSender;
-import cn.herodotus.engine.message.websocket.processor.MultipleInstanceMessageSyncConsumer;
-import cn.herodotus.engine.message.websocket.processor.SingleInstanceMessageSender;
+import cn.herodotus.engine.message.websocket.messaging.*;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -59,9 +56,17 @@ public class MessageWebSocketAutoConfiguration {
 
     @Bean
     public WebSocketAuthenticationHandshakeInterceptor webSocketPrincipalHandshakeHandler(BearerTokenResolver bearerTokenResolver) {
-        WebSocketAuthenticationHandshakeInterceptor webSocketAuthenticationHandshakeInterceptor = new WebSocketAuthenticationHandshakeInterceptor(bearerTokenResolver);
+        WebSocketAuthenticationHandshakeInterceptor interceptor = new WebSocketAuthenticationHandshakeInterceptor(bearerTokenResolver);
         log.trace("[Herodotus] |- Bean [WebSocket Authentication Handshake Interceptor] Auto Configure.");
-        return webSocketAuthenticationHandshakeInterceptor;
+        return interceptor;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public WebSocketMessagingTemplate webSocketMessagingTemplate(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
+        WebSocketMessagingTemplate template = new WebSocketMessagingTemplate(simpMessagingTemplate, simpUserRegistry);
+        log.trace("[Herodotus] |- Bean [WebSocket Messaging Template] Auto Configure.");
+        return template;
     }
 
     @Configuration(proxyBeanMethods = false)
@@ -69,10 +74,10 @@ public class MessageWebSocketAutoConfiguration {
     static class SingleInstanceConfiguration {
         @Bean
         @ConditionalOnMissingBean
-        public WebSocketMessageSender webSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
-            SingleInstanceMessageSender singleInstanceMessageSender = new SingleInstanceMessageSender(simpMessagingTemplate, simpUserRegistry);
+        public WebSocketMessageSender singleInstanceMessageSender(WebSocketMessagingTemplate webSocketMessagingTemplate) {
+            SingleInstanceMessageSender sender = new SingleInstanceMessageSender(webSocketMessagingTemplate);
             log.debug("[Herodotus] |- Strategy [Single Instance Web Socket Message Sender] Auto Configure.");
-            return singleInstanceMessageSender;
+            return sender;
         }
     }
 
@@ -82,17 +87,17 @@ public class MessageWebSocketAutoConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public WebSocketMessageSender webSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry, StreamBridge streamBridge) {
-            MultipleInstanceMessageSender multipleInstanceMessageSender = new MultipleInstanceMessageSender(simpMessagingTemplate, simpUserRegistry, streamBridge);
-            log.debug("[Herodotus] |- Strategy [Single Instance Web Socket Message Sender] Auto Configure.");
-            return multipleInstanceMessageSender;
+        public WebSocketMessageSender multipleInstanceMessageSender(WebSocketMessagingTemplate webSocketMessagingTemplate) {
+            MultipleInstanceMessageSender sender = new MultipleInstanceMessageSender(webSocketMessagingTemplate);
+            log.debug("[Herodotus] |- Strategy [Multiple Instance Web Socket Message Sender] Auto Configure.");
+            return sender;
         }
 
         @Bean
-        public <T> Consumer<WebSocketMessage<T>> webSocketConsumer(WebSocketMessageSender webSocketMessageSender) {
-            MultipleInstanceMessageSyncConsumer<T> multipleInstanceMessageSyncConsumer = new MultipleInstanceMessageSyncConsumer<>(webSocketMessageSender);
+        public Consumer<WebSocketMessage> webSocketConsumer(WebSocketMessagingTemplate webSocketMessagingTemplate) {
+            MultipleInstanceMessageSyncConsumer consumer = new MultipleInstanceMessageSyncConsumer(webSocketMessagingTemplate);
             log.trace("[Herodotus] |- Bean [Multiple Instance Message Receiver] Auto Configure.");
-            return multipleInstanceMessageSyncConsumer;
+            return consumer;
         }
     }
 
@@ -106,5 +111,11 @@ public class MessageWebSocketAutoConfiguration {
     })
     static class WebSocketConfiguration {
 
+        @Bean
+        public WebSocketMessageSendingAdapter webSocketMessageSendingAdapter(WebSocketMessageSender webSocketMessageSender) {
+            WebSocketMessageSendingAdapter adapter = new WebSocketMessageSendingAdapter(webSocketMessageSender);
+            log.trace("[Herodotus] |- Bean [WebSocket Message Sending Adapter] Auto Configure.");
+            return adapter;
+        }
     }
 }

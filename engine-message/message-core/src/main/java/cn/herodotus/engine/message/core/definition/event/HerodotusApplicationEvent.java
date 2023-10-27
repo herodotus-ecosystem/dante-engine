@@ -14,28 +14,33 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.websocket.definition;
+package cn.herodotus.engine.message.core.definition.event;
 
-import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
+
+import java.time.Clock;
 
 /**
- * <p>Description: 公共 WebSocketUserListener </p>
+ * <p>Description: 自定义 Application Event 基础类 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/12/29 22:20
+ * @date : 2022/2/4 15:14
  */
-public abstract class AbstractWebSocketListener<E extends ApplicationEvent> implements ApplicationListener<E> {
+public class HerodotusApplicationEvent<T> extends ApplicationEvent {
 
-    private final WebSocketMessageSender webSocketMessageSender;
+    private final T data;
 
-    public AbstractWebSocketListener(WebSocketMessageSender webSocketMessageSender) {
-        this.webSocketMessageSender = webSocketMessageSender;
+    public HerodotusApplicationEvent(T data) {
+        super(data);
+        this.data = data;
     }
 
-    protected void syncUserCountToAll() {
-        int count = WebSocketUtils.getOnlineCount();
-        webSocketMessageSender.sendOnlineToAll(count);
+    public HerodotusApplicationEvent(T data, Clock clock) {
+        super(data, clock);
+        this.data = data;
+    }
+
+    public T getData() {
+        return data;
     }
 }

@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.websocket.processor;
+package cn.herodotus.engine.message.core.definition;
 
-import cn.herodotus.engine.message.websocket.definition.AbstractWebSocketMessageSender;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.user.SimpUserRegistry;
+import cn.herodotus.engine.message.core.definition.domain.Message;
+import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
+import org.springframework.context.ApplicationListener;
 
 /**
- * <p>Description: Web Socket 单一实例服务端消息发送 </p>
+ * <p>Description: 消息发送适配器 </p>
+ *
+ * 各种类型消息发送组件，基于该接口实现各自的消息发送。
  *
  * @author : gengwei.zheng
- * @date : 2021/10/24 18:47
+ * @date : 2023/10/26 16:46
  */
-public class SingleInstanceMessageSender extends AbstractWebSocketMessageSender {
+public interface MessageSendingAdapter<D extends Message, E extends HerodotusApplicationEvent<D>> extends ApplicationListener<E> {
 
-    public SingleInstanceMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
-        super(simpMessagingTemplate, simpUserRegistry);
-    }
 }

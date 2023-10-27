@@ -14,33 +14,32 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.definition;
+package cn.herodotus.engine.message.core.definition.domain;
 
-import org.springframework.context.ApplicationEvent;
-
-import java.time.Clock;
+import com.google.common.base.MoreObjects;
 
 /**
- * <p>Description: 自定义 Application Event 基础类 </p>
+ * <p>Description: WebSocket 模版消息 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/2/4 15:14
+ * @date : 2023/10/26 20:18
  */
-public class LocalApplicationEvent<T> extends ApplicationEvent {
+public class WebSocketMessage extends TemplateMessage {
 
-    private final T data;
+    private String user;
 
-    public LocalApplicationEvent(T data) {
-        super(data);
-        this.data = data;
+    public String getUser() {
+        return user;
     }
 
-    public LocalApplicationEvent(T data, Clock clock) {
-        super(data, clock);
-        this.data = data;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public T getData() {
-        return data;
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("user", user)
+                .toString();
     }
 }

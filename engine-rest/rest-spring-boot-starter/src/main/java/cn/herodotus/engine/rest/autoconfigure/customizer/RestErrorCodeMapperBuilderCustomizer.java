@@ -17,7 +17,7 @@
 package cn.herodotus.engine.rest.autoconfigure.customizer;
 
 import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
-import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 import org.springframework.core.Ordered;

@@ -62,7 +62,7 @@ public class WebSocketMessageController {
     public Result<String> sendNotice(@RequestBody String message) {
 
         if (StringUtils.isNotBlank(message)) {
-            webSocketMessageSender.sendNoticeToAll(message);
+            webSocketMessageSender.announcement(message);
         }
 
         return Result.success(message);

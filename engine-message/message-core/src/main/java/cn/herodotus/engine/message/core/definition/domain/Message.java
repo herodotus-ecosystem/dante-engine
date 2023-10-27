@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.message.core.definition.domain;
 
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
-import cn.herodotus.engine.message.core.domain.UserStatus;
-
-import java.time.Clock;
+import java.io.Serializable;
 
 /**
- * <p>Description: 本地用户状态变更事件 </p>
+ * <p>Description: 统一消息定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:15
+ * @date : 2023/10/26 12:16
  */
-public class LocalChangeUserStatusEvent extends HerodotusApplicationEvent<UserStatus> {
+public interface Message extends Serializable {
 
-    public LocalChangeUserStatusEvent(UserStatus data) {
-        super(data);
-    }
-
-    public LocalChangeUserStatusEvent(UserStatus data, Clock clock) {
-        super(data, clock);
-    }
 }

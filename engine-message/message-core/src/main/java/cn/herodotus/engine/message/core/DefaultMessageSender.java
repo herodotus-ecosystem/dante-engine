@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.message.core;
 
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
-import cn.herodotus.engine.message.core.domain.UserStatus;
-
-import java.time.Clock;
+import cn.herodotus.engine.message.core.constants.MessageConstants;
 
 /**
- * <p>Description: 本地用户状态变更事件 </p>
+ * <p>Description: 默认消息发送器 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:15
+ * @date : 2023/10/26 21:29
  */
-public class LocalChangeUserStatusEvent extends HerodotusApplicationEvent<UserStatus> {
+public class DefaultMessageSender extends MessageSender{
 
-    public LocalChangeUserStatusEvent(UserStatus data) {
-        super(data);
-    }
-
-    public LocalChangeUserStatusEvent(UserStatus data, Clock clock) {
-        super(data, clock);
+    /**
+     * 发送 WebSocket 给指定用户
+     * @param user 用户唯一标识
+     * @param payload 消息内容
+     * @param <T> 消息内容类型
+     */
+    public static <T> void toUser(String user, T payload) {
+        pointToPoint(user, MessageConstants.WEBSOCKET_DESTINATION_PERSONAL_MESSAGE, payload);
     }
 }

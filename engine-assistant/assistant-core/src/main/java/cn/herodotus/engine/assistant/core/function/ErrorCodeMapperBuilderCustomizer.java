@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.assistant.core.function;
 
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
-import cn.herodotus.engine.message.core.domain.UserStatus;
-
-import java.time.Clock;
+import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 
 /**
- * <p>Description: 本地用户状态变更事件 </p>
+ * <p>Description: ErrorCodeMapperBuilder 回调接口</p>
+ * <p>
+ * 实现了该接口的Bean，可以在自动配置阶段，通过ErrorCodeMapperBuilder进一步扩展错误码
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:15
+ * @date : 2023/9/24 23:06
  */
-public class LocalChangeUserStatusEvent extends HerodotusApplicationEvent<UserStatus> {
+@FunctionalInterface
+public interface ErrorCodeMapperBuilderCustomizer {
 
-    public LocalChangeUserStatusEvent(UserStatus data) {
-        super(data);
-    }
-
-    public LocalChangeUserStatusEvent(UserStatus data, Clock clock) {
-        super(data, clock);
-    }
+    /**
+     * 自定义 ErrorCodeMapperBuilder
+     *
+     * @param builder 被扩展的 {@link ErrorCodeMapperBuilder}
+     */
+    void customize(ErrorCodeMapperBuilder builder);
 }

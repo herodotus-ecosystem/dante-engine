@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.message.core.definition.event;
 
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
-import cn.herodotus.engine.message.core.domain.UserStatus;
+import cn.herodotus.engine.message.core.definition.domain.TemplateMessage;
 
 import java.time.Clock;
 
 /**
- * <p>Description: 本地用户状态变更事件 </p>
+ * <p>Description: Spring 框架 MessageTemplate 类型消息发送事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:15
+ * @date : 2023/10/26 15:16
  */
-public class LocalChangeUserStatusEvent extends HerodotusApplicationEvent<UserStatus> {
-
-    public LocalChangeUserStatusEvent(UserStatus data) {
+public class TemplateMessageSendingEvent<T extends TemplateMessage> extends HerodotusApplicationEvent<T> {
+    public TemplateMessageSendingEvent(T data) {
         super(data);
     }
 
-    public LocalChangeUserStatusEvent(UserStatus data, Clock clock) {
+    public TemplateMessageSendingEvent(T data, Clock clock) {
         super(data, clock);
     }
 }

@@ -19,6 +19,7 @@ package cn.herodotus.engine.message.core.definition;
 import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationEvent;
 
 /**
  * <p>Description: 策略 Event 定义 </p>
@@ -80,5 +81,14 @@ public interface StrategyEventManager<T> {
         } else {
             postRemoteProcess(Jackson2Utils.toJson(data), originService, destinationService);
         }
+    }
+
+    /**
+     * 发送 Spring Event
+     *
+     * @param event 自定义 Spring Event
+     */
+    default void publishEvent(ApplicationEvent event) {
+        ServiceContextHolder.getInstance().publishEvent(event);
     }
 }

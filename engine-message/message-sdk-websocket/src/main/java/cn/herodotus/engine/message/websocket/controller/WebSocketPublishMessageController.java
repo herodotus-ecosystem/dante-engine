@@ -17,10 +17,10 @@
 package cn.herodotus.engine.message.websocket.controller;
 
 import cn.herodotus.engine.message.core.constants.MessageConstants;
+import cn.herodotus.engine.message.core.definition.domain.WebSocketMessage;
 import cn.herodotus.engine.message.core.domain.DialogueMessage;
 import cn.herodotus.engine.message.core.event.LocalSendDialogueMessageEvent;
 import cn.herodotus.engine.message.websocket.definition.WebSocketMessageSender;
-import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.rest.core.definition.context.AbstractApplicationContextAware;
 import org.apache.commons.lang3.ObjectUtils;
@@ -70,9 +70,9 @@ public class WebSocketPublishMessageController extends AbstractApplicationContex
     @MessageMapping("/private/message")
     public void sendPrivateMessage(@Payload DialogueMessage detail, StompHeaderAccessor headerAccessor) {
 
-        WebSocketMessage<String> response = new WebSocketMessage<>();
-        response.setTo(detail.getReceiverId());
-        response.setChannel(MessageConstants.WEBSOCKET_DESTINATION_PERSONAL_MESSAGE);
+        WebSocketMessage response = new WebSocketMessage();
+        response.setUser(detail.getReceiverId());
+        response.setDestination(MessageConstants.WEBSOCKET_DESTINATION_PERSONAL_MESSAGE);
 
         if (StringUtils.isNotBlank(detail.getReceiverId()) && StringUtils.isNotBlank(detail.getReceiverName())) {
             if (StringUtils.isBlank(detail.getSenderId()) && StringUtils.isBlank(detail.getSenderName())) {

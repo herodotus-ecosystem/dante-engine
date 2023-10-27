@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.core.event;
 
-import cn.herodotus.engine.message.core.definition.LocalApplicationEvent;
+import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
 import cn.herodotus.engine.message.core.domain.RequestMapping;
 
 import java.time.Clock;
@@ -28,7 +28,7 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2021/8/8 21:55
  */
-public class LocalRequestMappingGatherEvent extends LocalApplicationEvent<List<RequestMapping>> {
+public class LocalRequestMappingGatherEvent extends HerodotusApplicationEvent<List<RequestMapping>> {
 
     public LocalRequestMappingGatherEvent(List<RequestMapping> data) {
         super(data);

@@ -14,45 +14,18 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.websocket.domain;
+package cn.herodotus.engine.message.websocket.messaging;
 
-import java.io.Serializable;
+import cn.herodotus.engine.message.websocket.definition.AbstractWebSocketMessageSender;
 
 /**
- * <p>Description: WebSocket发送消息参数实体 </p>
+ * <p>Description: Web Socket 单一实例服务端消息发送 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/10/24 18:42
+ * @date : 2023/10/26 23:31
  */
-public class WebSocketMessage<T> implements Serializable {
-
-    private String to;
-
-    private String channel;
-
-    private T payload;
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getChannel() {
-        return channel;
-    }
-
-    public void setChannel(String channel) {
-        this.channel = channel;
-    }
-
-    public T getPayload() {
-        return payload;
-    }
-
-    public void setPayload(T payload) {
-        this.payload = payload;
+public class SingleInstanceMessageSender extends AbstractWebSocketMessageSender {
+    public SingleInstanceMessageSender(WebSocketMessagingTemplate webSocketMessagingTemplate) {
+        super(webSocketMessagingTemplate);
     }
 }

@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.definition.exception;
+package cn.herodotus.engine.message.core.definition.event;
 
-import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import cn.herodotus.engine.message.core.definition.domain.StreamMessage;
+
+import java.time.Clock;
 
 /**
- * <p>Description: ErrorCodeMapperBuilder 回调接口</p>
- * <p>
- * 实现了该接口的Bean，可以在自动配置阶段，通过ErrorCodeMapperBuilder进一步扩展错误码
+ * <p>Description: Spring Cloud Stream 类型消息 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/9/24 23:06
+ * @date : 2023/10/26 15:17
  */
-@FunctionalInterface
-public interface ErrorCodeMapperBuilderCustomizer {
+public class StreamMessageSendingEvent<T extends StreamMessage> extends HerodotusApplicationEvent<T> {
+    public StreamMessageSendingEvent(T data) {
+        super(data);
+    }
 
-    /**
-     * 自定义 ErrorCodeMapperBuilder
-     *
-     * @param builder 被扩展的 {@link ErrorCodeMapperBuilder}
-     */
-    void customize(ErrorCodeMapperBuilder builder);
+    public StreamMessageSendingEvent(T data, Clock clock) {
+        super(data, clock);
+    }
 }

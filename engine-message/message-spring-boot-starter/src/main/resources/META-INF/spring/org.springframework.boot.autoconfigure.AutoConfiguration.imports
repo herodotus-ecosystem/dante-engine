@@ -1,2 +1,2 @@
 cn.herodotus.engine.message.autoconfigure.MessageAutoConfiguration
-cn.herodotus.engine.message.websocket.autoconfigre.MessageWebSocketAutoConfiguration
+cn.herodotus.engine.message.websocket.autoconfigure.MessageWebSocketAutoConfiguration
