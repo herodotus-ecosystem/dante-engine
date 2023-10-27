@@ -1,1 +1,2 @@
 cn.herodotus.engine.message.kafka.autoconfigure.MessageKafkaAutoConfiguration
+cn.herodotus.engine.message.kafka.autoconfigure.StreamAdapterAutoConfiguration

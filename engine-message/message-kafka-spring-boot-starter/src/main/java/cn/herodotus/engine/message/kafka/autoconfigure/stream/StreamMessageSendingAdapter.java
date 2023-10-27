@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.autoconfigure.stream;
+package cn.herodotus.engine.message.kafka.autoconfigure.stream;
 
 import cn.herodotus.engine.message.core.definition.MessageSendingAdapter;
 import cn.herodotus.engine.message.core.definition.domain.StreamMessage;
@@ -23,7 +23,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.cloud.stream.function.StreamBridge;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: Spring Cloud Stream 消息发送适配器 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/10/26 18:01

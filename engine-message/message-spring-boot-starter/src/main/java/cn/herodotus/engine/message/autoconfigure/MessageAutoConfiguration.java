@@ -18,13 +18,10 @@ package cn.herodotus.engine.message.autoconfigure;
 
 import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.message.autoconfigure.customizer.MessageErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.message.autoconfigure.stream.StreamMessageSendingAdapter;
-import cn.herodotus.engine.message.websocket.annotation.ConditionalOnMultipleWebSocketInstance;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -48,13 +45,5 @@ public class MessageAutoConfiguration {
         MessageErrorCodeMapperBuilderCustomizer customizer = new MessageErrorCodeMapperBuilderCustomizer();
         log.debug("[Herodotus] |- Strategy [Message ErrorCodeMapper Builder Customizer] Auto Configure.");
         return customizer;
-    }
-
-    @Bean
-    @ConditionalOnMultipleWebSocketInstance
-    public StreamMessageSendingAdapter streamMessageSendingAdapter(StreamBridge streamBridge) {
-        StreamMessageSendingAdapter adapter = new StreamMessageSendingAdapter(streamBridge);
-        log.trace("[Herodotus] |- Bean [Stream Message Sending Adapter] Auto Configure.");
-        return adapter;
     }
 }

@@ -16,29 +16,37 @@
 
 package cn.herodotus.engine.message.kafka.autoconfigure;
 
-import cn.herodotus.engine.message.kafka.autoconfigure.configuration.KafkaConfiguration;
+import cn.herodotus.engine.message.kafka.autoconfigure.stream.StreamMessageSendingAdapter;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.cloud.stream.function.FunctionConfiguration;
+import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.context.annotation.Bean;
 
 /**
- * <p>Description: Kafka Message 模块自动注入配置 </p>
+ * <p>Description: Stream 消息发送适配器配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/20 19:07
+ * @date : 2023/10/27 23:25
  */
-@AutoConfiguration
-@Import({KafkaConfiguration.class})
-public class MessageKafkaAutoConfiguration {
+@AutoConfiguration(after = FunctionConfiguration.class)
+@ConditionalOnBean(StreamBridge.class)
+public class StreamAdapterAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(MessageKafkaAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Message Kafka Starter] Auto Configure.");
+        log.info("[Herodotus] |- Module [Stream Adapter] Auto Configure.");
     }
 
-
+    @Bean
+    public StreamMessageSendingAdapter streamMessageSendingAdapter(StreamBridge streamBridge) {
+        StreamMessageSendingAdapter adapter = new StreamMessageSendingAdapter(streamBridge);
+        log.trace("[Herodotus] |- Bean [Stream Message Sending Adapter] Auto Configure.");
+        return adapter;
+    }
 }
