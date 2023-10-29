@@ -33,6 +33,5 @@
         <module>supplier-sdk-upms-logic</module>
         <module>supplier-sdk-upms-rest</module>
         <module>supplier-sdk-message</module>
-        <module>supplier-sdk-tenant</module>
     </modules>
 </project>

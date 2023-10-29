@@ -136,7 +136,6 @@ dante-engine
 ├    └── sms-spring-boot-starter -- SMS 模块统一 Starter
 ├── engine-supplier -- 应用支持模块
 ├    ├── supplier-sdk-message -- 消息功能支持模块
-├    ├── supplier-sdk-tenant -- 多租户功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
 ├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
 └──  readme -- README 相关素材放置目录

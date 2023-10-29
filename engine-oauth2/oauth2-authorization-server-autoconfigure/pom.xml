@@ -21,12 +21,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.herodotus.engine</groupId>
-        <artifactId>engine-supplier</artifactId>
+        <artifactId>engine-oauth2</artifactId>
         <version>3.1.5.1</version>
     </parent>
 
-    <artifactId>supplier-sdk-tenant</artifactId>
-
+    <artifactId>oauth2-authorization-server-autoconfigure</artifactId>
+    <description>Herodotus Cloud OAuth2 授权服务器必要组件自动配置模块</description>
 
     <dependencies>
         <dependency>
@@ -36,7 +36,12 @@
 
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
-            <artifactId>rest-core</artifactId>
+            <artifactId>oauth2-sdk-management</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>oauth2-resource-server-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

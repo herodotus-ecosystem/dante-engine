@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
- * <p>Description: OAuth2 Resource Server 自动配置模块 </p>
+ * <p>Description: OAuth2 资源服务器自动配置模块 </p>
  *
  * 所有提供资源访问的服务（即可以作为 OAuth2 资源服务器的服务），所需的基础配置都在该模块中统一完成配置
  *

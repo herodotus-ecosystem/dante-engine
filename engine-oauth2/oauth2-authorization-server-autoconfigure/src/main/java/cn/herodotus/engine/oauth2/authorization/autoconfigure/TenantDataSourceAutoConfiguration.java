@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.supplier.tenant.configuration;
+package cn.herodotus.engine.oauth2.authorization.autoconfigure;
 
 import cn.herodotus.engine.data.tenant.annotation.ConditionalOnDatabaseApproach;
 import jakarta.annotation.PostConstruct;
@@ -32,15 +32,14 @@ import org.springframework.context.annotation.ComponentScan;
 @AutoConfiguration
 @ConditionalOnDatabaseApproach
 @ComponentScan(basePackages = {
-        "cn.herodotus.engine.supplier.tenant.service",
-        "cn.herodotus.engine.supplier.tenant.controller",
+        "cn.herodotus.engine.oauth2.authorization.autoconfigure.tenant",
 })
-public class SupplierTenantConfiguration {
+public class TenantDataSourceAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(SupplierTenantConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(TenantDataSourceAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Supplier Tenant] Auto Configure.");
+        log.info("[Herodotus] |- SDK [Supplier Tenant] Auto Configure.");
     }
 }

@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>oauth2-resource-server-autoconfigure</artifactId>
-    <description>Herodotus Cloud Resource Server 必要组件自动配置模块</description>
+    <description>Herodotus Cloud OAuth2 资源服务器必要组件自动配置模块</description>
 
     <dependencies>
         <dependency>

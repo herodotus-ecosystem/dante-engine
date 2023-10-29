@@ -394,6 +394,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
+                <artifactId>oauth2-authorization-server-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>rest-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -480,11 +485,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>supplier-sdk-message</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>supplier-sdk-tenant</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
