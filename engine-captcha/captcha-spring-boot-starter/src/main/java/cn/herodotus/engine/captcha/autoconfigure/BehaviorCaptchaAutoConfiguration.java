@@ -24,7 +24,6 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -44,7 +43,6 @@ public class BehaviorCaptchaAutoConfiguration {
     }
 
     @Bean(CaptchaCategory.JIGSAW_CAPTCHA)
-    @ConditionalOnBean(ResourceProvider.class)
     public JigsawCaptchaRenderer jigsawCaptchaRenderer(ResourceProvider resourceProvider) {
         JigsawCaptchaRenderer jigsawCaptchaRenderer = new JigsawCaptchaRenderer();
         jigsawCaptchaRenderer.setResourceProvider(resourceProvider);
@@ -53,7 +51,6 @@ public class BehaviorCaptchaAutoConfiguration {
     }
 
     @Bean(CaptchaCategory.WORD_CLICK_CAPTCHA)
-    @ConditionalOnBean(ResourceProvider.class)
     public WordClickCaptchaRenderer wordClickCaptchaRenderer(ResourceProvider resourceProvider) {
         WordClickCaptchaRenderer wordClickCaptchaRenderer = new WordClickCaptchaRenderer();
         wordClickCaptchaRenderer.setResourceProvider(resourceProvider);

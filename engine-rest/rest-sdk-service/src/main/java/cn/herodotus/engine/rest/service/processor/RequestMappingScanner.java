@@ -17,8 +17,8 @@
 package cn.herodotus.engine.rest.service.processor;
 
 import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.message.core.definition.RequestMappingScanEventManager;
-import cn.herodotus.engine.message.core.domain.RequestMapping;
+import cn.herodotus.engine.message.core.logic.strategy.RequestMappingScanEventManager;
+import cn.herodotus.engine.message.core.logic.domain.RequestMapping;
 import cn.herodotus.engine.rest.condition.constants.RestPropertyFinder;
 import cn.herodotus.engine.rest.condition.properties.ScanProperties;
 import io.swagger.v3.oas.annotations.Hidden;

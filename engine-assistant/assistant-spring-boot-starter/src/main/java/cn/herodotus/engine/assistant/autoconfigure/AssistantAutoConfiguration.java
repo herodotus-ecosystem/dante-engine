@@ -17,7 +17,7 @@
 package cn.herodotus.engine.assistant.autoconfigure;
 
 import cn.herodotus.engine.assistant.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.core.domain.ErrorCodeMapper;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 import jakarta.annotation.PostConstruct;

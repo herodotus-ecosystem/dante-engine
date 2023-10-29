@@ -13,7 +13,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.2.4-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.2.4"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.5.1-red.svg?logo=spring" alt="Version 3.1.5.1"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.5.2-red.svg?logo=spring" alt="Version 3.1.5.2"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-LGPL--3.0-blue.svg" alt="License LGPL-3.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -109,10 +109,10 @@ dante-engine
 ├    ├── message-kafka-spring-boot-starter -- 基础 Kafka 配置 Starter
 ├    ├── message-rabbitmaq-spring-boot-starter -- 基础 RabbitMQ 配置 Starter
 ├    ├── message-sdk-websocket -- 基于 WebSocket 的消息代码模块
-├    ├── message-security-spring-boot-starter -- 安全相关事件统一 Starter
 ├    └── message-spring-boot-starter -- Message  模块统一 Starter
 ├── engine-oauth2 -- OAuth2 认证模块
 ├    ├── oauth2-core -- OAuth2 共性通用代码模块
+├    ├── oauth2-resource-server-autoconfigure -- Resource Server 通用自动配置模块
 ├    ├── oauth2-sdk-authentication -- Spring Authorization Server 认证逻辑处理模块
 ├    ├── oauth2-sdk-authorization -- Spring Authorization Server 授权逻辑处理模块
 ├    ├── oauth2-sdk-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块
@@ -136,7 +136,6 @@ dante-engine
 ├    └── sms-spring-boot-starter -- SMS 模块统一 Starter
 ├── engine-supplier -- 应用支持模块
 ├    ├── supplier-sdk-message -- 消息功能支持模块
-├    ├── supplier-sdk-tenant -- 多租户功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
 ├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
 └──  readme -- README 相关素材放置目录

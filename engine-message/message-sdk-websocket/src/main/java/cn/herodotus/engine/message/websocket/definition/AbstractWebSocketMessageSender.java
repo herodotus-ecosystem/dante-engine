@@ -16,53 +16,29 @@
 
 package cn.herodotus.engine.message.websocket.definition;
 
-import cn.herodotus.engine.message.core.exception.IllegalChannelException;
-import cn.herodotus.engine.message.core.exception.PrincipalNotFoundException;
-import cn.herodotus.engine.message.websocket.domain.WebSocketMessage;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.user.SimpUser;
-import org.springframework.messaging.simp.user.SimpUserRegistry;
+import cn.herodotus.engine.message.websocket.messaging.WebSocketMessagingTemplate;
 
 /**
  * <p>Description: WebSocketMessageSender 抽象实现 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/9/14 17:22
+ * @date : 2023/10/26 23:45
  */
 public abstract class AbstractWebSocketMessageSender implements WebSocketMessageSender {
 
-    private final SimpMessagingTemplate simpMessagingTemplate;
-    private final SimpUserRegistry simpUserRegistry;
+    private final WebSocketMessagingTemplate webSocketMessagingTemplate;
 
-    protected AbstractWebSocketMessageSender(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
-        this.simpMessagingTemplate = simpMessagingTemplate;
-        this.simpUserRegistry = simpUserRegistry;
+    protected AbstractWebSocketMessageSender(WebSocketMessagingTemplate webSocketMessagingTemplate) {
+        this.webSocketMessagingTemplate = webSocketMessagingTemplate;
     }
 
     @Override
-    public <T> void toAll(String channel, T payload) {
-        simpMessagingTemplate.convertAndSend(channel, payload);
-    }
-
-    /**
-     * 发送给指定用户信息。
-     *
-     * @param webSocketMessage 发送内容参数实体 {@link WebSocketMessage}
-     * @param <T>              指定 payload 类型
-     * @throws IllegalChannelException    Web Socket 通道设置错误
-     * @throws PrincipalNotFoundException 该服务中无法找到与 identity 对应的用户 Principal
-     */
-    public <T> void toUser(WebSocketMessage<T> webSocketMessage) throws IllegalChannelException, PrincipalNotFoundException {
-        simpMessagingTemplate.convertAndSendToUser(webSocketMessage.getTo(), webSocketMessage.getChannel(), webSocketMessage.getPayload());
+    public void toUser(String user, String destination, Object payload) {
+        webSocketMessagingTemplate.pointToPoint(user, destination, payload);
     }
 
     @Override
-    public SimpUser getUser(String userId) {
-        return simpUserRegistry.getUser(userId);
-    }
-
-    @Override
-    public SimpMessagingTemplate getSimpMessagingTemplate() {
-        return simpMessagingTemplate;
+    public void toAll(String destination, Object payload) {
+        webSocketMessagingTemplate.broadcast(destination, payload);
     }
 }

@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.authentication.customizer;
 
 import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
-import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorCodes;
 import org.springframework.core.Ordered;

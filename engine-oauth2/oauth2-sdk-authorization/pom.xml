@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-oauth2</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.5.1</version>
+        <version>3.1.5.2</version>
     </parent>
 
     <artifactId>oauth2-sdk-authorization</artifactId>
@@ -47,12 +47,6 @@
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>cache-sdk-jetcache</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>message-security-spring-boot-starter</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

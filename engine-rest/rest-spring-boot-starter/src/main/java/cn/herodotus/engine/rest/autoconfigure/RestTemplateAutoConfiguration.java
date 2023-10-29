@@ -39,6 +39,11 @@ import java.io.IOException;
 /**
  * <p>Description: Rest Template Configuration </p>
  *
+ * 准备去除Okhttp3支持
+ * <a herf="https://github.com/spring-projects/spring-framework/issues/30919">去除 OkHttp3 支持。</a>
+ *
+ * {@link ClientHttpRequestFactory} 具体用途参见： {@link org.springframework.boot.web.client.ClientHttpRequestFactories}
+ *
  * @author : gengwei.zheng
  * @date : 2020/5/29 17:32
  */

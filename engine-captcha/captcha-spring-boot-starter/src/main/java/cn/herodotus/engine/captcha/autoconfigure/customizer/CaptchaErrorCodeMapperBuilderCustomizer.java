@@ -17,7 +17,7 @@
 package cn.herodotus.engine.captcha.autoconfigure.customizer;
 
 import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
-import cn.herodotus.engine.assistant.core.definition.exception.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 import org.springframework.core.Ordered;

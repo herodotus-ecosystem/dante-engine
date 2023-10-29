@@ -17,8 +17,8 @@
 package cn.herodotus.engine.oauth2.management.compliance;
 
 import cn.herodotus.engine.data.core.enums.DataItemStatus;
-import cn.herodotus.engine.message.core.definition.AccountStatusEventManager;
-import cn.herodotus.engine.message.core.domain.UserStatus;
+import cn.herodotus.engine.message.core.logic.strategy.AccountStatusEventManager;
+import cn.herodotus.engine.message.core.logic.domain.UserStatus;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;

@@ -23,7 +23,7 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.5.1</version>
+        <version>3.1.5.2</version>
     </parent>
 
     <artifactId>engine-oauth2</artifactId>
@@ -35,6 +35,8 @@
         <module>oauth2-sdk-authentication</module>
         <module>oauth2-sdk-authorization</module>
         <module>oauth2-sdk-management</module>
+        <module>oauth2-resource-server-autoconfigure</module>
+        <module>oauth2-authorization-server-autoconfigure</module>
     </modules>
 
 </project>

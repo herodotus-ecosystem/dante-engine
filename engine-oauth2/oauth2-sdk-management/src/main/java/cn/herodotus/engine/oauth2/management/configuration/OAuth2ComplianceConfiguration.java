@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.configuration;
 
-import cn.herodotus.engine.message.core.definition.AccountStatusEventManager;
+import cn.herodotus.engine.message.core.logic.strategy.AccountStatusEventManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.LockedUserDetailsStampManager;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;

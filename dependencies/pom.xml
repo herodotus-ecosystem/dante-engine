@@ -15,9 +15,9 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -29,7 +29,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.5.1</version>
+    <version>3.1.5.2</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -50,7 +50,7 @@
 
         <!--Spring 家族-->
         <spring-boot-admin.version>3.1.7</spring-boot-admin.version>
-        <spring-boot.version>3.1.5</spring-boot.version>
+        <spring-boot-dependencies.version>3.1.5</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-tencent-dependencies.version>1.12.3-2022.0.4</spring-cloud-tencent-dependencies.version>
@@ -67,18 +67,18 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-fileupload.version>1.5</commons-fileupload.version>
         <commons-text.version>1.10.0</commons-text.version>
-        <commons-io.version>2.14.0</commons-io.version>
+        <commons-io.version>2.15.0</commons-io.version>
         <guava.version>32.1.3-jre</guava.version>
         <zxing.version>3.5.2</zxing.version>
 
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.24.2</redisson.version>
+        <redisson.version>3.24.3</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.2.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.0.0</skywalking.version>
         <minio.version>8.5.6</minio.version>
-        <aws-java-sdk-s3.version>1.12.571</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.576</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
 
         <!-- 阿里巴巴开源工具依赖 -->
@@ -90,7 +90,7 @@
 
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M7</hutool.version>
-        <okhttps.version>4.0.1</okhttps.version>
+        <okhttps.version>4.0.2</okhttps.version>
         <weixin-java-sdk.version>4.5.5.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
 
@@ -117,16 +117,16 @@
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.1</aliyun-sdk-oss.version>
-        <alipay-sdk-java.version>4.38.105.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.38.111.ALL</alipay-sdk-java.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.880</tencentcloud-sdk-java.version>
+        <tencentcloud-sdk-java.version>3.1.893</tencentcloud-sdk-java.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
         <com.baidu.aip.version>4.16.16</com.baidu.aip.version>
 
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <org.json.version>20231013</org.json.version>
         <okio.version>3.6.0</okio.version>
-        <xnio.version>3.8.11.Final</xnio.version>
+        <xnio.version>3.8.12.Final</xnio.version>
         <httpclient.version>4.5.14</httpclient.version>
         <checker-qual.version>3.39.0</checker-qual.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
@@ -147,6 +147,13 @@
         <dependencies>
             <!--Imports-->
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud-dependencies.version}</version>
@@ -164,69 +171,6 @@
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
                 <version>${spring-cloud-tencent-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.amqp</groupId>
-                <artifactId>spring-amqp-bom</artifactId>
-                <version>${spring-amqp.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.batch</groupId>
-                <artifactId>spring-batch-bom</artifactId>
-                <version>${spring-batch.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-bom</artifactId>
-                <version>${spring-data-bom.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>${spring-framework.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.integration</groupId>
-                <artifactId>spring-integration-bom</artifactId>
-                <version>${spring-integration.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-bom</artifactId>
-                <version>${spring-security.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.session</groupId>
-                <artifactId>spring-session-bom</artifactId>
-                <version>${spring-session.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-bom</artifactId>
-                <version>${netty.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp-bom</artifactId>
-                <version>${okhttp.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -420,11 +364,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-security-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>oauth2-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -446,6 +385,16 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>oauth2-sdk-management</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>oauth2-resource-server-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>oauth2-authorization-server-autoconfigure</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -538,11 +487,6 @@
                 <artifactId>supplier-sdk-message</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>supplier-sdk-tenant</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -575,26 +519,6 @@
                 <version>${zxing.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.dataformat</groupId>
-                <artifactId>jackson-dataformat-yaml</artifactId>
-                <version>${jackson-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jsr310</artifactId>
-                <version>${jackson-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jdk8</artifactId>
-                <version>${jackson-bom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.module</groupId>
-                <artifactId>jackson-module-kotlin</artifactId>
-                <version>${jackson-bom.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.owasp.antisamy</groupId>
                 <artifactId>antisamy</artifactId>
                 <version>${antisamy.version}</version>
@@ -609,21 +533,6 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-common</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-                <version>${springdoc.version}</version>
             </dependency>
             <dependency>
                 <groupId>p6spy</groupId>
@@ -970,12 +879,12 @@
                             <path>
                                 <groupId>org.springframework.boot</groupId>
                                 <artifactId>spring-boot-configuration-processor</artifactId>
-                                <version>${spring-boot.version}</version>
+                                <version>${spring-boot-dependencies.version}</version>
                             </path>
                             <path>
                                 <groupId>org.springframework.boot</groupId>
                                 <artifactId>spring-boot-autoconfigure-processor</artifactId>
-                                <version>${spring-boot.version}</version>
+                                <version>${spring-boot-dependencies.version}</version>
                             </path>
                         </annotationProcessorPaths>
                     </configuration>

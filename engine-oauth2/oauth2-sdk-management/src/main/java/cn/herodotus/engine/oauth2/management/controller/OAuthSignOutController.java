@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.message.core.event.AccountReleaseFromCacheEvent;
+import cn.herodotus.engine.message.core.logic.event.AccountReleaseFromCacheEvent;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

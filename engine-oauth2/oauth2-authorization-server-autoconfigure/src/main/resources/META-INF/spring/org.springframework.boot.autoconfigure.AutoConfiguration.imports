@@ -1,0 +1,2 @@
+cn.herodotus.engine.oauth2.authorization.autoconfigure.OAuth2AuthorizationServerAutoConfiguration
+cn.herodotus.engine.oauth2.authorization.autoconfigure.TenantDataSourceAutoConfiguration

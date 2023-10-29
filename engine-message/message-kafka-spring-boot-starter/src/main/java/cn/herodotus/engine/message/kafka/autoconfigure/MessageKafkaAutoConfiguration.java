@@ -39,4 +39,6 @@ public class MessageKafkaAutoConfiguration {
     public void postConstruct() {
         log.info("[Herodotus] |- Module [Message Kafka Starter] Auto Configure.");
     }
+
+
 }
