@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.message.core.logic.event;
 
 import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
-import cn.herodotus.engine.message.core.domain.DialogueMessage;
 
 import java.time.Clock;
 
 /**
- * <p>Description: 本地发送对话消息事件 </p>
+ * <p>Description: 从账户状态缓存中释放账号事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/3/11 18:40
+ * @date : 2023/5/14 14:26
  */
-public class LocalSendDialogueMessageEvent extends HerodotusApplicationEvent<DialogueMessage> {
+public class AccountReleaseFromCacheEvent extends HerodotusApplicationEvent<String> {
 
-    public LocalSendDialogueMessageEvent(DialogueMessage data) {
+    public AccountReleaseFromCacheEvent(String data) {
         super(data);
     }
 
-    public LocalSendDialogueMessageEvent(DialogueMessage data, Clock clock) {
+    public AccountReleaseFromCacheEvent(String data, Clock clock) {
         super(data, clock);
     }
 }

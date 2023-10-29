@@ -17,7 +17,7 @@
 package cn.herodotus.engine.supplier.message.entity;
 
 import cn.herodotus.engine.message.core.constants.MessageConstants;
-import cn.herodotus.engine.message.core.enums.NotificationCategory;
+import cn.herodotus.engine.supplier.message.enums.NotificationCategory;
 import cn.herodotus.engine.supplier.message.domain.BaseSenderEntity;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;

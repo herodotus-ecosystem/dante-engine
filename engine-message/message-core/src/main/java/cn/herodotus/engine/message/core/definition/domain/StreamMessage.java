@@ -16,6 +16,7 @@
 
 package cn.herodotus.engine.message.core.definition.domain;
 
+import cn.herodotus.engine.message.core.definition.domain.Message;
 import org.springframework.util.MimeType;
 
 /**

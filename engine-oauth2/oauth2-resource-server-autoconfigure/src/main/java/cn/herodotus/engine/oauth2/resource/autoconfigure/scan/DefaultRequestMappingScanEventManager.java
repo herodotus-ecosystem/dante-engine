@@ -11,9 +11,9 @@
 package cn.herodotus.engine.oauth2.resource.autoconfigure.scan;
 
 import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
-import cn.herodotus.engine.message.core.definition.RequestMappingScanEventManager;
-import cn.herodotus.engine.message.core.domain.RequestMapping;
-import cn.herodotus.engine.message.core.event.LocalRequestMappingGatherEvent;
+import cn.herodotus.engine.message.core.logic.strategy.RequestMappingScanEventManager;
+import cn.herodotus.engine.message.core.logic.domain.RequestMapping;
+import cn.herodotus.engine.message.core.logic.event.RequestMappingGatherEvent;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.resource.autoconfigure.bus.RemoteRequestMappingGatherEvent;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -54,7 +54,7 @@ public class DefaultRequestMappingScanEventManager implements RequestMappingScan
 
     @Override
     public void postLocalProcess(List<RequestMapping> data) {
-        publishEvent(new LocalRequestMappingGatherEvent(data));
+        publishEvent(new RequestMappingGatherEvent(data));
     }
 
     @Override

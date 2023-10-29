@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.message.core.logic.event;
 
 import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
+import cn.herodotus.engine.message.core.logic.domain.UserStatus;
 
 import java.time.Clock;
 
 /**
- * <p>Description: 从账户状态缓存中释放账号事件 </p>
+ * <p>Description: 本地用户状态变更事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/14 14:26
+ * @date : 2022/7/10 16:15
  */
-public class AccountReleaseFromCacheEvent extends HerodotusApplicationEvent<String> {
+public class ChangeUserStatusEvent extends HerodotusApplicationEvent<UserStatus> {
 
-    public AccountReleaseFromCacheEvent(String data) {
+    public ChangeUserStatusEvent(UserStatus data) {
         super(data);
     }
 
-    public AccountReleaseFromCacheEvent(String data, Clock clock) {
+    public ChangeUserStatusEvent(UserStatus data, Clock clock) {
         super(data, clock);
     }
 }

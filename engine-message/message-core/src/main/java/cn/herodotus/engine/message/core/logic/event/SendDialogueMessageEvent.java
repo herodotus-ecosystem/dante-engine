@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.definition;
+package cn.herodotus.engine.message.core.logic.event;
 
-import cn.herodotus.engine.message.core.domain.UserStatus;
+import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
+import cn.herodotus.engine.message.core.logic.domain.DialogueMessage;
+
+import java.time.Clock;
 
 /**
- * <p>Description: 用户状态变更服务 </p>
+ * <p>Description: 本地发送对话消息事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:23
+ * @date : 2023/3/11 18:40
  */
-public interface AccountStatusEventManager extends ApplicationStrategyEventManager<UserStatus> {
+public class SendDialogueMessageEvent extends HerodotusApplicationEvent<DialogueMessage> {
 
+    public SendDialogueMessageEvent(DialogueMessage data) {
+        super(data);
+    }
+
+    public SendDialogueMessageEvent(DialogueMessage data, Clock clock) {
+        super(data, clock);
+    }
 }

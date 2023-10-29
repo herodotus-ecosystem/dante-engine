@@ -18,7 +18,7 @@ package cn.herodotus.engine.supplier.message.controller;
 
 import cn.herodotus.engine.assistant.core.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
-import cn.herodotus.engine.message.core.enums.NotificationCategory;
+import cn.herodotus.engine.supplier.message.enums.NotificationCategory;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.message.entity.Notification;
 import cn.herodotus.engine.supplier.message.service.NotificationService;

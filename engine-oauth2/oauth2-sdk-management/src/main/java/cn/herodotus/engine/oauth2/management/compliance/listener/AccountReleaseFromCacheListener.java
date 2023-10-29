@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.compliance.listener;
 
-import cn.herodotus.engine.message.core.event.AccountReleaseFromCacheEvent;
+import cn.herodotus.engine.message.core.logic.event.AccountReleaseFromCacheEvent;
 import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import org.springframework.context.ApplicationListener;
 

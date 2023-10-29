@@ -18,8 +18,8 @@ package cn.herodotus.engine.message.websocket.controller;
 
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.core.definition.domain.WebSocketMessage;
-import cn.herodotus.engine.message.core.domain.DialogueMessage;
-import cn.herodotus.engine.message.core.event.LocalSendDialogueMessageEvent;
+import cn.herodotus.engine.message.core.logic.domain.DialogueMessage;
+import cn.herodotus.engine.message.core.logic.event.SendDialogueMessageEvent;
 import cn.herodotus.engine.message.websocket.definition.WebSocketMessageSender;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.rest.core.definition.context.AbstractApplicationContextAware;
@@ -82,7 +82,7 @@ public class WebSocketPublishMessageController extends AbstractApplicationContex
                 detail.setSenderAvatar(sender.getAvatar());
             }
 
-            this.publishEvent(new LocalSendDialogueMessageEvent(detail));
+            this.publishEvent(new SendDialogueMessageEvent(detail));
 
             response.setPayload("私信发送成功");
         } else {

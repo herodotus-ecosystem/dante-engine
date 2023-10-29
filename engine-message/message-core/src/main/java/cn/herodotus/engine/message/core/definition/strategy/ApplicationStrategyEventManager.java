@@ -14,26 +14,31 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.message.core.definition.strategy;
 
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
-import cn.herodotus.engine.message.core.domain.UserStatus;
-
-import java.time.Clock;
+import cn.herodotus.engine.message.core.definition.strategy.StrategyEventManager;
 
 /**
- * <p>Description: 本地用户状态变更事件 </p>
+ * <p>Description: 应用策略事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/10 16:15
+ * @date : 2022/3/29 7:26
  */
-public class LocalChangeUserStatusEvent extends HerodotusApplicationEvent<UserStatus> {
+public interface ApplicationStrategyEventManager<T> extends StrategyEventManager<T> {
 
-    public LocalChangeUserStatusEvent(UserStatus data) {
-        super(data);
-    }
+    /**
+     * 目的服务名称
+     *
+     * @return 服务名称
+     */
+    String getDestinationServiceName();
 
-    public LocalChangeUserStatusEvent(UserStatus data, Clock clock) {
-        super(data, clock);
+    /**
+     * 发送事件
+     *
+     * @param data 事件携带数据
+     */
+    default void postProcess(T data) {
+        postProcess(getDestinationServiceName(), data);
     }
 }

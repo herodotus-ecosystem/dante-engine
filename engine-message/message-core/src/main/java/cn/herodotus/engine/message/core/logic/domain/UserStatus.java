@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.domain;
+package cn.herodotus.engine.message.core.logic.domain;
 
 import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
 import com.google.common.base.MoreObjects;

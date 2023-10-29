@@ -14,29 +14,17 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.definition;
+package cn.herodotus.engine.message.core.logic.strategy;
+
+import cn.herodotus.engine.message.core.definition.strategy.ApplicationStrategyEventManager;
+import cn.herodotus.engine.message.core.logic.domain.UserStatus;
 
 /**
- * <p>Description: 应用策略事件 </p>
+ * <p>Description: 用户状态变更服务 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/29 7:26
+ * @date : 2022/7/10 16:23
  */
-public interface ApplicationStrategyEventManager<T> extends StrategyEventManager<T> {
+public interface AccountStatusEventManager extends ApplicationStrategyEventManager<UserStatus> {
 
-    /**
-     * 目的服务名称
-     *
-     * @return 服务名称
-     */
-    String getDestinationServiceName();
-
-    /**
-     * 发送事件
-     *
-     * @param data 事件携带数据
-     */
-    default void postProcess(T data) {
-        postProcess(getDestinationServiceName(), data);
-    }
 }

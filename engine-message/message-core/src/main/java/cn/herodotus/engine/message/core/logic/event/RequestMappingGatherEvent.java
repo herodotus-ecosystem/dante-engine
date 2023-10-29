@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.event;
+package cn.herodotus.engine.message.core.logic.event;
 
 import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
-import cn.herodotus.engine.message.core.domain.RequestMapping;
+import cn.herodotus.engine.message.core.logic.domain.RequestMapping;
 
 import java.time.Clock;
 import java.util.List;
@@ -28,13 +28,13 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2021/8/8 21:55
  */
-public class LocalRequestMappingGatherEvent extends HerodotusApplicationEvent<List<RequestMapping>> {
+public class RequestMappingGatherEvent extends HerodotusApplicationEvent<List<RequestMapping>> {
 
-    public LocalRequestMappingGatherEvent(List<RequestMapping> data) {
+    public RequestMappingGatherEvent(List<RequestMapping> data) {
         super(data);
     }
 
-    public LocalRequestMappingGatherEvent(List<RequestMapping> data, Clock clock) {
+    public RequestMappingGatherEvent(List<RequestMapping> data, Clock clock) {
         super(data, clock);
     }
 }

@@ -11,9 +11,9 @@
 package cn.herodotus.engine.oauth2.authorization.autoconfigure.status;
 
 import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
-import cn.herodotus.engine.message.core.definition.AccountStatusEventManager;
-import cn.herodotus.engine.message.core.domain.UserStatus;
-import cn.herodotus.engine.message.core.event.LocalChangeUserStatusEvent;
+import cn.herodotus.engine.message.core.logic.strategy.AccountStatusEventManager;
+import cn.herodotus.engine.message.core.logic.domain.UserStatus;
+import cn.herodotus.engine.message.core.logic.event.ChangeUserStatusEvent;
 import cn.herodotus.engine.oauth2.resource.autoconfigure.bus.RemoteChangeUserStatusEvent;
 
 /**
@@ -22,7 +22,7 @@ import cn.herodotus.engine.oauth2.resource.autoconfigure.bus.RemoteChangeUserSta
  * @author : gengwei.zheng
  * @date : 2022/7/10 17:25
  */
-public class HerodotusAccountStatusEventManager implements AccountStatusEventManager {
+public class DefaultAccountStatusEventManager implements AccountStatusEventManager {
     @Override
     public String getDestinationServiceName() {
         return ServiceContextHolder.getInstance().getUpmsServiceName();
@@ -30,7 +30,7 @@ public class HerodotusAccountStatusEventManager implements AccountStatusEventMan
 
     @Override
     public void postLocalProcess(UserStatus data) {
-        publishEvent(new LocalChangeUserStatusEvent(data));
+        publishEvent(new ChangeUserStatusEvent(data));
     }
 
     @Override

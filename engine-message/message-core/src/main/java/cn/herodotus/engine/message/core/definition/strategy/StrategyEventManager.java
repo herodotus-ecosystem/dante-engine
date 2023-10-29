@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.definition;
+package cn.herodotus.engine.message.core.definition.strategy;
 
 import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;

@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.supplier.message.listener;
 
-import cn.herodotus.engine.message.core.domain.DialogueMessage;
-import cn.herodotus.engine.message.core.event.LocalSendDialogueMessageEvent;
+import cn.herodotus.engine.message.core.logic.domain.DialogueMessage;
+import cn.herodotus.engine.message.core.logic.event.SendDialogueMessageEvent;
 import cn.herodotus.engine.supplier.message.entity.DialogueDetail;
 import cn.herodotus.engine.supplier.message.service.DialogueDetailService;
 import org.apache.commons.lang3.ObjectUtils;
@@ -33,7 +33,7 @@ import org.springframework.stereotype.Component;
  * @date : 2023/3/11 18:49
  */
 @Component
-public class DialogueMessageListener implements ApplicationListener<LocalSendDialogueMessageEvent> {
+public class DialogueMessageListener implements ApplicationListener<SendDialogueMessageEvent> {
 
     private final DialogueDetailService dialogueDetailService;
 
@@ -42,7 +42,7 @@ public class DialogueMessageListener implements ApplicationListener<LocalSendDia
     }
 
     @Override
-    public void onApplicationEvent(LocalSendDialogueMessageEvent event) {
+    public void onApplicationEvent(SendDialogueMessageEvent event) {
         if (ObjectUtils.isNotEmpty(event)) {
             DialogueMessage dialogueMessage = event.getData();
             if (ObjectUtils.isNotEmpty(dialogueMessage)) {

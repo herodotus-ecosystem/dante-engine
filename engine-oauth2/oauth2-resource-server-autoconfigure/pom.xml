@@ -22,17 +22,13 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-oauth2</artifactId>
-        <version>3.1.5.1</version>
+        <version>3.1.5.2</version>
     </parent>
 
     <artifactId>oauth2-resource-server-autoconfigure</artifactId>
     <description>Herodotus Cloud OAuth2 资源服务器必要组件自动配置模块</description>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>message-core</artifactId>
-        </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>rest-spring-boot-starter</artifactId>

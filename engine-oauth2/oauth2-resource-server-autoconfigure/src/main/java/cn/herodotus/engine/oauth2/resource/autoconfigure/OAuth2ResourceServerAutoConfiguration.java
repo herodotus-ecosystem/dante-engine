@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.resource.autoconfigure;
 
-import cn.herodotus.engine.message.core.definition.RequestMappingScanEventManager;
+import cn.herodotus.engine.message.core.logic.strategy.RequestMappingScanEventManager;
 import cn.herodotus.engine.oauth2.authorization.configuration.OAuth2AuthorizationConfiguration;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
