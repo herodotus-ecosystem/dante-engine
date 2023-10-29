@@ -24,15 +24,23 @@ import cn.herodotus.engine.message.core.constants.MessageConstants;
  * @author : gengwei.zheng
  * @date : 2023/10/26 21:29
  */
-public class DefaultMessageSender extends MessageSender{
+public class DefaultMessageSendingFacade extends MessageSendingFacade {
 
     /**
      * 发送 WebSocket 给指定用户
      * @param user 用户唯一标识
      * @param payload 消息内容
-     * @param <T> 消息内容类型
      */
-    public static <T> void toUser(String user, T payload) {
+    public static void toUser(String user, Object payload) {
         pointToPoint(user, MessageConstants.WEBSOCKET_DESTINATION_PERSONAL_MESSAGE, payload);
+    }
+
+    /**
+     * 发送公告信息
+     *
+     * @param payload 消息内容
+     */
+    public static  void announcement(Object payload) {
+        broadcast(MessageConstants.WEBSOCKET_DESTINATION_BROADCAST_NOTICE, payload);
     }
 }

@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.kafka.autoconfigure;
+package cn.herodotus.engine.oauth2.resource.autoconfigure;
 
-import cn.herodotus.engine.message.kafka.autoconfigure.stream.StreamMessageSendingAdapter;
+import cn.herodotus.engine.message.kafka.autoconfigure.MessageKafkaAutoConfiguration;
+import cn.herodotus.engine.oauth2.resource.autoconfigure.stream.StreamMessageSendingAdapter;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.security.autoconfigure.event;
+package cn.herodotus.engine.oauth2.resource.autoconfigure.bus;
 
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 

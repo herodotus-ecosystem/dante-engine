@@ -21,24 +21,30 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.herodotus.engine</groupId>
-        <artifactId>engine-message</artifactId>
+        <artifactId>engine-oauth2</artifactId>
         <version>3.1.5.1</version>
     </parent>
 
-    <artifactId>message-security-spring-boot-starter</artifactId>
-
-
-    <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
+    <artifactId>oauth2-resource-server-autoconfigure</artifactId>
+    <description>Herodotus Cloud Resource Server 必要组件自动配置模块</description>
 
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>message-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>rest-spring-boot-starter</artifactId>
+        </dependency>
 
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-bus</artifactId>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>oauth2-sdk-authorization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>message-kafka-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

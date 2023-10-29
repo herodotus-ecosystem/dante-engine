@@ -17,7 +17,6 @@
 package cn.herodotus.engine.message.core;
 
 import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
-import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.core.definition.domain.StreamMessage;
 import cn.herodotus.engine.message.core.definition.domain.TemplateMessage;
 import cn.herodotus.engine.message.core.definition.domain.WebSocketMessage;
@@ -27,12 +26,14 @@ import cn.herodotus.engine.message.core.definition.event.TemplateMessageSendingE
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * <p>Description: 发送消息工厂 </p>
+ * <p>Description: 统一消息发送门面 </p>
+ *
+ * 将 Spring Event、Spring Cloud Stream、WebSocket 消息队列等多种消息发送方式融合，构建统一的消息发送门面，以统一的接口支持各种类型的消息发送
  *
  * @author : gengwei.zheng
  * @date : 2023/10/26 11:38
  */
-class MessageSender {
+class MessageSendingFacade {
 
     /**
      * 发送消息

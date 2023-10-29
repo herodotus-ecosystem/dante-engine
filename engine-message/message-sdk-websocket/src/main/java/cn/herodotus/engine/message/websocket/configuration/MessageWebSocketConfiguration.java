@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.websocket.autoconfigure;
+package cn.herodotus.engine.message.websocket.configuration;
 
 import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
 import cn.herodotus.engine.message.core.definition.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.annotation.ConditionalOnMultipleWebSocketInstance;
 import cn.herodotus.engine.message.websocket.annotation.ConditionalOnSingleWebSocketInstance;
-import cn.herodotus.engine.message.websocket.configuration.WebSocketMessageBrokerConfiguration;
 import cn.herodotus.engine.message.websocket.definition.WebSocketMessageSender;
 import cn.herodotus.engine.message.websocket.interceptor.WebSocketAuthenticationHandshakeInterceptor;
 import cn.herodotus.engine.message.websocket.messaging.*;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -44,10 +42,10 @@ import java.util.function.Consumer;
  * @author : gengwei.zheng
  * @date : 2022/12/29 15:52
  */
-@AutoConfiguration
-public class MessageWebSocketAutoConfiguration {
+@Configuration(proxyBeanMethods = false)
+public class MessageWebSocketConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(MessageWebSocketAutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(MessageWebSocketConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {

@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.security.autoconfigure.event;
+package cn.herodotus.engine.oauth2.resource.autoconfigure.bus;
 
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 
 /**
- * <p>Description: Security Metadata 远程刷新事件 </p>
+ * <p>Description: 修改用户状态远程事件 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/6 11:24
+ * @date : 2022/7/10 16:13
  */
-public class RemoteSecurityMetadataSyncEvent extends RemoteApplicationEvent {
+public class RemoteChangeUserStatusEvent extends RemoteApplicationEvent {
 
     private String data;
 
-    public RemoteSecurityMetadataSyncEvent() {
+    public RemoteChangeUserStatusEvent() {
         super();
     }
 
-    public RemoteSecurityMetadataSyncEvent(String data, String originService, String destinationService) {
+    public RemoteChangeUserStatusEvent(String data, String originService, String destinationService) {
         super(data, originService, DEFAULT_DESTINATION_FACTORY.getDestination(destinationService));
         this.data = data;
     }

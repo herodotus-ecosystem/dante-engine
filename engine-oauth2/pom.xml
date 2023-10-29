@@ -35,6 +35,7 @@
         <module>oauth2-sdk-authentication</module>
         <module>oauth2-sdk-authorization</module>
         <module>oauth2-sdk-management</module>
+        <module>oauth2-resource-server-autoconfigure</module>
     </modules>
 
 </project>

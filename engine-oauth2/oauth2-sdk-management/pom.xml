@@ -44,12 +44,6 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>message-security-spring-boot-starter</artifactId>
-        </dependency>
-
-
-        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>animate.css</artifactId>
         </dependency>

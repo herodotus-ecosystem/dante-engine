@@ -109,10 +109,10 @@ dante-engine
 ├    ├── message-kafka-spring-boot-starter -- 基础 Kafka 配置 Starter
 ├    ├── message-rabbitmaq-spring-boot-starter -- 基础 RabbitMQ 配置 Starter
 ├    ├── message-sdk-websocket -- 基于 WebSocket 的消息代码模块
-├    ├── message-security-spring-boot-starter -- 安全相关事件统一 Starter
 ├    └── message-spring-boot-starter -- Message  模块统一 Starter
 ├── engine-oauth2 -- OAuth2 认证模块
 ├    ├── oauth2-core -- OAuth2 共性通用代码模块
+├    ├── oauth2-resource-server-autoconfigure -- Resource Server 通用自动配置模块
 ├    ├── oauth2-sdk-authentication -- Spring Authorization Server 认证逻辑处理模块
 ├    ├── oauth2-sdk-authorization -- Spring Authorization Server 授权逻辑处理模块
 ├    ├── oauth2-sdk-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块

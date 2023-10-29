@@ -364,11 +364,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-security-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>oauth2-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -390,6 +385,11 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>oauth2-sdk-management</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>oauth2-resource-server-autoconfigure</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

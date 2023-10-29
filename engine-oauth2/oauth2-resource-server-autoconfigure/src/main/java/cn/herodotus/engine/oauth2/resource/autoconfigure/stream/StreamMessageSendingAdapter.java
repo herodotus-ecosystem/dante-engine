@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.kafka.autoconfigure.stream;
+package cn.herodotus.engine.oauth2.resource.autoconfigure.stream;
 
 import cn.herodotus.engine.message.core.definition.MessageSendingAdapter;
 import cn.herodotus.engine.message.core.definition.domain.StreamMessage;
