@@ -49,7 +49,7 @@ public class OAuth2AuthenticationConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- SDK [OAuth2 Authentication] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [OAuth2 Authentication] Auto Configure.");
     }
 
     @Bean

@@ -44,7 +44,7 @@ public class OAuth2SessionConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- SDK [OAuth2 Session Sharing] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [OAuth2 Session Sharing] Auto Configure.");
     }
 
     @Bean
