@@ -42,7 +42,7 @@ public class SupplierUpmsRestConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- SDK [Supplier Upms Rest] Auto Configure.");
+        log.debug("[Herodotus] |- SDK [Supplier Upms Rest] Auto Configure.");
     }
 
 

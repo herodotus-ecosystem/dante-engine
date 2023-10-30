@@ -40,6 +40,6 @@ public class TenantDataSourceAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- SDK [Supplier Tenant] Auto Configure.");
+        log.info("[Herodotus] |- Module [Tenant Data Source] Auto Configure.");
     }
 }
