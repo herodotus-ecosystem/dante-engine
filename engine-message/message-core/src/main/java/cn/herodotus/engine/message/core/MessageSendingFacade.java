@@ -27,7 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>Description: 统一消息发送门面 </p>
- *
+ * <p>
  * 将 Spring Event、Spring Cloud Stream、WebSocket 消息队列等多种消息发送方式融合，构建统一的消息发送门面，以统一的接口支持各种类型的消息发送
  *
  * @author : gengwei.zheng
@@ -76,10 +76,11 @@ class MessageSendingFacade {
 
     /**
      * 发送 WebSocket 点对点消息
-     * @param user 用户唯一标识
+     *
+     * @param user        用户唯一标识
      * @param destination 消息同奥
-     * @param payload 消息内容
-     * @param <T> 消息内容类型
+     * @param payload     消息内容
+     * @param <T>         消息内容类型
      */
     public static <T> void pointToPoint(String user, String destination, T payload) {
         WebSocketMessage message = new WebSocketMessage();
@@ -93,9 +94,10 @@ class MessageSendingFacade {
 
     /**
      * 发送 WebSocket 广播消息
+     *
      * @param destination 消息同奥
-     * @param payload 消息内容
-     * @param <T> 消息内容类型
+     * @param payload     消息内容
+     * @param <T>         消息内容类型
      */
     public static <T> void broadcast(String destination, T payload) {
         pointToPoint(null, destination, payload);

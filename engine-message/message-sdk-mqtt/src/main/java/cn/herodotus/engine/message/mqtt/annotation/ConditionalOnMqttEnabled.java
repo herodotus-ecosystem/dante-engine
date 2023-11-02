@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.mqtt.messaging;
+package cn.herodotus.engine.message.mqtt.annotation;
+
+import cn.herodotus.engine.message.mqtt.condition.MqttEnabledCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: Mqtt 配置开启条件注解 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/11/2 13:42
+ * @date : 2023/11/2 15:59
  */
-public class MqttMessageReceivingHandler {
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Conditional(MqttEnabledCondition.class)
+public @interface ConditionalOnMqttEnabled {
 }

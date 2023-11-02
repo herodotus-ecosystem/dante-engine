@@ -18,8 +18,9 @@ package cn.herodotus.engine.message.mqtt.configuration;
 
 import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
 import cn.herodotus.engine.assistant.core.utils.type.NumberUtils;
+import cn.herodotus.engine.message.mqtt.annotation.ConditionalOnMqttEnabled;
+import cn.herodotus.engine.message.mqtt.handler.MqttMessageReceivingHandler;
 import cn.herodotus.engine.message.mqtt.properties.MqttProperties;
-import cn.herodotus.engine.message.mqtt.properties.Topic;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.core.util.ByteUtil;
 import org.eclipse.paho.mqttv5.client.IMqttAsyncClient;
@@ -31,7 +32,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.core.MessageProducer;
@@ -51,9 +51,9 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * <p>Description: Mqtt 模块配置 </p>
- *
+ * <p>
  * Mqtt 协议框架中没有“客户端”和“服务端”概念，只有 Broker 和 Client。所有接入 Broker 的组件都是 Client。如果使用本组件，那么包含本组件的应用即为 Client。
- *
+ * <p>
  * Mqtt 中的 Inbound 和 Outbound 均为 Client 中的概念，对应 Client 的数据 "输入"和 "输出"
  * · Inbound：入站，对应的是接受某个被订阅主题的数据，即 Subscribe
  * · Outbound：出站，对应的是向某个主题发送数据，即 Publish
@@ -62,15 +62,13 @@ import java.nio.charset.StandardCharsets;
  * @date : 2023/9/10 17:24
  */
 @Configuration(proxyBeanMethods = false)
+@ConditionalOnMqttEnabled
 @EnableConfigurationProperties(MqttProperties.class)
 @IntegrationComponentScan(basePackages = {
         "cn.herodotus.engine.message.mqtt.gateway",
 })
 @ComponentScan(basePackages = {
         "cn.herodotus.engine.message.mqtt.messaging",
-})
-@Import({
-        MqttReceiveHandler.class
 })
 public class MessageMqttConfiguration {
 
@@ -81,10 +79,6 @@ public class MessageMqttConfiguration {
         log.debug("[Herodotus] |- SDK [Message Mqtt] Auto Configure.");
     }
 
-    /**
-     *
-     * @return
-     */
     @Bean
     public MessageChannel mqtt5InboundChannel() {
         return MessageChannels.publishSubscribe().getObject();
@@ -107,9 +101,10 @@ public class MessageMqttConfiguration {
         mqttConnectionOptions.setAutomaticReconnectDelay(
                 NumberUtils.longToInt(mqttProperties.getAutomaticReconnectMinDelay().getSeconds()),
                 NumberUtils.longToInt(mqttProperties.getAutomaticReconnectMaxDelay().getSeconds()));
-        log.info("[Herodotus] |- Bean [Mqtt Connection Options] Auto Configure.");
         Mqttv5ClientManager clientManager = new Mqttv5ClientManager(mqttConnectionOptions, mqttProperties.getClientId());
         clientManager.setPersistence(new MqttDefaultFilePersistence());
+
+        log.trace("[Herodotus] |- Bean [Mqtt Connection Options] Auto Configure.");
         return clientManager;
     }
 
@@ -121,6 +116,7 @@ public class MessageMqttConfiguration {
         messageProducer.setPayloadType(String.class);
         messageProducer.setManualAcks(false);
         messageProducer.setOutputChannel(mqtt5InboundChannel);
+        log.trace("[Herodotus] |- Bean [Mqtt v5 Paho Message Driven Channel Adapter] Auto Configure.");
         return messageProducer;
     }
 
@@ -135,6 +131,15 @@ public class MessageMqttConfiguration {
         messageHandler.setDefaultQos(mqttProperties.getDefaultQos());
         messageHandler.setAsync(true);
         messageHandler.setAsyncEvents(true);
+        log.trace("[Herodotus] |- Bean [Mqtt v5 Paho Message Handler] Auto Configure.");
+        return messageHandler;
+    }
+
+    @Bean
+    @ServiceActivator(inputChannel = "mqtt5InboundChannel")
+    public MessageHandler mqttInboundHandler() {
+        MqttMessageReceivingHandler messageHandler = new MqttMessageReceivingHandler();
+        log.trace("[Herodotus] |- Bean [Mqtt Message Receiving Handler] Auto Configure.");
         return messageHandler;
     }
 }

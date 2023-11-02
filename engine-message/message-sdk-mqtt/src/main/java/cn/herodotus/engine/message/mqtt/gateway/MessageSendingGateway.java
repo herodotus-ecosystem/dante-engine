@@ -21,7 +21,7 @@ import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: Mqtt 消息发送网关定义 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/9/11 16:10

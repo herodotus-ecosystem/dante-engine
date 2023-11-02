@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.definition.strategy;
+package cn.herodotus.engine.message.core.definition.event;
+
+import cn.herodotus.engine.message.core.definition.domain.MqttMessage;
+
+import java.time.Clock;
 
 /**
- * <p>Description: 应用策略事件 </p>
+ * <p>Description: Mqtt 类型消息 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/29 7:26
+ * @date : 2023/11/2 16:05
  */
-public interface ApplicationStrategyEventManager<T> extends StrategyEventManager<T> {
+public class MqttMessageSendingEvent extends HerodotusApplicationEvent<MqttMessage> {
 
-    /**
-     * 目的服务名称
-     *
-     * @return 服务名称
-     */
-    String getDestinationServiceName();
+    public MqttMessageSendingEvent(MqttMessage data) {
+        super(data);
+    }
 
-    /**
-     * 发送事件
-     *
-     * @param data 事件携带数据
-     */
-    default void postProcess(T data) {
-        postProcess(getDestinationServiceName(), data);
+    public MqttMessageSendingEvent(MqttMessage data, Clock clock) {
+        super(data, clock);
     }
 }

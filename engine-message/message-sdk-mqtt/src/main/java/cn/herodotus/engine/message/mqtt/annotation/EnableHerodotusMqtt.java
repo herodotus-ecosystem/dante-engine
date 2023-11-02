@@ -14,29 +14,24 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.message.core.definition.strategy;
+package cn.herodotus.engine.message.mqtt.annotation;
+
+import cn.herodotus.engine.message.mqtt.configuration.MessageMqttConfiguration;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: 应用策略事件 </p>
+ * <p>Description: 动开启 Mqtt 配置 </p>
+ * <p>
+ * 模块中的内容相对独立，而且仅有一个 Configuration，同时无需考虑注入顺序的模块，则使用 @Enable 风格配置
  *
  * @author : gengwei.zheng
- * @date : 2022/3/29 7:26
+ * @date : 2023/11/2 16:25
  */
-public interface ApplicationStrategyEventManager<T> extends StrategyEventManager<T> {
-
-    /**
-     * 目的服务名称
-     *
-     * @return 服务名称
-     */
-    String getDestinationServiceName();
-
-    /**
-     * 发送事件
-     *
-     * @param data 事件携带数据
-     */
-    default void postProcess(T data) {
-        postProcess(getDestinationServiceName(), data);
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Documented
+@Import(MessageMqttConfiguration.class)
+public @interface EnableHerodotusMqtt {
 }
