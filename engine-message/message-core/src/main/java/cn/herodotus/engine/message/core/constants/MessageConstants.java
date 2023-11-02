@@ -42,6 +42,8 @@ public interface MessageConstants extends BaseConstants {
 
     String ITEM_KAFKA_ENABLED = PROPERTY_PREFIX_KAFKA + PROPERTY_ENABLED;
     String ITEM_WEBSOCKET_MULTIPLE_INSTANCE = PROPERTY_PREFIX_WEBSOCKET + ".mode";
+    String ITEM_MQTT_USERNAME = PROPERTY_PREFIX_MQTT + ".username";
+    String ITEM_MQTT_PASSWORD = PROPERTY_PREFIX_MQTT + ".password";
 
     String REDIS_CURRENT_ONLINE_USER = MESSAGE_AREA_PREFIX + "online:user";
     String REGION_MESSAGE_ANNOUNCEMENT = MESSAGE_AREA_PREFIX + "system_announcement";

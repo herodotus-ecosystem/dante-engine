@@ -85,7 +85,7 @@ public class AuthenticationFailureListener implements ApplicationListener<Abstra
 
             if (StringUtils.isNotBlank(username)) {
 
-                log.debug("[Herodotus] |- Parse the username in failure event is [{}].", username);
+                log.debug("[Herodotus] |- Parse the user name in failure event is [{}].", username);
 
                 int maxTimes = stampManager.getAuthenticationProperties().getSignInFailureLimited().getMaxTimes();
                 Duration expire = stampManager.getAuthenticationProperties().getSignInFailureLimited().getExpire();

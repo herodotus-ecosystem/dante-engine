@@ -38,18 +38,12 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2021/5/25 16:00
  */
-public class NeteaseSmsSendHandler extends AbstractSmsSendHandler {
+public class NeteaseSmsSendHandler extends AbstractSmsSendHandler<NeteaseSmsProperties> {
 
     private static final Logger log = LoggerFactory.getLogger(NeteaseSmsSendHandler.class);
 
-    /**
-     * 请求路径URL
-     */
-    private final NeteaseSmsProperties properties;
-
-    public NeteaseSmsSendHandler(NeteaseSmsProperties properties) {
-        super(properties);
-        this.properties = properties;
+    public NeteaseSmsSendHandler(NeteaseSmsProperties neteaseSmsProperties) {
+        super(neteaseSmsProperties);
     }
 
     @Override
@@ -64,11 +58,11 @@ public class NeteaseSmsSendHandler extends AbstractSmsSendHandler {
         String templateParams = this.getOrderedParamsString(template);
         String curTime = String.valueOf((new Date()).getTime() / 1000L);
         String nonce = RandomUtil.randomString(6);
-        String checkSum = CheckSumBuilder.getCheckSum(this.properties.getAppSecret(), nonce, curTime);
+        String checkSum = CheckSumBuilder.getCheckSum(this.getSmsProperties().getAppSecret(), nonce, curTime);
 
-        HttpResult result = this.http().sync(this.properties.getApiUrl())
+        HttpResult result = this.http().sync(this.getSmsProperties().getApiUrl())
                 .bodyType(OkHttps.FORM)
-                .addHeader("AppKey", this.properties.getAppKey())
+                .addHeader("AppKey", this.getSmsProperties().getAppKey())
                 .addHeader("CurTime", curTime)
                 .addHeader("CheckSum", checkSum)
                 .addHeader("Nonce", nonce)

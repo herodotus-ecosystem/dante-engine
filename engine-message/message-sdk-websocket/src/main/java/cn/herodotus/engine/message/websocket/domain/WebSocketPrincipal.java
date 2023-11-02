@@ -34,7 +34,7 @@ import java.util.Set;
 public class WebSocketPrincipal implements Principal {
 
     private String userId;
-    private String userName;
+    private String username;
 
     private String employeeId;
 
@@ -44,7 +44,7 @@ public class WebSocketPrincipal implements Principal {
 
     public WebSocketPrincipal(PrincipalDetails details) {
         this.userId = details.getOpenId();
-        this.userName = details.getUserName();
+        this.username = details.getUsername();
         this.employeeId = details.getEmployeeId();
         this.avatar = details.getAvatar();
         this.roles = details.getRoles();
@@ -54,18 +54,18 @@ public class WebSocketPrincipal implements Principal {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
      * 这里的 Name 是发送信息目标的标识。
      * <p>
-     * 使用 UserName 可控度不高，使用也不方便。直接用ID
+     * 使用 Username 可控度不高，使用也不方便。直接用ID
      *
      * @return WebSocket 用户的唯一标识
      */
@@ -127,7 +127,7 @@ public class WebSocketPrincipal implements Principal {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("userId", userId)
-                .add("userName", userName)
+                .add("username", username)
                 .add("employeeId", employeeId)
                 .add("avatar", avatar)
                 .toString();

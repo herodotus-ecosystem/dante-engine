@@ -16,6 +16,7 @@
 
 package cn.herodotus.engine.assistant.ip2region.searcher;
 
+import cn.herodotus.engine.assistant.core.utils.type.NumberUtils;
 import cn.herodotus.engine.assistant.ip2region.domain.IpAddress;
 import cn.herodotus.engine.assistant.ip2region.domain.IpLocation;
 import cn.herodotus.engine.assistant.ip2region.utils.IpLocationUtils;
@@ -47,10 +48,6 @@ public class IpV6Searcher {
         this.offLen = read1(6);
         this.ipLen = read1(7);
         this.total = read8(8);
-    }
-
-    private int longToInt(long value) {
-        return Long.valueOf(value).intValue();
     }
 
     public IpLocation query(String ip) {
@@ -117,12 +114,12 @@ public class IpV6Searcher {
     }
 
     private int read1(long offset) {
-        return data[longToInt(offset)];
+        return data[NumberUtils.longToInt(offset)];
     }
 
 
     private byte[] readRaw(byte[] dist, long offset, int size) {
-        System.arraycopy(data, longToInt(offset), dist, 0, size);
+        System.arraycopy(data, NumberUtils.longToInt(offset), dist, 0, size);
         return dist;
     }
 

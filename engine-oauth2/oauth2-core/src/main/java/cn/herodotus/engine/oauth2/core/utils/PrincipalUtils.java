@@ -38,7 +38,7 @@ public class PrincipalUtils {
     public static PrincipalDetails toPrincipalDetails(HerodotusUser herodotusUser) {
         PrincipalDetails details = new PrincipalDetails();
         details.setOpenId(herodotusUser.getUserId());
-        details.setUserName(herodotusUser.getUsername());
+        details.setUsername(herodotusUser.getUsername());
         details.setRoles(herodotusUser.getRoles());
         details.setAvatar(herodotusUser.getAvatar());
         details.setEmployeeId(herodotusUser.getEmployeeId());
@@ -48,7 +48,7 @@ public class PrincipalUtils {
     public static PrincipalDetails toPrincipalDetails(OAuth2AuthenticatedPrincipal authenticatedPrincipal) {
         PrincipalDetails details = new PrincipalDetails();
         details.setOpenId(authenticatedPrincipal.getAttribute(BaseConstants.OPEN_ID));
-        details.setUserName(authenticatedPrincipal.getName());
+        details.setUsername(authenticatedPrincipal.getName());
         List<String> roles = authenticatedPrincipal.getAttribute(BaseConstants.ROLES);
         if (CollectionUtils.isNotEmpty(roles)) {
             details.setRoles(new HashSet<>(roles));
@@ -61,7 +61,7 @@ public class PrincipalUtils {
     public static PrincipalDetails toPrincipalDetails(Jwt jwt) {
         PrincipalDetails details = new PrincipalDetails();
         details.setOpenId(jwt.getClaimAsString(BaseConstants.OPEN_ID));
-        details.setUserName(jwt.getClaimAsString(JwtClaimNames.SUB));
+        details.setUsername(jwt.getClaimAsString(JwtClaimNames.SUB));
         details.setRoles(jwt.getClaim(BaseConstants.ROLES));
         details.setAvatar(jwt.getClaimAsString(BaseConstants.AVATAR));
         details.setEmployeeId(jwt.getClaimAsString(BaseConstants.EMPLOYEE_ID));

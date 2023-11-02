@@ -42,7 +42,7 @@ public interface SocialUserDetails {
 
     String getAvatar();
 
-    String getUserName();
+    String getUsername();
 
-    String getNickName();
+    String getNickname();
 }

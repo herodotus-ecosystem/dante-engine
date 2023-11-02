@@ -67,8 +67,8 @@ public class WxappAccessHandler implements AccessHandler {
     private AccessUserDetails convertWxMaUserInfoToAccessUserDetails(WxMaUserInfo wxMaUserInfo, AccessPrincipal accessPrincipal) {
         AccessUserDetails accessUserDetails = new AccessUserDetails();
         accessUserDetails.setUuid(accessPrincipal.getOpenId());
-        accessUserDetails.setUserName(wxMaUserInfo.getNickName());
-        accessUserDetails.setNickName(wxMaUserInfo.getNickName());
+        accessUserDetails.setUsername(wxMaUserInfo.getNickName());
+        accessUserDetails.setNickname(wxMaUserInfo.getNickName());
         accessUserDetails.setAvatar(wxMaUserInfo.getAvatarUrl());
         accessUserDetails.setLocation(wxMaUserInfo.getCountry() + SymbolConstants.FORWARD_SLASH + wxMaUserInfo.getProvince() + SymbolConstants.FORWARD_SLASH + wxMaUserInfo.getCity());
         accessUserDetails.setSource(AccountType.WXAPP.name());

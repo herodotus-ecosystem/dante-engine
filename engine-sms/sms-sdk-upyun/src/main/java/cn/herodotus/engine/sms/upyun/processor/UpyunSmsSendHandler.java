@@ -37,13 +37,10 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2021/5/25 15:59
  */
-public class UpyunSmsSendHandler extends AbstractSmsSendHandler {
+public class UpyunSmsSendHandler extends AbstractSmsSendHandler<UpyunSmsProperties> {
 
-    private final UpyunSmsProperties properties;
-
-    public UpyunSmsSendHandler(UpyunSmsProperties properties) {
-        super(properties);
-        this.properties = properties;
+    public UpyunSmsSendHandler(UpyunSmsProperties upyunSmsProperties) {
+        super(upyunSmsProperties);
     }
 
     @Override
@@ -63,9 +60,9 @@ public class UpyunSmsSendHandler extends AbstractSmsSendHandler {
         request.setTemplateId(templateId);
         request.setVars(templateParams);
 
-        HttpResult result = this.http().sync(this.properties.getApiUrl())
+        HttpResult result = this.http().sync(this.getSmsProperties().getApiUrl())
                 .bodyType(OkHttps.JSON)
-                .addHeader(HttpHeaders.AUTHORIZATION, this.properties.getToken())
+                .addHeader(HttpHeaders.AUTHORIZATION, this.getSmsProperties().getToken())
                 .setBodyPara(request)
                 .nothrow()
                 .post();

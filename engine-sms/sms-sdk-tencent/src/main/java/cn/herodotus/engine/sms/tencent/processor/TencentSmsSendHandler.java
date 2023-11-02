@@ -43,19 +43,17 @@ import java.util.stream.Collectors;
  * @author : gengwei.zheng
  * @date : 2021/5/25 15:59
  */
-public class TencentSmsSendHandler extends AbstractSmsSendHandler {
+public class TencentSmsSendHandler extends AbstractSmsSendHandler<TencentSmsProperties> {
 
     private static final String SUCCESS_CODE = "OK";
 
     private final SmsClient sender;
-    private final TencentSmsProperties properties;
 
-    public TencentSmsSendHandler(TencentSmsProperties properties) {
-        super(properties);
-        this.properties = properties;
+    public TencentSmsSendHandler(TencentSmsProperties tencentSmsProperties) {
+        super(tencentSmsProperties);
 
-        Credential credential = new Credential(this.properties.getSecretId(), this.properties.getSecretKey());
-        sender = new SmsClient(credential, this.properties.getRegion());
+        Credential credential = new Credential(tencentSmsProperties.getSecretId(), tencentSmsProperties.getSecretKey());
+        sender = new SmsClient(credential, tencentSmsProperties.getRegion());
     }
 
     @Override
@@ -84,8 +82,8 @@ public class TencentSmsSendHandler extends AbstractSmsSendHandler {
 
         try {
             SendSmsRequest request = new SendSmsRequest();
-            request.setSmsSdkAppid(this.properties.getSmsAppId());
-            request.setSign(this.properties.getSmsSign());
+            request.setSmsSdkAppid(this.getSmsProperties().getSmsAppId());
+            request.setSign(this.getSmsProperties().getSmsSign());
             request.setTemplateID(templateId);
             request.setTemplateParamSet(ListUtils.toStringArray(templateParams));
             request.setPhoneNumberSet(ListUtils.toStringArray(mobileGroup));

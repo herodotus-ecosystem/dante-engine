@@ -67,8 +67,8 @@ public class SysUserService extends BaseService<SysUser, String> {
         return sysUserRepository;
     }
 
-    public SysUser findByUserName(String userName) {
-        return sysUserRepository.findByUserName(userName);
+    public SysUser findByUsername(String username) {
+        return sysUserRepository.findByUsername(username);
     }
 
     public SysUser findByUserId(String userId) {
@@ -121,13 +121,13 @@ public class SysUserService extends BaseService<SysUser, String> {
         return saveAndFlush(sysUser);
     }
 
-    private String enhance(String userName) {
-        if (StringUtils.isNotBlank(userName)) {
-            SysUser checkedSysUser = this.findByUserName(userName);
+    private String enhance(String username) {
+        if (StringUtils.isNotBlank(username)) {
+            SysUser checkedSysUser = this.findByUsername(username);
             if (ObjectUtils.isNotEmpty(checkedSysUser)) {
-                return checkedSysUser.getUserName() + IdUtil.nanoId(6);
+                return checkedSysUser.getUsername() + IdUtil.nanoId(6);
             } else {
-                return userName;
+                return username;
             }
         } else {
             return "Herodotus" + IdUtil.nanoId(6);
@@ -137,12 +137,12 @@ public class SysUserService extends BaseService<SysUser, String> {
     public SysUser register(SocialUserDetails socialUserDetails) {
         SysUser sysUser = new SysUser();
 
-        String userName = enhance(socialUserDetails.getUserName());
-        sysUser.setUserName(userName);
+        String username = enhance(socialUserDetails.getUsername());
+        sysUser.setUsername(username);
 
-        String nickName = socialUserDetails.getNickName();
-        if (StringUtils.isNotBlank(nickName)) {
-            sysUser.setNickName(nickName);
+        String nickname = socialUserDetails.getNickname();
+        if (StringUtils.isNotBlank(nickname)) {
+            sysUser.setNickname(nickname);
         }
 
         String phoneNumber = socialUserDetails.getPhoneNumber();
@@ -169,7 +169,7 @@ public class SysUserService extends BaseService<SysUser, String> {
         SysUser sysUser = findByUserId(userId);
         if (ObjectUtils.isNotEmpty(sysUser)) {
             sysUser.setStatus(status);
-            log.debug("[Herodotus] |- Change user [{}] status to [{}]", sysUser.getUserName(), status.name());
+            log.debug("[Herodotus] |- Change user [{}] status to [{}]", sysUser.getUsername(), status.name());
             save(sysUser);
         }
     }

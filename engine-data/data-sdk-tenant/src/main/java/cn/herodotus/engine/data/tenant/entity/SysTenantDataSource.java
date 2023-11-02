@@ -50,7 +50,7 @@ public class SysTenantDataSource extends BaseSysEntity {
     private String tenantId;
 
     @Schema(name = "数据库用户名")
-    @Column(name = "username", length = 100)
+    @Column(name = "user_name", length = 100)
     private String username;
 
     @Schema(name = "数据库密码")

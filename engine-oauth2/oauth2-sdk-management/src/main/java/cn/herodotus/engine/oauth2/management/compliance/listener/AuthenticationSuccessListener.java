@@ -61,7 +61,7 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
 
             String username = null;
             if (ObjectUtils.isNotEmpty(details) && details instanceof PrincipalDetails user) {
-                username = user.getUserName();
+                username = user.getUsername();
             }
 
             String clientId = authenticationToken.getRegisteredClient().getId();
@@ -79,7 +79,7 @@ public class AuthenticationSuccessListener implements ApplicationListener<Authen
                     }
                 }
             } else {
-                log.warn("[Herodotus] |- Can not get request and username, skip!");
+                log.warn("[Herodotus] |- Can not get request and user name, skip!");
             }
         }
     }

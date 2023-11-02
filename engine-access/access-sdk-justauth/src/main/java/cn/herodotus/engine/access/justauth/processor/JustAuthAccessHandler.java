@@ -76,8 +76,8 @@ public class JustAuthAccessHandler implements AccessHandler {
     private AccessUserDetails convertAuthUserToAccessUserDetails(AuthUser authUser) {
         AccessUserDetails sysSocialUser = new AccessUserDetails();
         sysSocialUser.setUuid(authUser.getUuid());
-        sysSocialUser.setUserName(authUser.getUsername());
-        sysSocialUser.setNickName(authUser.getNickname());
+        sysSocialUser.setUsername(authUser.getUsername());
+        sysSocialUser.setNickname(authUser.getNickname());
         sysSocialUser.setAvatar(authUser.getAvatar());
         sysSocialUser.setBlog(authUser.getBlog());
         sysSocialUser.setCompany(authUser.getCompany());

@@ -39,16 +39,20 @@ import java.util.stream.Collectors;
  * @author : gengwei.zheng
  * @date : 2021/5/25 16:58
  */
-public abstract class AbstractSmsSendHandler implements SmsSendHandler {
+public abstract class AbstractSmsSendHandler<P extends AbstractSmsProperties> implements SmsSendHandler {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractSmsSendHandler.class);
 
     private static final String DEFAULT_NATION_CODE = "+86";
 
-    private final SmsProperties smsProperties;
+    private final P smsProperties;
 
-    public AbstractSmsSendHandler(SmsProperties smsProperties) {
+    protected AbstractSmsSendHandler(P smsProperties) {
         this.smsProperties = smsProperties;
+    }
+
+    public P getSmsProperties() {
+        return smsProperties;
     }
 
     /**

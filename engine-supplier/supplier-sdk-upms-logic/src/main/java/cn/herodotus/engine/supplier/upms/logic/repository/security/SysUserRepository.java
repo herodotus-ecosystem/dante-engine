@@ -32,11 +32,11 @@ public interface SysUserRepository extends BaseRepository<SysUser, String> {
     /**
      * 根据用户名查找SysUser
      *
-     * @param userName 用户名
+     * @param username 用户名
      * @return {@link SysUser}
      */
     @QueryHints(@QueryHint(name = AvailableHints.HINT_CACHEABLE, value = "true"))
-    SysUser findByUserName(String userName);
+    SysUser findByUsername(String username);
 
     /**
      * 根据用户ID查找用户

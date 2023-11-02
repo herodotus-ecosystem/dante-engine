@@ -29,6 +29,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.hc.core5.http.HttpHeaders;
+import org.dromara.hutool.core.util.ByteUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +45,7 @@ import java.util.UUID;
  * @author : gengwei.zheng
  * @date : 2021/5/25 14:47
  */
-public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
+public class HuaweiSmsSendHandler extends AbstractSmsSendHandler<HuaweiSmsProperties> {
 
     private static final Logger log = LoggerFactory.getLogger(HuaweiSmsSendHandler.class);
 
@@ -58,11 +59,9 @@ public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
      */
     private static final String AUTH_HEADER_VALUE = "WSSE realm=\"SDP\",profile=\"UsernameToken\",type=\"Appkey\"";
 
-    private final HuaweiSmsProperties properties;
-
     public HuaweiSmsSendHandler(HuaweiSmsProperties properties) {
         super(properties);
-        this.properties = properties;
+
     }
 
     /**
@@ -71,8 +70,8 @@ public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
      * @return X-WSSE参数值
      */
     private String buildWsseHeader() {
-        String appKey = this.properties.getAppKey();
-        String appSecret = this.properties.getAppSecret();
+        String appKey = this.getSmsProperties().getAppKey();
+        String appSecret = this.getSmsProperties().getAppSecret();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         String time = sdf.format(new Date());
@@ -81,7 +80,7 @@ public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
         byte[] passwordDigest = DigestUtils.sha256(nonce + time + appSecret);
         String hexDigest = Hex.encodeHexString(passwordDigest);
 
-        String passwordDigestBase64Str = Base64.getEncoder().encodeToString(hexDigest.getBytes());
+        String passwordDigestBase64Str = Base64.getEncoder().encodeToString(ByteUtil.toUtf8Bytes(hexDigest));
 
         return String.format(WSSE_HEADER_FORMAT, appKey, passwordDigestBase64Str, nonce, time);
     }
@@ -101,14 +100,14 @@ public class HuaweiSmsSendHandler extends AbstractSmsSendHandler {
         String wsseHeader = buildWsseHeader();
 
         HuaweiSmsRequest request = new HuaweiSmsRequest();
-        request.setFrom(this.properties.getSender());
+        request.setFrom(this.getSmsProperties().getSender());
         request.setTo(mobiles);
         request.setTemplateId(templateId);
         request.setTemplateParas(templateParams);
-        request.setSignature(this.properties.getSignature());
+        request.setSignature(this.getSmsProperties().getSignature());
 
 
-        HttpResult result = this.http().sync(this.properties.getUri())
+        HttpResult result = this.http().sync(this.getSmsProperties().getUri())
                 .bodyType(OkHttps.JSON)
                 .addHeader(HttpHeaders.AUTHORIZATION, AUTH_HEADER_VALUE)
                 .addHeader("X-WSSE", wsseHeader)

@@ -36,7 +36,7 @@ public class RequestMappingScanCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        boolean result = RestPropertyFinder.isScanEnabled(conditionContext.getEnvironment());
+        boolean result = RestPropertyFinder.isScanEnabled(conditionContext);
         log.debug("[Herodotus] |- Condition [Request Mapping Scan] value is [{}]", result);
         return result;
     }

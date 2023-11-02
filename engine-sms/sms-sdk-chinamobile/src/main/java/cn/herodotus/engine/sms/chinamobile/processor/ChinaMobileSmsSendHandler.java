@@ -24,8 +24,6 @@ import cn.herodotus.engine.sms.core.exception.ParameterOrdersInvalidException;
 import cn.herodotus.engine.sms.core.exception.TemplateIdInvalidException;
 import cn.zhxu.okhttps.HttpResult;
 import cn.zhxu.okhttps.OkHttps;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -35,15 +33,10 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2021/5/25 14:57
  */
-public class ChinaMobileSmsSendHandler extends AbstractSmsSendHandler {
+public class ChinaMobileSmsSendHandler extends AbstractSmsSendHandler<ChinaMobileSmsProperties> {
 
-    private static final Logger log = LoggerFactory.getLogger(ChinaMobileSmsSendHandler.class);
-
-    private final ChinaMobileSmsProperties properties;
-
-    public ChinaMobileSmsSendHandler(ChinaMobileSmsProperties properties) {
-        super(properties);
-        this.properties = properties;
+    public ChinaMobileSmsSendHandler(ChinaMobileSmsProperties chinaMobileSmsProperties) {
+        super(chinaMobileSmsProperties);
     }
 
     @Override
@@ -57,15 +50,15 @@ public class ChinaMobileSmsSendHandler extends AbstractSmsSendHandler {
         String templateParams = this.getOrderedParamsString(template);
 
         ChinaMobileSmsRequest request = new ChinaMobileSmsRequest(
-                this.properties.getEcName(),
-                this.properties.getApId(),
-                this.properties.getSecretKey(),
+                this.getSmsProperties().getEcName(),
+                this.getSmsProperties().getApId(),
+                this.getSmsProperties().getSecretKey(),
                 templateId,
                 join(phones),
                 templateParams,
-                this.properties.getSign());
+                this.getSmsProperties().getSign());
 
-        HttpResult result = this.http().sync(this.properties.getUri())
+        HttpResult result = this.http().sync(this.getSmsProperties().getUri())
                 .bodyType(OkHttps.FORM)
                 .setBodyPara(request)
                 .nothrow()

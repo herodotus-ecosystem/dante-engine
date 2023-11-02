@@ -68,7 +68,7 @@ public class PhoneNumberAccessHandler implements AccessHandler {
             AccessUserDetails accessUserDetails = new AccessUserDetails();
             accessUserDetails.setUuid(accessPrincipal.getMobile());
             accessUserDetails.setPhoneNumber(accessPrincipal.getMobile());
-            accessUserDetails.setUserName(accessPrincipal.getMobile());
+            accessUserDetails.setUsername(accessPrincipal.getMobile());
             accessUserDetails.setSource(source);
 
             verificationCodeStampManager.delete(accessPrincipal.getMobile());

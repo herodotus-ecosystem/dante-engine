@@ -53,7 +53,7 @@
         <spring-boot-dependencies.version>3.1.5</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2022.0.4</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
-        <spring-cloud-tencent-dependencies.version>1.12.3-2022.0.4</spring-cloud-tencent-dependencies.version>
+        <spring-cloud-tencent-dependencies.version>1.12.4-2022.0.4</spring-cloud-tencent-dependencies.version>
 
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
@@ -340,6 +340,11 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>message-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.engine</groupId>
+                <artifactId>message-sdk-mqtt</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

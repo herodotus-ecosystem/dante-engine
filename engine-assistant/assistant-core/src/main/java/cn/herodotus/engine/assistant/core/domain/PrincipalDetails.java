@@ -34,7 +34,7 @@ public class PrincipalDetails {
 
     private String openId;
 
-    private String userName;
+    private String username;
 
     private Set<String> roles;
 
@@ -50,12 +50,12 @@ public class PrincipalDetails {
         this.openId = openId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Set<String> getRoles() {
@@ -85,7 +85,7 @@ public class PrincipalDetails {
     public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>();
         map.put(BaseConstants.OPEN_ID, this.openId);
-        map.put(BaseConstants.USERNAME, this.userName);
+        map.put(BaseConstants.USERNAME, this.username);
         map.put(BaseConstants.ROLES, this.roles);
         map.put(BaseConstants.EMPLOYEE_ID, this.employeeId);
         map.put(BaseConstants.AVATAR, this.avatar);
@@ -113,7 +113,7 @@ public class PrincipalDetails {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("userId", openId)
-                .add("userName", userName)
+                .add("username", username)
                 .add("roles", roles)
                 .add("employeeId", employeeId)
                 .add("avatar", avatar)

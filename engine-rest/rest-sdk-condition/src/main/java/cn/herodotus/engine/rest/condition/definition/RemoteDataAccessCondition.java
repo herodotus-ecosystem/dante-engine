@@ -38,7 +38,7 @@ public class RemoteDataAccessCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = RestPropertyFinder.getDataAccessStrategy(conditionContext.getEnvironment(), Target.REMOTE.name());
+        String property = RestPropertyFinder.getDataAccessStrategy(conditionContext, Target.REMOTE.name());
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, Target.REMOTE.name());
         log.debug("[Herodotus] |- Condition [Remote Data Access] value is [{}]", result);
         return result;

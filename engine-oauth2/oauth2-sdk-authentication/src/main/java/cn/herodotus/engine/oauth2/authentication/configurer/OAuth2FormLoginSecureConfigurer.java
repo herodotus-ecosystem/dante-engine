@@ -20,7 +20,6 @@ import cn.herodotus.engine.captcha.core.processor.CaptchaRendererFactory;
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.authentication.provider.OAuth2FormLoginAuthenticationProvider;
 import cn.herodotus.engine.oauth2.authentication.response.OAuth2FormLoginAuthenticationFailureHandler;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -66,7 +65,6 @@ public class OAuth2FormLoginSecureConfigurer<H extends HttpSecurityBuilder<H>> e
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    @NotNull
     private OAuth2FormLoginAuthenticationFilter getOAuth2FormLoginAuthenticationFilter(AuthenticationManager authenticationManager, SecurityContextRepository securityContextRepository) {
         OAuth2FormLoginAuthenticationFilter filter = new OAuth2FormLoginAuthenticationFilter(authenticationManager);
         filter.setUsernameParameter(getFormLogin().getUsernameParameter());

@@ -55,7 +55,7 @@ public class SysUserToHerodotusUserConverter implements Converter<SysUser, Herod
 
         String employeeId = ObjectUtils.isNotEmpty(sysUser.getEmployee()) ? sysUser.getEmployee().getEmployeeId() : null;
 
-        return new HerodotusUser(sysUser.getUserId(), sysUser.getUserName(), sysUser.getPassword(),
+        return new HerodotusUser(sysUser.getUserId(), sysUser.getUsername(), sysUser.getPassword(),
                 isEnabled(sysUser),
                 isAccountNonExpired(sysUser),
                 isCredentialsNonExpired(sysUser),
