@@ -108,7 +108,7 @@ public class OAuth2ScopeController extends BaseWriteableRestController<OAuth2Sco
             }
     )
     @GetMapping("/{scopeCode}")
-    public Result<OAuth2Scope> findByUserName(@PathVariable("scopeCode") String scopeCode) {
+    public Result<OAuth2Scope> findByScopeCode(@PathVariable("scopeCode") String scopeCode) {
         OAuth2Scope scope = scopeService.findByScopeCode(scopeCode);
         return result(scope);
     }

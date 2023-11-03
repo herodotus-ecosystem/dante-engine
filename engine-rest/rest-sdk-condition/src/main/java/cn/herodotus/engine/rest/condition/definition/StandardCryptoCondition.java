@@ -38,7 +38,7 @@ public class StandardCryptoCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = RestPropertyFinder.getCryptoStrategy(conditionContext.getEnvironment());
+        String property = RestPropertyFinder.getCryptoStrategy(conditionContext);
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, CryptoStrategy.STANDARD.name());
         log.debug("[Herodotus] |- Condition [Standard Crypto] value is [{}]", result);
         return result;

@@ -33,9 +33,10 @@ public class UseHttpClient5RestClientCondition implements Condition {
 
     private static final Logger log = LoggerFactory.getLogger(UseHttpClient5RestClientCondition.class);
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        boolean result = RestPropertyFinder.isOpenFeignHttpClientEnabled(context.getEnvironment());
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        boolean result = RestPropertyFinder.isOpenFeignHttpClientEnabled(conditionContext);
         log.debug("[Herodotus] |- Condition [Use HttpClient AS Rest Client] value is [{}]", result);
         return result;
     }

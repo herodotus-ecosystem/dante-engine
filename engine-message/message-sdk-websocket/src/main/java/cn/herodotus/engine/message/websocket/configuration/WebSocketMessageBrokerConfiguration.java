@@ -114,7 +114,7 @@ public class WebSocketMessageBrokerConfiguration extends AbstractSessionWebSocke
 //        registry.enableStompBrokerRelay("/topicTest", "/userTest")
 //                .setRelayHost("rabbit.someotherserver")
 //                .setRelayPort(62623);
-//                .setClientLogin("userName")
+//                .setClientLogin("username")
 //                .setClientPasscode("password");
 
         // 自定义调度器，用于控制心跳线程

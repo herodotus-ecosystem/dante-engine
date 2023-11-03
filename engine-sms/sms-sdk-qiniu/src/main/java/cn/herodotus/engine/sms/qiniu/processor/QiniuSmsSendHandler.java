@@ -36,18 +36,16 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2021/5/25 16:00
  */
-public class QiniuSmsSendHandler extends AbstractSmsSendHandler {
+public class QiniuSmsSendHandler extends AbstractSmsSendHandler<QiniuSmsProperties> {
 
     private static final Logger log = LoggerFactory.getLogger(QiniuSmsSendHandler.class);
 
     private final SmsManager smsManager;
-    private final QiniuSmsProperties properties;
 
-    public QiniuSmsSendHandler(QiniuSmsProperties properties) {
-        super(properties);
-        this.properties = properties;
+    public QiniuSmsSendHandler(QiniuSmsProperties qiniuSmsProperties) {
+        super(qiniuSmsProperties);
 
-        Auth auth = Auth.create(this.properties.getAccessKey(), this.properties.getSecretKey());
+        Auth auth = Auth.create(qiniuSmsProperties.getAccessKey(), qiniuSmsProperties.getSecretKey());
         smsManager = new SmsManager(auth);
     }
 

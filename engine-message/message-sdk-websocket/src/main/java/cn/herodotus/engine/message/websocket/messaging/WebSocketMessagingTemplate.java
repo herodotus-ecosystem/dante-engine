@@ -32,15 +32,7 @@ import org.springframework.messaging.simp.user.SimpUserRegistry;
  * @author : gengwei.zheng
  * @date : 2023/10/26 23:26
  */
-public class WebSocketMessagingTemplate {
-
-    private final SimpMessagingTemplate simpMessagingTemplate;
-    private final SimpUserRegistry simpUserRegistry;
-
-    public WebSocketMessagingTemplate(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
-        this.simpMessagingTemplate = simpMessagingTemplate;
-        this.simpUserRegistry = simpUserRegistry;
-    }
+public record WebSocketMessagingTemplate(SimpMessagingTemplate simpMessagingTemplate, SimpUserRegistry simpUserRegistry) {
 
     /**
      * 发送 WebSocket 点对点消息。发送信息给指定用户
@@ -85,13 +77,5 @@ public class WebSocketMessagingTemplate {
      */
     public boolean isUserExist(String userId) {
         return ObjectUtils.isNotEmpty(getUser(userId));
-    }
-
-    public SimpMessagingTemplate getSimpMessagingTemplate() {
-        return simpMessagingTemplate;
-    }
-
-    public SimpUserRegistry getSimpUserRegistry() {
-        return simpUserRegistry;
     }
 }

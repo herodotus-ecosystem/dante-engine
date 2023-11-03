@@ -38,7 +38,7 @@ public class SMCryptoCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = RestPropertyFinder.getCryptoStrategy(conditionContext.getEnvironment(), CryptoStrategy.SM.name());
+        String property = RestPropertyFinder.getCryptoStrategy(conditionContext, CryptoStrategy.SM.name());
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, CryptoStrategy.SM.name());
         log.debug("[Herodotus] |- Condition [SM Crypto Strategy] value is [{}]", result);
         return result;

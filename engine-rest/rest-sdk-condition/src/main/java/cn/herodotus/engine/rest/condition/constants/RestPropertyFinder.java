@@ -19,7 +19,8 @@ package cn.herodotus.engine.rest.condition.constants;
 
 import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import cn.herodotus.engine.assistant.core.definition.constants.BaseConstants;
-import org.springframework.core.env.Environment;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ConditionContext;
 
 /**
  * <p>Description: 策略模块配置获取器 </p>
@@ -29,43 +30,43 @@ import org.springframework.core.env.Environment;
  */
 public class RestPropertyFinder {
 
-    public static String getApplicationName(Environment environment) {
-        return PropertyResolver.getProperty(environment, BaseConstants.ITEM_SPRING_APPLICATION_NAME);
+    public static String getApplicationName(ApplicationContext applicationContext) {
+        return PropertyResolver.getProperty(applicationContext.getEnvironment(), BaseConstants.ITEM_SPRING_APPLICATION_NAME);
     }
 
-    public static String getCryptoStrategy(Environment environment, String defaultValue) {
-        return PropertyResolver.getProperty(environment, RestConstants.ITEM_PROTECT_CRYPTO_STRATEGY, defaultValue);
+    public static String getCryptoStrategy(ConditionContext conditionContext, String defaultValue) {
+        return PropertyResolver.getProperty(conditionContext, RestConstants.ITEM_PROTECT_CRYPTO_STRATEGY, defaultValue);
     }
 
-    public static String getCryptoStrategy(Environment environment) {
-        return PropertyResolver.getProperty(environment, RestConstants.ITEM_PROTECT_CRYPTO_STRATEGY);
+    public static String getCryptoStrategy(ConditionContext conditionContext) {
+        return PropertyResolver.getProperty(conditionContext, RestConstants.ITEM_PROTECT_CRYPTO_STRATEGY);
     }
 
-    public static boolean isScanEnabled(Environment environment) {
-        return PropertyResolver.getBoolean(environment, RestConstants.ITEM_SCAN_ENABLED);
+    public static boolean isScanEnabled(ConditionContext conditionContext) {
+        return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_SCAN_ENABLED);
     }
 
-    public static boolean isOpenFeignOkHttpEnabled(Environment environment) {
-        return PropertyResolver.getBoolean(environment, RestConstants.ITEM_OPENFEIGN_OKHTTP_ENABLED);
+    public static boolean isOpenFeignOkHttpEnabled(ConditionContext conditionContext) {
+        return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_OPENFEIGN_OKHTTP_ENABLED);
     }
 
-    public static boolean isOpenFeignHttpClientEnabled(Environment environment) {
-        return PropertyResolver.getBoolean(environment, RestConstants.ITEM_OPENFEIGN_HTTPCLIENT_ENABLED);
+    public static boolean isOpenFeignHttpClientEnabled(ConditionContext conditionContext) {
+        return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_OPENFEIGN_HTTPCLIENT_ENABLED);
     }
 
-    public static String getDataAccessStrategy(Environment environment, String defaultValue) {
-        return PropertyResolver.getProperty(environment, RestConstants.ITEM_PLATFORM_DATA_ACCESS_STRATEGY, defaultValue);
+    public static String getDataAccessStrategy(ConditionContext conditionContext, String defaultValue) {
+        return PropertyResolver.getProperty(conditionContext, RestConstants.ITEM_PLATFORM_DATA_ACCESS_STRATEGY, defaultValue);
     }
 
-    public static String getDataAccessStrategy(Environment environment) {
-        return PropertyResolver.getProperty(environment, RestConstants.ITEM_PLATFORM_DATA_ACCESS_STRATEGY);
+    public static String getDataAccessStrategy(ConditionContext conditionContext) {
+        return PropertyResolver.getProperty(conditionContext, RestConstants.ITEM_PLATFORM_DATA_ACCESS_STRATEGY);
     }
 
-    public static String getArchitecture(Environment environment, String defaultValue) {
-        return PropertyResolver.getProperty(environment, RestConstants.ITEM_PLATFORM_ARCHITECTURE, defaultValue);
+    public static String getArchitecture(ConditionContext conditionContext, String defaultValue) {
+        return PropertyResolver.getProperty(conditionContext, RestConstants.ITEM_PLATFORM_ARCHITECTURE, defaultValue);
     }
 
-    public static String getArchitecture(Environment environment) {
-        return PropertyResolver.getProperty(environment, RestConstants.ITEM_PLATFORM_ARCHITECTURE);
+    public static String getArchitecture(ConditionContext conditionContext) {
+        return PropertyResolver.getProperty(conditionContext, RestConstants.ITEM_PLATFORM_ARCHITECTURE);
     }
 }

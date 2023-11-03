@@ -39,7 +39,7 @@ public class SingleWebSocketInstanceCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
-        String property = PropertyResolver.getProperty(conditionContext.getEnvironment(), MessageConstants.ITEM_WEBSOCKET_MULTIPLE_INSTANCE, InstanceMode.SINGLE.name());
+        String property = PropertyResolver.getProperty(conditionContext, MessageConstants.ITEM_WEBSOCKET_MULTIPLE_INSTANCE, InstanceMode.SINGLE.name());
         boolean result = StringUtils.equalsIgnoreCase(property, InstanceMode.SINGLE.name());
         log.debug("[Herodotus] |- Condition [Single Web Socket Instance] value is [{}]", result);
         return result;

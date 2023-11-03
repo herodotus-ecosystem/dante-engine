@@ -33,10 +33,11 @@ public class UseSimpleRestClientCondition implements Condition {
 
     private static final Logger log = LoggerFactory.getLogger(UseSimpleRestClientCondition.class);
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        boolean isOkHttpEnabled = RestPropertyFinder.isOpenFeignOkHttpEnabled(context.getEnvironment());
-        boolean isHttpClientEnabled = RestPropertyFinder.isOpenFeignHttpClientEnabled(context.getEnvironment());
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        boolean isOkHttpEnabled = RestPropertyFinder.isOpenFeignOkHttpEnabled(conditionContext);
+        boolean isHttpClientEnabled = RestPropertyFinder.isOpenFeignHttpClientEnabled(conditionContext);
         boolean result = !isOkHttpEnabled && !isHttpClientEnabled;
         log.debug("[Herodotus] |- Condition [Use Simple Rest Client] value is [{}]", result);
         return result;

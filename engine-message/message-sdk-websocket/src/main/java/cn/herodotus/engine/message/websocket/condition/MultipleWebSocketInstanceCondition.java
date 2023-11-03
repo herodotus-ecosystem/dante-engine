@@ -39,10 +39,9 @@ public class MultipleWebSocketInstanceCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata metadata) {
-        String property = PropertyResolver.getProperty(conditionContext.getEnvironment(), MessageConstants.ITEM_WEBSOCKET_MULTIPLE_INSTANCE);
+        String property = PropertyResolver.getProperty(conditionContext, MessageConstants.ITEM_WEBSOCKET_MULTIPLE_INSTANCE);
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, InstanceMode.MULTIPLE.name());
         log.debug("[Herodotus] |- Condition [Multiple Web Socket Instance] value is [{}]", result);
         return result;
-
     }
 }

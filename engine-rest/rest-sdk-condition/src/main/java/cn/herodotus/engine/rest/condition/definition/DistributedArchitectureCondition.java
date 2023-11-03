@@ -38,7 +38,7 @@ public class DistributedArchitectureCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = RestPropertyFinder.getArchitecture(conditionContext.getEnvironment(), Architecture.DISTRIBUTED.name());
+        String property = RestPropertyFinder.getArchitecture(conditionContext, Architecture.DISTRIBUTED.name());
         boolean result = StringUtils.equalsIgnoreCase(property, Architecture.DISTRIBUTED.name());
         log.debug("[Herodotus] |- Condition [Distributed Architecture] value is [{}]", result);
         return result;

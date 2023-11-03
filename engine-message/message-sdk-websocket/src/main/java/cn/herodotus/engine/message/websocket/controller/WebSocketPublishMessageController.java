@@ -78,7 +78,7 @@ public class WebSocketPublishMessageController extends AbstractApplicationContex
             if (StringUtils.isBlank(detail.getSenderId()) && StringUtils.isBlank(detail.getSenderName())) {
                 WebSocketPrincipal sender = (WebSocketPrincipal) headerAccessor.getUser();
                 detail.setSenderId(sender.getUserId());
-                detail.setSenderName(sender.getUserName());
+                detail.setSenderName(sender.getUsername());
                 detail.setSenderAvatar(sender.getAvatar());
             }
 

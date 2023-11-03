@@ -38,7 +38,7 @@ public class LocalDataAccessCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = RestPropertyFinder.getDataAccessStrategy(conditionContext.getEnvironment());
+        String property = RestPropertyFinder.getDataAccessStrategy(conditionContext);
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, Target.LOCAL.name());
         log.debug("[Herodotus] |- Condition [Local Data Access] value is [{}]", result);
         return result;

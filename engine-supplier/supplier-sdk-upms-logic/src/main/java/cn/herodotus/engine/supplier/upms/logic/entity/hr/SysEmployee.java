@@ -240,12 +240,12 @@ public class SysEmployee extends BaseSysEntity implements SocialUserDetails {
     }
 
     @Override
-    public String getUserName() {
+    public String getUsername() {
         return this.getEmployeeName();
     }
 
     @Override
-    public String getNickName() {
+    public String getNickname() {
         return this.getEmail();
     }
 

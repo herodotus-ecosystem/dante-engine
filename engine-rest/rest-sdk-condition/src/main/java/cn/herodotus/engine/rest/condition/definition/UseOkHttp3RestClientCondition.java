@@ -33,9 +33,10 @@ public class UseOkHttp3RestClientCondition implements Condition {
 
     private static final Logger log = LoggerFactory.getLogger(UseOkHttp3RestClientCondition.class);
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        boolean result = RestPropertyFinder.isOpenFeignOkHttpEnabled(context.getEnvironment());
+    public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
+        boolean result = RestPropertyFinder.isOpenFeignOkHttpEnabled(conditionContext);
         log.debug("[Herodotus] |- Condition [Use OkHttp AS Rest Client] value is [{}]", result);
         return result;
     }

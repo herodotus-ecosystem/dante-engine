@@ -16,8 +16,6 @@
 
 package cn.herodotus.engine.message.core.definition.strategy;
 
-import cn.herodotus.engine.message.core.definition.strategy.StrategyEventManager;
-
 /**
  * <p>Description: 应用策略事件 </p>
  *

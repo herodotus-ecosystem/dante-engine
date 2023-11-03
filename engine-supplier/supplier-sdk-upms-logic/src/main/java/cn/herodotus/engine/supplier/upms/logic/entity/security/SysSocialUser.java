@@ -68,11 +68,11 @@ public class SysSocialUser extends BaseSysEntity implements SocialUserDetails {
 
     @Schema(title = "用户名")
     @Column(name = "user_name", length = 50)
-    private String userName;
+    private String username;
 
     @Schema(title = "用户昵称")
     @Column(name = "nick_name", length = 50)
-    private String nickName;
+    private String nickname;
 
     @Schema(title = "用户头像")
     @Column(name = "avatar", length = 1000)
@@ -186,22 +186,20 @@ public class SysSocialUser extends BaseSysEntity implements SocialUserDetails {
         this.uuid = uuid;
     }
 
-    @Override
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Override
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     @Override
@@ -380,8 +378,8 @@ public class SysSocialUser extends BaseSysEntity implements SocialUserDetails {
         return MoreObjects.toStringHelper(this)
                 .add("socialId", socialId)
                 .add("uuid", uuid)
-                .add("userName", userName)
-                .add("nickName", nickName)
+                .add("username", username)
+                .add("nickname", nickname)
                 .add("avatar", avatar)
                 .add("blog", blog)
                 .add("company", company)

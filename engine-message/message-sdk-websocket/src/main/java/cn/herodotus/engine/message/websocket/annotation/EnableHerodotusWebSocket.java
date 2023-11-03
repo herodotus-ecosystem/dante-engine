@@ -24,6 +24,8 @@ import java.lang.annotation.*;
 /**
  * <p>Description: 手动开启 WebSocket 配置 </p>
  *
+ * 模块中的内容相对独立，而且仅有一个 Configuration，同时无需考虑注入顺序的模块，则使用 @Enable 风格配置
+ *
  * @author : gengwei.zheng
  * @date : 2023/10/28 11:11
  */

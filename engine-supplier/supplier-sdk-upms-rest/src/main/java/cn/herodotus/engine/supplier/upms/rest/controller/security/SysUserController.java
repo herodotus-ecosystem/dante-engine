@@ -25,6 +25,7 @@ import cn.herodotus.engine.supplier.upms.logic.service.security.SysUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -98,9 +99,12 @@ public class SysUserController extends BaseWriteableRestController<SysUser, Stri
                     @ApiResponse(responseCode = "500", description = "查询失败")
             }
     )
-    @GetMapping("/sign-in/{userName}")
-    public Result<SysUser> findByUserName(@PathVariable("userName") String userName) {
-        SysUser sysUser = sysUserService.findByUserName(userName);
+    @Parameters({
+            @Parameter(name = "username", required = true, in = ParameterIn.PATH, description = "用户名"),
+    })
+    @GetMapping("/sign-in/{username}")
+    public Result<SysUser> findByUsername(@PathVariable("username") String username) {
+        SysUser sysUser = sysUserService.findByUsername(username);
         return result(sysUser);
     }
 }

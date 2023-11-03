@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-sms</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.5.2</version>
+        <version>3.1.5.3</version>
     </parent>
 
     <artifactId>sms-sdk-tencent</artifactId>
@@ -48,6 +48,10 @@
                 <exclusion>
                     <groupId>com.squareup.okhttp</groupId>
                     <artifactId>okhttp</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
                 </exclusion>
             </exclusions>
         </dependency>

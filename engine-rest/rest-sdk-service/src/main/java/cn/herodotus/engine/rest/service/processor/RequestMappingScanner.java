@@ -75,7 +75,7 @@ public class RequestMappingScanner implements ApplicationListener<ApplicationRea
 
     public void onApplicationEvent(ApplicationContext applicationContext) {
         // 1、获取服务ID：该服务ID对于微服务是必需的。
-        String serviceId = RestPropertyFinder.getApplicationName(applicationContext.getEnvironment());
+        String serviceId = RestPropertyFinder.getApplicationName(applicationContext);
 
         // 2、只针对有EnableResourceServer注解的微服务进行扫描。如果变为单体架构目前不会用到EnableResourceServer所以增加的了一个Architecture判断
         if (!requestMappingScanStrategyEvent.isPerformScan()) {

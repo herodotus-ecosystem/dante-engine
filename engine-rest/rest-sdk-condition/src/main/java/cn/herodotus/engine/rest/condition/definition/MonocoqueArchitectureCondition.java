@@ -38,7 +38,7 @@ public class MonocoqueArchitectureCondition implements Condition {
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        String property = RestPropertyFinder.getArchitecture(conditionContext.getEnvironment());
+        String property = RestPropertyFinder.getArchitecture(conditionContext);
         boolean result = StringUtils.isNotBlank(property) && StringUtils.equalsIgnoreCase(property, Architecture.MONOCOQUE.name());
         log.debug("[Herodotus] |- Condition [Monocoque Architecture] value is [{}]", result);
         return result;

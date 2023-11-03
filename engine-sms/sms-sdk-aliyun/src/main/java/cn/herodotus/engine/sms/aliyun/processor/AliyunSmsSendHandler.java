@@ -42,24 +42,22 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2021/5/26 10:43
  */
-public class AliyunSmsSendHandler extends AbstractSmsSendHandler {
+public class AliyunSmsSendHandler extends AbstractSmsSendHandler<AliyunSmsProperties> {
 
     private static final Logger log = LoggerFactory.getLogger(AliyunSmsSendHandler.class);
 
     private final IAcsClient iAcsClient;
-    private final AliyunSmsProperties properties;
 
     /**
      * 构造阿里云短信发送处理
      *
-     * @param properties 阿里云短信配置
+     * @param aliyunSmsProperties 阿里云短信配置
      */
-    public AliyunSmsSendHandler(AliyunSmsProperties properties) {
-        super(properties);
-        this.properties = properties;
+    public AliyunSmsSendHandler(AliyunSmsProperties aliyunSmsProperties) {
+        super(aliyunSmsProperties);
 
-        IClientProfile profile = DefaultProfile.getProfile(this.properties.getRegionId(), this.properties.getAccessKeyId(), this.properties.getAccessKeySecret());
-        DefaultProfile.addEndpoint(this.properties.getRegionId(), this.properties.getProduct(), this.properties.getDomain());
+        IClientProfile profile = DefaultProfile.getProfile(aliyunSmsProperties.getRegionId(), aliyunSmsProperties.getAccessKeyId(), aliyunSmsProperties.getAccessKeySecret());
+        DefaultProfile.addEndpoint(aliyunSmsProperties.getRegionId(), aliyunSmsProperties.getProduct(), aliyunSmsProperties.getDomain());
 
         iAcsClient = new DefaultAcsClient(profile);
     }
@@ -74,11 +72,11 @@ public class AliyunSmsSendHandler extends AbstractSmsSendHandler {
 
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
-        request.setSysDomain(this.properties.getDomain());
-        request.setSysVersion(this.properties.getVersion());
-        request.setSysAction(this.properties.getAction());
+        request.setSysDomain(this.getSmsProperties().getDomain());
+        request.setSysVersion(this.getSmsProperties().getVersion());
+        request.setSysAction(this.getSmsProperties().getAction());
         request.putQueryParameter("PhoneNumbers", join(phones));
-        request.putQueryParameter("SignName", this.properties.getSignName());
+        request.putQueryParameter("SignName", this.getSmsProperties().getSignName());
         request.putQueryParameter("TemplateCode", this.getTemplateId(template));
         request.putQueryParameter("TemplateParam", Jackson2Utils.toJson(template.getParams()));
 

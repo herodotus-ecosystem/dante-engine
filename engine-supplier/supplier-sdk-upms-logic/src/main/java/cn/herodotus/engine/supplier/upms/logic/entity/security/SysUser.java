@@ -66,7 +66,7 @@ public class SysUser extends BaseSysEntity {
 
     @Schema(title = "用户名")
     @Column(name = "user_name", length = 128, unique = true)
-    private String userName;
+    private String username;
 
     @Schema(title = "密码", description = "BCryptPasswordEncoder")
     @Column(name = "password", length = 256)
@@ -74,7 +74,7 @@ public class SysUser extends BaseSysEntity {
 
     @Schema(title = "昵称")
     @Column(name = "nick_name", length = 64)
-    private String nickName;
+    private String nickname;
 
     @Schema(title = "手机号码")
     @Column(name = "phone_number", length = 256)
@@ -170,12 +170,12 @@ public class SysUser extends BaseSysEntity {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -186,12 +186,12 @@ public class SysUser extends BaseSysEntity {
         this.password = password;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public Set<SysRole> getRoles() {
@@ -230,9 +230,9 @@ public class SysUser extends BaseSysEntity {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("userId", userId)
-                .add("userName", userName)
+                .add("username", username)
                 .add("password", password)
-                .add("nickName", nickName)
+                .add("nickname", nickname)
                 .add("phoneNumber", phoneNumber)
                 .add("avatar", avatar)
                 .add("email", email)
