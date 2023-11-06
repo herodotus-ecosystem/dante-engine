@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * <http://www.gnu.org/licenses/lgpl.html>
+ * <http://www.gnu.org/licenses/lgpl-3.0.html>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.definition.constants;
+package cn.herodotus.engine.assistant.core.constants;
 
 import cn.herodotus.engine.assistant.core.exception.feedback.*;
 
@@ -168,6 +168,7 @@ public interface ErrorCodes {
     InternalServerErrorFeedback MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION = new InternalServerErrorFeedback("接口参数使用错误或必要参数缺失，请查阅接口文档！");
     InternalServerErrorFeedback NULL_POINTER_EXCEPTION = new InternalServerErrorFeedback("后台代码执行过程中出现了空值");
     InternalServerErrorFeedback TYPE_MISMATCH_EXCEPTION = new InternalServerErrorFeedback("类型不匹配");
+    InternalServerErrorFeedback BORROW_OBJECT_FROM_POOL_ERROR_EXCEPTION = new InternalServerErrorFeedback("从对象池中获取对象错误");
 
     /**
      * 501. Not Implemented	服务器不支持请求的功能，无法完成请求
