@@ -6,7 +6,7 @@
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
   ~
-  ~ <http://www.gnu.org/licenses/lgpl.html>
+  ~ <http://www.gnu.org/licenses/lgpl-3.0.html>
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,10 +28,31 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.5.4</version>
+    <version>3.1.5.5</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
+
+    <url>https://spring.io/projects/spring-boot</url>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE Version 3</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.html</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>herodotus-cloud</id>
+            <name>码匠君</name>
+            <email>herodotus@aliyun.com</email>
+            <organization>Dromara</organization>
+            <organizationUrl>https://dromara.org.cn</organizationUrl>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/dromara/dante-cloud</url>
+    </scm>
 
     <!-- ${basedir} 项目根目录 -->
     <!-- ${project.build.directory} 构建目录，缺省为target -->
@@ -73,11 +94,12 @@
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.0.0</skywalking.version>
         <minio.version>8.5.6</minio.version>
-        <aws-java-sdk-s3.version>1.12.579</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.581</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
+        <influxdb-client-java.version>6.10.0</influxdb-client-java.version>
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.41</fastjson2.version>
+        <fastjson2.version>2.0.42</fastjson2.version>
         <jetcache.version>2.7.4</jetcache.version>
         <nacos.version>2.2.4</nacos.version>
         <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
@@ -102,7 +124,7 @@
         <mdi__font.version>7.3.67</mdi__font.version>
         <quasar.version>2.12.6</quasar.version>
         <uniform.version>2.1.2-1</uniform.version>
-        <vue.version>3.3.6</vue.version>
+        <vue.version>3.3.7</vue.version>
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
@@ -563,6 +585,16 @@
                 <version>${aws-java-sdk-s3.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.influxdb</groupId>
+                <artifactId>influxdb-client-java</artifactId>
+                <version>${influxdb-client-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.influxdb</groupId>
+                <artifactId>flux-dsl</artifactId>
+                <version>${influxdb-client-java.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.version}</version>
@@ -623,7 +655,6 @@
                 <artifactId>weixin-java-pay</artifactId>
                 <version>${weixin-java-sdk.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.camunda.bpm.springboot</groupId>
                 <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>

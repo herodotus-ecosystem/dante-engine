@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * <http://www.gnu.org/licenses/lgpl.html>
+ * <http://www.gnu.org/licenses/lgpl-3.0.html>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.definition.constants;
+package cn.herodotus.engine.assistant.core.constants;
 
 /**
  * @author gengwei.zheng

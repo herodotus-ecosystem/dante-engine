@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * <http://www.gnu.org/licenses/lgpl.html>
+ * <http://www.gnu.org/licenses/lgpl-3.0.html>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.definition.constants;
+package cn.herodotus.engine.assistant.core.constants;
 
 /**
  * <p>Description: 基础共用常量值常量 </p>
@@ -43,17 +43,17 @@ public interface BaseConstants {
 
     /* ---------- Herodotus 自定义配置属性 ---------- */
     String PROPERTY_PREFIX_ACCESS = PROPERTY_PREFIX_HERODOTUS + ".access";
+    String PROPERTY_PREFIX_API = PROPERTY_PREFIX_HERODOTUS + ".api";
     String PROPERTY_PREFIX_CACHE = PROPERTY_PREFIX_HERODOTUS + ".cache";
     String PROPERTY_PREFIX_CAPTCHA = PROPERTY_PREFIX_HERODOTUS + ".captcha";
     String PROPERTY_PREFIX_CLIENT = PROPERTY_PREFIX_HERODOTUS + ".client";
     String PROPERTY_PREFIX_CRYPTO = PROPERTY_PREFIX_HERODOTUS + ".crypto";
+    String PROPERTY_PREFIX_DATA = PROPERTY_PREFIX_HERODOTUS + ".data";
     String PROPERTY_PREFIX_ENDPOINT = PROPERTY_PREFIX_HERODOTUS + ".endpoint";
     String PROPERTY_PREFIX_EVENT = PROPERTY_PREFIX_HERODOTUS + ".event";
+    String PROPERTY_PREFIX_IP2REGION = PROPERTY_PREFIX_HERODOTUS + ".ip2region";
     String PROPERTY_PREFIX_LOG_CENTER = PROPERTY_PREFIX_HERODOTUS + ".log-center";
-    String PROPERTY_PREFIX_API = PROPERTY_PREFIX_HERODOTUS + ".api";
     String PROPERTY_PREFIX_MESSAGE = PROPERTY_PREFIX_HERODOTUS + ".message";
-    String PROPERTY_PREFIX_DATA = PROPERTY_PREFIX_HERODOTUS + ".data";
-    String PROPERTY_PREFIX_NOSQL = PROPERTY_PREFIX_HERODOTUS + ".nosql";
     String PROPERTY_PREFIX_OAUTH2 = PROPERTY_PREFIX_HERODOTUS + ".oauth2";
     String PROPERTY_PREFIX_OSS = PROPERTY_PREFIX_HERODOTUS + ".oss";
     String PROPERTY_PREFIX_PAY = PROPERTY_PREFIX_HERODOTUS + ".pay";
@@ -62,7 +62,7 @@ public interface BaseConstants {
     String PROPERTY_PREFIX_SECURE = PROPERTY_PREFIX_HERODOTUS + ".secure";
     String PROPERTY_PREFIX_SMS = PROPERTY_PREFIX_HERODOTUS + ".sms";
     String PROPERTY_PREFIX_SWAGGER = PROPERTY_PREFIX_HERODOTUS + ".swagger";
-    String PROPERTY_PREFIX_IP2REGION = PROPERTY_PREFIX_HERODOTUS + ".ip2region";
+    String PROPERTY_PREFIX_TSDB = PROPERTY_PREFIX_HERODOTUS + ".tsdb";
 
     /* ---------- Spring 家族配置属性 ---------- */
 

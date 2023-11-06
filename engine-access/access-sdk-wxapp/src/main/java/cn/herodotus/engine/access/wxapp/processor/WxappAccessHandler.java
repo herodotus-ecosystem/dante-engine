@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * <http://www.gnu.org/licenses/lgpl.html>
+ * <http://www.gnu.org/licenses/lgpl-3.0.html>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,7 @@ import cn.herodotus.engine.access.core.definition.AccessResponse;
 import cn.herodotus.engine.access.core.definition.AccessUserDetails;
 import cn.herodotus.engine.access.core.exception.AccessIdentityVerificationFailedException;
 import cn.herodotus.engine.access.core.exception.AccessPreProcessFailedException;
-import cn.herodotus.engine.assistant.core.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.domain.AccessPrincipal;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
 import org.apache.commons.lang3.ObjectUtils;

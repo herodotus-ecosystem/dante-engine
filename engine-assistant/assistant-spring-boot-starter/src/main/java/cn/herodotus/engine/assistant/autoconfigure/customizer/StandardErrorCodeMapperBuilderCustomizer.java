@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * <http://www.gnu.org/licenses/lgpl.html>
+ * <http://www.gnu.org/licenses/lgpl-3.0.html>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodeMapperBuilderOrdered;
-import cn.herodotus.engine.assistant.core.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.core.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
 import org.springframework.core.Ordered;

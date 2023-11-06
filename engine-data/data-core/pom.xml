@@ -6,7 +6,7 @@
   ~ you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
   ~
-  ~ <http://www.gnu.org/licenses/lgpl.html>
+  ~ <http://www.gnu.org/licenses/lgpl-3.0.html>
   ~
   ~ Unless required by applicable law or agreed to in writing, software
   ~ distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,12 +23,12 @@
     <parent>
         <artifactId>engine-data</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.5.4</version>
+        <version>3.1.5.5</version>
     </parent>
 
     <artifactId>data-core</artifactId>
     <packaging>jar</packaging>
-    <version>3.1.5.4</version>
+    <version>3.1.5.5</version>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
 
