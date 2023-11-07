@@ -34,6 +34,6 @@ public class OriginalAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Facility Alibaba Starter] Auto Configure.");
+        log.info("[Herodotus] |- Module [Facility Original Starter] Auto Configure.");
     }
 }

@@ -24,6 +24,7 @@ import cn.herodotus.engine.rest.condition.constants.RestPropertyFinder;
 import cn.herodotus.engine.rest.condition.properties.EndpointProperties;
 import cn.herodotus.engine.rest.condition.properties.PlatformProperties;
 import cn.herodotus.engine.rest.service.initializer.ServiceContextHolderBuilder;
+import jakarta.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -62,7 +63,7 @@ public class RestAutoConfiguration implements ApplicationContextAware {
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@Nonnull ApplicationContext applicationContext) throws BeansException {
         this.serviceContextHolder.setApplicationContext(applicationContext);
         this.serviceContextHolder.setApplicationName(RestPropertyFinder.getApplicationName(applicationContext));
         log.debug("[Herodotus] |- HERODOTUS ApplicationContext initialization completed.");

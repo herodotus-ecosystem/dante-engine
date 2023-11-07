@@ -62,7 +62,7 @@ public class SmsAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Sms All] Auto Configure.");
+        log.info("[Herodotus] |- Module [Sms Starter] Auto Configure.");
     }
 
     @Bean
