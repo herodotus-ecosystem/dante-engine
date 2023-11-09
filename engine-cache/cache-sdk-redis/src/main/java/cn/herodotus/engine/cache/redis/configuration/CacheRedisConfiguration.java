@@ -22,6 +22,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +44,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @date : 2022/5/23 17:00
  */
 @Configuration(proxyBeanMethods = false)
+@EnableConfigurationProperties(CacheProperties.class)
 public class CacheRedisConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(CacheRedisConfiguration.class);

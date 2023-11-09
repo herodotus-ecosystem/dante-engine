@@ -34,11 +34,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * <p>Description: Redisson配置 </p>
@@ -52,11 +54,14 @@ import java.io.IOException;
 public class CacheRedissonAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(CacheRedissonAutoConfiguration.class);
+    private static final String ADDRESS_PREFIX = "redis://";
 
     private final RedissonProperties redissonProperties;
+    private final RedisProperties redisProperties;
 
-    public CacheRedissonAutoConfiguration(RedissonProperties redissonProperties) {
+    public CacheRedissonAutoConfiguration(RedissonProperties redissonProperties, RedisProperties redisProperties) {
         this.redissonProperties = redissonProperties;
+        this.redisProperties = redisProperties;
     }
 
     @PostConstruct
@@ -98,17 +103,59 @@ public class CacheRedissonAutoConfiguration {
         switch (redissonProperties.getMode()) {
             case CLUSTER -> {
                 ClusterServersConfig clusterServersConfig = config.useClusterServers();
-                BeanUtils.copyProperties(redissonProperties.getClusterServersConfig(), clusterServersConfig, ClusterServersConfig.class);
-                redissonProperties.getClusterServersConfig().getNodeAddresses().parallelStream().forEach(clusterServersConfig::addNodeAddress);
+                // 未配置redisson的cluster配置时，使用 spring.data.redis 的配置
+                ClusterServersConfig redissonClusterConfig = redissonProperties.getClusterServersConfig();
+                if (redissonClusterConfig != null) {
+                    BeanUtils.copyProperties(redissonClusterConfig, clusterServersConfig, ClusterServersConfig.class);
+                    clusterServersConfig.setNodeAddresses(redissonClusterConfig.getNodeAddresses());
+                }
+                if (clusterServersConfig.getNodeAddresses() == null) {
+                    // 使用 spring.data.redis 的
+                    List<String> nodes = redisProperties.getCluster().getNodes();
+                    nodes.stream().map(a -> ADDRESS_PREFIX + a).forEach(clusterServersConfig::addNodeAddress);
+                }
+                if (clusterServersConfig.getPassword() == null) {
+                    // 使用 spring.data.redis 的
+                    clusterServersConfig.setPassword(redisProperties.getPassword());
+                }
             }
             case SENTINEL -> {
                 SentinelServersConfig sentinelServersConfig = config.useSentinelServers();
-                BeanUtils.copyProperties(redissonProperties.getSentinelServersConfig(), sentinelServersConfig, SentinelServersConfig.class);
-                redissonProperties.getSentinelServersConfig().getSentinelAddresses().parallelStream().forEach(sentinelServersConfig::addSentinelAddress);
+                SentinelServersConfig redissonSentinelConfig = redissonProperties.getSentinelServersConfig();
+                if (redissonSentinelConfig != null) {
+                    BeanUtils.copyProperties(redissonSentinelConfig, sentinelServersConfig, SentinelServersConfig.class);
+                    sentinelServersConfig.setSentinelAddresses(redissonSentinelConfig.getSentinelAddresses());
+                }
+                if (sentinelServersConfig.getSentinelAddresses() == null) {
+                    // 使用 spring.data.redis 的配置
+                    List<String> nodes = redisProperties.getSentinel().getNodes();
+                    nodes.stream().map(a -> ADDRESS_PREFIX + a).forEach(sentinelServersConfig::addSentinelAddress);
+                }
+                if (sentinelServersConfig.getPassword() == null) {
+                    // 使用 spring.data.redis 的配置
+                    sentinelServersConfig.setPassword(redisProperties.getPassword());
+                }
+                if (sentinelServersConfig.getMasterName() == null) {
+                    // 使用 spring.data.redis 的配置
+                    sentinelServersConfig.setMasterName(redisProperties.getSentinel().getMaster());
+                }
+                // database 不做处理，以免不生效
             }
             default -> {
                 SingleServerConfig singleServerConfig = config.useSingleServer();
-                BeanUtils.copyProperties(redissonProperties.getSingleServerConfig(), singleServerConfig, SingleServerConfig.class);
+                if (redissonProperties.getSingleServerConfig() != null) {
+                    BeanUtils.copyProperties(redissonProperties.getSingleServerConfig(), singleServerConfig, SingleServerConfig.class);
+                }
+                if (singleServerConfig.getAddress() == null) {
+                    // 使用 spring.data.redis 的配置
+                    singleServerConfig.setAddress(ADDRESS_PREFIX + redisProperties.getHost() + ":" + redisProperties.getPort());
+                }
+                if (singleServerConfig.getPassword() == null) {
+                    // 使用 spring.data.redis 的配置
+                    singleServerConfig.setPassword(redisProperties.getPassword());
+                }
+                // 单机模式下，database使用redis的
+                singleServerConfig.setDatabase(redisProperties.getDatabase());
             }
         }
 
