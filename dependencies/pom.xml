@@ -33,7 +33,7 @@
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
 
-    <url>https://spring.io/projects/spring-boot</url>
+    <url>https://github.com/dromara/dante-cloud</url>
     <licenses>
         <license>
             <name>GNU LESSER GENERAL PUBLIC LICENSE Version 3</name>
@@ -1020,20 +1020,11 @@
         </pluginManagement>
     </build>
 
-    <!--单独为Dependencies模块发布做处理-->
     <profiles>
         <profile>
             <id>release</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -1043,12 +1034,12 @@
 
             <distributionManagement>
                 <repository>
-                    <id>sonatype-nexus</id>
-                    <name>Nexus Release Repository</name>
+                    <id>sonatype-nexus-staging</id>
+                    <name>sonatype-nexus-snapshots</name>
                     <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
                 <snapshotRepository>
-                    <id>sonatype-nexus</id>
+                    <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
                     <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
                 </snapshotRepository>

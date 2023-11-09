@@ -17,6 +17,7 @@
 package cn.herodotus.engine.cache.redisson.properties;
 
 import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.cache.core.constants.CacheConstants;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.StringUtils;
@@ -42,6 +43,10 @@ public class RedissonProperties {
      * Redis 模式
      */
     private Mode mode = Mode.SINGLE;
+    /**
+     * 是否使用 SSL 连接。false，协议头为 redis://, true 协议头为 rediss://
+     */
+    private Boolean useSslConnection = false;
     /**
      * 配置文件路径
      */
@@ -73,6 +78,18 @@ public class RedissonProperties {
 
     public void setMode(Mode mode) {
         this.mode = mode;
+    }
+
+    public Boolean getUseSslConnection() {
+        return useSslConnection;
+    }
+
+    public void setUseSslConnection(Boolean useSslConnection) {
+        this.useSslConnection = useSslConnection;
+    }
+
+    public String getProtocol() {
+        return getUseSslConnection() ? Protocol.REDISS.getFormat() : Protocol.REDIS.getFormat();
     }
 
     public String getConfig() {

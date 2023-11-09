@@ -14,36 +14,21 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.enums;
+package cn.herodotus.engine.message.mqtt.integration;
+
+import org.springframework.integration.handler.AbstractReplyProducingMessageHandler;
+import org.springframework.messaging.Message;
 
 /**
- * <p>Description: Protocol枚举 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/6/12 14:48
+ * @date : 2023/11/9 18:17
  */
-public enum Protocol {
-    /**
-     * 协议类型
-     */
-    HTTP("http://", "http"),
-    HTTPS("https://", "https"),
-    REDIS("redis://", "redis"),
-    REDISS("rediss://", "rediss");
-
-    private final String format;
-    private final String prefix;
-
-    Protocol(String format, String prefix) {
-        this.format = format;
-        this.prefix = prefix;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public String getPrefix() {
-        return prefix;
+public class Influxdb2OutboundMessageHandler extends AbstractReplyProducingMessageHandler {
+    @Override
+    protected Object handleRequestMessage(Message<?> requestMessage) {
+        System.out.println(requestMessage.toString());
+        return requestMessage;
     }
 }
