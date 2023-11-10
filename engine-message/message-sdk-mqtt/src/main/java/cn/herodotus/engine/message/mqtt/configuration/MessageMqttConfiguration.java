@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * <http://www.gnu.org/licenses/lgpl-3.0.html>
+ * <http://www.gnu.org/licenses/lgpl.html>
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,7 +20,6 @@ import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
 import cn.herodotus.engine.assistant.core.utils.type.NumberUtils;
 import cn.herodotus.engine.message.mqtt.annotation.ConditionalOnMqttEnabled;
 import cn.herodotus.engine.message.mqtt.handler.MqttMessageReceivingHandler;
-import cn.herodotus.engine.message.mqtt.integration.Influxdb2OutboundMessageHandler;
 import cn.herodotus.engine.message.mqtt.properties.MqttProperties;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.core.util.ByteUtil;
@@ -35,7 +34,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.integration.dsl.IntegrationFlow;
+import org.springframework.integration.core.MessageProducer;
 import org.springframework.integration.dsl.MessageChannels;
 import org.springframework.integration.mqtt.core.ClientManager;
 import org.springframework.integration.mqtt.core.Mqttv5ClientManager;
@@ -110,7 +109,7 @@ public class MessageMqttConfiguration {
     }
 
     @Bean
-    public Mqttv5PahoMessageDrivenChannelAdapter mqttInbound(ClientManager<IMqttAsyncClient, MqttConnectionOptions> clientManager, MessageChannel mqtt5InboundChannel, MqttProperties mqttProperties) {
+    public MessageProducer mqttInbound(ClientManager<IMqttAsyncClient, MqttConnectionOptions> clientManager, MessageChannel mqtt5InboundChannel, MqttProperties mqttProperties) {
         Assert.notNull(mqttProperties.getSubscribes(), "'Property Subscribes' cannot be null");
         Mqttv5PahoMessageDrivenChannelAdapter messageProducer =
                 new Mqttv5PahoMessageDrivenChannelAdapter(clientManager, ListUtils.toStringArray(mqttProperties.getSubscribes()));
@@ -136,22 +135,13 @@ public class MessageMqttConfiguration {
         return messageHandler;
     }
 
-//    @Bean
-//    @ServiceActivator(inputChannel = "mqtt5InboundChannel")
-//    public MessageHandler mqttInboundHandler() {
-//        MqttMessageReceivingHandler messageHandler = new MqttMessageReceivingHandler();
-//        log.trace("[Herodotus] |- Bean [Mqtt Message Receiving Handler] Auto Configure.");
-//        return messageHandler;
-//    }
-
     @Bean
-    public IntegrationFlow influxdbInboundHandler(Mqttv5PahoMessageDrivenChannelAdapter messageProducer, MessageChannel mqtt5InboundChannel) {
-        return IntegrationFlow.from(messageProducer)
-                .channel(mqtt5InboundChannel)
-                .handle(new Influxdb2OutboundMessageHandler())
-                .get();
+    @ServiceActivator(inputChannel = "mqtt5InboundChannel")
+    public MessageHandler mqttInboundHandler() {
+        MqttMessageReceivingHandler messageHandler = new MqttMessageReceivingHandler();
+        log.trace("[Herodotus] |- Bean [Mqtt Message Receiving Handler] Auto Configure.");
+        return messageHandler;
     }
-
 }
 
 
