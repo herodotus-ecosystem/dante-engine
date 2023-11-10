@@ -28,12 +28,12 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.5.5</version>
+    <version>3.1.5.6</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
 
-    <url>https://spring.io/projects/spring-boot</url>
+    <url>https://github.com/dromara/dante-cloud</url>
     <licenses>
         <license>
             <name>GNU LESSER GENERAL PUBLIC LICENSE Version 3</name>
@@ -94,7 +94,7 @@
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.0.0</skywalking.version>
         <minio.version>8.5.6</minio.version>
-        <aws-java-sdk-s3.version>1.12.581</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.583</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
         <influxdb-client-java.version>6.10.0</influxdb-client-java.version>
         <!-- 阿里巴巴开源工具依赖 -->
@@ -129,7 +129,7 @@
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.2</aliyun-sdk-oss.version>
-        <alipay-sdk-java.version>4.38.111.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.38.128.ALL</alipay-sdk-java.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
         <tencentcloud-sdk-java.version>3.1.893</tencentcloud-sdk-java.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
@@ -139,7 +139,7 @@
         <okio.version>3.6.0</okio.version>
         <xnio.version>3.8.12.Final</xnio.version>
         <httpclient.version>4.5.14</httpclient.version>
-        <checker-qual.version>3.39.0</checker-qual.version>
+        <checker-qual.version>3.40.0</checker-qual.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
         <bcprov-jdk15to18.version>1.76</bcprov-jdk15to18.version>
@@ -1020,20 +1020,11 @@
         </pluginManagement>
     </build>
 
-    <!--单独为Dependencies模块发布做处理-->
     <profiles>
         <profile>
             <id>release</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -1043,12 +1034,12 @@
 
             <distributionManagement>
                 <repository>
-                    <id>sonatype-nexus</id>
-                    <name>Nexus Release Repository</name>
+                    <id>sonatype-nexus-staging</id>
+                    <name>sonatype-nexus-snapshots</name>
                     <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
                 <snapshotRepository>
-                    <id>sonatype-nexus</id>
+                    <id>sonatype-nexus-snapshots</id>
                     <name>Sonatype Nexus Snapshots</name>
                     <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
                 </snapshotRepository>

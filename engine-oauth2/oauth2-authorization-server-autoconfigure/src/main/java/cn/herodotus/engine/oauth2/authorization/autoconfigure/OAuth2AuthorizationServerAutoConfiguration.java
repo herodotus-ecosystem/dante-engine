@@ -42,7 +42,7 @@ public class OAuth2AuthorizationServerAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [OAuth2 Authorization Server] Auto Configure.");
+        log.info("[Herodotus] |- Module [OAuth2 Authorization Server Starter] Auto Configure.");
     }
 
     @Bean

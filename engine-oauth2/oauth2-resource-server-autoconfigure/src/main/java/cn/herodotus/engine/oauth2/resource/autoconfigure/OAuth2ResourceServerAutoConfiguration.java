@@ -59,7 +59,7 @@ public class OAuth2ResourceServerAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [OAuth2 Resource Server] Auto Configure.");
+        log.info("[Herodotus] |- Module [OAuth2 Resource Server Starter] Auto Configure.");
     }
 
     @Bean

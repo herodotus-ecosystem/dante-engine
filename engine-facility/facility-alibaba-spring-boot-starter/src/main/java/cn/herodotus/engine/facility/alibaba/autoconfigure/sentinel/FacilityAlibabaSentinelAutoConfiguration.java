@@ -54,7 +54,7 @@ public class FacilityAlibabaSentinelAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Facility Alibaba Sentinel] Auto Configure.");
+        log.info("[Herodotus] |- Module [Facility Alibaba Sentinel Starter] Auto Configure.");
     }
 
     @Bean

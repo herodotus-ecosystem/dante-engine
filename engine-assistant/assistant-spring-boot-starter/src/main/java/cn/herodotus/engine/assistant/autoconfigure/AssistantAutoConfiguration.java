@@ -46,7 +46,7 @@ public class AssistantAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Assistant] Auto Configure.");
+        log.info("[Herodotus] |- Module [Assistant Starter] Auto Configure.");
     }
 
     @Bean

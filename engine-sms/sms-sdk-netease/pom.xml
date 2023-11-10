@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-sms</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.5.5</version>
+        <version>3.1.5.6</version>
     </parent>
 
     <artifactId>sms-sdk-netease</artifactId>

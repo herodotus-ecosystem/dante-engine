@@ -27,7 +27,9 @@ public enum Protocol {
      * 协议类型
      */
     HTTP("http://", "http"),
-    HTTPS("https://", "https");
+    HTTPS("https://", "https"),
+    REDIS("redis://", "redis"),
+    REDISS("rediss://", "rediss");
 
     private final String format;
     private final String prefix;
