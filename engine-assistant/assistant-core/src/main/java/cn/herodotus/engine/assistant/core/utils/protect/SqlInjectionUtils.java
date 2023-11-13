@@ -22,7 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.dromara.hutool.core.net.url.URLDecoder;
+import org.dromara.hutool.core.net.url.UrlDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +79,7 @@ public class SqlInjectionUtils {
         //这里需要将参数转换为小写来处理
         //不改变原值
         //value示例 order=asc&pageNum=1&pageSize=100&parentId=0
-        String lowerValue = URLDecoder.decode(value, StandardCharsets.UTF_8).toLowerCase();
+        String lowerValue = UrlDecoder.decode(value, StandardCharsets.UTF_8).toLowerCase();
 
         //获取到请求中所有参数值-取每个key=value组合第一个等号后面的值
         return Stream.of(lowerValue.split("\\&"))
