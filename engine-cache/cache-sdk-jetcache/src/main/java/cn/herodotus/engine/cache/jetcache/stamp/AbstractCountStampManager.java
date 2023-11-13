@@ -62,7 +62,7 @@ public abstract class AbstractCountStampManager extends AbstractStampManager<Str
      * @throws MaximumLimitExceededException 超出最大限制次数错误
      */
     public int counting(String identity) throws MaximumLimitExceededException {
-        return counting(identity, maxTimes, getExpire());
+        return counting(identity, maxTimes);
     }
 
     /**

@@ -33,7 +33,7 @@
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
 
-    <url>https://github.com/dromara/dante-cloud</url>
+    <url>https://www.herodotus.cn</url>
     <licenses>
         <license>
             <name>GNU LESSER GENERAL PUBLIC LICENSE Version 3</name>
@@ -93,7 +93,7 @@
         <springdoc.version>2.2.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.0.0</skywalking.version>
-        <minio.version>8.5.6</minio.version>
+        <minio.version>8.5.7</minio.version>
         <aws-java-sdk-s3.version>1.12.583</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
         <influxdb-client-java.version>6.10.0</influxdb-client-java.version>
@@ -104,7 +104,7 @@
         <nacos.version>2.2.4</nacos.version>
         <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
         <!-- 国内开源通用组件 -->
-        <hutool.version>6.0.0-M7</hutool.version>
+        <hutool.version>6.0.0-M8</hutool.version>
         <okhttps.version>4.0.2</okhttps.version>
         <weixin-java-sdk.version>4.5.6.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.5</just-auth.verison>
