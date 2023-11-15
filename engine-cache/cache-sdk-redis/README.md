@@ -1,11 +1,39 @@
-## Redis 相关代码组件模块
+# Redis 相关代码组件模块
 
 **包含以下内容：**
 
 1. Redis 配置。
 2. 扩展的 Redis Cache Manager 配置
-3. 基于 Redis 的 Spring Session 共享配置。通过设置 `spring.session.store-type=redis` 开启。
 
-### 说明
+# Redis功能
 
-spring session 共享，还支持 mongodb，jdbc，所以暂时将Redis session 共享放置在此包，后续根据实际使用再行调整。
+## 1. 添加依赖
+
+```xml
+<dependency>
+  <groupId>cn.herodotus.engine</groupId>
+  <artifactId>cache-sdk-redis</artifactId>
+</dependency>
+```
+## 2. 配置说明
+
+```yaml
+spring:
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6795
+      database: 0
+      password:
+      timeout: 10000
+herodotus:
+  cache:
+    instances:
+      # 缓存的键
+      "sys:cache:user":
+        # 缓存失效时间
+        expire: 3h
+```
+
+## 3. 使用 `@EnableHerodotusRedis` 开启配置，这里自动配置了 `RedisTemplate<Object, Object>` 和 `StringRedisTemplate`
+## 4. 提供了 `RedisBitMapUtils` 工具类，常规的 Redis 工具类需要自己封装

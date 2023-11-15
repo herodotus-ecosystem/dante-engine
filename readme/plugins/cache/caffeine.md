@@ -1,10 +1,3 @@
-## Caffeine 相关代码组件模块
-
-**包含以下内容：**
-
-1. Caffeine 配置。
-2. 扩展的 Caffeine Cache Manager 配置
-
 # 简介
 
 Caffeine 是一个基于 Java8 开发的提供了近乎最佳命中率的高性能的缓存库。
@@ -15,7 +8,7 @@ dante 对其进行了简单封装
 
 # 使用说明
 
-## 1. 引入资源
+1. 引入资源
 
 ```xml
 <dependency>
@@ -23,7 +16,7 @@ dante 对其进行了简单封装
   <artifactId>cache-sdk-caffeine</artifactId>
 </dependency>
 ```
-## 2. 写一个配置类，导入配置
+2. 写一个配置类，导入配置
 
 ```java
 @Configuration
@@ -34,7 +27,7 @@ public class MyCacheConfiguration {
 }
 ```
 
-## 3. 一些可选配置项
+3. 一些可选配置项
 
 ```yaml
 herodotus:
@@ -54,7 +47,7 @@ herodotus:
         # 缓存失效时间
         expire: 2h
 ```
-## 4. 可使用spring-cache注解
+4. 可使用spring-cache注解
 
 ```java
 @RestController

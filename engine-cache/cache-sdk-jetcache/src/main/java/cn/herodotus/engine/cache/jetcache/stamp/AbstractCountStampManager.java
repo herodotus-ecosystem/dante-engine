@@ -35,6 +35,10 @@ import java.time.Duration;
  * @date : 2022/7/6 22:59
  */
 public abstract class AbstractCountStampManager extends AbstractStampManager<String, Long> {
+    /**
+     * 最大计数
+     */
+    private int maxTimes = 1;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractCountStampManager.class);
 
@@ -54,12 +58,23 @@ public abstract class AbstractCountStampManager extends AbstractStampManager<Str
      * 在缓存有效期内进行计数
      *
      * @param identity 缓存 Key 的区分标识
+     * @return 当前错误次数
+     * @throws MaximumLimitExceededException 超出最大限制次数错误
+     */
+    public int counting(String identity) throws MaximumLimitExceededException {
+        return counting(identity, maxTimes);
+    }
+
+    /**
+     * 在缓存有效期内进行计数
+     *
+     * @param identity 缓存 Key 的区分标识
      * @param maxTimes 允许的最大限制次数
      * @return 当前错误次数
      * @throws MaximumLimitExceededException 超出最大限制次数错误
      */
     public int counting(String identity, int maxTimes) throws MaximumLimitExceededException {
-        return counting(identity, maxTimes, null);
+        return counting(identity, maxTimes, getExpire());
     }
 
     /**
@@ -145,7 +160,7 @@ public abstract class AbstractCountStampManager extends AbstractStampManager<Str
             put(key, index + 1L, newDuration);
 
             // times 计数相当于数组的索引是 从0~n，所以需要
-            if (index == maxTimes - 1) {
+            if (index >= maxTimes - 1) {
                 throw new MaximumLimitExceededException("Requests are too frequent. Please try again later!");
             }
         }
@@ -181,5 +196,13 @@ public abstract class AbstractCountStampManager extends AbstractStampManager<Str
         }
 
         return duration;
+    }
+
+    public int getMaxTimes() {
+        return maxTimes;
+    }
+
+    public void setMaxTimes(int maxTimes) {
+        this.maxTimes = maxTimes;
     }
 }

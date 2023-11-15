@@ -1,17 +1,10 @@
-# JetCache 相关代码组件模块
-
-**包含以下内容：**
-1. JetCache 配置。
-2. 自研 JetCache 缓存手动创建工具类
-3. 签章(Stamp)管理定义类
-
 # 简介
 
 JetCache是一个基于Java的缓存系统封装，提供统一的API和注解来简化缓存的使用。 JetCache提供了比SpringCache更加强大的注解，可以原生的支持TTL、两级缓存、分布式自动刷新，还提供了Cache接口用于手工缓存操作。 当前有四个实现，RedisCache、TairCache（此部分未在github开源）、CaffeineCache(in memory)和一个简易的LinkedHashMapCache(in memory)，要添加新的实现也是非常简单的。
 
 [中文文档](https://github.com/alibaba/jetcache/tree/master/docs/CN)
 
-## 配置说明
+# 配置说明
 
 ```yaml
 # 最简配置
@@ -45,9 +38,9 @@ jetcache:
 
 ## local.${area}.type 详解
 
-支持以下两种配置:
+支持以下两种配置: 
 
-- `linkedhashmap` (查看 `com.alicp.jetcache.autoconfigure.LinkedHashMapAutoConfiguration` 配置类)
+- `linkedhashmap` (查看 `com.alicp.jetcache.autoconfigure.LinkedHashMapAutoConfiguration` 配置类) 
 - `caffeine` (查看 `com.alicp.jetcache.autoconfigure.CaffeineAutoConfiguration` 配置类)。
 
 > dante 使用的是 caffeine
@@ -145,7 +138,7 @@ public class TestController {
 }
 ```
 
-## 缓存签章
+### 缓存签章
 
 应用场景是某段时间后会自动失效的数据，例如验证码，也可以用做分布式锁
 自定义签章需要实现 `cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager`，如下所示：
