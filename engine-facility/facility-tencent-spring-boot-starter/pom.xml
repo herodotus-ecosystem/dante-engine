@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-facility</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.5.7</version>
+        <version>3.1.5.8</version>
     </parent>
 
     <artifactId>facility-tencent-spring-boot-starter</artifactId>
