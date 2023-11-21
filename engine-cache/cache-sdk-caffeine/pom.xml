@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-cache</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.5.7</version>
+        <version>3.1.5.8</version>
     </parent>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Caffeine 组件相关代码模块</description>
