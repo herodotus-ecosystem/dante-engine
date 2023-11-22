@@ -18,8 +18,8 @@ package cn.herodotus.engine.message.mqtt.configuration;
 
 import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
 import cn.herodotus.engine.assistant.core.utils.type.NumberUtils;
+import cn.herodotus.engine.message.core.constants.HerodotusChannels;
 import cn.herodotus.engine.message.mqtt.annotation.ConditionalOnMqttEnabled;
-import cn.herodotus.engine.message.mqtt.handler.MqttMessageReceivingHandler;
 import cn.herodotus.engine.message.mqtt.properties.MqttProperties;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.core.util.ByteUtil;
@@ -28,6 +28,7 @@ import org.eclipse.paho.mqttv5.client.MqttConnectionOptions;
 import org.eclipse.paho.mqttv5.client.persist.MqttDefaultFilePersistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -40,11 +41,8 @@ import org.springframework.integration.mqtt.core.ClientManager;
 import org.springframework.integration.mqtt.core.Mqttv5ClientManager;
 import org.springframework.integration.mqtt.inbound.Mqttv5PahoMessageDrivenChannelAdapter;
 import org.springframework.integration.mqtt.outbound.Mqttv5PahoMessageHandler;
-import org.springframework.integration.mqtt.support.MqttHeaderMapper;
-import org.springframework.integration.mqtt.support.MqttHeaders;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.MessageHandler;
-import org.springframework.messaging.MessageHeaders;
 import org.springframework.util.Assert;
 
 import java.nio.charset.StandardCharsets;
@@ -79,29 +77,29 @@ public class MessageMqttConfiguration {
         log.debug("[Herodotus] |- SDK [Message Mqtt] Auto Configure.");
     }
 
-    @Bean
-    public MessageChannel mqtt5InboundChannel() {
+    @Bean(name = HerodotusChannels.MQTT_DEFAULT_INBOUND_CHANNEL)
+    public MessageChannel mqttDefaultInboundChannel() {
         return MessageChannels.publishSubscribe().getObject();
     }
 
-    @Bean
-    public MessageChannel mqtt5OutboundChannel() {
+    @Bean(name = HerodotusChannels.MQTT_DEFAULT_OUTBOUND_CHANNEL)
+    public MessageChannel mqttDefaultOutboundChannel() {
         return MessageChannels.direct().getObject();
     }
 
     @Bean
     public ClientManager<IMqttAsyncClient, MqttConnectionOptions> clientManager(MqttProperties mqttProperties) {
-        MqttConnectionOptions mqttConnectionOptions = new MqttConnectionOptions();
-        mqttConnectionOptions.setUserName(mqttProperties.getUsername());
-        mqttConnectionOptions.setPassword(ByteUtil.toBytes(mqttProperties.getPassword(), StandardCharsets.UTF_8));
-        mqttConnectionOptions.setCleanStart(mqttProperties.getCleanStart());
-        mqttConnectionOptions.setKeepAliveInterval(NumberUtils.longToInt(mqttProperties.getKeepAliveInterval().getSeconds()));
-        mqttConnectionOptions.setServerURIs(ListUtils.toStringArray(mqttProperties.getServerUrls()));
-        mqttConnectionOptions.setAutomaticReconnect(mqttProperties.getAutomaticReconnect());
-        mqttConnectionOptions.setAutomaticReconnectDelay(
+        MqttConnectionOptions options = new MqttConnectionOptions();
+        options.setUserName(mqttProperties.getUsername());
+        options.setPassword(ByteUtil.toBytes(mqttProperties.getPassword(), StandardCharsets.UTF_8));
+        options.setCleanStart(mqttProperties.getCleanStart());
+        options.setKeepAliveInterval(NumberUtils.longToInt(mqttProperties.getKeepAliveInterval().getSeconds()));
+        options.setServerURIs(ListUtils.toStringArray(mqttProperties.getServerUrls()));
+        options.setAutomaticReconnect(mqttProperties.getAutomaticReconnect());
+        options.setAutomaticReconnectDelay(
                 NumberUtils.longToInt(mqttProperties.getAutomaticReconnectMinDelay().getSeconds()),
                 NumberUtils.longToInt(mqttProperties.getAutomaticReconnectMaxDelay().getSeconds()));
-        Mqttv5ClientManager clientManager = new Mqttv5ClientManager(mqttConnectionOptions, mqttProperties.getClientId());
+        Mqttv5ClientManager clientManager = new Mqttv5ClientManager(options, mqttProperties.getClientId());
         clientManager.setPersistence(new MqttDefaultFilePersistence());
 
         log.trace("[Herodotus] |- Bean [Mqtt Connection Options] Auto Configure.");
@@ -109,38 +107,26 @@ public class MessageMqttConfiguration {
     }
 
     @Bean
-    public MessageProducer mqttInbound(ClientManager<IMqttAsyncClient, MqttConnectionOptions> clientManager, MessageChannel mqtt5InboundChannel, MqttProperties mqttProperties) {
-        Assert.notNull(mqttProperties.getSubscribes(), "'Property Subscribes' cannot be null");
-        Mqttv5PahoMessageDrivenChannelAdapter messageProducer =
-                new Mqttv5PahoMessageDrivenChannelAdapter(clientManager, ListUtils.toStringArray(mqttProperties.getSubscribes()));
-        messageProducer.setPayloadType(String.class);
-        messageProducer.setManualAcks(false);
-        messageProducer.setOutputChannel(mqtt5InboundChannel);
+    public MessageProducer mqttDefaultInbound(ClientManager<IMqttAsyncClient, MqttConnectionOptions> clientManager, @Qualifier(HerodotusChannels.MQTT_DEFAULT_INBOUND_CHANNEL) MessageChannel mqttDefaultInboundChannel, MqttProperties mqttProperties) {
+        Assert.notNull(mqttProperties.getDefaultSubscribes(), "'Property Subscribes' cannot be null");
+        Mqttv5PahoMessageDrivenChannelAdapter adapter = new Mqttv5PahoMessageDrivenChannelAdapter(clientManager, ListUtils.toStringArray(mqttProperties.getDefaultSubscribes()));
+        adapter.setPayloadType(String.class);
+        adapter.setManualAcks(false);
+        adapter.setOutputChannel(mqttDefaultInboundChannel);
         log.trace("[Herodotus] |- Bean [Mqtt v5 Paho Message Driven Channel Adapter] Auto Configure.");
-        return messageProducer;
+        return adapter;
     }
 
     @Bean
-    @ServiceActivator(inputChannel = "mqtt5OutboundChannel")
-    public MessageHandler mqttOutbound(ClientManager<IMqttAsyncClient, MqttConnectionOptions> clientManager, MqttProperties mqttProperties) {
-        Mqttv5PahoMessageHandler messageHandler = new Mqttv5PahoMessageHandler(clientManager);
-        MqttHeaderMapper mqttHeaderMapper = new MqttHeaderMapper();
-        mqttHeaderMapper.setOutboundHeaderNames(MqttHeaders.RESPONSE_TOPIC, MqttHeaders.CORRELATION_DATA, MessageHeaders.CONTENT_TYPE);
-        messageHandler.setHeaderMapper(mqttHeaderMapper);
-        messageHandler.setDefaultTopic(mqttProperties.getDefaultTopic());
-        messageHandler.setDefaultQos(mqttProperties.getDefaultQos());
-        messageHandler.setAsync(true);
-        messageHandler.setAsyncEvents(true);
+    @ServiceActivator(inputChannel = HerodotusChannels.MQTT_DEFAULT_OUTBOUND_CHANNEL)
+    public MessageHandler mqttDefaultOutbound(ClientManager<IMqttAsyncClient, MqttConnectionOptions> clientManager, MqttProperties mqttProperties) {
+        Mqttv5PahoMessageHandler handler = new Mqttv5PahoMessageHandler(clientManager);
+        handler.setDefaultTopic(mqttProperties.getDefaultTopic());
+        handler.setDefaultQos(mqttProperties.getDefaultQos());
+        handler.setAsync(true);
+        handler.setAsyncEvents(true);
         log.trace("[Herodotus] |- Bean [Mqtt v5 Paho Message Handler] Auto Configure.");
-        return messageHandler;
-    }
-
-    @Bean
-    @ServiceActivator(inputChannel = "mqtt5InboundChannel")
-    public MessageHandler mqttInboundHandler() {
-        MqttMessageReceivingHandler messageHandler = new MqttMessageReceivingHandler();
-        log.trace("[Herodotus] |- Bean [Mqtt Message Receiving Handler] Auto Configure.");
-        return messageHandler;
+        return handler;
     }
 }
 
