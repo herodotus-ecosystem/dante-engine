@@ -31,11 +31,11 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-rest</artifactId>
-        <version>2.7.16.Final</version>
+        <version>2.7.18.Final</version>
     </parent>
 
     <artifactId>rest-sdk-protect</artifactId>
-    <version>2.7.16.Final</version>
+    <version>2.7.18.Final</version>
     <packaging>jar</packaging>
 
     <dependencies>
