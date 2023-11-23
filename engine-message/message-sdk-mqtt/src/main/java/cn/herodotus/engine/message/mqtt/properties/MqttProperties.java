@@ -110,9 +110,9 @@ public class MqttProperties {
      */
     private Integer defaultQos = 1;
     /**
-     * 订阅的主题
+     * 默认订阅的主题
      */
-    private List<String> subscribes;
+    private List<String> defaultSubscribes;
 
     public List<String> getServerUrls() {
         return serverUrls;
@@ -202,12 +202,12 @@ public class MqttProperties {
         this.defaultQos = defaultQos;
     }
 
-    public List<String> getSubscribes() {
-        return subscribes;
+    public List<String> getDefaultSubscribes() {
+        return defaultSubscribes;
     }
 
-    public void setSubscribes(List<String> subscribes) {
-        this.subscribes = subscribes;
+    public void setDefaultSubscribes(List<String> defaultSubscribes) {
+        this.defaultSubscribes = defaultSubscribes;
     }
 
     @Override
