@@ -17,7 +17,6 @@
 package cn.herodotus.engine.rest.autoconfigure;
 
 import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseHttpClient5RestClient;
-import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseOkHttp3RestClient;
 import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseSimpleRestClient;
 import feign.hc5.ApacheHttp5Client;
 import jakarta.annotation.PostConstruct;
@@ -55,16 +54,6 @@ public class RestTemplateAutoConfiguration {
     @PostConstruct
     public void postConstruct() {
         log.info("[Herodotus] |- Module [Rest Template] Auto Configure.");
-    }
-
-    @Bean
-    @ConditionalOnClass(okhttp3.OkHttpClient.class)
-    @ConditionalOnUseOkHttp3RestClient
-    @ConditionalOnMissingBean
-    public ClientHttpRequestFactory okHttp3ClientHttpRequestFactory(okhttp3.OkHttpClient okHttpClient) {
-        OkHttp3ClientHttpRequestFactory factory = new OkHttp3ClientHttpRequestFactory(okHttpClient);
-        log.trace("[Herodotus] |- Bean [OkHttp3 Client Http Request Factory] Auto Configure.");
-        return factory;
     }
 
     @Bean
