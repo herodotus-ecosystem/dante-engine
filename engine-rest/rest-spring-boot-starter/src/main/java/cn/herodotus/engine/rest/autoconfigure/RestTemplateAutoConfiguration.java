@@ -16,10 +16,11 @@
 
 package cn.herodotus.engine.rest.autoconfigure;
 
-import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseHttpClient5RestClient;
-import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseOkHttp3RestClient;
-import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseSimpleRestClient;
+import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseHttp2ClientAsRestClient;
+import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseHttpClient5AsRestClient;
+import cn.herodotus.engine.rest.condition.annotation.ConditionalOnUseSimpleClientAsRestClient;
 import feign.hc5.ApacheHttp5Client;
+import feign.http2client.Http2Client;
 import jakarta.annotation.PostConstruct;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.web.client.ClientHttpRequestFactories;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +37,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.net.http.HttpClient;
 
 /**
  * <p>Description: Rest Template Configuration </p>
@@ -42,7 +45,8 @@ import java.io.IOException;
  * 准备去除Okhttp3支持
  * <a herf="https://github.com/spring-projects/spring-framework/issues/30919">去除 OkHttp3 支持。</a>
  *
- * {@link ClientHttpRequestFactory} 具体用途参见： {@link org.springframework.boot.web.client.ClientHttpRequestFactories}
+ * {@link ClientHttpRequestFactory} 具体用途参见： {@link ClientHttpRequestFactories}
+ * 配置条件, 参见 {@link FeignAutoConfiguration}
  *
  * @author : gengwei.zheng
  * @date : 2020/5/29 17:32
@@ -58,27 +62,27 @@ public class RestTemplateAutoConfiguration {
     }
 
     @Bean
-    @ConditionalOnClass(okhttp3.OkHttpClient.class)
-    @ConditionalOnUseOkHttp3RestClient
-    @ConditionalOnMissingBean
-    public ClientHttpRequestFactory okHttp3ClientHttpRequestFactory(okhttp3.OkHttpClient okHttpClient) {
-        OkHttp3ClientHttpRequestFactory factory = new OkHttp3ClientHttpRequestFactory(okHttpClient);
-        log.trace("[Herodotus] |- Bean [OkHttp3 Client Http Request Factory] Auto Configure.");
+    @ConditionalOnClass({ Http2Client.class, HttpClient.class })
+    @ConditionalOnMissingBean(HttpClient.class)
+    @ConditionalOnUseHttp2ClientAsRestClient
+    public ClientHttpRequestFactory jdkClientHttpRequestFactory(HttpClient httpClient) {
+        JdkClientHttpRequestFactory factory = new JdkClientHttpRequestFactory(httpClient);
+        log.trace("[Herodotus] |- Bean [Jdk Client Http Request Factory] Auto Configure.");
         return factory;
     }
 
     @Bean
     @ConditionalOnClass(ApacheHttp5Client.class)
-    @ConditionalOnUseHttpClient5RestClient
-    @ConditionalOnMissingBean
-    public ClientHttpRequestFactory httpComponentsClientHttpRequestFactory(CloseableHttpClient okHttpClient) {
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(okHttpClient);
+    @ConditionalOnMissingBean(CloseableHttpClient.class)
+    @ConditionalOnUseHttpClient5AsRestClient
+    public ClientHttpRequestFactory httpComponentsClientHttpRequestFactory(CloseableHttpClient closeableHttpClient) {
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(closeableHttpClient);
         log.trace("[Herodotus] |- Bean [Http Components Http Request Factory] Auto Configure.");
         return factory;
     }
 
     @Bean
-    @ConditionalOnUseSimpleRestClient
+    @ConditionalOnUseSimpleClientAsRestClient
     @ConditionalOnMissingBean
     public ClientHttpRequestFactory SimpleClientHttpRequestFactory() {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();

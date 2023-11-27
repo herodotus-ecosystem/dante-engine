@@ -24,21 +24,21 @@ import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * <p>Description: 使用默认客户端条件 </p>
+ * <p>Description: 使用默认客户端作为 RestTemplate 和 OpenFeign 引擎条件 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/6/15 23:12
  */
-public class UseSimpleRestClientCondition implements Condition {
+public class UseSimpleClientAsRestClientCondition implements Condition {
 
-    private static final Logger log = LoggerFactory.getLogger(UseSimpleRestClientCondition.class);
+    private static final Logger log = LoggerFactory.getLogger(UseSimpleClientAsRestClientCondition.class);
 
     @SuppressWarnings("NullableProblems")
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
-        boolean isOkHttpEnabled = RestPropertyFinder.isOpenFeignOkHttpEnabled(conditionContext);
-        boolean isHttpClientEnabled = RestPropertyFinder.isOpenFeignHttpClientEnabled(conditionContext);
-        boolean result = !isOkHttpEnabled && !isHttpClientEnabled;
+        boolean isHttp2ClientEnabled = RestPropertyFinder.isOpenFeignHttp2ClientEnabled(conditionContext);
+        boolean isHttpClient5Enabled = RestPropertyFinder.isOpenFeignHttpClient5Enabled(conditionContext);
+        boolean result = !isHttp2ClientEnabled && !isHttpClient5Enabled;
         log.debug("[Herodotus] |- Condition [Use Simple Rest Client] value is [{}]", result);
         return result;
     }
