@@ -100,7 +100,7 @@
         <fastjson.version>1.2.83</fastjson.version>
         <fastjson2.version>2.0.42</fastjson2.version>
         <jetcache.version>2.7.4</jetcache.version>
-        <nacos.version>2.2.4</nacos.version>
+        <nacos.version>2.3.0</nacos.version>
         <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M8</hutool.version>
