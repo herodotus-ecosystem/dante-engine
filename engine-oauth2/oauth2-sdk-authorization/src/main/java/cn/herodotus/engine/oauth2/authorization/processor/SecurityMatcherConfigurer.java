@@ -17,14 +17,20 @@
 package cn.herodotus.engine.oauth2.authorization.processor;
 
 import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
+import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
+import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
-import cn.herodotus.engine.rest.core.constants.WebResources;
+import cn.herodotus.engine.oauth2.core.constants.SecurityResources;
+import cn.herodotus.engine.oauth2.core.enums.PermissionExpression;
+import cn.herodotus.engine.oauth2.core.utils.WebUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -39,58 +45,81 @@ import java.util.List;
 public class SecurityMatcherConfigurer {
 
     private final OAuth2AuthorizationProperties authorizationProperties;
-    private List<String> staticResources;
-    private List<String> permitAllResources;
-    private List<String> hasAuthenticatedResources;
+    private final ResourceUrlProvider resourceUrlProvider;
 
-    public SecurityMatcherConfigurer(OAuth2AuthorizationProperties authorizationProperties) {
+    private final RequestMatcher[] staticRequestMatchers;
+    private final RequestMatcher[] permitAllRequestMatchers;
+    private final RequestMatcher[] hasAuthenticatedRequestMatchers;
+    private final LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> permitAllAttributes;
+
+    public SecurityMatcherConfigurer(OAuth2AuthorizationProperties authorizationProperties, ResourceUrlProvider resourceUrlProvider) {
         this.authorizationProperties = authorizationProperties;
-        this.staticResources = new ArrayList<>();
-        this.permitAllResources = new ArrayList<>();
-        this.hasAuthenticatedResources = new ArrayList<>();
+        this.resourceUrlProvider = resourceUrlProvider;
+        List<String> staticResources = ListUtils.merge(authorizationProperties.getMatcher().getStaticResources(), SecurityResources.DEFAULT_IGNORED_STATIC_RESOURCES);
+        List<String> permitAllResources = ListUtils.merge(authorizationProperties.getMatcher().getPermitAll(), SecurityResources.DEFAULT_PERMIT_ALL_RESOURCES);
+        List<String> hasAuthenticatedResources = ListUtils.merge(authorizationProperties.getMatcher().getHasAuthenticated(), SecurityResources.DEFAULT_HAS_AUTHENTICATED_RESOURCES);
+        this.permitAllAttributes = createPermitAllAttributes(permitAllResources);
+        this.staticRequestMatchers = WebUtils.toRequestMatchers(staticResources);
+        this.permitAllRequestMatchers = WebUtils.toRequestMatchers(permitAllResources);
+        this.hasAuthenticatedRequestMatchers = WebUtils.toRequestMatchers(hasAuthenticatedResources);
     }
 
-
-    public List<String> getStaticResourceList() {
-        if (CollectionUtils.isEmpty(this.staticResources)) {
-            this.staticResources = ListUtils.merge(authorizationProperties.getMatcher().getStaticResources(), WebResources.DEFAULT_IGNORED_STATIC_RESOURCES);
+    /**
+     * 获取 SecurityFilterChain 中配置的 RequestMatchers 信息。
+     * <p>
+     * RequestMatchers 可以理解为“静态配置”，将其与平台后端的“动态配置”有机结合。同时，防止因动态配置导致的静态配置失效的问题。
+     * <p>
+     * 目前只处理了 permitAll 类型。其它内容根据后续使用情况再行添加。
+     *
+     * @return RequestMatchers 中配置的权限数据
+     */
+    private LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> createPermitAllAttributes(List<String> permitAllResources) {
+        if (CollectionUtils.isNotEmpty(permitAllResources)) {
+            LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> result = new LinkedHashMap<>();
+            permitAllResources.forEach(item -> {
+                result.put(new HerodotusRequest(item), List.of(new HerodotusConfigAttribute(PermissionExpression.PERMIT_ALL.getValue())));
+            });
+            return result;
         }
-        return this.staticResources;
+        return new LinkedHashMap<>();
     }
 
-    public List<String> getPermitAllList() {
-        if (CollectionUtils.isEmpty(this.permitAllResources)) {
-            this.permitAllResources = ListUtils.merge(authorizationProperties.getMatcher().getPermitAll(), WebResources.DEFAULT_PERMIT_ALL_RESOURCES);
-        }
-        return this.permitAllResources;
+    public RequestMatcher[] getStaticRequestMatchers() {
+        return staticRequestMatchers;
     }
 
-    public List<String> getHasAuthenticatedList() {
-        if (CollectionUtils.isEmpty(this.hasAuthenticatedResources)) {
-            this.hasAuthenticatedResources = ListUtils.merge(authorizationProperties.getMatcher().getHasAuthenticated(), WebResources.DEFAULT_HAS_AUTHENTICATED_RESOURCES);
-        }
-        return this.hasAuthenticatedResources;
+    public RequestMatcher[] getPermitAllRequestMatchers() {
+        return permitAllRequestMatchers;
     }
 
-    private RequestMatcher[] toRequestMatchers(List<String> paths) {
-        if (CollectionUtils.isNotEmpty(paths)) {
-            List<AntPathRequestMatcher> matchers = paths.stream().map(AntPathRequestMatcher::new).toList();
-            RequestMatcher[] result = new RequestMatcher[matchers.size()];
-            return matchers.toArray(result);
-        } else {
-            return new RequestMatcher[]{};
-        }
+    public RequestMatcher[] getHasAuthenticatedRequestMatchers() {
+        return hasAuthenticatedRequestMatchers;
     }
 
-    public RequestMatcher[] getStaticResourceArray() {
-        return toRequestMatchers(getStaticResourceList());
+    public LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> getPermitAllAttributes() {
+        return permitAllAttributes;
     }
 
-    public RequestMatcher[] getPermitAllArray() {
-        return toRequestMatchers(getPermitAllList());
+    /**
+     * 判断是否为静态资源
+     *
+     * @param uri 请求 URL
+     * @return 是否为静态资源
+     */
+    public boolean isStaticResources(String uri) {
+        String staticUri = resourceUrlProvider.getForLookupPath(uri);
+        return StringUtils.isNotBlank(staticUri);
     }
 
-    public OAuth2AuthorizationProperties getAuthorizationProperties() {
-        return authorizationProperties;
+    public boolean isStrictMode() {
+        return authorizationProperties.getStrict();
+    }
+
+    public boolean isPermitAllRequest(HttpServletRequest request) {
+        return WebUtils.isRequestMatched(getPermitAllRequestMatchers(), request);
+    }
+
+    public boolean isHasAuthenticatedRequest(HttpServletRequest request) {
+        return WebUtils.isRequestMatched(getHasAuthenticatedRequestMatchers(), request);
     }
 }

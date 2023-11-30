@@ -17,7 +17,6 @@
 package cn.herodotus.engine.oauth2.core.utils;
 
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dromara.hutool.core.bean.BeanUtil;
@@ -33,7 +32,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionAuthenticatedPrincipal;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -163,18 +161,6 @@ public class SecurityUtils {
         }
 
         return null;
-    }
-
-
-    public static String[] whitelistToAntMatchers(List<String> list) {
-        if (CollectionUtils.isNotEmpty(list)) {
-            String[] array = new String[list.size()];
-            log.debug("[Herodotus] |- Fetch The REST White List.");
-            return list.toArray(array);
-        }
-
-        log.warn("[Herodotus] |- Can not Fetch The REST White List Configurations.");
-        return new String[]{};
     }
 
     public static String wellFormRolePrefix(String content) {

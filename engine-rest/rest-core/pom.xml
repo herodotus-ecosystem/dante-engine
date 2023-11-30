@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-rest</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.0-RC2</version>
+        <version>3.2.0-RC3</version>
     </parent>
 
     <artifactId>rest-core</artifactId>

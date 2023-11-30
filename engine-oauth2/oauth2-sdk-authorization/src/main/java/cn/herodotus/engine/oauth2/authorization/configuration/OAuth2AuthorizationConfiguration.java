@@ -39,6 +39,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.web.servlet.resource.ResourceUrlProvider;
 
 /**
  * <p>Description: SecurityAttribute 配置 </p>
@@ -72,8 +73,8 @@ public class OAuth2AuthorizationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public SecurityMatcherConfigurer securityMatcherConfigurer(OAuth2AuthorizationProperties authorizationProperties) {
-        SecurityMatcherConfigurer securityMatcherConfigurer = new SecurityMatcherConfigurer(authorizationProperties);
+    public SecurityMatcherConfigurer securityMatcherConfigurer(OAuth2AuthorizationProperties authorizationProperties, ResourceUrlProvider resourceUrlProvider) {
+        SecurityMatcherConfigurer securityMatcherConfigurer = new SecurityMatcherConfigurer(authorizationProperties, resourceUrlProvider);
         log.trace("[Herodotus] |- Bean [Security Metadata Configurer] Auto Configure.");
         return securityMatcherConfigurer;
     }

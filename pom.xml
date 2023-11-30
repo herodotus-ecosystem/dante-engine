@@ -24,7 +24,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.2.0-RC2</version>
+        <version>3.2.0-RC3</version>
         <relativePath>dependencies/pom.xml</relativePath>
     </parent>
 
@@ -53,18 +53,6 @@
     <scm>
         <url>https://github.com/dromara/dante-cloud</url>
     </scm>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-bom</artifactId>
-                <version>${netty.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <profiles>
         <profile>

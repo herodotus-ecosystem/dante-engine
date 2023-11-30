@@ -21,8 +21,6 @@ import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttrib
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.enums.Category;
 import cn.herodotus.engine.oauth2.core.definition.domain.SecurityAttribute;
-import cn.herodotus.engine.oauth2.core.enums.PermissionExpression;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -184,29 +182,6 @@ public class SecurityMetadataSourceAnalyzer {
     }
 
     /**
-     * 获取 SecurityFilterChain 中配置的 RequestMatchers 信息。
-     * <p>
-     * RequestMatchers 可以理解为“静态配置”，将其与平台后端的“动态配置”有机结合。同时，防止因动态配置导致的静态配置失效的问题。
-     * <p>
-     * 目前只处理了 permitAll 类型。其它内容根据后续使用情况再行添加。
-     *
-     * @return RequestMatchers 中配置的权限数据
-     */
-    private LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> getRequestMatchers() {
-
-        List<String> permitAllMatcher = securityMatcherConfigurer.getPermitAllList();
-
-        if (CollectionUtils.isNotEmpty(permitAllMatcher)) {
-            LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> result = new LinkedHashMap<>();
-            permitAllMatcher.forEach(item -> {
-                result.put(new HerodotusRequest(item), List.of(new HerodotusConfigAttribute(PermissionExpression.PERMIT_ALL.getValue())));
-            });
-            return result;
-        }
-        return new LinkedHashMap<>();
-    }
-
-    /**
      * 各个服务静态化配置的权限过滤，通常为通配符型或者全路径型，很少有站位符型。即：大多数情况为 {@code Category.WILDCARD} 和 {@code Category.PLACEHOLDER}，很少有 {@code Category.FULL_PATH}
      * <p>
      * 此处的逻辑是：
@@ -219,7 +194,7 @@ public class SecurityMetadataSourceAnalyzer {
 
         log.debug("[Herodotus] |- [3] Process local configured security metadata.");
 
-        LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> requestMatchers = getRequestMatchers();
+        LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> requestMatchers = securityMatcherConfigurer.getPermitAllAttributes();
         if (MapUtils.isNotEmpty(requestMatchers)) {
             Map<Category, LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>>> grouping = groupSecurityMatchers(requestMatchers);
 

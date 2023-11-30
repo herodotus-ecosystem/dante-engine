@@ -28,7 +28,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.2.0-RC2</version>
+    <version>3.2.0-RC3</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -128,7 +128,7 @@
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.2</aliyun-sdk-oss.version>
-        <alipay-sdk-java.version>4.38.144.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.38.149.ALL</alipay-sdk-java.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
         <tencentcloud-sdk-java.version>3.1.893</tencentcloud-sdk-java.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
@@ -147,9 +147,9 @@
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
         <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
         <dom4j.version>2.1.4</dom4j.version>
-        <sqlite-jdbc.version>3.44.0.0</sqlite-jdbc.version>
+        <sqlite-jdbc.version>3.44.1.0</sqlite-jdbc.version>
         <snappy-java.version>1.1.10.5</snappy-java.version>
-        <netty.version>4.1.100.Final</netty.version>
+        <grpc.version>1.59.1</grpc.version>
     </properties>
 
     <dependencyManagement>
@@ -867,6 +867,17 @@
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>${org.json.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-all</artifactId>
+                <version>${grpc.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.grpc</groupId>
+                        <artifactId>grpc-xds</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

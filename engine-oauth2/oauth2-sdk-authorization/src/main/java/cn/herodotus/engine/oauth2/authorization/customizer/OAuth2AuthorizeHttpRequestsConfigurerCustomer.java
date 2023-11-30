@@ -42,8 +42,8 @@ public class OAuth2AuthorizeHttpRequestsConfigurerCustomer implements Customizer
     @Override
     public void customize(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry configurer) {
         configurer
-                .requestMatchers(securityMatcherConfigurer.getStaticResourceArray()).permitAll()
-                .requestMatchers(securityMatcherConfigurer.getPermitAllArray()).permitAll()
+                .requestMatchers(securityMatcherConfigurer.getStaticRequestMatchers()).permitAll()
+                .requestMatchers(securityMatcherConfigurer.getPermitAllRequestMatchers()).permitAll()
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .anyRequest().access(securityAuthorizationManager);
     }

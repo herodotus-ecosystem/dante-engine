@@ -183,7 +183,7 @@ public class SecurityGlobalExceptionHandler {
         } else {
             String exceptionName = exception.getClass().getSimpleName();
             if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
-                Feedback feedback =  EXCEPTION_DICTIONARY.get(exceptionName);
+                Feedback feedback = EXCEPTION_DICTIONARY.get(exceptionName);
                 return Result.failure(feedback);
             } else {
                 reason = exception;
