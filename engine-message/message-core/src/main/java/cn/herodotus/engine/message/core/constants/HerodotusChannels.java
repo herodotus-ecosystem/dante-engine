@@ -24,8 +24,24 @@ package cn.herodotus.engine.message.core.constants;
  */
 public interface HerodotusChannels {
 
+    /**
+     * Mqtt 默认入站通道
+     */
     String MQTT_DEFAULT_INBOUND_CHANNEL = "mqttDefaultInboundChannel";
+    /**
+     * Mqtt 默认出站通道
+     */
     String MQTT_DEFAULT_OUTBOUND_CHANNEL = "mqttDefaultOutboundChannel";
-
-    String EMQX_MONITOR_INBOUND_CHANNEL = "emqxMonitorInboundChannel";
+    /**
+     * Emqx 默认的监控指标数据数据 Mqtt 类型入站通道
+     */
+    String EMQX_DEFAULT_MONITOR_MQTT_INBOUND_CHANNEL = "emqxDefaultMonitorMqttInboundChannel";
+    /**
+     * Emqx 默认的 Webhook 数据 HTTP 类型入站通道
+     */
+    String EMQX_DEFAULT_WEBHOOK_HTTP_INBOUND_CHANNEL = "emqxDefaultWebhookHttpInboundChannel";
+    /**
+     * Emqx 默认的 Webhook 数据 EVENT 类型出站通道
+     */
+    String EMQX_DEFAULT_WEBHOOK_EVENT_OUTBOUND_CHANNEL = "emqxDefaultWebhookHttpOutboundChannel";
 }

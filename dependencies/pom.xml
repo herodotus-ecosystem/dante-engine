@@ -89,7 +89,7 @@
         <!-- 应用开发辅助工具组件 -->
         <redisson.version>3.24.3</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
-        <springdoc.version>2.2.0</springdoc.version>
+        <springdoc.version>2.3.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.0.0</skywalking.version>
         <minio.version>8.5.7</minio.version>
