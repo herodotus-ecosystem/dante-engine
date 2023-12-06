@@ -41,7 +41,7 @@ public interface HerodotusChannels {
      */
     String EMQX_DEFAULT_WEBHOOK_HTTP_INBOUND_CHANNEL = "emqxDefaultWebhookHttpInboundChannel";
     /**
-     * Emqx 默认的 Webhook 数据 EVENT 类型出站通道
+     * Emqx 默认的系统时间数据 EVENT 类型出站通道
      */
-    String EMQX_DEFAULT_WEBHOOK_EVENT_OUTBOUND_CHANNEL = "emqxDefaultWebhookHttpOutboundChannel";
+    String EMQX_DEFAULT_EVENT_OUTBOUND_CHANNEL = "emqxDefaultEventOutboundChannel";
 }

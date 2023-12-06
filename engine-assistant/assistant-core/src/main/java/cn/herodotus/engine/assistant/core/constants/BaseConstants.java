@@ -63,6 +63,7 @@ public interface BaseConstants {
     String PROPERTY_PREFIX_SMS = PROPERTY_PREFIX_HERODOTUS + ".sms";
     String PROPERTY_PREFIX_SWAGGER = PROPERTY_PREFIX_HERODOTUS + ".swagger";
     String PROPERTY_PREFIX_TSDB = PROPERTY_PREFIX_HERODOTUS + ".tsdb";
+    String PROPERTY_PREFIX_IOT = PROPERTY_PREFIX_HERODOTUS + ".iot";
 
     /* ---------- Spring 家族配置属性 ---------- */
 

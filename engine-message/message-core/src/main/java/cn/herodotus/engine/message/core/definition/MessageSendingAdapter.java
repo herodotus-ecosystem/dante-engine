@@ -17,7 +17,7 @@
 package cn.herodotus.engine.message.core.definition;
 
 import cn.herodotus.engine.message.core.definition.domain.Message;
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
+import cn.herodotus.engine.message.core.definition.event.AbstractApplicationEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
@@ -28,6 +28,6 @@ import org.springframework.context.ApplicationListener;
  * @author : gengwei.zheng
  * @date : 2023/10/26 16:46
  */
-public interface MessageSendingAdapter<D extends Message, E extends HerodotusApplicationEvent<D>> extends ApplicationListener<E> {
+public interface MessageSendingAdapter<D extends Message, E extends AbstractApplicationEvent<D>> extends ApplicationListener<E> {
 
 }

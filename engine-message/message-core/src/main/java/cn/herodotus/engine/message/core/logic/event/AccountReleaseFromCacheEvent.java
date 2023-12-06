@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.core.logic.event;
 
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
+import cn.herodotus.engine.message.core.definition.event.AbstractApplicationEvent;
 
 import java.time.Clock;
 
@@ -26,7 +26,7 @@ import java.time.Clock;
  * @author : gengwei.zheng
  * @date : 2023/5/14 14:26
  */
-public class AccountReleaseFromCacheEvent extends HerodotusApplicationEvent<String> {
+public class AccountReleaseFromCacheEvent extends AbstractApplicationEvent<String> {
 
     public AccountReleaseFromCacheEvent(String data) {
         super(data);
