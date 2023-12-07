@@ -20,7 +20,6 @@ import cn.herodotus.engine.assistant.core.utils.http.HeaderUtils;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
-import cn.herodotus.engine.rest.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
@@ -69,12 +68,12 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
         String url = request.getRequestURI();
         String method = request.getMethod();
 
-        if (WebUtils.isStaticResources(url)) {
+        if (securityMatcherConfigurer.isStaticResources(url)) {
             log.trace("[Herodotus] |- Is static resource : [{}], Passed!", url);
             return new AuthorizationDecision(true);
         }
 
-        if (WebUtils.isPathMatch(securityMatcherConfigurer.getPermitAllList(), url)) {
+        if (securityMatcherConfigurer.isPermitAllRequest(request)) {
             log.trace("[Herodotus] |- Is white list resource : [{}], Passed!", url);
             return new AuthorizationDecision(true);
         }
@@ -85,7 +84,7 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
             return new AuthorizationDecision(true);
         }
 
-        if (WebUtils.isPathMatch(securityMatcherConfigurer.getHasAuthenticatedList(), url)) {
+        if (securityMatcherConfigurer.isHasAuthenticatedRequest(request)) {
             log.trace("[Herodotus] |- Is has authenticated resource : [{}]", url);
             return new AuthorizationDecision(authentication.get().isAuthenticated());
         }
@@ -94,7 +93,7 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
         if (CollectionUtils.isEmpty(configAttributes)) {
             log.warn("[Herodotus] |- NO PRIVILEGES : [{}].", url);
 
-            if (!securityMatcherConfigurer.getAuthorizationProperties().getStrict()) {
+            if (!securityMatcherConfigurer.isStrictMode()) {
                 if (authentication.get().isAuthenticated()) {
                     log.debug("[Herodotus] |- Request is authenticated: [{}].", url);
                     return new AuthorizationDecision(true);

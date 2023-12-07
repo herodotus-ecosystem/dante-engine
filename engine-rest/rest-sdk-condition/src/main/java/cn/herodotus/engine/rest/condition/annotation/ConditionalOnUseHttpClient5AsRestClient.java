@@ -16,13 +16,13 @@
 
 package cn.herodotus.engine.rest.condition.annotation;
 
-import cn.herodotus.engine.rest.condition.definition.UseOkHttp3RestClientCondition;
+import cn.herodotus.engine.rest.condition.definition.UseHttpClient5AsRestClientCondition;
 import org.springframework.context.annotation.Conditional;
 
 import java.lang.annotation.*;
 
 /**
- * <p>Description: 使用 OkHttp 客户端 条件注解 </p>
+ * <p>Description: 使用 HttpComponents 客户端作为 RestTemplate 和 OpenFeign 引擎条件注解 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/6/15 21:29
@@ -30,6 +30,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(UseOkHttp3RestClientCondition.class)
-public @interface ConditionalOnUseOkHttp3RestClient {
+@Conditional(UseHttpClient5AsRestClientCondition.class)
+public @interface ConditionalOnUseHttpClient5AsRestClient {
 }

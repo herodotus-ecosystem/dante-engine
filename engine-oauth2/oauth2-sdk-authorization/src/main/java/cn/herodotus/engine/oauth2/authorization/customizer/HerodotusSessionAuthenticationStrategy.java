@@ -27,7 +27,7 @@ import org.springframework.session.FindByIndexNameSessionRepository;
 
 /**
  * <p>Description: 自定义扩展 SessionAuthenticationStrategy </p>
- *
+ * <p>
  * 扩展 SessionAuthenticationStrategy 以支持 {@link FindByIndexNameSessionRepository#PRINCIPAL_NAME_INDEX_NAME} 的设置。
  *
  * @author : gengwei.zheng

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.rest.core.constants;
+package cn.herodotus.engine.oauth2.core.constants;
 
 import com.google.common.collect.Lists;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2023/5/3 23:03
  */
-public class WebResources {
+public class SecurityResources {
 
     public static final List<String> DEFAULT_IGNORED_STATIC_RESOURCES = Lists.newArrayList(
             "/error/**",

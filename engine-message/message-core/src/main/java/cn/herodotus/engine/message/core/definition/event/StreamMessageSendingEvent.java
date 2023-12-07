@@ -26,7 +26,7 @@ import java.time.Clock;
  * @author : gengwei.zheng
  * @date : 2023/10/26 15:17
  */
-public class StreamMessageSendingEvent<T extends StreamMessage> extends HerodotusApplicationEvent<T> {
+public class StreamMessageSendingEvent<T extends StreamMessage> extends AbstractApplicationEvent<T> {
     public StreamMessageSendingEvent(T data) {
         super(data);
     }

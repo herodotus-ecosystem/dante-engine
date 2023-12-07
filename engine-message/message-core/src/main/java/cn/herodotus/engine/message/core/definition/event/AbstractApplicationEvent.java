@@ -26,16 +26,16 @@ import java.time.Clock;
  * @author : gengwei.zheng
  * @date : 2022/2/4 15:14
  */
-public class HerodotusApplicationEvent<T> extends ApplicationEvent {
+public abstract class AbstractApplicationEvent<T> extends ApplicationEvent {
 
     private final T data;
 
-    public HerodotusApplicationEvent(T data) {
+    public AbstractApplicationEvent(T data) {
         super(data);
         this.data = data;
     }
 
-    public HerodotusApplicationEvent(T data, Clock clock) {
+    public AbstractApplicationEvent(T data, Clock clock) {
         super(data, clock);
         this.data = data;
     }

@@ -26,7 +26,7 @@ import java.time.Clock;
  * @author : gengwei.zheng
  * @date : 2023/10/26 15:16
  */
-public class TemplateMessageSendingEvent<T extends TemplateMessage> extends HerodotusApplicationEvent<T> {
+public class TemplateMessageSendingEvent<T extends TemplateMessage> extends AbstractApplicationEvent<T> {
     public TemplateMessageSendingEvent(T data) {
         super(data);
     }

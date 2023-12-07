@@ -20,7 +20,7 @@ import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
 import cn.herodotus.engine.message.core.definition.domain.StreamMessage;
 import cn.herodotus.engine.message.core.definition.domain.TemplateMessage;
 import cn.herodotus.engine.message.core.definition.domain.WebSocketMessage;
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
+import cn.herodotus.engine.message.core.definition.event.AbstractApplicationEvent;
 import cn.herodotus.engine.message.core.definition.event.StreamMessageSendingEvent;
 import cn.herodotus.engine.message.core.definition.event.TemplateMessageSendingEvent;
 import org.apache.commons.lang3.StringUtils;
@@ -38,9 +38,9 @@ class MessageSendingFacade {
     /**
      * 发送消息
      *
-     * @param event {@link HerodotusApplicationEvent}
+     * @param event {@link AbstractApplicationEvent}
      */
-    private static <T> void postProcess(HerodotusApplicationEvent<T> event) {
+    private static <T> void postProcess(AbstractApplicationEvent<T> event) {
         ServiceContextHolder.getInstance().publishEvent(event);
     }
 
@@ -50,7 +50,7 @@ class MessageSendingFacade {
      * @param event 消息
      * @param <T>   消息实体
      */
-    public static <T> void event(HerodotusApplicationEvent<T> event) {
+    public static <T> void event(AbstractApplicationEvent<T> event) {
         postProcess(event);
     }
 

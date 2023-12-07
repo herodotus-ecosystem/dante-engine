@@ -16,13 +16,13 @@
 
 package cn.herodotus.engine.rest.condition.annotation;
 
-import cn.herodotus.engine.rest.condition.definition.UseHttpClient5RestClientCondition;
+import cn.herodotus.engine.rest.condition.definition.UseSimpleClientAsRestClientCondition;
 import org.springframework.context.annotation.Conditional;
 
 import java.lang.annotation.*;
 
 /**
- * <p>Description: 使用 HttpClient 客户端 条件注解 </p>
+ * <p>Description: 使用 默认 客户端 条件注解 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/6/15 21:29
@@ -30,6 +30,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Conditional(UseHttpClient5RestClientCondition.class)
-public @interface ConditionalOnUseHttpClient5RestClient {
+@Conditional(UseSimpleClientAsRestClientCondition.class)
+public @interface ConditionalOnUseSimpleClientAsRestClient {
 }

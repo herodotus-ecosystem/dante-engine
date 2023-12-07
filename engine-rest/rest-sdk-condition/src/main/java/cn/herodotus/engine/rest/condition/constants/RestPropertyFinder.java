@@ -46,12 +46,12 @@ public class RestPropertyFinder {
         return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_SCAN_ENABLED);
     }
 
-    public static boolean isOpenFeignOkHttpEnabled(ConditionContext conditionContext) {
-        return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_OPENFEIGN_OKHTTP_ENABLED);
+    public static boolean isOpenFeignHttp2ClientEnabled(ConditionContext conditionContext) {
+        return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_OPENFEIGN_HTTP2CLIENT_ENABLED);
     }
 
-    public static boolean isOpenFeignHttpClientEnabled(ConditionContext conditionContext) {
-        return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_OPENFEIGN_HTTPCLIENT_ENABLED);
+    public static boolean isOpenFeignHttpClient5Enabled(ConditionContext conditionContext) {
+        return PropertyResolver.getBoolean(conditionContext, RestConstants.ITEM_OPENFEIGN_HTTPCLIENT5_ENABLED);
     }
 
     public static String getDataAccessStrategy(ConditionContext conditionContext, String defaultValue) {

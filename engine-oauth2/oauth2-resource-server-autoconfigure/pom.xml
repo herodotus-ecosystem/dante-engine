@@ -22,7 +22,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-oauth2</artifactId>
-        <version>3.1.6.0</version>
+        <version>3.2.0.0</version>
     </parent>
 
     <artifactId>oauth2-resource-server-autoconfigure</artifactId>

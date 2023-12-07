@@ -26,7 +26,7 @@ import java.time.Clock;
  * @author : gengwei.zheng
  * @date : 2023/11/2 16:05
  */
-public class MqttMessageSendingEvent extends HerodotusApplicationEvent<MqttMessage> {
+public class MqttMessageSendingEvent extends AbstractApplicationEvent<MqttMessage> {
 
     public MqttMessageSendingEvent(MqttMessage data) {
         super(data);

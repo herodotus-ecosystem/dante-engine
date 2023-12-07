@@ -22,10 +22,13 @@ import feign.MethodMetadata;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.openfeign.AnnotatedParameterProcessor;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
+import org.springframework.core.convert.ConversionService;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
@@ -38,6 +41,21 @@ import static org.springframework.core.annotation.AnnotatedElementUtils.findMerg
 public class FeignInnerContract extends SpringMvcContract {
 
     private static final Logger log = LoggerFactory.getLogger(FeignInnerContract.class);
+
+    public FeignInnerContract() {
+    }
+
+    public FeignInnerContract(List<AnnotatedParameterProcessor> annotatedParameterProcessors) {
+        super(annotatedParameterProcessors);
+    }
+
+    public FeignInnerContract(List<AnnotatedParameterProcessor> annotatedParameterProcessors, ConversionService conversionService) {
+        super(annotatedParameterProcessors, conversionService);
+    }
+
+    public FeignInnerContract(List<AnnotatedParameterProcessor> annotatedParameterProcessors, ConversionService conversionService, boolean decodeSlash) {
+        super(annotatedParameterProcessors, conversionService, decodeSlash);
+    }
 
     @Override
     protected void processAnnotationOnMethod(MethodMetadata data, Annotation methodAnnotation, Method method) {

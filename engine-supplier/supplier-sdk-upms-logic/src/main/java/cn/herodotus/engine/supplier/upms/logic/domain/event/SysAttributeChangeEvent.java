@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.domain.event;
 
-import cn.herodotus.engine.message.core.definition.event.HerodotusApplicationEvent;
+import cn.herodotus.engine.message.core.definition.event.AbstractApplicationEvent;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysAttribute;
 
 import java.time.Clock;
@@ -27,7 +27,7 @@ import java.time.Clock;
  * @author : gengwei.zheng
  * @date : 2021/8/4 22:18
  */
-public class SysAttributeChangeEvent extends HerodotusApplicationEvent<SysAttribute> {
+public class SysAttributeChangeEvent extends AbstractApplicationEvent<SysAttribute> {
 
     public SysAttributeChangeEvent(SysAttribute data) {
         super(data);
