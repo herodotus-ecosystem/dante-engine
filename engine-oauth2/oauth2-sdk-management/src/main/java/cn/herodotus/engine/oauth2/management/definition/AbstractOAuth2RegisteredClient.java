@@ -16,8 +16,9 @@
 
 package cn.herodotus.engine.oauth2.management.definition;
 
-import cn.herodotus.engine.oauth2.core.enums.Signature;
+import cn.herodotus.engine.oauth2.core.enums.SignatureJwsAlgorithm;
 import cn.herodotus.engine.oauth2.core.enums.TokenFormat;
+import cn.herodotus.engine.oauth2.core.enums.AllJwsAlgorithm;
 import cn.herodotus.engine.oauth2.data.jpa.definition.domain.AbstractRegisteredClient;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -63,7 +64,7 @@ public abstract class AbstractOAuth2RegisteredClient extends AbstractRegisteredC
     @Schema(name = "JWT 签名算法", title = "仅在 clientAuthenticationMethods 为 private_key_jwt 和 client_secret_jwt 方法下使用")
     @Column(name = "signing_algorithm")
     @Enumerated(EnumType.ORDINAL)
-    private Signature authenticationSigningAlgorithm;
+    private AllJwsAlgorithm authenticationSigningAlgorithm;
     /* --- ClientSettings End --- */
 
 
@@ -96,7 +97,7 @@ public abstract class AbstractOAuth2RegisteredClient extends AbstractRegisteredC
     @Schema(name = "IdToken 签名算法", title = "JWT 算法用于签名 ID Token， 默认值 RS256")
     @Column(name = "signature_algorithm")
     @Enumerated(EnumType.ORDINAL)
-    private Signature idTokenSignatureAlgorithm = Signature.RS256;
+    private SignatureJwsAlgorithm idTokenSignatureAlgorithmJwsAlgorithm = SignatureJwsAlgorithm.RS256;
     /* --- TokenSettings End --- */
 
     public abstract Set<OAuth2Scope> getScopes();
@@ -143,11 +144,11 @@ public abstract class AbstractOAuth2RegisteredClient extends AbstractRegisteredC
         this.jwkSetUrl = jwkSetUrl;
     }
 
-    public Signature getAuthenticationSigningAlgorithm() {
+    public AllJwsAlgorithm getAuthenticationSigningAlgorithm() {
         return authenticationSigningAlgorithm;
     }
 
-    public void setAuthenticationSigningAlgorithm(Signature authenticationSigningAlgorithm) {
+    public void setAuthenticationSigningAlgorithm(AllJwsAlgorithm authenticationSigningAlgorithm) {
         this.authenticationSigningAlgorithm = authenticationSigningAlgorithm;
     }
 
@@ -199,11 +200,11 @@ public abstract class AbstractOAuth2RegisteredClient extends AbstractRegisteredC
         this.reuseRefreshTokens = reuseRefreshTokens;
     }
 
-    public Signature getIdTokenSignatureAlgorithm() {
-        return idTokenSignatureAlgorithm;
+    public SignatureJwsAlgorithm getIdTokenSignatureAlgorithm() {
+        return idTokenSignatureAlgorithmJwsAlgorithm;
     }
 
-    public void setIdTokenSignatureAlgorithm(Signature idTokenSignatureAlgorithm) {
-        this.idTokenSignatureAlgorithm = idTokenSignatureAlgorithm;
+    public void setIdTokenSignatureAlgorithm(SignatureJwsAlgorithm idTokenSignatureAlgorithmJwsAlgorithm) {
+        this.idTokenSignatureAlgorithmJwsAlgorithm = idTokenSignatureAlgorithmJwsAlgorithm;
     }
 }

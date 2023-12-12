@@ -37,6 +37,9 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractOAuth2RegisteredClientConverter<T extends AbstractOAuth2RegisteredClient> implements RegisteredClientConverter<T> {
 
+    private final ToSignatureAlgorithmConverter toSignatureAlgorithm = new ToSignatureAlgorithmConverter();
+    private final ToJwsAlgorithmConverter toJwsAlgorithm = new ToJwsAlgorithmConverter();
+
     @Override
     public Set<String> getScopes(T details) {
         Set<OAuth2Scope> clientScopes = details.getScopes();
@@ -51,11 +54,9 @@ public abstract class AbstractOAuth2RegisteredClientConverter<T extends Abstract
         if (StringUtils.hasText(details.getJwkSetUrl())) {
             clientSettingsBuilder.jwkSetUrl(details.getJwkSetUrl());
         }
-        if (ObjectUtils.isNotEmpty(details.getAuthenticationSigningAlgorithm())) {
-            JwsAlgorithm jwsAlgorithm = SignatureAlgorithm.from(details.getAuthenticationSigningAlgorithm().name());
-            if (ObjectUtils.isNotEmpty(jwsAlgorithm)) {
-                clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(jwsAlgorithm);
-            }
+        JwsAlgorithm jwsAlgorithm = toJwsAlgorithm.convert(details.getAuthenticationSigningAlgorithm());
+        if (ObjectUtils.isNotEmpty(jwsAlgorithm)) {
+            clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(jwsAlgorithm);
         }
         return clientSettingsBuilder.build();
     }
@@ -64,18 +65,16 @@ public abstract class AbstractOAuth2RegisteredClientConverter<T extends Abstract
     public TokenSettings getTokenSettings(T details) {
         TokenSettings.Builder tokenSettingsBuilder = TokenSettings.builder();
         tokenSettingsBuilder.authorizationCodeTimeToLive(details.getAuthorizationCodeValidity());
-        tokenSettingsBuilder.deviceCodeTimeToLive(details.getDeviceCodeValidity());
         tokenSettingsBuilder.accessTokenTimeToLive(details.getAccessTokenValidity());
-        // refreshToken 的有效期
-        tokenSettingsBuilder.refreshTokenTimeToLive(details.getRefreshTokenValidity());
+        tokenSettingsBuilder.accessTokenFormat(new OAuth2TokenFormat(details.getAccessTokenFormat().getFormat()));
+        tokenSettingsBuilder.deviceCodeTimeToLive(details.getDeviceCodeValidity());
         // 是否可重用刷新令牌
         tokenSettingsBuilder.reuseRefreshTokens(details.getReuseRefreshTokens());
-        tokenSettingsBuilder.accessTokenFormat(new OAuth2TokenFormat(details.getAccessTokenFormat().getFormat()));
-        if (ObjectUtils.isNotEmpty(details.getIdTokenSignatureAlgorithm())) {
-            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.from(details.getIdTokenSignatureAlgorithm().name());
-            if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {
-                tokenSettingsBuilder.idTokenSignatureAlgorithm(signatureAlgorithm);
-            }
+        // refreshToken 的有效期
+        tokenSettingsBuilder.refreshTokenTimeToLive(details.getRefreshTokenValidity());
+        SignatureAlgorithm signatureAlgorithm = toSignatureAlgorithm.convert(details.getIdTokenSignatureAlgorithm());
+        if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {
+            tokenSettingsBuilder.idTokenSignatureAlgorithm(signatureAlgorithm);
         }
         return tokenSettingsBuilder.build();
     }

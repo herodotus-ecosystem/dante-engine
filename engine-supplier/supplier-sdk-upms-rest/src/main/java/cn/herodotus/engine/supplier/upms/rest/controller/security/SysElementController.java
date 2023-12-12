@@ -117,7 +117,7 @@ public class SysElementController extends BaseWriteableRestController<SysElement
     @Parameters({
             @Parameter(name = "id", required = true, in = ParameterIn.PATH, description = "实体ID，@Id注解对应的实体属性")
     })
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Result<SysElement> findById(@PathVariable String id) {
         return super.findById(id);
     }
