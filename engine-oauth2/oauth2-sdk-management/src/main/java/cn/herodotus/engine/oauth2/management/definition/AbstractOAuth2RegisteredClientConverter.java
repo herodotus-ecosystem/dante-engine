@@ -16,10 +16,13 @@
 
 package cn.herodotus.engine.oauth2.management.definition;
 
+import cn.herodotus.engine.oauth2.core.enums.AllJwsAlgorithm;
+import cn.herodotus.engine.oauth2.core.enums.SignatureJwsAlgorithm;
 import cn.herodotus.engine.oauth2.data.jpa.definition.converter.RegisteredClientConverter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
@@ -51,11 +54,9 @@ public abstract class AbstractOAuth2RegisteredClientConverter<T extends Abstract
         if (StringUtils.hasText(details.getJwkSetUrl())) {
             clientSettingsBuilder.jwkSetUrl(details.getJwkSetUrl());
         }
-        if (ObjectUtils.isNotEmpty(details.getAuthenticationSigningAlgorithm())) {
-            JwsAlgorithm jwsAlgorithm = SignatureAlgorithm.from(details.getAuthenticationSigningAlgorithm().name());
-            if (ObjectUtils.isNotEmpty(jwsAlgorithm)) {
-                clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(jwsAlgorithm);
-            }
+        JwsAlgorithm jwsAlgorithm = toJwsAlgorithm(details.getAuthenticationSigningAlgorithm());
+        if (ObjectUtils.isNotEmpty(jwsAlgorithm)) {
+            clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(jwsAlgorithm);
         }
         return clientSettingsBuilder.build();
     }
@@ -64,19 +65,39 @@ public abstract class AbstractOAuth2RegisteredClientConverter<T extends Abstract
     public TokenSettings getTokenSettings(T details) {
         TokenSettings.Builder tokenSettingsBuilder = TokenSettings.builder();
         tokenSettingsBuilder.authorizationCodeTimeToLive(details.getAuthorizationCodeValidity());
-        tokenSettingsBuilder.deviceCodeTimeToLive(details.getDeviceCodeValidity());
         tokenSettingsBuilder.accessTokenTimeToLive(details.getAccessTokenValidity());
-        // refreshToken 的有效期
-        tokenSettingsBuilder.refreshTokenTimeToLive(details.getRefreshTokenValidity());
+        tokenSettingsBuilder.accessTokenFormat(new OAuth2TokenFormat(details.getAccessTokenFormat().getFormat()));
+        tokenSettingsBuilder.deviceCodeTimeToLive(details.getDeviceCodeValidity());
         // 是否可重用刷新令牌
         tokenSettingsBuilder.reuseRefreshTokens(details.getReuseRefreshTokens());
-        tokenSettingsBuilder.accessTokenFormat(new OAuth2TokenFormat(details.getAccessTokenFormat().getFormat()));
-        if (ObjectUtils.isNotEmpty(details.getIdTokenSignatureAlgorithm())) {
-            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.from(details.getIdTokenSignatureAlgorithm().name());
-            if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {
-                tokenSettingsBuilder.idTokenSignatureAlgorithm(signatureAlgorithm);
-            }
+        // refreshToken 的有效期
+        tokenSettingsBuilder.refreshTokenTimeToLive(details.getRefreshTokenValidity());
+        SignatureAlgorithm signatureAlgorithm = toSignatureAlgorithm(details.getIdTokenSignatureAlgorithm());
+        if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {
+            tokenSettingsBuilder.idTokenSignatureAlgorithm(signatureAlgorithm);
         }
         return tokenSettingsBuilder.build();
+    }
+
+    private JwsAlgorithm toJwsAlgorithm(AllJwsAlgorithm allJwsAlgorithm) {
+        if (ObjectUtils.isNotEmpty(allJwsAlgorithm)) {
+            if (allJwsAlgorithm.getValue() < AllJwsAlgorithm.HS256.getValue()) {
+                // 如果是签名算法, 转换成 SAS 签名算法
+                return SignatureAlgorithm.from(allJwsAlgorithm.name());
+            } else {
+                // 如果是 Mac 算法, 转换成 Mac 签名算法
+                return MacAlgorithm.from(allJwsAlgorithm.name());
+            }
+        }
+
+        return null;
+    }
+
+    private SignatureAlgorithm toSignatureAlgorithm(SignatureJwsAlgorithm signatureJwsAlgorithm) {
+        if (ObjectUtils.isNotEmpty(signatureJwsAlgorithm)) {
+            return SignatureAlgorithm.from(signatureJwsAlgorithm.name());
+        }
+
+        return null;
     }
 }

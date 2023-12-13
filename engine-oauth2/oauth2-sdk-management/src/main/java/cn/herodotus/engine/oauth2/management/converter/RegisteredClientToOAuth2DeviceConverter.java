@@ -16,8 +16,9 @@
 
 package cn.herodotus.engine.oauth2.management.converter;
 
-import cn.herodotus.engine.oauth2.core.enums.Signature;
+import cn.herodotus.engine.oauth2.core.enums.SignatureJwsAlgorithm;
 import cn.herodotus.engine.oauth2.core.enums.TokenFormat;
+import cn.herodotus.engine.oauth2.core.enums.AllJwsAlgorithm;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Device;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ScopeService;
@@ -73,7 +74,7 @@ public class RegisteredClientToOAuth2DeviceConverter implements Converter<Regist
         device.setRequireAuthorizationConsent(clientSettings.isRequireAuthorizationConsent());
         device.setJwkSetUrl(clientSettings.getJwkSetUrl());
         if (ObjectUtils.isNotEmpty(clientSettings.getTokenEndpointAuthenticationSigningAlgorithm())) {
-            device.setAuthenticationSigningAlgorithm(Signature.valueOf(clientSettings.getTokenEndpointAuthenticationSigningAlgorithm().getName()));
+            device.setAuthenticationSigningAlgorithm(AllJwsAlgorithm.valueOf(clientSettings.getTokenEndpointAuthenticationSigningAlgorithm().getName()));
         }
 
         TokenSettings tokenSettings = registeredClient.getTokenSettings();
@@ -83,7 +84,7 @@ public class RegisteredClientToOAuth2DeviceConverter implements Converter<Regist
         device.setRefreshTokenValidity(tokenSettings.getRefreshTokenTimeToLive());
         device.setAccessTokenFormat(TokenFormat.get(tokenSettings.getAccessTokenFormat().getValue()));
         device.setReuseRefreshTokens(tokenSettings.isReuseRefreshTokens());
-        device.setIdTokenSignatureAlgorithm(Signature.valueOf(tokenSettings.getIdTokenSignatureAlgorithm().getName()));
+        device.setIdTokenSignatureAlgorithm(SignatureJwsAlgorithm.valueOf(tokenSettings.getIdTokenSignatureAlgorithm().getName()));
 
         return device;
     }
