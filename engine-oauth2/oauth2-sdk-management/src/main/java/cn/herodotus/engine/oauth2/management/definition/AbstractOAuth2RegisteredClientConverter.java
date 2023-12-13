@@ -16,10 +16,13 @@
 
 package cn.herodotus.engine.oauth2.management.definition;
 
+import cn.herodotus.engine.oauth2.core.enums.AllJwsAlgorithm;
+import cn.herodotus.engine.oauth2.core.enums.SignatureJwsAlgorithm;
 import cn.herodotus.engine.oauth2.data.jpa.definition.converter.RegisteredClientConverter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
@@ -37,9 +40,6 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractOAuth2RegisteredClientConverter<T extends AbstractOAuth2RegisteredClient> implements RegisteredClientConverter<T> {
 
-    private final ToSignatureAlgorithmConverter toSignatureAlgorithm = new ToSignatureAlgorithmConverter();
-    private final ToJwsAlgorithmConverter toJwsAlgorithm = new ToJwsAlgorithmConverter();
-
     @Override
     public Set<String> getScopes(T details) {
         Set<OAuth2Scope> clientScopes = details.getScopes();
@@ -54,7 +54,7 @@ public abstract class AbstractOAuth2RegisteredClientConverter<T extends Abstract
         if (StringUtils.hasText(details.getJwkSetUrl())) {
             clientSettingsBuilder.jwkSetUrl(details.getJwkSetUrl());
         }
-        JwsAlgorithm jwsAlgorithm = toJwsAlgorithm.convert(details.getAuthenticationSigningAlgorithm());
+        JwsAlgorithm jwsAlgorithm = toJwsAlgorithm(details.getAuthenticationSigningAlgorithm());
         if (ObjectUtils.isNotEmpty(jwsAlgorithm)) {
             clientSettingsBuilder.tokenEndpointAuthenticationSigningAlgorithm(jwsAlgorithm);
         }
@@ -72,10 +72,32 @@ public abstract class AbstractOAuth2RegisteredClientConverter<T extends Abstract
         tokenSettingsBuilder.reuseRefreshTokens(details.getReuseRefreshTokens());
         // refreshToken 的有效期
         tokenSettingsBuilder.refreshTokenTimeToLive(details.getRefreshTokenValidity());
-        SignatureAlgorithm signatureAlgorithm = toSignatureAlgorithm.convert(details.getIdTokenSignatureAlgorithm());
+        SignatureAlgorithm signatureAlgorithm = toSignatureAlgorithm(details.getIdTokenSignatureAlgorithm());
         if (ObjectUtils.isNotEmpty(signatureAlgorithm)) {
             tokenSettingsBuilder.idTokenSignatureAlgorithm(signatureAlgorithm);
         }
         return tokenSettingsBuilder.build();
+    }
+
+    private JwsAlgorithm toJwsAlgorithm(AllJwsAlgorithm allJwsAlgorithm) {
+        if (ObjectUtils.isNotEmpty(allJwsAlgorithm)) {
+            if (allJwsAlgorithm.getValue() < AllJwsAlgorithm.HS256.getValue()) {
+                // 如果是签名算法, 转换成 SAS 签名算法
+                return SignatureAlgorithm.from(allJwsAlgorithm.name());
+            } else {
+                // 如果是 Mac 算法, 转换成 Mac 签名算法
+                return MacAlgorithm.from(allJwsAlgorithm.name());
+            }
+        }
+
+        return null;
+    }
+
+    private SignatureAlgorithm toSignatureAlgorithm(SignatureJwsAlgorithm signatureJwsAlgorithm) {
+        if (ObjectUtils.isNotEmpty(signatureJwsAlgorithm)) {
+            return SignatureAlgorithm.from(signatureJwsAlgorithm.name());
+        }
+
+        return null;
     }
 }
