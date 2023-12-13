@@ -121,10 +121,9 @@ public interface Controller {
      * 数据操作结果转换为统一响应实体
      *
      * @param parameter 数据ID
-     * @param <ID>      ID 数据类型
      * @return {@link Result} String
      */
-    default <ID extends Serializable> Result<String> result(ID parameter) {
+    default Result<String> result(String parameter) {
         if (ObjectUtils.isNotEmpty(parameter)) {
             return Result.success();
         } else {
@@ -140,9 +139,9 @@ public interface Controller {
      */
     default Result<Boolean> result(boolean status) {
         if (status) {
-            return Result.success("操作成功!", status);
+            return Result.success("操作成功!", true);
         } else {
-            return Result.failure("操作失败!", status);
+            return Result.failure("操作失败!", false);
         }
     }
 
