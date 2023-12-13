@@ -22,7 +22,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-data</artifactId>
-        <version>3.1.6.1</version>
+        <version>3.1.6.2</version>
     </parent>
 
     <artifactId>data-sdk-tenant</artifactId>
