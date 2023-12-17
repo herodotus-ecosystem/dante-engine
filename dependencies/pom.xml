@@ -105,7 +105,7 @@
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M8</hutool.version>
         <okhttps.version>4.0.2</okhttps.version>
-        <weixin-java-sdk.version>4.5.8.B</weixin-java-sdk.version>
+        <weixin-java-sdk.version>4.5.9.B</weixin-java-sdk.version>
         <just-auth.verison>1.16.6</just-auth.verison>
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
@@ -123,12 +123,12 @@
         <mdi__font.version>7.3.67</mdi__font.version>
         <quasar.version>2.14.0</quasar.version>
         <uniform.version>2.1.2-1</uniform.version>
-        <vue.version>3.3.9</vue.version>
+        <vue.version>3.3.11</vue.version>
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
-        <aliyun-sdk-oss.version>3.17.2</aliyun-sdk-oss.version>
-        <alipay-sdk-java.version>4.38.149.ALL</alipay-sdk-java.version>
+        <aliyun-sdk-oss.version>3.17.3</aliyun-sdk-oss.version>
+        <alipay-sdk-java.version>4.38.161.ALL</alipay-sdk-java.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
         <tencentcloud-sdk-java.version>3.1.893</tencentcloud-sdk-java.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
@@ -139,7 +139,7 @@
         <okio.version>3.6.0</okio.version>
         <xnio.version>3.8.12.Final</xnio.version>
         <httpclient.version>4.5.14</httpclient.version>
-        <checker-qual.version>3.41.0</checker-qual.version>
+        <checker-qual.version>3.42.0</checker-qual.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
         <bcprov-jdk15to18.version>1.77</bcprov-jdk15to18.version>
         <bcprov-jdk18on.version>1.77</bcprov-jdk18on.version>
