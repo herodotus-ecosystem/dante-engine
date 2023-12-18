@@ -31,8 +31,4 @@ public class InternalServerErrorFeedback extends Feedback {
     public InternalServerErrorFeedback(String value) {
         super(value, HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
-
-    public InternalServerErrorFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_INTERNAL_SERVER_ERROR, custom);
-    }
 }

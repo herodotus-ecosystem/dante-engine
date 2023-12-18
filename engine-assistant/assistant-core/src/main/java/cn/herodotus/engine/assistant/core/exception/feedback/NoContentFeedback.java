@@ -31,8 +31,4 @@ public class NoContentFeedback extends Feedback {
     public NoContentFeedback(String value) {
         super(value, HttpStatus.SC_NO_CONTENT);
     }
-
-    public NoContentFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_NO_CONTENT, custom);
-    }
 }

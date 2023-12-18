@@ -31,8 +31,4 @@ public class PreconditionFailedFeedback extends Feedback {
     public PreconditionFailedFeedback(String value) {
         super(value, HttpStatus.SC_PRECONDITION_FAILED);
     }
-
-    public PreconditionFailedFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_PRECONDITION_FAILED, custom);
-    }
 }

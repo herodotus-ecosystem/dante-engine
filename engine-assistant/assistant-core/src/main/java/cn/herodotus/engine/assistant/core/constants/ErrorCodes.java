@@ -150,6 +150,7 @@ public interface ErrorCodes {
     PreconditionFailedFeedback INVALID_REDIRECT_URI = new PreconditionFailedFeedback("OAuth2 URI 重定向的值无效");
     PreconditionFailedFeedback INVALID_REQUEST = new PreconditionFailedFeedback("无效的请求，参数使用错误或无效.");
     PreconditionFailedFeedback INVALID_SCOPE = new PreconditionFailedFeedback("授权范围错误");
+    PreconditionFailedFeedback METHOD_ARGUMENT_NOT_VALID = new PreconditionFailedFeedback("接口参数校验失败，参数使用错误或者未接收到参数");
 
     /**
      * 415.* Unsupported Media Type	服务器无法处理请求附带的媒体格式
@@ -193,7 +194,6 @@ public interface ErrorCodes {
      * 6*.* 为数据操作相关错误
      */
     CustomizeFeedback TRANSACTION_ROLLBACK = new CustomizeFeedback("数据事务处理失败，数据回滚", 6);
-    CustomizeFeedback METHOD_ARGUMENT_NOT_VALID = new CustomizeFeedback("接口参数校验失败，参数使用错误或者未接收到参数", 6);
     CustomizeFeedback BAD_SQL_GRAMMAR = new CustomizeFeedback("低级SQL语法错误，检查SQL能否正常运行或者字段名称是否正确", 6);
     CustomizeFeedback DATA_INTEGRITY_VIOLATION = new CustomizeFeedback("该数据正在被其它数据引用，请先删除引用关系，再进行数据删除操作", 6);
 

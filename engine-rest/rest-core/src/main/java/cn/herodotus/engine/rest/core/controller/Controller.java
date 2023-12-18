@@ -140,9 +140,9 @@ public interface Controller {
      */
     default Result<String> result(String parameter) {
         if (ObjectUtils.isNotEmpty(parameter)) {
-            return Result.success();
+            return Result.success("操作成功!", parameter);
         } else {
-            return Result.failure();
+            return Result.failure("操作失败!", parameter);
         }
     }
 
