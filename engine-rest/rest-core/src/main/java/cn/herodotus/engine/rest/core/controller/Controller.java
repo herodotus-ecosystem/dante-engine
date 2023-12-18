@@ -21,6 +21,7 @@ import cn.herodotus.engine.assistant.core.definition.domain.Entity;
 import cn.herodotus.engine.assistant.core.domain.Result;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.dromara.hutool.core.tree.MapTree;
 import org.dromara.hutool.core.tree.TreeNode;
@@ -28,7 +29,6 @@ import org.dromara.hutool.core.tree.TreeUtil;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +80,21 @@ public interface Controller {
     }
 
     /**
+     * 数组转换为统一响应实体
+     *
+     * @param domains 数组
+     * @param <T>     数组类型
+     * @return {@link Result} List
+     */
+    default <T> Result<T[]> result(T[] domains) {
+        if (ArrayUtils.isNotEmpty(domains)) {
+            return Result.success("查询数据成功！", domains);
+        } else {
+            return Result.empty("未查询到数据！");
+        }
+    }
+
+    /**
      * 数据分页对象转换为统一响应实体
      *
      * @param pages 分页查询结果 {@link Page}
@@ -121,14 +136,13 @@ public interface Controller {
      * 数据操作结果转换为统一响应实体
      *
      * @param parameter 数据ID
-     * @param <ID>      ID 数据类型
      * @return {@link Result} String
      */
-    default <ID extends Serializable> Result<String> result(ID parameter) {
+    default Result<String> result(String parameter) {
         if (ObjectUtils.isNotEmpty(parameter)) {
-            return Result.success();
+            return Result.success("操作成功!", parameter);
         } else {
-            return Result.failure();
+            return Result.failure("操作失败!", parameter);
         }
     }
 
@@ -140,9 +154,9 @@ public interface Controller {
      */
     default Result<Boolean> result(boolean status) {
         if (status) {
-            return Result.success("操作成功!", status);
+            return Result.success("操作成功!", true);
         } else {
-            return Result.failure("操作失败!", status);
+            return Result.failure("操作失败!", false);
         }
     }
 

@@ -31,8 +31,4 @@ public class UnauthorizedFeedback extends Feedback {
     public UnauthorizedFeedback(String value) {
         super(value, HttpStatus.SC_UNAUTHORIZED);
     }
-
-    public UnauthorizedFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_UNAUTHORIZED, custom);
-    }
 }

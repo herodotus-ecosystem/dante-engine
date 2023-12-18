@@ -31,8 +31,4 @@ public class NotImplementedFeedback extends Feedback {
     public NotImplementedFeedback(String value) {
         super(value, HttpStatus.SC_NOT_IMPLEMENTED);
     }
-
-    public NotImplementedFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_NOT_IMPLEMENTED, custom);
-    }
 }

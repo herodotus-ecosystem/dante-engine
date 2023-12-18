@@ -31,8 +31,4 @@ public class ServiceUnavailableFeedback extends Feedback {
     public ServiceUnavailableFeedback(String value) {
         super(value, HttpStatus.SC_SERVICE_UNAVAILABLE);
     }
-
-    public ServiceUnavailableFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_SERVICE_UNAVAILABLE, custom);
-    }
 }

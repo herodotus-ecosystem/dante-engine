@@ -143,6 +143,7 @@ public class ErrorCodeMapperBuilder {
      */
     private final Map<Feedback, Integer> serviceUnavailableConfigs = new LinkedHashMap<>() {{
         put(ErrorCodes.SERVICE_UNAVAILABLE, ErrorCodes.SERVICE_UNAVAILABLE.getSequence());
+        put(ErrorCodes.OPEN_API_REQUEST_FAILURE, ErrorCodes.OPEN_API_REQUEST_FAILURE.getSequence());
     }};
 
     private final Map<Integer, Map<Feedback, Integer>> customizeConfigs = new LinkedHashMap<>();

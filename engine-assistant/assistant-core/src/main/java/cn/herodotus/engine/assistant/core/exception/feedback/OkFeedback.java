@@ -31,8 +31,4 @@ public class OkFeedback extends Feedback {
     public OkFeedback(String value) {
         super(value, HttpStatus.SC_OK);
     }
-
-    public OkFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_OK, custom);
-    }
 }

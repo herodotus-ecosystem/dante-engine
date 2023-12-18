@@ -31,8 +31,4 @@ public class UnsupportedMediaTypeFeedback extends Feedback {
     public UnsupportedMediaTypeFeedback(String value) {
         super(value, HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE);
     }
-
-    public UnsupportedMediaTypeFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE, custom);
-    }
 }
