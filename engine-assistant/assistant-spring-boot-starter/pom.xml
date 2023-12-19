@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-assistant</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.6.2</version>
+        <version>3.1.6.3</version>
     </parent>
 
     <artifactId>assistant-spring-boot-starter</artifactId>

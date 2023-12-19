@@ -28,7 +28,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.6.2</version>
+    <version>3.1.6.3</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -101,7 +101,7 @@
         <fastjson2.version>2.0.43</fastjson2.version>
         <jetcache.version>2.7.4</jetcache.version>
         <nacos.version>2.3.0</nacos.version>
-        <transmittable-thread-local.version>2.14.3</transmittable-thread-local.version>
+        <transmittable-thread-local.version>2.14.4</transmittable-thread-local.version>
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M8</hutool.version>
         <okhttps.version>4.0.2</okhttps.version>
