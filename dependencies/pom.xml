@@ -84,7 +84,7 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-fileupload.version>1.5</commons-fileupload.version>
         <commons-io.version>2.15.1</commons-io.version>
-        <guava.version>32.1.3-jre</guava.version>
+        <guava.version>33.0.0-jre</guava.version>
         <zxing.version>3.5.2</zxing.version>
         <!-- 应用开发辅助工具组件 -->
         <redisson.version>3.25.1</redisson.version>
