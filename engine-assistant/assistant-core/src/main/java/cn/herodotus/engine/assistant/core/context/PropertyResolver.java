@@ -19,8 +19,6 @@ package cn.herodotus.engine.assistant.core.context;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
 
-import java.util.List;
-
 /**
  * <p>Description: 配置信息读取工具类 </p>
  *

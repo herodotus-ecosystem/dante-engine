@@ -31,8 +31,4 @@ public class MethodNotAllowedFeedback extends Feedback {
     public MethodNotAllowedFeedback(String value) {
         super(value, HttpStatus.SC_METHOD_NOT_ALLOWED);
     }
-
-    public MethodNotAllowedFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_METHOD_NOT_ALLOWED, custom);
-    }
 }

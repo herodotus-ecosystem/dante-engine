@@ -31,8 +31,4 @@ public class ForbiddenFeedback extends Feedback {
     public ForbiddenFeedback(String value) {
         super(value, HttpStatus.SC_FORBIDDEN);
     }
-
-    public ForbiddenFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_FORBIDDEN, custom);
-    }
 }

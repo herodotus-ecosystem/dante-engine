@@ -32,8 +32,4 @@ public class NotFoundFeedback extends Feedback {
     public NotFoundFeedback(String message) {
         super(message, HttpStatus.SC_NOT_FOUND);
     }
-
-    public NotFoundFeedback(String message, int custom) {
-        super(message, HttpStatus.SC_NOT_FOUND, custom);
-    }
 }

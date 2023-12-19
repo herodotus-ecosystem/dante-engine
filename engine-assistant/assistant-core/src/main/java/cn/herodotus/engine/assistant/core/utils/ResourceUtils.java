@@ -145,6 +145,7 @@ public class ResourceUtils {
 
     /**
      * 将 {@link Resource} 转换为 byte
+     *
      * @param resource 资源 {@link Resource}
      * @return byte 数组
      */
@@ -160,7 +161,7 @@ public class ResourceUtils {
 
     /**
      * 将 {@link Resource} 转换为 Base64 数据。
-     *
+     * <p>
      * 例如：将图片类型的 Resource 转换为可以直接在前端展现的 Base64 数据
      *
      * @param resource 资源 {@link Resource}

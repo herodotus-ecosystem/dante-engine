@@ -31,8 +31,4 @@ public class NotAcceptableFeedback extends Feedback {
     public NotAcceptableFeedback(String value) {
         super(value, HttpStatus.SC_NOT_ACCEPTABLE);
     }
-
-    public NotAcceptableFeedback(String value, int custom) {
-        super(value, HttpStatus.SC_NOT_ACCEPTABLE, custom);
-    }
 }
