@@ -100,43 +100,64 @@ public class SessionUtils {
 
     /**
      * 解析 Session ID
+     * <p>
+     * 如果请求中有 X_HERODOTUS_SESSION_ID 头，那么则返回 SessionId，意味着前后端加密有效。
+     * 这种处理方式，主要解决在没有使用系统 Session 的环境下，单独调用接口特别是测试接口时，提示 Session 过期的问题。
      *
      * @param httpServletRequest {@link HttpServletRequest}
      * @return session ID 或者 null
      */
     public static String analyseSessionId(HttpServletRequest httpServletRequest) {
-        String sessionId = getSessionId(httpServletRequest);
-        if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeaderUtils.getHerodotusSession(httpServletRequest);
+        if (HeaderUtils.hasHerodotusSessionIdHeader(httpServletRequest)) {
+            String sessionId = getSessionId(httpServletRequest);
+            if (StringUtils.isBlank(sessionId)) {
+                sessionId = HeaderUtils.getHerodotusSessionId(httpServletRequest);
+            }
+            return sessionId;
+        } else {
+            return null;
         }
-        return sessionId;
     }
 
     /**
      * 解析 Session ID
+     * <p>
+     * 如果请求中有 X_HERODOTUS_SESSION_ID 头，那么则返回 SessionId，意味着前后端加密有效。
+     * 这种处理方式，主要解决在没有使用系统 Session 的环境下，单独调用接口特别是测试接口时，提示 Session 过期的问题。
      *
      * @param serverHttpRequest {@link ServerHttpRequest}
      * @return session ID 或者 null
      */
     public static String analyseSessionId(ServerHttpRequest serverHttpRequest) {
-        String sessionId = getSessionIdFromHeader(serverHttpRequest);
-        if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeaderUtils.getHerodotusSession(serverHttpRequest);
+        if (HeaderUtils.hasHerodotusSessionIdHeader(serverHttpRequest)) {
+            String sessionId = getSessionIdFromHeader(serverHttpRequest);
+            if (StringUtils.isBlank(sessionId)) {
+                sessionId = HeaderUtils.getHerodotusSessionId(serverHttpRequest);
+            }
+            return sessionId;
+        } else {
+            return null;
         }
-        return sessionId;
     }
 
     /**
      * 解析 Session ID
+     * <p>
+     * 如果请求中有 X_HERODOTUS_SESSION_ID 头，那么则返回 SessionId，意味着前后端加密有效。
+     * 这种处理方式，主要解决在没有使用系统 Session 的环境下，单独调用接口特别是测试接口时，提示 Session 过期的问题。
      *
      * @param httpInputMessage {@link HttpInputMessage}
      * @return session ID 或者 null
      */
     public static String analyseSessionId(HttpInputMessage httpInputMessage) {
-        String sessionId = getSessionIdFromHeader(httpInputMessage);
-        if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeaderUtils.getHerodotusSession(httpInputMessage);
+        if (HeaderUtils.hasHerodotusSessionIdHeader(httpInputMessage)) {
+            String sessionId = getSessionIdFromHeader(httpInputMessage);
+            if (StringUtils.isBlank(sessionId)) {
+                sessionId = HeaderUtils.getHerodotusSessionId(httpInputMessage);
+            }
+            return sessionId;
+        } else {
+            return null;
         }
-        return sessionId;
     }
 }

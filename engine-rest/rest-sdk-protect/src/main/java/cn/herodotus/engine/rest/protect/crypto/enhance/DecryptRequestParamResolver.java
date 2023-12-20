@@ -119,7 +119,7 @@ public class DecryptRequestParamResolver implements HandlerMethodArgumentResolve
                     return (values.length == 1 ? values[0] : values);
                 }
             } else {
-                log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION to request header.");
+                log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION_ID to request header.");
             }
         }
 
