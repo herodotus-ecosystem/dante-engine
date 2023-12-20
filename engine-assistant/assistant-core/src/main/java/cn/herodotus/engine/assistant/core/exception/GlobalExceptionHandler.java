@@ -74,7 +74,7 @@ public class GlobalExceptionHandler {
             String exceptionName = ex.getClass().getSimpleName();
             if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
                 Feedback feedback = EXCEPTION_DICTIONARY.get(exceptionName);
-                result = Result.failure(feedback);
+                result = Result.failure(feedback, exceptionName);
             } else {
                 log.warn("[Herodotus] |- Global Exception Handler,  Can not find the exception name [{}] in dictionary, please do optimize ", exceptionName);
             }

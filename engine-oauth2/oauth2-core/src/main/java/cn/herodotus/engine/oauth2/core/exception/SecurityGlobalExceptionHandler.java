@@ -166,7 +166,7 @@ public class SecurityGlobalExceptionHandler {
             OAuth2Error oAuth2Error = oAuth2AuthenticationException.getError();
             if (EXCEPTION_DICTIONARY.containsKey(oAuth2Error.getErrorCode())) {
                 Feedback feedback = EXCEPTION_DICTIONARY.get(oAuth2Error.getErrorCode());
-                Result<String> result = Result.failure(feedback);
+                Result<String> result = Result.failure(feedback, oAuth2Error.getErrorCode());
                 result.path(oAuth2Error.getUri());
                 result.stackTrace(exception.getStackTrace());
                 result.detail(exception.getMessage());
@@ -183,7 +183,7 @@ public class SecurityGlobalExceptionHandler {
         } else {
             String exceptionName = exception.getClass().getSimpleName();
             if (StringUtils.isNotEmpty(exceptionName) && EXCEPTION_DICTIONARY.containsKey(exceptionName)) {
-                Feedback feedback =  EXCEPTION_DICTIONARY.get(exceptionName);
+                Feedback feedback = EXCEPTION_DICTIONARY.get(exceptionName);
                 return Result.failure(feedback);
             } else {
                 reason = exception;
