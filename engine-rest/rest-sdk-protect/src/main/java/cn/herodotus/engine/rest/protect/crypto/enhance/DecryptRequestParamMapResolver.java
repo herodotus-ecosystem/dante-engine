@@ -145,7 +145,7 @@ public class DecryptRequestParamMapResolver implements HandlerMethodArgumentReso
                     return result;
                 }
             } else {
-                log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION to request header.");
+                log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION_ID to request header.");
             }
         }
 

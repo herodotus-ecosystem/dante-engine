@@ -49,7 +49,7 @@ public class MultiTenantInterceptor implements HandlerInterceptor {
 
         String path = request.getRequestURI();
         String sessionId = SessionUtils.getSessionId(request);
-        String herodotusSessionId = HeaderUtils.getHerodotusSession(request);
+        String herodotusSessionId = HeaderUtils.getHerodotusSessionId(request);
 
         log.debug("[Herodotus] |- SESSION ID for [{}] is : [{}].", path, sessionId);
         log.debug("[Herodotus] |- SESSION ID of HERODOTUS for [{}] is : [{}].", path, herodotusSessionId);

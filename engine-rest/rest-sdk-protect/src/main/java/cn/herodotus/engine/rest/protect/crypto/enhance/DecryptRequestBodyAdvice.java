@@ -79,7 +79,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
         String sessionKey = SessionUtils.analyseSessionId(httpInputMessage);
 
         if (StringUtils.isBlank(sessionKey)) {
-            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION to request header.");
+            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION_ID to request header.");
             return httpInputMessage;
         }
 
