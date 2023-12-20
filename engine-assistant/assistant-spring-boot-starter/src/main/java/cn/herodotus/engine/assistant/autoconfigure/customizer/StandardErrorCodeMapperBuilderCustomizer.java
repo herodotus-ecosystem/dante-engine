@@ -57,7 +57,7 @@ public class StandardErrorCodeMapperBuilderCustomizer implements ErrorCodeMapper
                         ErrorCodes.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION,
                         ErrorCodes.NULL_POINTER_EXCEPTION,
                         ErrorCodes.TYPE_MISMATCH_EXCEPTION)
-                .notImplemented(ErrorCodes.PROPERTY_VALUE_IS_NOT_SET, ErrorCodes.URL_FORMAT_INCORRECT, ErrorCodes.ILLEGAL_SYMMETRIC_KEY)
+                .notImplemented(ErrorCodes.PROPERTY_VALUE_IS_NOT_SET_EXCEPTION, ErrorCodes.URL_FORMAT_INCORRECT_EXCEPTION, ErrorCodes.ILLEGAL_SYMMETRIC_KEY, ErrorCodes.DISCOVERED_UNRECORDED_ERROR_EXCEPTION)
                 .serviceUnavailable(ErrorCodes.COOKIE_THEFT, ErrorCodes.INVALID_COOKIE, ErrorCodes.PROVIDER_NOT_FOUND, ErrorCodes.TEMPORARILY_UNAVAILABLE, ErrorCodes.SEARCH_IP_LOCATION)
                 .customize(ErrorCodes.TRANSACTION_ROLLBACK,
                         ErrorCodes.BAD_SQL_GRAMMAR,

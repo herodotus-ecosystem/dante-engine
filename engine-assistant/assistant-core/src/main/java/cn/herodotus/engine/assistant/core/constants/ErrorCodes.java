@@ -175,8 +175,9 @@ public interface ErrorCodes {
      * 501. Not Implemented	服务器不支持请求的功能，无法完成请求
      */
     NotImplementedFeedback NOT_IMPLEMENTED = new NotImplementedFeedback("服务器不支持请求的功能，无法完成请求");
-    NotImplementedFeedback PROPERTY_VALUE_IS_NOT_SET = new NotImplementedFeedback("必要的Property配置属性值没有设置");
-    NotImplementedFeedback URL_FORMAT_INCORRECT = new NotImplementedFeedback("URL格式错误或者缺少Http协议头");
+    NotImplementedFeedback DISCOVERED_UNRECORDED_ERROR_EXCEPTION = new NotImplementedFeedback("发现尚未记录的 Exception 错误,建议在错误体系中添加或者提 ISSUE 给原作者");
+    NotImplementedFeedback PROPERTY_VALUE_IS_NOT_SET_EXCEPTION = new NotImplementedFeedback("必要的Property配置属性值没有设置");
+    NotImplementedFeedback URL_FORMAT_INCORRECT_EXCEPTION = new NotImplementedFeedback("URL格式错误或者缺少Http协议头");
     NotImplementedFeedback ILLEGAL_SYMMETRIC_KEY = new NotImplementedFeedback("静态AES加密算法KEY非法");
 
     /**
