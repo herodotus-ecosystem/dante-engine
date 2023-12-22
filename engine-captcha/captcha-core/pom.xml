@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-captcha</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.0.2</version>
+        <version>3.2.1.0</version>
     </parent>
 
     <artifactId>captcha-core</artifactId>

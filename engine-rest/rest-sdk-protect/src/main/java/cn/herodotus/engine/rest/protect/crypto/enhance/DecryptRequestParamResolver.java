@@ -110,9 +110,9 @@ public class DecryptRequestParamResolver implements HandlerMethodArgumentResolve
         if (isRegularRequest(webRequest)) {
 
             HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-            String sessionId = SessionUtils.analyseSessionId(request);
 
-            if (StringUtils.isNotBlank(sessionId)) {
+            String sessionId = SessionUtils.analyseSessionId(request);
+            if (SessionUtils.isCryptoEnabled(request, sessionId)) {
                 String[] paramValues = request.getParameterValues(methodParameter.getParameterName());
                 if (ArrayUtils.isNotEmpty(paramValues)) {
                     String[] values = decrypt(sessionId, paramValues);

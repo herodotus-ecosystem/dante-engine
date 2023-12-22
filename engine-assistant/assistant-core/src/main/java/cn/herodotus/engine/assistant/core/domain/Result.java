@@ -19,7 +19,6 @@ package cn.herodotus.engine.assistant.core.domain;
 
 import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.core.exception.DiscoveredUnrecordedErrorException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -137,7 +136,7 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> failure(Feedback feedback, T data) {
-        Feedback result = ObjectUtils.isEmpty(feedback) ? feedback : ErrorCodes.DISCOVERED_UNRECORDED_ERROR_EXCEPTION;
+        Feedback result = ObjectUtils.isNotEmpty(feedback) ? feedback : ErrorCodes.DISCOVERED_UNRECORDED_ERROR_EXCEPTION;
         Integer code = ErrorCodeMapper.get(result);
         return failure(feedback.getMessage(), code, feedback.getStatus(), data);
     }

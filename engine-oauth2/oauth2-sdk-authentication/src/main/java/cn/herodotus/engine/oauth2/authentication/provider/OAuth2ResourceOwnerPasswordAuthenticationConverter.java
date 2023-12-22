@@ -54,18 +54,10 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter extends Ab
             return null;
         }
 
-        Authentication clientPrincipal = SecurityContextHolder.getContext().getAuthentication();
-
         MultiValueMap<String, String> parameters = OAuth2EndpointUtils.getParameters(request);
 
         // scope (OPTIONAL)
         String scope = OAuth2EndpointUtils.checkOptionalParameter(parameters, OAuth2ParameterNames.SCOPE);
-
-        Set<String> requestedScopes = null;
-        if (StringUtils.hasText(scope)) {
-            requestedScopes = new HashSet<>(
-                    Arrays.asList(StringUtils.delimitedListToStringArray(scope, " ")));
-        }
 
         // username (REQUIRED)
         OAuth2EndpointUtils.checkRequiredParameter(parameters, OAuth2ParameterNames.USERNAME);
@@ -73,17 +65,6 @@ public final class OAuth2ResourceOwnerPasswordAuthenticationConverter extends Ab
         // password (REQUIRED)
         OAuth2EndpointUtils.checkRequiredParameter(parameters, OAuth2ParameterNames.PASSWORD);
 
-        String sessionId = SessionUtils.analyseSessionId(request);
-
-        Map<String, Object> additionalParameters = new HashMap<>();
-        parameters.forEach((key, value) -> {
-            if (!key.equals(OAuth2ParameterNames.GRANT_TYPE) &&
-                    !key.equals(OAuth2ParameterNames.SCOPE)) {
-                additionalParameters.put(key, (value.size() == 1) ? decrypt(sessionId, value.get(0)) : decrypt(sessionId, value));
-            }
-        });
-
-        return new OAuth2ResourceOwnerPasswordAuthenticationToken(clientPrincipal, requestedScopes, additionalParameters);
-
+        return new OAuth2ResourceOwnerPasswordAuthenticationToken(getClientPrincipal(), getRequestedScopes(scope), getAdditionalParameters(request, parameters));
     }
 }
