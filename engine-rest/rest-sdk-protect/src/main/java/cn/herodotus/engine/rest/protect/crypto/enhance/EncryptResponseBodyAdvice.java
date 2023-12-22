@@ -67,31 +67,31 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter methodParameter, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
         String sessionId = SessionUtils.analyseSessionId(request);
+        if (SessionUtils.isCryptoEnabled(request, sessionId)) {
 
-        if (StringUtils.isBlank(sessionId)) {
-            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto function need add X_HERODOTUS_SESSION_ID to request header.");
-            return body;
-        }
+            log.info("[Herodotus] |- EncryptResponseBodyAdvice begin encrypt data.");
 
-        log.info("[Herodotus] |- EncryptResponseBodyAdvice begin encrypt data.");
+            String methodName = methodParameter.getMethod().getName();
+            String className = methodParameter.getDeclaringClass().getName();
 
-        String methodName = methodParameter.getMethod().getName();
-        String className = methodParameter.getDeclaringClass().getName();
-
-        try {
-            String bodyString = Jackson2Utils.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(body);
-            String result = httpCryptoProcessor.encrypt(sessionId, bodyString);
-            if (StringUtils.isNotBlank(result)) {
-                log.debug("[Herodotus] |- Encrypt response body for rest method [{}] in [{}] finished.", methodName, className);
-                return result;
-            } else {
+            try {
+                String bodyString = Jackson2Utils.getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(body);
+                String result = httpCryptoProcessor.encrypt(sessionId, bodyString);
+                if (StringUtils.isNotBlank(result)) {
+                    log.debug("[Herodotus] |- Encrypt response body for rest method [{}] in [{}] finished.", methodName, className);
+                    return result;
+                } else {
+                    return body;
+                }
+            } catch (JsonProcessingException e) {
+                log.debug("[Herodotus] |- Encrypt response body for rest method [{}] in [{}] catch error, skip encrypt operation.", methodName, className, e);
+                return body;
+            } catch (SessionInvalidException e) {
+                log.error("[Herodotus] |- Session is expired for encrypt response body for rest method [{}] in [{}], skip encrypt operation.", methodName, className, e);
                 return body;
             }
-        } catch (JsonProcessingException e) {
-            log.debug("[Herodotus] |- Encrypt response body for rest method [{}] in [{}] catch error, skip encrypt operation.", methodName, className, e);
-            return body;
-        } catch (SessionInvalidException e) {
-            log.error("[Herodotus] |- Session is expired for encrypt response body for rest method [{}] in [{}], skip encrypt operation.", methodName, className, e);
+        } else {
+            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto function need add X_HERODOTUS_SESSION_ID to request header.");
             return body;
         }
     }

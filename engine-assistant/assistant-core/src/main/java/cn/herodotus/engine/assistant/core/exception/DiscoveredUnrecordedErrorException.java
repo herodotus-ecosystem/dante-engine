@@ -14,42 +14,41 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.exception.properties;
+package cn.herodotus.engine.assistant.core.exception;
 
 import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
 import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
 
 /**
- * <p>Description: Property 属性值没有设置错误 </p>
+ * <p>Description: 发现尚未记录的错误 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/3/6 13:57
+ * @date : 2023/12/20 16:23
  */
-public class PropertyValueIsNotSetException extends PlatformException {
+public class DiscoveredUnrecordedErrorException extends PlatformException {
 
-    public PropertyValueIsNotSetException() {
+    public DiscoveredUnrecordedErrorException() {
         super();
     }
 
-    public PropertyValueIsNotSetException(String message) {
+    public DiscoveredUnrecordedErrorException(String message) {
         super(message);
     }
 
-    public PropertyValueIsNotSetException(String message, Throwable cause) {
+    public DiscoveredUnrecordedErrorException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public PropertyValueIsNotSetException(Throwable cause) {
+    public DiscoveredUnrecordedErrorException(Throwable cause) {
         super(cause);
     }
 
-    protected PropertyValueIsNotSetException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected DiscoveredUnrecordedErrorException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
     @Override
     public Feedback getFeedback() {
-        return ErrorCodes.PROPERTY_VALUE_IS_NOT_SET_EXCEPTION;
+        return ErrorCodes.DISCOVERED_UNRECORDED_ERROR_EXCEPTION;
     }
 }

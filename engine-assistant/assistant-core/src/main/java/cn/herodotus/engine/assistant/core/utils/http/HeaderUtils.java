@@ -51,6 +51,17 @@ public class HeaderUtils {
     }
 
     /**
+     * 获取头信息
+     *
+     * @param serverHttpRequest {@link ServerHttpRequest}
+     * @param name              名称
+     * @return 头信息值
+     */
+    public static List<String> getHeaders(ServerHttpRequest serverHttpRequest, String name) {
+        return getHeaders(serverHttpRequest.getHeaders(), name);
+    }
+
+    /**
      * 获取第一条头信息
      *
      * @param httpHeaders {@link HttpHeaders}
@@ -60,17 +71,6 @@ public class HeaderUtils {
     public static String getHeader(HttpHeaders httpHeaders, String name) {
         List<String> values = getHeaders(httpHeaders, name);
         return CollectionUtils.isNotEmpty(values) ? values.get(0) : null;
-    }
-
-    /**
-     * 获取头信息
-     *
-     * @param serverHttpRequest {@link ServerHttpRequest}
-     * @param name              名称
-     * @return 头信息值
-     */
-    public static List<String> getHeaders(ServerHttpRequest serverHttpRequest, String name) {
-        return getHeaders(serverHttpRequest.getHeaders(), name);
     }
 
     /**
@@ -96,32 +96,65 @@ public class HeaderUtils {
     }
 
     /**
-     * 获取自定义 X_HERODOTUS_SESSION 头信息
+     * 请求头中是否存在某个 Header
+     *
+     * @param httpHeaders {@link HttpHeaders}
+     * @param name        头名称
+     * @return true 存在，false 不存在
+     */
+    public static boolean hasHeader(HttpHeaders httpHeaders, String name) {
+        return httpHeaders.containsKey(name);
+    }
+
+    /**
+     * 请求头中是否存在某个 Header
      *
      * @param httpServletRequest {@link HttpServletRequest}
-     * @return X_HERODOTUS_SESSION 头信息
+     * @param name               名称
+     * @return true 存在，false 不存在
      */
-    public static String getHerodotusSession(HttpServletRequest httpServletRequest) {
+    public static Boolean hasHeader(HttpServletRequest httpServletRequest, String name) {
+        return StringUtils.isNotBlank(getHeader(httpServletRequest, name));
+    }
+
+    /**
+     * 请求头中是否存在某个 Header
+     *
+     * @param serverHttpRequest {@link ServerHttpRequest}
+     * @param name              名称
+     * @return true 存在，false 不存在
+     */
+    public static Boolean hasHeader(ServerHttpRequest serverHttpRequest, String name) {
+        return hasHeader(serverHttpRequest.getHeaders(), name);
+    }
+
+    /**
+     * 获取自定义 X_HERODOTUS_SESSION_ID 头信息
+     *
+     * @param httpServletRequest {@link HttpServletRequest}
+     * @return X_HERODOTUS_SESSION_ID 头信息
+     */
+    public static String getHerodotusSessionId(HttpServletRequest httpServletRequest) {
         return getHeader(httpServletRequest, X_HERODOTUS_SESSION_ID);
     }
 
     /**
-     * 获取自定义 X_HERODOTUS_SESSION 请求头内容
+     * 获取自定义 X_HERODOTUS_SESSION_ID 请求头内容
      *
      * @param serverHttpRequest {@link ServerHttpRequest}
-     * @return X_HERODOTUS_SESSION 请求头内容
+     * @return X_HERODOTUS_SESSION_ID 请求头内容
      */
-    public static String getHerodotusSession(ServerHttpRequest serverHttpRequest) {
+    public static String getHerodotusSessionId(ServerHttpRequest serverHttpRequest) {
         return getHeader(serverHttpRequest, X_HERODOTUS_SESSION_ID);
     }
 
     /**
-     * 获取自定义 X_HERODOTUS_SESSION 请求头内容
+     * 获取自定义 X_HERODOTUS_SESSION_ID 请求头内容
      *
      * @param httpInputMessage {@link HttpInputMessage}
-     * @return X_HERODOTUS_SESSION 请求头内容
+     * @return X_HERODOTUS_SESSION_ID 请求头内容
      */
-    public static String getHerodotusSession(HttpInputMessage httpInputMessage) {
+    public static String getHerodotusSessionId(HttpInputMessage httpInputMessage) {
         return getHeader(httpInputMessage.getHeaders(), X_HERODOTUS_SESSION_ID);
     }
 
@@ -143,6 +176,36 @@ public class HeaderUtils {
      */
     public static String getHerodotusFromIn(HttpServletRequest httpServletRequest) {
         return getHeader(httpServletRequest, X_HERODOTUS_FROM_IN);
+    }
+
+    /**
+     * 请求中包含 X_HERODOTUS_SESSION_ID 请求头
+     *
+     * @param httpServletRequest {@link HttpServletRequest}
+     * @return 是否包含 X_HERODOTUS_SESSION_ID 请求头
+     */
+    public static boolean hasHerodotusSessionIdHeader(HttpServletRequest httpServletRequest) {
+        return hasHeader(httpServletRequest, X_HERODOTUS_SESSION_ID);
+    }
+
+    /**
+     * 请求中包含 X_HERODOTUS_SESSION_ID 请求头
+     *
+     * @param serverHttpRequest {@link ServerHttpRequest}
+     * @return 是否包含 X_HERODOTUS_SESSION_ID 请求头
+     */
+    public static boolean hasHerodotusSessionIdHeader(ServerHttpRequest serverHttpRequest) {
+        return hasHeader(serverHttpRequest, X_HERODOTUS_SESSION_ID);
+    }
+
+    /**
+     * 请求中包含 X_HERODOTUS_SESSION_ID 请求头
+     *
+     * @param httpInputMessage {@link HttpInputMessage}
+     * @return 是否包含 X_HERODOTUS_SESSION_ID 请求头
+     */
+    public static boolean hasHerodotusSessionIdHeader(HttpInputMessage httpInputMessage) {
+        return hasHeader(httpInputMessage.getHeaders(), X_HERODOTUS_SESSION_ID);
     }
 
     /**

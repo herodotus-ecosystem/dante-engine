@@ -50,6 +50,6 @@ public class UrlFormatIncorrectException extends PlatformException {
 
     @Override
     public Feedback getFeedback() {
-        return ErrorCodes.URL_FORMAT_INCORRECT;
+        return ErrorCodes.URL_FORMAT_INCORRECT_EXCEPTION;
     }
 }

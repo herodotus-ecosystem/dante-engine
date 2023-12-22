@@ -75,29 +75,29 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage httpInputMessage, MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
 
+        String sessionId = SessionUtils.analyseSessionId(httpInputMessage);
 
-        String sessionKey = SessionUtils.analyseSessionId(httpInputMessage);
+        if (SessionUtils.isCryptoEnabled(httpInputMessage, sessionId)) {
 
-        if (StringUtils.isBlank(sessionKey)) {
-            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION to request header.");
-            return httpInputMessage;
-        }
+            log.info("[Herodotus] |- DecryptRequestBodyAdvice begin decrypt data.");
 
-        log.info("[Herodotus] |- DecryptRequestBodyAdvice begin decrypt data.");
+            String methodName = methodParameter.getMethod().getName();
+            String className = methodParameter.getDeclaringClass().getName();
 
-        String methodName = methodParameter.getMethod().getName();
-        String className = methodParameter.getDeclaringClass().getName();
+            String content = IoUtil.read(httpInputMessage.getBody()).toString();
 
-        String content = IoUtil.read(httpInputMessage.getBody()).toString();
-
-        if (StringUtils.isNotBlank(content)) {
-            String data = httpCryptoProcessor.decrypt(sessionKey, content);
-            if (StringUtils.equals(data, content)) {
-                data = decrypt(sessionKey, content);
+            if (StringUtils.isNotBlank(content)) {
+                String data = httpCryptoProcessor.decrypt(sessionId, content);
+                if (StringUtils.equals(data, content)) {
+                    data = decrypt(sessionId, content);
+                }
+                log.debug("[Herodotus] |- Decrypt request body for rest method [{}] in [{}] finished.", methodName, className);
+                return new DecryptHttpInputMessage(httpInputMessage, ByteUtil.toUtf8Bytes(data));
+            } else {
+                return httpInputMessage;
             }
-            log.debug("[Herodotus] |- Decrypt request body for rest method [{}] in [{}] finished.", methodName, className);
-            return new DecryptHttpInputMessage(httpInputMessage, ByteUtil.toUtf8Bytes(data));
         } else {
+            log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION_ID to request header.");
             return httpInputMessage;
         }
     }

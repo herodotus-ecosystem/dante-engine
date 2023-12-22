@@ -166,7 +166,7 @@ public class SecurityGlobalExceptionHandler {
             OAuth2Error oAuth2Error = oAuth2AuthenticationException.getError();
             if (EXCEPTION_DICTIONARY.containsKey(oAuth2Error.getErrorCode())) {
                 Feedback feedback = EXCEPTION_DICTIONARY.get(oAuth2Error.getErrorCode());
-                Result<String> result = Result.failure(feedback);
+                Result<String> result = Result.failure(feedback, oAuth2Error.getErrorCode());
                 result.path(oAuth2Error.getUri());
                 result.stackTrace(exception.getStackTrace());
                 result.detail(exception.getMessage());

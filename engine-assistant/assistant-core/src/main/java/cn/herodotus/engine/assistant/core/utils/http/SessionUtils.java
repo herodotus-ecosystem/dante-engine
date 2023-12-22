@@ -100,6 +100,9 @@ public class SessionUtils {
 
     /**
      * 解析 Session ID
+     * <p>
+     * 如果请求中有 X_HERODOTUS_SESSION_ID 头，那么则返回 SessionId，意味着前后端加密有效。
+     * 这种处理方式，主要解决在没有使用系统 Session 的环境下，单独调用接口特别是测试接口时，提示 Session 过期的问题。
      *
      * @param httpServletRequest {@link HttpServletRequest}
      * @return session ID 或者 null
@@ -107,13 +110,16 @@ public class SessionUtils {
     public static String analyseSessionId(HttpServletRequest httpServletRequest) {
         String sessionId = getSessionId(httpServletRequest);
         if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeaderUtils.getHerodotusSession(httpServletRequest);
+            sessionId = HeaderUtils.getHerodotusSessionId(httpServletRequest);
         }
         return sessionId;
     }
 
     /**
      * 解析 Session ID
+     * <p>
+     * 如果请求中有 X_HERODOTUS_SESSION_ID 头，那么则返回 SessionId，意味着前后端加密有效。
+     * 这种处理方式，主要解决在没有使用系统 Session 的环境下，单独调用接口特别是测试接口时，提示 Session 过期的问题。
      *
      * @param serverHttpRequest {@link ServerHttpRequest}
      * @return session ID 或者 null
@@ -121,13 +127,16 @@ public class SessionUtils {
     public static String analyseSessionId(ServerHttpRequest serverHttpRequest) {
         String sessionId = getSessionIdFromHeader(serverHttpRequest);
         if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeaderUtils.getHerodotusSession(serverHttpRequest);
+            sessionId = HeaderUtils.getHerodotusSessionId(serverHttpRequest);
         }
         return sessionId;
     }
 
     /**
      * 解析 Session ID
+     * <p>
+     * 如果请求中有 X_HERODOTUS_SESSION_ID 头，那么则返回 SessionId，意味着前后端加密有效。
+     * 这种处理方式，主要解决在没有使用系统 Session 的环境下，单独调用接口特别是测试接口时，提示 Session 过期的问题。
      *
      * @param httpInputMessage {@link HttpInputMessage}
      * @return session ID 或者 null
@@ -135,8 +144,30 @@ public class SessionUtils {
     public static String analyseSessionId(HttpInputMessage httpInputMessage) {
         String sessionId = getSessionIdFromHeader(httpInputMessage);
         if (StringUtils.isBlank(sessionId)) {
-            sessionId = HeaderUtils.getHerodotusSession(httpInputMessage);
+            sessionId = HeaderUtils.getHerodotusSessionId(httpInputMessage);
         }
         return sessionId;
+    }
+
+    /**
+     * 判断基于 Session 的前后端数据加密是否开启
+     *
+     * @param httpServletRequest {@link HttpServletRequest}
+     * @param sessionId          SessionId
+     * @return true 已开启，false 未开启。
+     */
+    public static boolean isCryptoEnabled(HttpServletRequest httpServletRequest, String sessionId) {
+        return HeaderUtils.hasHerodotusSessionIdHeader(httpServletRequest) && StringUtils.isNotBlank(sessionId);
+    }
+
+    /**
+     * 判断基于 Session 的前后端数据加密是否开启
+     *
+     * @param httpInputMessage {@link HttpInputMessage}
+     * @param sessionId        SessionId
+     * @return true 已开启，false 未开启。
+     */
+    public static boolean isCryptoEnabled(HttpInputMessage httpInputMessage, String sessionId) {
+        return HeaderUtils.hasHerodotusSessionIdHeader(httpInputMessage) && StringUtils.isNotBlank(sessionId);
     }
 }

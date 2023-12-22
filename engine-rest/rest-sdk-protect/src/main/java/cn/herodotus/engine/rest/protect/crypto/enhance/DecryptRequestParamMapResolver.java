@@ -121,11 +121,11 @@ public class DecryptRequestParamMapResolver implements HandlerMethodArgumentReso
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         String requestURI = request.getRequestURI();
         String requestMethod = request.getMethod();
-        String sessionId = SessionUtils.analyseSessionId(request);
 
         if (isConfigCrypto(methodParameter) || isOauthTokenRequest(requestURI, requestMethod)) {
 
-            if (StringUtils.isNotBlank(sessionId)) {
+            String sessionId = SessionUtils.analyseSessionId(request);
+            if (SessionUtils.isCryptoEnabled(request, sessionId)) {
 
                 if (isRegularMap(methodParameter)) {
                     Map<String, String[]> parameterMap = webRequest.getParameterMap();
@@ -145,7 +145,7 @@ public class DecryptRequestParamMapResolver implements HandlerMethodArgumentReso
                     return result;
                 }
             } else {
-                log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION to request header.");
+                log.warn("[Herodotus] |- Cannot find Herodotus Cloud custom session header. Use interface crypto founction need add X_HERODOTUS_SESSION_ID to request header.");
             }
         }
 

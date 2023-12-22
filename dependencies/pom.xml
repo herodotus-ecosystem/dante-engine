@@ -22,13 +22,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
         <relativePath/>
     </parent>
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.2.0.2</version>
+    <version>3.2.1.0</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -69,7 +69,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--Spring 家族-->
         <spring-boot-admin.version>3.1.8</spring-boot-admin.version>
-        <spring-boot-dependencies.version>3.2.0</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.2.1</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-tencent-dependencies.version>1.12.4-2022.0.4</spring-cloud-tencent-dependencies.version>
@@ -87,13 +87,13 @@
         <guava.version>33.0.0-jre</guava.version>
         <zxing.version>3.5.2</zxing.version>
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.25.1</redisson.version>
+        <redisson.version>3.25.2</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.3.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.1.0</skywalking.version>
         <minio.version>8.5.7</minio.version>
-        <aws-java-sdk-s3.version>1.12.619</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.622</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
         <influxdb-client.version>6.11.0</influxdb-client.version>
         <!-- 阿里巴巴开源工具依赖 -->
@@ -109,7 +109,7 @@
         <just-auth.verison>1.16.6</just-auth.verison>
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
-        <camunda-bpm-spring-boot-starter-rest.version>7.20.0</camunda-bpm-spring-boot-starter-rest.version>
+        <camunda-bpm-spring-boot-starter-rest.version>7.21.0-alpha2</camunda-bpm-spring-boot-starter-rest.version>
         <mybatis-plus-boot-starter.version>3.5.4.1</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.4.1</mybatis-plus-generator.version>
         <mybatis.version>3.5.14</mybatis.version>
@@ -128,7 +128,7 @@
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.3</aliyun-sdk-oss.version>
-        <alipay-sdk-java.version>4.38.161.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.38.170.ALL</alipay-sdk-java.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
         <tencentcloud-sdk-java.version>3.1.893</tencentcloud-sdk-java.version>
         <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
@@ -136,7 +136,7 @@
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
         <org.json.version>20231013</org.json.version>
-        <okio.version>3.6.0</okio.version>
+        <okio.version>3.7.0</okio.version>
         <xnio.version>3.8.12.Final</xnio.version>
         <httpclient.version>4.5.14</httpclient.version>
         <checker-qual.version>3.42.0</checker-qual.version>

@@ -136,7 +136,8 @@ public class Result<T> implements Serializable {
     }
 
     public static <T> Result<T> failure(Feedback feedback, T data) {
-        int code = ErrorCodeMapper.get(feedback);
+        Feedback result = ObjectUtils.isNotEmpty(feedback) ? feedback : ErrorCodes.DISCOVERED_UNRECORDED_ERROR_EXCEPTION;
+        Integer code = ErrorCodeMapper.get(result);
         return failure(feedback.getMessage(), code, feedback.getStatus(), data);
     }
 
@@ -227,7 +228,6 @@ public class Result<T> implements Serializable {
 
     public Result<T> type(Feedback feedback) {
         this.code = ErrorCodeMapper.get(feedback);
-        ;
         this.message = feedback.getMessage();
         this.status = feedback.getStatus();
         return this;
