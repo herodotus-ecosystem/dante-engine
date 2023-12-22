@@ -5,7 +5,7 @@
 ---
 
 <p align="center">
-    <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-1.2.0-blue.svg?logo=spring" alt="Spring Authorization Server 1.2.0"></a>
+    <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-1.2.1-blue.svg?logo=spring" alt="Spring Authorization Server 1.2.1"></a>
     <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.2.1-blue.svg?logo=spring" alt="Spring Boot 3.2.1"></a>
     <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2023.0.0-blue.svg?logo=spring" alt="Spring Cloud 2023.0.0"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2022.0.0.0-blue.svg?logo=alibabadotcom" alt="Spring Cloud Alibaba 2022.0.0.0"></a>
