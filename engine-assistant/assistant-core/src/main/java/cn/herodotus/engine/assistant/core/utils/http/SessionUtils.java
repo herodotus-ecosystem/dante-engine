@@ -108,15 +108,11 @@ public class SessionUtils {
      * @return session ID 或者 null
      */
     public static String analyseSessionId(HttpServletRequest httpServletRequest) {
-        if (HeaderUtils.hasHerodotusSessionIdHeader(httpServletRequest)) {
-            String sessionId = getSessionId(httpServletRequest);
-            if (StringUtils.isBlank(sessionId)) {
-                sessionId = HeaderUtils.getHerodotusSessionId(httpServletRequest);
-            }
-            return sessionId;
-        } else {
-            return null;
+        String sessionId = getSessionId(httpServletRequest);
+        if (StringUtils.isBlank(sessionId)) {
+            sessionId = HeaderUtils.getHerodotusSessionId(httpServletRequest);
         }
+        return sessionId;
     }
 
     /**
@@ -129,15 +125,11 @@ public class SessionUtils {
      * @return session ID 或者 null
      */
     public static String analyseSessionId(ServerHttpRequest serverHttpRequest) {
-        if (HeaderUtils.hasHerodotusSessionIdHeader(serverHttpRequest)) {
-            String sessionId = getSessionIdFromHeader(serverHttpRequest);
-            if (StringUtils.isBlank(sessionId)) {
-                sessionId = HeaderUtils.getHerodotusSessionId(serverHttpRequest);
-            }
-            return sessionId;
-        } else {
-            return null;
+        String sessionId = getSessionIdFromHeader(serverHttpRequest);
+        if (StringUtils.isBlank(sessionId)) {
+            sessionId = HeaderUtils.getHerodotusSessionId(serverHttpRequest);
         }
+        return sessionId;
     }
 
     /**
@@ -150,14 +142,32 @@ public class SessionUtils {
      * @return session ID 或者 null
      */
     public static String analyseSessionId(HttpInputMessage httpInputMessage) {
-        if (HeaderUtils.hasHerodotusSessionIdHeader(httpInputMessage)) {
-            String sessionId = getSessionIdFromHeader(httpInputMessage);
-            if (StringUtils.isBlank(sessionId)) {
-                sessionId = HeaderUtils.getHerodotusSessionId(httpInputMessage);
-            }
-            return sessionId;
-        } else {
-            return null;
+        String sessionId = getSessionIdFromHeader(httpInputMessage);
+        if (StringUtils.isBlank(sessionId)) {
+            sessionId = HeaderUtils.getHerodotusSessionId(httpInputMessage);
         }
+        return sessionId;
+    }
+
+    /**
+     * 判断基于 Session 的前后端数据加密是否开启
+     *
+     * @param httpServletRequest {@link HttpServletRequest}
+     * @param sessionId          SessionId
+     * @return true 已开启，false 未开启。
+     */
+    public static boolean isCryptoEnabled(HttpServletRequest httpServletRequest, String sessionId) {
+        return HeaderUtils.hasHerodotusSessionIdHeader(httpServletRequest) && StringUtils.isNotBlank(sessionId);
+    }
+
+    /**
+     * 判断基于 Session 的前后端数据加密是否开启
+     *
+     * @param httpInputMessage {@link HttpInputMessage}
+     * @param sessionId        SessionId
+     * @return true 已开启，false 未开启。
+     */
+    public static boolean isCryptoEnabled(HttpInputMessage httpInputMessage, String sessionId) {
+        return HeaderUtils.hasHerodotusSessionIdHeader(httpInputMessage) && StringUtils.isNotBlank(sessionId);
     }
 }

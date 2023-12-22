@@ -18,19 +18,15 @@ package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.engine.assistant.core.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
-import cn.herodotus.engine.assistant.core.utils.http.SessionUtils;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
-
-import java.util.*;
 
 /**
  * <p>Description: 社交认证 Converter </p>
@@ -52,18 +48,10 @@ public class OAuth2SocialCredentialsAuthenticationConverter extends AbstractAuth
             return null;
         }
 
-        Authentication clientPrincipal = SecurityContextHolder.getContext().getAuthentication();
-
         MultiValueMap<String, String> parameters = OAuth2EndpointUtils.getParameters(request);
 
         // scope (OPTIONAL)
         String scope = OAuth2EndpointUtils.checkOptionalParameter(parameters, OAuth2ParameterNames.SCOPE);
-
-        Set<String> requestedScopes = null;
-        if (StringUtils.hasText(scope)) {
-            requestedScopes = new HashSet<>(
-                    Arrays.asList(StringUtils.delimitedListToStringArray(scope, " ")));
-        }
 
         // source (REQUIRED)
         String source = OAuth2EndpointUtils.checkRequiredParameter(parameters, BaseConstants.SOURCE);
@@ -89,16 +77,6 @@ public class OAuth2SocialCredentialsAuthenticationConverter extends AbstractAuth
             }
         }
 
-        String sessionId = SessionUtils.analyseSessionId(request);
-
-        Map<String, Object> additionalParameters = new HashMap<>();
-        parameters.forEach((key, value) -> {
-            if (!key.equals(OAuth2ParameterNames.GRANT_TYPE) &&
-                    !key.equals(OAuth2ParameterNames.SCOPE)) {
-                additionalParameters.put(key, (value.size() == 1) ? decrypt(sessionId, value.get(0)) : decrypt(sessionId, value));
-            }
-        });
-
-        return new OAuth2SocialCredentialsAuthenticationToken(clientPrincipal, requestedScopes, additionalParameters);
+        return new OAuth2SocialCredentialsAuthenticationToken(getClientPrincipal(), getRequestedScopes(scope), getAdditionalParameters(request, parameters));
     }
 }

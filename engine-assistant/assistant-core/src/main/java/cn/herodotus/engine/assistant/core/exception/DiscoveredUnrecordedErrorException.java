@@ -25,7 +25,7 @@ import cn.herodotus.engine.assistant.core.domain.Feedback;
  * @author : gengwei.zheng
  * @date : 2023/12/20 16:23
  */
-public class DiscoveredUnrecordedErrorException extends PlatformException{
+public class DiscoveredUnrecordedErrorException extends PlatformException {
 
     public DiscoveredUnrecordedErrorException() {
         super();

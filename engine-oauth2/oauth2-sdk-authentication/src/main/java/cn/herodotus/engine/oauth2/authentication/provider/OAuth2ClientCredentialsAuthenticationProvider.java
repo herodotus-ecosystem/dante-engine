@@ -76,7 +76,7 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
     }
 
     @NotNull
-    private static Set<String> getStrings(OAuth2ClientCredentialsAuthenticationToken clientCredentialsAuthentication, RegisteredClient registeredClient) {
+    private static Set<String> getScopes(OAuth2ClientCredentialsAuthenticationToken clientCredentialsAuthentication, RegisteredClient registeredClient) {
         Set<String> authorizedScopes = Collections.emptySet();
         if (!CollectionUtils.isEmpty(clientCredentialsAuthentication.getScopes())) {
             for (String requestedScope : clientCredentialsAuthentication.getScopes()) {
@@ -107,7 +107,7 @@ public class OAuth2ClientCredentialsAuthenticationProvider extends AbstractAuthe
         }
 
         // Default to configured scopes
-        Set<String> authorizedScopes = getStrings(clientCredentialsAuthentication, registeredClient);
+        Set<String> authorizedScopes = getScopes(clientCredentialsAuthentication, registeredClient);
 
         if (this.logger.isTraceEnabled()) {
             this.logger.trace("Validated token request parameters");
