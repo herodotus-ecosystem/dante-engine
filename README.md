@@ -142,6 +142,10 @@ dante-engine
 └──  readme -- README 相关素材放置目录
 ```
 
+## 安全测试
+
+Dante Cloud 已通过由第三方进行的软件出厂安全测试。详情参见：[安全测试](https://www.herodotus.cn/guide/get-start/project-introduction.html#%E4%BA%94-%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95)
+
 ## 开源协议
 
 ![开源协议](./readme/images/lgplv3-147x51.png)
