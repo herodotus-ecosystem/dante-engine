@@ -19,7 +19,9 @@ package cn.herodotus.engine.data.mybatis.plus.configuration;
 import cn.herodotus.engine.data.core.constants.DataConstants;
 import cn.herodotus.engine.data.mybatis.plus.enhance.HerodotusIdentifierGenerator;
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.autoconfigure.DdlApplicationRunner;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
+import com.baomidou.mybatisplus.extension.ddl.IDdl;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -28,9 +30,14 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+
+import java.util.List;
 
 /**
  * <p>Description: Mybatis Plus 配置</p>
@@ -60,6 +67,13 @@ public class MybatisPlusConfiguration {
         }
 
         return DbType.POSTGRE_SQL;
+    }
+
+    @Order
+    @Bean
+    @ConditionalOnMissingBean
+    public DdlApplicationRunner ddlApplicationRunner(@Autowired(required = false) List<IDdl> ddlList) {
+        return new DdlApplicationRunner(ddlList);
     }
 
     /**
