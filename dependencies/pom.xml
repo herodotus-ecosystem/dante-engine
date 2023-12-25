@@ -101,7 +101,7 @@
         <fastjson2.version>2.0.44</fastjson2.version>
         <jetcache.version>2.7.4</jetcache.version>
         <nacos.version>2.3.0</nacos.version>
-        <transmittable-thread-local.version>2.14.4</transmittable-thread-local.version>
+        <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M9</hutool.version>
         <okhttps.version>4.0.2</okhttps.version>
@@ -110,8 +110,8 @@
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <camunda-bpm-spring-boot-starter-rest.version>7.20.0</camunda-bpm-spring-boot-starter-rest.version>
-        <mybatis-plus-boot-starter.version>3.5.4.1</mybatis-plus-boot-starter.version>
-        <mybatis-plus-generator.version>3.5.4.1</mybatis-plus-generator.version>
+        <mybatis-plus-boot-starter.version>3.5.5</mybatis-plus-boot-starter.version>
+        <mybatis-plus-generator.version>3.5.5</mybatis-plus-generator.version>
         <mybatis.version>3.5.14</mybatis.version>
         <velocity.version>2.3</velocity.version>
         <!--Webjars 依赖-->
