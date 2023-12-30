@@ -13,7 +13,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.3.0-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.3.0"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.2.1.1-red.svg?logo=spring" alt="Version 3.2.1.1"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.2.1.2-red.svg?logo=spring" alt="Version 3.2.1.2"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-LGPL--3.0-blue.svg" alt="License LGPL-3.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -158,15 +158,16 @@ LGPL 是 GPL 的一个为主要为类库使用设计的开源协议。和 GPL �
 
 但是如果修改 LGPL 协议的代码或者衍生，则所有修改的代码，涉及修改部分的额外代码和衍生的代码都必须采用 LGPL 协议。因此 LGPL 协议的开源代码很适合作为第三方类库被商业软件引用，但不适合希望以 LGPL 协议代码为基础，通过修改和衍生的方式做二次开发的商业软件采用。
 
-### 用户权益
+### 授权声明
 
-允许以引入不改源码的形式免费用于学习、毕设、公司项目、私活等。
+本项目基于 GNU LESSER GENERAL PUBLIC LICENSE Version 3 (LGPL V3) 开源协议，可用于商业项目，但必须遵守以下补充条款。
 
-特殊情况修改代码，但仍然想闭源需经过作者同意。
-
-对未经过授权和不遵循 LGPL 协议二次开源或者商业化我们将追究到底。
-
-参考请注明：参考自 Dante Cloud：https://gitee.com/dromara/dante-cloud 或 Dante Engine：https://gitee.com/herodotus/dante-engine ，另请遵循 LGPL 协议。
+- 不得将本软件应用于危害国家安全、荣誉和利益的行为，不能以任何形式用于非法为目的的行为。
+- 允许以引入、不改源码的形式免费用于学习、毕设、公司项目、私活等。 特殊情况修改代码，但仍然想闭源需经过作者同意。
+- 对未经过授权和不遵循 LGPL 协议二次开源或者商业化我们将追究到底。
+- 任何基于本软件而产生的一切法律纠纷和责任，均与作者无关。
+- 如果你对本软件有改进，希望可以贡献给我们，双向奔赴互相成就才是王道。
+- 参考请注明：参考自 Dante Cloud：https://gitee.com/dromara/dante-cloud 或 Dante Engine：https://gitee.com/herodotus/dante-engine ，另请遵循 LGPL V3 协议。
 
 ## 阅读顺序
 
