@@ -28,7 +28,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.2.1.1</version>
+    <version>3.2.1.2</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -93,8 +93,7 @@
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.1.0</skywalking.version>
         <minio.version>8.5.7</minio.version>
-        <aws-java-sdk-s3.version>1.12.625</aws-java-sdk-s3.version>
-        <software.amazon.awssdk.version>2.22.5</software.amazon.awssdk.version>
+        <aws-java-sdk-s3.version>1.12.628</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
         <influxdb-client.version>6.12.0</influxdb-client.version>
         <!-- 阿里巴巴开源工具依赖 -->
@@ -106,33 +105,33 @@
         <!-- 国内开源通用组件 -->
         <hutool.version>6.0.0-M9</hutool.version>
         <okhttps.version>4.0.2</okhttps.version>
-        <weixin-java-sdk.version>4.5.9.B</weixin-java-sdk.version>
+        <weixin-java-sdk.version>4.6.0</weixin-java-sdk.version>
         <just-auth.verison>1.16.6</just-auth.verison>
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <camunda-bpm-spring-boot-starter-rest.version>7.21.0-alpha2</camunda-bpm-spring-boot-starter-rest.version>
         <mybatis-plus-boot-starter.version>3.5.5</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.5</mybatis-plus-generator.version>
-        <mybatis.version>3.5.14</mybatis.version>
+        <mybatis.version>3.5.15</mybatis.version>
         <velocity.version>2.3</velocity.version>
         <!--Webjars 依赖-->
         <animate.css.version>3.7.2</animate.css.version>
         <bootstrap.version>5.3.2</bootstrap.version>
-        <font-awesome.version>6.4.2</font-awesome.version>
+        <font-awesome.version>6.5.1</font-awesome.version>
         <jquery.version>3.7.1</jquery.version>
         <jquery-backstretch.version>2.1.16</jquery-backstretch.version>
         <mdi__font.version>7.3.67</mdi__font.version>
         <quasar.version>2.14.0</quasar.version>
         <uniform.version>2.1.2-1</uniform.version>
-        <vue.version>3.3.11</vue.version>
+        <vue.version>3.4.0</vue.version>
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.3</aliyun-sdk-oss.version>
-        <alipay-sdk-java.version>4.38.170.ALL</alipay-sdk-java.version>
+        <alipay-sdk-java.version>4.38.183.ALL</alipay-sdk-java.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
         <tencentcloud-sdk-java.version>3.1.893</tencentcloud-sdk-java.version>
-        <qiniu-java-sdk.version>7.14.0</qiniu-java-sdk.version>
+        <qiniu-java-sdk.version>7.15.0</qiniu-java-sdk.version>
         <com.baidu.aip.version>4.16.17</com.baidu.aip.version>
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
