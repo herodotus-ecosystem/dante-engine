@@ -135,6 +135,7 @@
         <com.baidu.aip.version>4.16.17</com.baidu.aip.version>
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
+        <mysql.version>8.2.0</mysql.version>
         <org.json.version>20231013</org.json.version>
         <okio.version>3.7.0</okio.version>
         <xnio.version>3.8.12.Final</xnio.version>
