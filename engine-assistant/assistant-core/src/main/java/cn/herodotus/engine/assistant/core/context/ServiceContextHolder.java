@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.core.context;
 
-import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Architecture;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.enums.Target;

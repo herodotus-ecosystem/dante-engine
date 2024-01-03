@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.captcha.autoconfigure;
 
-import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.captcha.autoconfigure.customizer.CaptchaErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.captcha.core.processor.CaptchaRendererFactory;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;

@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.rest.core.exception;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 
 /**
@@ -26,7 +26,7 @@ import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
  * @author : gengwei.zheng
  * @date : 2022/5/30 11:17
  */
-public class FeignDecodeIOException extends PlatformException {
+public class FeignDecodeIOException extends PlatformRuntimeException {
 
     public FeignDecodeIOException() {
         super();

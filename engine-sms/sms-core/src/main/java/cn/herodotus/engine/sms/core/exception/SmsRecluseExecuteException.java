@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.sms.core.exception;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.sms.core.constants.SmsErrorCodes;
 
 /**
@@ -26,7 +26,7 @@ import cn.herodotus.engine.sms.core.constants.SmsErrorCodes;
  * @author : gengwei.zheng
  * @date : 2022/7/25 20:34
  */
-public class SmsRecluseExecuteException extends PlatformException {
+public class SmsRecluseExecuteException extends PlatformRuntimeException {
 
     public SmsRecluseExecuteException() {
         super();

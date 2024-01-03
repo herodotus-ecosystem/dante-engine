@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.websocket.configuration;
 
-import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
+import cn.herodotus.engine.assistant.core.support.BearerTokenResolver;
 import cn.herodotus.engine.message.core.definition.domain.WebSocketMessage;
 import cn.herodotus.engine.message.websocket.annotation.ConditionalOnMultipleWebSocketInstance;
 import cn.herodotus.engine.message.websocket.annotation.ConditionalOnSingleWebSocketInstance;

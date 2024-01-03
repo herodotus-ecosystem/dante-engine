@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.ip2region.exception;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: TODO </p>
@@ -25,7 +25,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2023/10/24 13:13
  */
-public class SearchIpLocationException extends PlatformException {
+public class SearchIpLocationException extends PlatformRuntimeException {
 
     public SearchIpLocationException() {
         super();

@@ -16,8 +16,9 @@
 
 package cn.herodotus.engine.assistant.core.exception;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.core.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 发现尚未记录的错误 </p>
@@ -25,7 +26,7 @@ import cn.herodotus.engine.assistant.core.domain.Feedback;
  * @author : gengwei.zheng
  * @date : 2023/12/20 16:23
  */
-public class DiscoveredUnrecordedErrorException extends PlatformException {
+public class DiscoveredUnrecordedErrorException extends PlatformRuntimeException {
 
     public DiscoveredUnrecordedErrorException() {
         super();

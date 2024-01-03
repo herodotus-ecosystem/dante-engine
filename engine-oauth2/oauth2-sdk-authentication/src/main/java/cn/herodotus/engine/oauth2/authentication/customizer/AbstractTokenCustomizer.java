@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.customizer;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;

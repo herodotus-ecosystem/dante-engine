@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.controller;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.oauth2.management.dto.OAuth2PermissionDto;
 import cn.herodotus.engine.oauth2.management.dto.OAuth2ScopeDto;

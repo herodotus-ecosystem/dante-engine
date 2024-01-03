@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.management.controller;
 
-import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.stereotype.Controller;

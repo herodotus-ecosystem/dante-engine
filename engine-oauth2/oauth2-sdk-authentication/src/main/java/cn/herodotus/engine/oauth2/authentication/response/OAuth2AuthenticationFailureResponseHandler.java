@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.response;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
 import cn.herodotus.engine.oauth2.core.utils.WebUtils;

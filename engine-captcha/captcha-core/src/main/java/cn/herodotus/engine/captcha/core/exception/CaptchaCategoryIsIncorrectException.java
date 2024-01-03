@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.captcha.core.exception;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 
 /**
@@ -26,7 +26,7 @@ import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
  * @author : gengwei.zheng
  * @date : 2021/12/15 17:51
  */
-public class CaptchaCategoryIsIncorrectException extends PlatformException {
+public class CaptchaCategoryIsIncorrectException extends PlatformRuntimeException {
 
     public CaptchaCategoryIsIncorrectException() {
         super();

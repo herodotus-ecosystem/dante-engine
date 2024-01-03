@@ -25,9 +25,9 @@
 
 package cn.herodotus.engine.assistant.core.exception.pool;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 获取从连接池中获取对象错误 </p>
@@ -35,7 +35,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2023/11/6 13:48
  */
-public class BorrowObjectFromPoolErrorException extends PlatformException {
+public class BorrowObjectFromPoolErrorException extends PlatformRuntimeException {
 
     public BorrowObjectFromPoolErrorException() {
         super();

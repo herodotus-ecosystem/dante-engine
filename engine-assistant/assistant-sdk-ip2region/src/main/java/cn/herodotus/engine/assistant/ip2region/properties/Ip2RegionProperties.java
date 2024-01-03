@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.ip2region.properties;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
 import com.google.common.base.MoreObjects;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

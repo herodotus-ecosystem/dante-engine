@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.definition.domain;
 
-import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
 import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.CommaDelimitedStringToSetSerializer;
 import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.SetToCommaDelimitedStringDeserializer;
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.core.exception;
 
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 非法操作Exception </p>
@@ -24,7 +24,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2021/8/25 17:43
  */
-public class IllegalOperationException extends PlatformException {
+public class IllegalOperationException extends PlatformRuntimeException {
 
     public IllegalOperationException() {
     }

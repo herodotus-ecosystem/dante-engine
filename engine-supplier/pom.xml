@@ -23,7 +23,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>dante-engine</artifactId>
-        <version>3.2.1.2</version>
+        <version>3.2.1.3</version>
     </parent>
 
     <artifactId>engine-supplier</artifactId>

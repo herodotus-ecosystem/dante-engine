@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.assistant.core.exception.properties;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: Url 格式错误 </p>
@@ -26,7 +26,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2022/3/6 12:49
  */
-public class UrlFormatIncorrectException extends PlatformException {
+public class UrlFormatIncorrectException extends PlatformRuntimeException {
 
     public UrlFormatIncorrectException() {
         super();

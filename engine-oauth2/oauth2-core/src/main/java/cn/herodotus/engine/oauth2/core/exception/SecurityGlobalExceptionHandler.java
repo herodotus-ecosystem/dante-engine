@@ -16,11 +16,11 @@
 
 package cn.herodotus.engine.oauth2.core.exception;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.assistant.core.exception.GlobalExceptionHandler;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -141,7 +141,7 @@ public class SecurityGlobalExceptionHandler {
         return result;
     }
 
-    @ExceptionHandler({Exception.class, PlatformException.class})
+    @ExceptionHandler({Exception.class, PlatformRuntimeException.class})
     public static Result<String> exception(Exception ex, HttpServletRequest request, HttpServletResponse response) {
         Result<String> result = resolveException(ex, request.getRequestURI());
         response.setStatus(result.getStatus());

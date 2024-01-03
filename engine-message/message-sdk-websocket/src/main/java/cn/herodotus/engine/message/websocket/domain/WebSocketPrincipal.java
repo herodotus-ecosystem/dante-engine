@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.websocket.domain;
 
-import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
+import cn.herodotus.engine.assistant.definition.domain.PrincipalDetails;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 

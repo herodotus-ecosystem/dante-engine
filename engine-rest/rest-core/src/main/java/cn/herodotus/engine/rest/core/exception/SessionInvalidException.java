@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.rest.core.exception;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
 
 /**
@@ -26,7 +26,7 @@ import cn.herodotus.engine.rest.core.constants.RestErrorCodes;
  * @author : gengwei.zheng
  * @date : 2021/10/4 16:46
  */
-public class SessionInvalidException extends PlatformException {
+public class SessionInvalidException extends PlatformRuntimeException {
 
     public SessionInvalidException() {
         super();

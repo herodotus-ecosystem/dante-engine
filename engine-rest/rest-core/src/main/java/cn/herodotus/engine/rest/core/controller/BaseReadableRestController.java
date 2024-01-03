@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.rest.core.controller;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.definition.domain.AbstractEntity;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.definition.dto.Pager;
 import io.swagger.v3.oas.annotations.Operation;

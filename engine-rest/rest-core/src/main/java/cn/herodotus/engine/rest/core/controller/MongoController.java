@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.core.controller;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.data.core.entity.BaseMongoEntity;
 import cn.herodotus.engine.data.core.service.MongoService;
 import org.springframework.data.domain.Page;

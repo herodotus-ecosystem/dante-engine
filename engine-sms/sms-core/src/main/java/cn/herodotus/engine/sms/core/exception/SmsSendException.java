@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.sms.core.exception;
 
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 短信发送Exception </p>
@@ -24,7 +24,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2021/5/25 16:16
  */
-public class SmsSendException extends PlatformException {
+public class SmsSendException extends PlatformRuntimeException {
 
     public SmsSendException() {
     }

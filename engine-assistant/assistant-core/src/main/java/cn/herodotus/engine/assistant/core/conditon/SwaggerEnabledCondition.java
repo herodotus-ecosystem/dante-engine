@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.core.conditon;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.context.PropertyResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.core.constants;
 
-import cn.herodotus.engine.assistant.core.constants.BaseConstants;
+import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
 
 /**
  * <p>Description: 消息模块常量 </p>

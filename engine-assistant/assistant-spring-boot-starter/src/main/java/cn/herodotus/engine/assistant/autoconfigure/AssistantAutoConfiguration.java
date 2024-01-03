@@ -17,9 +17,9 @@
 package cn.herodotus.engine.assistant.autoconfigure;
 
 import cn.herodotus.engine.assistant.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.domain.ErrorCodeMapper;
-import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.definition.domain.ErrorCodeMapper;
+import cn.herodotus.engine.assistant.definition.support.ErrorCodeMapperBuilder;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;

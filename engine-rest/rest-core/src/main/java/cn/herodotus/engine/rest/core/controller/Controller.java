@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.rest.core.controller;
 
-import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.definition.domain.Entity;
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.domain.Entity;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;

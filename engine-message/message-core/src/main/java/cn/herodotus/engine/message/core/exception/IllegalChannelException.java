@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.message.core.exception;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.message.core.constants.MessageErrorCodes;
 
 /**
@@ -26,7 +26,7 @@ import cn.herodotus.engine.message.core.constants.MessageErrorCodes;
  * @author : gengwei.zheng
  * @date : 2021/10/24 18:45
  */
-public class IllegalChannelException extends PlatformException {
+public class IllegalChannelException extends PlatformRuntimeException {
 
     public IllegalChannelException() {
         super();
