@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.response;
 
-import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
 import cn.herodotus.engine.oauth2.management.service.OAuth2DeviceService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

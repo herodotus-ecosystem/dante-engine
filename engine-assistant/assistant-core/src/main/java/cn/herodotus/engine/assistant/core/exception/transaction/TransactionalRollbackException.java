@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.assistant.core.exception.transaction;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 事务回滚Exception </p>
@@ -26,7 +26,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2021/9/21 11:56
  */
-public class TransactionalRollbackException extends PlatformException {
+public class TransactionalRollbackException extends PlatformRuntimeException {
 
     public TransactionalRollbackException() {
         super();

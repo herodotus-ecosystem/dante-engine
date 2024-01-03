@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.core.exception.api;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: Open API 请求失败错误 </p>
@@ -25,7 +25,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2023/12/15 16:40
  */
-public class OpenApiRequestFailureException extends PlatformException {
+public class OpenApiRequestFailureException extends PlatformRuntimeException {
 
     public OpenApiRequestFailureException() {
         super();

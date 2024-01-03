@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.dto;
 
-import cn.herodotus.engine.assistant.core.definition.domain.AbstractEntity;
+import cn.herodotus.engine.assistant.definition.domain.AbstractEntity;
 
 /**
  * <p>Description: 用户错误状态信息 </p>

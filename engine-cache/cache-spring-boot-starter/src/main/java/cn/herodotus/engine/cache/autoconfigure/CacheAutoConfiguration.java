@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.cache.autoconfigure;
 
-import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.cache.autoconfigure.customizer.CacheErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;

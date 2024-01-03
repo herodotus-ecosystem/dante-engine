@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.core.json.gson;
 
-import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.ObjectUtils;

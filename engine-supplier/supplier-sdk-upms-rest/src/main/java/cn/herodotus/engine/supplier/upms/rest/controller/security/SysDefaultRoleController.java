@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.rest.controller.security;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysDefaultRole;

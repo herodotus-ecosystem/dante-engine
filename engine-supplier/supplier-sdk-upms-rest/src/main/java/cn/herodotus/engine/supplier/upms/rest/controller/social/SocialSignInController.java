@@ -17,7 +17,7 @@
 package cn.herodotus.engine.supplier.upms.rest.controller.social;
 
 import cn.herodotus.engine.assistant.core.domain.AccessPrincipal;
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.handler.AbstractSocialAuthenticationHandler;
 import io.swagger.v3.oas.annotations.Operation;

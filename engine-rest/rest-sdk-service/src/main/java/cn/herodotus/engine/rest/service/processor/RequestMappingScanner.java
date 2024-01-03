@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.service.processor;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.message.core.logic.strategy.RequestMappingScanEventManager;
 import cn.herodotus.engine.message.core.logic.domain.RequestMapping;
 import cn.herodotus.engine.rest.condition.constants.RestPropertyFinder;

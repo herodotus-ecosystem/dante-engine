@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.autoconfigure;
 
-import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.message.autoconfigure.customizer.MessageErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.message.mqtt.annotation.EnableHerodotusMqtt;
 import cn.herodotus.engine.message.websocket.annotation.EnableHerodotusWebSocket;

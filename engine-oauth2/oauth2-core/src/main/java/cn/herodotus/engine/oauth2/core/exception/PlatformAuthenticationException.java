@@ -16,10 +16,10 @@
 
 package cn.herodotus.engine.oauth2.core.exception;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.core.definition.exception.HerodotusException;
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;
+import cn.herodotus.engine.assistant.definition.exception.HerodotusException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import org.springframework.security.core.AuthenticationException;
 
 /**

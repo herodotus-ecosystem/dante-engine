@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.core.utils;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.core.exception.IllegalSymmetricKeyException;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;

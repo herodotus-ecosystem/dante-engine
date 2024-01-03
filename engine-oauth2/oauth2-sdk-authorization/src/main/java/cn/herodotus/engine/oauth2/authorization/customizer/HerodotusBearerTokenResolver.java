@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.authorization.customizer;
 
-import cn.herodotus.engine.assistant.core.definition.BearerTokenResolver;
-import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
+import cn.herodotus.engine.assistant.core.support.BearerTokenResolver;
+import cn.herodotus.engine.assistant.definition.domain.PrincipalDetails;
 import cn.herodotus.engine.oauth2.core.utils.PrincipalUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;

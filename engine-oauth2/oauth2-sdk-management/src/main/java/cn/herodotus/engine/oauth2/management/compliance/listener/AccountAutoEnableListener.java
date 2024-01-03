@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.compliance.listener;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.management.compliance.OAuth2AccountStatusManager;
 import org.apache.commons.lang3.StringUtils;

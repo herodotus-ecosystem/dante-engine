@@ -18,7 +18,7 @@ package cn.herodotus.engine.access.autoconfigure;
 
 import cn.herodotus.engine.access.all.configuration.AccessAllConfiguration;
 import cn.herodotus.engine.access.autoconfigure.customizer.AccessErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

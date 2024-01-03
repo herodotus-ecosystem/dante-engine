@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.ip2region.utils;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.ip2region.domain.IpLocation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;

@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.cache.core.exception;
 
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
 
 /**
@@ -26,7 +26,7 @@ import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
  * @author : gengwei.zheng
  * @date : 2021/8/23 12:29
  */
-public class StampParameterIllegalException extends PlatformException {
+public class StampParameterIllegalException extends PlatformRuntimeException {
 
     public StampParameterIllegalException() {
         super();

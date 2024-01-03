@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.ip2region.domain;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 
 import java.util.Arrays;
 

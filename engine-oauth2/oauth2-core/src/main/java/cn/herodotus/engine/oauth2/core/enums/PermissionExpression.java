@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.core.enums;
 
-import cn.herodotus.engine.assistant.core.definition.enums.BaseUiEnum;
+import cn.herodotus.engine.assistant.definition.enums.BaseUiEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.collect.ImmutableMap;

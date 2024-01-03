@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.cache.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.constants.ErrorCodeMapperBuilderOrdered;
-import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.core.exception.ErrorCodeMapperBuilder;
+import cn.herodotus.engine.assistant.definition.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.definition.support.ErrorCodeMapperBuilder;
 import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
 import org.springframework.core.Ordered;
 

@@ -17,7 +17,7 @@
 package cn.herodotus.engine.rest.autoconfigure;
 
 import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
-import cn.herodotus.engine.assistant.core.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.rest.autoconfigure.customizer.Jackson2XssObjectMapperBuilderCustomizer;
 import cn.herodotus.engine.rest.autoconfigure.customizer.RestErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.rest.condition.constants.RestPropertyFinder;

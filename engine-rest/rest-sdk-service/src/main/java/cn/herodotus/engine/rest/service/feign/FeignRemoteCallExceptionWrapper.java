@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.rest.service.feign;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Result;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: Feign Fallback 错误统一封装器 </p>
@@ -25,7 +25,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2022/5/30 11:31
  */
-public class FeignRemoteCallExceptionWrapper extends PlatformException {
+public class FeignRemoteCallExceptionWrapper extends PlatformRuntimeException {
 
     private Result<String> result;
 

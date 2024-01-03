@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.autoconfigure.tenant;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.data.tenant.entity.SysTenantDataSource;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;

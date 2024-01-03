@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.core.context;
 
-import cn.herodotus.engine.assistant.core.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import org.apache.commons.lang3.StringUtils;
 

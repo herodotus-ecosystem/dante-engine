@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.rest.controller.assistant;
 
-import cn.herodotus.engine.assistant.core.domain.Result;
+import cn.herodotus.engine.assistant.definition.domain.Result;
 import cn.herodotus.engine.supplier.upms.logic.service.assistant.ConstantsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

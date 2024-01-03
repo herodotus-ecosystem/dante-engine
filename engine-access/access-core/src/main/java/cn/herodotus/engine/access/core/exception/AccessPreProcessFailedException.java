@@ -17,8 +17,8 @@
 package cn.herodotus.engine.access.core.exception;
 
 import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
-import cn.herodotus.engine.assistant.core.domain.Feedback;
-import cn.herodotus.engine.assistant.core.exception.PlatformException;
+import cn.herodotus.engine.assistant.definition.domain.Feedback;
+import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 接入预操作失败错误 </p>
@@ -26,7 +26,7 @@ import cn.herodotus.engine.assistant.core.exception.PlatformException;
  * @author : gengwei.zheng
  * @date : 2022/1/26 11:10
  */
-public class AccessPreProcessFailedException extends PlatformException {
+public class AccessPreProcessFailedException extends PlatformRuntimeException {
 
     public AccessPreProcessFailedException() {
     }

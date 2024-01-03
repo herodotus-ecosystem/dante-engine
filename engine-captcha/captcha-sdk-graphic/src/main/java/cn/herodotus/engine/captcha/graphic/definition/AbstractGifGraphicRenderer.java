@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.captcha.graphic.definition;
 
-import cn.herodotus.engine.assistant.core.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.captcha.core.definition.domain.Metadata;
 import com.madgag.gif.fmsware.AnimatedGifEncoder;
 import org.apache.commons.lang3.StringUtils;
