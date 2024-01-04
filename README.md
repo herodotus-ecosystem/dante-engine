@@ -76,7 +76,8 @@ dante-engine
 ├    ├── access-sdk-wxmpp -- 微信公众号登录
 ├    └── access-spring-boot-starter -- 外部登录  模块统一 Starter
 ├── engine-assistant -- 核心通用代码包
-├    ├── assistant-core -- 核心通用代码
+├    ├── assistant-core -- 核心通用代码模块
+├    ├── assistant-definition -- 核心定义代码模块
 ├    ├── assistant-sdk-ip2region -- IP离线定位组件核心代码模块
 ├    └── assistant-autoconfigure -- Assistant  模块统一 Starter
 ├── engine-cache -- 缓存模块
