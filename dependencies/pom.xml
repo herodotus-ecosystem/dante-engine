@@ -68,7 +68,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--Spring 家族-->
-        <spring-boot-admin.version>3.2.0</spring-boot-admin.version>
+        <spring-boot-admin.version>3.2.1</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.2.1</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
         <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
