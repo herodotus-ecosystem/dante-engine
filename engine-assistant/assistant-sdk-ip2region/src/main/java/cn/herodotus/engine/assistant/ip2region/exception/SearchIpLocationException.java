@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.ip2region.exception;
 
-import cn.herodotus.engine.assistant.definition.domain.Feedback;
-import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
+import cn.herodotus.stirrup.kernel.definition.domain.Feedback;
+import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: TODO </p>

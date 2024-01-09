@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.management.response;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.definition.domain.PrincipalDetails;
+import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.assistant.core.utils.http.SessionUtils;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;

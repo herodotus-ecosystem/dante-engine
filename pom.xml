@@ -118,6 +118,7 @@
         <module>engine-access</module>
         <module>engine-sms</module>
         <module>engine-supplier</module>
+        <module>stirrup-kernel</module>
     </modules>
 
 </project>

@@ -77,7 +77,6 @@ dante-engine
 ├    └── access-spring-boot-starter -- 外部登录  模块统一 Starter
 ├── engine-assistant -- 核心通用代码包
 ├    ├── assistant-core -- 核心通用代码模块
-├    ├── assistant-definition -- 核心定义代码模块
 ├    ├── assistant-sdk-ip2region -- IP离线定位组件核心代码模块
 ├    └── assistant-autoconfigure -- Assistant  模块统一 Starter
 ├── engine-cache -- 缓存模块
@@ -139,6 +138,10 @@ dante-engine
 ├── engine-supplier -- 应用支持模块
 ├    ├── supplier-sdk-message -- 消息功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
+├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
+├── stirrup-kernel -- Herodotus 生态核心模块
+├    ├── kernel-definition -- Herodotus 生态核心通用定义模块
+├    ├── kernel-engine -- Herodotus 生态基础通用代码模块
 ├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
 └──  readme -- README 相关素材放置目录
 ```

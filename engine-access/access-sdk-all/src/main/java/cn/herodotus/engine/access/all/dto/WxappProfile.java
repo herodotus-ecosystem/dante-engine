@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.access.all.dto;
 
-import cn.herodotus.engine.assistant.definition.domain.AbstractDto;
+import cn.herodotus.stirrup.kernel.definition.domain.base.AbstractDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 

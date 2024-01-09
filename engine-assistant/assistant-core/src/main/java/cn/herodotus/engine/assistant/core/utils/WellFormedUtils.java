@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.core.utils;
 
-import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.DefaultConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.exception.properties.PropertyValueIsNotSetException;
 import org.apache.commons.lang3.StringUtils;

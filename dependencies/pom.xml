@@ -205,6 +205,11 @@
             </dependency>
             <!--Dante Engine-->
             <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>kernel-definition</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>access-core</artifactId>
                 <version>${project.version}</version>
@@ -232,11 +237,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>access-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>assistant-definition</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

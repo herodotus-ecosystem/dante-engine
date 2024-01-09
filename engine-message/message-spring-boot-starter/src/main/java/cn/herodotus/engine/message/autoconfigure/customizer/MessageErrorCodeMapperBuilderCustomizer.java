@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.message.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.definition.constants.ErrorCodeMapperBuilderOrdered;
-import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.definition.support.ErrorCodeMapperBuilder;
+import cn.herodotus.stirrup.kernel.definition.constants.ErrorCodeMapperBuilderOrdered;
+import cn.herodotus.stirrup.kernel.definition.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.stirrup.kernel.definition.support.ErrorCodeMapperBuilder;
 import cn.herodotus.engine.message.core.constants.MessageErrorCodes;
 import org.springframework.core.Ordered;
 

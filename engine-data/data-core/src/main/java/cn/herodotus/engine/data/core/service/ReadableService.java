@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.core.service;
 
-import cn.herodotus.engine.assistant.definition.domain.Entity;
+import cn.herodotus.stirrup.kernel.definition.domain.base.Entity;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

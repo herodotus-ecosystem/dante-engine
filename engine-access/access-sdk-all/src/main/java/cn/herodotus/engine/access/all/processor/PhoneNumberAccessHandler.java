@@ -20,7 +20,7 @@ import cn.herodotus.engine.access.core.definition.AccessHandler;
 import cn.herodotus.engine.access.core.definition.AccessResponse;
 import cn.herodotus.engine.access.core.definition.AccessUserDetails;
 import cn.herodotus.engine.access.core.exception.AccessIdentityVerificationFailedException;
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.domain.AccessPrincipal;
 import cn.herodotus.engine.sms.autoconfigure.processor.SmsSendStrategyFactory;
 import cn.herodotus.engine.sms.autoconfigure.stamp.VerificationCodeStampManager;

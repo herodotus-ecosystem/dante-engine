@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.core.logic.domain;
 
-import cn.herodotus.engine.assistant.definition.domain.AbstractEntity;
+import cn.herodotus.stirrup.kernel.definition.domain.base.AbstractEntity;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 

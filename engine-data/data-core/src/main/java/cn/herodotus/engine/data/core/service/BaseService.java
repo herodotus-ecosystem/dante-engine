@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.data.core.service;
 
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.definition.domain.Entity;
+import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
+import cn.herodotus.stirrup.kernel.definition.domain.base.Entity;
 
 import java.io.Serializable;
 

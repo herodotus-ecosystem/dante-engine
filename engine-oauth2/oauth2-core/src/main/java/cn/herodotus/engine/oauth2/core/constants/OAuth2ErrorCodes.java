@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.core.constants;
 
-import cn.herodotus.engine.assistant.definition.feedback.NotAcceptableFeedback;
+import cn.herodotus.stirrup.kernel.definition.feedback.NotAcceptableFeedback;
 
 /**
  * <p>Description: OAuth2 错误代码 </p>
