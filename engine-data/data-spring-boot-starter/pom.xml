@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-data</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.3</version>
+        <version>3.2.1.4</version>
     </parent>
 
     <artifactId>data-spring-boot-starter</artifactId>
