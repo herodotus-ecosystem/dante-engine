@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.utils.type;
+package cn.herodotus.stirrup.kernel.engine.utils.type;
 
 import org.apache.commons.collections4.CollectionUtils;
 

@@ -14,33 +14,23 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.utils.type;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+package cn.herodotus.stirrup.kernel.engine.utils.type;
 
 /**
- * <p>Description: 数组工具类 </p>
+ * <p>Description: 数字类型工具类 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/5/3 23:12
+ * @date : 2023/11/1 21:26
  */
-public class ArrayUtils {
+public class NumberUtils {
 
     /**
-     * 将字符串数组转换成字符串List
+     * long 转 int
      *
-     * @param array 字符串数组
-     * @return 字符串List
+     * @param value long 型数值
+     * @return int 型数值
      */
-    public static List<String> toStringList(String[] array) {
-        if (org.apache.commons.lang3.ArrayUtils.isNotEmpty(array)) {
-            List<String> list = new ArrayList<>(array.length);
-            Collections.addAll(list, array);
-            return list;
-        } else {
-            return new ArrayList<>();
-        }
+    public static int longToInt(long value) {
+        return Long.valueOf(value).intValue();
     }
 }

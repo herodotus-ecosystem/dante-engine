@@ -14,25 +14,36 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.enums;
+package cn.herodotus.stirrup.kernel.engine.enums;
 
 /**
- * <p>Description: 目标枚举 </p>
- * <p>
- * 统一的目标策略使用枚举。
+ * <p>Description: Protocol枚举 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/10/10 19:33
+ * @date : 2021/6/12 14:48
  */
-public enum Target {
-
+public enum Protocol {
     /**
-     * 目标为服务本地
+     * 协议类型
      */
-    LOCAL,
+    HTTP("http://", "http"),
+    HTTPS("https://", "https"),
+    REDIS("redis://", "redis"),
+    REDISS("rediss://", "rediss");
 
-    /**
-     * 目标为远程访问
-     */
-    REMOTE;
+    private final String format;
+    private final String prefix;
+
+    Protocol(String format, String prefix) {
+        this.format = format;
+        this.prefix = prefix;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
 }

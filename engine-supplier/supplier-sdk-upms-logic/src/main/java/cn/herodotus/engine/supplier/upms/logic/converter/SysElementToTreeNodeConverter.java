@@ -20,7 +20,7 @@ import cn.herodotus.stirrup.kernel.definition.domain.view.vue.BaseMeta;
 import cn.herodotus.stirrup.kernel.definition.domain.view.vue.ChildMeta;
 import cn.herodotus.stirrup.kernel.definition.domain.view.vue.ParentMeta;
 import cn.herodotus.stirrup.kernel.definition.domain.view.vue.RootMeta;
-import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
+import cn.herodotus.stirrup.kernel.engine.utils.WellFormedUtils;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysRole;
 import org.apache.commons.collections4.CollectionUtils;

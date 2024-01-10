@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.annotation;
-
-import cn.herodotus.engine.assistant.core.conditon.SwaggerEnabledCondition;
-import org.springframework.context.annotation.Conditional;
-
-import java.lang.annotation.*;
+package cn.herodotus.stirrup.kernel.engine.enums;
 
 /**
- * <p>Description: Swagger条件开启主机 </p>
+ * <p> Description : 用于区分是单体应用还是微服务应用 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/20 11:58
+ * @date : 2019/11/26 11:33
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Documented
-@Conditional(SwaggerEnabledCondition.class)
-public @interface ConditionalOnSwaggerEnabled {
+public enum Architecture {
+
+    /**
+     * 分布式架构
+     */
+    DISTRIBUTED,
+
+    /**
+     * 单体式架构
+     */
+    MONOCOQUE;
 }

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.conditon;
+package cn.herodotus.stirrup.kernel.engine.conditon;
 
 import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.context.PropertyResolver;
+import cn.herodotus.stirrup.kernel.engine.context.PropertyResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Condition;

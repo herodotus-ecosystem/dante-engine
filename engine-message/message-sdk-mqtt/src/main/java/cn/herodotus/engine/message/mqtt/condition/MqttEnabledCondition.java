@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.mqtt.condition;
 
-import cn.herodotus.engine.assistant.core.context.PropertyResolver;
+import cn.herodotus.stirrup.kernel.engine.context.PropertyResolver;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

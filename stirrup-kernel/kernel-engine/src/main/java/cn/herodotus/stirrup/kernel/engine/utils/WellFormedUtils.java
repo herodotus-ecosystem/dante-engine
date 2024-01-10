@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.utils;
+package cn.herodotus.stirrup.kernel.engine.utils;
 
 import cn.herodotus.stirrup.kernel.definition.constants.DefaultConstants;
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.enums.Protocol;
+import cn.herodotus.stirrup.kernel.engine.enums.Protocol;
 import cn.herodotus.stirrup.kernel.engine.exception.properties.PropertyValueIsNotSetException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

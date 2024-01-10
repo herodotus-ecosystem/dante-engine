@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.context;
+package cn.herodotus.stirrup.kernel.engine.context;
 
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;

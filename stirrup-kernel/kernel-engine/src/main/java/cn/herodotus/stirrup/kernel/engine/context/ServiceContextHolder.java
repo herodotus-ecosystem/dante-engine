@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.context;
+package cn.herodotus.stirrup.kernel.engine.context;
 
 import cn.herodotus.stirrup.kernel.definition.constants.DefaultConstants;
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.enums.Architecture;
-import cn.herodotus.engine.assistant.core.enums.Protocol;
-import cn.herodotus.engine.assistant.core.enums.Target;
-import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
+import cn.herodotus.stirrup.kernel.engine.enums.Architecture;
+import cn.herodotus.stirrup.kernel.engine.enums.Protocol;
+import cn.herodotus.stirrup.kernel.engine.enums.Target;
+import cn.herodotus.stirrup.kernel.engine.utils.WellFormedUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;

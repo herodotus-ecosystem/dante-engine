@@ -14,36 +14,33 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.enums;
+package cn.herodotus.stirrup.kernel.engine.utils.type;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * <p>Description: Protocol枚举 </p>
+ * <p>Description: 数组工具类 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/6/12 14:48
+ * @date : 2023/5/3 23:12
  */
-public enum Protocol {
+public class ArrayUtils {
+
     /**
-     * 协议类型
+     * 将字符串数组转换成字符串List
+     *
+     * @param array 字符串数组
+     * @return 字符串List
      */
-    HTTP("http://", "http"),
-    HTTPS("https://", "https"),
-    REDIS("redis://", "redis"),
-    REDISS("rediss://", "rediss");
-
-    private final String format;
-    private final String prefix;
-
-    Protocol(String format, String prefix) {
-        this.format = format;
-        this.prefix = prefix;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public String getPrefix() {
-        return prefix;
+    public static List<String> toStringList(String[] array) {
+        if (org.apache.commons.lang3.ArrayUtils.isNotEmpty(array)) {
+            List<String> list = new ArrayList<>(array.length);
+            Collections.addAll(list, array);
+            return list;
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

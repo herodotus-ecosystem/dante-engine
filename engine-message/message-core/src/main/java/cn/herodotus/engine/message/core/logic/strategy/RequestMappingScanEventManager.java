@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.core.logic.strategy;
 
-import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
+import cn.herodotus.stirrup.kernel.engine.context.ServiceContextHolder;
 import cn.herodotus.engine.message.core.definition.strategy.ApplicationStrategyEventManager;
 import cn.herodotus.engine.message.core.logic.domain.RequestMapping;
 import org.apache.commons.collections4.MapUtils;

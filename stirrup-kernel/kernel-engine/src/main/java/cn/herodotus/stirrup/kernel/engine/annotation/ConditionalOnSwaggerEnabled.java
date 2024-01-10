@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.utils.type;
+package cn.herodotus.stirrup.kernel.engine.annotation;
+
+import cn.herodotus.stirrup.kernel.engine.conditon.SwaggerEnabledCondition;
+import org.springframework.context.annotation.Conditional;
+
+import java.lang.annotation.*;
 
 /**
- * <p>Description: 数字类型工具类 </p>
+ * <p>Description: Swagger条件开启主机 </p>
  *
  * @author : gengwei.zheng
- * @date : 2023/11/1 21:26
+ * @date : 2021/8/20 11:58
  */
-public class NumberUtils {
-
-    /**
-     * long 转 int
-     *
-     * @param value long 型数值
-     * @return int 型数值
-     */
-    public static int longToInt(long value) {
-        return Long.valueOf(value).intValue();
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Documented
+@Conditional(SwaggerEnabledCondition.class)
+public @interface ConditionalOnSwaggerEnabled {
 }

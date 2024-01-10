@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.ip2region.searcher;
 
-import cn.herodotus.engine.assistant.core.utils.type.NumberUtils;
+import cn.herodotus.stirrup.kernel.engine.utils.type.NumberUtils;
 import cn.herodotus.engine.assistant.ip2region.domain.IpAddress;
 import cn.herodotus.engine.assistant.ip2region.domain.IpLocation;
 import cn.herodotus.engine.assistant.ip2region.utils.IpLocationUtils;

@@ -17,7 +17,7 @@
 package cn.herodotus.engine.rest.condition.constants;
 
 
-import cn.herodotus.engine.assistant.core.context.PropertyResolver;
+import cn.herodotus.stirrup.kernel.engine.context.PropertyResolver;
 import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ConditionContext;

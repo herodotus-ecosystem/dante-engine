@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.enums;
+package cn.herodotus.stirrup.kernel.engine.enums;
 
 /**
- * <p> Description : 用于区分是单体应用还是微服务应用 </p>
+ * <p>Description: 目标枚举 </p>
+ * <p>
+ * 统一的目标策略使用枚举。
  *
  * @author : gengwei.zheng
- * @date : 2019/11/26 11:33
+ * @date : 2022/10/10 19:33
  */
-public enum Architecture {
+public enum Target {
 
     /**
-     * 分布式架构
+     * 目标为服务本地
      */
-    DISTRIBUTED,
+    LOCAL,
 
     /**
-     * 单体式架构
+     * 目标为远程访问
      */
-    MONOCOQUE;
+    REMOTE;
 }
