@@ -19,7 +19,7 @@ package cn.herodotus.engine.oauth2.core.exception;
 import cn.herodotus.stirrup.kernel.definition.constants.ErrorCodes;
 import cn.herodotus.stirrup.kernel.definition.domain.Feedback;
 import cn.herodotus.stirrup.kernel.definition.domain.Result;
-import cn.herodotus.engine.assistant.core.exception.GlobalExceptionHandler;
+import cn.herodotus.stirrup.kernel.engine.exception.GlobalExceptionHandler;
 import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import jakarta.servlet.http.HttpServletRequest;

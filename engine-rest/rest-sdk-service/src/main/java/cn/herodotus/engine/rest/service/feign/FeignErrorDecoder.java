@@ -17,7 +17,7 @@
 package cn.herodotus.engine.rest.service.feign;
 
 import cn.herodotus.stirrup.kernel.definition.domain.Result;
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.rest.core.exception.FeignDecodeIOException;
 import com.fasterxml.jackson.databind.JavaType;
 import feign.Response;

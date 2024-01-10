@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.core.jackson2;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.JsonNodeUtils;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.JsonNodeUtils;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import com.fasterxml.jackson.core.JsonParser;

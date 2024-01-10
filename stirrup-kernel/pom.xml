@@ -31,6 +31,7 @@
 
     <modules>
         <module>kernel-definition</module>
+        <module>kernel-engine</module>
     </modules>
 
 </project>

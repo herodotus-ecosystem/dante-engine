@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.access.wxmpp.processor;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.Jackson2Utils;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpMessageHandler;

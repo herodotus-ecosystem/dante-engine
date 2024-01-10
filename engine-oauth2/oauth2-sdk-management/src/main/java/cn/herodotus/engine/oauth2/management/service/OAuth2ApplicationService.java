@@ -16,7 +16,6 @@
 
 package cn.herodotus.engine.oauth2.management.service;
 
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
@@ -77,14 +76,14 @@ public class OAuth2ApplicationService extends BaseService<OAuth2Application, Str
         }
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(String id) {
         super.deleteById(id);
         herodotusRegisteredClientRepository.deleteById(id);
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     public OAuth2Application authorize(String applicationId, String[] scopeIds) {
 
         Set<OAuth2Scope> scopes = new HashSet<>();

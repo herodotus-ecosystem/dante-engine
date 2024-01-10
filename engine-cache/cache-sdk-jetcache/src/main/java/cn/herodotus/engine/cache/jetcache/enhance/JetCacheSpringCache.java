@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.cache.jetcache.enhance;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.Jackson2Utils;
 import com.alicp.jetcache.Cache;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;

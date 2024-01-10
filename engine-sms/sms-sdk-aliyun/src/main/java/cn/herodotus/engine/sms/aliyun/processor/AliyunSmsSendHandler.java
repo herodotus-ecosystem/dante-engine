@@ -15,7 +15,7 @@
  */
 package cn.herodotus.engine.sms.aliyun.processor;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.sms.aliyun.properties.AliyunSmsProperties;
 import cn.herodotus.engine.sms.core.definition.AbstractSmsSendHandler;
 import cn.herodotus.engine.sms.core.domain.Template;
