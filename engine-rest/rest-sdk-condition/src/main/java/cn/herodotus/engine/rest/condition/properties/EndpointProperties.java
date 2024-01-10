@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.rest.condition.properties;
 
-import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
+import cn.herodotus.stirrup.kernel.definition.constants.DefaultConstants;
+import cn.herodotus.stirrup.kernel.engine.utils.WellFormedUtils;
 import cn.herodotus.engine.rest.condition.constants.RestConstants;
 import com.google.common.base.MoreObjects;
 import org.springframework.boot.context.properties.ConfigurationProperties;

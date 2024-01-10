@@ -16,7 +16,6 @@
 
 package cn.herodotus.engine.supplier.message.repository;
 
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.supplier.message.entity.Notification;
 import org.springframework.data.jpa.repository.Modifying;
@@ -32,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface NotificationRepository extends BaseRepository<Notification, String> {
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query("update Notification n set n.read = true where n.userId = :userId")
     int updateAllRead(@Param("userId") String userId);

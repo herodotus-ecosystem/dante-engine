@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.core.response;
 
-import cn.herodotus.engine.assistant.definition.domain.Result;
+import cn.herodotus.stirrup.kernel.definition.domain.Result;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
 import cn.herodotus.engine.oauth2.core.utils.WebUtils;
 import jakarta.servlet.ServletException;

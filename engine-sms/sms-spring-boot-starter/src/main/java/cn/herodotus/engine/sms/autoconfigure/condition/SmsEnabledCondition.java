@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.sms.autoconfigure.condition;
 
-import cn.herodotus.engine.assistant.core.context.PropertyResolver;
+import cn.herodotus.stirrup.kernel.engine.context.PropertyResolver;
 import cn.herodotus.engine.sms.core.constants.SmsConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

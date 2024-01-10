@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.sms.core.definition;
 
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
 import cn.herodotus.engine.sms.core.domain.Template;
 import cn.herodotus.engine.sms.core.exception.ParameterOrdersInvalidException;
 import cn.herodotus.engine.sms.core.exception.TemplateIdInvalidException;

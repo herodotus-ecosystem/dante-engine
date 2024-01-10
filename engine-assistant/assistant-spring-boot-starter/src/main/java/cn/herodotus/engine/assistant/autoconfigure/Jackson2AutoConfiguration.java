@@ -64,7 +64,7 @@ public class Jackson2AutoConfiguration {
 
     @Configuration(proxyBeanMethods = false)
     @ComponentScan({
-            "cn.herodotus.engine.assistant.core.json.jackson2.utils"
+            "cn.herodotus.stirrup.kernel.engine.json.jackson2.utils"
     })
     static class JacksonUtilsConfiguration {
 

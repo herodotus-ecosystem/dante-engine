@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.sms.core.constants;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
 
 /**
  * <p>Description: 短信相关常量 </p>

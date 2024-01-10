@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.tenant.hibernate;
 
-import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.DefaultConstants;
 import cn.herodotus.engine.data.tenant.datasource.MultiTenantDataSourceFactory;
 import org.apache.commons.lang3.ObjectUtils;
 import org.dromara.hutool.extra.spring.SpringUtil;

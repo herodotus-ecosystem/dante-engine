@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.core.utils.protect;
 
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.json.gson.GsonUtils;
+import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
+import cn.herodotus.stirrup.kernel.engine.json.gson.GsonUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import org.apache.commons.collections4.CollectionUtils;

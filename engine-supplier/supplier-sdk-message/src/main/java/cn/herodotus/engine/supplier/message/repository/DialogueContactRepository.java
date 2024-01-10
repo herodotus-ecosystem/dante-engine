@@ -16,7 +16,6 @@
 
 package cn.herodotus.engine.supplier.message.repository;
 
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.supplier.message.entity.DialogueContact;
 import jakarta.persistence.QueryHint;
@@ -37,7 +36,7 @@ import java.util.Optional;
  */
 public interface DialogueContactRepository extends BaseRepository<DialogueContact, String> {
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query("delete from DialogueContact c where c.dialogue.dialogueId = :id")
     void deleteAllByDialogueId(@Param("id") String dialogueId);

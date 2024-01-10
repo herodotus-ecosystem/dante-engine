@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.message.core.exception;
 
-import cn.herodotus.engine.assistant.definition.domain.Feedback;
-import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
+import cn.herodotus.stirrup.kernel.definition.domain.Feedback;
+import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
 import cn.herodotus.engine.message.core.constants.MessageErrorCodes;
 
 /**

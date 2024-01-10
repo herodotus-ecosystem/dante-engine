@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.assistant.autoconfigure.customizer;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2CustomizerOrder;
-import cn.herodotus.engine.assistant.core.json.jackson2.modules.EncapsulationClassJackson2Module;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.Jackson2CustomizerOrder;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.modules.EncapsulationClassJackson2Module;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;

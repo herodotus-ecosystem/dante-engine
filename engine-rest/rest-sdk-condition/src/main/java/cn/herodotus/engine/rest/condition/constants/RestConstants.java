@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.condition.constants;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
 
 /**
  * <p>Description: Rest 模块常量 </p>

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;

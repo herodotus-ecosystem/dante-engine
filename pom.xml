@@ -24,7 +24,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.2.1.3</version>
+        <version>3.2.1.4</version>
         <relativePath>dependencies/pom.xml</relativePath>
     </parent>
 
@@ -118,6 +118,7 @@
         <module>engine-access</module>
         <module>engine-sms</module>
         <module>engine-supplier</module>
+        <module>stirrup-kernel</module>
     </modules>
 
 </project>

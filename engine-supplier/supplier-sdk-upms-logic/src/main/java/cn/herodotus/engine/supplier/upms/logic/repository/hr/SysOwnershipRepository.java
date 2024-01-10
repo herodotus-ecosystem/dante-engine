@@ -16,7 +16,6 @@
 
 package cn.herodotus.engine.supplier.upms.logic.repository.hr;
 
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOwnership;
 import org.springframework.data.jpa.repository.Modifying;
@@ -38,7 +37,7 @@ public interface SysOwnershipRepository extends BaseRepository<SysOwnership, Str
      *
      * @param organizationId 单位ID
      */
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "delete from SysOwnership o where o.organizationId = :organizationId")
     void deleteByOrganizationId(String organizationId);
@@ -50,7 +49,7 @@ public interface SysOwnershipRepository extends BaseRepository<SysOwnership, Str
      *
      * @param departmentId 部门ID
      */
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "delete from SysOwnership o where o.departmentId = :departmentId")
     void deleteByDepartmentId(String departmentId);
@@ -62,7 +61,7 @@ public interface SysOwnershipRepository extends BaseRepository<SysOwnership, Str
      *
      * @param employeeId 人员ID
      */
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "delete from SysOwnership o where o.employeeId = :employeeId")
     void deleteByEmployeeId(String employeeId);
@@ -74,7 +73,7 @@ public interface SysOwnershipRepository extends BaseRepository<SysOwnership, Str
      * @param departmentId   部门ID
      * @param employeeId     人员ID
      */
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Modifying
     @Query(value = "delete from SysOwnership o where o.organizationId = :organizationId and o.departmentId = :departmentId and o.employeeId = :employeeId")
     void deleteByOrganizationIdAndDepartmentIdAndEmployeeId(String organizationId, String departmentId, String employeeId);

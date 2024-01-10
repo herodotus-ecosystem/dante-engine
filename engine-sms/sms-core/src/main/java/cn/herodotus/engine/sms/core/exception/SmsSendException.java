@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.sms.core.exception;
 
-import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
+import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 短信发送Exception </p>

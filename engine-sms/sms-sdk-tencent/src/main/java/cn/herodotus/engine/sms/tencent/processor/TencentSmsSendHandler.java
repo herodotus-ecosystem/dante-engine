@@ -15,7 +15,7 @@
  */
 package cn.herodotus.engine.sms.tencent.processor;
 
-import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
+import cn.herodotus.stirrup.kernel.engine.utils.type.ListUtils;
 import cn.herodotus.engine.sms.core.definition.AbstractSmsSendHandler;
 import cn.herodotus.engine.sms.core.domain.Template;
 import cn.herodotus.engine.sms.core.enums.SmsSupplier;

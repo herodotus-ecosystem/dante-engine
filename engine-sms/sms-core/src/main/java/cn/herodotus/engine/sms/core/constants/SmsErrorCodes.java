@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.sms.core.constants;
 
-import cn.herodotus.engine.assistant.definition.feedback.InternalServerErrorFeedback;
+import cn.herodotus.stirrup.kernel.definition.feedback.InternalServerErrorFeedback;
 
 /**
  * <p>Description: Recluse 错误代码 </p>

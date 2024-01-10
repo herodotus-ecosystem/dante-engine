@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.controller;
 
-import cn.herodotus.engine.assistant.definition.domain.Result;
+import cn.herodotus.stirrup.kernel.definition.domain.Result;
 import cn.herodotus.engine.assistant.core.domain.SecretKey;
 import cn.herodotus.engine.oauth2.authentication.dto.SignInErrorPrompt;
 import cn.herodotus.engine.oauth2.authentication.dto.SignInErrorStatus;

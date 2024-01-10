@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.cache.redisson.properties;
 
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.enums.Protocol;
+import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
+import cn.herodotus.stirrup.kernel.engine.enums.Protocol;
 import cn.herodotus.engine.cache.core.constants.CacheConstants;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.StringUtils;

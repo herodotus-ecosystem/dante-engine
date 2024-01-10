@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.core.support;
 
-import cn.herodotus.engine.assistant.definition.domain.PrincipalDetails;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 
 /**
  * <p>Description: 身份信息解析器 </p>

@@ -19,7 +19,7 @@ package cn.herodotus.engine.facility.core.configuration;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.facility.core.constants.FacilityConstants;
 import cn.herodotus.engine.facility.core.annotation.ConditionalOnLogEnabled;
 import cn.herodotus.engine.facility.core.properties.LogProperties;

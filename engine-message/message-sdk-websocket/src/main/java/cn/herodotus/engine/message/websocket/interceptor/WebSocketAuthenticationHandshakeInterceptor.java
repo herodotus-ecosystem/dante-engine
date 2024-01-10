@@ -17,9 +17,9 @@
 package cn.herodotus.engine.message.websocket.interceptor;
 
 import cn.herodotus.engine.assistant.core.support.BearerTokenResolver;
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.definition.domain.PrincipalDetails;
+import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
+import cn.herodotus.engine.assistant.core.domain.PrincipalDetails;
 import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

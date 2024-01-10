@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.processor;
 
-import cn.herodotus.engine.assistant.core.utils.type.ListUtils;
+import cn.herodotus.stirrup.kernel.engine.utils.type.ListUtils;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.resource.autoconfigure.metadata;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.utils.Jackson2Utils;
+import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.Jackson2Utils;
 import cn.herodotus.engine.oauth2.resource.autoconfigure.bus.RemoteSecurityMetadataSyncEvent;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.core.definition.domain.SecurityAttribute;
