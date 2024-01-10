@@ -17,7 +17,7 @@
 package cn.herodotus.engine.data.core.condition;
 
 import cn.herodotus.stirrup.kernel.engine.context.PropertyResolver;
-import cn.herodotus.engine.data.core.constants.DataConstants;
+import cn.herodotus.stirrup.data.kernel.constants.DataConstants;
 import cn.herodotus.engine.data.core.enums.DataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

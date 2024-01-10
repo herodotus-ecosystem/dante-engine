@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.service.assistant;
 
-import cn.herodotus.engine.data.core.enums.DataItemStatus;
+import cn.herodotus.stirrup.data.kernel.enums.DataItemStatus;
 import cn.herodotus.engine.supplier.upms.logic.enums.Gender;
 import cn.herodotus.engine.supplier.upms.logic.enums.Identity;
 import cn.herodotus.engine.supplier.upms.logic.enums.OrganizationCategory;

@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.service;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseService;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.service.BaseService;
 import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
 import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusAuthorizationRepository;
 import jakarta.persistence.criteria.Predicate;

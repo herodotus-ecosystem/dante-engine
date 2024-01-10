@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.authorization.autoconfigure.tenant;
 
 import cn.herodotus.stirrup.kernel.definition.domain.Result;
-import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.stirrup.data.kernel.service.WriteableService;
 import cn.herodotus.engine.data.tenant.entity.SysTenantDataSource;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.repository.hr;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysEmployee;
 import jakarta.persistence.QueryHint;
 import org.hibernate.jpa.AvailableHints;

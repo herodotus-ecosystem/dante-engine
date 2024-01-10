@@ -17,7 +17,7 @@
 package cn.herodotus.engine.supplier.upms.logic.entity.security;
 
 import cn.herodotus.engine.assistant.core.enums.AccountType;
-import cn.herodotus.engine.data.core.entity.BaseSysEntity;
+import cn.herodotus.stirrup.data.kernel.entity.BaseSysEntity;
 import cn.herodotus.engine.supplier.upms.logic.constants.UpmsConstants;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;

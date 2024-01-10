@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.core.definition.dto;
 
-import cn.herodotus.engine.data.core.enums.DataItemStatus;
+import cn.herodotus.stirrup.data.kernel.enums.DataItemStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**

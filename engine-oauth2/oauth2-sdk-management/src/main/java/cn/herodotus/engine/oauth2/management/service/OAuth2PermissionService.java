@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.management.service;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseService;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.service.BaseService;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Permission;
 import cn.herodotus.engine.oauth2.management.repository.OAuth2PermissionRepository;
 import org.springframework.stereotype.Service;

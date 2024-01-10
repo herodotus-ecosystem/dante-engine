@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.tenant.repository;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
 import cn.herodotus.engine.data.tenant.entity.SysTenantDataSource;
 import jakarta.persistence.QueryHint;
 import org.hibernate.jpa.AvailableHints;

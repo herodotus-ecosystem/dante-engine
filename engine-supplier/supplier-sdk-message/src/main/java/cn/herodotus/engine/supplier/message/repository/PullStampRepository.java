@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.message.repository;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
 import cn.herodotus.engine.supplier.message.entity.PullStamp;
 import jakarta.persistence.QueryHint;
 import org.hibernate.jpa.AvailableHints;

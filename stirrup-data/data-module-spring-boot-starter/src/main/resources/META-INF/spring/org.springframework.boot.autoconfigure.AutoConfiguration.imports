@@ -1,0 +1,3 @@
+cn.herodotus.stirrup.data.autoconfigure.DataAutoConfiguration
+cn.herodotus.stirrup.data.jpa.autoconfigure.DataJpaAutoConfiguration
+cn.herodotus.stirrup.data.mybatis.plus.autoconfigure.DataMybatisPlusAutoConfiguration

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.message.domain;
 
-import cn.herodotus.engine.data.core.entity.BaseEntity;
+import cn.herodotus.stirrup.data.kernel.entity.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

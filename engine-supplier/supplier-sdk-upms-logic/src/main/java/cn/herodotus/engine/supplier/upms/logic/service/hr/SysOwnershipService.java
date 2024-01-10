@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.supplier.upms.logic.service.hr;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseService;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOwnership;
 import cn.herodotus.engine.supplier.upms.logic.repository.hr.SysOwnershipRepository;
 import org.slf4j.Logger;

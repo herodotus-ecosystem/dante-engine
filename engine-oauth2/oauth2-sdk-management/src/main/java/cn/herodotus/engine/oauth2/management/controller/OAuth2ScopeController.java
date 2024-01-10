@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.stirrup.kernel.definition.domain.Result;
-import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.stirrup.data.kernel.service.WriteableService;
 import cn.herodotus.engine.oauth2.management.dto.OAuth2PermissionDto;
 import cn.herodotus.engine.oauth2.management.dto.OAuth2ScopeDto;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Permission;

@@ -31,8 +31,6 @@
 
     <modules>
         <module>data-core</module>
-        <module>data-sdk-jpa</module>
-        <module>data-sdk-mybatis-plus</module>
         <module>data-sdk-tenant</module>
         <module>data-spring-boot-starter</module>
     </modules>

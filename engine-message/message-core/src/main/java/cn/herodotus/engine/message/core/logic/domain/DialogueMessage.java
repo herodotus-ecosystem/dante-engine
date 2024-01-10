@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.core.logic.domain;
 
-import cn.herodotus.engine.data.core.entity.BaseEntity;
+import cn.herodotus.stirrup.data.kernel.entity.BaseEntity;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 

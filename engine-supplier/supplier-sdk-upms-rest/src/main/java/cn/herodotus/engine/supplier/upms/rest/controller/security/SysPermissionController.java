@@ -17,7 +17,7 @@
 package cn.herodotus.engine.supplier.upms.rest.controller.security;
 
 import cn.herodotus.stirrup.kernel.definition.domain.Result;
-import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.stirrup.data.kernel.service.WriteableService;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysPermission;

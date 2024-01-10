@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.tenant.properties;
 
-import cn.herodotus.engine.data.core.constants.DataConstants;
+import cn.herodotus.stirrup.data.kernel.constants.DataConstants;
 import cn.herodotus.engine.data.core.enums.MultiTenantApproach;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

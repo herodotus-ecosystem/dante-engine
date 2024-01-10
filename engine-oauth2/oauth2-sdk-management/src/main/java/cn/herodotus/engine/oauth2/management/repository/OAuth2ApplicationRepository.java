@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.repository;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 
 /**

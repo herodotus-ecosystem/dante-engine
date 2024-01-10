@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.authorization.autoconfigure.tenant;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseService;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.service.BaseService;
 import cn.herodotus.engine.data.tenant.entity.SysTenantDataSource;
 import cn.herodotus.engine.data.tenant.repository.SysTenantDataSourceRepository;
 import org.slf4j.Logger;

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.controller;
 
-import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.stirrup.data.kernel.service.WriteableService;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Product;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ProductService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;

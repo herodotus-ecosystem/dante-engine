@@ -17,7 +17,7 @@
 package cn.herodotus.engine.data.autoconfigure;
 
 import cn.herodotus.engine.data.core.properties.DataProperties;
-import cn.herodotus.engine.data.mybatis.plus.configuration.MybatisPlusConfiguration;
+import cn.herodotus.stirrup.data.mybatis.plus.autoconfigure.DataMybatisPlusAutoConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Import;
 @AutoConfiguration
 @EnableConfigurationProperties(DataProperties.class)
 @Import({
-        MybatisPlusConfiguration.class
+        DataMybatisPlusAutoConfiguration.class
 })
 public class DataAutoConfiguration {
 

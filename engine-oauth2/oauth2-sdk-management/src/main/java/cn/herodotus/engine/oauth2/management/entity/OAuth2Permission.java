@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.entity;
 
-import cn.herodotus.engine.data.core.entity.BaseSysEntity;
+import cn.herodotus.stirrup.data.kernel.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.management.generator.OAuth2PermissionUuidGenerator;
 import com.google.common.base.MoreObjects;

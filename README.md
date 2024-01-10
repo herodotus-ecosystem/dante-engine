@@ -94,8 +94,6 @@ dante-engine
 ├    └── captcha-spring-boot-starter -- Captcha  模块统一 Starter
 ├── engine-data -- 数据访问模块
 ├    ├── data-core -- 数据访问共性通用代码
-├    ├── data-sdk-jpa -- JPA 及Hibernate 配置代码模块
-├    ├── data-sdk-mybatis-plus -- MybatisPlus 相关代码模块
 ├    ├── data-sdk-tenant -- 基于JPA的多租户核心代码模块
 ├    └── data-spring-boot-starter -- Data 模块统一 Starter
 ├── engine-facility -- 微服务基础设施模块
@@ -139,6 +137,11 @@ dante-engine
 ├    ├── supplier-sdk-message -- 消息功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
 ├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
+├── stirrup-data -- 数据访问相关模块
+├    ├── data-kernel -- 数据访问基础代码模块
+├    ├── data-module-jpa -- JPA 及 Hibernate 通用封装模块
+├    ├── data-module-mybatis-plus -- Mybatis Plus 通用封装模块
+├    └── data-module-spring-boot-starter -- 数据访问相关模块统一 Starter
 ├── stirrup-kernel -- Herodotus 生态核心模块
 ├    ├── kernel-definition -- Herodotus 生态核心通用定义模块
 ├    ├── kernel-engine -- Herodotus 生态基础通用代码模块

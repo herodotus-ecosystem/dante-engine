@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.rest.controller.hr;
 
-import cn.herodotus.engine.data.core.service.WriteableService;
+import cn.herodotus.stirrup.data.kernel.service.WriteableService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOwnership;
 import cn.herodotus.engine.supplier.upms.logic.service.hr.SysOwnershipService;

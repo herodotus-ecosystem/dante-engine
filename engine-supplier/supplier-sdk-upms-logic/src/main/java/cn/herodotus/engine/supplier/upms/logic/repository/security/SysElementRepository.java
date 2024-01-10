@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.repository.security;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 
 /**

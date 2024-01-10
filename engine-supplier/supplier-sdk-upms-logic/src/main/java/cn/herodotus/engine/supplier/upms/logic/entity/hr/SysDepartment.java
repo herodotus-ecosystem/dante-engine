@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.entity.hr;
 
-import cn.herodotus.engine.data.core.entity.BaseSysEntity;
+import cn.herodotus.stirrup.data.kernel.entity.BaseSysEntity;
 import cn.herodotus.engine.supplier.upms.logic.constants.UpmsConstants;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;

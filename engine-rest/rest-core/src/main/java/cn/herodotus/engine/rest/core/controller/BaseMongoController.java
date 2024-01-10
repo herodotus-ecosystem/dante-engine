@@ -18,7 +18,7 @@ package cn.herodotus.engine.rest.core.controller;
 
 import cn.herodotus.stirrup.kernel.definition.constants.BaseConstants;
 import cn.herodotus.stirrup.kernel.definition.domain.Result;
-import cn.herodotus.engine.data.core.entity.BaseMongoEntity;
+import cn.herodotus.stirrup.data.kernel.entity.BaseMongoEntity;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.definition.dto.Pager;

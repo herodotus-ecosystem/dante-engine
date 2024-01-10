@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.data.tenant.entity;
 
-import cn.herodotus.engine.data.core.constants.DataConstants;
-import cn.herodotus.engine.data.core.entity.BaseSysEntity;
+import cn.herodotus.stirrup.data.kernel.constants.DataConstants;
+import cn.herodotus.stirrup.data.kernel.entity.BaseSysEntity;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;

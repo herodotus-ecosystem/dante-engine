@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.supplier.message.service;
 
-import cn.herodotus.engine.data.core.repository.BaseRepository;
-import cn.herodotus.engine.data.core.service.BaseService;
+import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
+import cn.herodotus.stirrup.data.kernel.service.BaseService;
 import cn.herodotus.engine.supplier.message.entity.Dialogue;
 import cn.herodotus.engine.supplier.message.entity.DialogueContact;
 import cn.herodotus.engine.supplier.message.entity.DialogueDetail;

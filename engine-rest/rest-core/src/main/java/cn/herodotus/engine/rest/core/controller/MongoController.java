@@ -17,8 +17,8 @@
 package cn.herodotus.engine.rest.core.controller;
 
 import cn.herodotus.stirrup.kernel.definition.domain.Result;
-import cn.herodotus.engine.data.core.entity.BaseMongoEntity;
-import cn.herodotus.engine.data.core.service.MongoService;
+import cn.herodotus.stirrup.data.kernel.entity.BaseMongoEntity;
+import cn.herodotus.stirrup.data.kernel.service.MongoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 

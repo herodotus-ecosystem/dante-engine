@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.generator;
 
-import cn.herodotus.engine.data.core.identifier.AbstractUuidGenerator;
+import cn.herodotus.stirrup.data.kernel.generator.AbstractUuidGenerator;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Permission;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
