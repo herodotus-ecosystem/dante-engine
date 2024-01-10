@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.core.utils;
 
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusUser;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dromara.hutool.core.bean.BeanUtil;

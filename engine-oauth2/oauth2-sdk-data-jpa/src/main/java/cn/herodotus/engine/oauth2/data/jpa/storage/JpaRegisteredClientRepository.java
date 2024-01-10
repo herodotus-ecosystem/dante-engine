@@ -18,9 +18,9 @@ package cn.herodotus.engine.oauth2.data.jpa.storage;
 
 import cn.herodotus.engine.oauth2.data.jpa.converter.HerodotusToOAuth2RegisteredClientConverter;
 import cn.herodotus.engine.oauth2.data.jpa.converter.OAuth2ToHerodotusRegisteredClientConverter;
-import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
+import cn.herodotus.stirrup.oauth2.data.jpa.entity.HerodotusRegisteredClient;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
-import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusRegisteredClientService;
+import cn.herodotus.stirrup.oauth2.data.jpa.service.HerodotusRegisteredClientService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.password.PasswordEncoder;

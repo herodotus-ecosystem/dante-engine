@@ -20,7 +20,7 @@ import cn.herodotus.engine.assistant.core.enums.AccountType;
 import cn.herodotus.stirrup.data.kernel.enums.DataItemStatus;
 import cn.herodotus.stirrup.data.kernel.repository.BaseRepository;
 import cn.herodotus.stirrup.data.kernel.service.BaseService;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.domain.SocialUserDetails;
 import cn.herodotus.engine.oauth2.core.utils.SecurityUtils;
 import cn.herodotus.engine.supplier.upms.logic.converter.SysUserToHerodotusUserConverter;

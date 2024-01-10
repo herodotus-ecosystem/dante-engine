@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
-import cn.herodotus.stirrup.kernel.engine.json.jackson2.utils.JsonNodeUtils;
+import cn.herodotus.stirrup.oauth2.kernel.jackson2.JsonNodeUtils;
 import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;

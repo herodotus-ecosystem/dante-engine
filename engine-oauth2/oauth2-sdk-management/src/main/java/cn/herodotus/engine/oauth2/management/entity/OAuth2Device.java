@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.entity;
 
-import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.stirrup.oauth2.kernel.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.management.definition.AbstractOAuth2RegisteredClient;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;

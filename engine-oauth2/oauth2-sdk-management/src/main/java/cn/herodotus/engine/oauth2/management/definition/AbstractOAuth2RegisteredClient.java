@@ -19,7 +19,7 @@ package cn.herodotus.engine.oauth2.management.definition;
 import cn.herodotus.engine.oauth2.core.enums.SignatureJwsAlgorithm;
 import cn.herodotus.engine.oauth2.core.enums.TokenFormat;
 import cn.herodotus.engine.oauth2.core.enums.AllJwsAlgorithm;
-import cn.herodotus.engine.oauth2.data.jpa.definition.domain.AbstractRegisteredClient;
+import cn.herodotus.stirrup.oauth2.data.jpa.definition.domain.AbstractRegisteredClient;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;

@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.authentication.properties;
 
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.stirrup.oauth2.kernel.constants.OAuth2Constants;
 import com.google.common.base.MoreObjects;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;

@@ -18,8 +18,10 @@ package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
 import cn.herodotus.stirrup.kernel.engine.json.jackson2.Jackson2Constants;
 import cn.herodotus.engine.oauth2.core.definition.details.FormLoginWebAuthenticationDetails;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
+import cn.herodotus.stirrup.oauth2.data.jpa.jackson2.HerodotusGrantedAuthorityMixin;
+import cn.herodotus.stirrup.oauth2.data.jpa.jackson2.HerodotusUserMixin;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusGrantedAuthority;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusUser;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 

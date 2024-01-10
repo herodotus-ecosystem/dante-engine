@@ -43,6 +43,11 @@
         </dependency>
 
         <dependency>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>oauth2-kernel</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>captcha-core</artifactId>
         </dependency>

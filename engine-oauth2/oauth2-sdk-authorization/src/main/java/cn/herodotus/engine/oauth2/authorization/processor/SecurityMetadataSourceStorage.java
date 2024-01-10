@@ -20,7 +20,7 @@ import cn.herodotus.engine.cache.jetcache.utils.JetCacheUtils;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.stirrup.oauth2.kernel.constants.OAuth2Constants;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.anno.CacheType;
 import org.apache.commons.collections4.MapUtils;

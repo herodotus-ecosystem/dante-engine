@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.data.jpa.converter;
 
 import cn.herodotus.engine.oauth2.data.jpa.definition.converter.AbstractOAuth2EntityConverter;
-import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusRegisteredClient;
+import cn.herodotus.stirrup.oauth2.data.jpa.entity.HerodotusRegisteredClient;
 import cn.herodotus.engine.oauth2.data.jpa.jackson2.OAuth2JacksonProcessor;
 import org.dromara.hutool.core.date.DateUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;

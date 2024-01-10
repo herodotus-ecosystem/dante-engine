@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.management.compliance.condition;
 
 import cn.herodotus.stirrup.kernel.engine.context.PropertyResolver;
-import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
+import cn.herodotus.stirrup.oauth2.kernel.constants.OAuth2Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Condition;

@@ -234,6 +234,16 @@
                 <artifactId>kernel-engine</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>oauth2-kernel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>oauth2-module-data-jpa</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--Dante Engine-->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>

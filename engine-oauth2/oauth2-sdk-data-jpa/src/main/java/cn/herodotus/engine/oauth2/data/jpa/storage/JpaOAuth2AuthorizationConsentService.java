@@ -18,8 +18,8 @@ package cn.herodotus.engine.oauth2.data.jpa.storage;
 
 import cn.herodotus.engine.oauth2.data.jpa.converter.HerodotusToOAuth2AuthorizationConsentConverter;
 import cn.herodotus.engine.oauth2.data.jpa.converter.OAuth2ToHerodotusAuthorizationConsentConverter;
-import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
-import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationConsentService;
+import cn.herodotus.stirrup.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
+import cn.herodotus.stirrup.oauth2.data.jpa.service.HerodotusAuthorizationConsentService;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;

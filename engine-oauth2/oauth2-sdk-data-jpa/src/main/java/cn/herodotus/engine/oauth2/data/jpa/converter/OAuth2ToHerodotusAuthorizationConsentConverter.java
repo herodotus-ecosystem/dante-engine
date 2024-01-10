@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.converter;
 
-import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
+import cn.herodotus.stirrup.oauth2.data.jpa.entity.HerodotusAuthorizationConsent;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsent;

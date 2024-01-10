@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.management.processor;
 
 import cn.herodotus.engine.assistant.core.domain.AccessPrincipal;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
 import cn.herodotus.engine.oauth2.core.definition.strategy.StrategyUserDetailsService;
 import org.apache.commons.lang3.StringUtils;

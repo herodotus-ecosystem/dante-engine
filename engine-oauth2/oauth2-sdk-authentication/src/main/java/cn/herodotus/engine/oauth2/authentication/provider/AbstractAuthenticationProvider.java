@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.utils.PrincipalUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

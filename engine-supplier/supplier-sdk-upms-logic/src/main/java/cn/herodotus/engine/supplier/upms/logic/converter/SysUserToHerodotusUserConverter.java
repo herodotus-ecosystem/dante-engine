@@ -17,8 +17,8 @@
 package cn.herodotus.engine.supplier.upms.logic.converter;
 
 import cn.herodotus.stirrup.data.kernel.enums.DataItemStatus;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
-import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusGrantedAuthority;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.utils.SecurityUtils;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysPermission;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysRole;

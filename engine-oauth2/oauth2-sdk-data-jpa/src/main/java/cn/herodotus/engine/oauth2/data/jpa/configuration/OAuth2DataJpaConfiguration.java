@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.configuration;
 
-import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationConsentService;
-import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationService;
-import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusRegisteredClientService;
+import cn.herodotus.stirrup.oauth2.data.jpa.service.HerodotusAuthorizationConsentService;
+import cn.herodotus.stirrup.oauth2.data.jpa.service.HerodotusAuthorizationService;
+import cn.herodotus.stirrup.oauth2.data.jpa.service.HerodotusRegisteredClientService;
 import cn.herodotus.engine.oauth2.data.jpa.storage.JpaOAuth2AuthorizationConsentService;
 import cn.herodotus.engine.oauth2.data.jpa.storage.JpaOAuth2AuthorizationService;
 import cn.herodotus.engine.oauth2.data.jpa.storage.JpaRegisteredClientRepository;
@@ -30,6 +30,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
@@ -43,14 +44,8 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
  * @date : 2022/3/1 18:25
  */
 @Configuration(proxyBeanMethods = false)
-@EntityScan(basePackages = {
-        "cn.herodotus.engine.oauth2.data.jpa.entity"
-})
-@EnableJpaRepositories(basePackages = {
-        "cn.herodotus.engine.oauth2.data.jpa.repository",
-})
-@ComponentScan(basePackages = {
-        "cn.herodotus.engine.oauth2.data.jpa.service",
+@Import({
+        cn.herodotus.stirrup.oauth2.data.jpa.configuration.OAuth2DataJpaConfiguration.class
 })
 public class OAuth2DataJpaConfiguration {
 

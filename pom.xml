@@ -120,6 +120,7 @@
         <module>engine-supplier</module>
         <module>stirrup-kernel</module>
         <module>stirrup-data</module>
+        <module>stirrup-oauth2</module>
     </modules>
 
 </project>

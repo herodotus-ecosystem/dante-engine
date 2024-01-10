@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.definition.converter;
 
-import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
+import cn.herodotus.stirrup.oauth2.kernel.definition.domain.RegisteredClientDetails;
 import cn.herodotus.engine.oauth2.core.utils.OAuth2AuthorizationUtils;
 import org.dromara.hutool.core.date.DateUtil;
 import org.springframework.core.convert.converter.Converter;
