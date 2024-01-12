@@ -13,7 +13,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.3.0-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.3.0"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.7.2-red.svg?logo=spring" alt="Version 3.1.7.2"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.1.7.3-red.svg?logo=spring" alt="Version 3.1.7.3"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-LGPL--3.0-blue.svg" alt="License LGPL-3.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -72,6 +72,7 @@ dante-engine
 ├    ├── access-core -- 外部登录通用代码
 ├    ├── access-sdk-all -- 外部登录集成
 ├    ├── access-sdk-justauth -- JustAuth登录
+├    ├── access-sdk-sms -- 手机验证码登录
 ├    ├── access-sdk-wxapp -- 微信小程序登录
 ├    ├── access-sdk-wxmpp -- 微信公众号登录
 ├    └── access-spring-boot-starter -- 外部登录  模块统一 Starter
@@ -125,16 +126,6 @@ dante-engine
 ├    ├── rest-sdk-service -- 基于 REST 的服务基础内容配置代码模块
 ├    ├── rest-spring-boot-starter -- Rest 模块统一 Starter(包括通用CRUD代码)
 ├    └── web-server-spring-boot-starter -- 基础 Web Server 配置模块
-├── engine-sms -- 短信接入模块
-├    ├── sms-core -- 短信共性通用代码模块
-├    ├── sms-sdk-aliyun -- 阿里云短信发送模块
-├    ├── sms-sdk-chinamobile -- 移动短信发送模块
-├    ├── sms-sdk-huawei -- 华为短信发送模块
-├    ├── sms-sdk-netease -- 网易短信发送模块
-├    ├── sms-sdk-qiniu -- 七牛短信发送模块
-├    ├── sms-sdk-tencent -- 腾讯短信发送模块
-├    ├── sms-sdk-upyun -- 又拍短信发送模块
-├    └── sms-spring-boot-starter -- SMS 模块统一 Starter
 ├── engine-supplier -- 应用支持模块
 ├    ├── supplier-sdk-message -- 消息功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块

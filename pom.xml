@@ -24,7 +24,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>dependencies</artifactId>
-        <version>3.1.7.2</version>
+        <version>3.1.7.3</version>
         <relativePath>dependencies/pom.xml</relativePath>
     </parent>
 
@@ -104,7 +104,6 @@
         <module>engine-oauth2</module>
         <module>engine-facility</module>
         <module>engine-access</module>
-        <module>engine-sms</module>
         <module>engine-supplier</module>
     </modules>
 
