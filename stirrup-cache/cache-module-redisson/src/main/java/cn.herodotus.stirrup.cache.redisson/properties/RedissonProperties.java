@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redisson.properties;
+package cn.herodotus.stirrup.cache.redisson.properties;
 
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
 import cn.herodotus.stirrup.kernel.engine.enums.Protocol;

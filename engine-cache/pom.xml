@@ -32,7 +32,6 @@
     <modules>
         <module>cache-sdk-redis</module>
         <module>cache-sdk-jetcache</module>
-        <module>cache-sdk-redisson</module>
         <module>cache-spring-boot-starter</module>
     </modules>
 

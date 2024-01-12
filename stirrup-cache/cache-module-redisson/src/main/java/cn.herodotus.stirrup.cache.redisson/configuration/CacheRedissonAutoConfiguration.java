@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redisson.configuration;
+package cn.herodotus.stirrup.cache.redisson.configuration;
 
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
 import cn.herodotus.stirrup.kernel.engine.utils.ResourceUtils;
-import cn.herodotus.engine.cache.redisson.annotation.ConditionalOnRedissonEnabled;
-import cn.herodotus.engine.cache.redisson.properties.RedissonProperties;
+import cn.herodotus.stirrup.cache.redisson.annotation.ConditionalOnRedissonEnabled;
+import cn.herodotus.stirrup.cache.redisson.properties.RedissonProperties;
 import jakarta.annotation.PostConstruct;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;

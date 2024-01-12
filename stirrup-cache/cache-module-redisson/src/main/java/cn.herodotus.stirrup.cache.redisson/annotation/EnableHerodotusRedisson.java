@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redisson.annotation;
+package cn.herodotus.stirrup.cache.redisson.annotation;
 
-import cn.herodotus.stirrup.cache.core.constants.CacheConstants;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import cn.herodotus.stirrup.cache.redisson.configuration.CacheRedissonAutoConfiguration;
+import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
- * <p>Description: 是否开启 Redisson 条件注解 </p>
+ * <p>Description: 手动开启Redisson注入 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/10/22 14:40
+ * @date : 2022/1/14 23:06
  */
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
 @Documented
-@ConditionalOnProperty(value = CacheConstants.ITEM_REDISSON_ENABLED, havingValue = "true")
-public @interface ConditionalOnRedissonEnabled {
+@Import(CacheRedissonAutoConfiguration.class)
+public @interface EnableHerodotusRedisson {
 }

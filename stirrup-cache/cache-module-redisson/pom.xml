@@ -27,10 +27,18 @@
 
     <artifactId>cache-module-redisson</artifactId>
 
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <description>基于 Spring Authorization Server 的 Herodotus 软件生态 Redisson 相关代码模块</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>cache-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

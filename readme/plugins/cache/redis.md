@@ -37,8 +37,8 @@ herodotus:
 
 ```xml
 <dependency>
-  <groupId>cn.herodotus.engine</groupId>
-  <artifactId>cache-sdk-redisson</artifactId>
+    <groupId>cn.herodotus.stirrup</groupId>
+    <artifactId>cache-module-redisson</artifactId>
 </dependency>
 ```
 
