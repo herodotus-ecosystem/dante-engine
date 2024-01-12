@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.captcha.core.provider;
 
-import cn.herodotus.engine.assistant.core.utils.ResourceUtils;
+import cn.herodotus.stirrup.kernel.engine.utils.ResourceUtils;
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaResource;
 import cn.herodotus.engine.captcha.core.definition.enums.FontStyle;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;

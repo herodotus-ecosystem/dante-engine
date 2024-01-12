@@ -44,6 +44,16 @@
             <groupId>me.zhyd.oauth</groupId>
             <artifactId>JustAuth</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.owasp.antisamy</groupId>
+            <artifactId>antisamy</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-simple</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.utils.protect;
+package cn.herodotus.stirrup.kernel.engine.utils.protect;
 
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
 import cn.herodotus.stirrup.kernel.engine.json.gson.GsonUtils;

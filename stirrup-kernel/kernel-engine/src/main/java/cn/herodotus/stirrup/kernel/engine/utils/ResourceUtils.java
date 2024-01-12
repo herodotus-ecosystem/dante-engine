@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.utils;
+package cn.herodotus.stirrup.kernel.engine.utils;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;

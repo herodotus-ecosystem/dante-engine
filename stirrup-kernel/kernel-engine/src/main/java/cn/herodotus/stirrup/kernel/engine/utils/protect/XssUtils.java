@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.utils.protect;
+package cn.herodotus.stirrup.kernel.engine.utils.protect;
 
-import cn.herodotus.engine.assistant.core.utils.ResourceUtils;
+import cn.herodotus.stirrup.kernel.engine.utils.ResourceUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.owasp.validator.html.*;

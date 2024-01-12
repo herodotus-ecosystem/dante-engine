@@ -17,7 +17,7 @@
 package cn.herodotus.engine.cache.redisson.configuration;
 
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.utils.ResourceUtils;
+import cn.herodotus.stirrup.kernel.engine.utils.ResourceUtils;
 import cn.herodotus.engine.cache.redisson.annotation.ConditionalOnRedissonEnabled;
 import cn.herodotus.engine.cache.redisson.properties.RedissonProperties;
 import jakarta.annotation.PostConstruct;
