@@ -54,18 +54,7 @@
 
 
 
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.zhxu</groupId>
-            <artifactId>okhttps-jackson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.zhxu</groupId>
-            <artifactId>okhttps-gson</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>me.zhyd.oauth</groupId>
             <artifactId>JustAuth</artifactId>

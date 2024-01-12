@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.entity.hr;
 
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.stirrup.kernel.engine.enums.AccountCategory;
 import cn.herodotus.stirrup.data.kernel.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.definition.domain.SocialUserDetails;
 import cn.herodotus.engine.supplier.upms.logic.constants.UpmsConstants;
@@ -222,7 +222,7 @@ public class SysEmployee extends BaseSysEntity implements SocialUserDetails {
 
     @Override
     public String getSource() {
-        return AccountType.INSTITUTION.getKey();
+        return AccountCategory.INSTITUTION.getKey();
     }
 
     @Override

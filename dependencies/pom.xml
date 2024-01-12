@@ -110,6 +110,7 @@
         <!--第三方starter-->
         <jasypt-spring-boot-starter.version>3.0.5</jasypt-spring-boot-starter.version>
         <camunda-bpm-spring-boot-starter-rest.version>7.21.0-alpha2</camunda-bpm-spring-boot-starter-rest.version>
+        <sms4j-spring-boot-starter.version>3.1.0</sms4j-spring-boot-starter.version>
         <mybatis-plus-boot-starter.version>3.5.5</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.5.5</mybatis-plus-generator.version>
         <mybatis.version>3.5.15</mybatis.version>
@@ -129,9 +130,6 @@
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
         <aliyun-sdk-oss.version>3.17.4</aliyun-sdk-oss.version>
         <alipay-sdk-java.version>4.38.183.ALL</alipay-sdk-java.version>
-        <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
-        <tencentcloud-sdk-java.version>3.1.893</tencentcloud-sdk-java.version>
-        <qiniu-java-sdk.version>7.15.0</qiniu-java-sdk.version>
         <com.baidu.aip.version>4.16.17</com.baidu.aip.version>
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
@@ -206,6 +204,41 @@
             <!--Herodotus Ecosystem-->
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>access-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>access-module-justauth</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>access-module-sms</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>access-module-wxapp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>access-module-wxmpp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>access-module-all</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>access-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>data-kernel</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -244,37 +277,12 @@
                 <artifactId>oauth2-module-data-jpa</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>sms-kernel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--Dante Engine-->
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>access-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>access-sdk-justauth</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>access-sdk-wxapp</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>access-sdk-wxmpp</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>access-sdk-all</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>access-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>assistant-core</artifactId>
@@ -482,51 +490,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-sdk-aliyun</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-sdk-chinamobile</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-sdk-huawei</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-sdk-netease</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-sdk-qiniu</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-sdk-tencent</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-sdk-upyun</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>sms-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
                 <artifactId>supplier-sdk-upms-logic</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -689,14 +652,19 @@
                 <version>${weixin-java-sdk.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.camunda.bpm.springboot</groupId>
                 <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
                 <version>${camunda-bpm-spring-boot-starter-rest.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-spring-boot-starter</artifactId>
-                <version>${jasypt-spring-boot-starter.version}</version>
+                <groupId>org.dromara.sms4j</groupId>
+                <artifactId>sms4j-spring-boot-starter</artifactId>
+                <version>${sms4j-spring-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -775,27 +743,6 @@
                 <artifactId>aliyun-java-sdk-core</artifactId>
                 <version>${aliyun-java-sdk-core.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.aliyun</groupId>
-                <artifactId>dysmsapi20170525</artifactId>
-                <version>${dysmsapi20170525.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.tencentcloudapi</groupId>
-                <artifactId>tencentcloud-sdk-java-sms</artifactId>
-                <version>${tencentcloud-sdk-java.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.tencentcloudapi</groupId>
-                <artifactId>tencentcloud-sdk-java-common</artifactId>
-                <version>${tencentcloud-sdk-java.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.qiniu</groupId>
-                <artifactId>qiniu-java-sdk</artifactId>
-                <version>${qiniu-java-sdk.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-green</artifactId>

@@ -50,6 +50,14 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.dromara.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
@@ -77,6 +85,15 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>okhttps-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>okhttps-gson</artifactId>
         </dependency>
     </dependencies>
 

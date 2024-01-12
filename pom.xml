@@ -115,9 +115,8 @@
         <module>engine-message</module>
         <module>engine-oauth2</module>
         <module>engine-facility</module>
-        <module>engine-access</module>
-        <module>engine-sms</module>
         <module>engine-supplier</module>
+        <module>stirrup-access</module>
         <module>stirrup-kernel</module>
         <module>stirrup-data</module>
         <module>stirrup-oauth2</module>
