@@ -14,42 +14,42 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.exception;
+package cn.herodotus.stirrup.cache.core.exception;
 
 import cn.herodotus.stirrup.kernel.definition.domain.Feedback;
 import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
-import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
+import cn.herodotus.stirrup.cache.core.constants.CacheErrorCodes;
 
 /**
- * <p>Description: Stamp签章删除失败Exception </p>
+ * <p>Description: 请求参数中缺少幂等Token错误 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/23 13:51
+ * @date : 2021/8/23 12:29
  */
-public class StampDeleteFailedException extends PlatformRuntimeException {
+public class StampParameterIllegalException extends PlatformRuntimeException {
 
-    public StampDeleteFailedException() {
+    public StampParameterIllegalException() {
         super();
     }
 
-    public StampDeleteFailedException(String message) {
+    public StampParameterIllegalException(String message) {
         super(message);
     }
 
-    public StampDeleteFailedException(String message, Throwable cause) {
+    public StampParameterIllegalException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public StampDeleteFailedException(Throwable cause) {
+    public StampParameterIllegalException(Throwable cause) {
         super(cause);
     }
 
-    protected StampDeleteFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected StampParameterIllegalException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
     @Override
     public Feedback getFeedback() {
-        return CacheErrorCodes.STAMP_DELETE_FAILED;
+        return CacheErrorCodes.STAMP_PARAMETER_ILLEGAL;
     }
 }

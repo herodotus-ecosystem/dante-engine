@@ -14,42 +14,33 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.exception;
-
-import cn.herodotus.stirrup.kernel.definition.domain.Feedback;
-import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
-import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
+package cn.herodotus.stirrup.cache.core.exception;
 
 /**
- * <p>Description: Stamp签章校验错误 </p>
+ * <p>Description: 超出最大数量限制 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/23 12:32
+ * @date : 2022/7/6 23:03
  */
-public class StampMismatchException extends PlatformRuntimeException {
+public class MaximumLimitExceededException extends Exception {
 
-    public StampMismatchException() {
+    public MaximumLimitExceededException() {
         super();
     }
 
-    public StampMismatchException(String message) {
+    public MaximumLimitExceededException(String message) {
         super(message);
     }
 
-    public StampMismatchException(String message, Throwable cause) {
+    public MaximumLimitExceededException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public StampMismatchException(Throwable cause) {
+    public MaximumLimitExceededException(Throwable cause) {
         super(cause);
     }
 
-    protected StampMismatchException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected MaximumLimitExceededException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
-    }
-
-    @Override
-    public Feedback getFeedback() {
-        return CacheErrorCodes.STAMP_MISMATCH;
     }
 }

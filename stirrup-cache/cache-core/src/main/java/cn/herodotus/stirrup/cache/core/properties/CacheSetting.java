@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.properties;
+package cn.herodotus.stirrup.cache.core.properties;
 
-import cn.herodotus.engine.cache.core.enums.CacheMethod;
+import cn.herodotus.stirrup.cache.core.enums.CacheMethod;
 import com.google.common.base.MoreObjects;
 
 import java.time.Duration;

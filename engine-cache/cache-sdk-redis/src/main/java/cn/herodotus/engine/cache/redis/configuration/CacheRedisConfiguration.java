@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.cache.redis.configuration;
 
-import cn.herodotus.engine.cache.core.properties.CacheProperties;
+import cn.herodotus.stirrup.cache.core.properties.CacheProperties;
 import cn.herodotus.engine.cache.redis.enhance.HerodotusRedisCacheManager;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;

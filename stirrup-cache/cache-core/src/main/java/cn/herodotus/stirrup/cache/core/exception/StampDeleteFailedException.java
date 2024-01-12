@@ -14,33 +14,42 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.exception;
+package cn.herodotus.stirrup.cache.core.exception;
+
+import cn.herodotus.stirrup.kernel.definition.domain.Feedback;
+import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
+import cn.herodotus.stirrup.cache.core.constants.CacheErrorCodes;
 
 /**
- * <p>Description: 超出最大数量限制 </p>
+ * <p>Description: Stamp签章删除失败Exception </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/6 23:03
+ * @date : 2021/8/23 13:51
  */
-public class MaximumLimitExceededException extends Exception {
+public class StampDeleteFailedException extends PlatformRuntimeException {
 
-    public MaximumLimitExceededException() {
+    public StampDeleteFailedException() {
         super();
     }
 
-    public MaximumLimitExceededException(String message) {
+    public StampDeleteFailedException(String message) {
         super(message);
     }
 
-    public MaximumLimitExceededException(String message, Throwable cause) {
+    public StampDeleteFailedException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public MaximumLimitExceededException(Throwable cause) {
+    public StampDeleteFailedException(Throwable cause) {
         super(cause);
     }
 
-    protected MaximumLimitExceededException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected StampDeleteFailedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    @Override
+    public Feedback getFeedback() {
+        return CacheErrorCodes.STAMP_DELETE_FAILED;
     }
 }

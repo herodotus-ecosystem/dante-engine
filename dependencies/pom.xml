@@ -239,6 +239,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>cache-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>data-kernel</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -296,11 +301,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>assistant-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>cache-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

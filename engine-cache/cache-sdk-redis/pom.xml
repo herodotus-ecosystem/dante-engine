@@ -31,7 +31,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
+            <groupId>cn.herodotus.stirrup</groupId>
             <artifactId>cache-core</artifactId>
         </dependency>
 

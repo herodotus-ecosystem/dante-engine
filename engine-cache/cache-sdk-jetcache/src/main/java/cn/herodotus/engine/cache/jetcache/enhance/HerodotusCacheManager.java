@@ -17,8 +17,8 @@
 package cn.herodotus.engine.cache.jetcache.enhance;
 
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
-import cn.herodotus.engine.cache.core.properties.CacheProperties;
-import cn.herodotus.engine.cache.core.properties.CacheSetting;
+import cn.herodotus.stirrup.cache.core.properties.CacheProperties;
+import cn.herodotus.stirrup.cache.core.properties.CacheSetting;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

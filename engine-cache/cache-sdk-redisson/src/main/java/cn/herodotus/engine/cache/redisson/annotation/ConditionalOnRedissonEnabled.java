@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.cache.redisson.annotation;
 
-import cn.herodotus.engine.cache.core.constants.CacheConstants;
+import cn.herodotus.stirrup.cache.core.constants.CacheConstants;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import java.lang.annotation.*;

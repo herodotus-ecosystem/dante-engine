@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.constants;
+package cn.herodotus.stirrup.cache.core.constants;
 
 import cn.herodotus.stirrup.kernel.definition.feedback.NotAcceptableFeedback;
 

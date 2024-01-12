@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.properties;
+package cn.herodotus.stirrup.cache.core.properties;
 
-import cn.herodotus.engine.cache.core.constants.CacheConstants;
+import cn.herodotus.stirrup.cache.core.constants.CacheConstants;
 import com.google.common.base.MoreObjects;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

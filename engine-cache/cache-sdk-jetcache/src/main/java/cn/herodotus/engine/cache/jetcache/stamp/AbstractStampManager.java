@@ -16,10 +16,10 @@
 
 package cn.herodotus.engine.cache.jetcache.stamp;
 
-import cn.herodotus.engine.cache.core.exception.StampDeleteFailedException;
-import cn.herodotus.engine.cache.core.exception.StampHasExpiredException;
-import cn.herodotus.engine.cache.core.exception.StampMismatchException;
-import cn.herodotus.engine.cache.core.exception.StampParameterIllegalException;
+import cn.herodotus.stirrup.cache.core.exception.StampDeleteFailedException;
+import cn.herodotus.stirrup.cache.core.exception.StampHasExpiredException;
+import cn.herodotus.stirrup.cache.core.exception.StampMismatchException;
+import cn.herodotus.stirrup.cache.core.exception.StampParameterIllegalException;
 import cn.herodotus.engine.cache.jetcache.utils.JetCacheUtils;
 import com.alicp.jetcache.AutoReleaseLock;
 import com.alicp.jetcache.Cache;

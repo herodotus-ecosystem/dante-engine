@@ -19,7 +19,7 @@ package cn.herodotus.engine.cache.autoconfigure.customizer;
 import cn.herodotus.stirrup.kernel.definition.constants.ErrorCodeMapperBuilderOrdered;
 import cn.herodotus.stirrup.kernel.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.stirrup.kernel.definition.support.ErrorCodeMapperBuilder;
-import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
+import cn.herodotus.stirrup.cache.core.constants.CacheErrorCodes;
 import org.springframework.core.Ordered;
 
 /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.enums;
+package cn.herodotus.stirrup.cache.core.enums;
 
 /**
  * <p>Description: 缓存方式 </p>

@@ -14,42 +14,42 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.core.exception;
+package cn.herodotus.stirrup.cache.core.exception;
 
 import cn.herodotus.stirrup.kernel.definition.domain.Feedback;
 import cn.herodotus.stirrup.kernel.definition.exception.PlatformRuntimeException;
-import cn.herodotus.engine.cache.core.constants.CacheErrorCodes;
+import cn.herodotus.stirrup.cache.core.constants.CacheErrorCodes;
 
 /**
- * <p>Description: Stamp签章 已过期错误 </p>
+ * <p>Description: Stamp签章校验错误 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/8/23 12:36
+ * @date : 2021/8/23 12:32
  */
-public class StampHasExpiredException extends PlatformRuntimeException {
+public class StampMismatchException extends PlatformRuntimeException {
 
-    public StampHasExpiredException() {
+    public StampMismatchException() {
         super();
     }
 
-    public StampHasExpiredException(String message) {
+    public StampMismatchException(String message) {
         super(message);
     }
 
-    public StampHasExpiredException(String message, Throwable cause) {
+    public StampMismatchException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public StampHasExpiredException(Throwable cause) {
+    public StampMismatchException(Throwable cause) {
         super(cause);
     }
 
-    protected StampHasExpiredException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected StampMismatchException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
     @Override
     public Feedback getFeedback() {
-        return CacheErrorCodes.STAMP_HAS_EXPIRED;
+        return CacheErrorCodes.STAMP_MISMATCH;
     }
 }

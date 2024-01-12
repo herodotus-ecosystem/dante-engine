@@ -16,9 +16,9 @@
 
 package cn.herodotus.engine.cache.jetcache.enhance;
 
-import cn.herodotus.engine.cache.core.enums.CacheMethod;
-import cn.herodotus.engine.cache.core.properties.CacheProperties;
-import cn.herodotus.engine.cache.core.properties.CacheSetting;
+import cn.herodotus.stirrup.cache.core.enums.CacheMethod;
+import cn.herodotus.stirrup.cache.core.properties.CacheProperties;
+import cn.herodotus.stirrup.cache.core.properties.CacheSetting;
 import com.alibaba.fastjson2.JSON;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.CacheManager;

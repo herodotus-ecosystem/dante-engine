@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.cache.redis.definition;
 
-import cn.herodotus.engine.cache.core.constants.CacheConstants;
+import cn.herodotus.stirrup.cache.core.constants.CacheConstants;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
