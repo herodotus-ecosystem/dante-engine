@@ -19,8 +19,8 @@ dante 对其进行了简单封装
 
 ```xml
 <dependency>
-  <groupId>cn.herodotus.engine</groupId>
-  <artifactId>cache-sdk-caffeine</artifactId>
+  <groupId>cn.herodotus.stirrup</groupId>
+  <artifactId>cache-module-caffeine</artifactId>
 </dependency>
 ```
 ## 2. 写一个配置类，导入配置

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.caffeine.configuration;
+package cn.herodotus.stirrup.cache.caffeine.configuration;
 
-import cn.herodotus.engine.cache.caffeine.enhance.HerodotusCaffeineCacheManager;
+import cn.herodotus.stirrup.cache.caffeine.enhance.HerodotusCaffeineCacheManager;
 import cn.herodotus.stirrup.cache.core.properties.CacheProperties;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import jakarta.annotation.PostConstruct;

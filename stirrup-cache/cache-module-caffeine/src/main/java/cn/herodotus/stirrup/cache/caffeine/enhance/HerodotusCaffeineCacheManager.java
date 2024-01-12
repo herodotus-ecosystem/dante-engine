@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.caffeine.enhance;
+package cn.herodotus.stirrup.cache.caffeine.enhance;
 
 import cn.herodotus.stirrup.kernel.definition.constants.SymbolConstants;
 import cn.herodotus.stirrup.cache.core.properties.CacheProperties;
