@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.captcha.core.definition;
 
-import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
+import cn.herodotus.stirrup.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
 import com.alicp.jetcache.anno.CacheType;

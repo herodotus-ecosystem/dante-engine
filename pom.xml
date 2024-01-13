@@ -108,7 +108,6 @@
     <modules>
         <module>dependencies</module>
         <module>engine-assistant</module>
-        <module>engine-cache</module>
         <module>engine-data</module>
         <module>engine-rest</module>
         <module>engine-captcha</module>

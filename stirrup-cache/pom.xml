@@ -35,6 +35,7 @@
         <module>cache-module-jetcache</module>
         <module>cache-module-redis</module>
         <module>cache-module-redisson</module>
+        <module>cache-spring-boot-starter</module>
     </modules>
 
 </project>

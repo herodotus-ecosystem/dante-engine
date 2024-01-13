@@ -16,7 +16,7 @@
 
 package cn.herodotus.stirrup.access.sms.stamp;
 
-import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
+import cn.herodotus.stirrup.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.stirrup.access.core.constants.AccessConstants;
 import cn.herodotus.stirrup.access.sms.properties.SmsProperties;
 import org.dromara.hutool.core.util.RandomUtil;

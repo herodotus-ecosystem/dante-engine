@@ -1,0 +1,3 @@
+cn.herodotus.stirrup.cache.autoconfigure.CacheAutoConfiguration
+cn.herodotus.stirrup.cache.jetcache.configuration.CacheJetCacheAutoConfiguration
+cn.herodotus.stirrup.cache.redisson.configuration.CacheRedissonAutoConfiguration

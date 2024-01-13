@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.stamp;
 
-import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
+import cn.herodotus.stirrup.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.stirrup.oauth2.kernel.constants.OAuth2Constants;
 import org.dromara.hutool.core.data.id.IdUtil;

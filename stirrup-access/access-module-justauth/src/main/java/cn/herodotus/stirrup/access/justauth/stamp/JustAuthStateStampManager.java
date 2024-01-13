@@ -16,7 +16,7 @@
 
 package cn.herodotus.stirrup.access.justauth.stamp;
 
-import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
+import cn.herodotus.stirrup.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.stirrup.access.core.constants.AccessConstants;
 import cn.herodotus.stirrup.access.justauth.properties.JustAuthProperties;
 import me.zhyd.oauth.cache.AuthStateCache;

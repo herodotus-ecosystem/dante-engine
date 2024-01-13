@@ -20,28 +20,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.herodotus.engine</groupId>
-        <artifactId>engine-facility</artifactId>
+        <groupId>cn.herodotus.stirrup</groupId>
+        <artifactId>stirrup-cache</artifactId>
         <version>3.2.1.4</version>
     </parent>
 
-    <description>Dante Cloud 在 Alibaba 环境下 Sentinel Gateway 配置模块</description>
-
-    <artifactId>facility-gateway-spring-boot-starter</artifactId>
-
+    <artifactId>cache-spring-boot-starter</artifactId>
+    <description>基于 Spring Authorization Server 的 Herodotus 软件生态 Cache 模块统一 Starter</description>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>cache-module-redisson</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.stirrup</groupId>
-            <artifactId>cache-spring-boot-starter</artifactId>
+            <artifactId>cache-module-jetcache</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
     </dependencies>
 
