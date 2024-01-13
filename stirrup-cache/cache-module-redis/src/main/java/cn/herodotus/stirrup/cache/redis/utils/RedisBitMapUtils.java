@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redis.utils;
+package cn.herodotus.stirrup.cache.redis.utils;
 
 import com.google.common.hash.Funnels;
 import com.google.common.hash.Hashing;

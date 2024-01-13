@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redis.definition;
+package cn.herodotus.stirrup.cache.redis.definition;
 
 import org.springframework.beans.factory.InitializingBean;
 

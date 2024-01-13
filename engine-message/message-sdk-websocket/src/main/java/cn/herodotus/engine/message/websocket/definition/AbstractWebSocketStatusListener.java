@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.websocket.definition;
 
-import cn.herodotus.engine.cache.redis.utils.RedisBitMapUtils;
+import cn.herodotus.stirrup.cache.redis.utils.RedisBitMapUtils;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import cn.herodotus.engine.message.websocket.utils.WebSocketUtils;

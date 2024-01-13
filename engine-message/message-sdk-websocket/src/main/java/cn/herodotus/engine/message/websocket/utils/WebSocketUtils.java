@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.websocket.utils;
 
-import cn.herodotus.engine.cache.redis.utils.RedisBitMapUtils;
+import cn.herodotus.stirrup.cache.redis.utils.RedisBitMapUtils;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

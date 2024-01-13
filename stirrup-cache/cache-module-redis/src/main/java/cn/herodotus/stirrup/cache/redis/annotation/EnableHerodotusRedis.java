@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redis.annotation;
+package cn.herodotus.stirrup.cache.redis.annotation;
 
-import cn.herodotus.engine.cache.redis.configuration.CacheRedisConfiguration;
+import cn.herodotus.stirrup.cache.redis.configuration.CacheRedisConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

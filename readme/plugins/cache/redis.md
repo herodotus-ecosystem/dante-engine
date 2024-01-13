@@ -4,8 +4,8 @@
 
 ```xml
 <dependency>
-  <groupId>cn.herodotus.engine</groupId>
-  <artifactId>cache-sdk-redis</artifactId>
+    <groupId>cn.herodotus.stirrup</groupId>
+    <artifactId>cache-module-redis</artifactId>
 </dependency>
 ```
 2. 配置说明

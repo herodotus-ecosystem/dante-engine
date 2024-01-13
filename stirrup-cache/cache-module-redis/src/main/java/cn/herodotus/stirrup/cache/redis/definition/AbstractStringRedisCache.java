@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redis.definition;
+package cn.herodotus.stirrup.cache.redis.definition;
 
 import cn.herodotus.stirrup.cache.core.constants.CacheConstants;
 import org.springframework.data.redis.core.StringRedisTemplate;

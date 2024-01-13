@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redis.configuration;
+package cn.herodotus.stirrup.cache.redis.configuration;
 
 import cn.herodotus.stirrup.cache.core.properties.CacheProperties;
-import cn.herodotus.engine.cache.redis.enhance.HerodotusRedisCacheManager;
+import cn.herodotus.stirrup.cache.redis.enhance.HerodotusRedisCacheManager;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

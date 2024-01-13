@@ -21,7 +21,7 @@ import cn.herodotus.stirrup.cache.core.properties.CacheProperties;
 import cn.herodotus.engine.cache.jetcache.enhance.HerodotusCacheManager;
 import cn.herodotus.engine.cache.jetcache.enhance.JetCacheCreateCacheFactory;
 import cn.herodotus.engine.cache.jetcache.utils.JetCacheUtils;
-import cn.herodotus.engine.cache.redis.configuration.CacheRedisConfiguration;
+import cn.herodotus.stirrup.cache.redis.configuration.CacheRedisConfiguration;
 import com.alicp.jetcache.CacheManager;
 import com.alicp.jetcache.autoconfigure.JetCacheAutoConfiguration;
 import jakarta.annotation.PostConstruct;
