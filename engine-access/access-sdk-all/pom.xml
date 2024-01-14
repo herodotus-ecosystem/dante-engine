@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-access</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.3</version>
+        <version>3.2.1.5</version>
     </parent>
 
     <artifactId>access-sdk-all</artifactId>
@@ -37,15 +37,15 @@
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
+            <artifactId>access-sdk-sms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
             <artifactId>access-sdk-wxapp</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>access-sdk-wxmpp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>sms-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

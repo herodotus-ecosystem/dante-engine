@@ -23,7 +23,7 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.3</version>
+        <version>3.2.1.5</version>
     </parent>
 
     <description>手机短信、小程序、公众号、JustAuth等外部登录处理逻辑集成模块</description>
@@ -38,6 +38,7 @@
         <module>access-sdk-wxmpp</module>
         <module>access-sdk-all</module>
         <module>access-spring-boot-starter</module>
+        <module>access-sdk-sms</module>
     </modules>
 
 </project>

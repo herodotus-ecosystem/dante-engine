@@ -20,21 +20,18 @@ import cn.herodotus.engine.access.all.controller.JustAuthAccessController;
 import cn.herodotus.engine.access.all.controller.PhoneNumberAccessController;
 import cn.herodotus.engine.access.all.controller.WxappAccessController;
 import cn.herodotus.engine.access.all.processor.AccessHandlerStrategyFactory;
-import cn.herodotus.engine.access.all.processor.PhoneNumberAccessHandler;
 import cn.herodotus.engine.access.justauth.annotation.ConditionalOnJustAuthEnabled;
 import cn.herodotus.engine.access.justauth.configuration.JustAuthConfiguration;
+import cn.herodotus.engine.access.sms.annotation.ConditionalOnSmsEnabled;
+import cn.herodotus.engine.access.sms.configuration.AccessSmsConfiguration;
 import cn.herodotus.engine.access.wxapp.annotation.ConditionalOnWxappEnabled;
 import cn.herodotus.engine.access.wxapp.configuration.WxappConfiguration;
 import cn.herodotus.engine.access.wxmpp.configuration.WxmppConfiguration;
-import cn.herodotus.engine.assistant.core.enums.AccountType;
-import cn.herodotus.engine.sms.autoconfigure.SmsAutoConfiguration;
-import cn.herodotus.engine.sms.autoconfigure.annotation.ConditionalOnSmsEnabled;
-import cn.herodotus.engine.sms.autoconfigure.processor.SmsSendStrategyFactory;
-import cn.herodotus.engine.sms.autoconfigure.stamp.VerificationCodeStampManager;
 import jakarta.annotation.PostConstruct;
+import org.dromara.sms4j.api.dao.SmsDao;
+import org.dromara.sms4j.api.dao.SmsDaoDefaultImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +46,7 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @Import({
         JustAuthConfiguration.class,
+        AccessSmsConfiguration.class,
         WxappConfiguration.class,
         WxmppConfiguration.class
 })
@@ -61,18 +59,10 @@ public class AccessAllConfiguration {
         log.debug("[Herodotus] |- SDK [Access All] Auto Configure.");
     }
 
-    @Configuration(proxyBeanMethods = false)
-    @ConditionalOnSmsEnabled
-    @Import({SmsAutoConfiguration.class})
-    static class PhoneNumberSignInConfiguration {
-
-        @Bean(AccountType.PHONE_NUMBER_HANDLER)
-        @ConditionalOnBean({VerificationCodeStampManager.class, SmsSendStrategyFactory.class})
-        public PhoneNumberAccessHandler phoneNumberAccessHandler(VerificationCodeStampManager verificationCodeStampManager, SmsSendStrategyFactory smsSendStrategyFactory) {
-            PhoneNumberAccessHandler phoneNumberAuthenticationHandler = new PhoneNumberAccessHandler(verificationCodeStampManager, smsSendStrategyFactory);
-            log.trace("[Herodotus] |- Bean [Phone Number SignIn Handler] Auto Configure.");
-            return phoneNumberAuthenticationHandler;
-        }
+    @Bean
+    @ConditionalOnMissingBean
+    public SmsDao smsDao() {
+        return SmsDaoDefaultImpl.getInstance();
     }
 
     @Bean

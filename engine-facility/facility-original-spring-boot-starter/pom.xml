@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-facility</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.3</version>
+        <version>3.2.1.5</version>
     </parent>
 
     <artifactId>facility-original-spring-boot-starter</artifactId>
