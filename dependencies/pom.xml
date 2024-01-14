@@ -140,7 +140,6 @@
         <httpclient.version>4.5.14</httpclient.version>
         <checker-qual.version>3.42.0</checker-qual.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
-        <bcprov-jdk15to18.version>1.77</bcprov-jdk15to18.version>
         <bcprov-jdk18on.version>1.77</bcprov-jdk18on.version>
         <bcpkix-jdk18on.version>1.77</bcpkix-jdk18on.version>
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
@@ -472,7 +471,6 @@
                 <artifactId>supplier-sdk-message</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
@@ -513,7 +511,6 @@
                 <artifactId>animated-gif-lib</artifactId>
                 <version>${animated-gif-lib.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
@@ -584,7 +581,6 @@
                 <artifactId>jetcache-redis-lettuce</artifactId>
                 <version>${jetcache.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.dromara.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
@@ -706,7 +702,6 @@
                 <artifactId>vue</artifactId>
                 <version>${vue.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-core</artifactId>
@@ -727,7 +722,6 @@
                 <artifactId>java-sdk</artifactId>
                 <version>${com.baidu.aip.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
@@ -748,7 +742,6 @@
                 <artifactId>org.eclipse.paho.mqttv5.client</artifactId>
                 <version>${org.eclipse.paho.version}</version>
             </dependency>
-
 
             <dependency>
                 <groupId>com.squareup.okio</groupId>

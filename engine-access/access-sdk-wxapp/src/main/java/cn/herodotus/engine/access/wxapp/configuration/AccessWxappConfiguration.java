@@ -40,9 +40,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWxappEnabled
 @EnableConfigurationProperties(WxappProperties.class)
-public class WxappConfiguration {
+public class AccessWxappConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(WxappConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(AccessWxappConfiguration.class);
 
     @PostConstruct
     public void init() {

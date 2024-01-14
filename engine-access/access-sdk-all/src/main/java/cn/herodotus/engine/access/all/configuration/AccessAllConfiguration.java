@@ -21,12 +21,12 @@ import cn.herodotus.engine.access.all.controller.PhoneNumberAccessController;
 import cn.herodotus.engine.access.all.controller.WxappAccessController;
 import cn.herodotus.engine.access.all.processor.AccessHandlerStrategyFactory;
 import cn.herodotus.engine.access.justauth.annotation.ConditionalOnJustAuthEnabled;
-import cn.herodotus.engine.access.justauth.configuration.JustAuthConfiguration;
+import cn.herodotus.engine.access.justauth.configuration.AccessJustAuthConfiguration;
 import cn.herodotus.engine.access.sms.annotation.ConditionalOnSmsEnabled;
 import cn.herodotus.engine.access.sms.configuration.AccessSmsConfiguration;
 import cn.herodotus.engine.access.wxapp.annotation.ConditionalOnWxappEnabled;
-import cn.herodotus.engine.access.wxapp.configuration.WxappConfiguration;
-import cn.herodotus.engine.access.wxmpp.configuration.WxmppConfiguration;
+import cn.herodotus.engine.access.wxapp.configuration.AccessWxappConfiguration;
+import cn.herodotus.engine.access.wxmpp.configuration.AccessWxmppConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.dromara.sms4j.api.dao.SmsDao;
 import org.dromara.sms4j.api.dao.SmsDaoDefaultImpl;
@@ -45,10 +45,10 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration(proxyBeanMethods = false)
 @Import({
-        JustAuthConfiguration.class,
+        AccessJustAuthConfiguration.class,
         AccessSmsConfiguration.class,
-        WxappConfiguration.class,
-        WxmppConfiguration.class
+        AccessWxappConfiguration.class,
+        AccessWxmppConfiguration.class
 })
 public class AccessAllConfiguration {
 
