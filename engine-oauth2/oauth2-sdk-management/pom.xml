@@ -24,7 +24,7 @@
     <parent>
         <artifactId>engine-oauth2</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.5</version>
+        <version>3.2.1.6</version>
     </parent>
 
     <artifactId>oauth2-sdk-management</artifactId>
