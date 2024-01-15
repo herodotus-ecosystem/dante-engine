@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-message</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.7.3</version>
+        <version>3.1.7.4</version>
     </parent>
 
     <artifactId>message-spring-boot-starter</artifactId>

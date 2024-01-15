@@ -117,7 +117,7 @@ public class SecurityUtils {
             }
             if (authentication.getPrincipal() instanceof Map) {
                 Map<String, Object> principal = (Map<String, Object>) authentication.getPrincipal();
-                return BeanUtil.mapToBean(principal, HerodotusUser.class, true, new CopyOptions());
+                return BeanUtil.toBean(principal, HerodotusUser.class, new CopyOptions());
             }
         }
 

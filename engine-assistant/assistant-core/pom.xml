@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-assistant</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.7.3</version>
+        <version>3.1.7.4</version>
     </parent>
 
     <artifactId>assistant-core</artifactId>
@@ -82,6 +82,16 @@
             <groupId>org.dromara.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
+        <!--指定 bouncycastle 相关依赖，避免依赖第三方携带 bouncycastle 相关包，产生 hutool 不同版本 crypto 不兼容问题，以及抛出DefaultBufferedBlockCipher问题-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk18on</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
