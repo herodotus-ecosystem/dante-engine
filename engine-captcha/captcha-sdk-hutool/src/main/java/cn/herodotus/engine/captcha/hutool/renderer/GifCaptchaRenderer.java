@@ -32,7 +32,7 @@ public class GifCaptchaRenderer extends AbstractGraphicRenderer {
 
     @Override
     public Metadata draw() {
-        GifCaptcha gifCaptcha = CaptchaUtil.createGifCaptcha(this.getWidth(), this.getHeight(), this.getLength());
+        GifCaptcha gifCaptcha = CaptchaUtil.ofGifCaptcha(this.getWidth(), this.getHeight(), this.getLength());
         gifCaptcha.setFont(this.getFont());
 
         Metadata metadata = new Metadata();

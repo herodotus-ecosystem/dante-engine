@@ -32,7 +32,7 @@ public class ShearCaptchaRenderer extends AbstractGraphicRenderer {
 
     @Override
     public Metadata draw() {
-        ShearCaptcha shearCaptcha = CaptchaUtil.createShearCaptcha(this.getWidth(), this.getHeight(), this.getLength(), 4);
+        ShearCaptcha shearCaptcha = CaptchaUtil.ofShearCaptcha(this.getWidth(), this.getHeight(), this.getLength(), 4);
         shearCaptcha.setFont(this.getFont());
 
         Metadata metadata = new Metadata();

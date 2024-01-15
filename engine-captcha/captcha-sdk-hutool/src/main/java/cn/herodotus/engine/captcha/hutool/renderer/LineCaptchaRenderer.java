@@ -34,7 +34,7 @@ public class LineCaptchaRenderer extends AbstractGraphicRenderer {
 
     @Override
     public Metadata draw() {
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(this.getWidth(), this.getHeight(), this.getLength(), 150);
+        LineCaptcha lineCaptcha = CaptchaUtil.ofLineCaptcha(this.getWidth(), this.getHeight(), this.getLength(), 150);
         lineCaptcha.setFont(this.getFont());
 
         Metadata metadata = new Metadata();
