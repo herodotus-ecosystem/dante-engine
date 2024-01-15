@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.rest.dto;
 
-import cn.herodotus.engine.assistant.definition.domain.AbstractDto;
+import cn.herodotus.engine.assistant.definition.domain.base.AbstractDto;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysDepartment;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysEmployee;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysOwnership;

@@ -21,7 +21,7 @@ import cn.herodotus.engine.access.core.definition.AccessResponse;
 import cn.herodotus.engine.access.core.definition.AccessUserDetails;
 import cn.herodotus.engine.access.core.exception.AccessIdentityVerificationFailedException;
 import cn.herodotus.engine.access.sms.stamp.VerificationCodeStampManager;
-import cn.herodotus.engine.assistant.core.domain.AccessPrincipal;
+import cn.herodotus.engine.assistant.definition.domain.oauth2.AccessPrincipal;
 import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
 import org.dromara.sms4j.api.SmsBlend;
 import org.dromara.sms4j.api.entity.SmsResponse;

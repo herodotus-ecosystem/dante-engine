@@ -16,10 +16,10 @@
 
 package cn.herodotus.engine.supplier.upms.logic.converter;
 
-import cn.herodotus.engine.assistant.core.view.vue.BaseMeta;
-import cn.herodotus.engine.assistant.core.view.vue.ChildMeta;
-import cn.herodotus.engine.assistant.core.view.vue.ParentMeta;
-import cn.herodotus.engine.assistant.core.view.vue.RootMeta;
+import cn.herodotus.engine.assistant.definition.domain.view.vue.BaseMeta;
+import cn.herodotus.engine.assistant.definition.domain.view.vue.ChildMeta;
+import cn.herodotus.engine.assistant.definition.domain.view.vue.ParentMeta;
+import cn.herodotus.engine.assistant.definition.domain.view.vue.RootMeta;
 import cn.herodotus.engine.assistant.core.utils.WellFormedUtils;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysElement;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysRole;

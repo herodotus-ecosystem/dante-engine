@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.view.datatables;
+package cn.herodotus.engine.assistant.definition.domain.view.datatables;
 
 import com.google.common.base.MoreObjects;
 

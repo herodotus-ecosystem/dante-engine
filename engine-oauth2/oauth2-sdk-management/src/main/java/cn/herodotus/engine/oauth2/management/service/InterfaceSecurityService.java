@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.service;
 
-import cn.herodotus.engine.assistant.core.domain.SecretKey;
+import cn.herodotus.engine.assistant.definition.domain.oauth2.SecretKey;
 import cn.herodotus.engine.oauth2.core.utils.SecurityUtils;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import org.apache.commons.lang3.ObjectUtils;

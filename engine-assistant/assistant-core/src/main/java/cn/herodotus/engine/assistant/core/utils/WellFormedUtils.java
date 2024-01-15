@@ -16,10 +16,10 @@
 
 package cn.herodotus.engine.assistant.core.utils;
 
-import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.enums.Protocol;
 import cn.herodotus.engine.assistant.core.exception.properties.PropertyValueIsNotSetException;
+import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
+import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

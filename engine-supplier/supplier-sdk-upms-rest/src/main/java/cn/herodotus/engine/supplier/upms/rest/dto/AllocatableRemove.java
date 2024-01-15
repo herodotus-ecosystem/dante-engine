@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.rest.dto;
 
-import cn.herodotus.engine.assistant.definition.domain.AbstractDto;
+import cn.herodotus.engine.assistant.definition.domain.base.AbstractDto;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

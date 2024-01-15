@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.view.vue;
+package cn.herodotus.engine.assistant.definition.domain.view.vue;
 
 import com.google.common.base.MoreObjects;
 

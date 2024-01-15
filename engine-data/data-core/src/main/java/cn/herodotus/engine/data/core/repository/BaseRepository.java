@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.core.repository;
 
-import cn.herodotus.engine.assistant.definition.domain.Entity;
+import cn.herodotus.engine.assistant.definition.domain.base.Entity;
 import jakarta.persistence.QueryHint;
 import org.hibernate.jpa.AvailableHints;
 import org.springframework.data.domain.Page;

@@ -17,7 +17,7 @@
 package cn.herodotus.engine.supplier.message.entity;
 
 import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.definition.domain.AbstractEntity;
+import cn.herodotus.engine.assistant.definition.domain.base.AbstractEntity;
 import cn.herodotus.engine.message.core.constants.MessageConstants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;

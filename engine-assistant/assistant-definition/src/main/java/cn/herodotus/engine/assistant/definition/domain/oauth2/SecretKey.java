@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.domain;
+package cn.herodotus.engine.assistant.definition.domain.oauth2;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
