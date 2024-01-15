@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.protect.crypto.processor;
 
-import cn.herodotus.engine.assistant.core.domain.SecretKey;
+import cn.herodotus.engine.assistant.definition.domain.oauth2.SecretKey;
 import cn.herodotus.engine.cache.core.exception.StampHasExpiredException;
 import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.rest.condition.constants.RestConstants;

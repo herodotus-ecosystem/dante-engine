@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-facility</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.5</version>
+        <version>3.2.1.6</version>
     </parent>
 
     <artifactId>facility-alibaba-spring-boot-starter</artifactId>
@@ -60,38 +60,10 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.alibaba.nacos</groupId>
-                    <artifactId>nacos-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.alibaba.nacos</groupId>
-                    <artifactId>nacos-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.cloud</groupId>
-                    <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>

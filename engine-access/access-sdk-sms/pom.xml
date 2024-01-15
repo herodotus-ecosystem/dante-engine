@@ -22,7 +22,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-access</artifactId>
-        <version>3.2.1.5</version>
+        <version>3.2.1.6</version>
     </parent>
 
     <artifactId>access-sdk-sms</artifactId>
@@ -35,12 +35,6 @@
         <dependency>
             <groupId>org.dromara.sms4j</groupId>
             <artifactId>sms4j-spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>hutool-crypto</artifactId>
-                    <groupId>cn.hutool</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>

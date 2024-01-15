@@ -38,9 +38,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWxmppEnabled
 @EnableConfigurationProperties(WxmppProperties.class)
-public class WxmppConfiguration {
+public class AccessWxmppConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(WxmppConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(AccessWxmppConfiguration.class);
 
     @PostConstruct
     public void init() {

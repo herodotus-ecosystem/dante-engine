@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.management.compliance.listener;
 
-import cn.herodotus.engine.assistant.definition.domain.PrincipalDetails;
+import cn.herodotus.engine.assistant.definition.domain.oauth2.PrincipalDetails;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
 import cn.herodotus.engine.oauth2.management.service.OAuth2ComplianceService;
 import jakarta.servlet.http.HttpServletRequest;

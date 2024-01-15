@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.view.vue;
+package cn.herodotus.engine.assistant.definition.domain.base;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * <p>Description: 子节点 Meta </p>
+ * <p> Description : BaseCacheEntity </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/14 16:54
+ * @date : 2020/2/24 16:38
  */
-public class ChildMeta extends BaseMeta {
+public abstract class AbstractEntity implements Entity {
 
-    @JsonProperty("isDetailContent")
-    private Boolean detailContent;
-
-    public Boolean getDetailContent() {
-        return detailContent;
-    }
-
-    public void setDetailContent(Boolean detailContent) {
-        this.detailContent = detailContent;
-    }
 }

@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-assistant</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.5</version>
+        <version>3.2.1.6</version>
     </parent>
 
     <artifactId>assistant-definition</artifactId>
@@ -39,6 +39,10 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents.client5</groupId>
             <artifactId>httpclient5</artifactId>
         </dependency>
@@ -47,12 +51,57 @@
             <artifactId>guava</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.dromara.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>okhttps-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>okhttps-gson</artifactId>
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-core-jakarta</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.dromara.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+        <!--指定 bouncycastle 相关依赖，避免依赖第三方携带 bouncycastle 相关包，产生 hutool 不同版本 crypto 不兼容问题，以及抛出DefaultBufferedBlockCipher问题-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk18on</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
     </dependencies>
 

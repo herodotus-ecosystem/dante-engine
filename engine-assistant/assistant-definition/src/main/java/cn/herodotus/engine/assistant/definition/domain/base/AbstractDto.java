@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.definition.domain;
-
-import java.io.Serializable;
+package cn.herodotus.engine.assistant.definition.domain.base;
 
 /**
- * <p>Description: BaseEntity </p>
+ * <p>Description: AbstractDto </p>
  *
  * @author : gengwei.zheng
- * @date : 2020/4/29 17:27
+ * @date : 2022/3/18 15:40
  */
-public interface Entity extends Serializable {
-
+public abstract class AbstractDto implements Entity {
 }

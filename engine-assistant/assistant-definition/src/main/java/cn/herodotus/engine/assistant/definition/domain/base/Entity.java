@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.view.vue;
+package cn.herodotus.engine.assistant.definition.domain.base;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
 
 /**
- * <p>Description: 子级节点Meta定义 </p>
+ * <p>Description: BaseEntity </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/7/14 16:53
+ * @date : 2020/4/29 17:27
  */
-public class ParentMeta extends BaseMeta {
+public interface Entity extends Serializable {
 
-    @JsonProperty("isHideAllChild")
-    private Boolean hideAllChild = false;
-
-    public Boolean getHideAllChild() {
-        return hideAllChild;
-    }
-
-    public void setHideAllChild(Boolean hideAllChild) {
-        this.hideAllChild = hideAllChild;
-    }
 }

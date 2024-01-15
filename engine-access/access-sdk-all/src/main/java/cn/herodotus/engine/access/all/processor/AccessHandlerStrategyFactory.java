@@ -21,7 +21,7 @@ import cn.herodotus.engine.access.core.definition.AccessResponse;
 import cn.herodotus.engine.access.core.definition.AccessUserDetails;
 import cn.herodotus.engine.access.core.exception.AccessHandlerNotFoundException;
 import cn.herodotus.engine.access.core.exception.IllegalAccessArgumentException;
-import cn.herodotus.engine.assistant.core.domain.AccessPrincipal;
+import cn.herodotus.engine.assistant.definition.domain.oauth2.AccessPrincipal;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;

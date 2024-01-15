@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.view.vue;
+package cn.herodotus.engine.assistant.definition.domain.view.vue;
 
-import cn.herodotus.engine.assistant.definition.domain.Entity;
+import cn.herodotus.engine.assistant.definition.domain.base.Entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**

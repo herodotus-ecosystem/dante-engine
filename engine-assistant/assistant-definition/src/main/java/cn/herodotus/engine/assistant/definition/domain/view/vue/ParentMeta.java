@@ -14,35 +14,26 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.support;
+package cn.herodotus.engine.assistant.definition.domain.view.vue;
 
-import cn.zhxu.okhttps.HTTP;
-import cn.zhxu.okhttps.MsgConvertor;
-import cn.zhxu.okhttps.jackson.JacksonMsgConvertor;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * <p>Description: 外部 Rest API 集成抽象服务 </p>
+ * <p>Description: 子级节点Meta定义 </p>
  *
  * @author : gengwei.zheng
- * @date : 2021/4/10 15:33
+ * @date : 2022/7/14 16:53
  */
-public interface RestApiTemplate {
+public class ParentMeta extends BaseMeta {
 
-    /**
-     * 获取外部Rest API基础地址
-     *
-     * @return 访问接口的统一BaseURL
-     */
-    String getBaseUrl();
+    @JsonProperty("isHideAllChild")
+    private Boolean hideAllChild = false;
 
-    default HTTP http() {
-        return HTTP.builder()
-                .baseUrl(getBaseUrl())
-                .addMsgConvertor(getMsgConvertor())
-                .build();
+    public Boolean getHideAllChild() {
+        return hideAllChild;
     }
 
-    default MsgConvertor getMsgConvertor() {
-        return new JacksonMsgConvertor();
+    public void setHideAllChild(Boolean hideAllChild) {
+        this.hideAllChild = hideAllChild;
     }
 }

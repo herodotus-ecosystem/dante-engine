@@ -33,7 +33,7 @@ public class CircleCaptchaRenderer extends AbstractGraphicRenderer {
 
     @Override
     public Metadata draw() {
-        CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(this.getWidth(), this.getHeight(), this.getLength(), 20);
+        CircleCaptcha circleCaptcha = CaptchaUtil.ofCircleCaptcha(this.getWidth(), this.getHeight(), this.getLength(), 20);
         circleCaptcha.setFont(this.getFont());
 
         Metadata metadata = new Metadata();

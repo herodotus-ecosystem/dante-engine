@@ -17,7 +17,7 @@
 package cn.herodotus.engine.message.websocket.interceptor;
 
 import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.definition.domain.PrincipalDetails;
+import cn.herodotus.engine.assistant.definition.domain.oauth2.PrincipalDetails;
 import cn.herodotus.engine.message.websocket.domain.WebSocketPrincipal;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;

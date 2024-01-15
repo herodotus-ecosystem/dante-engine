@@ -28,7 +28,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.2.1.5</version>
+    <version>3.2.1.6</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -76,7 +76,6 @@
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
         <mapstruct-processor.version>1.5.5.Final</mapstruct-processor.version>
-        <maven-archetype-plugin.version>3.2.1</maven-archetype-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <!--开源通用工具包-->
         <animated-gif-lib.version>1.4</animated-gif-lib.version>
@@ -103,7 +102,7 @@
         <nacos.version>2.3.0</nacos.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <!-- 国内开源通用组件 -->
-        <hutool.version>6.0.0-M9</hutool.version>
+        <hutool.version>6.0.0-M10</hutool.version>
         <okhttps.version>4.0.2</okhttps.version>
         <weixin-java-sdk.version>4.6.0</weixin-java-sdk.version>
         <just-auth.verison>1.16.6</just-auth.verison>
@@ -140,7 +139,6 @@
         <httpclient.version>4.5.14</httpclient.version>
         <checker-qual.version>3.42.0</checker-qual.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
-        <bcprov-jdk15to18.version>1.77</bcprov-jdk15to18.version>
         <bcprov-jdk18on.version>1.77</bcprov-jdk18on.version>
         <bcpkix-jdk18on.version>1.77</bcpkix-jdk18on.version>
         <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
@@ -148,7 +146,6 @@
         <dom4j.version>2.1.4</dom4j.version>
         <sqlite-jdbc.version>3.44.1.0</sqlite-jdbc.version>
         <snappy-java.version>1.1.10.5</snappy-java.version>
-        <netty.version>4.1.100.Final</netty.version>
     </properties>
 
     <dependencyManagement>
@@ -472,7 +469,6 @@
                 <artifactId>supplier-sdk-message</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>
@@ -513,7 +509,6 @@
                 <artifactId>animated-gif-lib</artifactId>
                 <version>${animated-gif-lib.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
@@ -584,7 +579,6 @@
                 <artifactId>jetcache-redis-lettuce</artifactId>
                 <version>${jetcache.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.dromara.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
@@ -706,7 +700,6 @@
                 <artifactId>vue</artifactId>
                 <version>${vue.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.aliyun</groupId>
                 <artifactId>aliyun-java-sdk-core</artifactId>
@@ -727,7 +720,6 @@
                 <artifactId>java-sdk</artifactId>
                 <version>${com.baidu.aip.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
@@ -748,7 +740,6 @@
                 <artifactId>org.eclipse.paho.mqttv5.client</artifactId>
                 <version>${org.eclipse.paho.version}</version>
             </dependency>
-
 
             <dependency>
                 <groupId>com.squareup.okio</groupId>
@@ -902,15 +893,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>attach-sources</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>jar-no-fork</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -948,11 +930,6 @@
                             </goals>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-archetype-plugin</artifactId>
-                    <version>${maven-archetype-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -42,9 +42,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnJustAuthEnabled
 @EnableConfigurationProperties(JustAuthProperties.class)
-public class JustAuthConfiguration {
+public class AccessJustAuthConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(JustAuthConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(AccessJustAuthConfiguration.class);
 
     @PostConstruct
     public void init() {

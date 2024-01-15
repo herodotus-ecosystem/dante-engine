@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.core.domain;
+package cn.herodotus.engine.assistant.definition.domain;
 
 import com.google.common.base.MoreObjects;
 import org.apache.commons.pool2.impl.BaseObjectPoolConfig;
