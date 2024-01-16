@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-access</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.6</version>
+        <version>3.2.1.7</version>
     </parent>
 
     <artifactId>access-sdk-all</artifactId>
@@ -34,6 +34,12 @@
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>access-sdk-justauth</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>bcpkix-jdk15on</artifactId>
+                    <groupId>org.bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
