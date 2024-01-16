@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-access</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.6</version>
+        <version>3.2.1.7</version>
     </parent>
 
     <artifactId>access-sdk-wxapp</artifactId>
