@@ -28,7 +28,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.7.4</version>
+    <version>3.1.7.5</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -81,13 +81,13 @@
         <guava.version>33.0.0-jre</guava.version>
         <zxing.version>3.5.2</zxing.version>
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.25.2</redisson.version>
+        <redisson.version>3.26.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.3.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.1.0</skywalking.version>
         <minio.version>8.5.7</minio.version>
-        <aws-java-sdk-s3.version>1.12.636</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.637</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
         <influxdb-client.version>6.12.0</influxdb-client.version>
         <!-- 阿里巴巴开源工具依赖 -->
@@ -118,7 +118,7 @@
         <mdi__font.version>7.3.67</mdi__font.version>
         <quasar.version>2.14.0</quasar.version>
         <uniform.version>2.1.2-1</uniform.version>
-        <vue.version>3.4.12</vue.version>
+        <vue.version>3.4.13</vue.version>
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
@@ -814,6 +814,16 @@
     </dependencies>
 
     <build>
+        <resources>
+            <!-- 先指定 src/main/resources下所有文件及文件夹为资源文件 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <extensions>
             <extension>
                 <groupId>org.apache.maven.archetype</groupId>
