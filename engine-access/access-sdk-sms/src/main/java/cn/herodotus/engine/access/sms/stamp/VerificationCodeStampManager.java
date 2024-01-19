@@ -20,9 +20,6 @@ import cn.herodotus.engine.access.core.constants.AccessConstants;
 import cn.herodotus.engine.access.sms.properties.SmsProperties;
 import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import org.dromara.hutool.core.util.RandomUtil;
-import org.dromara.sms4j.api.dao.SmsDao;
-
-import java.time.Duration;
 
 /**
  * <p>Description: 手机短信验证码签章 </p>
@@ -30,7 +27,7 @@ import java.time.Duration;
  * @author : gengwei.zheng
  * @date : 2021/8/26 17:44
  */
-public class VerificationCodeStampManager extends AbstractStampManager<String, String> implements SmsDao {
+public class VerificationCodeStampManager extends AbstractStampManager<String, String> {
 
     private SmsProperties smsProperties;
 
@@ -62,20 +59,5 @@ public class VerificationCodeStampManager extends AbstractStampManager<String, S
 
     public String getVerificationCodeTemplateId() {
         return smsProperties.getVerificationCodeTemplateId();
-    }
-
-    @Override
-    public void set(String key, Object value, long cacheTime) {
-        put(key, String.valueOf(value), Duration.ofSeconds(cacheTime));
-    }
-
-    @Override
-    public void set(String key, Object value) {
-        put(key, String.valueOf(value));
-    }
-
-    @Override
-    public void clean() {
-
     }
 }

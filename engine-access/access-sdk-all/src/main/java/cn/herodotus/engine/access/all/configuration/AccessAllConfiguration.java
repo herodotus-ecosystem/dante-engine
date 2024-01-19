@@ -61,13 +61,6 @@ public class AccessAllConfiguration {
     }
 
     @Bean
-    @ConditionalOnMissingBean(VerificationCodeStampManager.class)
-    public SmsDao smsDao() {
-        return SmsDaoDefaultImpl.getInstance();
-    }
-
-
-    @Bean
     @ConditionalOnMissingBean(AccessHandlerStrategyFactory.class)
     public AccessHandlerStrategyFactory accessHandlerStrategyFactory() {
         AccessHandlerStrategyFactory accessHandlerStrategyFactory = new AccessHandlerStrategyFactory();

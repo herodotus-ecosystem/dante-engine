@@ -57,12 +57,6 @@ public class AccessSmsConfiguration {
         return verificationCodeStampManager;
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public SmsDao smsDao(VerificationCodeStampManager verificationCodeStampManager) {
-        return verificationCodeStampManager;
-    }
-
     @Bean(AccountType.PHONE_NUMBER_HANDLER)
     public PhoneNumberAccessHandler phoneNumberAccessHandler(VerificationCodeStampManager verificationCodeStampManager) {
         PhoneNumberAccessHandler phoneNumberAuthenticationHandler = new PhoneNumberAccessHandler(verificationCodeStampManager);
