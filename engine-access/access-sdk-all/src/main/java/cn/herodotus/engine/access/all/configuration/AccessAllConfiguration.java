@@ -28,8 +28,6 @@ import cn.herodotus.engine.access.wxapp.annotation.ConditionalOnWxappEnabled;
 import cn.herodotus.engine.access.wxapp.configuration.AccessWxappConfiguration;
 import cn.herodotus.engine.access.wxmpp.configuration.AccessWxmppConfiguration;
 import jakarta.annotation.PostConstruct;
-import org.dromara.sms4j.api.dao.SmsDao;
-import org.dromara.sms4j.api.dao.SmsDaoDefaultImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -57,12 +55,6 @@ public class AccessAllConfiguration {
     @PostConstruct
     public void init() {
         log.debug("[Herodotus] |- SDK [Access All] Auto Configure.");
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public SmsDao smsDao() {
-        return SmsDaoDefaultImpl.getInstance();
     }
 
     @Bean
