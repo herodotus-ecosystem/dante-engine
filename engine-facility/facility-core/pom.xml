@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-facility</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.1.7</version>
+        <version>3.2.2.0</version>
     </parent>
 
     <artifactId>facility-core</artifactId>

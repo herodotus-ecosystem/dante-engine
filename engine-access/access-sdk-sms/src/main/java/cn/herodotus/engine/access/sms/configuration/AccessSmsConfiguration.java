@@ -22,7 +22,6 @@ import cn.herodotus.engine.access.sms.properties.SmsProperties;
 import cn.herodotus.engine.access.sms.stamp.VerificationCodeStampManager;
 import cn.herodotus.engine.assistant.core.enums.AccountType;
 import jakarta.annotation.PostConstruct;
-import org.dromara.sms4j.api.dao.SmsDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -54,12 +53,6 @@ public class AccessSmsConfiguration {
         VerificationCodeStampManager verificationCodeStampManager = new VerificationCodeStampManager();
         verificationCodeStampManager.setSmsProperties(smsProperties);
         log.trace("[Herodotus] |- Bean [Verification Code Stamp Manager] Auto Configure.");
-        return verificationCodeStampManager;
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public SmsDao smsDao(VerificationCodeStampManager verificationCodeStampManager) {
         return verificationCodeStampManager;
     }
 
