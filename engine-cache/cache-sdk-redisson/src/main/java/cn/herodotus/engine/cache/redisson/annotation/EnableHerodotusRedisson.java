@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.cache.redisson.annotation;
 
-import cn.herodotus.engine.cache.redisson.configuration.CacheRedissonAutoConfiguration;
-import org.springframework.context.annotation.Import;
+import cn.herodotus.engine.cache.redisson.autoconfigure.CacheRedissonAutoConfiguration;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 
 import java.lang.annotation.*;
 
@@ -30,6 +30,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(CacheRedissonAutoConfiguration.class)
+@ImportAutoConfiguration(CacheRedissonAutoConfiguration.class)
 public @interface EnableHerodotusRedisson {
 }

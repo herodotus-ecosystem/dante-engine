@@ -92,13 +92,13 @@
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.1.0</skywalking.version>
         <minio.version>8.5.7</minio.version>
-        <aws-java-sdk-s3.version>1.12.638</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.641</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
         <influxdb-client.version>6.12.0</influxdb-client.version>
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
         <fastjson2.version>2.0.45</fastjson2.version>
-        <jetcache.version>2.7.4</jetcache.version>
+        <jetcache.version>2.7.5</jetcache.version>
         <nacos.version>2.3.0</nacos.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
         <!-- 国内开源通用组件 -->
@@ -123,7 +123,7 @@
         <mdi__font.version>7.3.67</mdi__font.version>
         <quasar.version>2.14.0</quasar.version>
         <uniform.version>2.1.2-1</uniform.version>
-        <vue.version>3.4.14</vue.version>
+        <vue.version>3.4.15</vue.version>
         <!--厂商应用集成-->
         <aliyun-java-sdk-core.version>4.6.4</aliyun-java-sdk-core.version>
         <aliyun-java-sdk-green.version>3.6.6</aliyun-java-sdk-green.version>
@@ -141,11 +141,10 @@
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
         <bcprov-jdk18on.version>1.77</bcprov-jdk18on.version>
         <bcpkix-jdk18on.version>1.77</bcpkix-jdk18on.version>
-        <bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
-        <bcpkix-jdk15on.version>1.70</bcpkix-jdk15on.version>
         <dom4j.version>2.1.4</dom4j.version>
-        <sqlite-jdbc.version>3.44.1.0</sqlite-jdbc.version>
+        <json-path.version>2.9.0</json-path.version>
         <snappy-java.version>1.1.10.5</snappy-java.version>
+        <sqlite-jdbc.version>3.45.0.0</sqlite-jdbc.version>
     </properties>
 
     <dependencyManagement>
@@ -769,16 +768,6 @@
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15on</artifactId>
-                <version>${bcprov-jdk15on.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcpkix-jdk15on</artifactId>
-                <version>${bcpkix-jdk15on.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk18on</artifactId>
                 <version>${bcprov-jdk18on.version}</version>
             </dependency>
@@ -807,6 +796,12 @@
                 <artifactId>json</artifactId>
                 <version>${org.json.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${json-path.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

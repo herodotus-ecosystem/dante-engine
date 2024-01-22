@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.cache.jetcache.annotation;
 
-import cn.herodotus.engine.cache.jetcache.configuration.CacheJetCacheAutoConfiguration;
-import org.springframework.context.annotation.Import;
+import cn.herodotus.engine.cache.jetcache.autoconfigure.CacheJetCacheAutoConfiguration;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 
 import java.lang.annotation.*;
 
@@ -30,6 +30,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(CacheJetCacheAutoConfiguration.class)
+@ImportAutoConfiguration(CacheJetCacheAutoConfiguration.class)
 public @interface EnableHerodotusJetCache {
 }
