@@ -22,6 +22,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -45,6 +46,7 @@ public class Jackson2AutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnBean
     public Jackson2ObjectMapperBuilderCustomizer defaultObjectMapperBuilderCustomizer() {
         Jackson2DefaultObjectMapperBuilderCustomizer customizer = new Jackson2DefaultObjectMapperBuilderCustomizer();
         log.debug("[Herodotus] |- Strategy [Jackson2 Default ObjectMapper Builder Customizer] Auto Configure.");
@@ -57,6 +59,7 @@ public class Jackson2AutoConfiguration {
      * @return MappingJackson2HttpMessageConverter
      */
     @Bean
+    @ConditionalOnBean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
         log.trace("[Herodotus] |- Bean [Jackson2 Http Message Converter] Auto Configure.");
         return new MappingJackson2HttpMessageConverter(objectMapper);

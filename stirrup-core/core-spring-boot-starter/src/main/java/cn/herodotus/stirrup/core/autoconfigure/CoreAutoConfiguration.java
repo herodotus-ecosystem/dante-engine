@@ -25,6 +25,7 @@ import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
@@ -50,6 +51,7 @@ public class CoreAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnBean
     public ErrorCodeMapperBuilderCustomizer standardErrorCodeMapperBuilderCustomizer() {
         StandardErrorCodeMapperBuilderCustomizer customizer = new StandardErrorCodeMapperBuilderCustomizer();
         log.debug("[Herodotus] |- Strategy [Standard ErrorCodeMapper Builder Customizer] Auto Configure.");
@@ -57,6 +59,7 @@ public class CoreAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnBean
     public ErrorCodeMapperBuilder errorCodeMapperBuilder(List<ErrorCodeMapperBuilderCustomizer> customizers) {
         ErrorCodeMapperBuilder builder = new ErrorCodeMapperBuilder();
         customize(builder, customizers);
@@ -71,6 +74,7 @@ public class CoreAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnBean
     public ErrorCodeMapper errorCodeMapper(ErrorCodeMapperBuilder builder) {
         ErrorCodeMapper mapper = builder.build();
         log.debug("[Herodotus] |- Bean [Error Code Mapper] Auto Configure.");

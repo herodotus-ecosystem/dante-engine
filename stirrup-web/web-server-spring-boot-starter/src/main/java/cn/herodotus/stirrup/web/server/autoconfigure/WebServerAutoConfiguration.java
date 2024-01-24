@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.web.server.autoconfigure;
+package cn.herodotus.stirrup.web.server.autoconfigure;
 
-import cn.herodotus.engine.web.server.autoconfigure.configuration.UndertowWebServerFactoryCustomizer;
+import cn.herodotus.stirrup.web.server.autoconfigure.configuration.UndertowWebServerFactoryCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +24,10 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 /**
- * <p>Description: Web 自动配置 </p>
+ * <p>Description: 基础 Web 服务器 Starter 自动配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/14 15:43
+ * @date : 2024/1/24 13:39
  */
 @AutoConfiguration
 @Import({
@@ -39,6 +39,6 @@ public class WebServerAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Web Server Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Web Server] Auto Configure.");
     }
 }

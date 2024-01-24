@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.web.server.autoconfigure.configuration;
+package cn.herodotus.stirrup.web.server.autoconfigure.configuration;
 
 import io.undertow.server.DefaultByteBufferPool;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;

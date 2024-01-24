@@ -31,7 +31,7 @@
 
     <modules>
         <module>webflux-server-spring-boot-starter</module>
-        <module>web-spring-boot-starter</module>
+        <module>web-server-spring-boot-starter</module>
     </modules>
 
 </project>
