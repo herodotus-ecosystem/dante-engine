@@ -47,7 +47,6 @@ public class OAuth2ResourceServerConfigurerCustomer implements Customizer<OAuth2
         this.jwtDecoder = jwtDecoder;
         this.authorizationProperties = authorizationProperties;
         this.opaqueTokenIntrospector = new HerodotusOpaqueTokenIntrospector(resourceServerProperties);
-        ;
     }
 
     private boolean isRemoteValidate() {

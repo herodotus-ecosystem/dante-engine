@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.autoconfigure;
+package cn.herodotus.stirrup.core.autoconfigure;
 
-import cn.herodotus.engine.assistant.autoconfigure.customizer.Jackson2DefaultObjectMapperBuilderCustomizer;
+import cn.herodotus.stirrup.core.autoconfigure.customizer.Jackson2DefaultObjectMapperBuilderCustomizer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;

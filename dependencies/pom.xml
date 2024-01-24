@@ -197,6 +197,12 @@
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${spring-boot-admin.version}</version>
             </dependency>
+            <!--Dante Reactive-->
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>core-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!--Dante Engine-->
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>

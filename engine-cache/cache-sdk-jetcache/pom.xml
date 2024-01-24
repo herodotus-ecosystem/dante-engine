@@ -32,8 +32,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-spring-boot-starter</artifactId>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>core-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>

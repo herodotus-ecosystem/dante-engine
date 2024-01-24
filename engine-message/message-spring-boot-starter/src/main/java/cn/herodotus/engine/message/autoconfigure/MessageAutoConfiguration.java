@@ -20,6 +20,7 @@ import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderC
 import cn.herodotus.engine.message.autoconfigure.customizer.MessageErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.message.mqtt.annotation.EnableHerodotusMqtt;
 import cn.herodotus.engine.message.websocket.annotation.EnableHerodotusWebSocket;
+import cn.herodotus.stirrup.core.autoconfigure.Jackson2AutoConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ import org.springframework.context.annotation.Bean;
  * @author : gengwei.zheng
  * @date : 2022/2/4 17:08
  */
-@AutoConfiguration
+@AutoConfiguration(after = Jackson2AutoConfiguration.class)
 @EnableHerodotusWebSocket
 @EnableHerodotusMqtt
 public class MessageAutoConfiguration {

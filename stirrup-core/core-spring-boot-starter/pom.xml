@@ -19,26 +19,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <artifactId>engine-assistant</artifactId>
-        <groupId>cn.herodotus.engine</groupId>
+        <groupId>cn.herodotus.stirrup</groupId>
+        <artifactId>stirrup-core</artifactId>
         <version>3.3.0.0-M1</version>
     </parent>
 
-    <artifactId>assistant-spring-boot-starter</artifactId>
-
-    <description>基于 Spring Authorization Server 的 Dante Cloud Assistant 模块统一 Starter</description>
+    <artifactId>core-spring-boot-starter</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>assistant-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.herodotus.stirrup</groupId>
-            <artifactId>core-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

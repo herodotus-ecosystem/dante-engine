@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.autoconfigure.customizer;
+package cn.herodotus.engine.assistant.core.support;
 
 import com.fasterxml.jackson.databind.Module;
 import org.apache.commons.collections4.CollectionUtils;

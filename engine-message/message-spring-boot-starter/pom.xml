@@ -40,6 +40,11 @@
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>message-sdk-mqtt</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>core-spring-boot-starter</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

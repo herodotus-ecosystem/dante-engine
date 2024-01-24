@@ -1,0 +1,2 @@
+cn.herodotus.stirrup.core.autoconfigure.CoreAutoConfiguration
+cn.herodotus.stirrup.core.autoconfigure.Jackson2AutoConfiguration

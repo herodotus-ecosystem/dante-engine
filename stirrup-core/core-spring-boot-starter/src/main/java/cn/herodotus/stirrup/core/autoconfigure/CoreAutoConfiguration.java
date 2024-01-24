@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.autoconfigure;
+package cn.herodotus.stirrup.core.autoconfigure;
 
-import cn.herodotus.stirrup.core.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.definition.domain.ErrorCodeMapper;
+import cn.herodotus.engine.assistant.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.assistant.definition.support.ErrorCodeMapperBuilder;
+import cn.herodotus.stirrup.core.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;
@@ -31,22 +31,22 @@ import org.springframework.context.annotation.Import;
 import java.util.List;
 
 /**
- * <p>Description: Definition 自动配置 </p>
+ * <p>Description: 核心基础模块统一 Starter </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/13 20:00
+ * @date : 2024/1/23 22:10
  */
 @AutoConfiguration
 @Import({
         SpringUtil.class,
 })
-public class AssistantAutoConfiguration {
+public class CoreAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(AssistantAutoConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(CoreAutoConfiguration.class);
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Assistant Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Core] Auto Configure.");
     }
 
     @Bean
@@ -60,7 +60,7 @@ public class AssistantAutoConfiguration {
     public ErrorCodeMapperBuilder errorCodeMapperBuilder(List<ErrorCodeMapperBuilderCustomizer> customizers) {
         ErrorCodeMapperBuilder builder = new ErrorCodeMapperBuilder();
         customize(builder, customizers);
-        log.debug("[Herodotus] |- Bean [ErrorCodeMapper Builder] Auto Configure.");
+        log.debug("[Herodotus] |- Bean [Error Code Mapper Builder] Auto Configure.");
         return builder;
     }
 
@@ -73,7 +73,7 @@ public class AssistantAutoConfiguration {
     @Bean
     public ErrorCodeMapper errorCodeMapper(ErrorCodeMapperBuilder builder) {
         ErrorCodeMapper mapper = builder.build();
-        log.debug("[Herodotus] |- Bean [ErrorCodeMapper] Auto Configure.");
+        log.debug("[Herodotus] |- Bean [Error Code Mapper] Auto Configure.");
         return mapper;
     }
 }

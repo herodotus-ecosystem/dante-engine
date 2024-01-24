@@ -113,7 +113,6 @@ public class OAuth2AuthorizationConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnBean(OAuth2ResourceServerConfigurerCustomer.class)
     public BearerTokenResolver bearerTokenResolver(OAuth2ResourceServerConfigurerCustomer oauth2ResourceServerConfigurerCustomer) {
         BearerTokenResolver bearerTokenResolver = oauth2ResourceServerConfigurerCustomer.createBearerTokenResolver();
         log.trace("[Herodotus] |- Bean [Bearer Token Resolver] Auto Configure.");

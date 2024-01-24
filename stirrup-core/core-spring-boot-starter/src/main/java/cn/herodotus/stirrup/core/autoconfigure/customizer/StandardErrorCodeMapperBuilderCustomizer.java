@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.autoconfigure.customizer;
+package cn.herodotus.stirrup.core.autoconfigure.customizer;
 
 import cn.herodotus.engine.assistant.definition.constants.ErrorCodeMapperBuilderOrdered;
 import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;

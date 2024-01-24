@@ -105,6 +105,8 @@
         <module>engine-facility</module>
         <module>engine-access</module>
         <module>engine-supplier</module>
+        <module>stirrup-core</module>
+        <module>stirrup-web</module>
     </modules>
 
 </project>

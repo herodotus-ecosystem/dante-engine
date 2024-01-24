@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.assistant.autoconfigure.customizer;
+package cn.herodotus.stirrup.core.autoconfigure.customizer;
 
 import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2CustomizerOrder;
 import cn.herodotus.engine.assistant.core.json.jackson2.modules.EncapsulationClassJackson2Module;
+import cn.herodotus.engine.assistant.core.support.BaseObjectMapperBuilderCustomizer;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.DeserializationFeature;
