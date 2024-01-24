@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.data.core.entity;
 
-import cn.herodotus.engine.assistant.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.definition.domain.base.AbstractEntity;
+import cn.herodotus.stirrup.core.definition.constants.DefaultConstants;
+import cn.herodotus.stirrup.core.definition.domain.base.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;

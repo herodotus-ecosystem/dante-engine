@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.constants;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: Upms 模块常量 </p>

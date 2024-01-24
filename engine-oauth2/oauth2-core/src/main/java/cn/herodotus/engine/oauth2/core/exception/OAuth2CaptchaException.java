@@ -16,10 +16,10 @@
 
 package cn.herodotus.engine.oauth2.core.exception;
 
-import cn.herodotus.engine.assistant.definition.constants.ErrorCodes;
-import cn.herodotus.engine.assistant.definition.exception.HerodotusException;
-import cn.herodotus.engine.assistant.definition.domain.Feedback;
-import cn.herodotus.engine.assistant.definition.domain.Result;
+import cn.herodotus.stirrup.core.definition.constants.ErrorCodes;
+import cn.herodotus.stirrup.core.definition.exception.HerodotusException;
+import cn.herodotus.stirrup.core.definition.domain.Feedback;
+import cn.herodotus.stirrup.core.definition.domain.Result;
 import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.core.Authentication;
 

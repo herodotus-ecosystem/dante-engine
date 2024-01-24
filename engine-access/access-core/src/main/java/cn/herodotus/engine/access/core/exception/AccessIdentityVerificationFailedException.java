@@ -17,8 +17,8 @@
 package cn.herodotus.engine.access.core.exception;
 
 import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
-import cn.herodotus.engine.assistant.definition.domain.Feedback;
-import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
+import cn.herodotus.stirrup.core.definition.domain.Feedback;
+import cn.herodotus.stirrup.core.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: 接入身份认证错误 </p>

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.assistant.core.support;
 
-import cn.herodotus.engine.assistant.definition.domain.oauth2.PrincipalDetails;
+import cn.herodotus.stirrup.core.definition.domain.secure.PrincipalDetails;
 
 /**
  * <p>Description: 身份信息解析器 </p>

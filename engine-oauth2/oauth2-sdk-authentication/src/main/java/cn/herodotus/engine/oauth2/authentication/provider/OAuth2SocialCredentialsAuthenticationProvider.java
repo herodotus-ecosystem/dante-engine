@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.definition.domain.oauth2.AccessPrincipal;
+import cn.herodotus.stirrup.core.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.core.definition.domain.secure.AccessPrincipal;
 import cn.herodotus.engine.oauth2.authentication.properties.OAuth2AuthenticationProperties;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2AuthenticationProviderUtils;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;

@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.rest.protect.crypto.processor;
 
-import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.definition.domain.oauth2.SecretKey;
+import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
+import cn.herodotus.stirrup.core.definition.domain.secure.SecretKey;
 import cn.herodotus.engine.rest.core.definition.crypto.AsymmetricCryptoProcessor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;

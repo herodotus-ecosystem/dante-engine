@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.core.constants;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.core.definition.constants.BaseConstants;
 
 /**
  * <p>Description: 数据常量 </p>

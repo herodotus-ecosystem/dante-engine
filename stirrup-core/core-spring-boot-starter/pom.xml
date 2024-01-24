@@ -27,6 +27,8 @@
 
     <artifactId>core-spring-boot-starter</artifactId>
 
+    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库核心组件统一 Starter 模块</description>
+
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.engine</groupId>

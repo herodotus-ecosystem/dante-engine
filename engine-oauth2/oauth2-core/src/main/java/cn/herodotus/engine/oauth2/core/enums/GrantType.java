@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.core.enums;
 
-import cn.herodotus.engine.assistant.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.definition.enums.BaseUiEnum;
+import cn.herodotus.stirrup.core.definition.constants.BaseConstants;
+import cn.herodotus.stirrup.core.definition.enums.BaseUiEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.ImmutableMap;
 import io.swagger.v3.oas.annotations.media.Schema;

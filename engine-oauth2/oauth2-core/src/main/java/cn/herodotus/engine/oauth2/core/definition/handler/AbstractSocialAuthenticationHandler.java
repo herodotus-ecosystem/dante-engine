@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.core.definition.handler;
 
 import cn.herodotus.engine.access.core.exception.AccessIdentityVerificationFailedException;
-import cn.herodotus.engine.assistant.definition.domain.oauth2.AccessPrincipal;
+import cn.herodotus.stirrup.core.definition.domain.secure.AccessPrincipal;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusUser;
 import cn.herodotus.engine.oauth2.core.definition.domain.SocialUserDetails;
 import cn.herodotus.engine.oauth2.core.exception.SocialCredentialsUserBindingFailedException;

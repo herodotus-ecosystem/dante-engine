@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.core.service;
 
-import cn.herodotus.engine.assistant.definition.domain.base.Entity;
+import cn.herodotus.stirrup.core.definition.domain.base.Entity;
 
 import java.io.Serializable;
 import java.util.List;

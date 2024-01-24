@@ -32,8 +32,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-definition</artifactId>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>core-definition</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>

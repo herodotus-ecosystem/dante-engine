@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.websocket.domain;
 
-import cn.herodotus.engine.assistant.definition.domain.oauth2.PrincipalDetails;
+import cn.herodotus.stirrup.core.definition.domain.secure.PrincipalDetails;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 

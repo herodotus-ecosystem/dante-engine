@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.rest.service.feign;
 
-import cn.herodotus.engine.assistant.definition.domain.Result;
-import cn.herodotus.engine.assistant.definition.exception.PlatformRuntimeException;
+import cn.herodotus.stirrup.core.definition.domain.Result;
+import cn.herodotus.stirrup.core.definition.exception.PlatformRuntimeException;
 
 /**
  * <p>Description: Feign Fallback 错误统一封装器 </p>
