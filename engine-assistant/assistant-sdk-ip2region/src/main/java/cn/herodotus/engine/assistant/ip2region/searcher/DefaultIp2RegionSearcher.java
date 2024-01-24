@@ -17,7 +17,7 @@
 package cn.herodotus.engine.assistant.ip2region.searcher;
 
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.utils.ResourceUtils;
+import cn.herodotus.stirrup.core.foundation.utils.ResourceUtils;
 import cn.herodotus.engine.assistant.ip2region.definition.Ip2RegionSearcher;
 import cn.herodotus.engine.assistant.ip2region.domain.IpLocation;
 import cn.herodotus.engine.assistant.ip2region.exception.SearchIpLocationException;

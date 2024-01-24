@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.authorization.introspector;
 
 import cn.herodotus.stirrup.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
+import cn.herodotus.stirrup.core.foundation.context.ServiceContextHolder;
 import cn.herodotus.engine.oauth2.core.definition.domain.HerodotusGrantedAuthority;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;

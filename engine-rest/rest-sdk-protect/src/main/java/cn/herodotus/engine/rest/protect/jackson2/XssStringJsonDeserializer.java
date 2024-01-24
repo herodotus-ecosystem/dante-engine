@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.protect.jackson2;
 
-import cn.herodotus.engine.assistant.core.utils.protect.XssUtils;
+import cn.herodotus.stirrup.core.foundation.utils.protect.XssUtils;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;

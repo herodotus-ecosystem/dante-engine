@@ -141,7 +141,7 @@ dante-engine
 ├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
 ├── stirrup-core -- 基础核心相关模块
 ├    ├── core-definition -- 核心定义模块
-├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
+├    ├── core-foundation -- 基础通用模块
 ├    └── core-spring-boot-starter -- 基础核心相关模块统一自动配置 Starter
 └──  readme -- README 相关素材放置目录
 ```

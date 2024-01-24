@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.data.jpa.jackson2;
 
-import cn.herodotus.engine.assistant.core.json.jackson2.Jackson2Constants;
+import cn.herodotus.stirrup.core.foundation.json.jackson2.Jackson2Constants;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;

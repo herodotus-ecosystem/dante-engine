@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.rest.protect.secure.interceptor;
 
-import cn.herodotus.engine.assistant.core.utils.protect.XssUtils;
+import cn.herodotus.stirrup.core.foundation.utils.protect.XssUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import org.apache.commons.lang3.ArrayUtils;

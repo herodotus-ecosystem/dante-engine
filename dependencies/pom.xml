@@ -205,6 +205,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>core-foundation</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>core-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>

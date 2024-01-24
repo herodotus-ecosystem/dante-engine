@@ -10,7 +10,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.autoconfigure.status;
 
-import cn.herodotus.engine.assistant.core.context.ServiceContextHolder;
+import cn.herodotus.stirrup.core.foundation.context.ServiceContextHolder;
 import cn.herodotus.engine.message.core.logic.strategy.AccountStatusEventManager;
 import cn.herodotus.engine.message.core.logic.domain.UserStatus;
 import cn.herodotus.engine.message.core.logic.event.ChangeUserStatusEvent;

@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.message.websocket.interceptor;
 
-import cn.herodotus.engine.assistant.core.support.BearerTokenResolver;
+import cn.herodotus.stirrup.core.foundation.support.BearerTokenResolver;
 import cn.herodotus.stirrup.core.definition.constants.BaseConstants;
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
 import cn.herodotus.stirrup.core.definition.domain.secure.PrincipalDetails;

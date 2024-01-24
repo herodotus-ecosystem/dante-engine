@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authorization.properties;
 
-import cn.herodotus.engine.assistant.core.enums.Target;
+import cn.herodotus.stirrup.core.foundation.enums.Target;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2Constants;
 import cn.herodotus.engine.oauth2.core.enums.Certificate;
 import com.google.common.base.MoreObjects;

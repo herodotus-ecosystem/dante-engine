@@ -41,7 +41,7 @@ public class Jackson2AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Jackson2] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Core Jackson2] Auto Configure.");
     }
 
     @Bean
@@ -64,13 +64,9 @@ public class Jackson2AutoConfiguration {
 
     @Configuration(proxyBeanMethods = false)
     @ComponentScan({
-            "cn.herodotus.engine.assistant.core.json.jackson2.utils"
+            "cn.herodotus.stirrup.core.foundation.json.jackson2.utils"
     })
     static class JacksonUtilsConfiguration {
 
-        @PostConstruct
-        public void postConstruct() {
-            log.debug("[Herodotus] |- SDK [Assistant Jackson2 Utils] Auto Configure.");
-        }
     }
 }

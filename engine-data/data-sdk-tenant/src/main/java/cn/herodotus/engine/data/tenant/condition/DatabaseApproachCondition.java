@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.tenant.condition;
 
-import cn.herodotus.engine.assistant.core.context.PropertyResolver;
+import cn.herodotus.stirrup.core.foundation.context.PropertyResolver;
 import cn.herodotus.engine.data.core.constants.DataConstants;
 import cn.herodotus.engine.data.core.enums.MultiTenantApproach;
 import org.apache.commons.lang3.StringUtils;

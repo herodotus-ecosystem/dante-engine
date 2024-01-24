@@ -16,10 +16,10 @@
 
 package cn.herodotus.stirrup.core.autoconfigure;
 
+import cn.herodotus.stirrup.core.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.stirrup.core.definition.domain.ErrorCodeMapper;
 import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.stirrup.core.definition.support.ErrorCodeMapperBuilder;
-import cn.herodotus.stirrup.core.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;

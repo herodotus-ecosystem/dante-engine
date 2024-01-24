@@ -17,8 +17,8 @@
 package cn.herodotus.engine.oauth2.data.jpa.definition.domain;
 
 import cn.herodotus.stirrup.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.CommaDelimitedStringToSetSerializer;
-import cn.herodotus.engine.assistant.core.json.jackson2.deserializer.SetToCommaDelimitedStringDeserializer;
+import cn.herodotus.stirrup.core.foundation.json.jackson2.deserializer.CommaDelimitedStringToSetSerializer;
+import cn.herodotus.stirrup.core.foundation.json.jackson2.deserializer.SetToCommaDelimitedStringDeserializer;
 import cn.herodotus.engine.data.core.entity.BaseSysEntity;
 import cn.herodotus.engine.oauth2.core.definition.domain.RegisteredClientDetails;
 import com.fasterxml.jackson.annotation.JsonFormat;

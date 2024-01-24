@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.authorization.customizer;
 
-import cn.herodotus.engine.assistant.core.support.BearerTokenResolver;
-import cn.herodotus.engine.assistant.core.enums.Target;
+import cn.herodotus.stirrup.core.foundation.support.BearerTokenResolver;
+import cn.herodotus.stirrup.core.foundation.enums.Target;
 import cn.herodotus.engine.oauth2.authorization.converter.HerodotusJwtAuthenticationConverter;
 import cn.herodotus.engine.oauth2.authorization.introspector.HerodotusOpaqueTokenIntrospector;
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;

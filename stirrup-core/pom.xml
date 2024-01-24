@@ -32,6 +32,7 @@
     <modules>
         <module>core-spring-boot-starter</module>
         <module>core-definition</module>
+        <module>core-foundation</module>
     </modules>
 
 </project>
