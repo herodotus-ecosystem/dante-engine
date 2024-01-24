@@ -21,6 +21,7 @@ import cn.herodotus.engine.message.core.logic.strategy.RequestMappingScanEventMa
 import cn.herodotus.engine.message.core.logic.domain.RequestMapping;
 import cn.herodotus.engine.rest.condition.constants.RestPropertyFinder;
 import cn.herodotus.engine.rest.condition.properties.ScanProperties;
+import cn.herodotus.stirrup.web.core.support.WebPropertyFinder;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.collections4.CollectionUtils;
@@ -75,7 +76,7 @@ public class RequestMappingScanner implements ApplicationListener<ApplicationRea
 
     public void onApplicationEvent(ApplicationContext applicationContext) {
         // 1、获取服务ID：该服务ID对于微服务是必需的。
-        String serviceId = RestPropertyFinder.getApplicationName(applicationContext);
+        String serviceId = WebPropertyFinder.getApplicationName(applicationContext);
 
         // 2、只针对有EnableResourceServer注解的微服务进行扫描。如果变为单体架构目前不会用到EnableResourceServer所以增加的了一个Architecture判断
         if (!requestMappingScanStrategyEvent.isPerformScan()) {

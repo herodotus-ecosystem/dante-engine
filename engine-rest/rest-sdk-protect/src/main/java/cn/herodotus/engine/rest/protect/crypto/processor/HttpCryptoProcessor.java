@@ -22,7 +22,7 @@ import cn.herodotus.engine.cache.jetcache.stamp.AbstractStampManager;
 import cn.herodotus.engine.rest.condition.constants.RestConstants;
 import cn.herodotus.engine.rest.core.definition.crypto.AsymmetricCryptoProcessor;
 import cn.herodotus.engine.rest.core.definition.crypto.SymmetricCryptoProcessor;
-import cn.herodotus.engine.rest.core.exception.SessionInvalidException;
+import cn.herodotus.stirrup.web.core.exception.SessionInvalidException;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dromara.hutool.core.data.id.IdUtil;

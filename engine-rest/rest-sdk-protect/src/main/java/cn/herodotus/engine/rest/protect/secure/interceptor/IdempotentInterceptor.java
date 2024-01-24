@@ -18,7 +18,7 @@ package cn.herodotus.engine.rest.protect.secure.interceptor;
 
 import cn.herodotus.engine.rest.core.annotation.Idempotent;
 import cn.herodotus.engine.rest.core.definition.AbstractBaseHandlerInterceptor;
-import cn.herodotus.engine.rest.core.exception.RepeatSubmissionException;
+import cn.herodotus.stirrup.web.core.exception.RepeatSubmissionException;
 import cn.herodotus.engine.rest.protect.secure.stamp.IdempotentStampManager;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

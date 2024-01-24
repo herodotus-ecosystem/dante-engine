@@ -32,6 +32,11 @@
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>rest-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>web-module-conditional</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

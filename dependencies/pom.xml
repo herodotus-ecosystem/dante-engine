@@ -215,12 +215,37 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>web-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>web-module-conditional</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>web-module-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>web-server-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>web-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>webflux-server-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>webflux-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--Dante Engine-->
@@ -457,11 +482,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>rest-sdk-protect</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>rest-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

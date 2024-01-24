@@ -32,6 +32,11 @@
     <modules>
         <module>webflux-server-spring-boot-starter</module>
         <module>web-server-spring-boot-starter</module>
+        <module>web-module-service</module>
+        <module>web-spring-boot-starter</module>
+        <module>webflux-spring-boot-starter</module>
+        <module>web-core</module>
+        <module>web-module-conditional</module>
     </modules>
 
 </project>

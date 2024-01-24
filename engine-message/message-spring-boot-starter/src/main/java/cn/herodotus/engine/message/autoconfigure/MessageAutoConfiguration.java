@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Bean;
  * @author : gengwei.zheng
  * @date : 2022/2/4 17:08
  */
-@AutoConfiguration(after = Jackson2AutoConfiguration.class)
+@AutoConfiguration
 @EnableHerodotusWebSocket
 @EnableHerodotusMqtt
 public class MessageAutoConfiguration {

@@ -33,7 +33,6 @@
         <module>rest-core</module>
         <module>rest-sdk-protect</module>
         <module>rest-sdk-service</module>
-        <module>rest-spring-boot-starter</module>
         <module>rest-sdk-condition</module>
     </modules>
 

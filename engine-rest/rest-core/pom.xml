@@ -33,6 +33,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>web-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>message-core</artifactId>
         </dependency>

@@ -1,0 +1,5 @@
+cn.herodotus.stirrup.web.autoconfigure.WebAutoConfiguration
+cn.herodotus.stirrup.web.autoconfigure.WebServletAutoConfiguration
+cn.herodotus.stirrup.web.autoconfigure.WebCryptoAutoConfiguration
+cn.herodotus.stirrup.web.autoconfigure.RestTemplateAutoConfiguration
+cn.herodotus.stirrup.web.autoconfigure.RestServiceAutoConfiguration

@@ -1,0 +1,2 @@
+cn.herodotus.stirrup.webflux.autoconfigure.WebFluxAutoConfiguration
+cn.herodotus.stirrup.webflux.autoconfigure.WebReactiveAutoConfiguration
