@@ -31,7 +31,6 @@
 
     <modules>
         <module>assistant-core</module>
-        <module>assistant-spring-boot-starter</module>
         <module>assistant-sdk-ip2region</module>
         <module>assistant-definition</module>
     </modules>
