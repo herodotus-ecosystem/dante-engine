@@ -42,7 +42,7 @@ public class HutoolCaptchaAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Module [Hutool Captcha] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Captcha Hutool] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.HUTOOL_LINE_CAPTCHA)

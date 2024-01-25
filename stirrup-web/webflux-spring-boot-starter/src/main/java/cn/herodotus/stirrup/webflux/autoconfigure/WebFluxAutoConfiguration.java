@@ -16,13 +16,11 @@
 
 package cn.herodotus.stirrup.webflux.autoconfigure;
 
-import cn.herodotus.stirrup.core.definition.constants.ConfigureOrdered;
 import cn.herodotus.stirrup.web.service.configuration.WebServiceConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -35,7 +33,6 @@ import org.springframework.context.annotation.Import;
 @Import({
         WebServiceConfiguration.class
 })
-@AutoConfigureOrder(ConfigureOrdered.WEBFLUX_STARTER)
 public class WebFluxAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(WebFluxAutoConfiguration.class);

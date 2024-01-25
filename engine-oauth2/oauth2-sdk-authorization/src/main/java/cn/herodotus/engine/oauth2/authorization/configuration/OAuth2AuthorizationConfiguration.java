@@ -27,6 +27,7 @@ import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSource
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
 import cn.herodotus.stirrup.web.autoconfigure.WebAutoConfiguration;
+import cn.herodotus.stirrup.web.service.configuration.WebServiceConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -47,7 +49,7 @@ import org.springframework.web.servlet.resource.ResourceUrlProvider;
  * @author : gengwei.zheng
  * @date : 2022/1/23 15:42
  */
-@AutoConfiguration(after = WebAutoConfiguration.class)
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({OAuth2AuthorizationProperties.class})
 @EnableMethodSecurity(proxyTargetClass = true)
 @Import({

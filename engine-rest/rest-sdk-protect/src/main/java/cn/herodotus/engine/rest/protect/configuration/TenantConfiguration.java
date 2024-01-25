@@ -37,7 +37,7 @@ public class TenantConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Protect Tenant] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Protect Tenant] Auto Configure.");
     }
 
     @Bean

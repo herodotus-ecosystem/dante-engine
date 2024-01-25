@@ -17,7 +17,6 @@
 package cn.herodotus.stirrup.core.autoconfigure;
 
 import cn.herodotus.stirrup.core.autoconfigure.customizer.StandardErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.stirrup.core.definition.constants.ConfigureOrdered;
 import cn.herodotus.stirrup.core.definition.domain.ErrorCodeMapper;
 import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.stirrup.core.definition.support.ErrorCodeMapperBuilder;
@@ -26,10 +25,8 @@ import org.dromara.hutool.extra.spring.SpringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.Ordered;
 
 import java.util.List;
 
@@ -43,7 +40,6 @@ import java.util.List;
 @Import({
         SpringUtil.class,
 })
-@AutoConfigureOrder(ConfigureOrdered.HIGHEST_PRECEDENCE)
 public class CoreAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(CoreAutoConfiguration.class);

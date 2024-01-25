@@ -59,7 +59,7 @@ public class CacheJetCacheAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Cache JetCache] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Cache JetCache] Auto Configure.");
     }
 
     @Bean

@@ -17,14 +17,13 @@
 package cn.herodotus.stirrup.web.autoconfigure;
 
 import cn.herodotus.stirrup.core.autoconfigure.CoreAutoConfiguration;
-import cn.herodotus.stirrup.core.definition.constants.ConfigureOrdered;
 import cn.herodotus.stirrup.web.service.configuration.WebServiceConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -33,11 +32,10 @@ import org.springframework.context.annotation.Import;
  * @author : gengwei.zheng
  * @date : 2024/1/24 16:12
  */
-@AutoConfiguration(after = {WebMvcAutoConfiguration.class, CoreAutoConfiguration.class})
+@AutoConfiguration(before = WebMvcAutoConfiguration.class, after = ErrorMvcAutoConfiguration.class)
 @Import({
         WebServiceConfiguration.class
 })
-@AutoConfigureOrder(ConfigureOrdered.WEB_STARTER)
 public class WebAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(WebAutoConfiguration.class);

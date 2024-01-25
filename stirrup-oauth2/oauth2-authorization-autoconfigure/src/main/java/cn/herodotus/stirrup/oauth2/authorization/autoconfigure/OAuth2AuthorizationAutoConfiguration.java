@@ -26,13 +26,13 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.bus.ServiceMatcher;
 import org.springframework.cloud.bus.jackson.RemoteApplicationEventScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -44,12 +44,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @AutoConfiguration
 @EnableAsync
 @EnableAspectJAutoProxy(exposeProxy = true, proxyTargetClass = true)
-@Import({
+@ImportAutoConfiguration({
         OAuth2AuthorizationConfiguration.class
 })
 @ComponentScan(basePackageClasses = SecurityGlobalExceptionHandler.class)
 @RemoteApplicationEventScan({
-        "cn.herodotus.engine.oauth2.resource.autoconfigure.bus"
+        "cn.herodotus.stirrup.oauth2.authorization.autoconfigure.bus"
 })
 public class OAuth2AuthorizationAutoConfiguration {
 

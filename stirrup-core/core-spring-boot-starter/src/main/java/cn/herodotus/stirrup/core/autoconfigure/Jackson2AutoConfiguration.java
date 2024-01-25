@@ -42,7 +42,7 @@ public class Jackson2AutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Module [Jackson2] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Core Jackson2] Auto Configure.");
     }
 
     @Bean

@@ -40,7 +40,7 @@ public class Ip2RegionConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- SDK [Ip2Region] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Ip2Region] Auto Configure.");
     }
 
     @Bean

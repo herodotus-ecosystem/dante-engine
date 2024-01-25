@@ -18,18 +18,13 @@ package cn.herodotus.stirrup.web.service.initializer;
 
 import cn.herodotus.stirrup.core.foundation.context.ServiceContextHolder;
 import cn.herodotus.stirrup.core.foundation.utils.WellFormedUtils;
-import cn.herodotus.stirrup.web.core.support.WebPropertyFinder;
 import cn.herodotus.stirrup.web.service.properties.EndpointProperties;
 import cn.herodotus.stirrup.web.service.properties.PlatformProperties;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 /**
  * <p>Description: ServiceContextHolder 构建器 </p>
@@ -37,36 +32,44 @@ import org.springframework.context.ApplicationContextAware;
  * @author : gengwei.zheng
  * @date : 2024/1/24 17:24
  */
-public class ServiceContextHolderBuilder implements ApplicationContextAware, InitializingBean {
+public class ServiceContextHolderBuilder {
 
     private static final Logger log = LoggerFactory.getLogger(ServiceContextHolderBuilder.class);
 
-    private final PlatformProperties platformProperties;
-    private final EndpointProperties endpointProperties;
-    private final ServerProperties serverProperties;
+    private PlatformProperties platformProperties;
+    private EndpointProperties endpointProperties;
+    private ServerProperties serverProperties;
 
-    public ServiceContextHolderBuilder(PlatformProperties platformProperties, EndpointProperties endpointProperties, ServerProperties serverProperties) {
+    private ServiceContextHolderBuilder() {
+
+    }
+
+    public static ServiceContextHolderBuilder builder() {
+        return new ServiceContextHolderBuilder();
+    }
+
+    public ServiceContextHolderBuilder platformProperties(PlatformProperties platformProperties) {
         this.platformProperties = platformProperties;
+        return this;
+    }
+
+    public ServiceContextHolderBuilder endpointProperties(EndpointProperties endpointProperties) {
         this.endpointProperties = endpointProperties;
+        return this;
+    }
+
+    public ServiceContextHolderBuilder serverProperties(ServerProperties serverProperties) {
         this.serverProperties = serverProperties;
+        return this;
     }
 
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        ServiceContextHolder serviceContextHolder = ServiceContextHolder.getInstance();
-        toServiceContextHolder(platformProperties, serviceContextHolder);
-        toServiceContextHolder(endpointProperties, serviceContextHolder, serviceContextHolder.isDistributedArchitecture());
-        serviceContextHolder.setPort(String.valueOf(this.getPort()));
-        serviceContextHolder.setIp(getHostAddress());
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        ServiceContextHolder serviceContextHolder = ServiceContextHolder.getInstance();
-        serviceContextHolder.setApplicationContext(applicationContext);
-        serviceContextHolder.setApplicationName(WebPropertyFinder.getApplicationName(applicationContext));
-        log.debug("[Herodotus] |- HERODOTUS ApplicationContext initialization completed.");
+    public ServiceContextHolder build() {
+        ServiceContextHolder holder = ServiceContextHolder.getInstance();
+        toServiceContextHolder(platformProperties, holder);
+        toServiceContextHolder(endpointProperties, holder, holder.isDistributedArchitecture());
+        holder.setPort(String.valueOf(this.getPort()));
+        holder.setIp(getHostAddress());
+        return holder;
     }
 
     private String getHostAddress() {

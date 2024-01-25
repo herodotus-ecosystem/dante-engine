@@ -39,7 +39,7 @@ public class GraphicCaptchaAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.debug("[Herodotus] |- Module [Graphic Captcha] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Captcha Graphic] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.ARITHMETIC_CAPTCHA)
