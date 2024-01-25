@@ -102,7 +102,6 @@
         <module>engine-captcha</module>
         <module>engine-message</module>
         <module>engine-oauth2</module>
-        <module>engine-facility</module>
         <module>engine-access</module>
         <module>engine-supplier</module>
         <module>stirrup-core</module>
@@ -113,7 +112,7 @@
         <module>stirrup-data</module>
         <module>stirrup-facility</module>
         <module>stirrup-message</module>
-        <module>sitrrup-oauth2</module>
+        <module>stirrup-oauth2</module>
     </modules>
 
 </project>

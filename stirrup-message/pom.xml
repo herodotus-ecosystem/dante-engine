@@ -27,6 +27,12 @@
 
     <groupId>cn.herodotus.stirrup</groupId>
     <artifactId>stirrup-message</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>message-dd-kafka-spring-boot-starter</module>
+        <module>message-dd-rabbitmq-spring-boot-starter</module>
+        <module>message-dd-spring-boot-starter</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

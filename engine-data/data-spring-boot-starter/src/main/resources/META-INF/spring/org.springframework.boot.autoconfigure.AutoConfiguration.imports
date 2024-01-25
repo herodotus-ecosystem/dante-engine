@@ -1,3 +1,0 @@
-cn.herodotus.engine.data.autoconfigure.DataAutoConfiguration
-cn.herodotus.engine.data.jpa.autoconfigure.DataJpaAutoConfiguration
-cn.herodotus.engine.data.tenant.autoconfigure.DataTenantAutoConfiguration
