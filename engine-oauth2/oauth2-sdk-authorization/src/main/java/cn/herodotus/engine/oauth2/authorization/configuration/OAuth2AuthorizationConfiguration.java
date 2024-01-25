@@ -26,6 +26,7 @@ import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSource
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceStorage;
 import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
+import cn.herodotus.stirrup.web.autoconfigure.WebAutoConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +47,7 @@ import org.springframework.web.servlet.resource.ResourceUrlProvider;
  * @author : gengwei.zheng
  * @date : 2022/1/23 15:42
  */
-@AutoConfiguration
+@AutoConfiguration(after = WebAutoConfiguration.class)
 @EnableConfigurationProperties({OAuth2AuthorizationProperties.class})
 @EnableMethodSecurity(proxyTargetClass = true)
 @Import({

@@ -16,11 +16,12 @@
 
 package cn.herodotus.engine.message.autoconfigure;
 
-import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.message.autoconfigure.customizer.MessageErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.message.mqtt.annotation.EnableHerodotusMqtt;
 import cn.herodotus.engine.message.websocket.annotation.EnableHerodotusWebSocket;
-import cn.herodotus.stirrup.core.autoconfigure.Jackson2AutoConfiguration;
+import cn.herodotus.engine.oauth2.authorization.configuration.OAuth2AuthorizationConfiguration;
+import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.stirrup.web.autoconfigure.WebAutoConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ import org.springframework.context.annotation.Bean;
  * @author : gengwei.zheng
  * @date : 2022/2/4 17:08
  */
-@AutoConfiguration
+@AutoConfiguration(after = {WebAutoConfiguration.class, OAuth2AuthorizationConfiguration.class})
 @EnableHerodotusWebSocket
 @EnableHerodotusMqtt
 public class MessageAutoConfiguration {
