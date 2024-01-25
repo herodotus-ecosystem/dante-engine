@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.autoconfigure;
+package cn.herodotus.stirrup.captcha.autoconfigure;
 
 import cn.herodotus.engine.captcha.behavior.renderer.JigsawCaptchaRenderer;
 import cn.herodotus.engine.captcha.behavior.renderer.WordClickCaptchaRenderer;
@@ -39,7 +39,7 @@ public class BehaviorCaptchaAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Captcha Behavior] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Behavior Captcha] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.JIGSAW_CAPTCHA)

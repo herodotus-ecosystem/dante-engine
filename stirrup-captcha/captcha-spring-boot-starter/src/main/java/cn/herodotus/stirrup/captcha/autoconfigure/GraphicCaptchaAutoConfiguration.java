@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.autoconfigure;
+package cn.herodotus.stirrup.captcha.autoconfigure;
 
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCategory;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
@@ -39,7 +39,7 @@ public class GraphicCaptchaAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Captcha Graphic] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Graphic Captcha] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.ARITHMETIC_CAPTCHA)

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.autoconfigure;
+package cn.herodotus.stirrup.captcha.autoconfigure;
 
 import cn.herodotus.engine.captcha.core.definition.enums.CaptchaCategory;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
@@ -42,7 +42,7 @@ public class HutoolCaptchaAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Captcha Hutool] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Hutool Captcha] Auto Configure.");
     }
 
     @Bean(CaptchaCategory.HUTOOL_LINE_CAPTCHA)

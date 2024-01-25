@@ -1,0 +1,4 @@
+cn.herodotus.stirrup.captcha.autoconfigure.CaptchaAutoConfiguration
+cn.herodotus.stirrup.captcha.autoconfigure.BehaviorCaptchaAutoConfiguration
+cn.herodotus.stirrup.captcha.autoconfigure.GraphicCaptchaAutoConfiguration
+cn.herodotus.stirrup.captcha.autoconfigure.HutoolCaptchaAutoConfiguration

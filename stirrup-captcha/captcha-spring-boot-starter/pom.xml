@@ -19,17 +19,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <artifactId>engine-captcha</artifactId>
-        <groupId>cn.herodotus.engine</groupId>
+        <groupId>cn.herodotus.stirrup</groupId>
+        <artifactId>stirrup-captcha</artifactId>
         <version>3.3.0.0-M1</version>
     </parent>
 
     <artifactId>captcha-spring-boot-starter</artifactId>
 
-
-    <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
+    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库验证码 Starter</description>
 
     <dependencies>
         <dependency>

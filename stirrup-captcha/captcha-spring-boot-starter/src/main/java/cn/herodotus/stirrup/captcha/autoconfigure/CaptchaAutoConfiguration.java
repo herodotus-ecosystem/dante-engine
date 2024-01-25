@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.autoconfigure;
+package cn.herodotus.stirrup.captcha.autoconfigure;
 
-import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.captcha.autoconfigure.customizer.CaptchaErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.engine.captcha.core.processor.CaptchaRendererFactory;
 import cn.herodotus.engine.captcha.core.properties.CaptchaProperties;
 import cn.herodotus.engine.captcha.core.provider.ResourceProvider;
+import cn.herodotus.stirrup.captcha.autoconfigure.customizer.CaptchaErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +30,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * <p>Description: 验证码自动注入 </p>
+ * <p>Description: TODO </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/18 21:12
+ * @date : 2024/1/25 12:17
  */
 @AutoConfiguration
 @EnableConfigurationProperties(CaptchaProperties.class)
@@ -43,7 +43,7 @@ public class CaptchaAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Captcha Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Captcha] Auto Configure.");
     }
 
     @Bean

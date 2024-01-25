@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.captcha.autoconfigure.customizer;
+package cn.herodotus.stirrup.captcha.autoconfigure.customizer;
 
+import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 import cn.herodotus.stirrup.core.definition.constants.ErrorCodeMapperBuilderOrdered;
 import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.stirrup.core.definition.support.ErrorCodeMapperBuilder;
-import cn.herodotus.engine.captcha.core.constants.CaptchaErrorCodes;
 import org.springframework.core.Ordered;
 
 /**

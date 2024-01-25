@@ -210,6 +210,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>captcha-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>core-definition</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -342,11 +347,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>captcha-sdk-hutool</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>captcha-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
