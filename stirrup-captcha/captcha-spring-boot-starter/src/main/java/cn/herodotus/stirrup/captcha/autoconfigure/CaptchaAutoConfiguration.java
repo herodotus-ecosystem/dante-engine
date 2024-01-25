@@ -30,7 +30,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 /**
- * <p>Description: TODO </p>
+ * <p>Description: 验证码相关模块统一自动配置 </p>
  *
  * @author : gengwei.zheng
  * @date : 2024/1/25 12:17
