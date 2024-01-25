@@ -21,25 +21,31 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.herodotus.stirrup</groupId>
-        <artifactId>stirrup-oauth2</artifactId>
+        <artifactId>stirrup-message</artifactId>
         <version>3.3.0.0-M1</version>
     </parent>
 
-    <artifactId>oauth2-authorization-autoconfigure</artifactId>
+    <artifactId>message-spring-boot-starter</artifactId>
+
+    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库消息事件 Starter</description>
 
     <dependencies>
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>message-sdk-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>message-sdk-mqtt</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>cn.herodotus.stirrup</groupId>
             <artifactId>web-spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>oauth2-sdk-authorization</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.herodotus.stirrup</groupId>
-            <artifactId>message-kafka-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

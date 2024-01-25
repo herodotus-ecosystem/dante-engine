@@ -250,6 +250,21 @@
             </dependency>
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>message-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>message-kafka-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>message-rabbitmq-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>web-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -402,21 +417,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>message-sdk-websocket</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-kafka-spring-boot-starter</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>message-rabbitmq-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
