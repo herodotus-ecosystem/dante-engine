@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.autoconfigure;
+package cn.herodotus.stirrup.cache.autoconfigure;
 
+import cn.herodotus.stirrup.cache.autoconfigure.customizer.CacheErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
-import cn.herodotus.engine.cache.autoconfigure.customizer.CacheErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +25,10 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 /**
- * <p>Description: Cache 配置 </p>
+ * <p>Description: 缓存相关模块统一自动配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/13 22:29
+ * @date : 2024/1/25 12:02
  */
 @AutoConfiguration
 public class CacheAutoConfiguration {
@@ -37,7 +37,7 @@ public class CacheAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Cache Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Cache] Auto Configure.");
     }
 
     @Bean

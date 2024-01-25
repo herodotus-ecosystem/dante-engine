@@ -19,16 +19,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <artifactId>engine-cache</artifactId>
-        <groupId>cn.herodotus.engine</groupId>
+        <groupId>cn.herodotus.stirrup</groupId>
+        <artifactId>stirrup-cache</artifactId>
         <version>3.3.0.0-M1</version>
     </parent>
 
     <artifactId>cache-spring-boot-starter</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Dante Cloud Cache 模块统一 Starter</description>
+    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库缓存 Starter</description>
 
     <dependencies>
         <dependency>
