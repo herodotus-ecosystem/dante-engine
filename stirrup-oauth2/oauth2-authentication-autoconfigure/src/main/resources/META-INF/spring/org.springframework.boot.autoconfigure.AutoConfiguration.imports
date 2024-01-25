@@ -1,1 +1,2 @@
 cn.herodotus.stirrup.oauth2.authentication.autoconfigure.OAuth2AuthenticationAutoConfiguration
+cn.herodotus.stirrup.oauth2.authentication.autoconfigure.TenantDataSourceAutoConfiguration

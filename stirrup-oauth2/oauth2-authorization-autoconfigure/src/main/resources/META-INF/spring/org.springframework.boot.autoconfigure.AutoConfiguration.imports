@@ -1,1 +1,2 @@
 cn.herodotus.stirrup.oauth2.authorization.autoconfigure.OAuth2AuthorizationAutoConfiguration
+cn.herodotus.stirrup.oauth2.authorization.autoconfigure.StreamAdapterAutoConfiguration

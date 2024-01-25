@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.oauth2.resource.autoconfigure;
+package cn.herodotus.stirrup.oauth2.authorization.autoconfigure;
 
-import cn.herodotus.engine.oauth2.resource.autoconfigure.stream.StreamMessageSendingAdapter;
+import cn.herodotus.stirrup.oauth2.authorization.autoconfigure.stream.StreamMessageSendingAdapter;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class StreamAdapterAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Stream Adapter] Auto Configure.");
+        log.debug("[Herodotus] |- Module [Stream Adapter] Auto Configure.");
     }
 
     @Bean

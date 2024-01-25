@@ -8,13 +8,13 @@
  *    Blog and source code availability: <https://gitee.com/herodotus/herodotus-cloud>
  */
 
-package cn.herodotus.engine.oauth2.authorization.autoconfigure.status;
+package cn.herodotus.stirrup.oauth2.authentication.autoconfigure.status;
 
-import cn.herodotus.stirrup.core.foundation.context.ServiceContextHolder;
-import cn.herodotus.engine.message.core.logic.strategy.AccountStatusEventManager;
 import cn.herodotus.engine.message.core.logic.domain.UserStatus;
 import cn.herodotus.engine.message.core.logic.event.ChangeUserStatusEvent;
-import cn.herodotus.engine.oauth2.resource.autoconfigure.bus.RemoteChangeUserStatusEvent;
+import cn.herodotus.engine.message.core.logic.strategy.AccountStatusEventManager;
+import cn.herodotus.stirrup.core.foundation.context.ServiceContextHolder;
+import cn.herodotus.stirrup.oauth2.authorization.autoconfigure.bus.RemoteChangeUserStatusEvent;
 
 /**
  * <p>Description: 用户状态变更处理器 </p>

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.oauth2.authorization.autoconfigure.tenant;
+package cn.herodotus.stirrup.oauth2.authentication.autoconfigure.tenant;
 
-import cn.herodotus.stirrup.core.definition.domain.Result;
 import cn.herodotus.engine.data.core.service.WriteableService;
 import cn.herodotus.engine.data.tenant.entity.SysTenantDataSource;
 import cn.herodotus.engine.rest.core.annotation.AccessLimited;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
+import cn.herodotus.stirrup.core.definition.domain.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

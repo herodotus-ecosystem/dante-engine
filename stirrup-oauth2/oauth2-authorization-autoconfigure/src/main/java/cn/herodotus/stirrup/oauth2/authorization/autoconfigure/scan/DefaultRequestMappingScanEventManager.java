@@ -8,14 +8,14 @@
  *    Blog and source code availability: <https://gitee.com/herodotus/herodotus-cloud>
  */
 
-package cn.herodotus.engine.oauth2.resource.autoconfigure.scan;
+package cn.herodotus.stirrup.oauth2.authorization.autoconfigure.scan;
 
-import cn.herodotus.stirrup.core.foundation.context.ServiceContextHolder;
-import cn.herodotus.engine.message.core.logic.strategy.RequestMappingScanEventManager;
 import cn.herodotus.engine.message.core.logic.domain.RequestMapping;
 import cn.herodotus.engine.message.core.logic.event.RequestMappingGatherEvent;
+import cn.herodotus.engine.message.core.logic.strategy.RequestMappingScanEventManager;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
-import cn.herodotus.engine.oauth2.resource.autoconfigure.bus.RemoteRequestMappingGatherEvent;
+import cn.herodotus.stirrup.core.foundation.context.ServiceContextHolder;
+import cn.herodotus.stirrup.oauth2.authorization.autoconfigure.bus.RemoteRequestMappingGatherEvent;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Component;
 

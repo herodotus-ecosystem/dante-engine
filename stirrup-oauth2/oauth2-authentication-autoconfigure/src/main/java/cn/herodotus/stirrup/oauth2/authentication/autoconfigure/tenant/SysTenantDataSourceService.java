@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.oauth2.authorization.autoconfigure.tenant;
+package cn.herodotus.stirrup.oauth2.authentication.autoconfigure.tenant;
 
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;

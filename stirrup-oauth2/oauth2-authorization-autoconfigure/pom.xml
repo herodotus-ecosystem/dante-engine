@@ -27,6 +27,8 @@
 
     <artifactId>oauth2-authorization-autoconfigure</artifactId>
 
+    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库资源服务器必要组件自动配置模块</description>
+
     <dependencies>
         <dependency>
             <groupId>cn.herodotus.stirrup</groupId>

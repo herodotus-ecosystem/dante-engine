@@ -16,11 +16,39 @@
 
 package cn.herodotus.stirrup.oauth2.authentication.autoconfigure;
 
+import cn.herodotus.engine.message.core.logic.strategy.AccountStatusEventManager;
+import cn.herodotus.engine.oauth2.management.configuration.OAuth2ManagementConfiguration;
+import cn.herodotus.stirrup.oauth2.authentication.autoconfigure.status.DefaultAccountStatusEventManager;
+import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+
 /**
- * <p>Description: TODO </p>
+ * <p>Description: 授权服务器必要组件自动配置 </p>
  *
  * @author : gengwei.zheng
  * @date : 2024/1/25 13:16
  */
+@AutoConfiguration
+@Import({
+        OAuth2ManagementConfiguration.class
+})
 public class OAuth2AuthenticationAutoConfiguration {
+
+    private static final Logger log = LoggerFactory.getLogger(OAuth2AuthenticationAutoConfiguration.class);
+
+    @PostConstruct
+    public void postConstruct() {
+        log.debug("[Herodotus] |- Module [OAuth2 Authorization] Auto Configure.");
+    }
+
+    @Bean
+    public AccountStatusEventManager accountStatusEventManager() {
+        DefaultAccountStatusEventManager manager = new DefaultAccountStatusEventManager();
+        log.trace("[Herodotus] |- Bean [Herodotus Account Status Event Manager] Auto Configure.");
+        return manager;
+    }
 }

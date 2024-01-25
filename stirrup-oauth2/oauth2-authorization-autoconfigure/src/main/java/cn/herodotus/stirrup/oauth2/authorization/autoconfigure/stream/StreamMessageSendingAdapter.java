@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.oauth2.resource.autoconfigure.stream;
+package cn.herodotus.stirrup.oauth2.authorization.autoconfigure.stream;
 
 import cn.herodotus.engine.message.core.definition.MessageSendingAdapter;
 import cn.herodotus.engine.message.core.definition.domain.StreamMessage;
