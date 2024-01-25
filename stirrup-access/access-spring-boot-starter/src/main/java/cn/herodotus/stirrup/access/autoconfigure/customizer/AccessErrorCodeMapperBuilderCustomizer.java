@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.access.autoconfigure.customizer;
+package cn.herodotus.stirrup.access.autoconfigure.customizer;
 
 import cn.herodotus.engine.access.core.constants.AccessErrorCodes;
 import cn.herodotus.stirrup.core.definition.constants.ErrorCodeMapperBuilderOrdered;

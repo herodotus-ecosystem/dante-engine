@@ -107,6 +107,13 @@
         <module>engine-supplier</module>
         <module>stirrup-core</module>
         <module>stirrup-web</module>
+        <module>stirrup-access</module>
+        <module>stirrup-cache</module>
+        <module>stirrup-captcha</module>
+        <module>stirrup-data</module>
+        <module>stirrup-facility</module>
+        <module>stirrup-message</module>
+        <module>sitrrup-oauth2</module>
     </modules>
 
 </project>

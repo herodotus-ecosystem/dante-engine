@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.access.autoconfigure;
+package cn.herodotus.stirrup.access.autoconfigure;
 
 import cn.herodotus.engine.access.all.configuration.AccessAllConfiguration;
-import cn.herodotus.engine.access.autoconfigure.customizer.AccessErrorCodeMapperBuilderCustomizer;
+import cn.herodotus.stirrup.access.autoconfigure.customizer.AccessErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.stirrup.core.definition.function.ErrorCodeMapperBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -26,12 +26,11 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
-
 /**
- * <p>Description: 外部程序接入模块自动配置 </p>
+ * <p>Description: 外部接入相关模块统一自动配置 </p>
  *
  * @author : gengwei.zheng
- * @date : 2022/1/26 16:23
+ * @date : 2024/1/25 11:44
  */
 @AutoConfiguration
 @Import({
@@ -43,7 +42,7 @@ public class AccessAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Access Starter] Auto Configure.");
+        log.info("[Herodotus] |- Starter [Access] Auto Configure.");
     }
 
     @Bean
