@@ -17,7 +17,7 @@
 package cn.herodotus.engine.rest.core.definition;
 
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.assistant.core.utils.http.SessionUtils;
+import cn.herodotus.engine.rest.core.utils.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.dromara.hutool.crypto.SecureUtil;

@@ -27,7 +27,7 @@
 
     <artifactId>webflux-server-spring-boot-starter</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库基础 WebFlux 服务器 Starter</description>
+    <description>Herodotus 软件生态组件库基础 WebFlux 服务器 Starter</description>
 
     <dependencies>
         <dependency>

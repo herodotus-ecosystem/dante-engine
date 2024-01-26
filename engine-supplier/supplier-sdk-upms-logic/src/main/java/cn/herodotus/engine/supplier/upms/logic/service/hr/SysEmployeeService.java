@@ -16,7 +16,6 @@
 
 package cn.herodotus.engine.supplier.upms.logic.service.hr;
 
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysDepartment;
@@ -229,7 +228,7 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
         return this.findByPage(specification, pageable);
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     public SysEmployee authorize(String employeeId) {
         SysEmployee sysEmployee = this.findById(employeeId);
         SysUser sysUser = sysUserService.register(sysEmployee);
@@ -244,14 +243,14 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
         return null;
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(String employeeId) {
         sysOwnershipService.deleteByEmployeeId(employeeId);
         super.deleteById(employeeId);
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     public boolean deployAllocatable(List<SysEmployee> sysEmployees, List<SysOwnership> sysOwnerships) {
         if (CollectionUtils.isNotEmpty(sysEmployees) && CollectionUtils.isNotEmpty(sysOwnerships)) {
             List<SysEmployee> result = sysEmployeeRepository.saveAllAndFlush(sysEmployees);
@@ -264,7 +263,7 @@ public class SysEmployeeService extends BaseService<SysEmployee, String> {
         return false;
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     public boolean removeAllocatable(String organizationId, String departmentId, String employeeId) {
         SysEmployee sysEmployee = super.findById(employeeId);
         if (ObjectUtils.isNotEmpty(sysEmployee)) {

@@ -31,7 +31,7 @@
     <version>3.3.0.0-M1</version>
     <packaging>pom</packaging>
 
-    <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
+    <description>Dante Cloud Dependencies</description>
 
     <url>https://www.herodotus.cn</url>
     <licenses>
@@ -200,6 +200,11 @@
             <!--Dante Reactive-->
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>assistant-module-ip2region</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>access-spring-boot-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -261,6 +266,11 @@
             <dependency>
                 <groupId>cn.herodotus.stirrup</groupId>
                 <artifactId>message-rabbitmq-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.herodotus.stirrup</groupId>
+                <artifactId>oauth2-kernel</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -347,16 +357,6 @@
             <dependency>
                 <groupId>cn.herodotus.engine</groupId>
                 <artifactId>access-sdk-all</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>assistant-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.herodotus.engine</groupId>
-                <artifactId>assistant-sdk-ip2region</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

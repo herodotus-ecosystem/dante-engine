@@ -16,7 +16,6 @@
 
 package cn.herodotus.engine.supplier.upms.logic.service.hr;
 
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.hr.SysDepartment;
@@ -99,7 +98,7 @@ public class SysOrganizationService extends BaseService<SysOrganization, String>
      *
      * @param organizationId 单位ID
      */
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(String organizationId) {
         sysOwnershipService.deleteByOrganizationId(organizationId);

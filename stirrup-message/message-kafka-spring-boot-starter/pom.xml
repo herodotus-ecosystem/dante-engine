@@ -27,7 +27,7 @@
 
     <artifactId>message-kafka-spring-boot-starter</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库基于 Kafka 的消息事件 Starter</description>
+    <description>Herodotus 软件生态组件库基于 Kafka 的消息事件 Starter</description>
 
     <dependencies>
         <dependency>

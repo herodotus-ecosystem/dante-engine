@@ -16,8 +16,6 @@
 
 package cn.herodotus.engine.oauth2.management.service;
 
-import cn.herodotus.engine.assistant.core.enums.Database;
-import cn.herodotus.engine.assistant.core.enums.ServerDevice;
 import cn.herodotus.engine.oauth2.core.enums.*;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +38,6 @@ public class OAuth2ConstantService {
     private static final List<Map<String, Object>> ALL_JWS_ALGORITHM_ENUM = AllJwsAlgorithm.getPreprocessedJsonStructure();
     private static final List<Map<String, Object>> AUTHENTICATION_METHOD_ENUM = AuthenticationMethod.getPreprocessedJsonStructure();
     private static final List<Map<String, Object>> PERMISSION_EXPRESSION_ENUM = PermissionExpression.getPreprocessedJsonStructure();
-    private static final List<Map<String, Object>> DATABASE_ENUM = Database.getPreprocessedJsonStructure();
-    private static final List<Map<String, Object>> SERVER_DEVICE_ENUM = ServerDevice.getPreprocessedJsonStructure();
 
     public Map<String, Object> getAllEnums() {
         Map<String, Object> map = new HashMap<>(8);
@@ -51,8 +47,6 @@ public class OAuth2ConstantService {
         map.put("allJwsAlgorithm", ALL_JWS_ALGORITHM_ENUM);
         map.put("permissionExpression", PERMISSION_EXPRESSION_ENUM);
         map.put("authenticationMethod", AUTHENTICATION_METHOD_ENUM);
-        map.put("database", DATABASE_ENUM);
-        map.put("serverDevice", SERVER_DEVICE_ENUM);
         return map;
     }
 }

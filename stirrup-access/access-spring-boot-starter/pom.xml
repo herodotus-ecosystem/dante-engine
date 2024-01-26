@@ -27,7 +27,7 @@
 
     <artifactId>access-spring-boot-starter</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库外部第三方登录接入 Starter</description>
+    <description>Herodotus 软件生态组件库外部第三方登录接入 Starter</description>
 
     <dependencies>
         <dependency>

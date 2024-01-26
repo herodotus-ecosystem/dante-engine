@@ -28,7 +28,7 @@
     <artifactId>supplier-sdk-upms-rest</artifactId>
 
 
-    <description>基于 Spring Authorization Server 的 Dante Cloud UPMS REST 模块</description>
+    <description>Dante Cloud UPMS REST 模块</description>
 
     <dependencies>
         <dependency>

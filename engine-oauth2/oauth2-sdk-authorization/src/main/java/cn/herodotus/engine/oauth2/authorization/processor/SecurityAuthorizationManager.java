@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.authorization.processor;
 
-import cn.herodotus.engine.assistant.core.utils.http.HeaderUtils;
-import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
+import cn.herodotus.engine.rest.core.utils.HeaderUtils;
+import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
 import jakarta.servlet.http.HttpServletRequest;

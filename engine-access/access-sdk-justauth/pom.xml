@@ -28,7 +28,7 @@
 
     <artifactId>access-sdk-justauth</artifactId>
 
-    <description>基于 Spring Authorization Server 的 JustAuth 外部接入组件模块</description>
+    <description>JustAuth 外部接入组件模块</description>
 
     <dependencies>
         <dependency>

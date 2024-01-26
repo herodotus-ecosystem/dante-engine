@@ -17,21 +17,18 @@
 package cn.herodotus.engine.oauth2.authorization.configuration;
 
 import cn.herodotus.stirrup.core.foundation.support.BearerTokenResolver;
-import cn.herodotus.engine.oauth2.authorization.auditing.SecurityAuditorAware;
+import cn.herodotus.stirrup.oauth2.authorization.auditing.SecurityAuditorAware;
 import cn.herodotus.engine.oauth2.authorization.customizer.OAuth2AuthorizeHttpRequestsConfigurerCustomer;
 import cn.herodotus.engine.oauth2.authorization.customizer.OAuth2ResourceServerConfigurerCustomer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceAnalyzer;
 import cn.herodotus.engine.oauth2.authorization.processor.SecurityMetadataSourceStorage;
-import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
+import cn.herodotus.stirrup.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.oauth2.core.exception.SecurityGlobalExceptionHandler;
-import cn.herodotus.stirrup.web.autoconfigure.WebAutoConfiguration;
-import cn.herodotus.stirrup.web.service.configuration.WebServiceConfiguration;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

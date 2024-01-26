@@ -27,12 +27,12 @@
 
     <artifactId>facility-core</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件基础设施通用代码模块</description>
+    <description>Herodotus 软件生态组件基础设施通用代码模块</description>
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-core</artifactId>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>core-foundation</artifactId>
         </dependency>
 
         <dependency>

@@ -28,12 +28,12 @@
 
     <artifactId>cache-core</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Dante Cloud 缓存通用代码组件</description>
+    <description>Dante Cloud 缓存通用代码组件</description>
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-core</artifactId>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>core-foundation</artifactId>
         </dependency>
     </dependencies>
 

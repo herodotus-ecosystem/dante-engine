@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.service.security;
 
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.engine.access.core.enums.AccountCategory;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
 import cn.herodotus.engine.supplier.upms.logic.entity.security.SysDefaultRole;
@@ -47,7 +47,7 @@ public class SysDefaultRoleService extends BaseService<SysDefaultRole, String> {
         return this.sysDefaultRoleRepository;
     }
 
-    public SysDefaultRole findByScene(AccountType scene) {
+    public SysDefaultRole findByScene(AccountCategory scene) {
         return this.sysDefaultRoleRepository.findByScene(scene);
     }
 

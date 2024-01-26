@@ -17,9 +17,9 @@
 package cn.herodotus.engine.oauth2.authorization.processor;
 
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
-import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
+import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
-import cn.herodotus.engine.oauth2.authorization.enums.Category;
+import cn.herodotus.stirrup.oauth2.authorization.enums.Category;
 import cn.herodotus.engine.oauth2.core.definition.domain.SecurityAttribute;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;

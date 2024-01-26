@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.rest.service.feign;
 
-import cn.herodotus.engine.assistant.core.utils.http.HeaderUtils;
 import cn.herodotus.engine.rest.core.annotation.Inner;
+import cn.herodotus.stirrup.core.definition.constants.HerodotusHeaders;
 import feign.MethodMetadata;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -64,7 +64,7 @@ public class FeignInnerContract extends SpringMvcContract {
             Inner inner = findMergedAnnotation(method, Inner.class);
             if (ObjectUtils.isNotEmpty(inner)) {
                 log.debug("[Herodotus] |- Found inner annotation on Feign interface, add header!");
-                data.template().header(HeaderUtils.X_HERODOTUS_FROM_IN, "true");
+                data.template().header(HerodotusHeaders.X_HERODOTUS_FROM_IN, "true");
             }
         }
 

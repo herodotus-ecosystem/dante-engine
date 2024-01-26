@@ -34,18 +34,8 @@
     <dependencies>
 
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>oauth2-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>cache-sdk-jetcache</artifactId>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>oauth2-module-authorization</artifactId>
         </dependency>
 
         <dependency>

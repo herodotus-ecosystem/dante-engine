@@ -29,7 +29,7 @@
     <artifactId>rest-core</artifactId>
 
 
-    <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
+    <description>Dante Cloud 基础核心组件模块</description>
 
     <dependencies>
         <dependency>
@@ -40,6 +40,11 @@
         <dependency>
             <groupId>cn.herodotus.engine</groupId>
             <artifactId>message-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <dependency>

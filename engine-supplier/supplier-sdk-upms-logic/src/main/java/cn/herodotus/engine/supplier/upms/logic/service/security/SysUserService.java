@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.supplier.upms.logic.service.security;
 
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.engine.access.core.enums.AccountCategory;
 import cn.herodotus.engine.data.core.enums.DataItemStatus;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
@@ -96,7 +96,7 @@ public class SysUserService extends BaseService<SysUser, String> {
         return this.register(sysUser, sysRoles);
     }
 
-    public SysUser register(SysUser sysUser, AccountType source) {
+    public SysUser register(SysUser sysUser, AccountCategory source) {
         SysDefaultRole sysDefaultRole = sysDefaultRoleService.findByScene(source);
         if (ObjectUtils.isNotEmpty(sysDefaultRole)) {
             SysRole sysRole = sysDefaultRole.getRole();
@@ -157,7 +157,7 @@ public class SysUserService extends BaseService<SysUser, String> {
 
         sysUser.setPassword(SecurityUtils.encrypt("herodotus-cloud"));
 
-        return register(sysUser, AccountType.getAccountType(socialUserDetails.getSource()));
+        return register(sysUser, AccountCategory.getAccountType(socialUserDetails.getSource()));
     }
 
     public HerodotusUser registerUserDetails(SocialUserDetails socialUserDetails) {

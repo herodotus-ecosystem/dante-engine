@@ -68,9 +68,6 @@
 ```
 dante-engine
 ├── dependencies -- 工程Maven顶级依赖，统一控制版本和依赖
-├── engine-assistant -- 核心通用代码包
-├    ├── assistant-core -- 核心通用代码
-├    ├── assistant-sdk-ip2region -- IP离线定位组件核心代码模块
 ├── engine-oauth2 -- OAuth2 认证模块
 ├    ├── oauth2-core -- OAuth2 共性通用代码模块
 ├    ├── oauth2-sdk-authentication -- Spring Authorization Server 认证逻辑处理模块
@@ -94,6 +91,8 @@ dante-engine
 ├    ├── access-sdk-wxapp -- 微信小程序登录
 ├    ├── access-sdk-wxmpp -- 微信公众号登录
 ├    └── access-spring-boot-starter -- 外部登录模块统一 Starter
+├── stirrup-assistant -- 独立辅助性功能相关模块
+├    └── assistant-sdk-ip2region -- 离线IP地址定位辅助模块
 ├── stirrup-cache -- 缓存模块
 ├    ├── cache-core -- 缓存通用代码
 ├    ├── cache-sdk-caffeine -- Caffeine 缓存配置相关代码模块

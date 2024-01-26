@@ -17,10 +17,10 @@
 package cn.herodotus.engine.oauth2.authorization.processor;
 
 import cn.herodotus.stirrup.core.foundation.utils.type.ListUtils;
-import cn.herodotus.engine.oauth2.authorization.definition.HerodotusConfigAttribute;
+import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusConfigAttribute;
 import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
-import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
-import cn.herodotus.engine.oauth2.core.constants.SecurityResources;
+import cn.herodotus.stirrup.oauth2.authorization.properties.OAuth2AuthorizationProperties;
+import cn.herodotus.stirrup.oauth2.core.constants.SecurityResources;
 import cn.herodotus.engine.oauth2.core.enums.PermissionExpression;
 import cn.herodotus.engine.oauth2.core.utils.WebUtils;
 import jakarta.servlet.http.HttpServletRequest;

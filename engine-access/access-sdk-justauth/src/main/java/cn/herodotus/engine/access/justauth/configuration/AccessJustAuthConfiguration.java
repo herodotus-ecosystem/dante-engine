@@ -21,7 +21,7 @@ import cn.herodotus.engine.access.justauth.processor.JustAuthAccessHandler;
 import cn.herodotus.engine.access.justauth.processor.JustAuthProcessor;
 import cn.herodotus.engine.access.justauth.properties.JustAuthProperties;
 import cn.herodotus.engine.access.justauth.stamp.JustAuthStateStampManager;
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.engine.access.core.enums.AccountCategory;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +71,7 @@ public class AccessJustAuthConfiguration {
         return justAuthProcessor;
     }
 
-    @Bean(AccountType.JUST_AUTH_HANDLER)
+    @Bean(AccountCategory.JUST_AUTH_HANDLER)
     @ConditionalOnBean(JustAuthProcessor.class)
     @ConditionalOnMissingBean
     public JustAuthAccessHandler justAuthAccessHandler(JustAuthProcessor justAuthProcessor) {

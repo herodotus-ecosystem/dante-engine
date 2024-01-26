@@ -27,14 +27,9 @@
 
     <artifactId>web-server-spring-boot-starter</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库基础 Web 服务器 Starter</description>
+    <description>Herodotus 软件生态组件库基础 Web 服务器 Starter</description>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-core</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>cn.herodotus.stirrup</groupId>
             <artifactId>core-foundation</artifactId>

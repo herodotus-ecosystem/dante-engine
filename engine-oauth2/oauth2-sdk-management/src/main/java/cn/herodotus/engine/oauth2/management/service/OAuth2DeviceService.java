@@ -16,15 +16,14 @@
 
 package cn.herodotus.engine.oauth2.management.service;
 
-import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.stirrup.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
 import cn.herodotus.engine.oauth2.management.converter.OAuth2DeviceToRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.management.converter.RegisteredClientToOAuth2DeviceConverter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Device;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;
 import cn.herodotus.engine.oauth2.management.repository.OAuth2DeviceRepository;
+import cn.herodotus.stirrup.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +67,7 @@ public class OAuth2DeviceService extends BaseService<OAuth2Device, String> {
         return deviceRepository;
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public OAuth2Device saveAndFlush(OAuth2Device entity) {
         OAuth2Device device = super.saveAndFlush(entity);
@@ -81,14 +80,14 @@ public class OAuth2DeviceService extends BaseService<OAuth2Device, String> {
         }
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteById(String id) {
         super.deleteById(id);
         herodotusRegisteredClientRepository.deleteById(id);
     }
 
-    @Transactional(rollbackFor = TransactionalRollbackException.class)
+    @Transactional(rollbackFor = Exception.class)
     public OAuth2Device authorize(String deviceId, String[] scopeIds) {
 
         Set<OAuth2Scope> scopes = new HashSet<>();

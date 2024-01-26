@@ -27,7 +27,7 @@
 
     <artifactId>core-foundation</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件库基础通用模块</description>
+    <description>Herodotus 软件生态组件库基础通用模块</description>
 
     <dependencies>
         <dependency>
@@ -56,11 +56,6 @@
                     <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
         </dependency>
 
         <dependency>

@@ -18,9 +18,9 @@ package cn.herodotus.engine.oauth2.authorization.customizer;
 
 import cn.herodotus.stirrup.core.foundation.support.BearerTokenResolver;
 import cn.herodotus.stirrup.core.foundation.enums.Target;
-import cn.herodotus.engine.oauth2.authorization.converter.HerodotusJwtAuthenticationConverter;
-import cn.herodotus.engine.oauth2.authorization.introspector.HerodotusOpaqueTokenIntrospector;
-import cn.herodotus.engine.oauth2.authorization.properties.OAuth2AuthorizationProperties;
+import cn.herodotus.stirrup.oauth2.authorization.converter.HerodotusJwtAuthenticationConverter;
+import cn.herodotus.stirrup.oauth2.authorization.introspector.HerodotusOpaqueTokenIntrospector;
+import cn.herodotus.stirrup.oauth2.authorization.properties.OAuth2AuthorizationProperties;
 import cn.herodotus.engine.oauth2.core.response.HerodotusAccessDeniedHandler;
 import cn.herodotus.engine.oauth2.core.response.HerodotusAuthenticationEntryPoint;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;

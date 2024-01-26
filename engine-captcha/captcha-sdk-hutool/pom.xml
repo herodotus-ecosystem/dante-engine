@@ -28,7 +28,7 @@
 
     <artifactId>captcha-sdk-hutool</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
+    <description>Dante Cloud 基础核心组件模块</description>
 
     <dependencies>
         <dependency>

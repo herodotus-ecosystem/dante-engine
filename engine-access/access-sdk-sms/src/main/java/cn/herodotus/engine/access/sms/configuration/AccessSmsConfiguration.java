@@ -20,7 +20,7 @@ import cn.herodotus.engine.access.sms.annotation.ConditionalOnSmsEnabled;
 import cn.herodotus.engine.access.sms.processor.PhoneNumberAccessHandler;
 import cn.herodotus.engine.access.sms.properties.SmsProperties;
 import cn.herodotus.engine.access.sms.stamp.VerificationCodeStampManager;
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.engine.access.core.enums.AccountCategory;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public class AccessSmsConfiguration {
         return verificationCodeStampManager;
     }
 
-    @Bean(AccountType.PHONE_NUMBER_HANDLER)
+    @Bean(AccountCategory.PHONE_NUMBER_HANDLER)
     public PhoneNumberAccessHandler phoneNumberAccessHandler(VerificationCodeStampManager verificationCodeStampManager) {
         PhoneNumberAccessHandler phoneNumberAuthenticationHandler = new PhoneNumberAccessHandler(verificationCodeStampManager);
         log.trace("[Herodotus] |- Bean [Phone Number SignIn Handler] Auto Configure.");

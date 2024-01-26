@@ -30,12 +30,17 @@
     <packaging>jar</packaging>
     <version>3.3.0.0-M1</version>
 
-    <description>基于 Spring Authorization Server 的 Dante Cloud 基础核心组件模块</description>
+    <description>Dante Cloud 基础核心组件模块</description>
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-core</artifactId>
+            <groupId>cn.herodotus.stirrup</groupId>
+            <artifactId>core-foundation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
         </dependency>
 
         <dependency>

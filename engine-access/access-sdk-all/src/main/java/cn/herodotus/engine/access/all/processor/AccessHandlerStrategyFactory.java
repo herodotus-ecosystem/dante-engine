@@ -22,7 +22,7 @@ import cn.herodotus.engine.access.core.definition.AccessUserDetails;
 import cn.herodotus.engine.access.core.exception.AccessHandlerNotFoundException;
 import cn.herodotus.engine.access.core.exception.IllegalAccessArgumentException;
 import cn.herodotus.stirrup.core.definition.domain.secure.AccessPrincipal;
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.engine.access.core.enums.AccountCategory;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,8 +56,8 @@ public class AccessHandlerStrategyFactory {
         return socialAuthenticationHandler.preProcess(core, params);
     }
 
-    public AccessResponse preProcess(AccountType accountType, String core, String... params) {
-        AccessHandler socialAuthenticationHandler = this.getAccessHandler(accountType);
+    public AccessResponse preProcess(AccountCategory accountCategory, String core, String... params) {
+        AccessHandler socialAuthenticationHandler = this.getAccessHandler(accountCategory);
         return socialAuthenticationHandler.preProcess(core, params);
     }
 
@@ -74,16 +74,16 @@ public class AccessHandlerStrategyFactory {
             throw new IllegalAccessArgumentException("Cannot found SocialProvider");
         }
 
-        AccountType accountType = AccountType.getAccountType(source);
-        if (ObjectUtils.isEmpty(accountType)) {
+        AccountCategory accountCategory = AccountCategory.getAccountType(source);
+        if (ObjectUtils.isEmpty(accountCategory)) {
             throw new IllegalAccessArgumentException("Cannot parse the source parameter.");
         }
 
-        return getAccessHandler(accountType);
+        return getAccessHandler(accountCategory);
     }
 
-    public AccessHandler getAccessHandler(AccountType accountType) {
-        String handlerName = accountType.getHandler();
+    public AccessHandler getAccessHandler(AccountCategory accountCategory) {
+        String handlerName = accountCategory.getHandler();
         AccessHandler socialAuthenticationHandler = handlers.get(handlerName);
         if (ObjectUtils.isNotEmpty(socialAuthenticationHandler)) {
             return socialAuthenticationHandler;

@@ -21,7 +21,7 @@ import cn.herodotus.engine.access.all.dto.WxappProfile;
 import cn.herodotus.engine.access.all.processor.AccessHandlerStrategyFactory;
 import cn.herodotus.engine.access.core.definition.AccessResponse;
 import cn.herodotus.stirrup.core.definition.domain.Result;
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.engine.access.core.enums.AccountCategory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -52,7 +52,7 @@ public class WxappAccessController {
     })
     @PostMapping("/open/identity/wxapp")
     public Result<WxMaJscode2SessionResult> login(@Validated @RequestBody WxappProfile wxappProfile) {
-        AccessResponse response = accessHandlerStrategyFactory.preProcess(AccountType.WXAPP, wxappProfile.getCode(), wxappProfile.getAppId());
+        AccessResponse response = accessHandlerStrategyFactory.preProcess(AccountCategory.WXAPP, wxappProfile.getCode(), wxappProfile.getAppId());
         if (ObjectUtils.isNotEmpty(response)) {
             return Result.success("微信小程序登录成功", response.getSession());
         } else {

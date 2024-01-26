@@ -28,7 +28,7 @@
 
     <artifactId>access-sdk-wxapp</artifactId>
 
-    <description>基于 Spring Authorization Server 的 微信小程序外部接入基础核心组件模块</description>
+    <description>微信小程序外部接入基础核心组件模块</description>
 
     <dependencies>
         <dependency>

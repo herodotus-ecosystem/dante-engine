@@ -17,7 +17,7 @@
 package cn.herodotus.engine.oauth2.authentication.provider;
 
 import cn.herodotus.stirrup.core.definition.constants.BaseConstants;
-import cn.herodotus.engine.assistant.core.enums.AccountType;
+import cn.herodotus.engine.access.core.enums.AccountCategory;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.definition.HerodotusGrantType;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
@@ -58,14 +58,14 @@ public class OAuth2SocialCredentialsAuthenticationConverter extends AbstractAuth
         // others (REQUIRED)
         // TODO：2022-03-31 这里主要是作为参数的检查，社交登录内容比较多，后续根据实际情况添加
         if (StringUtils.hasText(source)) {
-            AccountType accountType = AccountType.getAccountType(source);
-            if (ObjectUtils.isNotEmpty(accountType)) {
-                switch (accountType.getHandler()) {
-                    case AccountType.PHONE_NUMBER_HANDLER:
+            AccountCategory accountCategory = AccountCategory.getAccountType(source);
+            if (ObjectUtils.isNotEmpty(accountCategory)) {
+                switch (accountCategory.getHandler()) {
+                    case AccountCategory.PHONE_NUMBER_HANDLER:
                         OAuth2EndpointUtils.checkRequiredParameter(parameters, "mobile");
                         OAuth2EndpointUtils.checkRequiredParameter(parameters, "code");
                         break;
-                    case AccountType.WECHAT_MINI_APP_HANDLER:
+                    case AccountCategory.WECHAT_MINI_APP_HANDLER:
                         OAuth2EndpointUtils.checkRequiredParameter(parameters, "appId");
                         OAuth2EndpointUtils.checkRequiredParameter(parameters, "sessionKey");
                         OAuth2EndpointUtils.checkRequiredParameter(parameters, "encryptedData");

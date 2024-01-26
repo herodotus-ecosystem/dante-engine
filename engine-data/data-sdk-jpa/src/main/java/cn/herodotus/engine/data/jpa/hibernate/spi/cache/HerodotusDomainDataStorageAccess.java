@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.data.jpa.hibernate.spi.cache;
 
-import cn.herodotus.engine.assistant.core.context.TenantContextHolder;
+import cn.herodotus.engine.data.core.context.TenantContextHolder;
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;

@@ -27,7 +27,7 @@
 
     <artifactId>facility-tencent-spring-boot-starter</artifactId>
 
-    <description>基于 Spring Authorization Server 的 Herodotus 软件生态组件 Spring Cloud Tencent 系列 Starter</description>
+    <description>Herodotus 软件生态组件 Spring Cloud Tencent 系列 Starter</description>
 
     <dependencies>
         <dependency>

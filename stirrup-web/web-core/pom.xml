@@ -29,10 +29,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.herodotus.engine</groupId>
-            <artifactId>assistant-core</artifactId>
-        </dependency>
-        <dependency>
             <groupId>cn.herodotus.stirrup</groupId>
             <artifactId>core-foundation</artifactId>
         </dependency>
