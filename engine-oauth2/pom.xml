@@ -31,7 +31,6 @@
 
     <modules>
         <module>oauth2-core</module>
-        <module>oauth2-sdk-data-jpa</module>
         <module>oauth2-sdk-authentication</module>
         <module>oauth2-sdk-authorization</module>
         <module>oauth2-sdk-management</module>

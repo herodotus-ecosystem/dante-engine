@@ -22,7 +22,7 @@ import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;
 import cn.herodotus.engine.oauth2.core.definition.service.EnhanceUserDetailsService;
 import cn.herodotus.engine.oauth2.core.exception.AccountEndpointLimitedException;
-import cn.herodotus.engine.oauth2.data.jpa.storage.JpaOAuth2AuthorizationService;
+import cn.herodotus.stirrup.oauth2.data.jpa.storage.JpaOAuth2AuthorizationService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;

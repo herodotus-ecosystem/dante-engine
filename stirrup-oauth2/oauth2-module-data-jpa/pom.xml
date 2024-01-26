@@ -20,19 +20,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>cn.herodotus.engine</groupId>
-        <artifactId>dante-engine</artifactId>
+        <groupId>cn.herodotus.stirrup</groupId>
+        <artifactId>stirrup-oauth2</artifactId>
         <version>3.3.0.0-M1</version>
     </parent>
 
-    <groupId>cn.herodotus.stirrup</groupId>
-    <artifactId>stirrup-oauth2</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>oauth2-module-data-jpa</artifactId>
 
-    <modules>
-        <module>oauth2-authentication-autoconfigure</module>
-        <module>oauth2-authorization-autoconfigure</module>
-        <module>oauth2-module-authorization</module>
-        <module>oauth2-module-data-jpa</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>cn.herodotus.engine</groupId>
+            <artifactId>oauth2-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-oauth2-authorization-server</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

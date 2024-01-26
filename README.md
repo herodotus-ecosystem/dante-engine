@@ -68,55 +68,13 @@
 ```
 dante-engine
 ├── dependencies -- 工程Maven顶级依赖，统一控制版本和依赖
-├── engine-access -- 外部登录接入模块
-├    ├── access-core -- 外部登录通用代码
-├    ├── access-sdk-all -- 外部登录集成
-├    ├── access-sdk-justauth -- JustAuth登录
-├    ├── access-sdk-wxapp -- 微信小程序登录
-├    ├── access-sdk-wxmpp -- 微信公众号登录
-├    └── access-spring-boot-starter -- 外部登录  模块统一 Starter
 ├── engine-assistant -- 核心通用代码包
 ├    ├── assistant-core -- 核心通用代码
 ├    ├── assistant-sdk-ip2region -- IP离线定位组件核心代码模块
-├    └── assistant-autoconfigure -- Assistant  模块统一 Starter
-├── engine-cache -- 缓存模块
-├    ├── cache-core -- 缓存通用代码
-├    ├── cache-sdk-caffeine -- Caffeine 缓存配置相关代码模块
-├    ├── cache-sdk-jetcache -- JetCache 相关代码模块
-├    ├── cache-sdk-redis -- Redis 缓存配置相关代码模块
-├    ├── cache-sdk-redisson -- Redisson 相关代码模块
-├    └── cache-spring-boot-starter -- Cache  模块统一 Starter
-├── engine-captcha -- 验证码模块
-├    ├── captcha-core -- 验证码共性通用代码
-├    ├── captcha-sdk-behavior -- 行为验证码（包括拼图滑块、文字点选）
-├    ├── captcha-sdk-graphic -- 传统图形验证码（包括算数类型、中文类型、字母类型、GIF类型）
-├    ├── captcha-sdk-hutool -- Hutool验证码（包括圆圈干扰、扭曲干扰、线段干扰）
-├    └── captcha-spring-boot-starter -- Captcha  模块统一 Starter
-├── engine-data -- 数据访问模块
-├    ├── data-core -- 数据访问共性通用代码
-├    ├── data-sdk-jpa -- JPA 及Hibernate 配置代码模块
-├    ├── data-sdk-mybatis-plus -- MybatisPlus 相关代码模块
-├    ├── data-sdk-tenant -- 基于JPA的多租户核心代码模块
-├    └── data-spring-boot-starter -- Data 模块统一 Starter
-├── engine-facility -- 微服务基础设施模块
-├    ├── facility-alibaba-spring-boot-starter -- 面向 Spring Cloud Alibaba 的微服务基础设施适配模块
-├    ├── facility-core -- 基础设施共性通用代码
-├    ├── facility-gateway-spring-boot-starter -- Alibaba Sentinel 在 Gateway 环境下基础设施适配模块
-├    ├── facility-original-spring-boot-starter -- 面向 Spring Cloud 原生全家桶的微服务基础设施适配模块
-├    └── facility-tencent-spring-boot-starter -- 面向 Spring Cloud Tencent 的微服务基础设施适配模块
-├── engine-message -- 消息模块
-├    ├── message-core -- 消息共性通用代码
-├    ├── message-kafka-spring-boot-starter -- 基础 Kafka 配置 Starter
-├    ├── message-rabbitmaq-spring-boot-starter -- 基础 RabbitMQ 配置 Starter
-├    ├── message-sdk-websocket -- 基于 WebSocket 的消息代码模块
-├    └── message-spring-boot-starter -- Message  模块统一 Starter
 ├── engine-oauth2 -- OAuth2 认证模块
-├    ├── oauth2-authorization-server-autoconfigure -- OAuth2 授权服务器基础内容自动配置模块
 ├    ├── oauth2-core -- OAuth2 共性通用代码模块
-├    ├── oauth2-resource-server-autoconfigure -- OAuth2 资源服务器基础内容自动配置模块
 ├    ├── oauth2-sdk-authentication -- Spring Authorization Server 认证逻辑处理模块
 ├    ├── oauth2-sdk-authorization -- Spring Authorization Server 授权逻辑处理模块
-├    ├── oauth2-sdk-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块
 ├    └── oauth2-sdk-management -- Spring Authorization Server 应用管理模块
 ├── engine-rest -- 服务Rest接口模块
 ├    ├── rest-core -- 服务 Rest 接口共性通用代码
@@ -125,28 +83,65 @@ dante-engine
 ├    ├── rest-sdk-service -- 基于 REST 的服务基础内容配置代码模块
 ├    ├── rest-spring-boot-starter -- Rest 模块统一 Starter(包括通用CRUD代码)
 ├    └── web-server-spring-boot-starter -- 基础 Web Server 配置模块
-├── engine-sms -- 短信接入模块
-├    ├── sms-core -- 短信共性通用代码模块
-├    ├── sms-sdk-aliyun -- 阿里云短信发送模块
-├    ├── sms-sdk-chinamobile -- 移动短信发送模块
-├    ├── sms-sdk-huawei -- 华为短信发送模块
-├    ├── sms-sdk-netease -- 网易短信发送模块
-├    ├── sms-sdk-qiniu -- 七牛短信发送模块
-├    ├── sms-sdk-tencent -- 腾讯短信发送模块
-├    ├── sms-sdk-upyun -- 又拍短信发送模块
-├    └── sms-spring-boot-starter -- SMS 模块统一 Starter
 ├── engine-supplier -- 应用支持模块
 ├    ├── supplier-sdk-message -- 消息功能支持模块
 ├    ├── supplier-sdk-upms-logic -- UPMS 基础服务支持模块
 ├    └── supplier-sdk-upms-rest -- UPMS 基础服务 REST 模块
+├── stirrup-access -- 外部登录接入模块
+├    ├── access-core -- 外部登录通用代码
+├    ├── access-sdk-all -- 外部登录集成
+├    ├── access-sdk-justauth -- JustAuth登录
+├    ├── access-sdk-wxapp -- 微信小程序登录
+├    ├── access-sdk-wxmpp -- 微信公众号登录
+├    └── access-spring-boot-starter -- 外部登录模块统一 Starter
+├── stirrup-cache -- 缓存模块
+├    ├── cache-core -- 缓存通用代码
+├    ├── cache-sdk-caffeine -- Caffeine 缓存配置相关代码模块
+├    ├── cache-sdk-jetcache -- JetCache 相关代码模块
+├    ├── cache-sdk-redis -- Redis 缓存配置相关代码模块
+├    ├── cache-sdk-redisson -- Redisson 相关代码模块
+├    └── cache-spring-boot-starter -- Cache  模块统一 Starter
+├── stirrup-captcha -- 验证码模块
+├    ├── captcha-core -- 验证码共性通用代码
+├    ├── captcha-sdk-behavior -- 行为验证码（包括拼图滑块、文字点选）
+├    ├── captcha-sdk-graphic -- 传统图形验证码（包括算数类型、中文类型、字母类型、GIF类型）
+├    ├── captcha-sdk-hutool -- Hutool验证码（包括圆圈干扰、扭曲干扰、线段干扰）
+├    └── captcha-spring-boot-starter -- Captcha  模块统一 Starter
 ├── stirrup-core -- 基础核心相关模块
 ├    ├── core-definition -- 核心定义模块
 ├    ├── core-foundation -- 基础通用模块
 ├    └── core-spring-boot-starter -- 基础核心相关模块统一自动配置 Starter
+├── stirrup-data -- 数据访问模块
+├    ├── data-core -- 数据访问共性通用代码
+├    ├── data-sdk-jpa -- JPA 及Hibernate 配置代码模块
+├    ├── data-sdk-mybatis-plus -- MybatisPlus 相关代码模块
+├    ├── data-sdk-tenant -- 基于JPA的多租户核心代码模块
+├    └── data-spring-boot-starter -- Data 模块统一 Starter
+├── stirrup-facility -- 微服务基础设施模块
+├    ├── facility-alibaba-spring-boot-starter -- 面向 Spring Cloud Alibaba 的微服务基础设施适配模块
+├    ├── facility-core -- 基础设施共性通用代码
+├    ├── facility-gateway-spring-boot-starter -- Alibaba Sentinel 在 Gateway 环境下基础设施适配模块
+├    ├── facility-original-spring-boot-starter -- 面向 Spring Cloud 原生全家桶的微服务基础设施适配模块
+├    └── facility-tencent-spring-boot-starter -- 面向 Spring Cloud Tencent 的微服务基础设施适配模块
+├── stirrup-message -- 消息模块
+├    ├── message-core -- 消息共性通用代码
+├    ├── message-kafka-spring-boot-starter -- 基础 Kafka 配置 Starter
+├    ├── message-rabbitmaq-spring-boot-starter -- 基础 RabbitMQ 配置 Starter
+├    ├── message-sdk-websocket -- 基于 WebSocket 的消息代码模块
+├    └── message-spring-boot-starter -- Message  模块统一 Starter
+├── stirrup-oauth2 -- OAuth2 认证模块
+├    ├── oauth2-authentication-autoconfigure -- OAuth2 授权服务器基础内容自动配置模块
+├    ├── oauth2-core -- OAuth2 共性通用代码模块
+├    ├── oauth2-authorization-autoconfigure -- OAuth2 资源服务器基础内容自动配置模块
+├    ├── oauth2-module-data-jpa -- 基于 Spring Data JPA 封装的 Spring Authorization Server 数据访问代码模块
+├    └── oauth2-sdk-management -- Spring Authorization Server 应用管理模块
 ├── stirrup-web -- Web 相关模块
-├    ├── core-definition -- 核心定义模块
+├    ├── web-core -- Web 相关通用核心代码模块
+├    ├── web-module-server -- 基础服务共性代码模块
 ├    ├── web-server-spring-boot-starter -- 基础 Web 服务器 Starter
-├    └── webflux-server-spring-boot-starter -- 基础 WebFlux 服务器 Starter
+├    ├── web-spring-boot-starter -- 基础 Web Servlet 类型应用统一Starter
+├    ├── webflux-server-spring-boot-starter -- 基础 WebFlux 服务器 Starter
+├    └── webflux-spring-boot-starter -- 基于 WebFlux Reactive 类型应用统一 Starter
 └──  readme -- README 相关素材放置目录
 ```
 
@@ -232,3 +227,14 @@ LGPL 是 GPL 的一个为主要为类库使用设计的开源协议。和 GPL �
 - Dante 主工程地址：[https://gitee.com/dromara/dante-cloud](https://gitee.com/dromara/dante-cloud)
 - Dante 单体版示例工程地址：[https://gitee.com/herodotus/dante-cloud-athena](https://gitee.com/herodotus/dante-cloud-athena)
 - Dante 前端工程地址：[https://gitee.com/herodotus/dante-cloud-ui](https://gitee.com/herodotus/dante-cloud-ui)
+
+## 赞助人列表
+
+| 序号 |   赞助人    |    赞助时间    | 序号 |     赞助人     |    赞助时间    | 序号 |    赞助人    |    赞助时间    |
+|:--:|:--------:|:----------:|:--:|:-----------:|:----------:|:--:|:---------:|:----------:|
+| 1  |  ご沉默菋噵   | 2021-10-25 | 2  |    偷土豆的人    | 2021-11-24 | 3  |  lorron   | 2022-04-04 |
+| 4  |   在云端    | 2022-12-26 | 5  |     西晽      | 2022-12-27 | 6  | p911gt3rs | 2023-01-03 |
+| 7  |  jacsty  | 2023-01-31 | 8  | hubert_rust | 2023-03-16 | 9  |  Zkey Z   | 2023-03-18 |
+| 10 |   志国欧巴   | 2023-03-27 | 11 |   michael   | 2023-04-07 | 12 |   大叔丨小巷   | 2023-04-11 |
+| 13 | sun_left | 2023-04-19 | 14 | time 丶 sand | 2023-07-06 | 15 |  印第安老斑鸠   | 2023-09-09 |
+| 16 |   一阵风    | 2023-12-10 | 17 |             |            | 18 |           |            |

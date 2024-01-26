@@ -19,7 +19,7 @@ package cn.herodotus.engine.oauth2.management.service;
 import cn.herodotus.engine.assistant.core.exception.transaction.TransactionalRollbackException;
 import cn.herodotus.engine.data.core.repository.BaseRepository;
 import cn.herodotus.engine.data.core.service.BaseService;
-import cn.herodotus.engine.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
+import cn.herodotus.stirrup.oauth2.data.jpa.repository.HerodotusRegisteredClientRepository;
 import cn.herodotus.engine.oauth2.management.converter.OAuth2ApplicationToRegisteredClientConverter;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Application;
 import cn.herodotus.engine.oauth2.management.entity.OAuth2Scope;

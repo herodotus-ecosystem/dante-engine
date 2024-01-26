@@ -57,7 +57,7 @@ public class WebCryptoAutoConfiguration {
 
     @PostConstruct
     public void postConstruct() {
-        log.info("[Herodotus] |- Module [Rest Crypto] Auto Configure.");
+        log.info("[Herodotus] |- Module [Web Crypto] Auto Configure.");
 
         List<HandlerMethodArgumentResolver> unmodifiableList = requestMappingHandlerAdapter.getArgumentResolvers();
         List<HandlerMethodArgumentResolver> list = Lists.newArrayList();

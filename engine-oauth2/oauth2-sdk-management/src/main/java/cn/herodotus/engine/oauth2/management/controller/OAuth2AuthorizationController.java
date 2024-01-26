@@ -17,8 +17,8 @@
 package cn.herodotus.engine.oauth2.management.controller;
 
 import cn.herodotus.engine.data.core.service.WriteableService;
-import cn.herodotus.engine.oauth2.data.jpa.entity.HerodotusAuthorization;
-import cn.herodotus.engine.oauth2.data.jpa.service.HerodotusAuthorizationService;
+import cn.herodotus.stirrup.oauth2.data.jpa.entity.HerodotusAuthorization;
+import cn.herodotus.stirrup.oauth2.data.jpa.service.HerodotusAuthorizationService;
 import cn.herodotus.engine.rest.core.controller.BaseWriteableRestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;

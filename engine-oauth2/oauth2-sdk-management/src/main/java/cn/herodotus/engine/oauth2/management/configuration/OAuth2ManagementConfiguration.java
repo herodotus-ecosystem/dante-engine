@@ -18,7 +18,7 @@ package cn.herodotus.engine.oauth2.management.configuration;
 
 import cn.herodotus.engine.oauth2.authentication.configuration.OAuth2AuthenticationConfiguration;
 import cn.herodotus.engine.oauth2.authentication.stamp.SignInFailureLimitedStampManager;
-import cn.herodotus.engine.oauth2.data.jpa.configuration.OAuth2DataJpaConfiguration;
+import cn.herodotus.stirrup.oauth2.data.jpa.configuration.OAuth2DataJpaConfiguration;
 import cn.herodotus.engine.oauth2.management.compliance.listener.AuthenticationSuccessListener;
 import cn.herodotus.engine.oauth2.management.response.OAuth2DeviceVerificationResponseHandler;
 import cn.herodotus.engine.oauth2.management.response.OidcClientRegistrationResponseHandler;
