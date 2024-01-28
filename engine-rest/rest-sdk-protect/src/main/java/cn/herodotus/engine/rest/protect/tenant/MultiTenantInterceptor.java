@@ -18,8 +18,8 @@ package cn.herodotus.engine.rest.protect.tenant;
 
 import cn.herodotus.stirrup.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.data.core.context.TenantContextHolder;
-import cn.herodotus.engine.rest.core.utils.HeaderUtils;
-import cn.herodotus.engine.rest.core.utils.SessionUtils;
+import cn.herodotus.stirrup.web.core.utils.HeaderUtils;
+import cn.herodotus.stirrup.web.core.utils.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;

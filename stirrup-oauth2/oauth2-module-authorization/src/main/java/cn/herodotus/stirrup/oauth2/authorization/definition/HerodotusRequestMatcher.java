@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.oauth2.authorization.definition;
+package cn.herodotus.stirrup.oauth2.authorization.definition;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;

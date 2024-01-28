@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.core.definition.details;
 
-import cn.herodotus.engine.rest.core.utils.SessionUtils;
+import cn.herodotus.stirrup.web.core.utils.SessionUtils;
 import cn.herodotus.engine.oauth2.core.utils.SymmetricUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;

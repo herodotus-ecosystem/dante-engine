@@ -18,9 +18,11 @@ package cn.herodotus.engine.oauth2.authorization.processor;
 
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
 import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusConfigAttribute;
-import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
+import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusRequest;
 import cn.herodotus.stirrup.oauth2.authorization.enums.Category;
 import cn.herodotus.engine.oauth2.core.definition.domain.SecurityAttribute;
+import cn.herodotus.stirrup.oauth2.authorization.processor.SecurityMetadataSourceStorage;
+import cn.herodotus.stirrup.oauth2.authorization.servlet.ServletSecurityMatcherConfigurer;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -42,11 +44,11 @@ public class SecurityMetadataSourceAnalyzer {
     private static final Logger log = LoggerFactory.getLogger(SecurityMetadataSourceAnalyzer.class);
 
     private final SecurityMetadataSourceStorage securityMetadataSourceStorage;
-    private final SecurityMatcherConfigurer securityMatcherConfigurer;
+    private final ServletSecurityMatcherConfigurer servletSecurityMatcherConfigurer;
 
-    public SecurityMetadataSourceAnalyzer(SecurityMetadataSourceStorage securityMetadataSourceStorage, SecurityMatcherConfigurer securityMatcherConfigurer) {
+    public SecurityMetadataSourceAnalyzer(SecurityMetadataSourceStorage securityMetadataSourceStorage, ServletSecurityMatcherConfigurer servletSecurityMatcherConfigurer) {
         this.securityMetadataSourceStorage = securityMetadataSourceStorage;
-        this.securityMatcherConfigurer = securityMatcherConfigurer;
+        this.servletSecurityMatcherConfigurer = servletSecurityMatcherConfigurer;
     }
 
     /**
@@ -194,7 +196,7 @@ public class SecurityMetadataSourceAnalyzer {
 
         log.debug("[Herodotus] |- [3] Process local configured security metadata.");
 
-        LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> requestMatchers = securityMatcherConfigurer.getPermitAllAttributes();
+        LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>> requestMatchers = servletSecurityMatcherConfigurer.getPermitAllAttributes();
         if (MapUtils.isNotEmpty(requestMatchers)) {
             Map<Category, LinkedHashMap<HerodotusRequest, List<HerodotusConfigAttribute>>> grouping = groupSecurityMatchers(requestMatchers);
 

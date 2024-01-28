@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.oauth2.authorization.processor;
+package cn.herodotus.stirrup.oauth2.authorization.servlet;
 
-import cn.herodotus.engine.rest.core.utils.HeaderUtils;
+import cn.herodotus.stirrup.oauth2.authorization.processor.SecurityMetadataSourceStorage;
+import cn.herodotus.stirrup.web.core.utils.HeaderUtils;
 import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusConfigAttribute;
-import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequest;
-import cn.herodotus.engine.oauth2.authorization.definition.HerodotusRequestMatcher;
+import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusRequest;
+import cn.herodotus.stirrup.oauth2.authorization.definition.HerodotusRequestMatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
@@ -53,11 +54,11 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
     private static final Logger log = LoggerFactory.getLogger(SecurityAuthorizationManager.class);
 
     private final SecurityMetadataSourceStorage securityMetadataSourceStorage;
-    private final SecurityMatcherConfigurer securityMatcherConfigurer;
+    private final ServletSecurityMatcherConfigurer servletSecurityMatcherConfigurer;
 
-    public SecurityAuthorizationManager(SecurityMetadataSourceStorage securityMetadataSourceStorage, SecurityMatcherConfigurer securityMatcherConfigurer) {
+    public SecurityAuthorizationManager(SecurityMetadataSourceStorage securityMetadataSourceStorage, ServletSecurityMatcherConfigurer servletSecurityMatcherConfigurer) {
         this.securityMetadataSourceStorage = securityMetadataSourceStorage;
-        this.securityMatcherConfigurer = securityMatcherConfigurer;
+        this.servletSecurityMatcherConfigurer = servletSecurityMatcherConfigurer;
     }
 
     @Override
@@ -68,12 +69,12 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
         String url = request.getRequestURI();
         String method = request.getMethod();
 
-        if (securityMatcherConfigurer.isStaticResources(url)) {
+        if (servletSecurityMatcherConfigurer.isStaticRequest(url)) {
             log.trace("[Herodotus] |- Is static resource : [{}], Passed!", url);
             return new AuthorizationDecision(true);
         }
 
-        if (securityMatcherConfigurer.isPermitAllRequest(request)) {
+        if (servletSecurityMatcherConfigurer.isPermitAllRequest(request)) {
             log.trace("[Herodotus] |- Is white list resource : [{}], Passed!", url);
             return new AuthorizationDecision(true);
         }
@@ -84,7 +85,7 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
             return new AuthorizationDecision(true);
         }
 
-        if (securityMatcherConfigurer.isHasAuthenticatedRequest(request)) {
+        if (servletSecurityMatcherConfigurer.isHasAuthenticatedRequest(request)) {
             log.trace("[Herodotus] |- Is has authenticated resource : [{}]", url);
             return new AuthorizationDecision(authentication.get().isAuthenticated());
         }
@@ -93,7 +94,7 @@ public class SecurityAuthorizationManager implements AuthorizationManager<Reques
         if (CollectionUtils.isEmpty(configAttributes)) {
             log.warn("[Herodotus] |- NO PRIVILEGES : [{}].", url);
 
-            if (!securityMatcherConfigurer.isStrictMode()) {
+            if (!servletSecurityMatcherConfigurer.isStrictMode()) {
                 if (authentication.get().isAuthenticated()) {
                     log.debug("[Herodotus] |- Request is authenticated: [{}].", url);
                     return new AuthorizationDecision(true);

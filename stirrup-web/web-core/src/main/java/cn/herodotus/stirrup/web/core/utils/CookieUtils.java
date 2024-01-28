@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.rest.core.utils;
+package cn.herodotus.stirrup.web.core.utils;
 
 import cn.herodotus.stirrup.core.definition.constants.SymbolConstants;
 import jakarta.servlet.http.Cookie;

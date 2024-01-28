@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.oauth2.authentication.provider;
 
-import cn.herodotus.engine.rest.core.utils.SessionUtils;
+import cn.herodotus.stirrup.web.core.utils.SessionUtils;
 import cn.herodotus.stirrup.core.foundation.utils.type.ListUtils;
 import cn.herodotus.engine.oauth2.authentication.utils.OAuth2EndpointUtils;
 import cn.herodotus.engine.oauth2.core.constants.OAuth2ErrorKeys;

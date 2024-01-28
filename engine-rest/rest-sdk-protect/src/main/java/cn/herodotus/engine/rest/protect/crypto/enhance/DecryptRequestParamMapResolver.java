@@ -17,7 +17,7 @@
 package cn.herodotus.engine.rest.protect.crypto.enhance;
 
 import cn.herodotus.stirrup.core.definition.constants.DefaultConstants;
-import cn.herodotus.engine.rest.core.utils.SessionUtils;
+import cn.herodotus.stirrup.web.core.utils.SessionUtils;
 import cn.herodotus.engine.rest.core.annotation.Crypto;
 import cn.herodotus.engine.rest.protect.crypto.processor.HttpCryptoProcessor;
 import jakarta.servlet.http.HttpServletRequest;

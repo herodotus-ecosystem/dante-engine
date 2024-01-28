@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.oauth2.core.utils;
+package cn.herodotus.stirrup.web.core.utils;
 
 import cn.herodotus.stirrup.core.foundation.json.jackson2.utils.Jackson2Utils;
 import jakarta.servlet.http.HttpServletRequest;

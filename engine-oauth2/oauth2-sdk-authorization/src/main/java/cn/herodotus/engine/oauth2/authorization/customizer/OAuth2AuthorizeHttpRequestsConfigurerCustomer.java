@@ -16,8 +16,8 @@
 
 package cn.herodotus.engine.oauth2.authorization.customizer;
 
-import cn.herodotus.engine.oauth2.authorization.processor.SecurityAuthorizationManager;
-import cn.herodotus.engine.oauth2.authorization.processor.SecurityMatcherConfigurer;
+import cn.herodotus.stirrup.oauth2.authorization.servlet.SecurityAuthorizationManager;
+import cn.herodotus.stirrup.oauth2.authorization.servlet.ServletSecurityMatcherConfigurer;
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,19 +31,19 @@ import org.springframework.security.config.annotation.web.configurers.AuthorizeH
  */
 public class OAuth2AuthorizeHttpRequestsConfigurerCustomer implements Customizer<AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry> {
 
-    private final SecurityMatcherConfigurer securityMatcherConfigurer;
+    private final ServletSecurityMatcherConfigurer servletSecurityMatcherConfigurer;
     private final SecurityAuthorizationManager securityAuthorizationManager;
 
-    public OAuth2AuthorizeHttpRequestsConfigurerCustomer(SecurityMatcherConfigurer securityMatcherConfigurer, SecurityAuthorizationManager securityAuthorizationManager) {
-        this.securityMatcherConfigurer = securityMatcherConfigurer;
+    public OAuth2AuthorizeHttpRequestsConfigurerCustomer(ServletSecurityMatcherConfigurer servletSecurityMatcherConfigurer, SecurityAuthorizationManager securityAuthorizationManager) {
+        this.servletSecurityMatcherConfigurer = servletSecurityMatcherConfigurer;
         this.securityAuthorizationManager = securityAuthorizationManager;
     }
 
     @Override
     public void customize(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry configurer) {
         configurer
-                .requestMatchers(securityMatcherConfigurer.getStaticRequestMatchers()).permitAll()
-                .requestMatchers(securityMatcherConfigurer.getPermitAllRequestMatchers()).permitAll()
+                .requestMatchers(servletSecurityMatcherConfigurer.getStaticRequestMatchers()).permitAll()
+                .requestMatchers(servletSecurityMatcherConfigurer.getPermitAllRequestMatchers()).permitAll()
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .anyRequest().access(securityAuthorizationManager);
     }

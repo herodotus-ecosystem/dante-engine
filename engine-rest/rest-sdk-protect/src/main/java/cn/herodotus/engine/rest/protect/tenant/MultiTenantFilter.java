@@ -18,7 +18,7 @@ package cn.herodotus.engine.rest.protect.tenant;
 
 import cn.herodotus.stirrup.core.definition.constants.DefaultConstants;
 import cn.herodotus.engine.data.core.context.TenantContextHolder;
-import cn.herodotus.engine.rest.core.utils.HeaderUtils;
+import cn.herodotus.stirrup.web.core.utils.HeaderUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
