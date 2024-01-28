@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.cache.jetcache.annotation;
 
-import cn.herodotus.engine.cache.jetcache.configuration.CacheJetCacheAutoConfiguration;
+import cn.herodotus.engine.cache.jetcache.autoconfigure.CacheJetCacheAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

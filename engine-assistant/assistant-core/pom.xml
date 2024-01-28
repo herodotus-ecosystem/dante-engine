@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-assistant</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.8.0</version>
+        <version>3.1.8.1</version>
     </parent>
 
     <artifactId>assistant-core</artifactId>

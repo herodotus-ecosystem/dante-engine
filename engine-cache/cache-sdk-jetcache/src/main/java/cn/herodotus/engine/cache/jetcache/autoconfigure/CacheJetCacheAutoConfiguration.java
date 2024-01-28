@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.jetcache.configuration;
+package cn.herodotus.engine.cache.jetcache.autoconfigure;
 
 import cn.herodotus.engine.cache.caffeine.configuration.CacheCaffeineConfiguration;
 import cn.herodotus.engine.cache.core.properties.CacheProperties;

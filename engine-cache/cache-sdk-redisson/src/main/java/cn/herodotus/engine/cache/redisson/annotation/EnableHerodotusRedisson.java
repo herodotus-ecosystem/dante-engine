@@ -16,7 +16,7 @@
 
 package cn.herodotus.engine.cache.redisson.annotation;
 
-import cn.herodotus.engine.cache.redisson.configuration.CacheRedissonAutoConfiguration;
+import cn.herodotus.engine.cache.redisson.autoconfigure.CacheRedissonAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
