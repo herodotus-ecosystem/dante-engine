@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-data</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.2.0</version>
+        <version>3.2.2.1</version>
     </parent>
 
     <artifactId>data-sdk-mybatis-plus</artifactId>
