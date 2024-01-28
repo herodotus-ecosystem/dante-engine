@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.herodotus.engine.cache.redisson.configuration;
+package cn.herodotus.engine.cache.redisson.autoconfigure;
 
 import cn.herodotus.engine.assistant.definition.constants.SymbolConstants;
 import cn.herodotus.engine.assistant.core.utils.ResourceUtils;
