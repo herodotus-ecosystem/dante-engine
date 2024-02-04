@@ -13,7 +13,7 @@
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.3.0-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.3.0"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.2.2.1-red.svg?logo=spring" alt="Version 3.2.2.1"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.2.2.2-red.svg?logo=spring" alt="Version 3.2.2.2"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-LGPL--3.0-blue.svg" alt="License LGPL-3.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -205,6 +205,26 @@ LGPL 是 GPL 的一个为主要为类库使用设计的开源协议。和 GPL �
 | 4  | [Spring Cloud 之 Session 共享及一致性处理](https://www.foxitsoftware.cn/bhds/payRead/pmq4wy) | 付费，有试读章节 | 深入浅出剖析微服务架构 Session 共享技术难点                                                       | ![Spring Cloud 之 Session 共享及一致性处理](./readme/cookbook/0004.png) |
 | 5  | [OAuth 2 中的鉴权和动态接口鉴权](https://www.foxitsoftware.cn/bhds/payRead/uxq6fi)             | 付费，有试读章节 | 带您跟随 Dante Cloud 源代码，由浅入深全面掌握 Spring Security 5 & 6 以及基于 OAuth2 的微服务动态接口鉴权的原理与实现 | ![OAuth 2 中的鉴权和动态接口鉴权](./readme/cookbook/0005.png)             |
 | 6  | [Spring Boot 3 之 Rest 接口传参方式详解](https://www.foxitsoftware.cn/bhds/payRead/kcsegy)   | 付费，有试读章节 | 一文让你彻底掌握 Spring Boot Rest 各种传参方式和方法的“正确打开方式”                                     | ![Spring Boot 3 之 Rest 接口传参方式详解](./readme/cookbook/0007.png)   |
+
+## 版本分支
+
+### 一、版本号说明
+
+本系统版本号，分为四段。
+
+- 第一段和第二段，与 Spring Boot 版本对应，根据采用的 Spring Boot 版本变更。例如，当前采用 Spring Boot 2.4.6 版本，那么就以
+  2.4.X.X 开头
+- 第三段，表示系统功能的变化
+- 第四段，表示系统功能维护及优化情况
+
+### 二、分支说明
+
+| 分支名称    | 对应 Spring 生态版本                          | 对应 JDK 版本 | 用途          | 现状                                                  |
+|---------|-----------------------------------------|-----------|-------------|-----------------------------------------------------|
+| master  | Spring Boot 3.2 和 Spring Cloud 2023.0.0 | JDK 17+   | 主要推广分支      | 可使用，但 Spring Cloud Alibaba、Tencent 等生态并为完全适配，部分功能受限 |
+| develop | Spring Boot 3.2 和 Spring Cloud 2023.0.0 | JDK 17+   | 主要开发分支      | 新功能、ISSUE 均以此分支作为开发，发布后会 PR 至 master 分支             |
+| 3.1.X   | Spring Boot 3.1 和 Spring Cloud 2022.0.X | JDK 17+   | Stable 代码分支 | 稳定可用版本分支，2024年5月，Spring Boot 3.3 发布后将会停止维护          |
+| 2.7.X   | Spring Boot 2.7 和 Spring Cloud 2021.0.X | JDK 8     | 停止维护分支      | 基于 Spring Boot 2.7 时代开发的代码分支，不再维护                   |
 
 ## 参与贡献
 
