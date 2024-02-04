@@ -28,7 +28,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.1.8.1</version>
+    <version>3.1.8.2</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -74,12 +74,12 @@
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
         <!--开源通用工具包-->
         <animated-gif-lib.version>1.4</animated-gif-lib.version>
-        <antisamy.version>1.7.4</antisamy.version>
+        <antisamy.version>1.7.5</antisamy.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-fileupload.version>1.5</commons-fileupload.version>
         <commons-io.version>2.15.1</commons-io.version>
         <guava.version>33.0.0-jre</guava.version>
-        <zxing.version>3.5.2</zxing.version>
+        <zxing.version>3.5.3</zxing.version>
         <!-- 应用开发辅助工具组件 -->
         <redisson.version>3.26.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
@@ -87,12 +87,12 @@
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.1.0</skywalking.version>
         <minio.version>8.5.7</minio.version>
-        <aws-java-sdk-s3.version>1.12.645</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.650</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
-        <influxdb-client.version>6.12.0</influxdb-client.version>
+        <influxdb-client.version>7.0.0</influxdb-client.version>
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.45</fastjson2.version>
+        <fastjson2.version>2.0.46</fastjson2.version>
         <jetcache.version>2.7.5</jetcache.version>
         <nacos.version>2.3.0</nacos.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
@@ -127,11 +127,11 @@
         <com.baidu.aip.version>4.16.17</com.baidu.aip.version>
         <!--以下为特殊处理, 统一版本处理漏洞等-->
         <commons-text.version>1.10.0</commons-text.version>
+        <httpclient.version>4.5.14</httpclient.version>
         <mysql.version>8.3.0</mysql.version>
         <org.json.version>20231013</org.json.version>
         <okio.version>3.7.0</okio.version>
         <xnio.version>3.8.12.Final</xnio.version>
-        <httpclient.version>4.5.14</httpclient.version>
         <json-path.version>2.9.0</json-path.version>
         <checker-qual.version>3.42.0</checker-qual.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
@@ -140,7 +140,7 @@
         <bcpkix-jdk18on.version>1.77</bcpkix-jdk18on.version>
         <dom4j.version>2.1.4</dom4j.version>
         <snakeyaml.version>2.2</snakeyaml.version>
-        <sqlite-jdbc.version>3.45.0.0</sqlite-jdbc.version>
+        <sqlite-jdbc.version>3.45.1.0</sqlite-jdbc.version>
         <snappy-java.version>1.1.10.5</snappy-java.version>
     </properties>
 
