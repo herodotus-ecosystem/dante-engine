@@ -22,7 +22,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-access</artifactId>
-        <version>3.2.2.2</version>
+        <version>3.2.2.3</version>
     </parent>
 
     <artifactId>access-sdk-sms</artifactId>

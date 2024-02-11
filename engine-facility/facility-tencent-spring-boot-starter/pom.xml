@@ -23,7 +23,7 @@
     <parent>
         <artifactId>engine-facility</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.2.2.2</version>
+        <version>3.2.2.3</version>
     </parent>
 
     <artifactId>facility-tencent-spring-boot-starter</artifactId>
@@ -49,6 +49,10 @@
                 </exclusion>
             </exclusions>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.tencent.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-tencent-polaris-circuitbreaker</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.tencent.cloud</groupId>
