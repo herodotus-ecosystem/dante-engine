@@ -20,7 +20,7 @@ import cn.herodotus.engine.assistant.core.domain.SecretKey;
 import cn.herodotus.engine.rest.core.definition.crypto.AsymmetricCryptoProcessor;
 import org.bouncycastle.crypto.engines.SM2Engine;
 import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey;
-import org.dromara.hutool.core.codec.HexUtil;
+import org.dromara.hutool.core.codec.binary.HexUtil;
 import org.dromara.hutool.core.text.StrUtil;
 import org.dromara.hutool.crypto.asymmetric.KeyType;
 import org.dromara.hutool.crypto.asymmetric.SM2;
@@ -48,9 +48,9 @@ public class SM2CryptoProcessor implements AsymmetricCryptoProcessor {
         // sm2的加解密时有两种方式即 C1C2C3、 C1C3C2，
         sm2.setMode(SM2Engine.Mode.C1C3C2);
         // 生成私钥
-        String privateKey = HexUtil.encodeHexStr(ECKeyUtil.encodeECPrivateKey(sm2.getPrivateKey()));
+        String privateKey = HexUtil.encodeStr(ECKeyUtil.encodeECPrivateKey(sm2.getPrivateKey()));
         // 生成公钥
-        String publicKey = HexUtil.encodeHexStr(((BCECPublicKey) sm2.getPublicKey()).getQ().getEncoded(false));
+        String publicKey = HexUtil.encodeStr(((BCECPublicKey) sm2.getPublicKey()).getQ().getEncoded(false));
 
         SecretKey secretKey = new SecretKey();
         secretKey.setPrivateKey(privateKey);
