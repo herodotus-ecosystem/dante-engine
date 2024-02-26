@@ -28,7 +28,7 @@
 
     <groupId>cn.herodotus.engine</groupId>
     <artifactId>dependencies</artifactId>
-    <version>3.2.3.0</version>
+    <version>3.2.3.1</version>
     <packaging>pom</packaging>
 
     <description>基于 Spring Authorization Server 的 Dante Cloud Dependencies</description>
@@ -71,7 +71,7 @@
         <spring-boot-admin.version>3.2.2</spring-boot-admin.version>
         <spring-boot-dependencies.version>3.2.3</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>2023.0.0</spring-cloud-dependencies.version>
-        <spring-cloud-alibaba-dependencies.version>2022.0.0.0</spring-cloud-alibaba-dependencies.version>
+        <spring-cloud-alibaba-dependencies.version>2023.0.0.0-RC1</spring-cloud-alibaba-dependencies.version>
         <spring-cloud-tencent-dependencies.version>1.13.0-2023.0.0-SNAPSHOT</spring-cloud-tencent-dependencies.version>
         <!--Maven Plugin 相关组件-->
         <archetype-packaging.verison>3.2.1</archetype-packaging.verison>
@@ -86,18 +86,18 @@
         <guava.version>33.0.0-jre</guava.version>
         <zxing.version>3.5.3</zxing.version>
         <!-- 应用开发辅助工具组件 -->
-        <redisson.version>3.26.1</redisson.version>
+        <redisson.version>3.27.0</redisson.version>
         <p6spy.version>3.9.1</p6spy.version>
         <springdoc.version>2.3.0</springdoc.version>
         <logstash-logback-encoder.version>7.4</logstash-logback-encoder.version>
         <skywalking.version>9.1.0</skywalking.version>
         <minio.version>8.5.8</minio.version>
-        <aws-java-sdk-s3.version>1.12.663</aws-java-sdk-s3.version>
+        <aws-java-sdk-s3.version>1.12.665</aws-java-sdk-s3.version>
         <org.eclipse.paho.version>1.2.5</org.eclipse.paho.version>
         <influxdb-client.version>7.0.0</influxdb-client.version>
         <!-- 阿里巴巴开源工具依赖 -->
         <fastjson.version>1.2.83</fastjson.version>
-        <fastjson2.version>2.0.46</fastjson2.version>
+        <fastjson2.version>2.0.47</fastjson2.version>
         <jetcache.version>2.7.5</jetcache.version>
         <nacos.version>2.3.0</nacos.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
@@ -135,7 +135,7 @@
         <mysql.version>8.3.0</mysql.version>
         <org.json.version>20240205</org.json.version>
         <okio.version>3.8.0</okio.version>
-        <xnio.version>3.8.12.Final</xnio.version>
+        <xnio.version>3.8.13.Final</xnio.version>
         <httpclient.version>4.5.14</httpclient.version>
         <checker-qual.version>3.42.0</checker-qual.version>
         <git-commit-id-maven-plugin.version>7.0.0</git-commit-id-maven-plugin.version>
