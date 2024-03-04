@@ -23,7 +23,7 @@
     <parent>
         <artifactId>dante-engine</artifactId>
         <groupId>cn.herodotus.engine</groupId>
-        <version>3.1.9.0</version>
+        <version>3.1.9.1</version>
     </parent>
 
     <description>手机短信、小程序、公众号、JustAuth等外部登录处理逻辑集成模块</description>
