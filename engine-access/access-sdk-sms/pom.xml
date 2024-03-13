@@ -31,7 +31,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-access</artifactId>
-        <version>3.1.9.1</version>
+        <version>3.1.9.2</version>
     </parent>
 
     <artifactId>access-sdk-sms</artifactId>
