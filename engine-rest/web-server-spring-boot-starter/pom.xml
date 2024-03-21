@@ -22,7 +22,7 @@
     <parent>
         <groupId>cn.herodotus.engine</groupId>
         <artifactId>engine-rest</artifactId>
-        <version>3.2.3.3</version>
+        <version>3.2.4.0</version>
     </parent>
 
     <artifactId>web-server-spring-boot-starter</artifactId>
