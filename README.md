@@ -7,13 +7,13 @@
 <p align="center">
     <a href="https://github.com/spring-projects/spring-authorization-server" target="_blank"><img src="https://img.shields.io/badge/Spring%20Authorization%20Server-1.2.3-blue.svg?logo=spring" alt="Spring Authorization Server 1.2.3"></a>
     <a href="https://spring.io/projects/spring-boot" target="_blank"><img src="https://shields.io/badge/Spring%20Boot-3.2.4-blue.svg?logo=spring" alt="Spring Boot 3.2.4"></a>
-    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2023.0.0-blue.svg?logo=spring" alt="Spring Cloud 2023.0.0"></a>
+    <a href="https://spring.io/projects/spring-cloud" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud-2023.0.1-blue.svg?logo=spring" alt="Spring Cloud 2023.0.1"></a>
     <a href="https://github.com/alibaba/spring-cloud-alibaba" target="_blank"><img src="https://shields.io/badge/Spring%20Cloud%20Alibaba-2023.0.0.0-blue.svg?logo=alibabadotcom" alt="Spring Cloud Alibaba 2023.0.0.0"></a>
     <a href="https://github.com/Tencent/spring-cloud-tencent" target="_blank"><img src="https://img.shields.io/badge/Spring%20Cloud%20Tencent-1.13.1--2023.0.0-blue.svg?logo=tencentqq" alt="Spring Cloud Tencent 1.13.1-2023.0.0"></a>
     <a href="https://nacos.io/zh-cn/index.html" target="_blank"><img src="https://shields.io/badge/Nacos-2.3.1-brightgreen.svg?logo=alibabadotcom" alt="Nacos 2.3.1"></a>
 </p>
 <p align="center">
-    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.2.4.0-red.svg?logo=spring" alt="Version 3.2.4.0"></a>
+    <a href="#" target="_blank"><img src="https://shields.io/badge/Version-3.2.4.1-red.svg?logo=spring" alt="Version 3.2.4.1"></a>
     <a href="https://bell-sw.com/pages/downloads/#downloads" target="_blank"><img src="https://img.shields.io/badge/JDK-17%2B-green.svg?logo=openjdk" alt="Java 17"></a>
     <a href="./LICENSE"><img src="https://shields.io/badge/License-LGPL--3.0-blue.svg" alt="License LGPL-3.0"></a>
     <a href="https://www.herodotus.cn"><img src="https://visitor-badge.laobi.icu/badge?page_id=dante-cloud&title=Total%20Visits" alt="Total Visits"></a>
@@ -223,8 +223,8 @@ LGPL 是 GPL 的一个为主要为类库使用设计的开源协议。和 GPL �
 
 | 分支名称    | 对应 Spring 生态版本                          | 对应 JDK 版本 | 用途             | 现状                                                      |
 |---------|-----------------------------------------|-----------|----------------|---------------------------------------------------------|
-| master  | Spring Boot 3.2 和 Spring Cloud 2023.0.0 | JDK 17    | 主要发布分支         | 可使用，但 Spring Cloud Alibaba、Tencent 等生态并未发布正式适配版，请谨慎选择使用 |
-| develop | Spring Boot 3.2 和 Spring Cloud 2023.0.0 | JDK 17    | Development 分支 | 新功能、ISSUE 均以此分支作为开发，发布后会 PR 至 master 分支                 |
+| master  | Spring Boot 3.2 和 Spring Cloud 2023.0.1 | JDK 17    | 主要发布分支         | 可使用，但 Spring Cloud Alibaba、Tencent 等生态并未发布正式适配版，请谨慎选择使用 |
+| develop | Spring Boot 3.2 和 Spring Cloud 2023.0.1 | JDK 17    | Development 分支 | 新功能、ISSUE 均以此分支作为开发，发布后会 PR 至 master 分支                 |
 | 3.1.X   | Spring Boot 3.1 和 Spring Cloud 2022.0.X | JDK 17    | Stable 代码分支    | 稳定可用版本分支，2024年5月，Spring Boot 3.3 发布后将会停止维护              |
 | 2.7.X   | Spring Boot 2.7 和 Spring Cloud 2021.0.X | JDK 8     | 历史版本分支         | 基于 Spring Boot 2.7 时代开发的代码分支，不再维护                       |
 
