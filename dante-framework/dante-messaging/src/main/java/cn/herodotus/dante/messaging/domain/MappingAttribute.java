@@ -25,10 +25,8 @@
 
 package cn.herodotus.dante.messaging.domain;
 
-import cn.herodotus.dante.messaging.definition.AbstractRest;
+import cn.herodotus.dante.messaging.definition.AbstractAnnotationAttribute;
 import com.google.common.base.MoreObjects;
-
-import java.util.Objects;
 
 /**
  * <p>Description: Controller 请求注解元数据封装实体 </p>
@@ -36,32 +34,20 @@ import java.util.Objects;
  * @author : gengwei.zheng
  * @date : 2020/6/2 19:52
  */
-public class MappingAttribute extends AbstractRest {
+public class MappingAttribute extends AbstractAnnotationAttribute {
 
     public MappingAttribute() {
     }
 
-    private String id;
-
     private String code;
 
-    private String name;
+    private String requestMethod;
 
-    private String className;
+    private String url;
 
-    private String methodName;
-
-    private String description;
+    private String version;
 
     private String category;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
@@ -71,36 +57,28 @@ public class MappingAttribute extends AbstractRest {
         this.code = code;
     }
 
-    public String getName() {
-        return name;
+    public String getRequestMethod() {
+        return requestMethod;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRequestMethod(String requestMethod) {
+        this.requestMethod = requestMethod;
     }
 
-    public String getClassName() {
-        return className;
+    public String getUrl() {
+        return url;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getMethodName() {
-        return methodName;
+    public String getVersion() {
+        return version;
     }
 
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     public String getCategory() {
@@ -112,28 +90,12 @@ public class MappingAttribute extends AbstractRest {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        MappingAttribute that = (MappingAttribute) o;
-        return Objects.equals(id, that.id) && Objects.equals(code, that.code);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, code);
-    }
-
-    @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("id", id)
                 .add("code", code)
-                .add("name", name)
-                .add("className", className)
-                .add("methodName", methodName)
-                .add("description", description)
+                .add("requestMethod", requestMethod)
+                .add("url", url)
+                .add("version", version)
                 .add("category", category)
                 .addValue(super.toString())
                 .toString();

@@ -25,17 +25,15 @@
 
 package cn.herodotus.dante.messaging.definition;
 
+import cn.herodotus.dante.core.domain.Scan;
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.domain.MappingAttribute;
 import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
-import cn.herodotus.dante.spring.context.PropertyResolver;
 import cn.herodotus.dante.spring.enums.MappingCategory;
-import cn.herodotus.dante.spring.initializer.ApplicationReadyProcessor;
+import cn.herodotus.dante.spring.initializer.AbstractApplicationReadyScanner;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
@@ -47,37 +45,20 @@ import java.util.List;
  * @author : gengwei_zheng
  * @date : 2026/9/18 23:32
  */
-public abstract class AbstractMappingAttributeScanner implements ApplicationReadyProcessor {
+public abstract class AbstractMappingAttributeScanner extends AbstractApplicationReadyScanner {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractMappingAttributeScanner.class);
 
     private final AttributeCollectionEventManager attributeCollectionEventManager;
-    private String serviceId;
 
-    protected AbstractMappingAttributeScanner(AttributeCollectionEventManager attributeCollectionEventManager) {
+    protected AbstractMappingAttributeScanner(Scan scan, AttributeCollectionEventManager attributeCollectionEventManager) {
+        super(scan);
         this.attributeCollectionEventManager = attributeCollectionEventManager;
     }
 
     protected AttributeCollectionEventManager getAttributeCollectionEventManager() {
         return attributeCollectionEventManager;
     }
-
-    @Override
-    public void onApplicationEvent(ApplicationReadyEvent event) {
-        ApplicationContext applicationContext = event.getApplicationContext();
-
-        log.debug("[Herodotus] |- [A1] Application is READY, start to scan mapping attributes!");
-
-        this.serviceId = PropertyResolver.getApplicationName(applicationContext);
-
-        onApplicationEvent(applicationContext);
-    }
-
-    protected String getServiceId() {
-        return this.serviceId;
-    }
-
-    protected abstract void onApplicationEvent(ApplicationContext applicationContext);
 
     /**
      * 扫描完成，发送 Event 传递数据。
@@ -86,6 +67,7 @@ public abstract class AbstractMappingAttributeScanner implements ApplicationRead
      * @param category   映射类别 {@link MappingCategory}
      */
     protected void complete(List<MappingAttribute> attributes, MappingCategory category) {
+
         String serviceId = getServiceId();
 
         if (CollectionUtils.isNotEmpty(attributes)) {

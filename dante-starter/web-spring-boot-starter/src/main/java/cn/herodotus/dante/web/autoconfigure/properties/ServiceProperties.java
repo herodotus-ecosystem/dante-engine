@@ -26,6 +26,7 @@
 package cn.herodotus.dante.web.autoconfigure.properties;
 
 import cn.herodotus.dante.core.constant.SystemConstants;
+import cn.herodotus.dante.core.domain.Scan;
 import cn.herodotus.dante.web.constant.WebConstants;
 import com.google.common.base.MoreObjects;
 import org.apache.commons.collections4.CollectionUtils;
@@ -45,79 +46,55 @@ import java.util.stream.Stream;
 public class ServiceProperties {
 
     /**
-     * 服务接口扫描配置
+     * 服务方法扫描配置
      */
-    private Scan scan = new Scan();
+    private Scanner scanner = new Scanner();
 
-    public Scan getScan() {
-        return scan;
+    public Scanner getScanner() {
+        return scanner;
     }
 
-    public void setScan(Scan scan) {
-        this.scan = scan;
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
     }
 
-    public static class Scan {
+    public static class Scanner {
 
-        /**
-         * 是否开启接口扫描
-         */
-        private Boolean enabled = true;
-        /**
-         * 指定扫描的命名空间。未指定的命名空间中，即使包含RequestMapping，也不会被添加进来。
-         */
-        private List<String> scanGroupIds;
-        /**
-         * Spring 中会包含 Controller和 RestController，
-         * 如果该配置设置为True，那么就只扫描RestController
-         * 如果该配置设置为False，那么Controller和 RestController斗扫描。
-         */
-        private Boolean justScanRestController = false;
+        private Scan rest = new Scan();
+        private Scan grpc = new  Scan();
+        private Scan task = new  Scan();
+        private Scan mcp = new  Scan();
 
-        public Boolean getEnabled() {
-            return enabled;
+        public Scan getRest() {
+            return rest;
         }
 
-        public void setEnabled(Boolean enabled) {
-            this.enabled = enabled;
+        public void setRest(Scan rest) {
+            this.rest = rest;
         }
 
-        public List<String> getScanGroupIds() {
-            List<String> defaultGroupIds = Stream.of(SystemConstants.PACKAGE_NAME, "cn.herodotus").toList();
-
-            if (CollectionUtils.isEmpty(this.scanGroupIds)) {
-                this.scanGroupIds = new ArrayList<>();
-            }
-
-            this.scanGroupIds.addAll(defaultGroupIds);
-            return scanGroupIds;
+        public Scan getGrpc() {
+            return grpc;
         }
 
-        public void setScanGroupIds(List<String> scanGroupIds) {
-            this.scanGroupIds = scanGroupIds;
+        public void setGrpc(Scan grpc) {
+            this.grpc = grpc;
         }
 
-        public Boolean getJustScanRestController() {
-            return justScanRestController;
+        public Scan getTask() {
+            return task;
         }
 
-        public void setJustScanRestController(Boolean justScanRestController) {
-            this.justScanRestController = justScanRestController;
+        public void setTask(Scan task) {
+            this.task = task;
         }
 
-        @Override
-        public String toString() {
-            return MoreObjects.toStringHelper(this)
-                    .add("enabled", enabled)
-                    .add("justScanRestController", justScanRestController)
-                    .toString();
+        public Scan getMcp() {
+            return mcp;
         }
-    }
 
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("scan", scan)
-                .toString();
+        public void setMcp(Scan mcp) {
+            this.mcp = mcp;
+        }
     }
 }

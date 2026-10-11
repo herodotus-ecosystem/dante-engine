@@ -26,10 +26,10 @@
 package cn.herodotus.dante.webmvc.autoconfigure.initializer;
 
 import cn.herodotus.dante.core.constant.SymbolConstants;
+import cn.herodotus.dante.core.domain.Scan;
 import cn.herodotus.dante.messaging.domain.MappingAttribute;
 import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
 import cn.herodotus.dante.web.autoconfigure.initializer.AbstractRequestMappingScanner;
-import cn.herodotus.dante.web.autoconfigure.properties.ServiceProperties;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -61,7 +61,7 @@ public class RequestMappingScanner extends AbstractRequestMappingScanner {
     private static final Logger log = LoggerFactory.getLogger(RequestMappingScanner.class);
     private final WebMvcProperties webMvcProperties;
 
-    public RequestMappingScanner(WebMvcProperties webMvcProperties, ServiceProperties.Scan scan, AttributeCollectionEventManager attributeCollectionEventManager) {
+    public RequestMappingScanner(WebMvcProperties webMvcProperties, Scan scan, AttributeCollectionEventManager attributeCollectionEventManager) {
         super(scan, attributeCollectionEventManager);
         this.webMvcProperties = webMvcProperties;
     }

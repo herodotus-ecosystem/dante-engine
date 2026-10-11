@@ -32,11 +32,13 @@ import cn.herodotus.dante.web.autoconfigure.config.SecureConfiguration;
 import cn.herodotus.dante.web.autoconfigure.config.SpringdocConfiguration;
 import cn.herodotus.dante.web.autoconfigure.customizer.WebErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.dante.web.autoconfigure.initializer.EnumDictionaryCollector;
+import cn.herodotus.dante.web.autoconfigure.properties.ServiceProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
@@ -47,6 +49,7 @@ import org.springframework.context.annotation.Import;
  * @date : 2024/1/24 16:34
  */
 @AutoConfiguration
+@EnableConfigurationProperties(ServiceProperties.class)
 @Import({
         SpringdocConfiguration.class,
         SecureConfiguration.class

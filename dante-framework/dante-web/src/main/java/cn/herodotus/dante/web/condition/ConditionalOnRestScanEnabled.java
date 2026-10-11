@@ -32,7 +32,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProp
 import java.lang.annotation.*;
 
 /**
- * <p>Description: 分布式架构模式条件注解 </p>
+ * <p>Description: 开启 Rest 接口扫描条件注解 </p>
+ * <p>
+ * 如果配置了 `herodotus.service.scanner.rest.enabled`，而且值为 `false` 则不会自动注入和启动相关代码。默认开启 Request Mapping 扫描。
  *
  * @author : gengwei.zheng
  * @date : 2022/1/10 14:54
@@ -40,6 +42,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@ConditionalOnBooleanProperty(prefix = WebConstants.PROPERTY_SERVICE_REST_SCAN, name = BaseConstants.PROPERTY_ENABLED, matchIfMissing = true)
+@ConditionalOnBooleanProperty(prefix = WebConstants.PROPERTY_SCANNER_REST, name = BaseConstants.PROPERTY_ENABLED, matchIfMissing = true)
 public @interface ConditionalOnRestScanEnabled {
 }

@@ -25,6 +25,7 @@
 
 package cn.herodotus.dante.web.servlet.utils;
 
+import cn.herodotus.dante.web.constant.WebConstants;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.ObjectUtils;
@@ -39,8 +40,6 @@ import org.springframework.http.server.ServerHttpRequest;
  * @date : 2023/9/2 15:30
  */
 public class SessionUtils {
-
-    private static final String[] SESSION_IDS = new String[]{"JSESSIONID, SESSION"};
 
     /**
      * 将 getSession 统一封装为一个方法，方便统一修改
@@ -94,7 +93,7 @@ public class SessionUtils {
      * @return session ID 或者 null
      */
     public static String getSessionIdFromHeader(HttpInputMessage httpInputMessage) {
-        return CookieUtils.getAnyFromCookieHeader(httpInputMessage, SESSION_IDS);
+        return CookieUtils.getAnyFromCookieHeader(httpInputMessage, WebConstants.SESSION_IDS);
     }
 
     /**
@@ -104,7 +103,7 @@ public class SessionUtils {
      * @return session ID 或者 null
      */
     public static String getSessionIdFromHeader(ServerHttpRequest serverHttpRequest) {
-        return CookieUtils.getAnyFromCookieHeader(serverHttpRequest, SESSION_IDS);
+        return CookieUtils.getAnyFromCookieHeader(serverHttpRequest, WebConstants.SESSION_IDS);
     }
 
     /**

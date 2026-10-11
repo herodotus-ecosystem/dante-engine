@@ -34,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,7 +47,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(AttributeCollectionEventManager.class)
 @ConditionalOnRestScanEnabled
-@EnableConfigurationProperties(ServiceProperties.class)
 public class WebMvcRestScanAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(WebMvcRestScanAutoConfiguration.class);
@@ -61,7 +59,7 @@ public class WebMvcRestScanAutoConfiguration {
     @Bean
     @ConditionalOnBean(AttributeCollectionEventManager.class)
     public RequestMappingScanner requestMappingScanner(WebMvcProperties webMvcProperties, ServiceProperties serviceProperties, AttributeCollectionEventManager attributeCollectionEventManager) {
-        RequestMappingScanner scanner = new RequestMappingScanner(webMvcProperties, serviceProperties.getScan(), attributeCollectionEventManager);
+        RequestMappingScanner scanner = new RequestMappingScanner(webMvcProperties, serviceProperties.getScanner().getRest(), attributeCollectionEventManager);
         log.trace("[Herodotus] |- Bean [Servlet REST Scanner] Configure.");
         return scanner;
     }
