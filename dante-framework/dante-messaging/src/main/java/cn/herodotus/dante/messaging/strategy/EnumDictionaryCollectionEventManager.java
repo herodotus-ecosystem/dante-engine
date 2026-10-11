@@ -26,7 +26,7 @@
 package cn.herodotus.dante.messaging.strategy;
 
 import cn.herodotus.dante.core.domain.Dictionary;
-import cn.herodotus.dante.messaging.definition.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
 
 import java.util.List;
 

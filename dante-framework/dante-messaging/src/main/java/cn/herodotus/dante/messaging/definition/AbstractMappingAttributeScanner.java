@@ -32,6 +32,7 @@ import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
 import cn.herodotus.dante.spring.enums.MappingCategory;
 import cn.herodotus.dante.spring.initializer.AbstractApplicationReadyScanner;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,19 +46,17 @@ import java.util.List;
  * @author : gengwei_zheng
  * @date : 2026/9/18 23:32
  */
-public abstract class AbstractMappingAttributeScanner extends AbstractApplicationReadyScanner {
+public abstract class AbstractMappingAttributeScanner extends AbstractApplicationReadyScanner<AttributeCollector> {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractMappingAttributeScanner.class);
 
-    private final AttributeCollectionEventManager attributeCollectionEventManager;
-
     protected AbstractMappingAttributeScanner(Scan scan, AttributeCollectionEventManager attributeCollectionEventManager) {
-        super(scan);
-        this.attributeCollectionEventManager = attributeCollectionEventManager;
+        super(scan, attributeCollectionEventManager);
     }
 
-    protected AttributeCollectionEventManager getAttributeCollectionEventManager() {
-        return attributeCollectionEventManager;
+    @Override
+    protected boolean isNotEmpty(AttributeCollector data) {
+        return ObjectUtils.isNotEmpty(data) && CollectionUtils.isNotEmpty(data.getAttributes());
     }
 
     /**
@@ -67,17 +66,8 @@ public abstract class AbstractMappingAttributeScanner extends AbstractApplicatio
      * @param category   映射类别 {@link MappingCategory}
      */
     protected void complete(List<MappingAttribute> attributes, MappingCategory category) {
-
-        String serviceId = getServiceId();
-
-        if (CollectionUtils.isNotEmpty(attributes)) {
-            log.debug("[Herodotus] |- [A2] {} method scan found [{}] resources in service [{}], go to next stage!", category.getLabel(), serviceId, attributes.size());
-            attributeCollectionEventManager.postProcess(new AttributeCollector(attributes, serviceId, category));
-        } else {
-            log.debug("[Herodotus] |- [A2] {} method scan can not find any resources in service [{}]!", category.getLabel(), serviceId);
-        }
-
-        log.info("[Herodotus] |- {} method Scan for Service: [{}] FINISHED!", category.getLabel(), serviceId);
+        log.info("[Herodotus] |- Scanner for {} resources in service: [{}] COMPLETE!", category.getLabel(), getServiceId());
+        complete(new AttributeCollector(attributes, getServiceId(), category), attributes.size());
     }
 
     /**

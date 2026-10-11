@@ -27,28 +27,22 @@ package cn.herodotus.dante.web.autoconfigure.initializer;
 
 import cn.herodotus.dante.core.constant.SymbolConstants;
 import cn.herodotus.dante.core.domain.Scan;
-import cn.herodotus.dante.core.utils.WellFormedUtils;
 import cn.herodotus.dante.messaging.definition.AbstractMappingAttributeScanner;
+import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.domain.MappingAttribute;
 import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
-import cn.herodotus.dante.spring.context.PropertyResolver;
 import cn.herodotus.dante.spring.enums.MappingCategory;
-import cn.herodotus.dante.web.autoconfigure.properties.ServiceProperties;
+import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
 import cn.hutool.v7.crypto.SecureUtil;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerMethod;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <p>Description: RequestMapping 扫描器抽象定义 </p>
@@ -132,7 +126,12 @@ public abstract class AbstractRequestMappingScanner extends AbstractMappingAttri
      * @return 是否执行扫描
      */
     protected boolean notExecuteScanning() {
-        return !getAttributeCollectionEventManager().isPerformScan();
+        ApplicationStrategyEventManager<AttributeCollector> manager = getStrategyEventManager();
+        if (ObjectUtils.isNotEmpty(manager) && manager instanceof AttributeCollectionEventManager collectionEventManager) {
+            return collectionEventManager.isPerformScan();
+        }
+
+        return true;
     }
 
     /**
@@ -171,7 +170,7 @@ public abstract class AbstractRequestMappingScanner extends AbstractMappingAttri
         String className = method.getBeanType().getName();
 
         // 2. 检测该类是否在GroupIds列表中
-        if (!isLegalGroupId(className)) {
+        if (isIllegalGroupId(className)) {
             return null;
         }
 

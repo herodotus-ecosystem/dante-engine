@@ -25,8 +25,8 @@
 
 package cn.herodotus.dante.messaging.event;
 
-import cn.herodotus.dante.messaging.definition.event.AbstractApplicationEvent;
 import cn.herodotus.dante.messaging.domain.MqttMessage;
+import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 import cn.hutool.v7.core.util.ByteUtil;
 import org.apache.commons.lang3.StringUtils;
 

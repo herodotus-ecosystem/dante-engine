@@ -25,8 +25,8 @@
 
 package cn.herodotus.dante.messaging.event;
 
-import cn.herodotus.dante.messaging.definition.event.AbstractApplicationEvent;
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
+import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 
 /**
  * <p>Description: 本地MappingAttribute收集事件 </p>

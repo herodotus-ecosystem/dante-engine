@@ -32,7 +32,7 @@ import cn.herodotus.dante.logic.upms.entity.security.SysAttribute;
 import cn.herodotus.dante.logic.upms.entity.security.SysInterface;
 import cn.herodotus.dante.logic.upms.service.security.SysAttributeService;
 import cn.herodotus.dante.logic.upms.service.security.SysInterfaceService;
-import cn.herodotus.dante.messaging.definition.event.StrategyEventManager;
+import cn.herodotus.dante.spring.event.StrategyEventManager;
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.domain.AttributeDistributor;
 import cn.herodotus.dante.messaging.event.ApplicationReadinessEvent;

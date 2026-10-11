@@ -25,7 +25,7 @@
 
 package cn.herodotus.dante.messaging.event;
 
-import cn.herodotus.dante.messaging.definition.event.AbstractApplicationEvent;
+import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 import org.springframework.messaging.Message;
 
 /**

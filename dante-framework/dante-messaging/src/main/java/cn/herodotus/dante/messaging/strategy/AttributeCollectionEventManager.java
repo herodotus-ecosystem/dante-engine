@@ -25,9 +25,9 @@
 
 package cn.herodotus.dante.messaging.strategy;
 
-import cn.herodotus.dante.messaging.definition.event.ApplicationStrategyEventManager;
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.spring.context.ServiceContextHolder;
+import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 

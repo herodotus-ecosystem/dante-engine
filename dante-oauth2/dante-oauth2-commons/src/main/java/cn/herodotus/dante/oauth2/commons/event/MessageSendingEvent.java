@@ -26,7 +26,7 @@
 package cn.herodotus.dante.oauth2.commons.event;
 
 import cn.herodotus.dante.messaging.definition.Message;
-import cn.herodotus.dante.messaging.definition.event.AbstractApplicationEvent;
+import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 
 /**
  * <p>Description: 本地发送统一消息事件 </p>

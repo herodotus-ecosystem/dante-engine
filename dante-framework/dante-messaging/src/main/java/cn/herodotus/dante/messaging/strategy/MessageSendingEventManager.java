@@ -26,11 +26,11 @@
 package cn.herodotus.dante.messaging.strategy;
 
 import cn.herodotus.dante.messaging.definition.Message;
-import cn.herodotus.dante.messaging.definition.event.ApplicationStrategyEventManager;
 import cn.herodotus.dante.messaging.domain.BroadcastMessage;
 import cn.herodotus.dante.messaging.domain.MqttMessage;
 import cn.herodotus.dante.messaging.domain.UserMessage;
 import cn.herodotus.dante.messaging.enums.MessageCategory;
+import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
 
 /**
  * <p>Description: 统一消息发送事件管理器定义 </p>
