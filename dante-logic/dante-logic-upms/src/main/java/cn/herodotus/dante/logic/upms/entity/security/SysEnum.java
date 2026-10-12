@@ -26,7 +26,7 @@
 package cn.herodotus.dante.logic.upms.entity.security;
 
 import cn.herodotus.dante.core.constant.SystemConstants;
-import cn.herodotus.dante.data.jpa.entity.AbstractSysEntity;
+import cn.herodotus.dante.data.jpa.entity.AbstractEntity;
 import cn.herodotus.dante.logic.upms.domain.generator.SysEnumIdGenerator;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -41,7 +41,7 @@ import jakarta.persistence.*;
 @Schema(name = "系统枚举数据")
 @Entity
 @Table(name = "sys_enum", indexes = {@Index(name = "sys_enum_id_idx", columnList = "enum_id")})
-public class SysEnum extends AbstractSysEntity {
+public class SysEnum extends AbstractEntity {
 
     @Schema(name = "枚举ID")
     @Id

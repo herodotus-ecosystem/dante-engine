@@ -25,6 +25,7 @@
 
 package cn.herodotus.dante.logic.upms.entity.security;
 
+import cn.herodotus.dante.data.jpa.entity.AbstractEntity;
 import cn.herodotus.dante.data.jpa.entity.AbstractSysEntity;
 import cn.herodotus.dante.logic.upms.domain.generator.SysInterfaceIdGenerator;
 import cn.herodotus.dante.spring.enums.MappingCategory;
@@ -43,7 +44,7 @@ import java.util.Objects;
 @Schema(name = "系统应用接口")
 @Entity
 @Table(name = "sys_interface", indexes = {@Index(name = "sys_interface_id_idx", columnList = "interface_id")})
-public class SysInterface extends AbstractSysEntity {
+public class SysInterface extends AbstractEntity {
 
     @Schema(name = "接口ID")
     @Id
