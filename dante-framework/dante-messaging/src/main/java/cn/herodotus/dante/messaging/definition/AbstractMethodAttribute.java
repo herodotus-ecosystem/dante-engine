@@ -35,7 +35,7 @@ import java.util.Objects;
  * @author : gengwei_zheng
  * @date : 2026/10/11 20:45
  */
-public abstract class AbstractAnnotationAttribute extends AbstractAttribute {
+public abstract class AbstractMethodAttribute extends AbstractAttribute {
 
     private String id;
 
@@ -95,7 +95,7 @@ public abstract class AbstractAnnotationAttribute extends AbstractAttribute {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AbstractAnnotationAttribute that = (AbstractAnnotationAttribute) o;
+        AbstractMethodAttribute that = (AbstractMethodAttribute) o;
         return Objects.equals(id, that.id) && Objects.equals(className, that.className) && Objects.equals(methodName, that.methodName);
     }
 

@@ -29,7 +29,6 @@ import cn.herodotus.dante.messaging.domain.MappingAttribute;
 import cn.herodotus.dante.spring.enums.MappingCategory;
 import com.google.common.base.MoreObjects;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -38,11 +37,9 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2026/2/28 19:37
  */
-public abstract class AbstractAttributeTransmitter<T extends MappingAttribute> implements Serializable {
+public abstract class AbstractAttributeTransmitter<T extends MappingAttribute> extends AbstractAttribute {
 
     private List<T> attributes;
-
-    private String serviceId;
 
     /**
      * 是否为 REST API。用来区分 REST API 的收集还是 gRPC 的收集
@@ -58,8 +55,8 @@ public abstract class AbstractAttributeTransmitter<T extends MappingAttribute> i
 
     protected AbstractAttributeTransmitter(List<T> attributes, String serviceId, MappingCategory category) {
         this.attributes = attributes;
-        this.serviceId = serviceId;
         this.category = category;
+        this.setServiceId(serviceId);
     }
 
     public List<T> getAttributes() {
@@ -68,14 +65,6 @@ public abstract class AbstractAttributeTransmitter<T extends MappingAttribute> i
 
     public void setAttributes(List<T> attributes) {
         this.attributes = attributes;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
     }
 
     public MappingCategory getCategory() {
@@ -89,8 +78,8 @@ public abstract class AbstractAttributeTransmitter<T extends MappingAttribute> i
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("serviceId", serviceId)
                 .add("category", category)
+                .addValue(super.toString())
                 .toString();
     }
 }

@@ -25,7 +25,7 @@
 
 package cn.herodotus.dante.messaging.domain;
 
-import cn.herodotus.dante.messaging.definition.AbstractAnnotationAttribute;
+import cn.herodotus.dante.messaging.definition.AbstractMethodAttribute;
 import com.google.common.base.MoreObjects;
 
 /**
@@ -34,7 +34,7 @@ import com.google.common.base.MoreObjects;
  * @author : gengwei.zheng
  * @date : 2020/6/2 19:52
  */
-public class MappingAttribute extends AbstractAnnotationAttribute {
+public class MappingAttribute extends AbstractMethodAttribute {
 
     public MappingAttribute() {
     }
