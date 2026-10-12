@@ -47,7 +47,7 @@ public class SysEnumToSysDictionaryConverter implements ListConverter<SysEnum, S
         target.setOrdinal(source.getOrdinal());
         target.setValue(source.getValue());
         target.setValueType(source.getValueType());
-        target.setRanking(source.getRanking());
+        target.setRanking(source.getOrdinal());
         target.setReserved(true);
 
         return target;

@@ -76,7 +76,7 @@ import java.util.Set;
 @Table(name = "sys_employee", indexes = {@Index(name = "sys_employee_id_idx", columnList = "employee_id")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "employeeId")
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_EMPLOYEE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_EMPLOYEE)
 public class SysEmployee extends AbstractSysEntity implements SocialUserDetails {
 
     @Schema(name = "人员ID")
@@ -137,7 +137,7 @@ public class SysEmployee extends AbstractSysEntity implements SocialUserDetails 
      * 为了提升访问效率，使用@Fetch(FetchMode.SUBSELECT)，这会让数据一并查出来。
      * 从业务角度分析，一方面没有采用双向查询，避免使用部门的时候查出大量人员数据；另一方面，以人员为主，维护关联数据。
      */
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_DEPARTMENT)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_DEPARTMENT)
     @ManyToMany
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "sys_employee_department",
@@ -147,7 +147,7 @@ public class SysEmployee extends AbstractSysEntity implements SocialUserDetails 
             indexes = {@Index(name = "sys_employee_department_eid_idx", columnList = "employee_id"), @Index(name = "sys_employee_department_did_idx", columnList = "department_id")})
     private Set<SysDepartment> departments = new HashSet<>();
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_USER)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_USER)
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @JsonDeserialize(using = SysUserEmptyToNull.class)
     @JsonBackReference

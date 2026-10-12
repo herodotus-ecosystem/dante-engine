@@ -43,7 +43,7 @@ import java.util.Set;
 @Table(name = "sys_role", uniqueConstraints = {@UniqueConstraint(columnNames = {"role_code"})},
         indexes = {@Index(name = "sys_role_rid_idx", columnList = "role_id"), @Index(name = "sys_role_rcd_idx", columnList = "role_code")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_ROLE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_ROLE)
 public class SysRole extends AbstractSysEntity {
 
     @Id
@@ -69,7 +69,7 @@ public class SysRole extends AbstractSysEntity {
      * Refer: <a href="https://www.jianshu.com/p/23bd82a7b96e">...</a>
      */
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_PERMISSION)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_PERMISSION)
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "sys_role_permission",

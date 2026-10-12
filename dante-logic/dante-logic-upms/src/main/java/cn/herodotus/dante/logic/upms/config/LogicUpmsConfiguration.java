@@ -32,9 +32,14 @@ import cn.herodotus.dante.logic.upms.customizer.UpmsEnumDictionaryBuilderCustomi
 import cn.herodotus.dante.logic.upms.definition.SocialAuthenticationHandler;
 import cn.herodotus.dante.logic.upms.handler.DefaultSocialAuthenticationHandler;
 import cn.herodotus.dante.logic.upms.handler.OAuth2SupportedScopeDistributionHandler;
+import cn.herodotus.dante.logic.upms.manager.security.SysAttributeManager;
+import cn.herodotus.dante.logic.upms.manager.security.SysDictionaryManager;
+import cn.herodotus.dante.logic.upms.manager.security.SysUserManager;
 import cn.herodotus.dante.logic.upms.service.oauth2.OAuth2SupportedScopeService;
-import cn.herodotus.dante.logic.upms.service.security.SysSocialUserService;
-import cn.herodotus.dante.logic.upms.service.security.SysUserService;
+import cn.herodotus.dante.logic.upms.service.security.*;
+import cn.herodotus.dante.messaging.processor.AccountStatusTransferProcessor;
+import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
+import cn.herodotus.dante.messaging.processor.EnumDictionaryTransferProcessor;
 import cn.herodotus.dante.messaging.strategy.OAuth2SupportedScopeDistributionEventManager;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -99,5 +104,26 @@ public class LogicUpmsConfiguration {
         OAuth2SupportedScopeDistributionHandler handler = new OAuth2SupportedScopeDistributionHandler(oauth2SupportedScopeService, oauth2SupportedScopeDistributionEventManager);
         log.trace("[Herodotus] |- Bean [OAuth2 Supported Scope Distribution Handler] Configure.");
         return handler;
+    }
+
+    @Bean
+    public AttributeTransferProcessor attributeTransferProcessor(SysAttributeService sysAttributeService, SysInterfaceService sysInterfaceService) {
+        SysAttributeManager manager = new SysAttributeManager(sysAttributeService, sysInterfaceService);
+        log.trace("[Herodotus] |- Bean [Attribute Transfer Processor] Configure.");
+        return manager;
+    }
+
+    @Bean
+    public EnumDictionaryTransferProcessor enumDictionaryTransferProcessor(SysEnumService sysEnumService, SysDictionaryService sysDictionaryService) {
+        SysDictionaryManager manager = new SysDictionaryManager(sysEnumService, sysDictionaryService);
+        log.trace("[Herodotus] |- Bean [Enum Dictionary Transfer Processor] Configure.");
+        return manager;
+    }
+
+    @Bean
+    public AccountStatusTransferProcessor accountStatusTransferProcessor(SysUserService sysUserService) {
+        SysUserManager manager = new SysUserManager(sysUserService);
+        log.trace("[Herodotus] |- Bean [SysUser Manager] Configure.");
+        return manager;
     }
 }

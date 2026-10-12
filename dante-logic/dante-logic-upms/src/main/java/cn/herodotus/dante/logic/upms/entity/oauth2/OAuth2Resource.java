@@ -26,7 +26,7 @@
 package cn.herodotus.dante.logic.upms.entity.oauth2;
 
 import cn.herodotus.dante.data.jpa.entity.AbstractSysEntity;
-import cn.herodotus.dante.oauth2.commons.constant.OAuth2Constants;
+import cn.herodotus.dante.logic.upms.constant.LogicUpmsConstants;
 import com.google.common.base.MoreObjects;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -49,7 +49,7 @@ import org.hibernate.annotations.UuidGenerator;
         @Index(name = "oauth2_resource_id_idx", columnList = "resource_id"),
         @Index(name = "oauth2_resource_c_idx", columnList = "resource_code")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = OAuth2Constants.REGION__OAUTH2_RESOURCE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__OAUTH2_RESOURCE)
 public class OAuth2Resource extends AbstractSysEntity {
 
     @Id

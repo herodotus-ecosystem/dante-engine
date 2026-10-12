@@ -44,7 +44,7 @@ import org.hibernate.annotations.UuidGenerator;
 @Entity
 @Table(name = "sys_organization", indexes = {@Index(name = "sys_organization_id_idx", columnList = "organization_id")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_ORGANIZATION)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_ORGANIZATION)
 public class SysOrganization extends AbstractSysEntity {
 
     @Schema(name = "单位ID")

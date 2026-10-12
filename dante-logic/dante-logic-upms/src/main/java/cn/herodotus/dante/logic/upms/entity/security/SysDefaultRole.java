@@ -47,7 +47,7 @@ import org.hibernate.annotations.UuidGenerator;
                 @Index(name = "sys_default_role_rid_idx", columnList = "role_id")}
 )
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_DEFAULT_ROLE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_DEFAULT_ROLE)
 public class SysDefaultRole extends AbstractSysEntity {
 
     @Id
@@ -60,7 +60,7 @@ public class SysDefaultRole extends AbstractSysEntity {
     @Enumerated(EnumType.STRING)
     private AccountCategory scene = AccountCategory.INSTITUTION;
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_ROLE)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_ROLE)
     @Schema(name = "角色ID")
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

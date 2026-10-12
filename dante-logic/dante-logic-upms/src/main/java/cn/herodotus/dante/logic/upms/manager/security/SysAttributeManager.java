@@ -23,8 +23,9 @@
  * 6. 若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.dante.oauth2.authorization.autoconfigure.processor;
+package cn.herodotus.dante.logic.upms.manager.security;
 
+import cn.herodotus.dante.core.jackson.JacksonUtils;
 import cn.herodotus.dante.logic.upms.converter.SysAttributeToAttributeDispatcherConverter;
 import cn.herodotus.dante.logic.upms.converter.SysAttributesToAttributeDispatcherConverter;
 import cn.herodotus.dante.logic.upms.converter.SysInterfacesToSysAttributesConverter;
@@ -32,72 +33,56 @@ import cn.herodotus.dante.logic.upms.entity.security.SysAttribute;
 import cn.herodotus.dante.logic.upms.entity.security.SysInterface;
 import cn.herodotus.dante.logic.upms.service.security.SysAttributeService;
 import cn.herodotus.dante.logic.upms.service.security.SysInterfaceService;
-import cn.herodotus.dante.spring.event.StrategyEventManager;
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.domain.AttributeDistributor;
-import cn.herodotus.dante.messaging.event.ApplicationReadinessEvent;
-import cn.herodotus.dante.oauth2.authorization.attribute.SecurityAttributeManager;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.bus.RemoteAttributeDistributionEvent;
-import cn.herodotus.dante.spring.context.ServiceContextHolder;
+import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
 import cn.herodotus.dante.spring.founction.ListConverter;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 
 /**
- * <p>Description: SecurityMetadata数据处理器 </p>
+ * <p>Description: {@link SysAttribute} Manager </p>
  *
- * @author : gengwei.zheng
- * @date : 2021/8/8 14:00
+ * @author : gengwei_zheng
+ * @date : 2026/10/12 18:14
  */
-@Component
-public class SecurityAttributeProcessor implements StrategyEventManager<AttributeDistributor> {
+public class SysAttributeManager implements AttributeTransferProcessor {
 
-    private static final Logger log = LoggerFactory.getLogger(SecurityAttributeProcessor.class);
+    private static final Logger log = LoggerFactory.getLogger(SysAttributeManager.class);
 
-    private final ListConverter<SysInterface, SysAttribute> toSysAttributes;
     private final SysAttributeService sysAttributeService;
     private final SysInterfaceService sysInterfaceService;
-    private final SecurityAttributeManager securityAttributeManager;
+    private final ListConverter<SysInterface, SysAttribute> toSysAttributes;
 
-    public SecurityAttributeProcessor(SysAttributeService sysAttributeService, SysInterfaceService sysInterfaceService, SecurityAttributeManager securityAttributeManager) {
+    public SysAttributeManager(SysAttributeService sysAttributeService, SysInterfaceService sysInterfaceService) {
         this.sysAttributeService = sysAttributeService;
         this.sysInterfaceService = sysInterfaceService;
-        this.securityAttributeManager = securityAttributeManager;
         this.toSysAttributes = new SysInterfacesToSysAttributesConverter();
     }
 
     /**
-     * UPMS 服务既要处理各个服务权限数据的分发，也要处理自身服务权限数据
+     * 将服务发送的 {@link AttributeCollector} 信息，聚合存储至 {@link SysInterface}。然后将 {@link SysInterface} 表中存在但 {@link SysAttribute} 表中不存在的数据同步至 {@link SysAttribute} ，保证两侧数据一致
      *
-     * @param data 事件携带数据
+     * @param collector    权限元数据收集器 {@link AttributeCollector}
+     * @param publishEvent 数据发送操作
      */
     @Override
-    public void postLocalProcess(AttributeDistributor data) {
-        securityAttributeManager.postAttributeDistributorProcess(data);
-    }
-
-    @Override
-    public void postRemoteProcess(String data, String originService, String destinationService) {
-        publishEvent(new RemoteAttributeDistributionEvent(data, originService, destinationService));
-    }
-
-    /**
-     * 将SysAuthority表中存在，但是SysSecurityAttribute中不存在的数据同步至SysSecurityAttribute，保证两侧数据一致
-     */
     @Transactional(rollbackFor = Exception.class)
-    public void postAttributeCollectorProcess(AttributeCollector collector) {
+    public void storeAndMergeAttributeCollector(AttributeCollector collector, BiConsumer<String, AttributeDistributor> publishEvent) {
 
         // 将各个服务发送回来的 requestMappings 存储到 SysInterface 中
         List<SysInterface> storedInterfaces = sysInterfaceService.storeMappingAttributes(collector.getAttributes());
 
         if (CollectionUtils.isNotEmpty(storedInterfaces)) {
-            log.debug("[Herodotus] |- [R5] Mapping attribute store success, start to merge security metadata!");
+            log.debug("[Herodotus] |- Mapping attribute store success, start to merge security metadata!");
 
             // 查询将新增的 SysInterface，将其转存到 SysAttribute 中
             List<SysInterface> sysInterfaces = sysInterfaceService.findAllocatable();
@@ -114,18 +99,11 @@ public class SecurityAttributeProcessor implements StrategyEventManager<Attribut
             }
 
             // 执行权限数据分发
-            distributeAttributes(collector);
-
-            if (!ServiceContextHolder.isDistributedArchitecture()) {
-                publishEvent(new ApplicationReadinessEvent("Attribute Transmitter Distribute Success"));
-            }
-//
-//            List<SysAttribute> sysAttributes = sysAttributeService.findAll();
-//            this.postGroupProcess(sysAttributes);
+            distributeAttributes(collector, publishEvent);
         }
     }
 
-    private void distributeAttributes(AttributeCollector collector) {
+    private void distributeAttributes(AttributeCollector collector, BiConsumer<String, AttributeDistributor> publishEvent) {
         // 每次处理都是只针对一个服务，所以该组数据 serviceId 肯定都相同
         String serviceId = collector.getServiceId();
         List<SysAttribute> sysAttributes = sysAttributeService.findAllByServiceId(serviceId, collector.getCategory());
@@ -133,13 +111,23 @@ public class SecurityAttributeProcessor implements StrategyEventManager<Attribut
             Converter<List<SysAttribute>, AttributeDistributor> toDispatchers = new SysAttributesToAttributeDispatcherConverter(serviceId, collector.getCategory());
             AttributeDistributor dispatcher = toDispatchers.convert(sysAttributes);
             log.debug("[Herodotus] |- [R6] Synchronization permissions to service [{}]", serviceId);
-            this.postProcess(serviceId, dispatcher);
+            publishEvent.accept(serviceId, dispatcher);
         }
     }
 
-    public void distributeChangedSecurityAttribute(SysAttribute sysAttribute) {
-        Converter<SysAttribute, AttributeDistributor> toDispatcher = new SysAttributeToAttributeDispatcherConverter();
-        AttributeDistributor dispatcher = toDispatcher.convert(sysAttribute);
-        postProcess(dispatcher.getServiceId(), dispatcher);
+    @Override
+    public void distributeChangedSecurityAttribute(String attribute, BiConsumer<String, AttributeDistributor> publishEvent) {
+        if (StringUtils.isNotEmpty(attribute)) {
+            SysAttribute sysAttribute = JacksonUtils.toObject(attribute, SysAttribute.class);
+            if (ObjectUtils.isNotEmpty(sysAttribute)) {
+                Converter<SysAttribute, AttributeDistributor> toDispatcher = new SysAttributeToAttributeDispatcherConverter();
+                AttributeDistributor dispatcher = toDispatcher.convert(sysAttribute);
+                publishEvent.accept(dispatcher.getServiceId(), dispatcher);
+            } else {
+                log.error("[Herodotus] |- Changed sysAttribute deserialization to entity failed.");
+            }
+        } else {
+            log.error("[Herodotus] |- Changed sysAttribute data is null.");
+        }
     }
 }

@@ -52,7 +52,7 @@ import java.util.Set;
 @Entity
 @Table(name = "sys_element", indexes = {@Index(name = "sys_element_id_idx", columnList = "element_id")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_ELEMENT)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_ELEMENT)
 public class SysElement extends AbstractSysEntity {
 
     @Id
@@ -116,7 +116,7 @@ public class SysElement extends AbstractSysEntity {
     @Enumerated(EnumType.STRING)
     private ClientType clientType = ClientType.WEB;
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_ROLE)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_ROLE)
     @Schema(name = "元素角色")
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)

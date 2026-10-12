@@ -26,14 +26,12 @@
 package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 
 import cn.herodotus.dante.core.jackson.JacksonUtils;
-import cn.herodotus.dante.data.commons.enums.DataItemStatus;
-import cn.herodotus.dante.logic.upms.service.security.SysUserService;
 import cn.herodotus.dante.messaging.domain.AccountStatus;
+import cn.herodotus.dante.messaging.processor.AccountStatusTransferProcessor;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.bus.RemoteAccountStatusChangeEvent;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 
 /**
@@ -46,11 +44,10 @@ public class RemoteAccountStatusChangeListener implements ApplicationListener<Re
 
     private static final Logger log = LoggerFactory.getLogger(RemoteAccountStatusChangeListener.class);
 
-    private final SysUserService sysUserService;
+    private final AccountStatusTransferProcessor processor;
 
-    @Autowired
-    public RemoteAccountStatusChangeListener(SysUserService sysUserService) {
-        this.sysUserService = sysUserService;
+    public RemoteAccountStatusChangeListener(AccountStatusTransferProcessor processor) {
+        this.processor = processor;
     }
 
     @Override
@@ -62,13 +59,7 @@ public class RemoteAccountStatusChangeListener implements ApplicationListener<Re
 
         if (ObjectUtils.isNotEmpty(data)) {
             AccountStatus accountStatus = JacksonUtils.toObject(data, AccountStatus.class);
-            if (ObjectUtils.isNotEmpty(accountStatus)) {
-                DataItemStatus dataItemStatus = DataItemStatus.valueOf(accountStatus.getStatus());
-                if (ObjectUtils.isNotEmpty(dataItemStatus)) {
-                    log.debug("[Herodotus] |- [A2] Account status changed process BEGIN!");
-                    sysUserService.changeStatus(accountStatus.getUserId(), dataItemStatus);
-                }
-            }
+            processor.changeUserStatus(accountStatus);
         }
     }
 }

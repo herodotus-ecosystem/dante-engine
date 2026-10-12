@@ -26,11 +26,14 @@
 package cn.herodotus.dante.oauth2.authorization.autoconfigure;
 
 import cn.herodotus.dante.logic.upms.annotation.EnableHerodotusLogicUpms;
-import cn.herodotus.dante.logic.upms.service.security.SysUserService;
+import cn.herodotus.dante.messaging.processor.AccountStatusTransferProcessor;
+import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
+import cn.herodotus.dante.messaging.processor.EnumDictionaryTransferProcessor;
+import cn.herodotus.dante.messaging.strategy.AttributeDistributionEventManager;
+import cn.herodotus.dante.oauth2.authorization.attribute.SecurityAttributeManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.condition.ConditionalOnUpmsService;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.listener.*;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.EnumDictionaryCollectionProcessor;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.SecurityAttributeProcessor;
+import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultAttributeDistributionEventManager;
 import cn.herodotus.dante.security.definition.OAuth2ProtectedResourceMetadataStorage;
 import cn.herodotus.dante.spring.condition.ConditionalOnArchitecture;
 import cn.herodotus.dante.spring.enums.Architecture;
@@ -63,26 +66,33 @@ public class UpmsServiceMessageAutoConfiguration {
         log.info("[Herodotus] |- Auto [OAuth2 Upms Service] Configure.");
     }
 
+    @Bean
+    public AttributeDistributionEventManager attributeDistributionEventManager(SecurityAttributeManager securityAttributeManager) {
+        DefaultAttributeDistributionEventManager manager = new DefaultAttributeDistributionEventManager(securityAttributeManager);
+        log.trace("[Herodotus] |- Bean [Attribute Distribution Event Manager] Configure.");
+        return manager;
+    }
+
     @Configuration(proxyBeanMethods = false)
     public static class UpmsLocalListenerConfiguration {
 
         @Bean
-        public LocalAccountStatusChangeListener localAccountStatusChangeListener(SysUserService sysUserService) {
-            LocalAccountStatusChangeListener listener = new LocalAccountStatusChangeListener(sysUserService);
+        public LocalAccountStatusChangeListener localAccountStatusChangeListener(AccountStatusTransferProcessor accountStatusTransferProcessor) {
+            LocalAccountStatusChangeListener listener = new LocalAccountStatusChangeListener(accountStatusTransferProcessor);
             log.trace("[Herodotus] |- Bean [Local Account Status Change Listener] Configure.");
             return listener;
         }
 
         @Bean
-        public LocalEnumDictionaryCollectionListener localEnumDictionaryCollectionListener(EnumDictionaryCollectionProcessor enumDictionaryCollectionProcessor) {
-            LocalEnumDictionaryCollectionListener listener = new LocalEnumDictionaryCollectionListener(enumDictionaryCollectionProcessor);
+        public LocalEnumDictionaryCollectionListener localEnumDictionaryCollectionListener(EnumDictionaryTransferProcessor enumDictionaryTransferProcessor) {
+            LocalEnumDictionaryCollectionListener listener = new LocalEnumDictionaryCollectionListener(enumDictionaryTransferProcessor);
             log.trace("[Herodotus] |- Bean [Local Enum Dictionary Collection Listener] Configure.");
             return listener;
         }
 
         @Bean
-        public LocalAttributeCollectionListener localAttributeCollectionListener(SecurityAttributeProcessor securityAttributeProcessor) {
-            LocalAttributeCollectionListener listener = new LocalAttributeCollectionListener(securityAttributeProcessor);
+        public LocalAttributeCollectionListener localAttributeCollectionListener(AttributeTransferProcessor attributeTransferProcessor, AttributeDistributionEventManager attributeDistributionEventManager) {
+            LocalAttributeCollectionListener listener = new LocalAttributeCollectionListener(attributeTransferProcessor, attributeDistributionEventManager);
             log.trace("[Herodotus] |- Bean [Local Mapping Attribute Collection Listener] Configure.");
             return listener;
         }
@@ -95,8 +105,8 @@ public class UpmsServiceMessageAutoConfiguration {
         }
 
         @Bean
-        public SysAttributeChangeListener sysAttributeChangeListener(SecurityAttributeProcessor securityAttributeProcessor) {
-            SysAttributeChangeListener listener = new SysAttributeChangeListener(securityAttributeProcessor);
+        public SysAttributeChangeListener sysAttributeChangeListener(AttributeTransferProcessor attributeTransferProcessor, AttributeDistributionEventManager attributeDistributionEventManager) {
+            SysAttributeChangeListener listener = new SysAttributeChangeListener(attributeTransferProcessor, attributeDistributionEventManager);
             log.trace("[Herodotus] |- Bean [SysAttribute Change Listener] Configure.");
             return listener;
         }
@@ -107,22 +117,22 @@ public class UpmsServiceMessageAutoConfiguration {
     public static class UpmsRemoteListenerConfiguration {
 
         @Bean
-        public RemoteAccountStatusChangeListener remoteAccountStatusChangeListener(SysUserService sysUserService) {
-            RemoteAccountStatusChangeListener listener = new RemoteAccountStatusChangeListener(sysUserService);
+        public RemoteAccountStatusChangeListener remoteAccountStatusChangeListener(AccountStatusTransferProcessor accountStatusTransferProcessor) {
+            RemoteAccountStatusChangeListener listener = new RemoteAccountStatusChangeListener(accountStatusTransferProcessor);
             log.trace("[Herodotus] |- Bean [Remote Account Status Change Listener] Configure.");
             return listener;
         }
 
         @Bean
-        public RemoteEnumDictionaryCollectionListener remoteEnumDictionaryCollectionListener(EnumDictionaryCollectionProcessor enumDictionaryCollectionProcessor) {
-            RemoteEnumDictionaryCollectionListener listener = new RemoteEnumDictionaryCollectionListener(enumDictionaryCollectionProcessor);
+        public RemoteEnumDictionaryCollectionListener remoteEnumDictionaryCollectionListener(EnumDictionaryTransferProcessor enumDictionaryTransferProcessor) {
+            RemoteEnumDictionaryCollectionListener listener = new RemoteEnumDictionaryCollectionListener(enumDictionaryTransferProcessor);
             log.trace("[Herodotus] |- Bean [Remote Enum Dictionary Collection Listener] Configure.");
             return listener;
         }
 
         @Bean
-        public RemoteAttributeCollectionListener remoteAttributeCollectionListener(SecurityAttributeProcessor securityAttributeProcessor) {
-            RemoteAttributeCollectionListener listener = new RemoteAttributeCollectionListener(securityAttributeProcessor);
+        public RemoteAttributeCollectionListener remoteAttributeCollectionListener(AttributeTransferProcessor attributeTransferProcessor, AttributeDistributionEventManager attributeDistributionEventManager) {
+            RemoteAttributeCollectionListener listener = new RemoteAttributeCollectionListener(attributeTransferProcessor, attributeDistributionEventManager);
             log.trace("[Herodotus] |- Bean [Remote Mapping Attribute Collection Listener] Configure.");
             return listener;
         }

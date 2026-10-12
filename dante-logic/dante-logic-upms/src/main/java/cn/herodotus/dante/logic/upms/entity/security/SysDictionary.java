@@ -43,7 +43,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "sys_dictionary", indexes = {@Index(name = "sys_dictionary_id_idx", columnList = "dictionary_id"), @Index(name = "sys_dictionary_c_idx", columnList = "category")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_DICTIONARY)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_DICTIONARY)
 public class SysDictionary extends AbstractSysEntity {
 
     @Schema(name = "字典ID")

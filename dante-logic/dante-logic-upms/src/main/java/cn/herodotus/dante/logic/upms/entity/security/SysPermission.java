@@ -45,7 +45,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "sys_permission", indexes = {@Index(name = "sys_permission_id_idx", columnList = "permission_id")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_PERMISSION)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_PERMISSION)
 public class SysPermission extends AbstractSysEntity {
 
     @Schema(name = "权限ID")

@@ -48,7 +48,7 @@ import org.hibernate.annotations.UuidGenerator;
         @Index(name = "sys_ownership_eid_idx", columnList = "employee_id")
 })
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_OWNERSHIP)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_OWNERSHIP)
 public class SysOwnership extends AbstractSysEntity {
 
     @Schema(name = "人员ID")

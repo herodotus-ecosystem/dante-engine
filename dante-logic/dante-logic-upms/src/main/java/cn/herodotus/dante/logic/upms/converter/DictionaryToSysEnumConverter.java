@@ -53,7 +53,6 @@ public class DictionaryToSysEnumConverter implements ListConverter<Dictionary, S
         target.setOrdinal(source.getOrdinal());
         target.setValue(source.getValue());
         target.setValueType(getValueType(source));
-        target.setRanking(source.getOrdinal());
 
         return target;
     }

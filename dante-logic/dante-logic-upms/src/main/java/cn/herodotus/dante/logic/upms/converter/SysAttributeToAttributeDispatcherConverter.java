@@ -35,7 +35,7 @@ import org.springframework.core.convert.converter.Converter;
 import java.util.List;
 
 /**
- * <p>Description: SysAttribute 转 SecurityAttribute 转换器</p>
+ * <p>Description: {@link SysAttribute} 转 {@link AttributeDistributor} 转换器 </p>
  *
  * @author : gengwei.zheng
  * @date : 2023/8/23 22:59

@@ -25,9 +25,11 @@
 
 package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 
+import cn.herodotus.dante.core.jackson.JacksonUtils;
 import cn.herodotus.dante.logic.upms.domain.event.SysAttributeChangeEvent;
 import cn.herodotus.dante.logic.upms.entity.security.SysAttribute;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.SecurityAttributeProcessor;
+import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
+import cn.herodotus.dante.messaging.strategy.AttributeDistributionEventManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -44,11 +46,14 @@ public class SysAttributeChangeListener implements ApplicationListener<SysAttrib
 
     private static final Logger log = LoggerFactory.getLogger(SysAttributeChangeListener.class);
 
-    private final SecurityAttributeProcessor securityAttributeProcessor;
+    private final AttributeTransferProcessor processor;
+    private final AttributeDistributionEventManager eventManager;
 
-    public SysAttributeChangeListener(SecurityAttributeProcessor securityAttributeProcessor) {
-        this.securityAttributeProcessor = securityAttributeProcessor;
+    public SysAttributeChangeListener(AttributeTransferProcessor processor, AttributeDistributionEventManager eventManager) {
+        this.processor = processor;
+        this.eventManager = eventManager;
     }
+
 
     @Override
     public void onApplicationEvent(SysAttributeChangeEvent event) {
@@ -60,6 +65,7 @@ public class SysAttributeChangeListener implements ApplicationListener<SysAttrib
         log.debug("[Herodotus] |- Got SysAttribute, start to process SysAttribute change.");
 
         Optional.ofNullable(sysAttribute)
-                .ifPresent(securityAttributeProcessor::distributeChangedSecurityAttribute);
+                .map(JacksonUtils::toJson)
+                .ifPresent(attribute -> processor.distributeChangedSecurityAttribute(attribute, eventManager::postProcess));
     }
 }

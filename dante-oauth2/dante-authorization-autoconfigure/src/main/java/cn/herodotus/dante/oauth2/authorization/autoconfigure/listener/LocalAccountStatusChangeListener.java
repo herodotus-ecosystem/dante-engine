@@ -25,11 +25,9 @@
 
 package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 
-import cn.herodotus.dante.data.commons.enums.DataItemStatus;
-import cn.herodotus.dante.logic.upms.service.security.SysUserService;
 import cn.herodotus.dante.messaging.domain.AccountStatus;
+import cn.herodotus.dante.messaging.processor.AccountStatusTransferProcessor;
 import cn.herodotus.dante.oauth2.commons.event.AccountStatusChangeEvent;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -44,10 +42,10 @@ public class LocalAccountStatusChangeListener implements ApplicationListener<Acc
 
     private static final Logger log = LoggerFactory.getLogger(LocalAccountStatusChangeListener.class);
 
-    private final SysUserService sysUserService;
+    private final AccountStatusTransferProcessor processor;
 
-    public LocalAccountStatusChangeListener(SysUserService sysUserService) {
-        this.sysUserService = sysUserService;
+    public LocalAccountStatusChangeListener(AccountStatusTransferProcessor processor) {
+        this.processor = processor;
     }
 
     @Override
@@ -56,12 +54,6 @@ public class LocalAccountStatusChangeListener implements ApplicationListener<Acc
         log.info("[Herodotus] |- Account status changed LOCAL listener, response event!");
 
         AccountStatus accountStatus = event.getData();
-        if (ObjectUtils.isNotEmpty(accountStatus)) {
-            DataItemStatus dataItemStatus = DataItemStatus.valueOf(accountStatus.getStatus());
-            if (ObjectUtils.isNotEmpty(dataItemStatus)) {
-                log.debug("[Herodotus] |- [A2] Account status changed process BEGIN!");
-                sysUserService.changeStatus(accountStatus.getUserId(), dataItemStatus);
-            }
-        }
+        processor.changeUserStatus(accountStatus);
     }
 }

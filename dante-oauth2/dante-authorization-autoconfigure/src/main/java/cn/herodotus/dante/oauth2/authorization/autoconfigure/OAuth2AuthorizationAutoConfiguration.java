@@ -25,12 +25,13 @@
 
 package cn.herodotus.dante.oauth2.authorization.autoconfigure;
 
+import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.domain.SecurityAttribute;
+import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
 import cn.herodotus.dante.oauth2.authorization.attribute.RestSecurityAttributeAnalyzer;
 import cn.herodotus.dante.oauth2.authorization.attribute.RestSecurityAttributeStorage;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.listener.LocalAttributeCollectionListener;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.listener.RemoteAttributeCollectionListener;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.SecurityAttributeProcessor;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultAttributeCollectionEventManager;
 import cn.herodotus.dante.oauth2.authorization.config.OAuth2ServletAuthorizationConfiguration;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,6 +44,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 
 /**
  * <p>Description: OAuth2 资源服务器自动配置模块 </p>
@@ -55,7 +57,7 @@ import java.util.List;
  * 1.3. {@link DefaultAttributeCollectionEventManager} 在发送 Event 时，会提前调用 {@link RestSecurityAttributeAnalyzer#postLocalResourceMatcherProcess()} 对服务本地配置的静态权限进行处理，放入到本地权限缓存中 {@link RestSecurityAttributeStorage}。
  * 2. UPMS 服务会使用 {@link LocalAttributeCollectionListener} 接收本地（UPMS自身）和使用 {@link RemoteAttributeCollectionListener} 接收其它服务的接口数据
  * 注意：单体架构就只有 {@link LocalAttributeCollectionListener} 会生效。 {@link RemoteAttributeCollectionListener} 依赖消息队列，仅在微服务架构下生效。
- * 3. UPMS 接收到各服务的扫描到的接口数据后，会调用 {@link SecurityAttributeProcessor#postAttributeCollectProcess(AttributeCollector)} 方法，执行以下操作：
+ * 3. UPMS 接收到各服务的扫描到的接口数据后，会调用 {@link AttributeTransferProcessor#storeAndMergeAttributeCollector(AttributeCollector, BiConsumer)} 方法，执行以下操作：
  * 3.1. 先将接口数据存入 {@code SysInterface} 表中。
  * 3.2. 查询 {@code SysInterface} 表中有的但是 {@code SysAttribute} 表中没有的数据，将这部分差异数据存入 {@code SysAttribute} 表中（注：该方法时为了规避 JPA 更新操作会全部字段覆盖同时兼顾性能的措施）
  * 3.3. 将 {@code SysAttribute} 中最新的数据，分发至指定的 serviceId 对应服务中（如果一个服务是多实例，只会又一个实例接收到分发数据，其它实例通过 JetCache 多级缓存的同步机制来同步数据，以此种方式来降低消息的发送，见：herodotus-cloud-kafka.yaml 中 Spring Cloud Stream 部分配置）

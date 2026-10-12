@@ -27,8 +27,9 @@ package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 
 import cn.herodotus.dante.core.jackson.JacksonUtils;
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
+import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
+import cn.herodotus.dante.messaging.strategy.AttributeDistributionEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.bus.RemoteAttributeCollectionEvent;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.SecurityAttributeProcessor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,11 +51,14 @@ public class RemoteAttributeCollectionListener implements ApplicationListener<Re
 
     private static final Logger log = LoggerFactory.getLogger(RemoteAttributeCollectionListener.class);
 
-    private final SecurityAttributeProcessor securityAttributeProcessor;
+    private final AttributeTransferProcessor processor;
+    private final AttributeDistributionEventManager eventManager;
 
-    public RemoteAttributeCollectionListener(SecurityAttributeProcessor securityAttributeProcessor) {
-        this.securityAttributeProcessor = securityAttributeProcessor;
+    public RemoteAttributeCollectionListener(AttributeTransferProcessor processor, AttributeDistributionEventManager eventManager) {
+        this.processor = processor;
+        this.eventManager = eventManager;
     }
+
 
     @Override
     public void onApplicationEvent(RemoteAttributeCollectionEvent event) {
@@ -68,6 +72,6 @@ public class RemoteAttributeCollectionListener implements ApplicationListener<Re
         Optional.ofNullable(date)
                 .flatMap(value -> Optional.ofNullable(JacksonUtils.toObject(value, AttributeCollector.class)))
                 .filter(collector -> CollectionUtils.isNotEmpty(collector.getAttributes()))
-                .ifPresent(securityAttributeProcessor::postAttributeCollectorProcess);
+                .ifPresent(collector -> processor.storeAndMergeAttributeCollector(collector, eventManager::postProcess));
     }
 }

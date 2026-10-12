@@ -27,7 +27,8 @@ package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.event.AttributeCollectionEvent;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.SecurityAttributeProcessor;
+import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
+import cn.herodotus.dante.messaging.strategy.AttributeDistributionEventManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
@@ -46,11 +47,14 @@ public class LocalAttributeCollectionListener implements ApplicationListener<Att
 
     private static final Logger log = LoggerFactory.getLogger(LocalAttributeCollectionListener.class);
 
-    private final SecurityAttributeProcessor securityAttributeProcessor;
+    private final AttributeTransferProcessor processor;
+    private final AttributeDistributionEventManager eventManager;
 
-    public LocalAttributeCollectionListener(SecurityAttributeProcessor securityAttributeProcessor) {
-        this.securityAttributeProcessor = securityAttributeProcessor;
+    public LocalAttributeCollectionListener(AttributeTransferProcessor processor, AttributeDistributionEventManager eventManager) {
+        this.processor = processor;
+        this.eventManager = eventManager;
     }
+
 
     @Override
     public void onApplicationEvent(AttributeCollectionEvent event) {
@@ -59,8 +63,8 @@ public class LocalAttributeCollectionListener implements ApplicationListener<Att
 
         AttributeCollector collector = event.getData();
         if (ObjectUtils.isNotEmpty(collector) && CollectionUtils.isNotEmpty(collector.getAttributes())) {
-            log.debug("[Herodotus] |- [R4] Attribute collection process BEGIN!");
-            securityAttributeProcessor.postAttributeCollectorProcess(collector);
+            log.debug("[Herodotus] |- [R4] Attribute collect process BEGIN!");
+            processor.storeAndMergeAttributeCollector(collector, eventManager::postProcess);
         }
     }
 }

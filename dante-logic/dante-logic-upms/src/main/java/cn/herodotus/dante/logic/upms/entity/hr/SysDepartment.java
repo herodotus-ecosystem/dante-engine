@@ -48,7 +48,7 @@ import java.util.Objects;
 @Table(name = "sys_department", indexes = {@Index(name = "sys_department_id_idx", columnList = "department_id")})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "departmentId")
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_DEPARTMENT)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_DEPARTMENT)
 public class SysDepartment extends AbstractSysEntity {
 
     @Schema(name = "部门ID")

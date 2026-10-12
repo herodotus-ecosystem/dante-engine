@@ -48,7 +48,6 @@ public class MappingAttributesToSysInterfacesConverter implements Converter<Mapp
         target.setClassName(source.getClassName());
         target.setMethodName(source.getMethodName());
         target.setUrl(source.getUrl());
-        target.setDescription(source.getDescription());
         target.setVersion(source.getVersion());
         target.setCategory(MappingCategory.get(source.getCategory()));
         return target;

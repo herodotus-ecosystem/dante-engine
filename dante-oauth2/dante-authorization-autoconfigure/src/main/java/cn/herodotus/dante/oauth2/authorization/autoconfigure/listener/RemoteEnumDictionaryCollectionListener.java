@@ -27,8 +27,8 @@ package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 
 import cn.herodotus.dante.core.domain.Dictionary;
 import cn.herodotus.dante.core.jackson.JacksonUtils;
+import cn.herodotus.dante.messaging.processor.EnumDictionaryTransferProcessor;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.bus.RemoteEnumDictionaryCollectionEvent;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.EnumDictionaryCollectionProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -45,23 +45,23 @@ public class RemoteEnumDictionaryCollectionListener implements ApplicationListen
 
     private static final Logger log = LoggerFactory.getLogger(RemoteEnumDictionaryCollectionListener.class);
 
-    private final EnumDictionaryCollectionProcessor processor;
+    private final EnumDictionaryTransferProcessor processor;
 
-    public RemoteEnumDictionaryCollectionListener(EnumDictionaryCollectionProcessor processor) {
+    public RemoteEnumDictionaryCollectionListener(EnumDictionaryTransferProcessor processor) {
         this.processor = processor;
     }
 
     @Override
     public void onApplicationEvent(RemoteEnumDictionaryCollectionEvent event) {
 
-        log.info("[Herodotus] |- Enum dictionary gather REMOTE listener, response service [{}] event!", event.getOriginService());
+        log.info("[Herodotus] |- Enum dictionary collection REMOTE listener, response service [{}] event!", event.getOriginService());
 
         String dictionary = event.getData();
 
-        log.debug("[Herodotus] |- [E3] Enum dictionary process BEGIN!");
+        log.debug("[Herodotus] |- [E3] Enum dictionary collection process BEGIN!");
 
         Optional.ofNullable(dictionary)
                 .flatMap(value -> Optional.ofNullable(JacksonUtils.toList(value, Dictionary.class)))
-                .ifPresent(processor::postDictionaries);
+                .ifPresent(processor::storeAndMergeDictionaries);
     }
 }

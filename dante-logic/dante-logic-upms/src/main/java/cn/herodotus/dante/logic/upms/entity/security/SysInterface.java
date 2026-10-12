@@ -26,7 +26,6 @@
 package cn.herodotus.dante.logic.upms.entity.security;
 
 import cn.herodotus.dante.data.jpa.entity.AbstractEntity;
-import cn.herodotus.dante.data.jpa.entity.AbstractSysEntity;
 import cn.herodotus.dante.logic.upms.domain.generator.SysInterfaceIdGenerator;
 import cn.herodotus.dante.spring.enums.MappingCategory;
 import com.google.common.base.MoreObjects;

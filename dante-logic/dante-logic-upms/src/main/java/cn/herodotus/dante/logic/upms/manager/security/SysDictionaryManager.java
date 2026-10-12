@@ -23,7 +23,7 @@
  * 6. 若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.dante.oauth2.authorization.autoconfigure.processor;
+package cn.herodotus.dante.logic.upms.manager.security;
 
 import cn.herodotus.dante.core.domain.Dictionary;
 import cn.herodotus.dante.logic.upms.converter.SysEnumToSysDictionaryConverter;
@@ -31,36 +31,36 @@ import cn.herodotus.dante.logic.upms.entity.security.SysDictionary;
 import cn.herodotus.dante.logic.upms.entity.security.SysEnum;
 import cn.herodotus.dante.logic.upms.service.security.SysDictionaryService;
 import cn.herodotus.dante.logic.upms.service.security.SysEnumService;
+import cn.herodotus.dante.messaging.processor.EnumDictionaryTransferProcessor;
 import cn.herodotus.dante.spring.founction.ListConverter;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * <p>Description: 枚举数据字典收集处理器 </p>
+ * <p>Description: {@link SysDictionary} Manager </p>
  *
- * @author : gengwei.zheng
- * @date : 2024/8/23 21:59
+ * @author : gengwei_zheng
+ * @date : 2026/10/12 22:52
  */
-@Component
-public class EnumDictionaryCollectionProcessor {
+public class SysDictionaryManager implements EnumDictionaryTransferProcessor {
 
-    private static final Logger log = LoggerFactory.getLogger(EnumDictionaryCollectionProcessor.class);
+    private static final Logger log = LoggerFactory.getLogger(SysDictionaryManager.class);
 
     private final SysEnumService sysEnumService;
     private final SysDictionaryService sysDictionaryService;
     private final ListConverter<SysEnum, SysDictionary> toDictionaries;
 
-    public EnumDictionaryCollectionProcessor(SysEnumService sysEnumService, SysDictionaryService sysDictionaryService) {
+    public SysDictionaryManager(SysEnumService sysEnumService, SysDictionaryService sysDictionaryService) {
         this.sysEnumService = sysEnumService;
         this.sysDictionaryService = sysDictionaryService;
         this.toDictionaries = new SysEnumToSysDictionaryConverter();
     }
 
-    public void postDictionaries(List<Dictionary> dictionaries) {
+    @Override
+    public void storeAndMergeDictionaries(List<Dictionary> dictionaries) {
         // 将各个服务发送回来的 enums 存储到 SysEnum 中
         List<SysEnum> storedEnums = sysEnumService.storeDictionaries(dictionaries);
 
@@ -73,12 +73,12 @@ public class EnumDictionaryCollectionProcessor {
                 List<SysDictionary> elements = toDictionaries.convert(sysEnums);
                 List<SysDictionary> result = sysDictionaryService.saveAll(elements);
                 if (CollectionUtils.isNotEmpty(result)) {
-                    log.debug("[Herodotus] |- [E5] Merge system dictionary SUCCESS and FINISHED!");
+                    log.debug("[Herodotus] |- [E5] Merge enum dictionary SUCCESS and FINISHED!");
                 } else {
-                    log.error("[Herodotus] |- [E5] Merge system dictionary failed!, Please Check!");
+                    log.error("[Herodotus] |- [E5] Merge enum dictionary failed!, Please Check!");
                 }
             } else {
-                log.debug("[Herodotus] |- No system dictionary requires merge, SKIP!");
+                log.debug("[Herodotus] |- No enum dictionary requires merge, SKIP!");
             }
         }
     }

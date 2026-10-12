@@ -27,8 +27,7 @@ package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 
 import cn.herodotus.dante.core.domain.Dictionary;
 import cn.herodotus.dante.messaging.event.EnumDictionaryCollectionEvent;
-import cn.herodotus.dante.oauth2.authorization.autoconfigure.processor.EnumDictionaryCollectionProcessor;
-import org.apache.commons.collections4.CollectionUtils;
+import cn.herodotus.dante.messaging.processor.EnumDictionaryTransferProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
@@ -45,9 +44,9 @@ public class LocalEnumDictionaryCollectionListener implements ApplicationListene
 
     private static final Logger log = LoggerFactory.getLogger(LocalEnumDictionaryCollectionListener.class);
 
-    private final EnumDictionaryCollectionProcessor processor;
+    private final EnumDictionaryTransferProcessor processor;
 
-    public LocalEnumDictionaryCollectionListener(EnumDictionaryCollectionProcessor processor) {
+    public LocalEnumDictionaryCollectionListener(EnumDictionaryTransferProcessor processor) {
         this.processor = processor;
     }
 
@@ -57,9 +56,6 @@ public class LocalEnumDictionaryCollectionListener implements ApplicationListene
         log.info("[Herodotus] |- Enum dictionary collection LOCAL listener, response event!");
 
         List<Dictionary> dictionaries = event.getData();
-        if (CollectionUtils.isNotEmpty(dictionaries)) {
-            log.debug("[Herodotus] |- [E3] Enum dictionary collection process BEGIN!");
-            processor.postDictionaries(dictionaries);
-        }
+        processor.storeAndMergeDictionaries(dictionaries);
     }
 }

@@ -50,7 +50,7 @@ import java.util.Set;
 @Entity
 @Table(name = "sys_social_user", indexes = {@Index(name = "sys_social_user_id_idx", columnList = "social_id")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_SOCIAL_USER)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_SOCIAL_USER)
 public class SysSocialUser extends AbstractSysEntity implements SocialUserDetails {
 
     @Schema(name = "社会用户ID")
@@ -167,7 +167,7 @@ public class SysSocialUser extends AbstractSysEntity implements SocialUserDetail
     @Column(name = "phone_number", length = 50)
     private String phoneNumber;
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_USER)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_USER)
     @Schema(name = "系统用户")
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)

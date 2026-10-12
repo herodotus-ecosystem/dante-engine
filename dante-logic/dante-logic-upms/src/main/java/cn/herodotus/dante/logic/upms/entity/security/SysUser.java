@@ -64,7 +64,7 @@ import java.util.Set;
 @Table(name = "sys_user", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_name"})},
         indexes = {@Index(name = "sys_user_id_idx", columnList = "user_id"), @Index(name = "sys_user_unm_idx", columnList = "user_name")})
 @Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_USER)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_USER)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class SysUser extends AbstractSysEntity {
 
@@ -106,7 +106,7 @@ public class SysUser extends AbstractSysEntity {
     @Column(name = "credentials_expire_at")
     private LocalDateTime credentialsExpireAt;
 
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_ROLE)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_ROLE)
     @Schema(name = "用户角色")
     @ManyToMany(fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
@@ -137,7 +137,7 @@ public class SysUser extends AbstractSysEntity {
      * <p>
      * 因为 @ManyToMany 使用的是集合，空对象不会被转成对象Set进去。
      */
-    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION_SYS_EMPLOYEE)
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = LogicUpmsConstants.REGION__SYS_EMPLOYEE)
     @Schema(name = "人员")
     @OneToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "sys_user_employee",
