@@ -32,7 +32,7 @@ import cn.herodotus.dante.web.autoconfigure.config.SecureConfiguration;
 import cn.herodotus.dante.web.autoconfigure.config.SpringdocConfiguration;
 import cn.herodotus.dante.web.autoconfigure.customizer.WebErrorCodeMapperBuilderCustomizer;
 import cn.herodotus.dante.web.autoconfigure.initializer.EnumDictionaryCollector;
-import cn.herodotus.dante.web.autoconfigure.properties.ServiceProperties;
+import cn.herodotus.dante.web.properties.ServiceProperties;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

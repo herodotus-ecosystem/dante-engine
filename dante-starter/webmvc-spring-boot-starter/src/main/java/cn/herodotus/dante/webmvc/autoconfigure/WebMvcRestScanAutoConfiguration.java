@@ -26,7 +26,7 @@
 package cn.herodotus.dante.webmvc.autoconfigure;
 
 import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
-import cn.herodotus.dante.web.autoconfigure.properties.ServiceProperties;
+import cn.herodotus.dante.web.properties.ServiceProperties;
 import cn.herodotus.dante.web.condition.ConditionalOnRestScanEnabled;
 import cn.herodotus.dante.webmvc.autoconfigure.initializer.RequestMappingScanner;
 import jakarta.annotation.PostConstruct;

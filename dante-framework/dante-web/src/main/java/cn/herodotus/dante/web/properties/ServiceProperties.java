@@ -23,18 +23,11 @@
  * 6. 若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.dante.web.autoconfigure.properties;
+package cn.herodotus.dante.web.properties;
 
-import cn.herodotus.dante.core.constant.SystemConstants;
 import cn.herodotus.dante.core.domain.Scan;
 import cn.herodotus.dante.web.constant.WebConstants;
-import com.google.common.base.MoreObjects;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * <p>Description: 服务级配置 </p>
