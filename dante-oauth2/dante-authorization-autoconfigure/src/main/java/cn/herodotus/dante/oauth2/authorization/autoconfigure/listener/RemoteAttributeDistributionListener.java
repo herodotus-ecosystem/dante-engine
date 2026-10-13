@@ -28,7 +28,7 @@ package cn.herodotus.dante.oauth2.authorization.autoconfigure.listener;
 import cn.herodotus.dante.core.jackson.JacksonUtils;
 import cn.herodotus.dante.messaging.domain.AttributeDistributor;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.bus.RemoteAttributeDistributionEvent;
-import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
+import cn.herodotus.dante.oauth2.commons.definition.AuthorizationSecurityAttributeManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +47,11 @@ public class RemoteAttributeDistributionListener implements ApplicationListener<
 
     private static final Logger log = LoggerFactory.getLogger(RemoteAttributeDistributionListener.class);
 
-    private final ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager;
+    private final AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager;
     private final ServiceMatcher serviceMatcher;
 
-    public RemoteAttributeDistributionListener(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager, ServiceMatcher serviceMatcher) {
-        this.resourceServiceSecurityAttributeManager = resourceServiceSecurityAttributeManager;
+    public RemoteAttributeDistributionListener(AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager, ServiceMatcher serviceMatcher) {
+        this.authorizationSecurityAttributeManager = authorizationSecurityAttributeManager;
         this.serviceMatcher = serviceMatcher;
     }
 
@@ -68,7 +68,7 @@ public class RemoteAttributeDistributionListener implements ApplicationListener<
             Optional.ofNullable(data)
                     .flatMap(value -> Optional.ofNullable(JacksonUtils.toObject(value, AttributeDistributor.class)))
                     .filter(dispatcher -> CollectionUtils.isNotEmpty(dispatcher.getAttributes()))
-                    .ifPresent(resourceServiceSecurityAttributeManager::postAttributeDistributorProcess);
+                    .ifPresent(authorizationSecurityAttributeManager::postAttributeDistributorProcess);
         }
     }
 }

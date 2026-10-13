@@ -39,7 +39,7 @@ import java.util.Map;
  * @author : gengwei_zheng
  * @date : 2026/10/13 15:41
  */
-public interface ResourceServiceSecurityAttributeManager {
+public interface AuthorizationSecurityAttributeManager {
 
     void postLocalResourceMatcherProcess();
 

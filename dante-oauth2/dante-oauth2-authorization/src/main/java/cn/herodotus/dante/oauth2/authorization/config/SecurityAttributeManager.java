@@ -30,7 +30,7 @@ import cn.herodotus.dante.oauth2.authorization.attribute.McpSecurityAttributeAna
 import cn.herodotus.dante.oauth2.authorization.attribute.McpSecurityAttributeStorage;
 import cn.herodotus.dante.oauth2.authorization.attribute.RestSecurityAttributeAnalyzer;
 import cn.herodotus.dante.oauth2.authorization.attribute.RestSecurityAttributeStorage;
-import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
+import cn.herodotus.dante.oauth2.commons.definition.AuthorizationSecurityAttributeManager;
 import cn.herodotus.dante.oauth2.commons.domain.HerodotusRequest;
 import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 
@@ -44,7 +44,7 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2021/8/1 17:43
  */
-class SecurityAttributeManager implements ResourceServiceSecurityAttributeManager {
+class SecurityAttributeManager implements AuthorizationSecurityAttributeManager {
 
     private final RestSecurityAttributeStorage restSecurityAttributeStorage;
     private final RestSecurityAttributeAnalyzer restSecurityAttributeAnalyzer;

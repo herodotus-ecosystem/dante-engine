@@ -33,7 +33,7 @@ import cn.herodotus.dante.messaging.strategy.AttributeDistributionEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.condition.ConditionalOnUpmsService;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.listener.*;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultAttributeDistributionEventManager;
-import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
+import cn.herodotus.dante.oauth2.commons.definition.AuthorizationSecurityAttributeManager;
 import cn.herodotus.dante.security.definition.OAuth2ProtectedResourceMetadataStorage;
 import cn.herodotus.dante.spring.condition.ConditionalOnArchitecture;
 import cn.herodotus.dante.spring.enums.Architecture;
@@ -63,8 +63,8 @@ public class UpmsServiceMessageAutoConfiguration {
     }
 
     @Bean
-    public AttributeDistributionEventManager attributeDistributionEventManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager) {
-        DefaultAttributeDistributionEventManager manager = new DefaultAttributeDistributionEventManager(resourceServiceSecurityAttributeManager);
+    public AttributeDistributionEventManager attributeDistributionEventManager(AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager) {
+        DefaultAttributeDistributionEventManager manager = new DefaultAttributeDistributionEventManager(authorizationSecurityAttributeManager);
         log.trace("[Herodotus] |- Bean [Attribute Distribution Event Manager] Configure.");
         return manager;
     }

@@ -25,7 +25,7 @@
 
 package cn.herodotus.dante.oauth2.authorization.servlet;
 
-import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
+import cn.herodotus.dante.oauth2.commons.definition.AuthorizationSecurityAttributeManager;
 import cn.herodotus.dante.oauth2.commons.domain.HerodotusRequest;
 import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 import cn.herodotus.dante.spring.context.ServiceContextHolder;
@@ -70,18 +70,18 @@ public class ServletSecurityAuthorizationManager implements AuthorizationManager
 
     private static final Logger log = LoggerFactory.getLogger(ServletSecurityAuthorizationManager.class);
 
-    private final ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager;
+    private final AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager;
     private final ServletOAuth2ResourceMatcherConfigurer servletOAuth2ResourceMatcherConfigurer;
     private final ObjectProvider<ApiVersionStrategy> apiVersionStrategies;
 
-    public ServletSecurityAuthorizationManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager, ServletOAuth2ResourceMatcherConfigurer servletOAuth2ResourceMatcherConfigurer, ObjectProvider<ApiVersionStrategy> apiVersionStrategies) {
-        this.resourceServiceSecurityAttributeManager = resourceServiceSecurityAttributeManager;
+    public ServletSecurityAuthorizationManager(AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager, ServletOAuth2ResourceMatcherConfigurer servletOAuth2ResourceMatcherConfigurer, ObjectProvider<ApiVersionStrategy> apiVersionStrategies) {
+        this.authorizationSecurityAttributeManager = authorizationSecurityAttributeManager;
         this.servletOAuth2ResourceMatcherConfigurer = servletOAuth2ResourceMatcherConfigurer;
         this.apiVersionStrategies = apiVersionStrategies;
     }
 
-    public ResourceServiceSecurityAttributeManager getAuthorizationSecurityAttributeManager() {
-        return resourceServiceSecurityAttributeManager;
+    public AuthorizationSecurityAttributeManager getAuthorizationSecurityAttributeManager() {
+        return authorizationSecurityAttributeManager;
     }
 
     @Override
@@ -157,12 +157,12 @@ public class ServletSecurityAuthorizationManager implements AuthorizationManager
 
         log.debug("[Herodotus] |- Finding security attribute use : [{}] - [{}] - [{}]", method, path, version);
 
-        List<HerodotusSecurityAttribute> attributes = this.resourceServiceSecurityAttributeManager.findRestAttribute(path, method, version);
+        List<HerodotusSecurityAttribute> attributes = this.authorizationSecurityAttributeManager.findRestAttribute(path, method, version);
         if (CollectionUtils.isNotEmpty(attributes)) {
             log.debug("[Herodotus] |- Get security attributes from local storage for : [{}] - [{}] - [{}]", method, path, version);
             return attributes;
         } else {
-            Map<HerodotusRequest, List<HerodotusSecurityAttribute>> compatible = this.resourceServiceSecurityAttributeManager.getRestCompatible();
+            Map<HerodotusRequest, List<HerodotusSecurityAttribute>> compatible = this.authorizationSecurityAttributeManager.getRestCompatible();
             if (MapUtils.isNotEmpty(compatible)) {
                 // 支持含有**通配符的路径搜索
                 for (Map.Entry<HerodotusRequest, List<HerodotusSecurityAttribute>> entry : compatible.entrySet()) {

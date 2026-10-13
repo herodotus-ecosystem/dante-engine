@@ -34,7 +34,7 @@ import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultAtt
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultEnumDictionaryCollectionEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultMessageSendingEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultOAuth2SupportedScopeDistributionEventManager;
-import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
+import cn.herodotus.dante.oauth2.commons.definition.AuthorizationSecurityAttributeManager;
 import cn.herodotus.dante.spring.condition.ConditionalOnArchitecture;
 import cn.herodotus.dante.spring.enums.Architecture;
 import jakarta.annotation.PostConstruct;
@@ -72,8 +72,8 @@ public class ResourceServiceMessageAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    public AttributeCollectionEventManager servletAttributeCollectionEventManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager) {
-        DefaultAttributeCollectionEventManager manager = new DefaultAttributeCollectionEventManager(resourceServiceSecurityAttributeManager, EnableWebSecurity.class);
+    public AttributeCollectionEventManager servletAttributeCollectionEventManager(AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager) {
+        DefaultAttributeCollectionEventManager manager = new DefaultAttributeCollectionEventManager(authorizationSecurityAttributeManager, EnableWebSecurity.class);
         log.trace("[Herodotus] |- Bean [Servlet Attribute Collection Manager] Configure.");
         return manager;
     }
@@ -110,8 +110,8 @@ public class ResourceServiceMessageAutoConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public RemoteAttributeDistributionListener remoteAttributeDistributionListener(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager, ServiceMatcher serviceMatcher) {
-            RemoteAttributeDistributionListener listener = new RemoteAttributeDistributionListener(resourceServiceSecurityAttributeManager, serviceMatcher);
+        public RemoteAttributeDistributionListener remoteAttributeDistributionListener(AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager, ServiceMatcher serviceMatcher) {
+            RemoteAttributeDistributionListener listener = new RemoteAttributeDistributionListener(authorizationSecurityAttributeManager, serviceMatcher);
             log.trace("[Herodotus] |- Bean [Remote Attribute Distribution Listener] Configure.");
             return listener;
         }

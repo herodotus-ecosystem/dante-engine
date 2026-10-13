@@ -34,7 +34,7 @@ import cn.herodotus.dante.oauth2.authorization.servlet.OAuth2SessionManagementCo
 import cn.herodotus.dante.oauth2.authorization.servlet.ServletOAuth2AuthorizationConfigurerManager;
 import cn.herodotus.dante.oauth2.authorization.servlet.ServletOAuth2ResourceMatcherConfigurer;
 import cn.herodotus.dante.oauth2.authorization.servlet.ServletSecurityAuthorizationManager;
-import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
+import cn.herodotus.dante.oauth2.commons.definition.AuthorizationSecurityAttributeManager;
 import cn.herodotus.dante.security.definition.OAuth2ProtectedResourceMetadataStorage;
 import cn.herodotus.dante.web.definition.template.ServletTemplateHandler;
 import jakarta.annotation.PostConstruct;
@@ -90,15 +90,15 @@ public class OAuth2ServletAuthorizationConfiguration {
     }
 
     @Bean
-    public ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager(ServletOAuth2ResourceMatcherConfigurer servletOAuth2ResourceMatcherConfigurer) {
+    public AuthorizationSecurityAttributeManager resourceServiceSecurityAttributeManager(ServletOAuth2ResourceMatcherConfigurer servletOAuth2ResourceMatcherConfigurer) {
         SecurityAttributeManager analyzer = new SecurityAttributeManager(servletOAuth2ResourceMatcherConfigurer.getPermitAllAttributes());
         log.trace("[Herodotus] |- Bean [Security Attribute Analyzer] Configure.");
         return analyzer;
     }
 
     @Bean
-    public ServletSecurityAuthorizationManager servletSecurityAuthorizationManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager, ServletOAuth2ResourceMatcherConfigurer servletOAuth2ResourceMatcherConfigurer, ObjectProvider<ApiVersionStrategy> apiVersionStrategies) {
-        ServletSecurityAuthorizationManager manager = new ServletSecurityAuthorizationManager(resourceServiceSecurityAttributeManager, servletOAuth2ResourceMatcherConfigurer, apiVersionStrategies);
+    public ServletSecurityAuthorizationManager servletSecurityAuthorizationManager(AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager, ServletOAuth2ResourceMatcherConfigurer servletOAuth2ResourceMatcherConfigurer, ObjectProvider<ApiVersionStrategy> apiVersionStrategies) {
+        ServletSecurityAuthorizationManager manager = new ServletSecurityAuthorizationManager(authorizationSecurityAttributeManager, servletOAuth2ResourceMatcherConfigurer, apiVersionStrategies);
         log.trace("[Herodotus] |- Bean [Servlet Security Authorization Manager] Configure.");
         return manager;
     }

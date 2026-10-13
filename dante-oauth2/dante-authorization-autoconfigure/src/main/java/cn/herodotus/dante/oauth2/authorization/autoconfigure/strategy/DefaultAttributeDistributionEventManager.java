@@ -28,7 +28,7 @@ package cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy;
 import cn.herodotus.dante.messaging.domain.AttributeDistributor;
 import cn.herodotus.dante.messaging.strategy.AttributeDistributionEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.bus.RemoteAttributeDistributionEvent;
-import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
+import cn.herodotus.dante.oauth2.commons.definition.AuthorizationSecurityAttributeManager;
 
 /**
  * <p>Description: 默认 RequestMapping 分发事件管理器 </p>
@@ -38,10 +38,10 @@ import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttri
  */
 public class DefaultAttributeDistributionEventManager implements AttributeDistributionEventManager {
 
-    private final ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager;
+    private final AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager;
 
-    public DefaultAttributeDistributionEventManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager) {
-        this.resourceServiceSecurityAttributeManager = resourceServiceSecurityAttributeManager;
+    public DefaultAttributeDistributionEventManager(AuthorizationSecurityAttributeManager authorizationSecurityAttributeManager) {
+        this.authorizationSecurityAttributeManager = authorizationSecurityAttributeManager;
     }
 
     /**
@@ -51,7 +51,7 @@ public class DefaultAttributeDistributionEventManager implements AttributeDistri
      */
     @Override
     public void postLocalProcess(AttributeDistributor data) {
-        resourceServiceSecurityAttributeManager.postAttributeDistributorProcess(data);
+        authorizationSecurityAttributeManager.postAttributeDistributorProcess(data);
     }
 
     @Override
