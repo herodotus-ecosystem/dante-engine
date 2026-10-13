@@ -50,13 +50,15 @@ public interface AttributeCollectionEventManager extends ApplicationStrategyEven
 
     /**
      * 获取是否执行扫描的标记注解。
+     * <p>
+     * 这里使用的注解为范围更广的注解，主要用于判断某个服务是否需要进行扫描，以避免不必要扫描操作。
      *
      * @return 标记注解
      */
     Class<? extends Annotation> getScanAnnotationClass();
 
     /**
-     * 执行本地数据存储
+     * 执行本地静态权限数据存储
      *
      * @param collector 属性收集器 {@link AttributeCollector}
      */
@@ -64,6 +66,8 @@ public interface AttributeCollectionEventManager extends ApplicationStrategyEven
 
     /**
      * 发布远程事件，传送属性收集器对象
+     * <p>
+     * 服务发送数据前，先处理自己本地静态数据。
      *
      * @param collector 属性收集器 {@link AttributeCollector}
      */
@@ -74,7 +78,8 @@ public interface AttributeCollectionEventManager extends ApplicationStrategyEven
     }
 
     /**
-     * 是否满足执行扫描的条件。
+     * 判断是否满足执行扫描的条件。
+     * <p>
      * 根据扫描标记注解 {@link #getScanAnnotationClass()} 以及 是否是分布式架构 决定是否执行接口的扫描。
      * <p>
      * 分布式架构根据注解判断是否扫描，单体架构直接扫描即可无须判断
