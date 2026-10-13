@@ -42,7 +42,7 @@ import java.util.Map;
  * @author : gengwei_zheng
  * @date : 2026/9/19 0:12
  */
-class McpSecurityAttributeAnalyzer extends AbstractSecurityAttributeAnalyzer {
+public class McpSecurityAttributeAnalyzer extends AbstractSecurityAttributeAnalyzer {
 
     private static final Logger log = LoggerFactory.getLogger(McpSecurityAttributeAnalyzer.class);
 

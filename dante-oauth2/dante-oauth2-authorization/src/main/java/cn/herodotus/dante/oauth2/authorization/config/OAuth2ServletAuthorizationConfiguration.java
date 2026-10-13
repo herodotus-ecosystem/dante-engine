@@ -27,7 +27,6 @@ package cn.herodotus.dante.oauth2.authorization.config;
 
 import cn.herodotus.dante.core.builder.SecurityMatcher;
 import cn.herodotus.dante.core.function.SecurityMatcherBuilderCustomizer;
-import cn.herodotus.dante.oauth2.authorization.attribute.SecurityAttributeManager;
 import cn.herodotus.dante.oauth2.authorization.customizer.DefaultOAuth2ProtectedResourceMetadataStorage;
 import cn.herodotus.dante.oauth2.authorization.customizer.OAuth2AuthorizationSecurityMatcherBuilderCustomizer;
 import cn.herodotus.dante.oauth2.authorization.properties.OAuth2AuthorizationProperties;

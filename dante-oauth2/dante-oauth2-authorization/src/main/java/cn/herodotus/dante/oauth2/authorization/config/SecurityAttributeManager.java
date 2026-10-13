@@ -23,9 +23,13 @@
  * 6. 若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.dante.oauth2.authorization.attribute;
+package cn.herodotus.dante.oauth2.authorization.config;
 
 import cn.herodotus.dante.messaging.domain.AttributeDistributor;
+import cn.herodotus.dante.oauth2.authorization.attribute.McpSecurityAttributeAnalyzer;
+import cn.herodotus.dante.oauth2.authorization.attribute.McpSecurityAttributeStorage;
+import cn.herodotus.dante.oauth2.authorization.attribute.RestSecurityAttributeAnalyzer;
+import cn.herodotus.dante.oauth2.authorization.attribute.RestSecurityAttributeStorage;
 import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
 import cn.herodotus.dante.oauth2.commons.domain.HerodotusRequest;
 import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
@@ -40,7 +44,7 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2021/8/1 17:43
  */
-public class SecurityAttributeManager implements ResourceServiceSecurityAttributeManager {
+class SecurityAttributeManager implements ResourceServiceSecurityAttributeManager {
 
     private final RestSecurityAttributeStorage restSecurityAttributeStorage;
     private final RestSecurityAttributeAnalyzer restSecurityAttributeAnalyzer;
