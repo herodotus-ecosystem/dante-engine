@@ -73,6 +73,7 @@ public interface AttributeCollectionEventManager extends ApplicationStrategyEven
      */
     @Override
     default void postProcess(AttributeCollector collector) {
+        // RequestMapping 对应的权限，分静态和动态。静态权限存储在服务自身，特别是对于类似于 /open/** 的权限需要首先处理。然后才能进行分析和去重。
         postLocalStorage(collector);
         ApplicationStrategyEventManager.super.postProcess(collector);
     }
