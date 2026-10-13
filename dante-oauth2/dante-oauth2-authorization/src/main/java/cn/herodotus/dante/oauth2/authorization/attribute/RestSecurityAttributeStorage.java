@@ -26,11 +26,11 @@
 package cn.herodotus.dante.oauth2.authorization.attribute;
 
 import cn.herodotus.dante.cache.utils.JetCacheUtils;
-import cn.herodotus.dante.oauth2.authorization.cache.HerodotusRequest;
-import cn.herodotus.dante.oauth2.authorization.definition.HerodotusSecurityAttribute;
 import cn.herodotus.dante.oauth2.authorization.matcher.HerodotusPathPatternRequestMatcher;
 import cn.herodotus.dante.oauth2.authorization.matcher.HerodotusRequestMatcher;
 import cn.herodotus.dante.oauth2.commons.constant.OAuth2Constants;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusRequest;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.anno.CacheType;
 import org.apache.commons.collections4.MapUtils;

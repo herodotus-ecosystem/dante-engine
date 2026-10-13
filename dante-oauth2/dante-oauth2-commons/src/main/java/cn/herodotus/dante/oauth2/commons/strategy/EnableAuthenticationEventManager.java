@@ -25,8 +25,8 @@
 
 package cn.herodotus.dante.oauth2.commons.strategy;
 
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
 import cn.herodotus.dante.security.domain.RegisteredClientTransmitter;
+import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
 
 /**
  * <p>Description: 开启认证事件管理器 </p>

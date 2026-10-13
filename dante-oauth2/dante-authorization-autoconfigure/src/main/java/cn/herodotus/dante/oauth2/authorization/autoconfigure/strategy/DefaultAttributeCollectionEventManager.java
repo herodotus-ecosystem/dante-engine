@@ -28,8 +28,8 @@ package cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy;
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.event.AttributeCollectionEvent;
 import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
-import cn.herodotus.dante.oauth2.authorization.attribute.SecurityAttributeManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.bus.RemoteAttributeCollectionEvent;
+import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
 import cn.herodotus.dante.spring.context.ServiceContextHolder;
 
 import java.lang.annotation.Annotation;
@@ -42,11 +42,11 @@ import java.lang.annotation.Annotation;
  */
 public class DefaultAttributeCollectionEventManager implements AttributeCollectionEventManager {
 
-    private final SecurityAttributeManager securityAttributeManager;
+    private final ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager;
     private final Class<? extends Annotation> scanAnnotationClass;
 
-    public DefaultAttributeCollectionEventManager(SecurityAttributeManager securityAttributeManager, Class<? extends Annotation> scanAnnotationClass) {
-        this.securityAttributeManager = securityAttributeManager;
+    public DefaultAttributeCollectionEventManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager, Class<? extends Annotation> scanAnnotationClass) {
+        this.resourceServiceSecurityAttributeManager = resourceServiceSecurityAttributeManager;
         this.scanAnnotationClass = scanAnnotationClass;
     }
 
@@ -62,7 +62,7 @@ public class DefaultAttributeCollectionEventManager implements AttributeCollecti
 
     @Override
     public void postLocalStorage(AttributeCollector collector) {
-        securityAttributeManager.postLocalResourceMatcherProcess();
+        resourceServiceSecurityAttributeManager.postLocalResourceMatcherProcess();
     }
 
     @Override

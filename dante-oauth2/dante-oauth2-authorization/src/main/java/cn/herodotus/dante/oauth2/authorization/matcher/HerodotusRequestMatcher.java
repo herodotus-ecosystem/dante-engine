@@ -26,7 +26,7 @@
 package cn.herodotus.dante.oauth2.authorization.matcher;
 
 import cn.herodotus.dante.oauth2.authorization.attribute.RestSecurityAttributeStorage;
-import cn.herodotus.dante.oauth2.authorization.cache.HerodotusRequest;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;

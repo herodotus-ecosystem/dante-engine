@@ -25,8 +25,8 @@
 
 package cn.herodotus.dante.oauth2.commons.event;
 
-import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 import cn.herodotus.dante.security.domain.RegisteredClientTransmitter;
+import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 
 /**
  * <p>Description: 开启认证事件 </p>

@@ -30,10 +30,10 @@ import cn.herodotus.dante.messaging.processor.AccountStatusTransferProcessor;
 import cn.herodotus.dante.messaging.processor.AttributeTransferProcessor;
 import cn.herodotus.dante.messaging.processor.EnumDictionaryTransferProcessor;
 import cn.herodotus.dante.messaging.strategy.AttributeDistributionEventManager;
-import cn.herodotus.dante.oauth2.authorization.attribute.SecurityAttributeManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.condition.ConditionalOnUpmsService;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.listener.*;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultAttributeDistributionEventManager;
+import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
 import cn.herodotus.dante.security.definition.OAuth2ProtectedResourceMetadataStorage;
 import cn.herodotus.dante.spring.condition.ConditionalOnArchitecture;
 import cn.herodotus.dante.spring.enums.Architecture;
@@ -42,7 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -54,9 +53,6 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfiguration
 @ConditionalOnUpmsService
 @EnableHerodotusLogicUpms
-@ComponentScan(basePackages = {
-        "cn.herodotus.dante.oauth2.authorization.autoconfigure.processor",
-})
 public class UpmsServiceMessageAutoConfiguration {
 
     private static final Logger log = LoggerFactory.getLogger(UpmsServiceMessageAutoConfiguration.class);
@@ -67,8 +63,8 @@ public class UpmsServiceMessageAutoConfiguration {
     }
 
     @Bean
-    public AttributeDistributionEventManager attributeDistributionEventManager(SecurityAttributeManager securityAttributeManager) {
-        DefaultAttributeDistributionEventManager manager = new DefaultAttributeDistributionEventManager(securityAttributeManager);
+    public AttributeDistributionEventManager attributeDistributionEventManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager) {
+        DefaultAttributeDistributionEventManager manager = new DefaultAttributeDistributionEventManager(resourceServiceSecurityAttributeManager);
         log.trace("[Herodotus] |- Bean [Attribute Distribution Event Manager] Configure.");
         return manager;
     }

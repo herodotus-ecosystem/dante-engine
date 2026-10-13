@@ -25,8 +25,8 @@
 
 package cn.herodotus.dante.oauth2.commons.event;
 
-import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 import cn.herodotus.dante.security.domain.DeviceVerificationTransmitter;
+import cn.herodotus.dante.spring.context.AbstractApplicationEvent;
 
 /**
  * <p>Description: 设备验证成功本地事件 </p>

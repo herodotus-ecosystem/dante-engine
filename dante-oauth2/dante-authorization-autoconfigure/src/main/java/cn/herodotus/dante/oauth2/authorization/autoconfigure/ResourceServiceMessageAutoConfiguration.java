@@ -29,12 +29,12 @@ import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
 import cn.herodotus.dante.messaging.strategy.EnumDictionaryCollectionEventManager;
 import cn.herodotus.dante.messaging.strategy.MessageSendingEventManager;
 import cn.herodotus.dante.messaging.strategy.OAuth2SupportedScopeDistributionEventManager;
-import cn.herodotus.dante.oauth2.authorization.attribute.SecurityAttributeManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.listener.RemoteAttributeDistributionListener;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultAttributeCollectionEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultEnumDictionaryCollectionEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultMessageSendingEventManager;
 import cn.herodotus.dante.oauth2.authorization.autoconfigure.strategy.DefaultOAuth2SupportedScopeDistributionEventManager;
+import cn.herodotus.dante.oauth2.commons.definition.ResourceServiceSecurityAttributeManager;
 import cn.herodotus.dante.spring.condition.ConditionalOnArchitecture;
 import cn.herodotus.dante.spring.enums.Architecture;
 import jakarta.annotation.PostConstruct;
@@ -72,8 +72,8 @@ public class ResourceServiceMessageAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-    public AttributeCollectionEventManager servletAttributeCollectionEventManager(SecurityAttributeManager securityAttributeManager) {
-        DefaultAttributeCollectionEventManager manager = new DefaultAttributeCollectionEventManager(securityAttributeManager, EnableWebSecurity.class);
+    public AttributeCollectionEventManager servletAttributeCollectionEventManager(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager) {
+        DefaultAttributeCollectionEventManager manager = new DefaultAttributeCollectionEventManager(resourceServiceSecurityAttributeManager, EnableWebSecurity.class);
         log.trace("[Herodotus] |- Bean [Servlet Attribute Collection Manager] Configure.");
         return manager;
     }
@@ -110,8 +110,8 @@ public class ResourceServiceMessageAutoConfiguration {
 
         @Bean
         @ConditionalOnMissingBean
-        public RemoteAttributeDistributionListener remoteAttributeDistributionListener(SecurityAttributeManager analyzer, ServiceMatcher serviceMatcher) {
-            RemoteAttributeDistributionListener listener = new RemoteAttributeDistributionListener(analyzer, serviceMatcher);
+        public RemoteAttributeDistributionListener remoteAttributeDistributionListener(ResourceServiceSecurityAttributeManager resourceServiceSecurityAttributeManager, ServiceMatcher serviceMatcher) {
+            RemoteAttributeDistributionListener listener = new RemoteAttributeDistributionListener(resourceServiceSecurityAttributeManager, serviceMatcher);
             log.trace("[Herodotus] |- Bean [Remote Attribute Distribution Listener] Configure.");
             return listener;
         }

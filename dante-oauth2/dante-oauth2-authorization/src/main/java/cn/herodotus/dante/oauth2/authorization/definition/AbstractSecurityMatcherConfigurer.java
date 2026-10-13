@@ -26,7 +26,8 @@
 package cn.herodotus.dante.oauth2.authorization.definition;
 
 import cn.herodotus.dante.core.builder.SecurityMatcher;
-import cn.herodotus.dante.oauth2.authorization.cache.HerodotusRequest;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusRequest;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.LinkedHashMap;

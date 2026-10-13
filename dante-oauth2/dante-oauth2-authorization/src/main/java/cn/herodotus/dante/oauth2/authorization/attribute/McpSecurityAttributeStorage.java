@@ -26,9 +26,9 @@
 package cn.herodotus.dante.oauth2.authorization.attribute;
 
 import cn.herodotus.dante.cache.utils.JetCacheUtils;
-import cn.herodotus.dante.oauth2.authorization.cache.HerodotusMcp;
-import cn.herodotus.dante.oauth2.authorization.definition.HerodotusSecurityAttribute;
 import cn.herodotus.dante.oauth2.commons.constant.OAuth2Constants;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusMcp;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.anno.CacheType;
 import org.slf4j.Logger;

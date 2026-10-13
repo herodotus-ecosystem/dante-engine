@@ -26,8 +26,8 @@
 package cn.herodotus.dante.oauth2.authorization.attribute;
 
 import cn.herodotus.dante.messaging.domain.SecurityAttribute;
-import cn.herodotus.dante.oauth2.authorization.cache.HerodotusMcp;
-import cn.herodotus.dante.oauth2.authorization.definition.HerodotusSecurityAttribute;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusMcp;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

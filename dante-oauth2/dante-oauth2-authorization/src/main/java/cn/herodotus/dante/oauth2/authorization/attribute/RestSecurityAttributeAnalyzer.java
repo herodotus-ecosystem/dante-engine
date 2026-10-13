@@ -27,8 +27,8 @@ package cn.herodotus.dante.oauth2.authorization.attribute;
 
 import cn.herodotus.dante.core.constant.SymbolConstants;
 import cn.herodotus.dante.messaging.domain.SecurityAttribute;
-import cn.herodotus.dante.oauth2.authorization.cache.HerodotusRequest;
-import cn.herodotus.dante.oauth2.authorization.definition.HerodotusSecurityAttribute;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusRequest;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 import cn.herodotus.dante.spring.enums.UrlCategory;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;

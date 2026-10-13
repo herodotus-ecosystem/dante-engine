@@ -23,7 +23,7 @@
  * 6. 若您的项目无法满足以上几点，可申请商业授权
  */
 
-package cn.herodotus.dante.oauth2.authorization.cache;
+package cn.herodotus.dante.oauth2.commons.domain;
 
 import com.google.common.base.MoreObjects;
 import org.apache.commons.lang3.ObjectUtils;

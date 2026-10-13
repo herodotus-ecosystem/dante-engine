@@ -26,7 +26,7 @@
 package cn.herodotus.dante.oauth2.authorization.attribute;
 
 import cn.herodotus.dante.messaging.domain.SecurityAttribute;
-import cn.herodotus.dante.oauth2.authorization.definition.HerodotusSecurityAttribute;
+import cn.herodotus.dante.oauth2.commons.domain.HerodotusSecurityAttribute;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
