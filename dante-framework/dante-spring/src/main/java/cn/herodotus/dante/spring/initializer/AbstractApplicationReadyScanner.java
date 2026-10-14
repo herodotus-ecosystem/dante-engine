@@ -28,7 +28,7 @@ package cn.herodotus.dante.spring.initializer;
 import cn.herodotus.dante.core.constant.SymbolConstants;
 import cn.herodotus.dante.core.domain.Scan;
 import cn.herodotus.dante.spring.context.PropertyResolver;
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.DestinationStrategyEventManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
@@ -51,10 +51,10 @@ public abstract class AbstractApplicationReadyScanner<T> implements ApplicationR
     private static final Logger log = LoggerFactory.getLogger(AbstractApplicationReadyScanner.class);
 
     private final Scan scan;
-    private final ApplicationStrategyEventManager<T> strategyEventManager;
+    private final DestinationStrategyEventManager<T> strategyEventManager;
     private String serviceId;
 
-    public AbstractApplicationReadyScanner(Scan scan, ApplicationStrategyEventManager<T> strategyEventManager) {
+    public AbstractApplicationReadyScanner(Scan scan, DestinationStrategyEventManager<T> strategyEventManager) {
         this.scan = scan;
         this.strategyEventManager = strategyEventManager;
     }
@@ -85,7 +85,7 @@ public abstract class AbstractApplicationReadyScanner<T> implements ApplicationR
         return this.serviceId;
     }
 
-    protected ApplicationStrategyEventManager<T> getStrategyEventManager() {
+    protected DestinationStrategyEventManager<T> getStrategyEventManager() {
         return strategyEventManager;
     }
 

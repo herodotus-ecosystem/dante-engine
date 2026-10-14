@@ -32,7 +32,7 @@ import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.messaging.domain.MappingAttribute;
 import cn.herodotus.dante.messaging.strategy.AttributeCollectionEventManager;
 import cn.herodotus.dante.spring.enums.MappingCategory;
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.DestinationStrategyEventManager;
 import cn.hutool.v7.crypto.SecureUtil;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
@@ -126,7 +126,7 @@ public abstract class AbstractRequestMappingScanner extends AbstractMappingAttri
      * @return 是否执行扫描
      */
     protected boolean notExecuteScanning() {
-        ApplicationStrategyEventManager<AttributeCollector> manager = getStrategyEventManager();
+        DestinationStrategyEventManager<AttributeCollector> manager = getStrategyEventManager();
         if (ObjectUtils.isNotEmpty(manager) && manager instanceof AttributeCollectionEventManager collectionEventManager) {
             return collectionEventManager.isPerformScan();
         }

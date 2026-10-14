@@ -30,7 +30,7 @@ import cn.herodotus.dante.messaging.domain.BroadcastMessage;
 import cn.herodotus.dante.messaging.domain.MqttMessage;
 import cn.herodotus.dante.messaging.domain.UserMessage;
 import cn.herodotus.dante.messaging.enums.MessageCategory;
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.DestinationStrategyEventManager;
 
 /**
  * <p>Description: 统一消息发送事件管理器定义 </p>
@@ -41,7 +41,7 @@ import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
  * @author : gengwei.zheng
  * @date : 2024/10/25 14:59
  */
-public interface MessageSendingEventManager extends ApplicationStrategyEventManager<Message<?>> {
+public interface MessageSendingEventManager extends DestinationStrategyEventManager<Message<?>> {
 
     /**
      * 向 Mqtt Broker 发送消息

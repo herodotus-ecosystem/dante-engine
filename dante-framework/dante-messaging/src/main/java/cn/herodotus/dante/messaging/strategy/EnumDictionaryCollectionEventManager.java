@@ -26,7 +26,7 @@
 package cn.herodotus.dante.messaging.strategy;
 
 import cn.herodotus.dante.core.domain.Dictionary;
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.DestinationStrategyEventManager;
 
 import java.util.List;
 
@@ -41,5 +41,5 @@ import java.util.List;
  * @author : gengwei.zheng
  * @date : 2024/8/23 17:02
  */
-public interface EnumDictionaryCollectionEventManager extends ApplicationStrategyEventManager<List<Dictionary>> {
+public interface EnumDictionaryCollectionEventManager extends DestinationStrategyEventManager<List<Dictionary>> {
 }

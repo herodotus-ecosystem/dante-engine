@@ -27,7 +27,7 @@ package cn.herodotus.dante.messaging.strategy;
 
 import cn.herodotus.dante.messaging.domain.AttributeCollector;
 import cn.herodotus.dante.spring.context.ServiceContextHolder;
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.DestinationStrategyEventManager;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ObjectUtils;
 
@@ -46,7 +46,7 @@ import java.util.Map;
  * @author : gengwei.zheng
  * @date : 2022/1/16 18:42
  */
-public interface AttributeCollectionEventManager extends ApplicationStrategyEventManager<AttributeCollector> {
+public interface AttributeCollectionEventManager extends DestinationStrategyEventManager<AttributeCollector> {
 
     /**
      * 获取是否执行扫描的标记注解。
@@ -75,7 +75,7 @@ public interface AttributeCollectionEventManager extends ApplicationStrategyEven
     default void postProcess(AttributeCollector collector) {
         // RequestMapping 对应的权限，分静态和动态。静态权限存储在服务自身，特别是对于类似于 /open/** 的权限需要首先处理。然后才能进行分析和去重。
         postLocalStorage(collector);
-        ApplicationStrategyEventManager.super.postProcess(collector);
+        DestinationStrategyEventManager.super.postProcess(collector);
     }
 
     /**

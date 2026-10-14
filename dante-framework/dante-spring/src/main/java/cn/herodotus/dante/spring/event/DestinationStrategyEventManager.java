@@ -31,7 +31,7 @@ package cn.herodotus.dante.spring.event;
  * @author : gengwei.zheng
  * @date : 2022/3/29 7:26
  */
-public interface ApplicationStrategyEventManager<T> extends StrategyEventManager<T> {
+public interface DestinationStrategyEventManager<T> extends StrategyEventManager<T> {
 
     /**
      * 目的服务名称

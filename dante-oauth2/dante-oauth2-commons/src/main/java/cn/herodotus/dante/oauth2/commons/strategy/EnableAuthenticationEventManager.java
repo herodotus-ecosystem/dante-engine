@@ -26,7 +26,7 @@
 package cn.herodotus.dante.oauth2.commons.strategy;
 
 import cn.herodotus.dante.security.domain.RegisteredClientTransmitter;
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.DestinationStrategyEventManager;
 
 /**
  * <p>Description: 开启认证事件管理器 </p>
@@ -34,5 +34,5 @@ import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
  * @author : gengwei.zheng
  * @date : 2024/8/18 15:01
  */
-public interface EnableAuthenticationEventManager extends ApplicationStrategyEventManager<RegisteredClientTransmitter> {
+public interface EnableAuthenticationEventManager extends DestinationStrategyEventManager<RegisteredClientTransmitter> {
 }

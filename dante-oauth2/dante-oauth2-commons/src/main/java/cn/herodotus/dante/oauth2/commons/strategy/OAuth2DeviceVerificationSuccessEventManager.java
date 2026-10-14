@@ -26,7 +26,7 @@
 package cn.herodotus.dante.oauth2.commons.strategy;
 
 import cn.herodotus.dante.security.domain.DeviceVerificationTransmitter;
-import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
+import cn.herodotus.dante.spring.event.DestinationStrategyEventManager;
 
 /**
  * <p>Description: 设备激活成功事件管理器定义 </p>
@@ -34,5 +34,5 @@ import cn.herodotus.dante.spring.event.ApplicationStrategyEventManager;
  * @author : gengwei.zheng
  * @date : 2025/2/28 21:37
  */
-public interface OAuth2DeviceVerificationSuccessEventManager extends ApplicationStrategyEventManager<DeviceVerificationTransmitter> {
+public interface OAuth2DeviceVerificationSuccessEventManager extends DestinationStrategyEventManager<DeviceVerificationTransmitter> {
 }
