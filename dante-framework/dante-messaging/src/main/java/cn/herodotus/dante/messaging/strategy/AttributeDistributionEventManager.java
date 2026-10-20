@@ -35,4 +35,8 @@ import cn.herodotus.dante.spring.event.StrategyEventManager;
  * @date : 2026/10/12 23:43
  */
 public interface AttributeDistributionEventManager extends StrategyEventManager<AttributeDistributor> {
+
+    default void postProcess(AttributeDistributor data) {
+        postProcess(data.getServiceId(), data);
+    }
 }

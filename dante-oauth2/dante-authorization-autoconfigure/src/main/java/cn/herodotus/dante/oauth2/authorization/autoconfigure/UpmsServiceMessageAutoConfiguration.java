@@ -101,9 +101,9 @@ public class UpmsServiceMessageAutoConfiguration {
         }
 
         @Bean
-        public SysAttributeChangeListener sysAttributeChangeListener(AttributeTransferProcessor attributeTransferProcessor, AttributeDistributionEventManager attributeDistributionEventManager) {
-            SysAttributeChangeListener listener = new SysAttributeChangeListener(attributeTransferProcessor, attributeDistributionEventManager);
-            log.trace("[Herodotus] |- Bean [SysAttribute Change Listener] Configure.");
+        public SysAttributeChangedListener sysAttributeChangedListener(AttributeDistributionEventManager attributeDistributionEventManager) {
+            SysAttributeChangedListener listener = new SysAttributeChangedListener(attributeDistributionEventManager);
+            log.trace("[Herodotus] |- Bean [SysAttribute Changed Listener] Configure.");
             return listener;
         }
     }
