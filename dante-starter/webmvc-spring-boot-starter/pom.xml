@@ -31,7 +31,7 @@
     <parent>
         <groupId>cn.herodotus.dante</groupId>
         <artifactId>dante-starter</artifactId>
-        <version>4.1.1.1</version>
+        <version>4.1.2.0</version>
     </parent>
 
     <artifactId>webmvc-spring-boot-starter</artifactId>
