@@ -128,7 +128,7 @@ public abstract class AbstractRequestMappingScanner extends AbstractMappingAttri
     protected boolean notExecuteScanning() {
         DestinationStrategyEventManager<AttributeCollector> manager = getStrategyEventManager();
         if (ObjectUtils.isNotEmpty(manager) && manager instanceof AttributeCollectionEventManager collectionEventManager) {
-            return collectionEventManager.isPerformScan();
+            return !collectionEventManager.isPerformScan();
         }
 
         return true;
