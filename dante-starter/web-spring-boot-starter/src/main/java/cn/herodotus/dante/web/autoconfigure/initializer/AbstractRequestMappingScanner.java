@@ -81,7 +81,7 @@ public abstract class AbstractRequestMappingScanner extends AbstractMappingAttri
      * @return boolean
      */
     protected boolean isSpringAnnotationMatched(HandlerMethod handlerMethod) {
-        return handlerMethod.getMethod().getDeclaringClass().getAnnotation(RestController.class) != null;
+        return handlerMethod.getBeanType().isAnnotationPresent(RestController.class);
     }
 
     /**
