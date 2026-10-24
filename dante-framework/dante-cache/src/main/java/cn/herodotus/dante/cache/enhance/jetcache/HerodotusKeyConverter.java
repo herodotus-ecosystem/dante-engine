@@ -30,7 +30,6 @@ import cn.herodotus.dante.core.context.TenantContextHolder;
 import cn.herodotus.dante.core.domain.cache.HiberanteQueryKeyWrapper;
 import cn.herodotus.dante.core.domain.cache.HibernateCacheKeyWrapper;
 import cn.hutool.v7.crypto.SecureUtil;
-import com.alibaba.fastjson2.JSON;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import org.apache.commons.lang3.StringUtils;
@@ -86,7 +85,7 @@ public class HerodotusKeyConverter implements Function<Object, Object> {
             // 原有 QueryKey 只有一个 hashcode 方法可用，但 Hibernate 团段将这个方法中的 firstRow 和 maxRow 注释掉了，无法区分到底是那一页的查询。
             // 与 Hibernate 团队沟通多次，不同意修改。所以转成 JSON 是目前最合理的解决办法。
             // 之前版本是手动修改 QueryKey 代码然后覆盖原始代码，因为依赖 hibernate-core 的模块多，这种方式需要在很多模块复制相同的代码，不够优雅。
-            String json = converterQueryKeyToJson(queryKeyWrapper.getKey());
+            String json = converterKeyToJson(queryKeyWrapper.getKey());
 
             log.trace("[Herodotus] |- HerodotusKeyConverter convert queryKey to json is : [{}]", json);
 
@@ -96,7 +95,9 @@ public class HerodotusKeyConverter implements Function<Object, Object> {
             }
         }
 
-        return SecureUtil.md5(JSON.toJSONString(originalKey));
+        String key = SecureUtil.md5(converterKeyToJson(originalKey));
+        log.trace("[Herodotus] |- HerodotusKeyConverter convert originalKey [{}] to key is : [{}]", originalKey,  key);
+        return key;
     }
 
     private String createKey(String storedKey) {
@@ -109,7 +110,7 @@ public class HerodotusKeyConverter implements Function<Object, Object> {
         return StringUtils.toRootLowerCase(tenantId);
     }
 
-    private String converterQueryKeyToJson(Object value) {
+    private String converterKeyToJson(Object value) {
         try {
             return this.objectMapper.writeValueAsString(value);
         } catch (JacksonException e) {
